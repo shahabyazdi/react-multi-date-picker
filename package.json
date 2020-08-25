@@ -2,18 +2,30 @@
   "name": "react-multi-date-picker",
   "version": "0.1.1",
   "description": "React datepicker component for work with persian and georgian calendars",
-  "main": "index.js",
+  "main": "./build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shahabyazdi/react-multi-date-picker.git"
   },
   "author": "Shahab Yazdi <sh.yazdi@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/shahabyazdi/react-multi-date-picker/issues"
   },
-  "homepage": "https://github.com/shahabyazdi/react-multi-date-picker#readme"
+  "homepage": "https://github.com/shahabyazdi/react-multi-date-picker#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.2.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "react": "^16.13.1"
+  }
 }

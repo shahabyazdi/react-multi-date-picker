@@ -1,0 +1,271 @@
+.date-picker {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+}
+
+.date-picker.d-rtl .days,
+.date-picker.d-rtl input,
+.date-picker.d-rtl .date-picker-header {
+  direction: rtl;
+}
+
+.date-picker .date-picker-container {
+  position: fixed;
+  width: 270px;
+  display: none;
+  z-index: 1000000;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #8798ad;
+  border: 1px solid #8798ad;
+  padding-bottom: 2px;
+}
+
+.day-picker {
+  padding: 5px;
+  padding-bottom: 9px;
+}
+
+.month-picker,
+.year-picker {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 35px;
+  background-color: white;
+  padding: 0 3px 0 3px;
+  margin-top: 6px;
+}
+
+.date-picker-container.active,
+.month-picker.active,
+.year-picker.active {
+  display: block;
+}
+
+.date-picker .date-picker-header {
+  text-align: center;
+  border-bottom: 1px solid #8798ad;
+  display: flex;
+  justify-content: center;
+  padding: 8px 4px;
+  border-radius: 5px 5px 0 0;
+}
+
+.date-picker .arrow-container {
+  cursor: pointer;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.date-picker .arrow-container:hover {
+  background-color: #0074d9;
+  box-shadow: 0 0 3px #8798ad;
+}
+
+.date-picker .arrow-container:hover .arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+}
+
+.date-picker .date-picker-header div {
+  flex-grow: 1;
+}
+
+.date-picker .date-picker-header div span {
+  cursor: pointer;
+}
+
+.date-picker .days {
+  display: flex;
+}
+
+.date-picker .days .day,
+.date-picker .days .week-day {
+  padding: 3px;
+  height: 30px;
+  flex: 1;
+  display: inline-flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: black;
+  cursor: pointer;
+}
+.date-picker .days .week-day {
+  cursor: unset;
+  color: #0074d9;
+  font-weight: 500;
+}
+
+.date-picker .days .day.deactive {
+  color: #8798ad;
+}
+
+.date-picker .days .day.today span {
+  background-color: #7fdbff;
+  color: white;
+  border-radius: 50%;
+  width: 90%;
+  padding: 4px 0;
+}
+
+.date-picker .days .day.selected span {
+  color: white;
+  background-color: #0074d9;
+  box-shadow: 0 0 3px #8798ad;
+  border-radius: 50%;
+  width: 90%;
+  padding: 4px 0;
+}
+
+.date-picker .month-picker .days .day.selected span,
+.date-picker .year-picker .days .day.selected span {
+  color: white;
+  background-color: #0074d9;
+  border-radius: 8px;
+  width: 100%;
+  padding: 5px 2px;
+}
+
+.date-picker .month-picker .days .day:hover span,
+.date-picker .year-picker .days .day:hover span {
+  border-radius: 8px;
+  width: 100%;
+  padding: 5px 2px;
+}
+
+.date-picker .days .day.deactive.selected span {
+  color: white;
+  background-color: rgb(175, 201, 248);
+}
+
+.date-picker .days .day:hover span {
+  background-color: rgb(126, 166, 240);
+  color: white;
+  border-radius: 50%;
+  width: 90%;
+  padding: 4px 0;
+}
+
+.date-picker .time-picker {
+  display: none;
+  padding: 5px;
+  padding-bottom: 8px;
+  /* border-top: 1px solid #8798ad; */
+  margin-top: 4px;
+}
+
+.date-picker .time-picker.active {
+  display: flex;
+}
+
+.date-picker .time-picker div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+}
+
+.date-picker .time-picker div input {
+  width: 20px;
+  flex-grow: 1;
+  text-align: center;
+  margin: 5px 0;
+  padding: 5px 2px;
+  border: none;
+  font-weight: 500;
+}
+
+.date-picker .time-picker div input::-webkit-outer-spin-button,
+.date-picker .time-picker div input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.date-picker .time-picker div input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.date-picker .time-picker div .am,
+.date-picker .time-picker .dvdr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.date-picker .time-picker div .am {
+  font-size: 13px;
+}
+
+.arrow {
+  border: solid #0074d9;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 2px;
+  height: 3px;
+  width: 3px;
+  margin-top: 5px;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  margin-top: 7px;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-top: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-right: 3px;
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-left: 3px;
+}
+
+.date-picker.d-rtl .date-picker-header .left {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-left: -2px;
+}
+.date-picker.d-rtl .date-picker-header .right {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-right: -3px;
+}
+
+.date-picker > input {
+  margin: 1px 4px;
+  border-radius: 5px;
+  border: 1px #eaeeff solid;
+  padding: 2px 5px;
+  background-color: #f9faff;
+}
+
+.date-picker > input:focus {
+  outline: none !important;
+  border: 1px solid #8798ad;
+  box-shadow: 0 0 2px #8798ad;
+}
+
+.date-picker > input.full-width {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+}
