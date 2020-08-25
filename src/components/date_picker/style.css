@@ -5,6 +5,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 15px;
+  position: relative;
 }
 
 .date-picker.d-rtl .days,
@@ -14,7 +15,7 @@
 }
 
 .date-picker .date-picker-container {
-  position: fixed;
+  position: absolute;
   width: 270px;
   display: none;
   z-index: 1000000;

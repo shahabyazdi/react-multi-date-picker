@@ -78,8 +78,16 @@ export default function DatePicker({ date, time, format, onChange, timePicker, c
         }
     }, [state.stringDate, state.selectedDate, state.local, state.format, state.calendar, onChange])
 
+    // useEffect(() => {
+    //     console.log("ref");
+    //     if (state.isVisible) {
+    //         console.log("scrolling into view", ref);
+    //         // ref.current.scrollIntoView()
+    //     }
+    // }, [state.isVisible, ref])
+
     return (
-        <div ref={ref} className={`date-picker ${state.local === "en" ? "" : "d-rtl"}`}>
+        <div ref={ref} className={`date-picker ${state.local === "en" ? "" : "d-rtl"}`} scro>
             <input type="text" value={state.stringDate} onChange={handleChange} onClick={handleClick} className={className || ""} />
             <div className={`date-picker-container ${state.isVisible ? "active" : ""}`}>
                 <Header state={state} setState={setState} />
