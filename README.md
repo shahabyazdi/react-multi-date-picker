@@ -1,5 +1,7 @@
 # DatePicker
 
+![DatePicker](/example/screenshot.jpg?raw=true "Optional Title")
+
 ## Installation
 
 ```code
@@ -19,23 +21,21 @@ export default function Example() {
 
 ## Availble props
 
-| Key            |                                      value                                       |
-| -------------- | :------------------------------------------------------------------------------: |
-| date           | Date, [DateObject](https://github.com/shahabyazdi/date-object), String or Number |
-| timePicker     |                             Boolean (default false)                              |
-| onlyTimePicker |                             Boolean (default false)                              |
-| format         |                           String (default YYYY/MM/DD)                            |
-| local          |                              en or fa (default en)                               |
-| calendar       |                      georgian of persian (default persian)                       |
-| onChange       |                                     Function                                     |
+| Key            |                                      value                                       |  default   |
+| -------------- | :------------------------------------------------------------------------------: | :--------: |
+| date           | Date, [DateObject](https://github.com/shahabyazdi/date-object), String or Number | new Date() |
+| timePicker     |                                     Boolean                                      |   false    |
+| onlyTimePicker |                                     Boolean                                      |   false    |
+| format         |                                      String                                      | YYYY/MM/DD |
+| local          |                                     en or fa                                     |     en     |
+| calendar       |                               georgian of persian                                |  georgian  |
+| onChange       |                                     Function                                     |     -      |
 
 ## Example
 
 ### 1- Date
 
 ```xml
-<DatePicker/>
-
 <DatePicker
     date={new Date()}
 />
@@ -55,7 +55,7 @@ export default function Example() {
 
 <DatePicker
     date="2020/27/08"
-    format="YYYY/MM/DD"
+    format="YYYY/DD/MM"
 />
 
 <DatePicker
