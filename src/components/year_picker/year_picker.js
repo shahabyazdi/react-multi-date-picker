@@ -6,14 +6,14 @@ export default function YearPicker({ state, setState }) {
 
     useEffect(() => {
         let years = []
-        let date = new DateObject({ year: state.year, month: 1, day: 1, calendar: state.calendar, local: state.local })
-        let index = -1
+        let year = state.year - 1
+        let digits = state.date.digits
 
         for (var i = 0; i < 4; i++) {
             let array = []
             for (var j = 0; j < 3; j++) {
-                array.push(new DateObject(date).setYear(date.year + index))
-                index++
+                array.push({ year, str: year.toString().replace(/[0-9]/g, w => digits[w]) })
+                year++
             }
             years.push(array)
         }
@@ -25,14 +25,14 @@ export default function YearPicker({ state, setState }) {
         <div className={`year-picker ${state.mustShowYearPicker ? "active" : ""}`}>
             {years.map((array, i) => {
                 return <div key={i} className="days">
-                    {array.map((year, j) => {
+                    {array.map((object, j) => {
                         return <div
                             key={j}
-                            className={`day ${isCurrentYear(year) ? "selected" : ""}`}
+                            className={`day ${isCurrentYear(object.year) ? "selected" : ""}`}
                             style={{ height: "50.5px" }}
-                            onClick={() => selectYear(year.year)}
+                            onClick={() => selectYear(object.year)}
                         >
-                            <span>{year.format("YYYY")}</span>
+                            <span>{object.str}</span>
                         </div>
                     })}
                 </div>

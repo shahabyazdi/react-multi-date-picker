@@ -1,6 +1,6 @@
 # DatePicker
 
-![DatePicker](/example/screenshot.jpg?raw=true "Optional Title")
+![DatePicker](/example/screenshot.jpg?raw=true)
 
 ## Installation
 
@@ -28,7 +28,7 @@ export default function Example() {
 | onlyTimePicker |                                     Boolean                                      |   false    |
 | format         |                                      String                                      | YYYY/MM/DD |
 | local          |                                     en or fa                                     |     en     |
-| calendar       |                               georgian of persian                                |  georgian  |
+| calendar       |                               georgian or persian                                |  georgian  |
 | onChange       |                                     Function                                     |     -      |
 
 ## Example

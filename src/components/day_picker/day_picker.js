@@ -17,7 +17,7 @@ export default function DayPicker({ state, setState }) {
                             className={`day ${object.current ? "" : "deactive"} ${isToday(object.date) ? "today" : ""} ${isSelected(object.date) ? "selected" : ""}`}
                             onClick={() => selectDate(object.date)}
                         >
-                            <span>{object.date.format("D")}</span>
+                            <span>{typeof object.date.day === "number" ? object.date.format("D") : object.date.digits[0]}</span>
                         </div>
                     })}
                 </div>

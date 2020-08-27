@@ -22,7 +22,8 @@ module.exports = {
         }]
     },
     externals: {
-        react: "react"
+        react: "react",
+        "react-date-object": "react-date-object"
     },
     mode: "production"
 }
