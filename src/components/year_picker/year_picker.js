@@ -29,7 +29,7 @@ export default function YearPicker({ state, setState }) {
                         return <div
                             key={j}
                             className={`day ${isCurrentYear(year) ? "selected" : ""}`}
-                            style={{ height: "59.5px" }}
+                            style={{ height: "50.5px" }}
                             onClick={() => selectYear(year.year)}
                         >
                             <span>{year.format("YYYY")}</span>

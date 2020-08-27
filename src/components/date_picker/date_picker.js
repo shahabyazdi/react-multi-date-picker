@@ -7,7 +7,22 @@ import TimePicker from "../time_picker/time_picker"
 import DateObject from "react-date-object"
 import "./style.css"
 
-export default function DatePicker({ date, time, format, onChange, timePicker, calendar = "georgian", local = "en", className, onlyTimePicker, liveChange }) {
+export default function DatePicker(props) {
+    let {
+        name,
+        date,
+        style,
+        format,
+        onChange,
+        timePicker,
+        calendar = "georgian",
+        local = "en",
+        className,
+        onlyTimePicker,
+        liveChange,
+        readOnly
+    } = props
+
     let parsedDate = new DateObject({ date, format, calendar, local })
 
     if (!parsedDate.isValid) parsedDate = new DateObject({ calendar, local })
@@ -15,21 +30,20 @@ export default function DatePicker({ date, time, format, onChange, timePicker, c
     let stringDate = ""
 
     if (typeof date === "string") stringDate = date
-    if (!date || typeof date === "number" || date instanceof Date || date instanceof DateObject) {
+    if (typeof date === "number" || date instanceof Date || date instanceof DateObject) {
         if (date) stringDate = parsedDate.format()
     }
 
-    if (time && typeof time === "string") {
-        if (format) parsedDate.parse(time)
-        if (!format && onlyTimePicker) {
+    if (date && typeof date === "string" && onlyTimePicker) {
+        if (format) {
+            parsedDate.setFormat(format).parse(date)
+        } else {
             format = "hh:mm:ss a"
             parsedDate.setFormat(format)
         }
-
-        stringDate = time
     }
 
-    if (!time && !format && onlyTimePicker) {
+    if (!date && !format && onlyTimePicker) {
         format = "hh:mm:ss a"
         parsedDate.setFormat(format)
         stringDate = ""
@@ -67,28 +81,37 @@ export default function DatePicker({ date, time, format, onChange, timePicker, c
 
     useEffect(() => {
         if (state.stringDate && onChange instanceof Function) {
-            let dateObject = new DateObject({
-                date: state.stringDate,
-                local: state.local,
-                calendar: state.calendar,
-                format: state.format
-            })
+            let dateObject = undefined
+
+            if (state.onlyTimePicker) {
+                dateObject = new DateObject(state.selectedDate).setFormat(state.format).parse(state.stringDate)
+            } else {
+                dateObject = new DateObject({
+                    date: state.stringDate,
+                    local: state.local,
+                    calendar: state.calendar,
+                    format: state.format
+                })
+            }
 
             onChange(state.stringDate, dateObject)
         }
     }, [state.stringDate, state.selectedDate, state.local, state.format, state.calendar, onChange])
 
-    // useEffect(() => {
-    //     console.log("ref");
-    //     if (state.isVisible) {
-    //         console.log("scrolling into view", ref);
-    //         // ref.current.scrollIntoView()
-    //     }
-    // }, [state.isVisible, ref])
-
     return (
-        <div ref={ref} className={`date-picker ${state.local === "en" ? "" : "d-rtl"}`} scro>
-            <input type="text" value={state.stringDate} onChange={handleChange} onClick={handleClick} className={className || ""} />
+        <div ref={ref} className={`date-picker ${state.local === "en" ? "" : "d-rtl"}`}>
+            <input
+                name={name || ""}
+                type="text"
+                value={state.stringDate}
+                onChange={handleChange}
+                onClick={handleClick}
+                className={className || ""}
+                readOnly={readOnly ? true : false}
+                style={style}
+                autoComplete="off"
+
+            />
             <div className={`date-picker-container ${state.isVisible ? "active" : ""}`}>
                 <Header state={state} setState={setState} />
                 <DayPicker state={state} setState={setState} />
@@ -108,7 +131,7 @@ export default function DatePicker({ date, time, format, onChange, timePicker, c
 
             if (date.isValid) $state.selectedDate = date
 
-            $state.date = $state.selectedDate
+            $state.date = date
         }
 
         setState($state)

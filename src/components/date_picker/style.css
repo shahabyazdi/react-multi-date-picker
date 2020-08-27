@@ -4,8 +4,7 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 15px;
-  position: relative;
+  font-size: 14px;
 }
 
 .date-picker.d-rtl .days,
@@ -16,7 +15,7 @@
 
 .date-picker .date-picker-container {
   position: absolute;
-  width: 270px;
+  width: 230px;
   display: none;
   z-index: 1000000;
   background-color: white;
@@ -28,7 +27,7 @@
 
 .day-picker {
   padding: 5px;
-  padding-bottom: 9px;
+  /* padding-bottom: 9px; */
 }
 
 .month-picker,
@@ -39,8 +38,13 @@
   right: 0;
   top: 35px;
   background-color: white;
-  padding: 0 3px 0 3px;
+  padding: 0 6px 0 3px;
   margin-top: 6px;
+}
+
+.month-picker .days .day,
+.year-picker .days .day {
+  padding: 0px 3px;
 }
 
 .date-picker-container.active,
@@ -56,6 +60,7 @@
   justify-content: center;
   padding: 8px 4px;
   border-radius: 5px 5px 0 0;
+  color: black;
 }
 
 .date-picker .arrow-container {
@@ -91,8 +96,8 @@
 
 .date-picker .days .day,
 .date-picker .days .week-day {
-  padding: 3px;
-  height: 30px;
+  padding: 2px;
+  height: 28px;
   flex: 1;
   display: inline-flex;
   justify-content: center;
@@ -116,7 +121,7 @@
   color: white;
   border-radius: 50%;
   width: 90%;
-  padding: 4px 0;
+  padding: 4px 2px;
 }
 
 .date-picker .days .day.selected span {
@@ -125,7 +130,7 @@
   box-shadow: 0 0 3px #8798ad;
   border-radius: 50%;
   width: 90%;
-  padding: 4px 0;
+  padding: 4px 2px;
 }
 
 .date-picker .month-picker .days .day.selected span,
@@ -154,15 +159,15 @@
   color: white;
   border-radius: 50%;
   width: 90%;
-  padding: 4px 0;
+  padding: 4px 2px;
 }
 
 .date-picker .time-picker {
   display: none;
-  padding: 5px;
-  padding-bottom: 8px;
+  padding: 1px;
+  /* padding-bottom: 8px; */
   /* border-top: 1px solid #8798ad; */
-  margin-top: 4px;
+  /* margin-top: 4px; */
 }
 
 .date-picker .time-picker.active {
@@ -174,13 +179,14 @@
   flex-direction: column;
   flex: 1;
   align-items: center;
+  margin-top: 1px;
 }
 
 .date-picker .time-picker div input {
   width: 20px;
   flex-grow: 1;
   text-align: center;
-  margin: 5px 0;
+  /* margin: 5px 0; */
   padding: 5px 2px;
   border: none;
   font-weight: 500;
@@ -269,4 +275,9 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   width: 100%;
+}
+
+.month-picker .days .day:hover .span,
+.year-picker .days .day:hover .span {
+  padding: 4px 0px;
 }

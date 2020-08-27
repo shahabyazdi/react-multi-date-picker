@@ -23,7 +23,7 @@ export default function MonthPicker({ state, setState }) {
                         return <div
                             key={j}
                             className={`day ${isCurrentMonth(name) ? "selected" : ""}`}
-                            style={{ height: "59.5px" }}
+                            style={{ height: "50.5px" }}
                             onClick={() => {
                                 selectMonth(months.findIndex(obj => obj.name === name))
                             }}
