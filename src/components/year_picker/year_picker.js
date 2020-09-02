@@ -19,7 +19,7 @@ export default function YearPicker({ state, setState }) {
         }
 
         setyears(years)
-    }, [state.year, state.calendar, state.local])
+    }, [state.year, state.calendar, state.local, state.date.digits])
 
     return (
         <div className={`year-picker ${state.mustShowYearPicker ? "active" : ""}`}>
@@ -41,7 +41,7 @@ export default function YearPicker({ state, setState }) {
     )
 
     function isCurrentYear(year) {
-        return state.date.year === year.year
+        return state.date.year === year
     }
 
     function selectYear(year) {

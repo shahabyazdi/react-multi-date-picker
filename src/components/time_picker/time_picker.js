@@ -16,7 +16,9 @@ export default function TimePicker({ state, setState }) {
         if ($mustDisplayMeridiem && state.selectedDate) {
             setAm(state.selectedDate.hour < 12 ? true : false)
         }
-    }, [state.selectedDate, state.format])
+    }, [state.selectedDate, state.format, state.multiple])
+
+    if (state.multiple || state.range) return null
 
     return (
         <div className={`time-picker ${state.mustShowTimePicker ? "active" : ""}`} style={{ borderTop: state.onlyTimePicker ? "unset" : "1px solid #8798ad" }}>

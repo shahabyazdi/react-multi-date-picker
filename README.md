@@ -21,16 +21,19 @@ export default function Example() {
 
 ## Availble props
 
-| Key            |                                      value                                       |  default   |
-| -------------- | :------------------------------------------------------------------------------: | :--------: |
-| date           | Date, [DateObject](https://github.com/shahabyazdi/date-object), String or Number | new Date() |
-| timePicker     |                                     Boolean                                      |   false    |
-| onlyTimePicker |                                     Boolean                                      |   false    |
-| liveChange     |                                     Boolean                                      |   false    |
-| format         |                                      String                                      | YYYY/MM/DD |
-| local          |                                     en or fa                                     |     en     |
-| calendar       |                           gregorian, persian or arabic                           | gregorian  |
-| onChange       |                                     Function                                     |     -      |
+| Key            |                                      value                                       |         default         |
+| -------------- | :------------------------------------------------------------------------------: | :---------------------: |
+| date           | Date, [DateObject](https://github.com/shahabyazdi/date-object), String or Number |       new Date()        |
+| timePicker     |                                     Boolean                                      |          false          |
+| onlyTimePicker |                                     Boolean                                      |          false          |
+| liveChange     |                                     Boolean                                      |          false          |
+| multiple       |                                     Boolean                                      |          false          |
+| mustShowDates  |                                     Boolean                                      | true (in multiple mode) |
+| range          |                                     Boolean                                      |          false          |
+| format         |                                      String                                      |       YYYY/MM/DD        |
+| local          |                                     en or fa                                     |           en            |
+| calendar       |                           gregorian, persian or arabic                           |        gregorian        |
+| onChange       |                                     Function                                     |            -            |
 
 ## Example
 

@@ -15,7 +15,6 @@
 
 .date-picker .date-picker-container {
   position: absolute;
-  width: 230px;
   display: none;
   z-index: 1000000;
   background-color: white;
@@ -23,6 +22,10 @@
   box-shadow: 0 0 5px #8798ad;
   border: 1px solid #8798ad;
   padding-bottom: 2px;
+}
+
+.dp-wrapper {
+  width: 230px;
 }
 
 .day-picker {
@@ -47,7 +50,10 @@
   padding: 0px 3px;
 }
 
-.date-picker-container.active,
+.date-picker-container.active {
+  display: flex;
+}
+
 .month-picker.active,
 .year-picker.active {
   display: block;
@@ -131,6 +137,22 @@
   border-radius: 50%;
   width: 90%;
   padding: 4px 2px;
+}
+
+.date-picker .days .day.range {
+  color: white;
+  background-color: #0074d9;
+  box-shadow: 0 0 3px #8798ad;
+}
+
+.date-picker .days .day.range.start {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.date-picker .days .day.range.end {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
 .date-picker .month-picker .days .day.selected span,
@@ -280,4 +302,68 @@
 .month-picker .days .day:hover .span,
 .year-picker .days .day:hover .span {
   padding: 4px 0px;
+}
+
+.dp-panel {
+  border-left: 1px solid #8798ad;
+  min-width: 100px;
+}
+
+.dp-p-header {
+  border-bottom: 1px solid #8798ad;
+  padding: 8px 4px;
+  text-align: center;
+  padding-bottom: 9px;
+}
+
+.dp-p-body {
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+  text-align: center;
+  max-height: 220px;
+  overflow: auto;
+}
+
+.dp-p-body li {
+  padding: 2px 8px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px #8798ad;
+  background-color: #0074d9;
+  color: white;
+  display: flex;
+}
+
+.dp-p-body li button {
+  align-items: center;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  height: 12px;
+  width: 10px;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 9px;
+  transform: rotate(45deg);
+  margin-left: 3px;
+  margin-top: 4px;
+}
+
+.dp-p-body li button:focus {
+  outline: none;
+}
+
+.dp-p-body::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.dp-p-body::-webkit-scrollbar-thumb {
+  background: #0074d9;
+  border-radius: 3px;
+}
+
+.dp-p-body::-webkit-scrollbar-thumb:hover {
+  background: #0263b8;
 }

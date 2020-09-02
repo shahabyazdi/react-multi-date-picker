@@ -14,7 +14,7 @@ export default function DayPicker({ state, setState }) {
                     {week.map((object, j) => {
                         return <div
                             key={j}
-                            className={`day ${object.current ? "" : "deactive"} ${isToday(object.date) ? "today" : ""} ${isSelected(object.date) ? "selected" : ""}`}
+                            className={getClassName(object)}
                             onClick={() => selectDate(object.date)}
                         >
                             <span>{typeof object.date.day === "number" ? object.date.format("D") : object.date.digits[0]}</span>
@@ -24,6 +24,26 @@ export default function DayPicker({ state, setState }) {
             })}
         </div>
     )
+
+    function getClassName(object) {
+        let names = ["day"]
+
+        if (!object.current) names.push("deactive")
+        if (isToday(object.date)) names.push("today")
+        if (isSelected(object.date)) names.push("selected")
+
+        if (state.range) {
+            if (state.selectedDate.length === 1) {
+                if (isSameDate(object.date, state.selectedDate[0])) names.push("range")
+            } else {
+                if (object.date >= state.selectedDate[0] && object.date <= state.selectedDate[1]) names.push("range")
+                if (isSameDate(object.date, state.selectedDate[0])) names.push("start")
+                if (isSameDate(object.date, state.selectedDate[1])) names.push("end")
+            }
+        }
+
+        return names.join(" ")
+    }
 
     function getMonth(date) {
         date = new DateObject(date).toFirstOfMonth()
@@ -60,20 +80,78 @@ export default function DayPicker({ state, setState }) {
     function isSelected(date) {
         if (!date || !state.selectedDate) return false
 
-        return state.selectedDate.year === date.year &&
-            state.selectedDate.month.number === date.month.number &&
-            state.selectedDate.day === date.day
+        if (state.multiple) {
+            for (let selectedDate of state.selectedDate) {
+                if (isSameDate(selectedDate, date)) return true
+            }
+        } else {
+            return isSameDate(state.selectedDate, date)
+        }
     }
 
     function selectDate(date) {
-        setState({
+        let $state = {
             ...state,
             date,
-            selectedDate: new DateObject(date),
             year: date.year,
-            month: date.month.index,
-            stringDate: date.format(),
-            isVisible: false
-        })
+            month: date.month.index
+        }
+
+        if (state.multiple) {
+            let dates = []
+            let formats = []
+            let mustPush = true
+
+            for (let $date of $state.selectedDate) {
+                if (isSameDate($date, date)) {
+                    mustPush = false
+                } else {
+                    dates.push($date)
+                }
+            }
+
+            if (mustPush) dates.push(date)
+
+            for (let $date of dates) {
+                formats.push($date.format())
+            }
+
+            $state.selectedDate = dates
+            $state.stringDate = formats.join(" , ")
+
+        } else if (state.range) {
+            if ($state.selectedDate.length === 2 || $state.selectedDate.length === 0) {
+
+                $state.selectedDate = [date]
+                $state.stringDate = date.format()
+
+            } else if ($state.selectedDate.length === 1) {
+
+                if ($state.selectedDate[0] < date) {
+
+                    $state.selectedDate = [$state.selectedDate[0], date]
+
+                } else if ($state.selectedDate[0] > date) {
+
+                    $state.selectedDate = [date, $state.selectedDate[0]]
+                }
+
+                if ($state.selectedDate.length === 2) $state.stringDate = $state.selectedDate.join(" ~ ")
+            }
+        } else {
+            $state.selectedDate = new DateObject(date)
+            $state.stringDate = date.format()
+            $state.isVisible = false
+        }
+
+        setState($state)
     }
+}
+
+export function isSameDate(firstDate, secondDate) {
+    if (!firstDate || !secondDate) return false
+
+    return firstDate.year === secondDate.year &&
+        firstDate.month.number === secondDate.month.number &&
+        firstDate.day === secondDate.day
 }
