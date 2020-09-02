@@ -26,9 +26,10 @@ export default function Example() {
 | date           | Date, [DateObject](https://github.com/shahabyazdi/date-object), String or Number | new Date() |
 | timePicker     |                                     Boolean                                      |   false    |
 | onlyTimePicker |                                     Boolean                                      |   false    |
+| liveChange     |                                     Boolean                                      |   false    |
 | format         |                                      String                                      | YYYY/MM/DD |
 | local          |                                     en or fa                                     |     en     |
-| calendar       |                               georgian or persian                                |  georgian  |
+| calendar       |                           gregorian, persian or arabic                           | gregorian  |
 | onChange       |                                     Function                                     |     -      |
 
 ## Example
@@ -147,7 +148,7 @@ export default function Example() {
     local="fa"
     timePicker
     onChange={(stringDate,dateObject)=>{
-        console.log(stringDate,dateObject.convert("georgian"))
+        console.log(stringDate,dateObject.convert("gregorian"))
     }}
 />
 
@@ -157,6 +158,11 @@ export default function Example() {
     calendar="persian"
     local="en"
     timePicker
+/>
+
+<DatePicker
+    calendar="arabic"
+    local="ar"
 />
 
 ```
