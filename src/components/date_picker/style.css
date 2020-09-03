@@ -1,4 +1,4 @@
-.date-picker {
+.rm-date-picker {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -7,13 +7,13 @@
   font-size: 14px;
 }
 
-.date-picker.d-rtl .days,
-.date-picker.d-rtl input,
-.date-picker.d-rtl .date-picker-header {
+.rm-date-picker.rm-dp-rtl .rm-dp-days,
+.rm-date-picker.rm-dp-rtl input,
+.rm-date-picker.rm-dp-rtl .rm-dp-header {
   direction: rtl;
 }
 
-.date-picker .date-picker-container {
+.rm-date-picker .rm-dp-container {
   position: absolute;
   display: none;
   z-index: 1000000;
@@ -24,17 +24,16 @@
   padding-bottom: 2px;
 }
 
-.dp-wrapper {
+.rm-dp-c-wrapper {
   width: 230px;
 }
 
-.day-picker {
+.rm-dp-day-picker {
   padding: 5px;
-  /* padding-bottom: 9px; */
 }
 
-.month-picker,
-.year-picker {
+.rm-dp-month-picker,
+.rm-dp-year-picker {
   display: none;
   position: absolute;
   left: 0;
@@ -45,21 +44,21 @@
   margin-top: 6px;
 }
 
-.month-picker .days .day,
-.year-picker .days .day {
+.rm-dp-month-picker .rm-dp-days .rm-dp-d-day,
+.rm-dp-year-picker .rm-dp-days .rm-dp-d-day {
   padding: 0px 3px;
 }
 
-.date-picker-container.active {
+.rm-dp-container.active {
   display: flex;
 }
 
-.month-picker.active,
-.year-picker.active {
+.rm-dp-month-picker.active,
+.rm-dp-year-picker.active {
   display: block;
 }
 
-.date-picker .date-picker-header {
+.rm-date-picker .rm-dp-header {
   text-align: center;
   border-bottom: 1px solid #8798ad;
   display: flex;
@@ -69,7 +68,7 @@
   color: black;
 }
 
-.date-picker .arrow-container {
+.rm-date-picker .rm-dp-a-container {
   cursor: pointer;
   border-radius: 50%;
   height: 20px;
@@ -78,30 +77,30 @@
   justify-content: center;
 }
 
-.date-picker .arrow-container:hover {
+.rm-date-picker .rm-dp-a-container:hover {
   background-color: #0074d9;
   box-shadow: 0 0 3px #8798ad;
 }
 
-.date-picker .arrow-container:hover .arrow {
+.rm-date-picker .rm-dp-a-container:hover .rm-dp-arrow {
   border: solid white;
   border-width: 0 2px 2px 0;
 }
 
-.date-picker .date-picker-header div {
+.rm-date-picker .rm-dp-header div {
   flex-grow: 1;
 }
 
-.date-picker .date-picker-header div span {
+.rm-date-picker .rm-dp-header div span {
   cursor: pointer;
 }
 
-.date-picker .days {
+.rm-date-picker .rm-dp-days {
   display: flex;
 }
 
-.date-picker .days .day,
-.date-picker .days .week-day {
+.rm-date-picker .rm-dp-days .rm-dp-d-day,
+.rm-date-picker .rm-dp-days .rm-dp-d-week-day {
   padding: 2px;
   height: 28px;
   flex: 1;
@@ -112,17 +111,18 @@
   color: black;
   cursor: pointer;
 }
-.date-picker .days .week-day {
+
+.rm-date-picker .rm-dp-days .rm-dp-d-week-day {
   cursor: unset;
   color: #0074d9;
   font-weight: 500;
 }
 
-.date-picker .days .day.deactive {
+.rm-date-picker .rm-dp-days .rm-dp-d-day.rm-dp-d-deactive {
   color: #8798ad;
 }
 
-.date-picker .days .day.today span {
+.rm-date-picker .rm-dp-days .rm-dp-d-day.rm-dp-d-today span {
   background-color: #7fdbff;
   color: white;
   border-radius: 50%;
@@ -130,7 +130,7 @@
   padding: 4px 2px;
 }
 
-.date-picker .days .day.selected span {
+.rm-date-picker .rm-dp-days .rm-dp-d-day.rm-dp-d-selected span {
   color: white;
   background-color: #0074d9;
   box-shadow: 0 0 3px #8798ad;
@@ -139,24 +139,32 @@
   padding: 4px 2px;
 }
 
-.date-picker .days .day.range {
+.rm-date-picker .rm-dp-days .rm-dp-d-day.rm-dp-d-range {
   color: white;
   background-color: #0074d9;
   box-shadow: 0 0 3px #8798ad;
 }
 
-.date-picker .days .day.range.start {
+.rm-date-picker .rm-dp-days .rm-dp-d-day.rm-dp-d-range.rm-dp-d-start {
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
 }
 
-.date-picker .days .day.range.end {
+.rm-date-picker .rm-dp-days .rm-dp-d-day.rm-dp-d-range.rm-dp-d-end {
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
 }
 
-.date-picker .month-picker .days .day.selected span,
-.date-picker .year-picker .days .day.selected span {
+.rm-date-picker
+  .rm-dp-month-picker
+  .rm-dp-days
+  .rm-dp-d-day.rm-dp-d-selected
+  span,
+.rm-date-picker
+  .rm-dp-year-picker
+  .rm-dp-days
+  .rm-dp-d-day.rm-dp-d-selected
+  span {
   color: white;
   background-color: #0074d9;
   border-radius: 8px;
@@ -164,19 +172,22 @@
   padding: 5px 2px;
 }
 
-.date-picker .month-picker .days .day:hover span,
-.date-picker .year-picker .days .day:hover span {
+.rm-date-picker .rm-dp-month-picker .rm-dp-days .rm-dp-d-day:hover span,
+.rm-date-picker .rm-dp-year-picker .rm-dp-days .rm-dp-d-day:hover span {
   border-radius: 8px;
   width: 100%;
   padding: 5px 2px;
 }
 
-.date-picker .days .day.deactive.selected span {
+.rm-date-picker
+  .rm-dp-days
+  .rm-dp-d-day.rm-dp-d-deactive.rm-dp-d-selected
+  span {
   color: white;
   background-color: rgb(175, 201, 248);
 }
 
-.date-picker .days .day:hover span {
+.rm-date-picker .rm-dp-days .rm-dp-d-day:hover span {
   background-color: rgb(126, 166, 240);
   color: white;
   border-radius: 50%;
@@ -184,19 +195,16 @@
   padding: 4px 2px;
 }
 
-.date-picker .time-picker {
+.rm-date-picker .rm-dp-time-picker {
   display: none;
   padding: 1px;
-  /* padding-bottom: 8px; */
-  /* border-top: 1px solid #8798ad; */
-  /* margin-top: 4px; */
 }
 
-.date-picker .time-picker.active {
+.rm-date-picker .rm-dp-time-picker.active {
   display: flex;
 }
 
-.date-picker .time-picker div {
+.rm-date-picker .rm-dp-time-picker div {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -204,37 +212,36 @@
   margin-top: 1px;
 }
 
-.date-picker .time-picker div input {
+.rm-date-picker .rm-dp-time-picker div input {
   width: 20px;
   flex-grow: 1;
   text-align: center;
-  /* margin: 5px 0; */
   padding: 5px 2px;
   border: none;
   font-weight: 500;
 }
 
-.date-picker .time-picker div input::-webkit-outer-spin-button,
-.date-picker .time-picker div input::-webkit-inner-spin-button {
+.rm-date-picker .rm-dp-time-picker div input::-webkit-outer-spin-button,
+.rm-date-picker .rm-dp-time-picker div input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-.date-picker .time-picker div input[type="number"] {
+.rm-date-picker .rm-dp-time-picker div input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.date-picker .time-picker div .am,
-.date-picker .time-picker .dvdr {
+.rm-date-picker .rm-dp-time-picker div .rm-dp-tp-am,
+.rm-date-picker .rm-dp-time-picker .dvdr {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.date-picker .time-picker div .am {
+.rm-date-picker .rm-dp-time-picker div .rm-dp-tp-am {
   font-size: 13px;
 }
 
-.arrow {
+.rm-dp-arrow {
   border: solid #0074d9;
   border-width: 0 2px 2px 0;
   display: inline-block;
@@ -244,42 +251,42 @@
   margin-top: 5px;
 }
 
-.up {
+.rm-dp-arrow.rm-dp-a-up {
   transform: rotate(-135deg);
   -webkit-transform: rotate(-135deg);
   margin-top: 7px;
 }
 
-.down {
+.rm-dp-arrow.rm-dp-a-down {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   margin-top: 3px;
 }
 
-.right {
+.rm-dp-arrow.rm-dp-a-right {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   margin-right: 3px;
 }
 
-.left {
+.rm-dp-arrow.rm-dp-a-left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
   margin-left: 3px;
 }
 
-.date-picker.d-rtl .date-picker-header .left {
+.rm-date-picker.rm-dp-rtl .rm-dp-header .rm-dp-a-left {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   margin-left: -2px;
 }
-.date-picker.d-rtl .date-picker-header .right {
+.rm-date-picker.rm-dp-rtl .rm-dp-header .rm-dp-a-right {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
   margin-right: -3px;
 }
 
-.date-picker > input {
+.rm-date-picker > input {
   margin: 1px 4px;
   border-radius: 5px;
   border: 1px #eaeeff solid;
@@ -287,36 +294,36 @@
   background-color: #f9faff;
 }
 
-.date-picker > input:focus {
+.rm-date-picker > input:focus {
   outline: none !important;
   border: 1px solid #8798ad;
   box-shadow: 0 0 2px #8798ad;
 }
 
-.date-picker > input.full-width {
+.rm-date-picker > input.full-width {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   width: 100%;
 }
 
-.month-picker .days .day:hover .span,
-.year-picker .days .day:hover .span {
+.rm-dp-month-picker .rm-dp-days .rm-dp-d-day:hover .span,
+.rm-dp-year-picker .rm-dp-days .rm-dp-d-day:hover .span {
   padding: 4px 0px;
 }
 
-.dp-panel {
+.rm-dp-c-panel {
   border-left: 1px solid #8798ad;
   min-width: 100px;
 }
 
-.dp-p-header {
+.rm-dp-c-p-header {
   border-bottom: 1px solid #8798ad;
   padding: 8px 4px;
   text-align: center;
   padding-bottom: 9px;
 }
 
-.dp-p-body {
+.rm-dp-c-p-body {
   list-style: none;
   padding: 5px;
   margin: 0;
@@ -325,7 +332,7 @@
   overflow: auto;
 }
 
-.dp-p-body li {
+.rm-dp-c-p-body li {
   padding: 2px 8px;
   margin-bottom: 5px;
   border-radius: 5px;
@@ -335,7 +342,7 @@
   display: flex;
 }
 
-.dp-p-body li button {
+.rm-dp-c-p-body li .rm-dp-c-p-b-deselect {
   align-items: center;
   display: inline-flex;
   border: none;
@@ -350,20 +357,20 @@
   margin-top: 4px;
 }
 
-.dp-p-body li button:focus {
+.rm-dp-c-p-body li .rm-dp-c-p-b-deselect:focus {
   outline: none;
 }
 
-.dp-p-body::-webkit-scrollbar {
+.rm-dp-c-p-body::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 
-.dp-p-body::-webkit-scrollbar-thumb {
+.rm-dp-c-p-body::-webkit-scrollbar-thumb {
   background: #0074d9;
   border-radius: 3px;
 }
 
-.dp-p-body::-webkit-scrollbar-thumb:hover {
+.rm-dp-c-p-body::-webkit-scrollbar-thumb:hover {
   background: #0263b8;
 }

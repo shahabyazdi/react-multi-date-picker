@@ -16,13 +16,13 @@ export default function MonthPicker({ state, setState }) {
     }
 
     return (
-        <div className={`month-picker ${state.mustShowMonthPicker ? "active" : ""}`}>
+        <div className={`rm-dp-month-picker ${state.mustShowMonthPicker ? "active" : ""}`}>
             {monthsArray.map((array, i) => {
-                return <div key={i} className="days">
+                return <div key={i} className="rm-dp-days">
                     {array.map((name, j) => {
                         return <div
                             key={j}
-                            className={`day ${isCurrentMonth(name) ? "selected" : ""}`}
+                            className={`rm-dp-d-day ${isCurrentMonth(name) ? "rm-dp-d-selected" : ""}`}
                             style={{ height: "50.5px" }}
                             onClick={() => {
                                 selectMonth(months.findIndex(obj => obj.name === name))

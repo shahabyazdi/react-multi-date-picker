@@ -6,7 +6,7 @@ export default function Header({ state, setState }) {
     const { date } = state
 
     return (
-        <div className="date-picker-header" style={{ display: state.onlyTimePicker ? "none" : "flex" }}>
+        <div className="rm-dp-header" style={{ display: state.onlyTimePicker ? "none" : "flex" }}>
             <Arrow direction="left" onClick={() => handleDate(-1)} />
             <div>
                 <span onClick={toggleMonthPicker}>{date.month.name}</span>,&nbsp;

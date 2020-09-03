@@ -2,7 +2,7 @@ import React from "react"
 import DateObject from "react-date-object";
 
 export default function Input({ name, value, onChange, local }) {
-    let digits = new DateObject({ calendar: "georgian", local }).digits
+    let digits = new DateObject({ calendar: "gregorian", local }).digits
 
     return (
         <input

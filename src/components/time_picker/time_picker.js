@@ -21,7 +21,7 @@ export default function TimePicker({ state, setState }) {
     if (state.multiple || state.range) return null
 
     return (
-        <div className={`time-picker ${state.mustShowTimePicker ? "active" : ""}`} style={{ borderTop: state.onlyTimePicker ? "unset" : "1px solid #8798ad" }}>
+        <div className={`rm-dp-time-picker ${state.mustShowTimePicker ? "active" : ""}`} style={{ borderTop: state.onlyTimePicker ? "unset" : "1px solid #8798ad" }}>
             <div>
                 <Arrow direction="up" onClick={() => changeValue("hours", 1)} />
                 <Input value={getHours()} onChange={handleChange} name="hours" local={state.local} />
@@ -41,7 +41,7 @@ export default function TimePicker({ state, setState }) {
             </div>
             <div style={getStyle()}>
                 <Arrow direction="up" onClick={toggleMeridiem} />
-                <div className="am">{am ? meridiems[0].shortName.toUpperCase() : meridiems[1].shortName.toUpperCase()}</div>
+                <div className="rm-dp-tp-am">{am ? meridiems[0].shortName.toUpperCase() : meridiems[1].shortName.toUpperCase()}</div>
                 <Arrow direction="down" onClick={toggleMeridiem} />
             </div>
         </div>

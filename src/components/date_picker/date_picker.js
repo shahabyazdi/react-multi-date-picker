@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from "react"
 import Header from "../header/header"
-import DayPicker from "../day_picker/day_picker.js"
+import DayPicker, { isSameDate } from "../day_picker/day_picker.js"
 import MonthPicker from "../month_picker/month_picker.js"
 import YearPicker from "../year_picker/year_picker.js"
 import TimePicker from "../time_picker/time_picker"
 import DateObject from "react-date-object"
-import { isSameDate } from "../day_picker/day_picker"
 import "./style.css"
 
 export default function DatePicker({
@@ -15,7 +14,7 @@ export default function DatePicker({
     format,
     onChange,
     timePicker,
-    calendar = "georgian",
+    calendar = "gregorian",
     local = "en",
     className,
     onlyTimePicker,
@@ -23,7 +22,8 @@ export default function DatePicker({
     readOnly,
     multiple,
     range,
-    mustShowDates = true
+    mustShowDates = true,
+    inputType = "input"
 }) {
     let parsedDate, stringDate = ""
 
@@ -36,7 +36,7 @@ export default function DatePicker({
     }
 
     if (range && !Array.isArray(date)) date = []
-    if (!multiple && !range && Array.isArray(date)) date = date[0]
+    if (!multiple && !range && Array.isArray(date)) multiple = true
     if (multiple && range) range = false
 
     if (multiple || range) {
@@ -81,7 +81,8 @@ export default function DatePicker({
         liveChange,
         multiple,
         range,
-        mustShowDates
+        mustShowDates,
+        inputType
     })
 
     useEffect(() => {
@@ -89,7 +90,7 @@ export default function DatePicker({
         return () => document.removeEventListener("click", handleClickOutside)
 
         function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target) && !event.target.classList.contains("dp-p-b-d")) {
+            if (ref.current && !ref.current.contains(event.target) && !event.target.classList.contains("rm-dp-c-p-b-deselect")) {
                 setState({ ...state, isVisible: false })
             }
         }
@@ -127,21 +128,10 @@ export default function DatePicker({
     ])
 
     return (
-        <div ref={ref} className={`date-picker ${state.local === "en" ? "" : "d-rtl"}`}>
-            <input
-                name={name || ""}
-                type="text"
-                value={state.stringDate}
-                onChange={handleChange}
-                onClick={handleClick}
-                className={className || ""}
-                readOnly={readOnly ? true : false}
-                style={style}
-                autoComplete="off"
-
-            />
-            <div className={`date-picker-container ${state.isVisible ? "active" : ""}`}>
-                <div className="dp-wrapper">
+        <div ref={ref} className={`rm-date-picker ${state.local === "en" ? "" : "rm-dp-rtl"}`}>
+            {getInput(name, className, readOnly, style)}
+            <div className={`rm-dp-container ${state.isVisible ? "active" : ""}`}>
+                <div className="rm-dp-c-wrapper">
                     <Header state={state} setState={setState} />
                     <DayPicker state={state} setState={setState} />
                     <MonthPicker state={state} setState={setState} />
@@ -149,13 +139,13 @@ export default function DatePicker({
                     <TimePicker state={state} setState={setState} />
                 </div>
                 {state.mustShowDates && state.multiple ?
-                    <div className="dp-panel">
-                        <div className="dp-p-header">Dates</div>
-                        <ul className="dp-p-body">
+                    <div className="rm-dp-c-panel">
+                        <div className="rm-dp-c-p-header">Dates</div>
+                        <ul className="rm-dp-c-p-body">
                             {Array.isArray(state.selectedDate) ?
                                 state.selectedDate.map(($date, index) => {
                                     return (
-                                        <li key={index}>{$date.format()} <button className="dp-p-b-d" onClick={() => deSelect($date)}>+</button></li>
+                                        <li key={index}>{$date.format()} <button className="rm-dp-c-p-b-deselect" onClick={() => deSelect($date)}>+</button></li>
                                     )
                                 })
                                 :
@@ -189,7 +179,7 @@ export default function DatePicker({
     function handleClick(e) {
         let value = e.target.value
 
-        if (!value && !state.multiple) value = state.date.format()
+        if (!value && !state.multiple && !state.range) value = state.date.format()
 
         let $state = {
             ...state,
@@ -288,5 +278,44 @@ export default function DatePicker({
         }
 
         return month
+    }
+
+    function getInput(name, className, readOnly, style) {
+        let input = undefined
+
+        switch (state.inputType) {
+            case "button":
+                input = <button
+                    type="button"
+                    name={name || ""}
+                    onClick={handleClick}
+                    className={className || ""}
+                    disabled={readOnly ? true : false}
+                    style={style}
+                >
+                    {getText()}
+                </button>
+
+                function getText() {
+                    if (!state.range && !state.multiple && state.stringDate) return state.stringDate
+                    return "click to select"
+                }
+
+                break
+            default:
+                input = <input
+                    name={name || ""}
+                    type="text"
+                    value={state.stringDate}
+                    onChange={handleChange}
+                    onClick={handleClick}
+                    className={className || ""}
+                    readOnly={readOnly ? true : false}
+                    style={style}
+                    autoComplete="off"
+                />
+        }
+
+        return input
     }
 }

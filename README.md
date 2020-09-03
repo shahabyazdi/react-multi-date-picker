@@ -31,7 +31,7 @@ export default function Example() {
 | mustShowDates  |                                     Boolean                                      | true (in multiple mode) |
 | range          |                                     Boolean                                      |          false          |
 | format         |                                      String                                      |       YYYY/MM/DD        |
-| local          |                                     en or fa                                     |           en            |
+| local          |                                   en, fa or ar                                   |           en            |
 | calendar       |                           gregorian, persian or arabic                           |        gregorian        |
 | onChange       |                                     Function                                     |            -            |
 

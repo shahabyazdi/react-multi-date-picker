@@ -3,11 +3,11 @@ import React from "react"
 export default function Arrow({ direction, onClick }) {
     return (
         <span
-            className="arrow-container"
+            className="rm-dp-a-container"
             onClick={onClick}
         >
             <i
-                className={`arrow ${direction}`}
+                className={`rm-dp-arrow rm-dp-a-${direction}`}
             >
             </i>
         </span>

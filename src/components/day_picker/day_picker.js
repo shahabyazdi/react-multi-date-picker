@@ -3,14 +3,14 @@ import DaysOfWeek from "../days_of_week/days_of_week.js"
 import DateObject from "react-date-object"
 
 export default function DayPicker({ state, setState }) {
-    const month = getMonth(state.date)
+    const weeks = getWeeks(state.date)
     const today = new DateObject({ calendar: state.calendar, local: state.local })
 
     return (
-        <div className="day-picker" style={{ display: state.onlyTimePicker ? "none" : "block" }}>
+        <div className="rm-dp-day-picker" style={{ display: state.onlyTimePicker ? "none" : "block" }}>
             <DaysOfWeek state={state} />
-            {month.map((week, i) => {
-                return <div key={i} className="days">
+            {weeks.map((week, i) => {
+                return <div key={i} className="rm-dp-days">
                     {week.map((object, j) => {
                         return <div
                             key={j}
@@ -26,30 +26,30 @@ export default function DayPicker({ state, setState }) {
     )
 
     function getClassName(object) {
-        let names = ["day"]
+        let names = ["rm-dp-d-day"]
 
-        if (!object.current) names.push("deactive")
-        if (isToday(object.date)) names.push("today")
-        if (isSelected(object.date)) names.push("selected")
+        if (!object.current) names.push("rm-dp-d-deactive")
+        if (isSameDate(object.date, today)) names.push("rm-dp-d-today")
+        if (isSelected(object.date)) names.push("rm-dp-d-selected")
 
         if (state.range) {
             if (state.selectedDate.length === 1) {
-                if (isSameDate(object.date, state.selectedDate[0])) names.push("range")
+                if (isSameDate(object.date, state.selectedDate[0])) names.push("rm-dp-d-range")
             } else {
-                if (object.date >= state.selectedDate[0] && object.date <= state.selectedDate[1]) names.push("range")
-                if (isSameDate(object.date, state.selectedDate[0])) names.push("start")
-                if (isSameDate(object.date, state.selectedDate[1])) names.push("end")
+                if (object.date >= state.selectedDate[0] && object.date <= state.selectedDate[1]) names.push("rm-dp-d-range")
+                if (isSameDate(object.date, state.selectedDate[0])) names.push("rm-dp-d-start")
+                if (isSameDate(object.date, state.selectedDate[1])) names.push("rm-dp-d-end")
             }
         }
 
         return names.join(" ")
     }
 
-    function getMonth(date) {
+    function getWeeks(date) {
         date = new DateObject(date).toFirstOfMonth()
 
         let monthNumber = date.month.number
-        let month = []
+        let weeks = []
 
         date.day -= date.weekDay.index
 
@@ -65,16 +65,10 @@ export default function DayPicker({ state, setState }) {
                 date.day += 1
             }
 
-            month.push(week)
+            weeks.push(week)
         }
 
-        return month
-    }
-
-    function isToday(date) {
-        return today.year === date.year &&
-            today.month.number === date.month.number &&
-            today.day === date.day
+        return weeks
     }
 
     function isSelected(date) {

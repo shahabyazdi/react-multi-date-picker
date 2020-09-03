@@ -22,13 +22,13 @@ export default function YearPicker({ state, setState }) {
     }, [state.year, state.calendar, state.local, state.date.digits])
 
     return (
-        <div className={`year-picker ${state.mustShowYearPicker ? "active" : ""}`}>
+        <div className={`rm-dp-year-picker ${state.mustShowYearPicker ? "active" : ""}`}>
             {years.map((array, i) => {
-                return <div key={i} className="days">
+                return <div key={i} className="rm-dp-days">
                     {array.map((object, j) => {
                         return <div
                             key={j}
-                            className={`day ${isCurrentYear(object.year) ? "selected" : ""}`}
+                            className={`rm-dp-d-day ${isCurrentYear(object.year) ? "rm-dp-d-selected" : ""}`}
                             style={{ height: "50.5px" }}
                             onClick={() => selectYear(object.year)}
                         >
