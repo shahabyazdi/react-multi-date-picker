@@ -19,6 +19,10 @@ export default function Example() {
 }
 ```
 
+## Demo
+
+[Demo](https://shahabyazdi.github.io/react-multi-date-picker/)
+
 ## Availble props
 
 | Key            |                                      value                                       |         default         |
