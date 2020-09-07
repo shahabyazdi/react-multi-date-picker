@@ -1,54 +1,48 @@
 import React from "react"
-import DateObject from "react-date-object"
 import Arrow from "../arrow/arrow"
 
 export default function Header({ state, setState }) {
-    const { date } = state
-
-    return (
-        <div className="rm-dp-header" style={{ display: state.onlyTimePicker ? "none" : "flex" }}>
-            <Arrow direction="left" onClick={() => handleDate(-1)} />
-            <div>
-                <span onClick={toggleMonthPicker}>{date.month.name}</span>,&nbsp;
-                <span onClick={toggleYearPicker}>{date.format("YYYY")}</span>
-            </div>
-            <Arrow direction="right" onClick={() => handleDate(1)} />
+    return (<div className="rmdp-header">
+        <Arrow direction="rmdp-left" onClick={() => increaseValue(-1)} />
+        <div className="rmdp-header-values">
+            <span
+                className={`${state.mustShowMonthPicker ? "active" : ""}`}
+                onClick={() => toggle("mustShowMonthPicker")}
+            >{state.date.month.name}</span>,
+            <span
+                className={`${state.mustShowYearPicker ? "active" : ""}`}
+                onClick={() => toggle("mustShowYearPicker")}
+            >{state.date.format("YYYY")}</span>
         </div>
-    )
+        <Arrow direction="rmdp-right" onClick={() => increaseValue(1)} />
+    </div>)
 
-    function handleDate(number) {
-        let $state = { ...state }
-        let $date = undefined
+    function increaseValue(value) {
+        let { date } = state
 
-        if (state.mustShowMonthPicker) {
-            $date = new DateObject(date).setYear(date.year + number)
-            $state.date = $date
-            $state.year = $date.year
-        } else if (state.mustShowYearPicker) {
-            $state.year = new DateObject(date).setYear(state.year + (10 * number)).year
+        if (!state.mustShowYearPicker) {
+            date = state.date.setMonth(state.date.month + value)
         } else {
-            $date = new DateObject(date).setMonth(date.month + +number)
-            $state.date = $date
-            $state.year = $date.year
-            $state.month = $date.month.index
+            date = state.date.setYear(state.date.year + (value * 12))
         }
 
-        setState($state)
-    }
-
-    function toggleMonthPicker() {
         setState({
             ...state,
-            mustShowMonthPicker: !state.mustShowMonthPicker,
-            mustShowYearPicker: false
+            date
         })
     }
 
-    function toggleYearPicker() {
+    function toggle(picker) {
+        let object = {
+            mustShowMonthPicker: false,
+            mustShowYearPicker: false
+        }
+
+        object[picker] = !state[picker]
+
         setState({
             ...state,
-            mustShowYearPicker: !state.mustShowYearPicker,
-            mustShowMonthPicker: false
+            ...object
         })
     }
 }

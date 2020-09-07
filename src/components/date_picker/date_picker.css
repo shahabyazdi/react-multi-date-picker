@@ -1,0 +1,20 @@
+.rmdp-calendar-container {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 2px;
+}
+
+.rmdp-input {
+  margin: 1px 4px;
+  border-radius: 5px;
+  border: 1px #eaeeff solid;
+  padding: 2px 5px;
+  background-color: #f9faff;
+  height: 20px;
+}
+
+.rmdp-input:focus {
+  outline: none !important;
+  border: 1px solid #8798ad;
+  box-shadow: 0 0 2px #8798ad;
+}

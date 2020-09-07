@@ -3,7 +3,7 @@ import DateObject from "react-date-object"
 import Arrow from "../arrow/arrow"
 import Input from "../input/input"
 
-export default function TimePicker({ state, setState }) {
+export default function TimePicker({ state, setState, onChange }) {
     const [am, setAm] = useState(true)
     const [mustDisplayMeridiem, setMustDisplayMeridiem] = useState(false)
     const [meridiems] = useState(new DateObject({ calendar: state.calendar, local: state.local }).meridiems)
@@ -20,31 +20,33 @@ export default function TimePicker({ state, setState }) {
 
     if (state.multiple || state.range) return null
 
-    return (
-        <div className={`rm-dp-time-picker ${state.mustShowTimePicker ? "active" : ""}`} style={{ borderTop: state.onlyTimePicker ? "unset" : "1px solid #8798ad" }}>
+    return (state.timePicker || state.onlyTimePicker ?
+        <div className="rmdp-time-picker" style={{ borderTop: state.onlyTimePicker ? "unset" : "1px solid #8798ad" }}>
             <div>
-                <Arrow direction="up" onClick={() => changeValue("hours", 1)} />
+                <Arrow direction="rmdp-up" onClick={() => changeValue("hours", 1)} />
                 <Input value={getHours()} onChange={handleChange} name="hours" local={state.local} />
-                <Arrow direction="down" onClick={() => changeValue("hours", -1)} />
+                <Arrow direction="rmdp-down" onClick={() => changeValue("hours", -1)} />
             </div>
             <span className="dvdr">:</span>
             <div>
-                <Arrow direction="up" onClick={() => changeValue("minutes", 1)} />
+                <Arrow direction="rmdp-up" onClick={() => changeValue("minutes", 1)} />
                 <Input value={getMinutes()} onChange={handleChange} name="minutes" local={state.local} />
-                <Arrow direction="down" onClick={() => changeValue("minutes", -1)} />
+                <Arrow direction="rmdp-down" onClick={() => changeValue("minutes", -1)} />
             </div>
             <span className="dvdr">:</span>
             <div>
-                <Arrow direction="up" onClick={() => changeValue("seconds", 1)} />
+                <Arrow direction="rmdp-up" onClick={() => changeValue("seconds", 1)} />
                 <Input value={getSeconds()} onChange={handleChange} name="seconds" local={state.local} />
-                <Arrow direction="down" onClick={() => changeValue("seconds", -1)} />
+                <Arrow direction="rmdp-down" onClick={() => changeValue("seconds", -1)} />
             </div>
             <div style={getStyle()}>
-                <Arrow direction="up" onClick={toggleMeridiem} />
-                <div className="rm-dp-tp-am">{am ? meridiems[0].shortName.toUpperCase() : meridiems[1].shortName.toUpperCase()}</div>
-                <Arrow direction="down" onClick={toggleMeridiem} />
+                <Arrow direction="rmdp-up" onClick={toggleMeridiem} />
+                <div className="rmdp-am">{am ? meridiems[0].shortName.toUpperCase() : meridiems[1].shortName.toUpperCase()}</div>
+                <Arrow direction="rmdp-down" onClick={toggleMeridiem} />
             </div>
         </div>
+        :
+        null
     )
 
     function handleChange(value, name) {
@@ -88,9 +90,10 @@ export default function TimePicker({ state, setState }) {
         setState({
             ...state,
             selectedDate,
-            stringDate: selectedDate.format(),
-            date: selectedDate
+            date: new DateObject(selectedDate)
         })
+
+        if (onChange instanceof Function) onChange(selectedDate)
     }
 
     function toggleMeridiem() {

@@ -1,0 +1,302 @@
+.rmdp-wrapper {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  width: max-content;
+  border: 1px solid #8798ad;
+  box-shadow: 0 0 5px #8798ad;
+  border-radius: 7px;
+  z-index: 1000000;
+  text-align: center;
+  background-color: white;
+}
+
+.rmdp-calendar {
+  width: 255px;
+  position: relative;
+}
+
+.rmpd-panel {
+  min-width: 120px;
+  border-left: 1px solid #8798ad;
+}
+
+.rmdp-panel-body {
+  list-style: none;
+  padding: 0px 5px;
+  margin: 5px 0;
+  text-align: center;
+  max-height: 245px;
+  overflow: auto;
+}
+
+.rmdp-panel-body li {
+  margin: 0;
+  padding: 0 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px #8798ad;
+  background-color: #0074d9;
+  color: white;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.rmdp-panel-body li .b-deselect {
+  align-items: center;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  height: 12px;
+  width: 10px;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 9px;
+  transform: rotate(45deg);
+  margin-left: 4px;
+  margin-top: 5.5px;
+}
+
+.rmdp-panel-body li .b-deselect:focus {
+  outline: none;
+}
+
+.rmdp-week,
+.rmdp-header {
+  display: flex;
+}
+
+.rmdp-day,
+.rmdp-week-day {
+  height: 33px;
+  width: 33px;
+  cursor: pointer;
+  position: relative;
+  padding: 1px;
+  font-size: 16px;
+}
+
+.rmdp-week-day {
+  cursor: unset;
+  color: #0074d9;
+  font-weight: 500;
+}
+
+.rmdp-day span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.rmdp-day.rmdp-today span {
+  background-color: #7fdbff;
+  color: white;
+}
+
+.rmdp-day.rmdp-selected span {
+  background-color: #0074d9;
+  box-shadow: 0 0 3px #8798ad;
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive {
+  color: #8798ad;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected span {
+  background-color: #4ca6f5;
+  box-shadow: 0 0 3px #bac5d3;
+}
+
+.rmdp-day.ym {
+  flex: 1;
+  height: 60px;
+}
+
+.rmdp-day.ym span {
+  width: unset;
+  height: unset;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 14px;
+  padding-bottom: 6px;
+}
+
+.rmdp-range {
+  color: white;
+  background-color: #0074d9;
+  box-shadow: 0 0 3px #8798ad;
+}
+
+.rmdp-range.start {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.rmdp-range.end {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.rmdp-day:hover span {
+  background-color: rgb(126, 166, 240);
+  color: white;
+}
+
+.rmdp-day-picker {
+  padding: 5px;
+}
+
+.rmdp-header,
+.rmdp-panel-header {
+  border-bottom: 1px solid #8798ad;
+  padding: 8px 4px;
+}
+
+.rmdp-panel-header {
+  padding: 7px 4px;
+}
+
+.rmdp-month-picker,
+.rmdp-year-picker {
+  background-color: white;
+  position: absolute;
+  top: 38px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 0 0 5px 5px;
+}
+
+.rmdp-header-values {
+  flex: 1;
+  margin-top: -1.5px;
+}
+
+.rmdp-header-values span {
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 10px;
+}
+
+.rmdp-arrow {
+  border: solid #0074d9;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 2px;
+  height: 3px;
+  width: 3px;
+  margin-top: 5px;
+}
+
+.rmdp-up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  margin-top: 7px;
+}
+
+.rmdp-down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-top: 3px;
+}
+
+.rmdp-right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-right: 3px;
+}
+
+.rmdp-left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-left: 3px;
+}
+
+.rmdp-arrow-container {
+  cursor: pointer;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.rmdp-arrow-container:hover {
+  background-color: #0074d9;
+  box-shadow: 0 0 3px #8798ad;
+}
+
+.rmdp-arrow-container:hover .rmdp-arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+}
+
+.rmdp-panel-body::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb {
+  background: #0074d9;
+  border-radius: 3px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb:hover {
+  background: #0263b8;
+}
+
+.rmdp-time-picker {
+  display: flex;
+  padding: 3px 0;
+}
+
+.rmdp-time-picker.active {
+  display: flex;
+}
+
+.rmdp-time-picker div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  margin-top: 1px;
+}
+
+.rmdp-time-picker div input {
+  width: 20px;
+  flex-grow: 1;
+  text-align: center;
+  padding: 5px 2px;
+  border: none;
+  font-weight: 500;
+}
+
+.rmdp-time-picker div input::-webkit-outer-spin-button,
+.rmdp-time-picker div input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.rmdp-time-picker div input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.rmdp-time-picker div .rmdp-am,
+.rmdp-time-picker .dvdr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rmdp-time-picker div .rmdp-am {
+  font-size: 13px;
+}
