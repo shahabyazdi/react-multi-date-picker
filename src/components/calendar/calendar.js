@@ -56,33 +56,23 @@ export default function Calendar({
 
         } else {
             if (validationRef.current &&
+                Array.isArray(validationRef.current.value) &&
                 calendar === state.calendar &&
                 local === state.local &&
                 format === state.format &&
-                range === state.range) {
+                range === state.range &&
+                mustShowDates === state.mustShowDates) {
 
-                let isSameValue = true,
-                    isValueSameAsSelectedDate = true,
-                    $value = validationRef.current.value,
+                let $value = validationRef.current.value,
                     $selectedDate = validationRef.current.selectedDate
 
                 for (let i = 0; i < $value.length; i++) {
-                    if ($value[i] !== value[i]) {
-                        isSameValue = false
-                        break
-                    }
+                    if ($value[i] !== value[i]) return
                 }
-
-                if (isSameValue) return
 
                 for (let i = 0; i < $selectedDate.length; i++) {
-                    if ($selectedDate[i] !== value[i]) {
-                        isValueSameAsSelectedDate = false
-                        break
-                    }
+                    if ($selectedDate[i] !== value[i]) return
                 }
-
-                if (isValueSameAsSelectedDate) return
             }
 
             if (!range) multiple = true

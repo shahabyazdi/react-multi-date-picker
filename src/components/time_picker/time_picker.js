@@ -21,7 +21,7 @@ export default function TimePicker({ state, setState, onChange }) {
     if (state.multiple || state.range) return null
 
     return (state.timePicker || state.onlyTimePicker ?
-        <div className="rmdp-time-picker" style={{ borderTop: state.onlyTimePicker ? "unset" : "1px solid #8798ad" }}>
+        <div className={`rmdp-time-picker ${state.onlyTimePicker ? "rmdp-only-time-picker" : ""}`}>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("hours", 1)} />
                 <Input value={getHours()} onChange={handleChange} name="hours" local={state.local} />

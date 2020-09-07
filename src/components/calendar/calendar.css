@@ -15,7 +15,6 @@
 }
 
 .rmdp-calendar {
-  width: 255px;
   position: relative;
 }
 
@@ -84,6 +83,9 @@
   cursor: unset;
   color: #0074d9;
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .rmdp-day span {
@@ -129,6 +131,11 @@
   padding: 2px 8px;
   font-size: 14px;
   padding-bottom: 6px;
+}
+
+.rmdp-year-picker .rmdp-day.ym span {
+  padding: 2px 8px;
+  padding-bottom: 5px;
 }
 
 .rmdp-range {
@@ -258,6 +265,7 @@
 .rmdp-time-picker {
   display: flex;
   padding: 3px 0;
+  border-top: 1px solid #8798ad;
 }
 
 .rmdp-time-picker.active {
@@ -299,4 +307,53 @@
 
 .rmdp-time-picker div .rmdp-am {
   font-size: 13px;
+}
+
+.rmdp-only-time-picker {
+  border-top: unset;
+  width: 220px;
+}
+
+@media (max-width: 500px) {
+  .rmdp-day,
+  .rmdp-week-day {
+    height: 28px;
+    width: 28px;
+    padding: 1px;
+    font-size: 14px;
+  }
+
+  .rmdp-day span {
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+  }
+
+  .rmdp-day.ym {
+    height: 49px;
+  }
+
+  .rmdp-day.ym span {
+    font-size: 12px;
+    padding: 2px 5px;
+    padding-bottom: 5px;
+  }
+
+  .rmdp-year-picker .rmdp-day.ym span {
+    padding: 2px 14px;
+    padding-bottom: 4px;
+  }
+
+  .rmpd-panel {
+    min-width: 80px;
+  }
+
+  .rmdp-panel-body li {
+    font-size: 14px;
+  }
+
+  .rmdp-panel-body li .b-deselect {
+    margin-left: 4px;
+    margin-top: 3px;
+  }
 }
