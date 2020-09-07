@@ -28,7 +28,7 @@ export default function DayPicker({ state, setState, onChange }) {
     }, [state.date, state.date.month, state.year, state.local, state.calendar])
 
     return (
-        <div className="rmdp-day-picker">
+        <div className="rmdp-day-picker" style={{ display: state.onlyTimePicker ? "none" : "block" }}>
             <WeekDays state={state} />
             {weeks.map((week, index) => <div key={index} className="rmdp-week">
                 {week.map(object => <div key={object.date.day}

@@ -27,7 +27,7 @@ export default function Example() {
 
 | Key            |                                      value                                       |         default         |
 | -------------- | :------------------------------------------------------------------------------: | :---------------------: |
-| date           | Date, [DateObject](https://github.com/shahabyazdi/date-object), String or Number |       new Date()        |
+| value          | Date, [DateObject](https://github.com/shahabyazdi/date-object), String or Number |       new Date()        |
 | timePicker     |                                     Boolean                                      |          false          |
 | onlyTimePicker |                                     Boolean                                      |          false          |
 | liveChange     |                                     Boolean                                      |          false          |
@@ -45,11 +45,11 @@ export default function Example() {
 
 ```xml
 <DatePicker
-    date={new Date()}
+    value={new Date()}
 />
 
 <DatePicker
-    date={new Date(2020,9,27)}
+    value={new Date(2020,9,27)}
 />
 
 ```
@@ -58,16 +58,16 @@ export default function Example() {
 
 ```xml
 <DatePicker
-    date="2020/08/27"
+    value="2020/08/27"
 />
 
 <DatePicker
-    date="2020/27/08"
+    value="2020/27/08"
     format="YYYY/DD/MM"
 />
 
 <DatePicker
-    date="August 27 2020"
+    value="August 27 2020"
     format="MMMM DD YYYY"
 />
 ```
@@ -76,19 +76,19 @@ export default function Example() {
 
 ```xml
 <DatePicker
-    date="2020/08/27 12:30:31"
+    value="2020/08/27 12:30:31"
     format="YYYY/MM/DD HH:mm:ss"
     timePicker
 />
 
 <DatePicker
-    date={new Date()}
+    value={new Date()}
     format="YYYY-MM-DD HH:mm:ss"
     timePicker
 />
 
 <DatePicker
-    date="August 27 2020 12:30:31 am"
+    value="August 27 2020 12:30:31 am"
     format="MMMM DD YYYY hh:mm:ss a"
     timePicker
 />
@@ -98,13 +98,13 @@ export default function Example() {
 
 ```xml
 <DatePicker
-    date="12:30:31 am"
+    value="12:30:31 am"
     format="hh:mm:ss a"
     onlyTimePicker
 />
 
 <DatePicker
-    date={new Date()}
+    value={new Date()}
     format="hh-mm-ss A"
     onlyTimePicker
 />
@@ -114,7 +114,7 @@ export default function Example() {
 
 ```xml
 <DatePicker
-    date={new Date()}
+    value={new Date()}
     format="YYYY/MM/DD hh:mm:ss a"
     timePicker
     onChange={(stringDate,dateObject)=>{
@@ -123,7 +123,7 @@ export default function Example() {
 />
 
 <DatePicker
-    date="2020/08/27 11:10:59 am"
+    value="2020/08/27 11:10:59 am"
     format="YYYY/MM/DD hh:mm:ss a"
     timePicker
     onChange={(stringDate, dateObject)=>{
@@ -134,7 +134,7 @@ export default function Example() {
 />
 
 <DatePicker
-    date="2020/08/27 11:10:59 am"
+    value="2020/08/27 11:10:59 am"
     format="YYYY/MM/DD hh:mm:ss a"
     timePicker
     onChange={(stringDate, dateObject)=>{
@@ -149,7 +149,7 @@ export default function Example() {
 
 ```xml
 <DatePicker
-    date={new Date()}
+    value={new Date()}
     format="YYYY/MM/DD hh:mm:ss a"
     calendar="persian"
     local="fa"
@@ -160,7 +160,7 @@ export default function Example() {
 />
 
 <DatePicker
-    date="1399/06/05 12:30:24 pm"
+    value="1399/06/05 12:30:24 pm"
     format="YYYY/MM/DD hh:mm:ss a"
     calendar="persian"
     local="en"

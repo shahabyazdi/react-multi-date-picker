@@ -2,7 +2,7 @@ import React from "react"
 import Arrow from "../arrow/arrow"
 
 export default function Header({ state, setState }) {
-    return (<div className="rmdp-header">
+    return (<div className="rmdp-header" style={{ display: state.onlyTimePicker ? "none" : "flex" }}>
         <Arrow direction="rmdp-left" onClick={() => increaseValue(-1)} />
         <div className="rmdp-header-values">
             <span
