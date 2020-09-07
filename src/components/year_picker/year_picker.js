@@ -48,8 +48,6 @@ export default function YearPicker({ state, setState }) {
             </div>
             )}
         </div>
-        :
-    null
     )
 
     function selectYear(year) {
