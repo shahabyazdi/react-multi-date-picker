@@ -28,7 +28,7 @@ export default function MonthPicker({ state, setState }) {
 
 
     return (
-        <div className={`rmdp-month-picker`} style={{ display: state.mustShowMonthPicker ? "block" : "none", bottom: state.timePicker ? "75px" : "0" }}>
+        <div className={`rmdp-month-picker`} style={{ display: state.mustShowMonthPicker ? "block" : "none" }}>
             {months.map((array, i) => <div key={i} className="rmdp-week">
                 {array.map((name, j) => <div
                     key={j}

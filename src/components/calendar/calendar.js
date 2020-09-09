@@ -119,11 +119,13 @@ export default function Calendar({
 
     return (state.date ?
         <div className="rmdp-wrapper">
-            <div className="rmdp-calendar">
-                <Header state={state} setState={setState} />
-                <DayPicker state={state} setState={setState} onChange={onChange} />
-                <MonthPicker state={state} setState={setState} />
-                <YearPicker state={state} setState={setState} />
+            <div>
+                <div className="rmdp-calendar">
+                    <Header state={state} setState={setState} />
+                    <DayPicker state={state} setState={setState} onChange={onChange} />
+                    <MonthPicker state={state} setState={setState} />
+                    <YearPicker state={state} setState={setState} />
+                </div>
                 <TimePicker state={state} setState={setState} onChange={onChange} />
             </div>
             <DaysPanel state={state} setState={setState} onChange={onChange} />

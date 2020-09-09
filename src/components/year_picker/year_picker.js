@@ -30,7 +30,7 @@ export default function YearPicker({ state, setState }) {
     }, [state.date.year, years])
 
     return (
-        <div className={`rmdp-year-picker`} style={{ display: state.mustShowYearPicker ? "block" : "none", bottom: state.timePicker ? "75px" : "0" }}>
+        <div className={`rmdp-year-picker`} style={{ display: state.mustShowYearPicker ? "block" : "none" }}>
             {years.map((array, i) => <div
                 key={i}
                 className="rmdp-week"
