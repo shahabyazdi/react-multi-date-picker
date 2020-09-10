@@ -85,7 +85,7 @@ export default function DatePicker({
                 className={`rmdp-input ${className || ""}`}
                 placeholder={placeholder || ""}
                 value={stringDate}
-                onChange={() => { }}
+                onChange={handleValueChange}
                 style={style}
             />
             {isVisible && <div
@@ -109,6 +109,10 @@ export default function DatePicker({
 
     function handleClick() {
         setIsVisible(true)
+
+        if (!date && !value) {
+            setDate(new DateObject({ calendar, local }))
+        }
     }
 
     function handleChange($date) {
@@ -119,5 +123,20 @@ export default function DatePicker({
 
         if (onChange instanceof Function) onChange($date)
         if (!Array.isArray(date) && !isSameDate(date, $date)) setIsVisible(false)
+    }
+
+    function handleValueChange(e) {
+        let value = e.target.value
+        let digits = date.digits
+
+        if (!value || !digits) return
+
+        for (let digit of digits) {
+            value = value.replace(new RegExp(digit, "g"), digits.indexOf(digit))
+        }
+
+        let newDate = new DateObject(date).parse(value)
+
+        if (newDate.isValid) setDate(newDate)
     }
 }

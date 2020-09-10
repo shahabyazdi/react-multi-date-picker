@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from "react"
 import DayPicker from "../day_picker/day_picker"
 import Header from "../header/header"
-import DateObject from "react-date-object"
 import MonthPicker from "../month_picker/month_picker"
 import YearPicker from "../year_picker/year_picker"
-
-import "./calendar.css"
 import DaysPanel from "../days_panel/days_panel"
 import TimePicker from "../time_picker/time_picker"
+import DateObject from "react-date-object"
+import "./calendar.css"
 
 export default function Calendar({
     value,
@@ -83,6 +82,8 @@ export default function Calendar({
 
             selectedDate = value.map(val => validate(val, format, calendar, local, onlyTimePicker))
 
+            selectedDate.sort((a, b) => a - b)
+
             if (selectedDate[0]) {
                 date = new DateObject(selectedDate[0])
             } else {
@@ -118,7 +119,7 @@ export default function Calendar({
     ])
 
     return (state.date ?
-        <div className="rmdp-wrapper">
+        <div className={`rmdp-wrapper ${state.local !== "en" ? "rmdp-rtl" : ""}`}>
             <div>
                 <div className="rmdp-calendar">
                     <Header state={state} setState={setState} />

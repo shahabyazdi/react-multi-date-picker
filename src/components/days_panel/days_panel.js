@@ -3,9 +3,11 @@ import DateObject from "react-date-object"
 import { isSameDate } from "../day_picker/day_picker"
 
 export default function DaysPanel({ state, setState, onChange }) {
+    let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ" }
+
     return (
         <div className="rmpd-panel" style={{ display: state.mustShowDates ? "block" : "none" }}>
-            <div className="rmdp-panel-header">Dates</div>
+            <div className="rmdp-panel-header">{header[state.local]}</div>
             <ul className="rmdp-panel-body">
                 {Array.isArray(state.selectedDate) ?
                     state.selectedDate.map(($date, index) => <li

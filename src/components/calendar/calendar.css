@@ -65,8 +65,7 @@
   outline: none;
 }
 
-.rmdp-week,
-.rmdp-header {
+.rmdp-week {
   display: flex;
   justify-content: center;
   font-size: 14px;
@@ -163,11 +162,12 @@
 .rmdp-header,
 .rmdp-panel-header {
   border-bottom: 1px solid #8798ad;
-  padding: 8px 4px;
+  height: 28px;
+  padding-top: 8px;
 }
 
 .rmdp-panel-header {
-  padding: 7px 4px;
+  font-size: 14px;
 }
 
 .rmdp-month-picker,
@@ -183,6 +183,7 @@
 
 .rmdp-header-values {
   flex: 1;
+  margin-top: -2px;
 }
 
 .rmdp-header-values span {
@@ -309,6 +310,35 @@
   width: 220px;
 }
 
+.rmdp-rtl {
+  direction: rtl;
+}
+
+.rmdp-rtl .rmdp-left {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-left: unset;
+  margin-right: 3px;
+}
+
+.rmdp-rtl .rmdp-right {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-right: unset;
+  margin-left: 3px;
+}
+
+.rmdp-rtl .rmpd-panel {
+  border-left: unset;
+  border-right: 1px solid #8798ad;
+}
+
+.rmdp-rtl .b-deselect {
+  margin-left: unset;
+  margin-right: 4px;
+  margin-top: 5.5px;
+}
+
 @media (max-width: 500px) {
   .rmdp-day,
   .rmdp-week-day {
@@ -345,9 +375,5 @@
   .rmdp-year-picker,
   .rmdp-month-picker {
     top: 41px;
-  }
-
-  .rmdp-header-values {
-    margin-top: 1px;
   }
 }
