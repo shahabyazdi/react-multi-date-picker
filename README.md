@@ -21,23 +21,26 @@ export default function Example() {
 
 ## Demo
 
-[Demo](https://shahabyazdi.github.io/react-multi-date-picker/)
+[https://shahabyazdi.github.io/react-multi-date-picker](https://shahabyazdi.github.io/react-multi-date-picker/)
 
 ## Availble props
 
-| Key            |                                      value                                       |         default         |
-| -------------- | :------------------------------------------------------------------------------: | :---------------------: |
-| value          | Date, [DateObject](https://github.com/shahabyazdi/date-object), String or Number |       new Date()        |
-| timePicker     |                                     Boolean                                      |          false          |
-| onlyTimePicker |                                     Boolean                                      |          false          |
-| liveChange     |                                     Boolean                                      |          false          |
-| multiple       |                                     Boolean                                      |          false          |
-| mustShowDates  |                                     Boolean                                      | true (in multiple mode) |
-| range          |                                     Boolean                                      |          false          |
-| format         |                                      String                                      |       YYYY/MM/DD        |
-| local          |                                   en, fa or ar                                   |           en            |
-| calendar       |                           gregorian, persian or arabic                           |        gregorian        |
-| onChange       |                                     Function                                     |            -            |
+| Key            |                                             value                                             |             default             | Availability (DatePicker/ Calendar) |
+| -------------- | :-------------------------------------------------------------------------------------------: | :-----------------------------: | ----------------------------------- |
+| value          | Date, [DateObject](https://github.com/shahabyazdi/react-date-object), String, Number or Array |           new Date()            | both                                |
+| range          |                                            Boolean                                            |              false              | both                                |
+| timePicker     |                                            Boolean                                            |              false              | both                                |
+| onlyTimePicker |                                            Boolean                                            |              false              | both                                |
+| mustShowDates  |                                            Boolean                                            | true (in multiple & range mode) | both                                |
+| range          |                                            Boolean                                            |              false              | both                                |
+| format         |                                            String                                             |           YYYY/MM/DD            | both                                |
+| local          |                                         en, fa or ar                                          |               en                | both                                |
+| calendar       |                                 gregorian, persian or arabic                                  |            gregorian            | both                                |
+| onChange       |                                           Function                                            |            undefined            | both                                |
+| name           |                                            String                                             |            undefined            | DatePicker                          |
+| placeholder    |                                            String                                             |            undefined            | DatePicker                          |
+| className      |                                            String                                             |            undefined            | DatePicker                          |
+| style          |                                            Object                                             |               {}                | DatePicker                          |
 
 ## Example
 

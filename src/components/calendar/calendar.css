@@ -339,6 +339,20 @@
   margin-top: 5.5px;
 }
 
+.rmdp-range.start {
+  border-top-left-radius: unset;
+  border-bottom-left-radius: unset;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.rmdp-range.end {
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
 @media (max-width: 500px) {
   .rmdp-day,
   .rmdp-week-day {
