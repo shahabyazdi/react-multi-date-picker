@@ -37,7 +37,7 @@ export default function Example() {
 | local          |                                         en, fa or ar                                          |               en                | both                                |
 | calendar       |                                 gregorian, persian or arabic                                  |            gregorian            | both                                |
 | onChange       |                                           Function                                            |            undefined            | both                                |
-| className      |                                            String                                             |               ""                | DatePicker                          |
+| className      |                                            String                                             |               ""                | both                                |
 | inputClass     |                                            String                                             |               ""                | DatePicker                          |
 | name           |                                            String                                             |               ""                | DatePicker                          |
 | placeholder    |                                            String                                             |               ""                | DatePicker                          |
