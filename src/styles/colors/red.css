@@ -1,0 +1,63 @@
+.red .rmdp-wrapper {
+  border: 1px solid #ad8787;
+  box-shadow: 0 0 5px #ad8787;
+}
+
+.red .rmdp-panel-body li {
+  background-color: #ea0034;
+  box-shadow: 0 0 2px #ad8787;
+}
+
+.red .rmdp-week-day {
+  color: #ea0034;
+}
+
+.red .rmdp-day.rmdp-deactive {
+  color: #ad8787;
+}
+
+.red .rmdp-range {
+  background-color: #ea0034;
+  box-shadow: 0 0 3px #fde5e5;
+}
+
+.red .rmdp-header,
+.red .rmdp-panel-header {
+  border-bottom: 1px solid #ad8787;
+}
+
+.red .rmdp-arrow {
+  border: solid #ea0034;
+  border-width: 0 2px 2px 0;
+}
+
+.red .rmdp-arrow-container:hover {
+  background-color: #ea0034;
+  box-shadow: 0 0 3px #ad8787;
+}
+
+.red .rmdp-time-picker {
+  border-top: 1px solid #ad8787;
+}
+
+.red .rmdp-panel-body::-webkit-scrollbar-thumb {
+  background: #ea0034;
+}
+
+.red .rmdp-day.rmdp-today span {
+  background-color: #fd2903;
+}
+
+.red .rmdp-rtl .rmpd-panel {
+  border-left: unset;
+  border-right: 1px solid #ad8787;
+}
+
+.red .rmdp-day.rmdp-selected span {
+  background-color: #ea0034;
+  box-shadow: 0 0 3px #ad8787;
+}
+
+.red .rmdp-day:hover span {
+  background-color: #ff6687;
+}

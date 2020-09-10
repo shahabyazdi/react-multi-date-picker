@@ -1,6 +1,6 @@
 # DatePicker
 
-![DatePicker](/example/screenshot.jpg?raw=true)
+![DatePicker](/screenshot/screenshot.jpg?raw=true)
 
 ## Installation
 
@@ -37,9 +37,10 @@ export default function Example() {
 | local          |                                         en, fa or ar                                          |               en                | both                                |
 | calendar       |                                 gregorian, persian or arabic                                  |            gregorian            | both                                |
 | onChange       |                                           Function                                            |            undefined            | both                                |
-| name           |                                            String                                             |            undefined            | DatePicker                          |
-| placeholder    |                                            String                                             |            undefined            | DatePicker                          |
-| className      |                                            String                                             |            undefined            | DatePicker                          |
+| className      |                                            String                                             |               ""                | DatePicker                          |
+| inputClass     |                                            String                                             |               ""                | DatePicker                          |
+| name           |                                            String                                             |               ""                | DatePicker                          |
+| placeholder    |                                            String                                             |               ""                | DatePicker                          |
 | style          |                                            Object                                             |               {}                | DatePicker                          |
 
 ## Example

@@ -17,7 +17,8 @@ export default function Calendar({
     onlyTimePicker,
     onChange,
     range = false,
-    mustShowDates = true
+    mustShowDates = true,
+    className
 }) {
     let [state, setState] = useState({ value, calendar, mustShowYearPicker: false, mustShowMonthPicker: false })
     let validationRef = useRef(null)
@@ -119,7 +120,7 @@ export default function Calendar({
     ])
 
     return (state.date ?
-        <div className={`rmdp-wrapper ${state.local !== "en" ? "rmdp-rtl" : ""}`}>
+        <div className={`rmdp-wrapper ${state.local !== "en" ? "rmdp-rtl" : ""} ${className || ""}`}>
             <div>
                 <div className="rmdp-calendar">
                     <Header state={state} setState={setState} />

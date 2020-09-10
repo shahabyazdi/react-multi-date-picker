@@ -1,0 +1,28 @@
+.bg-gray.rmdp-wrapper,
+.bg-gray .rmdp-month-picker,
+.bg-gray .rmdp-year-picker {
+  background-color: rgb(177, 171, 171);
+  color: rgb(255, 255, 255);
+}
+
+.bg-gray .rmdp-day.rmdp-deactive {
+  color: #e3e5e9;
+}
+
+.bg-gray .rmdp-header,
+.bg-gray .rmdp-panel-header {
+  border-bottom: 1px solid #6b6969;
+}
+
+.bg-gray .rmpd-panel {
+  border-left: 1px solid #6b6969;
+}
+
+.bg-gray .rmdp-time-picker {
+  border-top: 1px solid #6b6969;
+}
+
+.bg-gray .rmdp-time-picker div input {
+  background-color: rgb(177, 171, 171);
+  color: white;
+}

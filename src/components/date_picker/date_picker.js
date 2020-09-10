@@ -17,7 +17,8 @@ export default function DatePicker({
     name,
     placeholder,
     style = {},
-    className
+    className,
+    inputClass
 }) {
     let [isVisible, setIsVisible] = useState(false)
     let [date, setDate] = useState(null)
@@ -82,7 +83,7 @@ export default function DatePicker({
                 type="text"
                 name={name || ""}
                 onClick={handleClick}
-                className={`rmdp-input ${className || ""}`}
+                className={`rmdp-input ${inputClass || ""}`}
                 placeholder={placeholder || ""}
                 value={stringDate}
                 onChange={handleValueChange}
@@ -102,6 +103,7 @@ export default function DatePicker({
                     timePicker={timePicker}
                     onlyTimePicker={onlyTimePicker}
                     mustShowDates={mustShowDates}
+                    className={className}
                 />
             </div>}
         </div>
@@ -111,7 +113,8 @@ export default function DatePicker({
         setIsVisible(true)
 
         if (!date && !value) {
-            setDate(new DateObject({ calendar, local }))
+            handleChange(new DateObject({ calendar, local }))
+            setIsVisible(true)
         }
     }
 
