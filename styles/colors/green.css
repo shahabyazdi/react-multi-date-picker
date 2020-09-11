@@ -18,7 +18,7 @@
 
 .green .rmdp-range {
   background-color: #3d9970;
-  box-shadow: 0 0 3px #e7fde5;
+  /* box-shadow: 0 0 3px #e7fde5; */
 }
 
 .green .rmdp-header,
@@ -38,6 +38,10 @@
 
 .green .rmdp-time-picker {
   border-top: 1px solid #87ad92;
+}
+
+.green .rmdp-only-time-picker {
+  border-top: unset;
 }
 
 .green .rmdp-panel-body::-webkit-scrollbar-thumb {
@@ -60,4 +64,9 @@
 
 .green .rmdp-day:hover span {
   background-color: #2ecc40;
+}
+
+.green .b-deselect {
+  color: #39795c;
+  background-color: white;
 }

@@ -18,7 +18,7 @@
 
 .red .rmdp-range {
   background-color: #ea0034;
-  box-shadow: 0 0 3px #fde5e5;
+  box-shadow: 0 0 3px #cfb6b6;
 }
 
 .red .rmdp-header,
@@ -40,12 +40,16 @@
   border-top: 1px solid #ad8787;
 }
 
+.red .rmdp-only-time-picker {
+  border-top: unset;
+}
+
 .red .rmdp-panel-body::-webkit-scrollbar-thumb {
   background: #ea0034;
 }
 
 .red .rmdp-day.rmdp-today span {
-  background-color: #fd2903;
+  background-color: #ff5638;
 }
 
 .red .rmdp-rtl .rmpd-panel {
@@ -60,4 +64,9 @@
 
 .red .rmdp-day:hover span {
   background-color: #ff6687;
+}
+
+.red .b-deselect {
+  color: #af1738;
+  background-color: white;
 }

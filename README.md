@@ -43,7 +43,7 @@ export default function Example() {
 | placeholder    |                                            String                                             |               ""                | DatePicker                          |
 | style          |                                            Object                                             |               {}                | DatePicker                          |
 
-## Example
+## Examples
 
 ### 1- Date
 
@@ -121,8 +121,8 @@ export default function Example() {
     value={new Date()}
     format="YYYY/MM/DD hh:mm:ss a"
     timePicker
-    onChange={(stringDate,dateObject)=>{
-        console.log(stringDate,dateObject.toDate())
+    onChange={dateObject=>{
+        console.log(dateObject.toDate())
     }}
 />
 
@@ -130,19 +130,8 @@ export default function Example() {
     value="2020/08/27 11:10:59 am"
     format="YYYY/MM/DD hh:mm:ss a"
     timePicker
-    onChange={(stringDate, dateObject)=>{
+    onChange={dateObject =>{
         if(dateObject.isValid){
-            console.log(stringDate)
-        }
-    }}
-/>
-
-<DatePicker
-    value="2020/08/27 11:10:59 am"
-    format="YYYY/MM/DD hh:mm:ss a"
-    timePicker
-    onChange={(stringDate, dateObject)=>{
-        if(dateObject.weekDay.name === "Friday" ){
             console.log(dateObject.format())
         }
     }}
@@ -158,8 +147,8 @@ export default function Example() {
     calendar="persian"
     local="fa"
     timePicker
-    onChange={(stringDate,dateObject)=>{
-        console.log(stringDate,dateObject.convert("gregorian"))
+    onChange={dateObject =>{
+        console.log(dateObject.convert("gregorian").format())
     }}
 />
 

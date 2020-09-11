@@ -113,7 +113,7 @@ export default function DatePicker({
         setIsVisible(true)
 
         if (!date && !value) {
-            handleChange(new DateObject({ calendar, local }))
+            handleChange(validate(date, format, calendar, local, onlyTimePicker))
             setIsVisible(true)
         }
     }
