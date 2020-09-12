@@ -77,6 +77,7 @@
   width: 34px;
   cursor: pointer;
   position: relative;
+  color: black;
 }
 
 .rmdp-week-day {
@@ -184,6 +185,7 @@
 .rmdp-header-values {
   flex: 1;
   margin-top: -2px;
+  color: black;
 }
 
 .rmdp-header-values span {
@@ -294,15 +296,17 @@
   -moz-appearance: textfield;
 }
 
-.rmdp-time-picker div .rmdp-am,
 .rmdp-time-picker .dvdr {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: -5px;
 }
 
 .rmdp-time-picker div .rmdp-am {
   font-size: 13px;
+  color: black;
+  margin-top: 2px;
 }
 
 .rmdp-only-time-picker {

@@ -36,7 +36,7 @@ export default function DayPicker({ state, setState, onChange }) {
                     onClick={() => { selectDay(object.date) }}
                     className={getClassName(object)}
                 >
-                    <span>{object.date.format("D")}</span>
+                    <span className="sd">{object.date.format("D")}</span>
                 </div>)}
             </div>
             )}

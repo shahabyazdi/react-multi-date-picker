@@ -18,7 +18,8 @@ export default function DatePicker({
     placeholder,
     style = {},
     className,
-    inputClass
+    inputClass,
+    readOnly
 }) {
     let [isVisible, setIsVisible] = useState(false)
     let [date, setDate] = useState(null)
@@ -33,6 +34,11 @@ export default function DatePicker({
                 !inputRef.current.contains(event.target) &&
                 !calendarRef.current.contains(event.target) &&
                 !event.target.classList.contains("b-deselect")) {
+
+                setIsVisible(false)
+            } else if (inputRef.current && calendarRef.current &&
+                calendarRef.current.contains(event.target) &&
+                event.target.classList.contains("sd")) {
 
                 setIsVisible(false)
             }
@@ -88,6 +94,8 @@ export default function DatePicker({
                 value={stringDate}
                 onChange={handleValueChange}
                 style={style}
+                autoComplete="off"
+                readOnly={readOnly ? true : false}
             />
             {isVisible && <div
                 ref={calendarRef}
@@ -110,12 +118,11 @@ export default function DatePicker({
     )
 
     function handleClick() {
-        setIsVisible(true)
-
         if (!date && !value) {
             handleChange(validate(date, format, calendar, local, onlyTimePicker))
-            setIsVisible(true)
         }
+
+        setIsVisible(true)
     }
 
     function handleChange($date) {
@@ -125,7 +132,6 @@ export default function DatePicker({
         changeStringDate($date)
 
         if (onChange instanceof Function) onChange($date)
-        if (!Array.isArray(date) && !isSameDate(date, $date)) setIsVisible(false)
     }
 
     function handleValueChange(e) {

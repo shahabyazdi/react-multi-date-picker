@@ -5,3 +5,9 @@
   background-color: rgb(49, 47, 47);
   color: rgb(196, 199, 202);
 }
+
+.bg-dark .rmdp-day,
+.bg-dark .rmdp-time-picker div .rmdp-am,
+.bg-dark .rmdp-header-values {
+  color: rgb(196, 199, 202);
+}

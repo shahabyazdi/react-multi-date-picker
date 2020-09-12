@@ -5,6 +5,12 @@
   color: white;
 }
 
+.bg-gray .rmdp-day,
+.bg-gray .rmdp-time-picker div .rmdp-am,
+.bg-gray .rmdp-header-values {
+  color: white;
+}
+
 .bg-gray .rmdp-day.rmdp-deactive {
   color: #e3e5e9;
 }
