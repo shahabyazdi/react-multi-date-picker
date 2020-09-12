@@ -11,3 +11,7 @@
 .bg-dark .rmdp-header-values {
   color: rgb(196, 199, 202);
 }
+
+.bg-dark .rmdp-day.rmdp-range {
+  color: white;
+}
