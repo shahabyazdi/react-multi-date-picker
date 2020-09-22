@@ -7,16 +7,23 @@ export default function TimePicker({ state, setState, onChange }) {
     const [am, setAm] = useState(true)
     const [mustDisplayMeridiem, setMustDisplayMeridiem] = useState(false)
     const [meridiems] = useState(new DateObject({ calendar: state.calendar, local: state.local }).meridiems)
+    const hour = state.selectedDate?.hour
 
     useEffect(() => {
+        if (Array.isArray(state.selectedDate)) return
+
         const $mustDisplayMeridiem = state.format && (state.format.toLowerCase().includes("a") || state.format.includes("hh"))
 
         setMustDisplayMeridiem($mustDisplayMeridiem)
 
-        if ($mustDisplayMeridiem && state.selectedDate) {
-            setAm(state.selectedDate.hour < 12 ? true : false)
+        if ($mustDisplayMeridiem) {
+            let $hour = hour
+
+            if (typeof $hour === "undefined") $hour = new Date().getHours()
+
+            setAm($hour < 12 ? true : false)
         }
-    }, [state.selectedDate, state.format, state.multiple])
+    }, [state.selectedDate, hour, state.format, state.multiple])
 
     if (state.multiple || state.range) return null
 
@@ -71,6 +78,8 @@ export default function TimePicker({ state, setState, onChange }) {
         value = Number(value)
         let { selectedDate } = state
 
+        if (!selectedDate) selectedDate = state.date
+
         switch (type) {
             case "hours":
                 selectedDate.hour += value
@@ -113,21 +122,23 @@ export default function TimePicker({ state, setState, onChange }) {
             if (!state.selectedDate.hour) state.selectedDate.hour = 0
 
             hours = mustDisplayMeridiem ? state.selectedDate.format("hh") : state.selectedDate.format("HH")
+        } else {
+            hours = mustDisplayMeridiem ? state.date.format("hh") : state.date.format("HH")
         }
 
         return hours
     }
 
     function getMinutes() {
-        if (!state.selectedDate.minute) state.selectedDate.minute = 0
+        if (state.selectedDate && !state.selectedDate.minute) state.selectedDate.minute = 0
 
-        return state.selectedDate ? state.selectedDate.format("mm") : ""
+        return state.selectedDate ? state.selectedDate.format("mm") : state.date.format("mm")
     }
 
     function getSeconds() {
-        if (!state.selectedDate.second) state.selectedDate.second = 0
+        if (state.selectedDate && !state.selectedDate.second) state.selectedDate.second = 0
 
-        return state.selectedDate ? state.selectedDate.format("ss") : ""
+        return state.selectedDate ? state.selectedDate.format("ss") : state.date.format("ss")
     }
 
     function getStyle() {

@@ -15,3 +15,7 @@
 .bg-dark .rmdp-day.rmdp-range {
   color: white;
 }
+
+.bg-dark .rmdp-panel-body li {
+  color: rgb(245, 245, 245);
+}

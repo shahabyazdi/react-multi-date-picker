@@ -44,9 +44,9 @@ export default function DayPicker({ state, setState, onChange }) {
     )
 
     function selectDay(date) {
-        date.hour = state.selectedDate.hour
-        date.minute = state.selectedDate.minute
-        date.second = state.selectedDate.second
+        date.hour = state.selectedDate?.hour || state.date.hour
+        date.minute = state.selectedDate?.minute || state.date.minute
+        date.second = state.selectedDate?.second || state.date.second
 
         let $state = {
             ...state,

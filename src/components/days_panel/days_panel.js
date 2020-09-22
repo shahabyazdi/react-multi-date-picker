@@ -13,7 +13,7 @@ export default function DaysPanel({ state, setState, onChange }) {
                     state.selectedDate.map(($date, index) => <li
                         key={index}>
                         <span onClick={() => selectDate($date)}>{$date.format()}</span>
-                        <button className="b-deselect" onClick={() => deSelect($date)}>+</button>
+                        <button type="button" className="b-deselect" onClick={() => deSelect($date)}>+</button>
                     </li>)
                     :
                     <li>{state.stringDate}</li>

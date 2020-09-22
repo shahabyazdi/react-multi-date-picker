@@ -50,7 +50,10 @@ export default function Calendar({
 
             date = validate(value, format, calendar, local, onlyTimePicker)
 
-            selectedDate = new DateObject(date)
+            if (value && (!(value instanceof DateObject) || (value instanceof DateObject && value.isValid))) {
+                selectedDate = new DateObject(date)
+            }
+
             $mustShowDates = false
             $range = false
 
@@ -62,6 +65,8 @@ export default function Calendar({
                 format === state.format &&
                 range === state.range &&
                 mustShowDates === state.mustShowDates) {
+
+                if (value.length === 0 && state.selectedDate.length === 0) return
 
                 let $value = validationRef.current.value,
                     $selectedDate = validationRef.current.selectedDate
