@@ -14,6 +14,10 @@
   background-color: white;
 }
 
+.rmdp-calendar-container {
+  z-index: 1000000;
+}
+
 .rmdp-calendar {
   position: relative;
 }
@@ -169,6 +173,7 @@
 
 .rmdp-panel-header {
   font-size: 14px;
+  color: black;
 }
 
 .rmdp-month-picker,

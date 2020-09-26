@@ -7,7 +7,8 @@
 
 .bg-gray .rmdp-day,
 .bg-gray .rmdp-time-picker div .rmdp-am,
-.bg-gray .rmdp-header-values {
+.bg-gray .rmdp-header-values,
+.bg-gray .rmdp-panel-header {
   color: white;
 }
 

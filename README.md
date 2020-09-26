@@ -34,8 +34,8 @@ export default function Example() {
 | mustShowDates  |                                            Boolean                                            | true (in multiple & range mode) | both                                |
 | range          |                                            Boolean                                            |              false              | both                                |
 | format         |                                            String                                             |           YYYY/MM/DD            | both                                |
-| local          |                                         en, fa or ar                                          |               en                | both                                |
-| calendar       |                                 gregorian, persian or arabic                                  |            gregorian            | both                                |
+| local          |                                 String ( "en", "fa" or "ar" )                                 |               en                | both                                |
+| calendar       |                          String ("gregorian", "persian" or "arabic")                          |            gregorian            | both                                |
 | onChange       |                                           Function                                            |            undefined            | both                                |
 | className      |                                            String                                             |               ""                | both                                |
 | inputClass     |                                            String                                             |               ""                | DatePicker                          |

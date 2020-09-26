@@ -101,7 +101,7 @@ export default function DatePicker({
                 ref={inputRef}
                 type="text"
                 name={name || ""}
-                onClick={handleClick}
+                onFocus={openCalendar}
                 className={`rmdp-input ${inputClass || ""}`}
                 placeholder={placeholder || ""}
                 value={stringDate}
@@ -130,7 +130,7 @@ export default function DatePicker({
         </div>
     )
 
-    function handleClick() {
+    function openCalendar() {
         if (!value && !ref.current.value) {
             handleChange(date)
 
