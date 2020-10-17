@@ -1,38 +1,36 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useMemo } from "react"
 import DateObject from "react-date-object"
 import WeekDays from "../week_days/week_days"
 
 export default function DayPicker({ state, setState, onChange }) {
     let [weeks, setWeeks] = useState([])
-    let dateRef = useRef(false)
-    let today = useRef(new DateObject({ calendar: state.calendar }))
+    let ref = useRef(false)
+    let today = useMemo(() => new DateObject({ calendar: state.calendar }), [state.calendar])
 
     useEffect(() => {
-        let date = dateRef.current
-
-        if (!date) {
-            dateRef.current = new DateObject(state.date)
+        if (!ref.current) {
             setWeeks(getWeeks(state.date))
         } else {
-            if (state.date.year !== date.year ||
-                state.date.month.number !== date.month.number ||
-                state.local !== date.local ||
-                state.calendar !== date.calendar) {
+            let { month, year, local, calendar } = ref.current
 
-                dateRef.current = new DateObject(state.date)
-                today.current = new DateObject({ calendar: state.calendar })
+            if (
+                state.date.month.number === month.number &&
+                state.date.year === year &&
+                state.local === local &&
+                state.calendar === calendar
+            ) return
 
-                setWeeks(getWeeks(state.date))
-            }
+            setWeeks(getWeeks(state.date))
         }
-    }, [state.date, state.date.month, state.year, state.local, state.calendar])
+
+        ref.current = state.date.toObject()
+    }, [state.date, state.date.month, state.date.year, state.local, state.calendar])
 
     return (
         <div className="rmdp-day-picker" style={{ display: state.onlyTimePicker ? "none" : "block" }}>
             <WeekDays state={state} />
             {weeks.map((week, index) => <div key={index} className="rmdp-week">
                 {week.map(object => <div key={object.date.day}
-                    format-date={object.date.format()}
                     onClick={() => { selectDay(object.date) }}
                     className={getClassName(object)}
                 >
@@ -44,9 +42,10 @@ export default function DayPicker({ state, setState, onChange }) {
     )
 
     function selectDay(date) {
-        date.hour = state.selectedDate?.hour || state.date.hour
-        date.minute = state.selectedDate?.minute || state.date.minute
-        date.second = state.selectedDate?.second || state.date.second
+        date
+            .setHour(state.selectedDate?.hour || state.date.hour)
+            .setMinute(state.selectedDate?.minute || state.date.minute)
+            .setSecond(state.selectedDate?.second || state.date.second)
 
         let $state = {
             ...state,
@@ -79,7 +78,7 @@ export default function DayPicker({ state, setState, onChange }) {
     function getClassName(object) {
         let names = ["rmdp-day"]
         if (!object.current) names.push("rmdp-deactive")
-        if (isSameDate(object.date, today.current)) names.push("rmdp-today")
+        if (isSameDate(object.date, today)) names.push("rmdp-today")
         if (isSelected(object.date)) names.push("rmdp-selected")
 
         if (state.range) {

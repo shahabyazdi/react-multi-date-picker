@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import DayPicker from "../day_picker/day_picker"
 import Header from "../header/header"
 import MonthPicker from "../month_picker/month_picker"
@@ -17,112 +17,122 @@ export default function Calendar({
     onlyTimePicker,
     onChange,
     range = false,
+    multiple = false,
     mustShowDates = true,
     className
 }) {
-    let [state, setState] = useState({ value, calendar, mustShowYearPicker: false, mustShowMonthPicker: false })
-    let validationRef = useRef(null)
+    let [state, setState] = useState({})
 
     useEffect(() => {
-        if (validationRef.current) validationRef.current.selectedDate = state.selectedDate
-    }, [state.selectedDate])
+        setState(state => {
+            let { date, selectedDate, initialValue } = state
 
-    useEffect(() => {
-        var date,
-            selectedDate,
-            multiple = false,
-            $timePicker = timePicker ? true : false,
-            $onlyTimePicker = onlyTimePicker ? true : false,
-            $range = range ? true : false,
-            $mustShowDates = mustShowDates ? true : false
+            let $mustShowDates = multiple || range || Array.isArray(value) ? mustShowDates : false,
+                $timePicker = timePicker,
+                $onlyTimePicker = onlyTimePicker,
+                $multiple = multiple,
+                $format = onlyTimePicker && !format ? "hh:mm:ss a" : format
 
-        if (!Array.isArray(value)) {
-            if (validationRef.current &&
-                calendar === state.calendar &&
-                local === state.local &&
-                format === state.format &&
-                $timePicker === state.timePicker &&
-                $onlyTimePicker === state.onlyTimePicker
-            ) {
-                if (validationRef.current.value === value) return
-                if (validationRef.current.selectedDate === value) return
+            if (!value) {
+                if (!date) date = new DateObject({ date, calendar, local, format: $format })
+                if (initialValue) selectedDate = undefined
             }
 
-            date = validate(value, format, calendar, local, onlyTimePicker)
+            if (value) {
+                let $value = [].concat(value)
+                let isValid = $value.every(val => isValidDateObject(val, calendar, local, $format))
 
-            if (value && (!(value instanceof DateObject) || (value instanceof DateObject && value.isValid))) {
-                selectedDate = new DateObject(date)
-            }
+                let isValueSameAsInitialValue = false
 
-            $mustShowDates = false
-            $range = false
+                if (!isValid) {
+                    initialValue = initialValue ? [].concat(initialValue) : []
 
-        } else {
-            if (validationRef.current &&
-                Array.isArray(validationRef.current.value) &&
-                calendar === state.calendar &&
-                local === state.local &&
-                format === state.format &&
-                range === state.range &&
-                mustShowDates === state.mustShowDates) {
-
-                if (value.length === 0 && state.selectedDate.length === 0) return
-
-                let $value = validationRef.current.value,
-                    $selectedDate = validationRef.current.selectedDate
-
-                for (let i = 0; i < $value.length; i++) {
-                    if ($value[i] !== value[i]) return
+                    isValueSameAsInitialValue = $value.every((val, index) => isSame(val, initialValue[index]))
                 }
 
-                for (let i = 0; i < $selectedDate.length; i++) {
-                    if ($selectedDate[i] !== value[i]) return
+                if (!isValid && !isValueSameAsInitialValue) {
+                    date = new DateObject({
+                        date: Array.isArray(value) ? value[value.length - 1] : value,
+                        calendar,
+                        local,
+                        format: $format
+                    })
+
+                    if (!date.isValid) date = new DateObject({ calendar, local, format: $format })
+
+                    if (Array.isArray(value)) {
+                        selectedDate = value.map(val => {
+                            if (val instanceof DateObject) return val
+
+                            let date = new DateObject({ date: val, calendar, local, format: $format })
+
+                            return date.isValid ? date : undefined
+                        }).filter(i => i !== undefined)
+                    } else if (value instanceof DateObject) {
+                        selectedDate = value.isValid ? value : undefined
+                    } else {
+                        selectedDate = new DateObject({ date: value, calendar, local, format: $format })
+
+                        if (!selectedDate.isValid) selectedDate = undefined
+                    }
+                } else {
+                    selectedDate = isValid ? value : undefined
                 }
+
+                date = Array.isArray(selectedDate) ?
+                    new DateObject(selectedDate[selectedDate.length - 1])
+                    :
+                    new DateObject(selectedDate)
             }
 
-            if (!range) multiple = true
-            if (range && value.length > 2) value.length = 2
+            if (date.calendar !== calendar) date.setCalendar(calendar)
+            if (date.local !== local) date.setLocal(local)
+            if (date._format !== $format) date.setFormat($format)
 
-            $onlyTimePicker = false
-            $timePicker = false
+            if (Array.isArray(selectedDate)) {
+                selectedDate = selectedDate.map($date => {
+                    if ($date.calendar !== calendar) $date.setCalendar(calendar)
+                    if ($date.local !== local) $date.setLocal(local)
+                    if ($date._format !== $format) $date.setFormat($format)
 
-            selectedDate = value.map(val => validate(val, format, calendar, local, onlyTimePicker))
-
-            selectedDate.sort((a, b) => a - b)
-
-            if (selectedDate[0]) {
-                date = new DateObject(selectedDate[0])
+                    return $date
+                })
             } else {
-                date = state.date ? new DateObject({ date: state.date, calendar, local, format }) : new DateObject({ calendar, local, format })
+                if (selectedDate && selectedDate.calendar !== calendar) selectedDate.setCalendar(calendar)
+                if (selectedDate && selectedDate.local !== local) selectedDate.setLocal(local)
+                if (selectedDate && selectedDate._format !== $format) selectedDate.setFormat($format)
             }
-        }
 
-        validationRef.current = { value, selectedDate }
+            if ($multiple || range || Array.isArray(value)) {
+                if (!selectedDate) selectedDate = []
+                if (!Array.isArray(selectedDate)) selectedDate = [selectedDate]
+                if (range && selectedDate.length > 2) selectedDate = [selectedDate[0], selectedDate[selectedDate.length - 1]]
+                if (!range && !$multiple) $multiple = true
 
-        setState({
-            ...state,
-            date,
-            selectedDate,
-            calendar,
-            local,
-            format,
-            multiple,
-            timePicker: $timePicker,
-            onlyTimePicker: $onlyTimePicker,
-            range: $range,
-            mustShowDates: $mustShowDates
+                $timePicker = false
+                $onlyTimePicker = false
+            } else {
+                if (Array.isArray(selectedDate)) selectedDate = selectedDate[selectedDate.length - 1]
+
+                $mustShowDates = false
+            }
+
+            return {
+                ...state,
+                date,
+                selectedDate,
+                local,
+                calendar,
+                multiple: $multiple,
+                range,
+                mustShowDates: $mustShowDates,
+                timePicker: $timePicker,
+                onlyTimePicker: $onlyTimePicker,
+                initialValue: state.initialValue || value,
+                format: $format
+            }
         })
-    }, [
-        state,
-        value,
-        format,
-        calendar,
-        local,
-        timePicker,
-        onlyTimePicker,
-        range,
-        mustShowDates
-    ])
+    }, [value, calendar, local, format, timePicker, onlyTimePicker, range, multiple, mustShowDates])
 
     return (state.date ?
         <div className={`rmdp-wrapper ${state.local !== "en" ? "rmdp-rtl" : ""} ${className || ""}`}>
@@ -142,24 +152,26 @@ export default function Calendar({
     )
 }
 
-export function validate(date, format, calendar, local, onlyTimePicker) {
-    let parsedDate = new DateObject({ date, format, calendar, local })
+function isValidDateObject(date, calendar, local, format) {
+    return date instanceof DateObject &&
+        date.isValid &&
+        date.calendar === calendar &&
+        date.local === local &&
+        date._format === format
+}
 
-    if (!parsedDate.isValid) parsedDate = new DateObject({ calendar, local })
+function isSame(arg1, arg2) {
+    if ((arg1 instanceof Date) && !(arg2 instanceof Date)) return false
+    if ((arg1 instanceof DateObject) && !(arg2 instanceof DateObject)) return false
+    if ((arg1 instanceof Date) || (arg1 instanceof DateObject)) {
+        if (arg1 instanceof Date && !isValidDate(arg1) && !isValidDate(arg2)) return true
 
-    if (date && typeof date === "string" && onlyTimePicker) {
-        if (format) {
-            parsedDate.setFormat(format).parse(date)
-        } else {
-            format = "hh:mm:ss a"
-            parsedDate.setFormat(format)
-        }
+        return arg1 - arg2 === 0
     }
 
-    if (!date && !format && onlyTimePicker) {
-        format = "hh:mm:ss a"
-        parsedDate.setFormat(format)
-    }
+    return arg1 === arg2
+}
 
-    return parsedDate
+function isValidDate(date) {
+    return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())
 }

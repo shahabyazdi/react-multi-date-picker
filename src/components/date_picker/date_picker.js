@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react"
-import Calendar, { validate } from "../calendar/calendar"
+import React, { useState, useEffect, useRef, useMemo } from "react"
+import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
 import "./date_picker.css"
 
@@ -12,21 +12,25 @@ export default function DatePicker({
     onlyTimePicker,
     onChange,
     range = false,
+    multiple = false,
     mustShowDates = true,
     name,
     placeholder,
     style = {},
     className,
     inputClass,
-    readOnly
+    disabled,
+    type = "input"
 }) {
-    let [date, setDate] = useState(null)
+    let [date, setDate] = useState(value)
     let [stringDate, setStringDate] = useState("")
     let [isVisible, setIsVisible] = useState(false)
     let datePickerRef = useRef(null)
     let inputRef = useRef(null)
     let calendarRef = useRef(null)
-    let ref = useRef({})
+    let ref = useRef({ _calendar: calendar, _local: local, _format: format })
+
+    let separator = useMemo(() => range ? " ~ " : ", ", [range])
 
     useEffect(() => {
         const handleClickOutside = event => {
@@ -51,65 +55,63 @@ export default function DatePicker({
     }, [])
 
     useEffect(() => {
-        if (range && Array.isArray(value) && value.length > 2) {
-            value.length = 2
-        }
+        ref.current.date = value
 
-        if (value !== ref.current.date ||
-            range !== ref.current.range ||
-            calendar !== ref.current.calendar ||
-            format !== ref.current.format ||
-            local !== ref.current.local ||
-            onlyTimePicker !== ref.current.onlyTimePicker) {
-
-            let date = Array.isArray(value) ?
-                value.map(val => validate(val, format, calendar, local, onlyTimePicker))
-                :
-                validate(value, format, calendar, local, onlyTimePicker)
-
-            if (value instanceof Date && !isValidDate(value)) {
-                date = getInvalidDate(calendar, local, format)
-            }
-
-            setDate(date)
-
-            ref.current = {
-                ...ref.current,
-                date,
-                calendar,
-                format,
-                local,
-                range,
-                onlyTimePicker
-            }
-
-            if (value) setStringDate(Array.isArray(date) ?
-                date.join(range ? " ~ " : ", ")
-                :
-                date.format()
-            )
-        }
-    }, [value, range, calendar, format, local, onlyTimePicker])
+        setDate(value)
+    }, [value])
 
     useEffect(() => {
+        setDate(date => {
+            if (!date) return
+
+            let { _calendar, _format, _local } = ref.current
+
+            function checkDate(date) {
+                if (!(date instanceof DateObject)) date = new DateObject({ date, calendar: _calendar, local: _local, format: _format })
+
+                if (date.calendar !== calendar) date.setCalendar(calendar)
+                if (date.local !== local) date.setLocal(local)
+                if (date.format !== format) date.setFormat(format)
+                if (onlyTimePicker && !format) date.setFormat("hh:mm:ss a")
+
+                return date
+            }
+
+            if (range || multiple || Array.isArray(date)) {
+                if (!Array.isArray(date)) date = [date]
+
+                date = date.map(val => checkDate(val))
+
+                if (range && date.length > 2) date = [date[0], date[date.length - 1]]
+
+                setStringDate(type === "button" && date.length > 1 ?
+                    [date[0], date[1]].join(separator)
+                    :
+                    date.join(separator)
+                )
+            } else {
+                if (Array.isArray(date)) date = date[date.length - 1]
+
+                date = checkDate(date)
+
+                setStringDate(date.format())
+            }
+
+            ref.current = { ...ref.current, date, _calendar: calendar, _local: local, _format: format, separator }
+
+            return date
+        })
+    }, [calendar, local, format, range, multiple, separator, type, onlyTimePicker])
+
+    useEffect(() => {
+        if (type !== "input") return
+
         inputRef.current.selectionStart = inputRef.current.selectionEnd = ref.current.start
-    }, [stringDate])
+    }, [stringDate, type])
 
     return (
         <div ref={datePickerRef} className="rmdp-container">
-            <input
-                ref={inputRef}
-                type="text"
-                name={name || ""}
-                onFocus={openCalendar}
-                className={`rmdp-input ${inputClass || ""}`}
-                placeholder={placeholder || ""}
-                value={stringDate}
-                onChange={handleValueChange}
-                style={style}
-                autoComplete="off"
-                readOnly={readOnly ? true : false}
-            />
+            {renderInput()}
             {isVisible && <div
                 ref={calendarRef}
                 className="rmdp-calendar-container"
@@ -118,6 +120,7 @@ export default function DatePicker({
                     value={date}
                     onChange={handleChange}
                     range={range}
+                    multiple={multiple}
                     calendar={calendar}
                     local={local}
                     format={format}
@@ -131,25 +134,33 @@ export default function DatePicker({
     )
 
     function openCalendar() {
-        if (!value && !ref.current.value) {
+        if (!value && !ref.current.date) {
+            let date = new DateObject({ calendar, local, format })
+
             handleChange(date)
 
             ref.current.value = date
         }
 
-        setIsVisible(true)
+        setIsVisible(type === "input " ? true : !isVisible)
     }
 
     function handleChange(date) {
         setDate(date)
-        ref.current.date = date
+
+        ref.current = { ...ref.current, date, _calendar: calendar, _local: local, _format: format }
 
         if (onChange instanceof Function) onChange(date)
 
         if (date) {
             if (Array.isArray(date)) {
-                setStringDate(date.join(range ? " ~ " : ", "))
-            } else if (date.isValid) {
+                setStringDate(
+                    type === "button" && date.length > 1 ?
+                        [date[0], date[1]].join(separator)
+                        :
+                        date.join(separator)
+                )
+            } else {
                 setStringDate(date.format(getFormat(onlyTimePicker, format)))
             }
         }
@@ -159,43 +170,71 @@ export default function DatePicker({
         if (Array.isArray(date)) return
 
         let value = e.target.value
-        let digits = date.digits
-        let start = e.target.selectionStart
+        let object = { year: 1, calendar, local, format }
+        let digits = date ? date.digits : new DateObject(object).digits
 
-        ref.current.start = start
+        if (type === "input") {
+            let start = e.target.selectionStart
+
+            ref.current.start = start
+        }
 
         if (!value) {
             setStringDate("")
 
-            let invalidDate = getInvalidDate(calendar, local, format)
-
-            return handleChange(invalidDate)
+            return handleChange(null)
         }
-
-        if (!digits) return
 
         for (let digit of digits) {
             value = value.replace(new RegExp(digit, "g"), digits.indexOf(digit))
         }
 
-        let newDate = new DateObject(date).parse(value)
+        let newDate = new DateObject(date?.isValid ? date : object).parse(value)
 
         handleChange(newDate)
         setStringDate(value.replace(/[0-9]/g, w => digits[w]))
     }
-}
 
-function isValidDate(date) {
-    return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())
-}
+    function renderInput() {
+        let isMultiple = !range && Array.isArray(date)
 
-function getInvalidDate(calendar, local, format) {
-    return new DateObject({
-        date: " ",
-        calendar,
-        local,
-        format
-    })
+        let multipleStyle = isMultiple ? {
+            whiteSpace: "nowrap",
+            overflow: "hidden"
+        } : {}
+
+        switch (type) {
+            case "button":
+                return <button
+                    ref={inputRef}
+                    onClick={openCalendar}
+                    name={name || ""}
+                    className={`rmdp-button ${inputClass || ""}`}
+                    style={{
+                        minWidth: Array.isArray(date) ? "185px" : "unset",
+                        ...multipleStyle,
+                        ...style
+                    }}
+                    disabled={disabled ? true : false}
+                >
+                    {stringDate || placeholder || "click to select"}
+                </button>
+            default:
+                return <input
+                    ref={inputRef}
+                    type="text"
+                    name={name || ""}
+                    onFocus={openCalendar}
+                    className={`rmdp-input ${inputClass || ""}`}
+                    placeholder={placeholder || ""}
+                    value={stringDate}
+                    onChange={handleValueChange}
+                    style={style}
+                    autoComplete="off"
+                    disabled={disabled ? true : false}
+                />
+        }
+    }
 }
 
 function getFormat(onlyTimePicker, format) {

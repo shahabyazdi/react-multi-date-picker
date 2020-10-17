@@ -18,3 +18,26 @@
   border: 1px solid #8798ad;
   box-shadow: 0 0 2px #8798ad;
 }
+
+.rmdp-button {
+  background-color: #0074d9;
+  border: none;
+  color: white;
+  padding: 7px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  /* font-size: 12px; */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rmdp-button:hover {
+  background-color: #143ac5;
+  transition: 0.4s;
+}
+
+.rmdp-button:disabled {
+  background-color: #8798ad;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import DateObject from "react-date-object"
 import Arrow from "../arrow/arrow"
 import Input from "../input/input"
@@ -6,12 +6,10 @@ import Input from "../input/input"
 export default function TimePicker({ state, setState, onChange }) {
     const [am, setAm] = useState(true)
     const [mustDisplayMeridiem, setMustDisplayMeridiem] = useState(false)
-    const [meridiems] = useState(new DateObject({ calendar: state.calendar, local: state.local }).meridiems)
+    const meridiems = useMemo(() => new DateObject({ calendar: state.calendar, local: state.local }).meridiems, [state.calendar, state.local])
     const hour = state.selectedDate?.hour
 
     useEffect(() => {
-        if (Array.isArray(state.selectedDate)) return
-
         const $mustDisplayMeridiem = state.format && (state.format.toLowerCase().includes("a") || state.format.includes("hh"))
 
         setMustDisplayMeridiem($mustDisplayMeridiem)
@@ -23,11 +21,11 @@ export default function TimePicker({ state, setState, onChange }) {
 
             setAm($hour < 12 ? true : false)
         }
-    }, [state.selectedDate, hour, state.format, state.multiple])
+    }, [hour, state.format])
 
     if (state.multiple || state.range) return null
 
-    return (state.timePicker || state.onlyTimePicker ?
+    return ((state.timePicker || state.onlyTimePicker) ?
         <div className={`rmdp-time-picker ${state.onlyTimePicker ? "rmdp-only-time-picker" : ""}`}>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("hours", 1)} />
