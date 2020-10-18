@@ -72,7 +72,7 @@ export default function DatePicker({
                 if (date.calendar !== calendar) date.setCalendar(calendar)
                 if (date.local !== local) date.setLocal(local)
                 if (date.format !== format) date.setFormat(format)
-                if (onlyTimePicker && !format) date.setFormat("hh:mm:ss a")
+                if (onlyTimePicker && !format) date.setFormat("HH:mm:ss")
 
                 return date
             }
@@ -150,7 +150,13 @@ export default function DatePicker({
 
         ref.current = { ...ref.current, date, _calendar: calendar, _local: local, _format: format }
 
-        if (onChange instanceof Function) onChange(date)
+        if (onChange instanceof Function) {
+            if (!Array.isArray(date)) {
+                onChange(new DateObject(date))
+            } else {
+                onChange(date.map(d => new DateObject(d)))
+            }
+        }
 
         if (date) {
             if (Array.isArray(date)) {
@@ -171,7 +177,7 @@ export default function DatePicker({
 
         let value = e.target.value
         let object = { year: 1, calendar, local, format }
-        let digits = date ? date.digits : new DateObject(object).digits
+        let digits = date && date.isValid ? date.digits : new DateObject(object).digits
 
         if (type === "input") {
             let start = e.target.selectionStart
@@ -182,8 +188,10 @@ export default function DatePicker({
         if (!value) {
             setStringDate("")
 
-            return handleChange(null)
+            return handleChange(new DateObject({}))
         }
+
+        if (!digits) return
 
         for (let digit of digits) {
             value = value.replace(new RegExp(digit, "g"), digits.indexOf(digit))
@@ -239,5 +247,5 @@ export default function DatePicker({
 
 function getFormat(onlyTimePicker, format) {
     if (format) return format
-    if (onlyTimePicker && !format) return "hh:mm:ss a"
+    if (onlyTimePicker && !format) return "HH:mm:ss"
 }
