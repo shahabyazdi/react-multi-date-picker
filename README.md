@@ -25,23 +25,25 @@ export default function Example() {
 
 ## Availble props
 
-| Key            |                                             value                                             |             default             | Availability (DatePicker/ Calendar) |
-| -------------- | :-------------------------------------------------------------------------------------------: | :-----------------------------: | ----------------------------------- |
-| value          | Date, [DateObject](https://github.com/shahabyazdi/react-date-object), String, Number or Array |           new Date()            | both                                |
-| range          |                                            Boolean                                            |              false              | both                                |
-| timePicker     |                                            Boolean                                            |              false              | both                                |
-| onlyTimePicker |                                            Boolean                                            |              false              | both                                |
-| mustShowDates  |                                            Boolean                                            | true (in multiple & range mode) | both                                |
-| range          |                                            Boolean                                            |              false              | both                                |
-| format         |                                            String                                             |           YYYY/MM/DD            | both                                |
-| local          |                                 String ( "en", "fa" or "ar" )                                 |               en                | both                                |
-| calendar       |                          String ("gregorian", "persian" or "arabic")                          |            gregorian            | both                                |
-| onChange       |                                           Function                                            |            undefined            | both                                |
-| className      |                                            String                                             |               ""                | both                                |
-| inputClass     |                                            String                                             |               ""                | DatePicker                          |
-| name           |                                            String                                             |               ""                | DatePicker                          |
-| placeholder    |                                            String                                             |               ""                | DatePicker                          |
-| style          |                                            Object                                             |               {}                | DatePicker                          |
+| Key            |                                             value                                             |                default                | Availability (DatePicker/ Calendar) |
+| -------------- | :-------------------------------------------------------------------------------------------: | :-----------------------------------: | ----------------------------------- |
+| value          | Date, [DateObject](https://github.com/shahabyazdi/react-date-object), String, Number or Array |              new Date()               | both                                |
+| multiple       |                                            Boolean                                            |    false (true if value is Array)     | both                                |
+| range          |                                            Boolean                                            |                 false                 | both                                |
+| timePicker     |                                            Boolean                                            |                 false                 | both                                |
+| onlyTimePicker |                                            Boolean                                            |                 false                 | both                                |
+| mustShowDates  |                                            Boolean                                            | false (true in multiple & range mode) | both                                |
+| format         |                                            String                                             |              YYYY/MM/DD               | both                                |
+| local          |                                 String ( "en", "fa" or "ar" )                                 |                  en                   | both                                |
+| calendar       |                          String ("gregorian", "persian" or "arabic")                          |               gregorian               | both                                |
+| onChange       |                                           Function                                            |               undefined               | both                                |
+| className      |                                            String                                             |                  ""                   | both                                |
+| inputClass     |                                            String                                             |                  ""                   | DatePicker                          |
+| name           |                                            String                                             |                  ""                   | DatePicker                          |
+| placeholder    |                                            String                                             |                  ""                   | DatePicker                          |
+| style          |                                            Object                                             |                  {}                   | DatePicker                          |
+| disabled       |                                            Boolean                                            |                 false                 | DatePicker                          |
+| type           |                       String ("input", "input-icon", "button", "icon")                        |                 input                 | DatePicker                          |
 
 ## Examples
 

@@ -34,6 +34,37 @@ export default function Calendar({
                 $format = onlyTimePicker && !format ? "HH:mm:ss" : format,
                 $value = value
 
+            function getSelectedDate(value) {
+                let selectedDate = undefined
+                let getObject = date => { return { date, calendar, local, format: $format } }
+
+                if (Array.isArray(value)) {
+                    selectedDate = value.map(val => {
+                        if (val instanceof DateObject) return val
+
+                        let date = new DateObject(getObject(val))
+
+                        return date.isValid ? date : undefined
+                    }).filter(i => i !== undefined)
+                } else if (value instanceof DateObject) {
+                    selectedDate = value.isValid ? value : undefined
+                } else {
+                    selectedDate = new DateObject(getObject(value))
+
+                    if (!selectedDate.isValid) selectedDate = undefined
+                }
+
+                return selectedDate
+            }
+
+            function checkDate(date) {
+                if (date.calendar !== calendar) date.setCalendar(calendar)
+                if (date.local !== local) date.setLocal(local)
+                if (date._format !== $format) date.setFormat($format)
+
+                return date
+            }
+
             if (!$value) {
                 if (!date) date = new DateObject({ date, calendar, local, format: $format })
                 if (initialValue) selectedDate = undefined
@@ -61,42 +92,20 @@ export default function Calendar({
 
                     if (!date.isValid) date = new DateObject({ calendar, local, format: $format })
 
-                    if (Array.isArray($value)) {
-                        selectedDate = $value.map(val => {
-                            if (val instanceof DateObject) return val
-
-                            let date = new DateObject({ date: val, calendar, local, format: $format })
-
-                            return date.isValid ? date : undefined
-                        }).filter(i => i !== undefined)
-                    } else if ($value instanceof DateObject) {
-                        selectedDate = $value.isValid ? $value : undefined
-                    } else {
-                        selectedDate = new DateObject({ date: $value, calendar, local, format: $format })
-
-                        if (!selectedDate.isValid) selectedDate = undefined
-                    }
+                    selectedDate = getSelectedDate($value)
                 } else {
-                    selectedDate = isValid ? $value : undefined
+                    selectedDate = isValid ? $value : getSelectedDate($value)
                 }
 
                 if (Array.isArray(selectedDate)) {
                     if (!date) {
                         let lastSelectedDate = selectedDate[selectedDate.length - 1]
 
-                        date = lastSelectedDate || new DateObject()
+                        date = new DateObject(lastSelectedDate)
                     }
                 } else {
                     date = new DateObject(selectedDate)
                 }
-            }
-
-            function checkDate(date) {
-                if (date.calendar !== calendar) date.setCalendar(calendar)
-                if (date.local !== local) date.setLocal(local)
-                if (date._format !== $format) date.setFormat($format)
-
-                return date
             }
 
             checkDate(date)

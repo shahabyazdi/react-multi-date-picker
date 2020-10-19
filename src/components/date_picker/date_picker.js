@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react"
 import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
+import { ReactComponent as Icon } from "./calendar.svg"
 import "./date_picker.css"
 
 export default function DatePicker({
@@ -112,24 +113,26 @@ export default function DatePicker({
     return (
         <div ref={datePickerRef} className="rmdp-container">
             {renderInput()}
-            {isVisible && <div
-                ref={calendarRef}
-                className="rmdp-calendar-container"
-            >
-                <Calendar
-                    value={date}
-                    onChange={handleChange}
-                    range={range}
-                    multiple={multiple}
-                    calendar={calendar}
-                    local={local}
-                    format={format}
-                    timePicker={timePicker}
-                    onlyTimePicker={onlyTimePicker}
-                    mustShowDates={mustShowDates}
-                    className={className}
-                />
-            </div>}
+            {isVisible && (
+                <div
+                    ref={calendarRef}
+                    className={`rmdp-calendar-container ${type === "icon" ? "rmdp-calendar-container-icon" : ""}`}
+                >
+                    <Calendar
+                        value={date}
+                        onChange={handleChange}
+                        range={range}
+                        multiple={multiple}
+                        calendar={calendar}
+                        local={local}
+                        format={format}
+                        timePicker={timePicker}
+                        onlyTimePicker={onlyTimePicker}
+                        mustShowDates={mustShowDates}
+                        className={className}
+                    />
+                </div>
+            )}
         </div>
     )
 
@@ -142,7 +145,7 @@ export default function DatePicker({
             ref.current.value = date
         }
 
-        setIsVisible(type === "input " ? true : !isVisible)
+        setIsVisible(["input", "input-icon"].includes(type) ? true : !isVisible)
     }
 
     function handleChange(date) {
@@ -213,34 +216,52 @@ export default function DatePicker({
 
         switch (type) {
             case "button":
-                return <button
-                    ref={inputRef}
-                    onClick={openCalendar}
-                    name={name || ""}
-                    className={`rmdp-button ${inputClass || ""}`}
-                    style={{
-                        minWidth: Array.isArray(date) ? "185px" : "unset",
-                        ...multipleStyle,
-                        ...style
-                    }}
-                    disabled={disabled ? true : false}
-                >
-                    {stringDate || placeholder || "click to select"}
-                </button>
+                return (
+                    <button
+                        ref={inputRef}
+                        onClick={openCalendar}
+                        name={name || ""}
+                        className={`rmdp-button ${inputClass || ""}`}
+                        style={{
+                            minWidth: Array.isArray(date) ? "185px" : "unset",
+                            ...multipleStyle,
+                            ...style
+                        }}
+                        disabled={disabled ? true : false}
+                    >
+                        {stringDate || placeholder || "click to select"}
+                    </button>
+                )
+            case "icon":
+                return (
+                    <div ref={inputRef} style={{ display: "inline" }}>
+                        <Icon
+                            onClick={openCalendar}
+                            name={name || ""}
+                            className={`rmdp-icon ${inputClass || ""}`}
+                            style={{ ...style }}
+                        />
+                    </div>
+                )
             default:
-                return <input
-                    ref={inputRef}
-                    type="text"
-                    name={name || ""}
-                    onFocus={openCalendar}
-                    className={`rmdp-input ${inputClass || ""}`}
-                    placeholder={placeholder || ""}
-                    value={stringDate}
-                    onChange={handleValueChange}
-                    style={style}
-                    autoComplete="off"
-                    disabled={disabled ? true : false}
-                />
+                return (
+                    <div style={{ display: "inline", position: "relative" }}>
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            name={name || ""}
+                            onFocus={openCalendar}
+                            className={`rmdp-input ${inputClass || ""}`}
+                            placeholder={placeholder || ""}
+                            value={stringDate}
+                            onChange={handleValueChange}
+                            style={style}
+                            autoComplete="off"
+                            disabled={disabled ? true : false}
+                        />
+                        {type === "input-icon" && <Icon className="rmdp-input-icon" />}
+                    </div>
+                )
         }
     }
 }
