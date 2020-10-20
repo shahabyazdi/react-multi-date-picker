@@ -40,10 +40,11 @@ export default function Example() {
 | className      |                                            String                                             |                  ""                   | both                                |
 | inputClass     |                                            String                                             |                  ""                   | DatePicker                          |
 | name           |                                            String                                             |                  ""                   | DatePicker                          |
-| placeholder    |                                            String                                             |                  ""                   | DatePicker                          |
 | style          |                                            Object                                             |                  {}                   | DatePicker                          |
-| disabled       |                                            Boolean                                            |                 false                 | DatePicker                          |
 | type           |                       String ("input", "input-icon", "button", "icon")                        |                 input                 | DatePicker                          |
+| render         |                                   React.Component, Function                                   |               undefined               | DatePicker                          |
+| disabled       |                                            Boolean                                            |                 false                 | DatePicker                          |
+| placeholder    |                                            String                                             |                  ""                   | DatePicker                          |
 
 ## Examples
 

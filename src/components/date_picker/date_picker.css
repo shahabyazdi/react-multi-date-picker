@@ -47,6 +47,7 @@
 .rmdp-icon {
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 
 .rmdp-input-icon {
@@ -54,6 +55,15 @@
   width: 21px;
   height: 21px;
   right: 8px;
-  top: 2.5px;
+  top: 3px;
+  bottom: 2px;
   background-color: #f9faff;
+  cursor: pointer;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-input-icon {
+    top: 0px;
+    bottom: 2px;
+  }
 }

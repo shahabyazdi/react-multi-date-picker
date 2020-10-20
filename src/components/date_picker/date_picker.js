@@ -21,7 +21,8 @@ export default function DatePicker({
     className,
     inputClass,
     disabled,
-    type = "input"
+    type = "input",
+    render
 }) {
     let [date, setDate] = useState(value)
     let [stringDate, setStringDate] = useState("")
@@ -116,7 +117,7 @@ export default function DatePicker({
             {isVisible && (
                 <div
                     ref={calendarRef}
-                    className={`rmdp-calendar-container ${type === "icon" ? "rmdp-calendar-container-icon" : ""}`}
+                    className="rmdp-calendar-container"
                 >
                     <Calendar
                         value={date}
@@ -137,7 +138,9 @@ export default function DatePicker({
     )
 
     function openCalendar() {
-        if (!value && !ref.current.date) {
+        if (disabled) return
+
+        if (!value && !ref.current.date && !range && !multiple) {
             let date = new DateObject({ calendar, local, format })
 
             handleChange(date)
@@ -207,7 +210,7 @@ export default function DatePicker({
     }
 
     function renderInput() {
-        let isMultiple = !range && Array.isArray(date)
+        let isMultiple = (!range && Array.isArray(date)) || multiple
 
         let multipleStyle = isMultiple ? {
             whiteSpace: "nowrap",
@@ -234,7 +237,10 @@ export default function DatePicker({
                 )
             case "icon":
                 return (
-                    <div ref={inputRef} style={{ display: "inline" }}>
+                    <div
+                        ref={inputRef}
+                        style={{ display: "inline" }}
+                    >
                         <Icon
                             onClick={openCalendar}
                             name={name || ""}
@@ -243,11 +249,27 @@ export default function DatePicker({
                         />
                     </div>
                 )
+            case "custom":
+                return (
+                    <div
+                        ref={inputRef}
+                        style={{ display: "inline" }}
+                    >
+                        {React.isValidElement(render) ?
+                            React.cloneElement(render, { stringDate, openCalendar }) :
+                            render instanceof Function ?
+                                render(stringDate, openCalendar) :
+                                null
+                        }
+                    </div>
+                )
             default:
                 return (
-                    <div style={{ display: "inline", position: "relative" }}>
+                    <div
+                        ref={inputRef}
+                        style={{ display: "inline", position: "relative" }}
+                    >
                         <input
-                            ref={inputRef}
                             type="text"
                             name={name || ""}
                             onFocus={openCalendar}
@@ -259,7 +281,7 @@ export default function DatePicker({
                             autoComplete="off"
                             disabled={disabled ? true : false}
                         />
-                        {type === "input-icon" && <Icon className="rmdp-input-icon" />}
+                        {type === "input-icon" && <Icon className="rmdp-input-icon" onClick={openCalendar} />}
                     </div>
                 )
         }
