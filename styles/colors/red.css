@@ -1,43 +1,52 @@
+:root {
+  --rmdp-primary-red: #ea0034;
+  --rmdp-secondary-red: #ad8787;
+  --rmdp-shadow-red: #cfb6b6;
+  --rmdp-today-red: #ff5638;
+  --rmdp-hover-red: #ff6687;
+  --rmdp-deselect-red: #af1738;
+}
+
 .red .rmdp-wrapper {
-  border: 1px solid #ad8787;
-  box-shadow: 0 0 5px #ad8787;
+  border: 1px solid var(--rmdp-secondary-red);
+  box-shadow: 0 0 5px var(--rmdp-secondary-red);
 }
 
 .red .rmdp-panel-body li {
-  background-color: #ea0034;
-  box-shadow: 0 0 2px #ad8787;
+  background-color: var(--rmdp-primary-red);
+  box-shadow: 0 0 2px var(--rmdp-secondary-red);
 }
 
 .red .rmdp-week-day {
-  color: #ea0034;
+  color: var(--rmdp-primary-red);
 }
 
 .red .rmdp-day.rmdp-deactive {
-  color: #ad8787;
+  color: var(--rmdp-secondary-red);
 }
 
 .red .rmdp-range {
-  background-color: #ea0034;
-  box-shadow: 0 0 3px #cfb6b6;
+  background-color: var(--rmdp-primary-red);
+  box-shadow: 0 0 3px var(--rmdp-shadow-red);
 }
 
 .red .rmdp-header,
 .red .rmdp-panel-header {
-  border-bottom: 1px solid #ad8787;
+  border-bottom: 1px solid var(--rmdp-secondary-red);
 }
 
 .red .rmdp-arrow {
-  border: solid #ea0034;
+  border: solid var(--rmdp-primary-red);
   border-width: 0 2px 2px 0;
 }
 
 .red .rmdp-arrow-container:hover {
-  background-color: #ea0034;
-  box-shadow: 0 0 3px #ad8787;
+  background-color: var(--rmdp-primary-red);
+  box-shadow: 0 0 3px var(--rmdp-secondary-red);
 }
 
 .red .rmdp-time-picker {
-  border-top: 1px solid #ad8787;
+  border-top: 1px solid var(--rmdp-secondary-red);
 }
 
 .red .rmdp-only-time-picker {
@@ -45,28 +54,28 @@
 }
 
 .red .rmdp-panel-body::-webkit-scrollbar-thumb {
-  background: #ea0034;
+  background: var(--rmdp-primary-red);
 }
 
 .red .rmdp-day.rmdp-today span {
-  background-color: #ff5638;
+  background-color: var(--rmdp-today-red);
 }
 
 .red .rmdp-rtl .rmpd-panel {
   border-left: unset;
-  border-right: 1px solid #ad8787;
+  border-right: 1px solid var(--rmdp-secondary-red);
 }
 
 .red .rmdp-day.rmdp-selected span {
-  background-color: #ea0034;
-  box-shadow: 0 0 3px #ad8787;
+  background-color: var(--rmdp-primary-red);
+  box-shadow: 0 0 3px var(--rmdp-secondary-red);
 }
 
 .red .rmdp-day:hover span {
-  background-color: #ff6687;
+  background-color: var(--rmdp-hover-red);
 }
 
 .red .b-deselect {
-  color: #af1738;
+  color: var(--rmdp-deselect-red);
   background-color: white;
 }
