@@ -5,26 +5,30 @@ export default function MonthPicker({ state, setState }) {
     let [months, setMonths] = useState([])
 
     useEffect(() => {
-        let months = new DateObject({
-            year: undefined,
-            calendar: state.calendar,
-            local: state.local
-        }).months
+        let months = Array.isArray(state.months) && state.months.length === 12 ?
+            state.months :
+            new DateObject({
+                year: undefined,
+                calendar: state.calendar,
+                local: state.local
+            }).months.map(month => month.name)
 
         let monthsArray = []
         let index = 0
 
         for (var i = 0; i < 4; i++) {
             let array = []
+
             for (var j = 0; j < 3; j++) {
-                array.push(months[index].name)
+                array.push(months[index])
                 index++
             }
+
             monthsArray.push(array)
         }
 
         setMonths(monthsArray)
-    }, [state.calendar, state.local])
+    }, [state.calendar, state.local, state.months])
 
 
     return (
@@ -32,7 +36,7 @@ export default function MonthPicker({ state, setState }) {
             {months.map((array, i) => <div key={i} className="rmdp-week">
                 {array.map((name, j) => <div
                     key={j}
-                    className={`rmdp-day ym ${state.date.month.name === name ? "rmdp-selected" : ""}`}
+                    className={`rmdp-day ym ${state.date.month.index === (i * 3 + j) ? "rmdp-selected" : ""}`}
                     onClick={() => selectMonth(i * 3 + j + 1)}
                 >
                     <span>{name}</span>

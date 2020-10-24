@@ -240,6 +240,7 @@
   width: 20px;
   display: flex;
   justify-content: center;
+  margin: 0 5px;
 }
 
 .rmdp-arrow-container:hover {
@@ -403,4 +404,8 @@
   .rmdp-month-picker {
     top: 41px;
   }
+}
+
+pre {
+  background-color: #464545 !important;
 }

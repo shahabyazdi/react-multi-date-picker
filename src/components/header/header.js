@@ -10,11 +10,18 @@ export default function Header({ state, setState }) {
                     <span
                         className={`${state.mustShowMonthPicker ? "active" : ""}`}
                         onClick={() => toggle("mustShowMonthPicker")}
-                    >{state.date.month.name}</span>,
-            <span
+                    >
+                        {Array.isArray(state.months) && state.months.length === 12 ?
+                            state.months[state.date.month.index] :
+                            state.date.month.name
+                        }
+                    </span>,
+                    <span
                         className={`${state.mustShowYearPicker ? "active" : ""}`}
                         onClick={() => toggle("mustShowYearPicker")}
-                    >{state.date.format("YYYY")}</span>
+                    >
+                        {state.date.format("YYYY")}
+                    </span>
                 </div>
                 <Arrow direction="rmdp-right" onClick={() => increaseValue(1)} />
             </div>

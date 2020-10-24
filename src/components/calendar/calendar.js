@@ -19,7 +19,9 @@ export default function Calendar({
     range = false,
     multiple = false,
     mustShowDates = true,
-    className
+    className,
+    weekDays,
+    months
 }) {
     let [state, setState] = useState({})
 
@@ -142,10 +144,12 @@ export default function Calendar({
                 timePicker: $timePicker,
                 onlyTimePicker: $onlyTimePicker,
                 initialValue: state.initialValue || $value,
-                format: $format
+                format: $format,
+                weekDays,
+                months
             }
         })
-    }, [value, calendar, local, format, timePicker, onlyTimePicker, range, multiple, mustShowDates])
+    }, [value, calendar, local, format, timePicker, onlyTimePicker, range, multiple, mustShowDates, weekDays, months])
 
     return (state.date ?
         <div className={`rmdp-wrapper ${state.local !== "en" ? "rmdp-rtl" : ""} ${className || ""}`}>

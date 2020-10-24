@@ -22,7 +22,9 @@ export default function DatePicker({
     inputClass,
     disabled,
     type = "input",
-    render
+    render,
+    weekDays,
+    months
 }) {
     let [date, setDate] = useState(value)
     let [stringDate, setStringDate] = useState("")
@@ -131,6 +133,8 @@ export default function DatePicker({
                         onlyTimePicker={onlyTimePicker}
                         mustShowDates={mustShowDates}
                         className={className}
+                        weekDays={weekDays}
+                        months={months}
                     />
                 </div>
             )}
