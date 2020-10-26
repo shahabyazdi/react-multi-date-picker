@@ -152,7 +152,7 @@ export default function Calendar({
     }, [value, calendar, local, format, timePicker, onlyTimePicker, range, multiple, mustShowDates, weekDays, months])
 
     return (state.date ?
-        <div className={`rmdp-wrapper ${state.local !== "en" ? "rmdp-rtl" : ""} ${className || ""}`}>
+        <div className={`rmdp-wrapper ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""}`}>
             <div>
                 <div className="rmdp-calendar">
                     <Header state={state} setState={setState} />
