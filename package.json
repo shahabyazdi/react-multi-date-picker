@@ -1,6 +1,6 @@
 {
   "name": "react-multi-date-picker",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "a simple React datepicker component for work with gregorian, persian and arabic calendars",
   "main": "./build/index.js",
   "scripts": {
@@ -40,6 +40,6 @@
   },
   "dependencies": {
     "react": "^16.13.1",
-    "react-date-object": "^0.5.4"
+    "react-date-object": "^0.7.0"
   }
 }

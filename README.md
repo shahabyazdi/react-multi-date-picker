@@ -34,8 +34,8 @@ export default function Example() {
 | onlyTimePicker |                                            Boolean                                            |                 false                 | both                                |
 | mustShowDates  |                                            Boolean                                            | false (true in multiple & range mode) | both                                |
 | format         |                                            String                                             |              YYYY/MM/DD               | both                                |
-| local          |                                 String ( "en", "fa" or "ar" )                                 |                  en                   | both                                |
-| calendar       |                          String ("gregorian", "persian" or "arabic")                          |               gregorian               | both                                |
+| local          |                              String ( "en", "fa", "ar" or "hi" )                              |                  en                   | both                                |
+| calendar       |                     String ("gregorian", "persian", "arabic" or "indian")                     |               gregorian               | both                                |
 | onChange       |                                           Function                                            |               undefined               | both                                |
 | className      |                                            String                                             |                  ""                   | both                                |
 | inputClass     |                                            String                                             |                  ""                   | DatePicker                          |
