@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useRef } from "react"
+import DateObject from "react-date-object"
 
-export default function YearPicker({ state, setState }) {
-    const [years, setyears] = useState([])
-    const yearRef = useRef(null)
-    const digits = state.date.digits
+export default function YearPicker({ state, setState, onChange }) {
+    const [years, setyears] = useState([]),
+        yearRef = useRef(null),
+        digits = state.date.digits,
+        mustShowYearPicker = (state.mustShowYearPicker || state.onlyYearPicker) && !state.onlyTimePicker,
+        style = state.onlyYearPicker ? { position: "static", width: "250px" } : {}
 
     useEffect(() => {
-        let yearArray = []
-        let year = state.date.year - 4
-        let end = year + 11
+        let yearArray = [],
+            year = state.date.year - 4,
+            end = year + 11
 
         if (!yearRef.current) yearRef.current = { start: year, end }
         if (years.length > 0 && state.date.year >= yearRef.current.start && state.date.year <= yearRef.current.end) return
@@ -30,14 +33,14 @@ export default function YearPicker({ state, setState }) {
     }, [state.date.year, years])
 
     return (
-        <div className={`rmdp-year-picker`} style={{ display: state.mustShowYearPicker && !state.onlyTimePicker ? "block" : "none" }}>
+        <div className={`rmdp-year-picker`} style={{ display: mustShowYearPicker ? "block" : "none", ...style }}>
             {years.map((array, i) => <div
                 key={i}
                 className="rmdp-week"
             >
                 {array.map((year, j) => <div
                     key={j}
-                    className={`rmdp-day ym ${year === state.date.year ? "rmdp-selected" : ""}`}
+                    className={`rmdp-day ym ${year === (state.selectedDate ? state.selectedDate.year : state.date.year) ? "rmdp-selected" : ""}`}
                     onClick={() => selectYear(year)}
                 >
                     <span>
@@ -51,10 +54,16 @@ export default function YearPicker({ state, setState }) {
     )
 
     function selectYear(year) {
+        let date = state.date.setYear(year),
+            selectedDate = state.onlyYearPicker ? new DateObject(date) : state.selectedDate
+
         setState({
             ...state,
-            date: state.date.setYear(year),
+            date,
+            selectedDate,
             mustShowYearPicker: false
         })
+
+        if (onChange instanceof Function && state.onlyYearPicker) onChange(selectedDate)
     }
 }

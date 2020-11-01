@@ -11,6 +11,8 @@ export default function DatePicker({
     format,
     timePicker,
     onlyTimePicker,
+    onlyMonthPicker,
+    onlyYearPicker,
     onChange,
     range = false,
     multiple = false,
@@ -76,7 +78,8 @@ export default function DatePicker({
                 if (date.calendar !== calendar) date.setCalendar(calendar)
                 if (date.local !== local) date.setLocal(local)
                 if (date.format !== format) date.setFormat(format)
-                if (onlyTimePicker && !format) date.setFormat("HH:mm:ss")
+
+                date.setFormat(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format))
 
                 return date
             }
@@ -105,7 +108,7 @@ export default function DatePicker({
 
             return date
         })
-    }, [calendar, local, format, range, multiple, separator, type, onlyTimePicker])
+    }, [calendar, local, format, range, multiple, separator, type, timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker])
 
     useEffect(() => {
         if (type !== "input") return
@@ -131,6 +134,8 @@ export default function DatePicker({
                         format={format}
                         timePicker={timePicker}
                         onlyTimePicker={onlyTimePicker}
+                        onlyMonthPicker={onlyMonthPicker}
+                        onlyYearPicker={onlyYearPicker}
                         mustShowDates={mustShowDates}
                         className={className}
                         weekDays={weekDays}
@@ -177,7 +182,7 @@ export default function DatePicker({
                         date.join(separator)
                 )
             } else {
-                setStringDate(date.format(getFormat(onlyTimePicker, format)))
+                setStringDate(date.format(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format)))
             }
         }
     }
@@ -292,7 +297,10 @@ export default function DatePicker({
     }
 }
 
-function getFormat(onlyTimePicker, format) {
+function getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format) {
     if (format) return format
-    if (onlyTimePicker && !format) return "HH:mm:ss"
+    if (timePicker) return "YYYY/MM/DD HH:mm:ss"
+    if (onlyTimePicker) return "HH:mm:ss"
+    if (onlyMonthPicker) return "MM/YYYY"
+    if (onlyYearPicker) return "YYYY"
 }

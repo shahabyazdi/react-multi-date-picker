@@ -3,9 +3,10 @@ import DateObject from "react-date-object"
 import WeekDays from "../week_days/week_days"
 
 export default function DayPicker({ state, setState, onChange }) {
-    let [weeks, setWeeks] = useState([])
-    let ref = useRef(false)
-    let today = useMemo(() => new DateObject({ calendar: state.calendar }), [state.calendar])
+    const [weeks, setWeeks] = useState([]),
+        ref = useRef(false),
+        today = useMemo(() => new DateObject({ calendar: state.calendar }), [state.calendar]),
+        mustShowDayPicker = !state.onlyTimePicker && !state.onlyMonthPicker && !state.onlyYearPicker
 
     useEffect(() => {
         if (!ref.current) {
@@ -26,8 +27,8 @@ export default function DayPicker({ state, setState, onChange }) {
         ref.current = state.date.toObject()
     }, [state.date, state.date.month, state.date.year, state.local, state.calendar])
 
-    return (
-        <div className="rmdp-day-picker" style={{ display: state.onlyTimePicker ? "none" : "block" }}>
+    return (mustShowDayPicker &&
+        <div className="rmdp-day-picker">
             <WeekDays state={state} />
             {weeks.map((week, index) => <div key={index} className="rmdp-week">
                 {week.map(object => <div key={object.date.day}

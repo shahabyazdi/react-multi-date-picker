@@ -3,7 +3,7 @@ import DateObject from "react-date-object"
 import { isSameDate } from "../day_picker/day_picker"
 
 export default function DaysPanel({ state, setState, onChange }) {
-    let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ" }
+    let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" }
 
     return (
         <div className="rmpd-panel" style={{ display: state.mustShowDates ? "block" : "none" }}>

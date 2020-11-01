@@ -15,6 +15,8 @@ export default function Calendar({
     format,
     timePicker,
     onlyTimePicker,
+    onlyMonthPicker,
+    onlyYearPicker,
     onChange,
     range = false,
     multiple = false,
@@ -29,12 +31,13 @@ export default function Calendar({
         setState(state => {
             let { date, selectedDate, initialValue } = state
 
-            let $mustShowDates = multiple || range || Array.isArray(value) ? mustShowDates : false,
-                $timePicker = timePicker,
-                $onlyTimePicker = onlyTimePicker,
-                $multiple = multiple,
-                $format = onlyTimePicker && !format ? "HH:mm:ss" : format,
-                $value = value
+            function getFormat() {
+                if (format) return format
+                if (timePicker) return "YYYY/MM/DD HH:mm:ss"
+                if (onlyTimePicker) return "HH:mm:ss"
+                if (onlyMonthPicker) return "MM/YYYY"
+                if (onlyYearPicker) return "YYYY"
+            }
 
             function getSelectedDate(value) {
                 let selectedDate = undefined
@@ -66,6 +69,15 @@ export default function Calendar({
 
                 return date
             }
+
+            let $mustShowDates = multiple || range || Array.isArray(value) ? mustShowDates : false,
+                $timePicker = timePicker,
+                $onlyTimePicker = onlyTimePicker,
+                $onlyMonthPicker = onlyMonthPicker,
+                $onlyYearPicker = onlyYearPicker,
+                $multiple = multiple,
+                $format = getFormat(),
+                $value = value
 
             if (!$value) {
                 if (!date) date = new DateObject({ date, calendar, local, format: $format })
@@ -126,6 +138,8 @@ export default function Calendar({
 
                 $timePicker = false
                 $onlyTimePicker = false
+                $onlyMonthPicker = false
+                $onlyYearPicker = false
             } else {
                 if (Array.isArray(selectedDate)) selectedDate = selectedDate[selectedDate.length - 1]
 
@@ -143,22 +157,38 @@ export default function Calendar({
                 mustShowDates: $mustShowDates,
                 timePicker: $timePicker,
                 onlyTimePicker: $onlyTimePicker,
+                onlyMonthPicker: $onlyMonthPicker,
+                onlyYearPicker: $onlyYearPicker,
                 initialValue: state.initialValue || $value,
                 format: $format,
                 weekDays,
                 months
             }
         })
-    }, [value, calendar, local, format, timePicker, onlyTimePicker, range, multiple, mustShowDates, weekDays, months])
+    }, [
+        value,
+        calendar,
+        local,
+        format,
+        timePicker,
+        onlyTimePicker,
+        onlyMonthPicker,
+        onlyYearPicker,
+        range,
+        multiple,
+        mustShowDates,
+        weekDays,
+        months
+    ])
 
     return (state.date ?
         <div className={`rmdp-wrapper ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""}`}>
             <div>
                 <div className="rmdp-calendar">
-                    <Header state={state} setState={setState} />
+                    <Header state={state} setState={setState} onChange={onChange} />
                     <DayPicker state={state} setState={setState} onChange={onChange} />
-                    <MonthPicker state={state} setState={setState} />
-                    <YearPicker state={state} setState={setState} />
+                    <MonthPicker state={state} setState={setState} onChange={onChange} />
+                    <YearPicker state={state} setState={setState} onChange={onChange} />
                 </div>
                 <TimePicker state={state} setState={setState} onChange={onChange} />
             </div>
