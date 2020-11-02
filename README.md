@@ -48,36 +48,50 @@ export default function Example() {
 | disabled        |                                            Boolean                                            |                 false                 | DatePicker                          |
 | placeholder     |                                            String                                             |                  ""                   | DatePicker                          |
 
-## Calendars, Locals & Types
+## Calendars and Locals
 
 <table>
   <thead>
     <tr>
       <th>Calendars</th>
       <th>Locals</th>
-      <th>Input Types</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>gregorian (default)</td>
       <td>en (default)</td>
-      <td>input (default)</td>
     </tr>
     <tr>
       <td>persian</td>
       <td>fa</td>
-      <td>input-icon</td>
     </tr>
     <tr>
       <td>arabic</td>
       <td>ar</td>
-      <td>icon</td>
     </tr>
     <tr>
       <td>indian</td>
       <td>hi</td>
+    </tr>
+  </tbody>
+</table>
+
+## Types
+
+<table>
+  <thead>
+    <tr>
+      <th colSpan="5">DatePicker Types</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>input (default)</td>
+      <td>input-icon</td>
+      <td>icon</td>
       <td>button</td>
+      <td>custom</td>
     </tr>
   </tbody>
 </table>
