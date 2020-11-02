@@ -5,8 +5,7 @@ export default function YearPicker({ state, setState, onChange }) {
     const [years, setyears] = useState([]),
         yearRef = useRef(null),
         digits = state.date.digits,
-        mustShowYearPicker = (state.mustShowYearPicker || state.onlyYearPicker) && !state.onlyTimePicker,
-        style = state.onlyYearPicker ? { position: "static", width: "250px" } : {}
+        mustShowYearPicker = (state.mustShowYearPicker || state.onlyYearPicker) && !state.onlyTimePicker
 
     useEffect(() => {
         let yearArray = [],
@@ -33,7 +32,10 @@ export default function YearPicker({ state, setState, onChange }) {
     }, [state.date.year, years])
 
     return (
-        <div className={`rmdp-year-picker`} style={{ display: mustShowYearPicker ? "block" : "none", ...style }}>
+        <div
+            className={`${state.onlyYearPicker ? "only " : ""}rmdp-year-picker`}
+            style={{ display: mustShowYearPicker ? "block" : "none" }}
+        >
             {years.map((array, i) => <div
                 key={i}
                 className="rmdp-week"

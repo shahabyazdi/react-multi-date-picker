@@ -187,6 +187,12 @@
   border-radius: 0 0 5px 5px;
 }
 
+.only.rmdp-month-picker,
+.only.rmdp-year-picker {
+  position: static;
+  width: 250px;
+}
+
 .rmdp-header-values {
   flex: 1;
   margin-top: -2px;
@@ -367,7 +373,7 @@
   border-radius: 50%;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 400px), (max-height: 400px) {
   .rmdp-day,
   .rmdp-week-day {
     height: 28px;
@@ -404,8 +410,9 @@
   .rmdp-month-picker {
     top: 41px;
   }
-}
 
-pre {
-  background-color: #464545 !important;
+  .only.rmdp-year-picker,
+  .only.rmdp-month-picker {
+    width: 205px;
+  }
 }

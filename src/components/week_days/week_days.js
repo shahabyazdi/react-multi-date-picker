@@ -5,15 +5,29 @@ export default function WeekDays({ state }) {
     const [weekDays, setWeekDays] = useState([])
 
     useEffect(() => {
-        let weeks = Array.isArray(state.weekDays) && state.weekDays.length === 7 ?
-            state.weekDays :
-            new DateObject({
+        let weekDays = state.weekDays
+
+        if (Array.isArray(weekDays)) {
+            if (weekDays.length > 7) weekDays.length = 7
+
+            weekDays = weekDays.map(weekDay => {
+                if (Array.isArray(weekDay) & weekDay.length > 1) {
+                    weekDay = weekDay[1]
+                } else if (Array.isArray(weekDay)) {
+                    weekDay = weekDay[0]
+                }
+
+                return weekDay
+            })
+        } else {
+            weekDays = new DateObject({
                 year: undefined,
                 calendar: state.date.calendar,
                 local: state.date.local
-            }).weeks.map(weekDay => weekDay.shortName)
+            }).weekDays.map(weekDay => weekDay.shortName)
+        }
 
-        setWeekDays(weeks)
+        setWeekDays(weekDays)
     }, [state.date.calendar, state.date.local, state.weekDays])
 
     return (

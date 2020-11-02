@@ -78,6 +78,8 @@ export default function DatePicker({
                 if (date.calendar !== calendar) date.setCalendar(calendar)
                 if (date.local !== local) date.setLocal(local)
                 if (date.format !== format) date.setFormat(format)
+                if (isValidMonths(months)) date.months = months
+                if (isValidWeekDays(weekDays)) date.weekDays = weekDays
 
                 date.setFormat(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format))
 
@@ -87,7 +89,7 @@ export default function DatePicker({
             if (range || multiple || Array.isArray(date)) {
                 if (!Array.isArray(date)) date = [date]
 
-                date = date.map(val => checkDate(val))
+                date = date.map(checkDate)
 
                 if (range && date.length > 2) date = [date[0], date[date.length - 1]]
 
@@ -108,7 +110,21 @@ export default function DatePicker({
 
             return date
         })
-    }, [calendar, local, format, range, multiple, separator, type, timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker])
+    }, [
+        calendar,
+        local,
+        format,
+        range,
+        multiple,
+        separator,
+        type,
+        timePicker,
+        onlyTimePicker,
+        onlyMonthPicker,
+        onlyYearPicker,
+        weekDays,
+        months
+    ])
 
     useEffect(() => {
         if (type !== "input") return
@@ -160,6 +176,11 @@ export default function DatePicker({
         setIsVisible(["input", "input-icon"].includes(type) ? true : !isVisible)
     }
 
+    function setCustomNames(date) {
+        if (isValidMonths(months)) date.months = months
+        if (isValidWeekDays(weekDays)) date.weekDays = weekDays
+    }
+
     function handleChange(date) {
         setDate(date)
 
@@ -175,6 +196,8 @@ export default function DatePicker({
 
         if (date) {
             if (Array.isArray(date)) {
+                date.map(setCustomNames)
+
                 setStringDate(
                     type === "button" && date.length > 1 ?
                         [date[0], date[1]].join(separator)
@@ -182,6 +205,8 @@ export default function DatePicker({
                         date.join(separator)
                 )
             } else {
+                setCustomNames(date)
+
                 setStringDate(date.format(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format)))
             }
         }
@@ -303,4 +328,16 @@ function getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, 
     if (onlyTimePicker) return "HH:mm:ss"
     if (onlyMonthPicker) return "MM/YYYY"
     if (onlyYearPicker) return "YYYY"
+}
+
+function isValidMonths(value) {
+    return Array.isArray(value) && value.length === 12 && value.every(array => {
+        return Array.isArray(array) && array.length === 2 && array.every(string => typeof string === "string")
+    })
+}
+
+function isValidWeekDays(value) {
+    return Array.isArray(value) && value.length === 7 && value.every(array => {
+        return Array.isArray(array) && array.length === 2 && array.every(string => typeof string === "string")
+    })
 }

@@ -3,17 +3,22 @@ import DateObject from "react-date-object"
 
 export default function MonthPicker({ state, setState, onChange }) {
     const [months, setMonths] = useState([]),
-        mustShowMonthPicker = (state.mustShowMonthPicker || state.onlyMonthPicker) && !state.onlyTimePicker && !state.onlyYearPicker,
-        style = state.onlyMonthPicker ? { position: "static", width: "250px" } : {}
+        mustShowMonthPicker = (state.mustShowMonthPicker || state.onlyMonthPicker) && !state.onlyTimePicker && !state.onlyYearPicker
 
     useEffect(() => {
-        let months = Array.isArray(state.months) && state.months.length === 12 ?
-            state.months :
-            new DateObject({
+        let months = state.months
+
+        if (Array.isArray(months)) {
+            if (months.length > 12) months.length = 12
+
+            months = months.map(month => Array.isArray(month) ? month[0] : month)
+        } else {
+            months = new DateObject({
                 year: undefined,
                 calendar: state.calendar,
                 local: state.local
             }).months.map(month => month.name)
+        }
 
         let monthsArray = []
         let index = 0
@@ -33,7 +38,10 @@ export default function MonthPicker({ state, setState, onChange }) {
     }, [state.calendar, state.local, state.months])
 
     return (
-        <div className="rmdp-month-picker" style={{ display: mustShowMonthPicker ? "block" : "none", ...style }}>
+        <div
+            className={`${state.onlyMonthPicker ? "only " : ""}rmdp-month-picker`}
+            style={{ display: mustShowMonthPicker ? "block" : "none" }}
+        >
             {months.map((array, i) => <div key={i} className="rmdp-week">
                 {array.map((name, j) => <div
                     key={j}

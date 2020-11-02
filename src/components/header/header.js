@@ -3,6 +3,16 @@ import Arrow from "../arrow/arrow"
 import DateObject from "react-date-object"
 
 export default function Header({ state, setState, onChange }) {
+    let monthName = undefined
+
+    if (Array.isArray(state.months) && state.months.length === 12) {
+        let month = state.months[state.date.month.index]
+
+        monthName = Array.isArray(month) ? month[0] : month
+    } else {
+        monthName = state.date.month.name
+    }
+
     return (
         <div className="rmdp-header" style={{ display: state.onlyTimePicker ? "none" : "block" }}>
             <div style={{ display: "flex" }}>
@@ -13,10 +23,7 @@ export default function Header({ state, setState, onChange }) {
                             className={`${state.mustShowMonthPicker ? "active" : ""}`}
                             onClick={() => toggle("mustShowMonthPicker")}
                         >
-                            {Array.isArray(state.months) && state.months.length === 12 ?
-                                state.months[state.date.month.index] :
-                                state.date.month.name
-                            },
+                            {monthName},
                         </span>
                     }
                     <span
