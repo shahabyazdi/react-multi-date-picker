@@ -28,7 +28,8 @@ export default function DatePicker({
     weekDays,
     months,
     showOtherDays,
-    children
+    children,
+    inputMode
 }) {
     let [date, setDate] = useState(value),
         [stringDate, setStringDate] = useState(""),
@@ -354,7 +355,7 @@ export default function DatePicker({
                             style={style}
                             autoComplete="off"
                             disabled={disabled ? true : false}
-                            inputMode={isMobileMode() ? "none" : undefined}
+                            inputMode={inputMode || (isMobileMode() ? "none" : undefined)}
                         />
                         {type === "input-icon" && <Icon className="rmdp-input-icon" onClick={openCalendar} />}
                     </div>

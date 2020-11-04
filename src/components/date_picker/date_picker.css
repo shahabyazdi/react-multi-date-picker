@@ -1,7 +1,8 @@
 .rmdp-container {
   display: inline;
 }
-.rmdp-calendar-container {
+
+.rmdp-calendar-container:not(.rmdp-calendar-container-mobile) {
   position: absolute;
   margin-top: 1px;
   margin-left: 2px;

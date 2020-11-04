@@ -50,6 +50,7 @@ export default function Example() {
 | render          |                                  React.Component or Function                                  |               undefined               | DatePicker                          |
 | disabled        |                                            Boolean                                            |                 false                 | DatePicker                          |
 | placeholder     |                                            String                                             |                  ""                   | DatePicker                          |
+| inputMode       |                                            String                                             |               undefined               | DatePicker                          |
 
 ## Calendars and Locals
 
