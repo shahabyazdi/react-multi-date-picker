@@ -4,10 +4,11 @@ import Arrow from "../arrow/arrow"
 import Input from "../input/input"
 
 export default function TimePicker({ state, setState, onChange }) {
-    const [am, setAm] = useState(true)
-    const [mustDisplayMeridiem, setMustDisplayMeridiem] = useState(false)
-    const meridiems = useMemo(() => new DateObject({ calendar: state.calendar, local: state.local }).meridiems, [state.calendar, state.local])
-    const hour = state.selectedDate?.hour
+    const [am, setAm] = useState(true),
+        [mustDisplayMeridiem, setMustDisplayMeridiem] = useState(false),
+        meridiems = useMemo(() => new DateObject({ calendar: state.calendar, local: state.local }).meridiems, [state.calendar, state.local]),
+        hour = state.selectedDate?.hour,
+        mustShowTimePicker = (state.timePicker || state.onlyTimePicker) && !state.multiple && !state.range
 
     useEffect(() => {
         const $mustDisplayMeridiem = state.format && (state.format.toLowerCase().includes("a") || state.format.includes("hh"))
@@ -21,11 +22,11 @@ export default function TimePicker({ state, setState, onChange }) {
 
             setAm($hour < 12 ? true : false)
         }
-    }, [hour, state.format])
 
-    if (state.multiple || state.range) return null
+        if (state.onlyTimePicker) setState(state => { return { ...state, ready: true } })
+    }, [hour, state.format, state.onlyTimePicker, setState])
 
-    return ((state.timePicker || state.onlyTimePicker) ?
+    return (mustShowTimePicker ?
         <div className={`rmdp-time-picker ${state.onlyTimePicker ? "rmdp-only-time-picker" : ""}`}>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("hours", 1)} />

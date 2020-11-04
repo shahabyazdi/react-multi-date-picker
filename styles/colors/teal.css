@@ -79,3 +79,7 @@
   color: var(--rmdp-deselect-teal);
   background-color: white;
 }
+
+.teal .rmdp-action-button {
+  color: var(--rmdp-primary-teal);
+}

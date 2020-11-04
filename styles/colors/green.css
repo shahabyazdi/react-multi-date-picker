@@ -69,3 +69,7 @@
   color: #39795c;
   background-color: white;
 }
+
+.green .rmdp-action-button {
+  color: var(--rmdp-primary-green);
+}

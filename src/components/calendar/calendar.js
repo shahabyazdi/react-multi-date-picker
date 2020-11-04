@@ -23,7 +23,9 @@ export default function Calendar({
     mustShowDates = true,
     className,
     weekDays,
-    months
+    months,
+    children,
+    showOtherDays = true
 }) {
     let [state, setState] = useState({})
 
@@ -125,7 +127,7 @@ export default function Calendar({
             checkDate(date)
 
             if (Array.isArray(selectedDate)) {
-                selectedDate = selectedDate.map($date => checkDate($date))
+                selectedDate = selectedDate.map(checkDate)
             } else if (selectedDate) {
                 checkDate(selectedDate)
             }
@@ -182,15 +184,18 @@ export default function Calendar({
     ])
 
     return (state.date ?
-        <div className={`rmdp-wrapper ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""}`}>
+        <div
+            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${state.range || state.multiple ? "" : "rmdp-single"}`}
+        >
             <div>
                 <div className="rmdp-calendar">
                     <Header state={state} setState={setState} onChange={onChange} />
-                    <DayPicker state={state} setState={setState} onChange={onChange} />
+                    <DayPicker state={state} setState={setState} onChange={onChange} showOtherDays={showOtherDays} />
                     <MonthPicker state={state} setState={setState} onChange={onChange} />
                     <YearPicker state={state} setState={setState} onChange={onChange} />
                 </div>
                 <TimePicker state={state} setState={setState} onChange={onChange} />
+                {children}
             </div>
             <DaysPanel state={state} setState={setState} onChange={onChange} />
         </div>

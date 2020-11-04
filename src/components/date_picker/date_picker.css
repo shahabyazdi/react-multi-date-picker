@@ -61,6 +61,20 @@
   cursor: pointer;
 }
 
+.rmdp-action-button {
+  margin: 15px 0;
+  margin-right: 10px;
+  border-radius: unset;
+  background-color: transparent;
+  float: right;
+  font-weight: bold;
+  color: #2682d3;
+}
+
+.rmdp-action-button:hover {
+  background-color: transparent;
+}
+
 @media (max-width: 400px), (max-height: 400px) {
   .rmdp-input-icon {
     top: 0px;

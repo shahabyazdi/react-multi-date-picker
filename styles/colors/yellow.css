@@ -2,7 +2,7 @@
   --rmdp-primary-yellow: #f7da37;
   --rmdp-secondary-yellow: #c0b025;
   --rmdp-shadow-yellow: #dfdd61;
-  --rmdp-today-yellow: #f0ed4c;
+  --rmdp-today-yellow: #afac02;
   --rmdp-hover-yellow: #ffeb3b;
   --rmdp-deselect-yellow: #cca701;
 }
@@ -78,4 +78,8 @@
 .yellow .b-deselect {
   color: var(--rmdp-deselect-yellow);
   background-color: white;
+}
+
+.yellow .rmdp-action-button {
+  color: var(--rmdp-primary-yellow);
 }

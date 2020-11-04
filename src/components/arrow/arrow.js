@@ -6,10 +6,7 @@ export default function Arrow({ direction, onClick }) {
             className="rmdp-arrow-container"
             onClick={onClick}
         >
-            <i
-                className={`rmdp-arrow ${direction}`}
-            >
-            </i>
+            <i className={`rmdp-arrow ${direction}`}></i>
         </span>
     )
 }

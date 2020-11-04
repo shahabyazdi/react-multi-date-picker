@@ -79,3 +79,7 @@
   color: var(--rmdp-deselect-purple);
   background-color: white;
 }
+
+.purple .rmdp-action-button {
+  color: var(--rmdp-primary-purple);
+}

@@ -35,7 +35,9 @@ export default function MonthPicker({ state, setState, onChange }) {
         }
 
         setMonths(monthsArray)
-    }, [state.calendar, state.local, state.months])
+
+        if (state.onlyMonthPicker) setState(state => { return { ...state, ready: true } })
+    }, [state.calendar, state.local, state.months, state.onlyMonthPicker, setState])
 
     return (
         <div
@@ -48,7 +50,7 @@ export default function MonthPicker({ state, setState, onChange }) {
                     className={`rmdp-day ym ${state.date.month.index === (i * 3 + j) ? "rmdp-selected" : ""}`}
                     onClick={() => selectMonth(i * 3 + j + 1)}
                 >
-                    <span>{name}</span>
+                    <span className={state.onlyMonthPicker ? "sd" : ""}>{name}</span>
                 </div>
                 )}
             </div>

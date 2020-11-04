@@ -20,23 +20,24 @@ export default function DatePicker({
     name,
     placeholder,
     style = {},
-    className,
+    className = "",
     inputClass,
     disabled,
     type = "input",
     render,
     weekDays,
-    months
+    months,
+    showOtherDays,
+    children
 }) {
-    let [date, setDate] = useState(value)
-    let [stringDate, setStringDate] = useState("")
-    let [isVisible, setIsVisible] = useState(false)
-    let datePickerRef = useRef(null)
-    let inputRef = useRef(null)
-    let calendarRef = useRef(null)
-    let ref = useRef({ _calendar: calendar, _local: local, _format: format })
-
-    let separator = useMemo(() => range ? " ~ " : ", ", [range])
+    let [date, setDate] = useState(value),
+        [stringDate, setStringDate] = useState(""),
+        [isVisible, setIsVisible] = useState(false),
+        datePickerRef = useRef(null),
+        inputRef = useRef(null),
+        calendarRef = useRef(null),
+        ref = useRef({ _calendar: calendar, _local: local, _format: format }),
+        separator = useMemo(() => range ? " ~ " : ", ", [range])
 
     useEffect(() => {
         const handleClickOutside = event => {
@@ -45,13 +46,13 @@ export default function DatePicker({
                 !calendarRef.current.contains(event.target) &&
                 !event.target.classList.contains("b-deselect")) {
 
-                setIsVisible(false)
+                if (!ref.current.mobile) setIsVisible(false)
             } else if (inputRef.current && calendarRef.current &&
                 calendarRef.current.contains(event.target) &&
                 !Array.isArray(ref.current.date) &&
                 event.target.classList.contains("sd")) {
 
-                setIsVisible(false)
+                if (!ref.current.mobile) setIsVisible(false)
             }
         }
 
@@ -132,13 +133,15 @@ export default function DatePicker({
         inputRef.current.selectionStart = inputRef.current.selectionEnd = ref.current.start
     }, [stringDate, type])
 
+    if (isMobileMode() && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
+
     return (
         <div ref={datePickerRef} className="rmdp-container">
             {renderInput()}
             {isVisible && (
                 <div
                     ref={calendarRef}
-                    className="rmdp-calendar-container"
+                    className={`rmdp-calendar-container ${isMobileMode() ? "rmdp-calendar-container-mobile" : ""}`}
                 >
                     <Calendar
                         value={date}
@@ -156,11 +159,46 @@ export default function DatePicker({
                         className={className}
                         weekDays={weekDays}
                         months={months}
-                    />
+                        showOtherDays={showOtherDays}
+                    >
+                        {children}
+                        {isMobileMode() &&
+                            <div className="rmdp-action-buttons">
+                                <button
+                                    type="button"
+                                    className="rmdp-button rmdp-action-button"
+                                    onClick={() => {
+                                        if (ref.current.temporaryDate) {
+                                            handleChange(ref.current.temporaryDate, true)
+                                            delete ref.current.temporaryDate
+                                        }
+
+                                        setIsVisible(false)
+                                    }}
+                                >
+                                    OK
+                                </button>
+                                <button
+                                    type="button"
+                                    className="rmdp-button rmdp-action-button"
+                                    onClick={() => {
+                                        setIsVisible(false)
+                                        delete ref.current.temporaryDate
+                                    }}
+                                >
+                                    CANCEL
+                                 </button>
+                            </div>
+                        }
+                    </Calendar>
                 </div>
             )}
         </div>
     )
+
+    function isMobileMode() {
+        return typeof className === "string" && className.includes("rmdp-mobile")
+    }
 
     function openCalendar() {
         if (disabled) return
@@ -168,7 +206,7 @@ export default function DatePicker({
         if (!value && !ref.current.date && !range && !multiple) {
             let date = new DateObject({ calendar, local, format })
 
-            handleChange(date)
+            handleChange(date, isMobileMode())
 
             ref.current.value = date
         }
@@ -181,7 +219,9 @@ export default function DatePicker({
         if (isValidWeekDays(weekDays)) date.weekDays = weekDays
     }
 
-    function handleChange(date) {
+    function handleChange(date, force) {
+        if (isMobileMode() && !force) return ref.current.temporaryDate = date
+
         setDate(date)
 
         ref.current = { ...ref.current, date, _calendar: calendar, _local: local, _format: format }
@@ -215,9 +255,9 @@ export default function DatePicker({
     function handleValueChange(e) {
         if (Array.isArray(date)) return
 
-        let value = e.target.value
-        let object = { year: 1, calendar, local, format }
-        let digits = date && date.isValid ? date.digits : new DateObject(object).digits
+        let value = e.target.value,
+            object = { year: 1, calendar, local, format },
+            digits = date && date.isValid ? date.digits : new DateObject(object).digits
 
         if (type === "input") {
             let start = e.target.selectionStart
@@ -314,6 +354,7 @@ export default function DatePicker({
                             style={style}
                             autoComplete="off"
                             disabled={disabled ? true : false}
+                            inputMode={isMobileMode() ? "none" : undefined}
                         />
                         {type === "input-icon" && <Icon className="rmdp-input-icon" onClick={openCalendar} />}
                     </div>

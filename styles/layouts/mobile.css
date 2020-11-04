@@ -1,0 +1,233 @@
+.rmdp-calendar-container-mobile {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.rmdp-calendar-container-mobile .rmdp-mobile.rmdp-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rmdp-mobile.rmdp-wrapper {
+  border-radius: unset;
+  box-shadow: unset;
+}
+
+.rmdp-mobile .rmdp-day-picker {
+  padding: 15px;
+}
+
+.rmdp-mobile .rmdp-header,
+.rmdp-mobile .rmdp-panel-header {
+  height: 40px;
+  padding-top: 20px;
+}
+
+.rmdp-mobile .rmdp-arrow-container {
+  height: 26px;
+  width: 26px;
+  margin: 0 15px;
+}
+
+.rmdp-mobile .rmdp-arrow {
+  padding: 3px;
+  height: 3px;
+  width: 3px;
+  margin-top: 6px;
+}
+
+.rmdp-mobile .rmdp-month-picker,
+.rmdp-mobile .rmdp-year-picker {
+  top: 80px;
+}
+
+.rmdp-mobile .rmdp-day,
+.rmdp-mobile .rmdp-week-day {
+  height: 38px;
+  width: 38px;
+}
+
+.rmdp-mobile .rmdp-day span {
+  font-size: 15px;
+}
+
+.rmdp-mobile .rmdp-day.ym {
+  height: 70px;
+}
+
+.rmdp-mobile .only.rmdp-month-picker,
+.rmdp-mobile .only.rmdp-year-picker {
+  position: static;
+  width: 300px;
+}
+
+.rmdp-mobile .rmdp-only-time-picker {
+  border-top: unset;
+  width: 280px;
+}
+
+.rmdp-mobile .ok {
+  position: absolute;
+  bottom: 0;
+}
+
+.rmdp-mobile .rmdp-week-day {
+  margin-top: 10px;
+  margin-bottom: 3px;
+}
+
+.rmdp-mobile .only.rmdp-month-picker,
+.rmdp-mobile .only.rmdp-year-picker {
+  margin: 15px 0;
+}
+
+.rmdp-mobile .rmdp-panel-body {
+  max-height: 358px;
+}
+
+.rmdp-mobile .rmdp-action-buttons {
+  display: unset;
+  margin: 5px 10px;
+}
+
+.rmdp-mobile .rmdp-action-button:focus {
+  outline: none;
+}
+
+@media (max-width: 400px) {
+  .rmdp-mobile .rmdp-day,
+  .rmdp-mobile .rmdp-week-day {
+    height: 32px;
+    width: 32px;
+  }
+
+  .rmdp-mobile .rmdp-day span {
+    font-size: 14px;
+  }
+
+  .rmdp-mobile .rmdp-day-picker {
+    padding: 10px 0;
+  }
+
+  .rmdp-mobile.rmdp-single .rmdp-day-picker {
+    padding: 10px;
+  }
+
+  .rmdp-mobile .rmdp-arrow-container {
+    height: 20px;
+    width: 20px;
+    margin: 0 5px;
+  }
+
+  .rmdp-mobile .rmdp-arrow {
+    padding: 2px;
+    height: 3px;
+    width: 3px;
+    margin-top: 6px;
+  }
+
+  .rmdp-mobile .rmdp-panel-body {
+    max-height: 305px;
+  }
+
+  .rmdp-action-button {
+    font-size: 13px;
+    padding: 5px 2px;
+  }
+
+  .rmdp-mobile .rmdp-day.ym {
+    height: 55px;
+  }
+
+  .rmdp-mobile .rmdp-day.ym span {
+    font-size: 12px;
+  }
+}
+
+@media (max-height: 450px) {
+  .rmdp-mobile .rmdp-header,
+  .rmdp-mobile .rmdp-panel-header {
+    height: 25px;
+    padding-top: 10px;
+    font-size: 13px;
+  }
+
+  .rmdp-mobile .rmdp-day,
+  .rmdp-mobile .rmdp-week-day {
+    height: 22px;
+    width: 22px;
+  }
+
+  .rmdp-mobile .rmdp-day span {
+    font-size: 13px;
+  }
+
+  .rmdp-mobile .rmdp-week-day {
+    font-size: 10px;
+  }
+
+  .rmdp-mobile .rmdp-day-picker {
+    padding: 0 7px;
+  }
+
+  .rmdp-mobile .rmdp-panel-body {
+    max-height: 205px;
+  }
+
+  .rmdp-mobile .rmdp-panel-body li {
+    font-size: 11px;
+    height: 16px;
+  }
+
+  .rmdp-mobile .rmdp-panel-body li span {
+    padding-top: 1.5px;
+  }
+
+  .rmdp-mobile .rmdp-panel-body li .b-deselect {
+    margin-top: 2px;
+    height: 11px;
+    width: 8px;
+  }
+
+  .rmdp-mobile .rmdp-action-buttons {
+    margin: 0px 10px;
+  }
+
+  .rmdp-action-button {
+    font-size: 12px;
+    padding: 0 5px;
+  }
+
+  .rmdp-mobile .rmdp-arrow-container {
+    margin: 0 3px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .rmdp-mobile .rmdp-arrow {
+    padding: 2px;
+    height: 2px;
+    width: 2px;
+    margin-top: 3px;
+  }
+
+  .rmdp-mobile .rmdp-month-picker,
+  .rmdp-mobile .rmdp-year-picker {
+    top: 40px;
+  }
+
+  .rmdp-mobile .rmdp-day.ym {
+    height: 40px;
+  }
+
+  .rmdp-mobile .rmdp-day.ym span {
+    font-size: 9px;
+  }
+}

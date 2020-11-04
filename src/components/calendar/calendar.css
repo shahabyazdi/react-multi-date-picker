@@ -4,7 +4,7 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
+  display: none;
   width: max-content;
   border: 1px solid #8798ad;
   box-shadow: 0 0 5px #8798ad;
@@ -12,6 +12,10 @@
   z-index: 1000000;
   text-align: center;
   background-color: white;
+}
+
+.rmdp-wrapper.active {
+  display: flex;
 }
 
 .rmdp-calendar-container {
@@ -373,6 +377,10 @@
   border-radius: 50%;
 }
 
+.rmdp-day-hidden {
+  cursor: unset;
+}
+
 @media (max-width: 400px), (max-height: 400px) {
   .rmdp-day,
   .rmdp-week-day {
@@ -415,4 +423,9 @@
   .only.rmdp-month-picker {
     width: 205px;
   }
+}
+
+.rmdp-day-hidden:hover span,
+.rmdp-day-hidden {
+  background-color: unset;
 }

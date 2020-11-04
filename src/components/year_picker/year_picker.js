@@ -29,7 +29,9 @@ export default function YearPicker({ state, setState, onChange }) {
         }
 
         setyears(yearArray)
-    }, [state.date.year, years])
+
+        if (state.onlyYearPicker) setState(state => { return { ...state, ready: true } })
+    }, [state.date.year, years, state.onlyYearPicker, setState])
 
     return (
         <div
@@ -45,7 +47,7 @@ export default function YearPicker({ state, setState, onChange }) {
                     className={`rmdp-day ym ${year === (state.selectedDate ? state.selectedDate.year : state.date.year) ? "rmdp-selected" : ""}`}
                     onClick={() => selectYear(year)}
                 >
-                    <span>
+                    <span className={state.onlyYearPicker ? "sd" : ""}>
                         {year.toString().replace(/[0-9]/g, w => digits[w])}
                     </span>
                 </div>
