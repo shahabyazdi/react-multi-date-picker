@@ -25,8 +25,13 @@
 
 .rmdp-mobile .rmdp-header,
 .rmdp-mobile .rmdp-panel-header {
-  height: 40px;
-  padding-top: 20px;
+  height: 30px;
+  padding-top: 35px;
+  border-bottom: unset;
+}
+
+.rmdp-mobile .rmdp-time-picker {
+  border-top: unset;
 }
 
 .rmdp-mobile .rmdp-arrow-container {
@@ -68,8 +73,9 @@
 }
 
 .rmdp-mobile .rmdp-only-time-picker {
-  border-top: unset;
-  width: 280px;
+  width: 260px;
+  padding: 10px;
+  padding-top: 20px;
 }
 
 .rmdp-mobile .ok {
@@ -107,6 +113,21 @@
     width: 32px;
   }
 
+  .rmdp-mobile .only.rmdp-month-picker,
+  .rmdp-mobile .only.rmdp-year-picker {
+    width: 250px;
+  }
+
+  .rmdp-mobile .rmdp-only-time-picker {
+    width: 240px;
+  }
+
+  .rmdp-mobile .rmdp-header,
+  .rmdp-mobile .rmdp-panel-header {
+    height: 20px;
+    padding-top: 25px;
+  }
+
   .rmdp-mobile .rmdp-day span {
     font-size: 14px;
   }
@@ -122,7 +143,7 @@
   .rmdp-mobile .rmdp-arrow-container {
     height: 20px;
     width: 20px;
-    margin: 0 5px;
+    margin: 0 12px;
   }
 
   .rmdp-mobile .rmdp-arrow {
@@ -136,9 +157,13 @@
     max-height: 305px;
   }
 
-  .rmdp-action-button {
+  .rmdp-mobile .rmdp-action-button {
     font-size: 13px;
-    padding: 5px 2px;
+    padding: 5px 5px;
+  }
+
+  .rmdp-mobile .rmdp-action-button:first-child {
+    padding-right: 10px;
   }
 
   .rmdp-mobile .rmdp-day.ym {
@@ -153,15 +178,24 @@
 @media (max-height: 450px) {
   .rmdp-mobile .rmdp-header,
   .rmdp-mobile .rmdp-panel-header {
-    height: 25px;
-    padding-top: 10px;
-    font-size: 13px;
+    height: 15px;
+    padding-top: 15px;
+    font-size: 12px;
   }
 
   .rmdp-mobile .rmdp-day,
   .rmdp-mobile .rmdp-week-day {
     height: 22px;
     width: 22px;
+  }
+
+  .rmdp-mobile .rmdp-time-picker {
+    padding-top: 5px;
+  }
+
+  .rmdp-mobile .rmdp-time-picker div input {
+    font-size: 12px;
+    padding: 2px;
   }
 
   .rmdp-mobile .rmdp-day span {
@@ -199,9 +233,14 @@
     margin: 0px 10px;
   }
 
-  .rmdp-action-button {
-    font-size: 12px;
+  .rmdp-mobile .rmdp-action-button {
+    font-size: 11px;
     padding: 0 5px;
+    margin: 10px 5px;
+  }
+
+  .rmdp-mobile .rmdp-action-button:first-child {
+    margin-right: 10px;
   }
 
   .rmdp-mobile .rmdp-arrow-container {

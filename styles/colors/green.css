@@ -61,7 +61,7 @@
   box-shadow: 0 0 3px #87ad92;
 }
 
-.green .rmdp-day:hover span {
+.green .rmdp-day:not(.rmdp-day-hidden):hover span {
   background-color: #2ecc40;
 }
 

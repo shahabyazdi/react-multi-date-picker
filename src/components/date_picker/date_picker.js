@@ -29,7 +29,8 @@ export default function DatePicker({
     months,
     showOtherDays,
     children,
-    inputMode
+    inputMode,
+    scrollSensitive = true
 }) {
     let [date, setDate] = useState(value),
         [stringDate, setStringDate] = useState(""),
@@ -134,10 +135,58 @@ export default function DatePicker({
         inputRef.current.selectionStart = inputRef.current.selectionEnd = ref.current.start
     }, [stringDate, type])
 
+    useEffect(() => {
+        const calendar = calendarRef.current
+
+        if (
+            !isVisible ||
+            !calendar ||
+            !scrollSensitive ||
+            calendar.classList.contains("rmdp-calendar-container-mobile")
+        ) return
+
+        function checkPosition(e) {
+            let wrapper = calendar.querySelector(".rmdp-wrapper")
+
+            if (!wrapper) return
+
+            let { top, height } = wrapper.getBoundingClientRect(),
+                inputHeight = (inputRef.current.offsetHeight + 3 | 0),
+                heightPX = inputHeight + "px",
+                clientHeight
+
+            if (!e) {
+                clientHeight = document.documentElement.clientHeight
+            } else {
+                clientHeight = e.target.clientHeight
+                top -= e.target.offsetTop
+            }
+
+            if (top > clientHeight) return
+            if (calendar.style.bottom !== heightPX && top < 0) return
+
+            if (top + height > clientHeight && top - height - inputHeight - 5 > 0) {
+                calendar.style.bottom = heightPX
+            } else if (calendar.style.bottom === heightPX && top < 0) {
+                calendar.style.bottom = "unset"
+            }
+        }
+
+        setTimeout(() => checkPosition(), 10)
+
+        document.addEventListener("scroll", checkPosition, true)
+        window.addEventListener("resize", () => checkPosition())
+
+        return () => {
+            document.removeEventListener("scroll", checkPosition, true)
+            window.removeEventListener("resize", () => checkPosition())
+        }
+    }, [isVisible, scrollSensitive])
+
     if (isMobileMode() && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
 
     return (
-        <div ref={datePickerRef} className="rmdp-container">
+        <div ref={datePickerRef} className="rmdp-container" style={{ position: "relative" }}>
             {renderInput()}
             {isVisible && (
                 <div
@@ -177,7 +226,7 @@ export default function DatePicker({
                                         setIsVisible(false)
                                     }}
                                 >
-                                    OK
+                                    {toLocal("OK")}
                                 </button>
                                 <button
                                     type="button"
@@ -187,8 +236,8 @@ export default function DatePicker({
                                         delete ref.current.temporaryDate
                                     }}
                                 >
-                                    CANCEL
-                                 </button>
+                                    {toLocal("CANCEL")}
+                                </button>
                             </div>
                         }
                     </Calendar>
@@ -201,16 +250,33 @@ export default function DatePicker({
         return typeof className === "string" && className.includes("rmdp-mobile")
     }
 
+    function toLocal(string) {
+        let actions = {
+            [DateObject.locals.EN]: { OK: "OK", CANCEL: "CANCEL" },
+            [DateObject.locals.FA]: { OK: "تأیید", CANCEL: "لغو" },
+            [DateObject.locals.AR]: { OK: "تأكيد", CANCEL: "الغاء" },
+            [DateObject.locals.HI]: { OK: "पुष्टि", CANCEL: "रद्द करें" }
+        }
+
+        if (typeof local === "string" && actions[local.toUpperCase()]) return actions[local.toUpperCase()][string]
+
+        return string
+    }
+
     function openCalendar() {
         if (disabled) return
+
+        let isMobile = isMobileMode()
 
         if (!value && !ref.current.date && !range && !multiple) {
             let date = new DateObject({ calendar, local, format })
 
-            handleChange(date, isMobileMode())
+            handleChange(date, isMobile)
 
             ref.current.value = date
         }
+
+        if (isMobile) inputRef.current.querySelector("input").blur()
 
         setIsVisible(["input", "input-icon"].includes(type) ? true : !isVisible)
     }
