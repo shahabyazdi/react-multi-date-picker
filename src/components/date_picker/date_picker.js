@@ -30,7 +30,8 @@ export default function DatePicker({
     showOtherDays,
     children,
     inputMode,
-    scrollSensitive = true
+    scrollSensitive = true,
+    hideOnScroll
 }) {
     let [date, setDate] = useState(value),
         [stringDate, setStringDate] = useState(""),
@@ -40,6 +41,8 @@ export default function DatePicker({
         calendarRef = useRef(null),
         ref = useRef({ _calendar: calendar, _local: local, _format: format }),
         separator = useMemo(() => range ? " ~ " : ", ", [range])
+
+    if (isMobileMode() && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
 
     useEffect(() => {
         const handleClickOutside = event => {
@@ -142,10 +145,22 @@ export default function DatePicker({
             !isVisible ||
             !calendar ||
             !scrollSensitive ||
-            calendar.classList.contains("rmdp-calendar-container-mobile")
+            ref.current.mobile
         ) return
 
         function checkPosition(e) {
+            if (e) {
+                if (hideOnScroll) {
+                    let input = inputRef.current.querySelector("input")
+
+                    if (input) input.blur()
+
+                    return setIsVisible(false)
+                }
+
+                if (!e.target.querySelector(".rmdp-calendar-container")) return
+            }
+
             let wrapper = calendar.querySelector(".rmdp-wrapper")
 
             if (!wrapper) return
@@ -181,9 +196,7 @@ export default function DatePicker({
             document.removeEventListener("scroll", checkPosition, true)
             window.removeEventListener("resize", () => checkPosition())
         }
-    }, [isVisible, scrollSensitive])
-
-    if (isMobileMode() && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
+    }, [isVisible, scrollSensitive, hideOnScroll])
 
     return (
         <div ref={datePickerRef} className="rmdp-container" style={{ position: "relative" }}>
@@ -276,7 +289,11 @@ export default function DatePicker({
             ref.current.value = date
         }
 
-        if (isMobile) inputRef.current.querySelector("input").blur()
+        if (isMobile) {
+            let input = inputRef.current.querySelector("input")
+
+            if (input) input.blur()
+        }
 
         setIsVisible(["input", "input-icon"].includes(type) ? true : !isVisible)
     }

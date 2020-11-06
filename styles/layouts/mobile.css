@@ -4,7 +4,7 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .rmdp-calendar-container-mobile .rmdp-mobile.rmdp-wrapper {
@@ -32,6 +32,11 @@
 
 .rmdp-mobile .rmdp-time-picker {
   border-top: unset;
+  margin-bottom: 15px;
+}
+
+.rmdp-calendar-container-mobile .rmdp-time-picker {
+  margin-bottom: 0;
 }
 
 .rmdp-mobile .rmdp-arrow-container {
@@ -111,6 +116,11 @@
   .rmdp-mobile .rmdp-week-day {
     height: 32px;
     width: 32px;
+  }
+
+  .rmdp-mobile .rmdp-month-picker,
+  .rmdp-mobile .rmdp-year-picker {
+    top: 65px;
   }
 
   .rmdp-mobile .only.rmdp-month-picker,
