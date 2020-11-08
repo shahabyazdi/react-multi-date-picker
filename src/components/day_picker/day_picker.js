@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef, useMemo } from "react"
 import DateObject from "react-date-object"
 import WeekDays from "../week_days/week_days"
 
-export default function DayPicker({ state, setState, onChange, showOtherDays }) {
+export default function DayPicker({ state, setState, onChange, showOtherDays = true }) {
     const [weeks, setWeeks] = useState([]),
         ref = useRef(false),
         today = useMemo(() => new DateObject({ calendar: state.calendar }), [state.calendar]),
-        mustShowDayPicker = !state.onlyTimePicker && !state.onlyMonthPicker && !state.onlyYearPicker
+        mustShowDayPicker = !state.onlyTimePicker && !state.onlyMonthPicker && !state.onlyYearPicker,
+        { minDate, maxDate } = state
 
     useEffect(() => {
         if (!mustShowDayPicker) return
@@ -33,11 +34,16 @@ export default function DayPicker({ state, setState, onChange, showOtherDays }) 
             {weeks.map((week, index) => <div key={index} className="rmdp-week">
                 {week.map((object, i) => <div
                     key={i}
-                    onClick={() => mustDisplayDay(object) && selectDay(object.date)}
                     className={getClassName(object)}
+                    onClick={() => {
+                        if (!mustDisplayDay(object)) return
+                        if (object.disabled) return
+
+                        selectDay(object.date)
+                    }}
                 >
                     <span
-                        className={`${mustDisplayDay(object) && "sd"}`}
+                        className={`${mustDisplayDay(object) && !object.disabled && "sd"}`}
                     >
                         {mustDisplayDay(object) && object.date.format("D")}
                     </span>
@@ -93,18 +99,31 @@ export default function DayPicker({ state, setState, onChange, showOtherDays }) 
         if (!mustDisplayDay(object)) {
             names.push("rmdp-day-hidden")
         } else {
+            if (
+                (minDate && object.date < minDate) ||
+                (maxDate && object.date > maxDate)
+            ) {
+                names.push("rmdp-disabled")
+                object.disabled = true
+            }
+
             if (!object.current) names.push("rmdp-deactive")
-            if (isSameDate(object.date, today)) names.push("rmdp-today")
-            if (isSelected(object.date)) names.push("rmdp-selected")
+
+            if (!object.disabled) {
+                if (isSameDate(object.date, today)) names.push("rmdp-today")
+                if (isSelected(object.date)) names.push("rmdp-selected")
+            }
         }
 
         if (state.range) {
-            if (state.selectedDate.length === 1) {
-                if (isSameDate(object.date, state.selectedDate[0])) names.push("rmdp-range")
+            let { selectedDate } = state
+
+            if (selectedDate.length === 1) {
+                if (isSameDate(object.date, selectedDate[0])) names.push("rmdp-range")
             } else {
-                if (object.date >= state.selectedDate[0] && object.date <= state.selectedDate[1]) names.push("rmdp-range")
-                if (isSameDate(object.date, state.selectedDate[0])) names.push("start")
-                if (isSameDate(object.date, state.selectedDate[1])) names.push("end")
+                if (object.date >= selectedDate[0] && object.date <= selectedDate[1]) names.push("rmdp-range")
+                if (isSameDate(object.date, selectedDate[0])) names.push("start")
+                if (isSameDate(object.date, selectedDate[1])) names.push("end")
             }
         }
 

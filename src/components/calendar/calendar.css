@@ -122,7 +122,8 @@
   color: white;
 }
 
-.rmdp-day.rmdp-deactive {
+.rmdp-day.rmdp-deactive,
+.rmdp-day.rmdp-disabled {
   color: #8798ad;
 }
 
@@ -159,7 +160,7 @@
   border-bottom-right-radius: 50%;
 }
 
-.rmdp-day:hover span {
+.rmdp-day:hover:not(.rmdp-disabled) span {
   background-color: rgb(126, 166, 240);
   color: white;
 }
@@ -377,7 +378,8 @@
   border-radius: 50%;
 }
 
-.rmdp-day-hidden {
+.rmdp-day-hidden,
+.rmdp-day.rmdp-disabled {
   cursor: unset;
 }
 

@@ -43,6 +43,8 @@ export default function Example() {
 | weekDays        |                                             Array                                             |               undefined               | both                                |
 | months          |                                             Array                                             |               undefined               | both                                |
 | showOtherDays   |                                            Boolean                                            |                 true                  | both                                |
+| minDate         |                              Date, DateObject, String or Number                               |               undefined               | both                                |
+| maxDate         |                              Date, DateObject, String or Number                               |               undefined               | both                                |
 | inputClass      |                                            String                                             |                  ""                   | DatePicker                          |
 | name            |                                            String                                             |                  ""                   | DatePicker                          |
 | style           |                                            Object                                             |                  {}                   | DatePicker                          |

@@ -107,6 +107,16 @@
   margin: 5px 10px;
 }
 
+.rmdp-mobile .rmdp-action-buttons.rmdp-rtl {
+  direction: rtl;
+}
+
+.rmdp-mobile .rmdp-rtl .rmdp-action-button {
+  float: left;
+  margin-right: unset;
+  margin-left: 10px;
+}
+
 .rmdp-mobile .rmdp-action-button:focus {
   outline: none;
 }

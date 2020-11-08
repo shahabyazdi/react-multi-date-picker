@@ -17,7 +17,6 @@ export default function Calendar({
     onlyTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
-    onChange,
     range = false,
     multiple = false,
     mustShowDates = true,
@@ -25,7 +24,10 @@ export default function Calendar({
     weekDays,
     months,
     children,
-    showOtherDays = true
+    onChange,
+    showOtherDays,
+    minDate,
+    maxDate
 }) {
     let [state, setState] = useState({})
 
@@ -35,10 +37,11 @@ export default function Calendar({
 
             function getFormat() {
                 if (format) return format
-                if (timePicker) return "YYYY/MM/DD HH:mm:ss"
+                if (timePicker && !range && !multiple) return "YYYY/MM/DD HH:mm:ss"
                 if (onlyTimePicker) return "HH:mm:ss"
                 if (onlyMonthPicker) return "MM/YYYY"
                 if (onlyYearPicker) return "YYYY"
+                if (range || multiple) return "YYYY/MM/DD"
             }
 
             function getSelectedDate(value) {
@@ -183,6 +186,26 @@ export default function Calendar({
         months
     ])
 
+    useEffect(() => {
+        if (!minDate && !maxDate) return
+
+        setState(state => {
+            let [selectedDate, $minDate, $maxDate] = getDateInRangeOfMinAndMaxDate(
+                state.selectedDate,
+                minDate,
+                maxDate,
+                state.calendar
+            )
+
+            return {
+                ...state,
+                selectedDate,
+                minDate: $minDate,
+                maxDate: $maxDate
+            }
+        })
+    }, [minDate, maxDate])
+
     return (state.date ?
         <div
             className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${state.range || state.multiple ? "" : "rmdp-single"}`}
@@ -226,4 +249,34 @@ function isSame(arg1, arg2) {
 
 function isValidDate(date) {
     return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())
+}
+
+export function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
+    if (minDate) minDate = toDateObject(minDate, calendar).set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+    if (maxDate) maxDate = toDateObject(maxDate, calendar).set({ hour: 23, minute: 59, second: 59, millisecond: 999 })
+
+    if (Array.isArray(date)) {
+        date = date.filter(dateObject => {
+            if (minDate && dateObject < minDate) return false
+            if (maxDate && dateObject > maxDate) return false
+
+            return true
+        })
+    } else {
+        if ((minDate && date < minDate) || (maxDate && date > maxDate)) date = undefined
+    }
+
+    return [date, minDate, maxDate]
+}
+
+function toDateObject(date, calendar) {
+    if (typeof date === "number" && date > 9999999999) date = new Date(date)
+
+    if (date instanceof DateObject) {
+        if (date.calendar !== calendar) date.setCalendar(calendar)
+    } else {
+        date = new DateObject({ date, calendar })
+    }
+
+    return date
 }

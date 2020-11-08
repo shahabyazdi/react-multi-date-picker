@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react"
-import Calendar from "../calendar/calendar"
+import Calendar, { getDateInRangeOfMinAndMaxDate } from "../calendar/calendar"
 import DateObject from "react-date-object"
 import { ReactComponent as Icon } from "./calendar.svg"
 import "./date_picker.css"
@@ -31,7 +31,9 @@ export default function DatePicker({
     children,
     inputMode,
     scrollSensitive = true,
-    hideOnScroll
+    hideOnScroll,
+    minDate,
+    maxDate
 }) {
     let [date, setDate] = useState(value),
         [stringDate, setStringDate] = useState(""),
@@ -76,7 +78,8 @@ export default function DatePicker({
         setDate(date => {
             if (!date) return
 
-            let { _calendar, _format, _local } = ref.current
+            let { _calendar, _format, _local, _range, _multiple } = ref.current,
+                getLastDate = () => date[date.length - 1]
 
             function checkDate(date) {
                 if (!(date instanceof DateObject)) date = new DateObject({ date, calendar: _calendar, local: _local, format: _format })
@@ -87,32 +90,30 @@ export default function DatePicker({
                 if (isValidMonths(months)) date.months = months
                 if (isValidWeekDays(weekDays)) date.weekDays = weekDays
 
-                date.setFormat(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format))
+                date.setFormat(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple))
 
                 return date
             }
+
+            if (!range && !multiple && (_range || _multiple) && Array.isArray(date)) date = getLastDate()
 
             if (range || multiple || Array.isArray(date)) {
                 if (!Array.isArray(date)) date = [date]
 
                 date = date.map(checkDate)
 
-                if (range && date.length > 2) date = [date[0], date[date.length - 1]]
+                if (range && date.length > 2) date = [date[0], getLastDate()]
 
-                setStringDate(type === "button" && date.length > 1 ?
-                    [date[0], date[1]].join(separator)
-                    :
-                    date.join(separator)
-                )
+                setStringDate(getStringDate(date, type, separator))
             } else {
-                if (Array.isArray(date)) date = date[date.length - 1]
+                if (Array.isArray(date)) date = getLastDate()
 
                 date = checkDate(date)
 
                 setStringDate(date.format())
             }
 
-            ref.current = { ...ref.current, date, _calendar: calendar, _local: local, _format: format, separator }
+            ref.current = { ...ref.current, date, _calendar: calendar, _local: local, _format: format, separator, _range: range, _multiple: multiple }
 
             return date
         })
@@ -137,6 +138,22 @@ export default function DatePicker({
 
         inputRef.current.selectionStart = inputRef.current.selectionEnd = ref.current.start
     }, [stringDate, type])
+
+    useEffect(() => {
+        if (!minDate && !maxDate) return
+
+        setDate(date => {
+            let [$date] = getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar)
+
+            if (Array.isArray($date)) {
+                setStringDate(getStringDate($date, type, separator))
+            } else {
+                setStringDate($date ? $date.format() : "")
+            }
+
+            return $date
+        })
+    }, [minDate, maxDate, calendar, type, separator])
 
     useEffect(() => {
         const calendar = calendarRef.current
@@ -223,10 +240,12 @@ export default function DatePicker({
                         weekDays={weekDays}
                         months={months}
                         showOtherDays={showOtherDays}
+                        minDate={minDate}
+                        maxDate={maxDate}
                     >
                         {children}
                         {isMobileMode() &&
-                            <div className="rmdp-action-buttons">
+                            <div className={`rmdp-action-buttons ${["fa", "ar"].includes(local) ? "rmdp-rtl" : ""}`} >
                                 <button
                                     type="button"
                                     className="rmdp-button rmdp-action-button"
@@ -286,7 +305,7 @@ export default function DatePicker({
 
             handleChange(date, isMobile)
 
-            ref.current.value = date
+            ref.current.date = date
         }
 
         if (isMobile) {
@@ -322,16 +341,11 @@ export default function DatePicker({
             if (Array.isArray(date)) {
                 date.map(setCustomNames)
 
-                setStringDate(
-                    type === "button" && date.length > 1 ?
-                        [date[0], date[1]].join(separator)
-                        :
-                        date.join(separator)
-                )
+                setStringDate(getStringDate(date, type, separator))
             } else {
                 setCustomNames(date)
 
-                setStringDate(date.format(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format)))
+                setStringDate(date.format(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple)))
             }
         }
     }
@@ -447,12 +461,13 @@ export default function DatePicker({
     }
 }
 
-function getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format) {
+function getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple) {
     if (format) return format
-    if (timePicker) return "YYYY/MM/DD HH:mm:ss"
+    if (timePicker && !range && !multiple) return "YYYY/MM/DD HH:mm:ss"
     if (onlyTimePicker) return "HH:mm:ss"
     if (onlyMonthPicker) return "MM/YYYY"
     if (onlyYearPicker) return "YYYY"
+    if (range || multiple) return "YYYY/MM/DD"
 }
 
 function isValidMonths(value) {
@@ -465,4 +480,13 @@ function isValidWeekDays(value) {
     return Array.isArray(value) && value.length === 7 && value.every(array => {
         return Array.isArray(array) && array.length === 2 && array.every(string => typeof string === "string")
     })
+}
+
+function getStringDate(date, type, separator) {
+    if (!date) return ""
+
+    return type === "button" && date.length > 1 ?
+        [date[0], date[1]].join(separator)
+        :
+        date.join(separator)
 }

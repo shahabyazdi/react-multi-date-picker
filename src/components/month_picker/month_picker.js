@@ -3,7 +3,8 @@ import DateObject from "react-date-object"
 
 export default function MonthPicker({ state, setState, onChange }) {
     const [months, setMonths] = useState([]),
-        mustShowMonthPicker = (state.mustShowMonthPicker || state.onlyMonthPicker) && !state.onlyTimePicker && !state.onlyYearPicker
+        mustShowMonthPicker = (state.mustShowMonthPicker || state.onlyMonthPicker) && !state.onlyTimePicker && !state.onlyYearPicker,
+        { minDate, maxDate } = state
 
     useEffect(() => {
         let months = state.months
@@ -47,8 +48,8 @@ export default function MonthPicker({ state, setState, onChange }) {
             {months.map((array, i) => <div key={i} className="rmdp-week">
                 {array.map((name, j) => <div
                     key={j}
-                    className={`rmdp-day ym ${state.date.month.index === (i * 3 + j) ? "rmdp-selected" : ""}`}
-                    onClick={() => selectMonth(i * 3 + j + 1)}
+                    className={getClassName(i * 3 + j)}
+                    onClick={() => selectMonth(i * 3 + j)}
                 >
                     <span className={state.onlyMonthPicker ? "sd" : ""}>{name}</span>
                 </div>
@@ -58,9 +59,15 @@ export default function MonthPicker({ state, setState, onChange }) {
         </div>
     )
 
-    function selectMonth(month) {
-        let date = state.date.setMonth(month),
-            selectedDate = state.onlyMonthPicker ? new DateObject(date) : state.selectedDate
+    function selectMonth(monthIndex) {
+        let { date } = state
+
+        if (minDate && date.year <= minDate.year && monthIndex < minDate.month.index) return
+        if (maxDate && date.year >= maxDate.year && monthIndex > maxDate.month.index) return
+
+        date = date.setMonth(monthIndex + 1)
+
+        let selectedDate = state.onlyMonthPicker ? new DateObject(date) : state.selectedDate
 
         setState({
             ...state,
@@ -70,5 +77,16 @@ export default function MonthPicker({ state, setState, onChange }) {
         })
 
         if (onChange instanceof Function && state.onlyMonthPicker) onChange(selectedDate)
+    }
+
+    function getClassName(monthIndex) {
+        let names = ["rmdp-day", "ym"],
+            { date } = state
+
+        if (date.month.index === monthIndex) names.push("rmdp-selected")
+        if (minDate && date.year <= minDate.year && monthIndex < minDate.month.index) names.push("rmdp-disabled")
+        if (maxDate && date.year >= maxDate.year && monthIndex > maxDate.month.index) names.push("rmdp-disabled")
+
+        return names.join(" ")
     }
 }

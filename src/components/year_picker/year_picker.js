@@ -5,7 +5,8 @@ export default function YearPicker({ state, setState, onChange }) {
     const [years, setyears] = useState([]),
         yearRef = useRef(null),
         digits = state.date.digits,
-        mustShowYearPicker = (state.mustShowYearPicker || state.onlyYearPicker) && !state.onlyTimePicker
+        mustShowYearPicker = (state.mustShowYearPicker || state.onlyYearPicker) && !state.onlyTimePicker,
+        { minDate, maxDate } = state
 
     useEffect(() => {
         let yearArray = [],
@@ -44,7 +45,7 @@ export default function YearPicker({ state, setState, onChange }) {
             >
                 {array.map((year, j) => <div
                     key={j}
-                    className={`rmdp-day ym ${year === (state.selectedDate ? state.selectedDate.year : state.date.year) ? "rmdp-selected" : ""}`}
+                    className={getClassName(year)}
                     onClick={() => selectYear(year)}
                 >
                     <span className={state.onlyYearPicker ? "sd" : ""}>
@@ -58,8 +59,17 @@ export default function YearPicker({ state, setState, onChange }) {
     )
 
     function selectYear(year) {
+        if (minDate && year < minDate.year) return
+        if (maxDate && year > maxDate.year) return
+
         let date = state.date.setYear(year),
             selectedDate = state.onlyYearPicker ? new DateObject(date) : state.selectedDate
+
+        if (minDate && date.month.number < minDate.month.number) {
+            date = date.setMonth(minDate.month.number)
+        } else if (maxDate && date.month.number > maxDate.month.number) {
+            date = date.setMonth(maxDate.month.number)
+        }
 
         setState({
             ...state,
@@ -69,5 +79,16 @@ export default function YearPicker({ state, setState, onChange }) {
         })
 
         if (onChange instanceof Function && state.onlyYearPicker) onChange(selectedDate)
+    }
+
+    function getClassName(year) {
+        let names = ["rmdp-day", "ym"],
+            { date, selectedDate } = state
+
+        if (year === (selectedDate && !Array.isArray(selectedDate) ? selectedDate.year : date.year)) names.push("rmdp-selected")
+        if (minDate && year < minDate.year) names.push("rmdp-disabled")
+        if (maxDate && year > maxDate.year) names.push("rmdp-disabled")
+
+        return names.join(" ")
     }
 }
