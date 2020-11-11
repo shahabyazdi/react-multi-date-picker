@@ -36,7 +36,7 @@
   padding: 0px 5px;
   margin: 5px 0;
   text-align: center;
-  max-height: 245px;
+  max-height: 235px;
   overflow: auto;
 }
 
@@ -160,7 +160,7 @@
   border-bottom-right-radius: 50%;
 }
 
-.rmdp-day:hover:not(.rmdp-disabled) span {
+.rmdp-day:hover:not(.rmdp-disabled):not(.rmdp-day-hidden) span {
   background-color: rgb(126, 166, 240);
   color: white;
 }
@@ -383,6 +383,28 @@
   cursor: unset;
 }
 
+.rmdp-day:hover:not(.rmdp-disabled):not(.rmdp-day-hidden) .rmdp-weekend {
+  background-color: #ff6687;
+}
+
+.rmdp-day:not(.rmdp-deactive) .rmdp-weekend {
+  color: #cc0303;
+}
+
+.rmdp-day.rmdp-deactive .rmdp-weekend {
+  color: #e08e8e;
+}
+
+.rmdp-day.rmdp-selected .rmdp-weekend {
+  background-color: #ea0034;
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .rmdp-weekend {
+  background-color: #e4b0ba;
+  color: white;
+}
+
 @media (max-width: 400px), (max-height: 400px) {
   .rmdp-day,
   .rmdp-week-day {
@@ -425,9 +447,14 @@
   .only.rmdp-month-picker {
     width: 205px;
   }
+
+  .rmdp-panel-body {
+    max-height: 195px;
+  }
 }
 
 .rmdp-day-hidden:hover span,
 .rmdp-day-hidden {
   background-color: unset;
+  color: transparent;
 }

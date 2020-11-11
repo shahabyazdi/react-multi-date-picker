@@ -30,6 +30,10 @@
   border-bottom: unset;
 }
 
+.rmdp-mobile .rmdp-panel-header {
+  padding-bottom: 25px;
+}
+
 .rmdp-mobile .rmdp-time-picker {
   border-top: unset;
   margin-bottom: 15px;
@@ -99,7 +103,16 @@
 }
 
 .rmdp-mobile .rmdp-panel-body {
-  max-height: 358px;
+  max-height: 270px;
+}
+
+.rmdp-mobile .rmdp-panel-body li {
+  padding: 0 10px;
+  margin: 5px 10px;
+}
+
+.rmdp-calendar-container-mobile .rmdp-panel-body {
+  max-height: 335px;
 }
 
 .rmdp-mobile .rmdp-action-buttons {
@@ -148,6 +161,11 @@
     padding-top: 25px;
   }
 
+  .rmdp-mobile .rmdp-panel-body li {
+    margin: 5px;
+    padding: 0 4px;
+  }
+
   .rmdp-mobile .rmdp-day span {
     font-size: 14px;
   }
@@ -173,8 +191,13 @@
     margin-top: 6px;
   }
 
+  .rmdp-calendar-container-mobile .rmdp-mobile .rmdp-panel-body {
+    max-height: 280px;
+    padding: 0 2px;
+  }
+
   .rmdp-mobile .rmdp-panel-body {
-    max-height: 305px;
+    max-height: 225px;
   }
 
   .rmdp-mobile .rmdp-action-button {
@@ -193,6 +216,11 @@
   .rmdp-mobile .rmdp-day.ym span {
     font-size: 12px;
   }
+
+  .rmdp-mobile .rmdp-panel-header {
+    font-size: 16px;
+    padding: 23px 0;
+  }
 }
 
 @media (max-height: 450px) {
@@ -201,6 +229,10 @@
     height: 15px;
     padding-top: 15px;
     font-size: 12px;
+  }
+
+  .rmdp-mobile .rmdp-panel-header {
+    padding-bottom: 12px;
   }
 
   .rmdp-mobile .rmdp-day,
@@ -231,12 +263,15 @@
   }
 
   .rmdp-mobile .rmdp-panel-body {
-    max-height: 205px;
+    max-height: 175px;
+    padding: 0px;
+    margin: 5px 0px;
   }
 
   .rmdp-mobile .rmdp-panel-body li {
     font-size: 11px;
     height: 16px;
+    margin: 5px;
   }
 
   .rmdp-mobile .rmdp-panel-body li span {

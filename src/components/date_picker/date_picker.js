@@ -33,7 +33,9 @@ export default function DatePicker({
     scrollSensitive = true,
     hideOnScroll,
     minDate,
-    maxDate
+    maxDate,
+    formattingIgnoreList,
+    ...otherProps
 }) {
     let [date, setDate] = useState(value),
         [stringDate, setStringDate] = useState(""),
@@ -45,6 +47,9 @@ export default function DatePicker({
         separator = useMemo(() => range ? " ~ " : ", ", [range])
 
     if (isMobileMode() && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
+    if (!Array.isArray(formattingIgnoreList)) formattingIgnoreList = []
+
+    formattingIgnoreList = JSON.stringify(formattingIgnoreList)
 
     useEffect(() => {
         const handleClickOutside = event => {
@@ -104,13 +109,13 @@ export default function DatePicker({
 
                 if (range && date.length > 2) date = [date[0], getLastDate()]
 
-                setStringDate(getStringDate(date, type, separator))
+                setStringDate(getStringDate(date, type, separator, format, formattingIgnoreList))
             } else {
                 if (Array.isArray(date)) date = getLastDate()
 
                 date = checkDate(date)
 
-                setStringDate(date.format())
+                setStringDate(date.format(undefined, JSON.parse(formattingIgnoreList)))
             }
 
             ref.current = { ...ref.current, date, _calendar: calendar, _local: local, _format: format, separator, _range: range, _multiple: multiple }
@@ -130,7 +135,8 @@ export default function DatePicker({
         onlyMonthPicker,
         onlyYearPicker,
         weekDays,
-        months
+        months,
+        formattingIgnoreList
     ])
 
     useEffect(() => {
@@ -146,14 +152,14 @@ export default function DatePicker({
             let [$date] = getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar)
 
             if (Array.isArray($date)) {
-                setStringDate(getStringDate($date, type, separator))
+                setStringDate(getStringDate($date, type, separator, format, formattingIgnoreList))
             } else {
-                setStringDate($date ? $date.format() : "")
+                setStringDate($date ? $date.format(undefined, JSON.parse(formattingIgnoreList)) : "")
             }
 
             return $date
         })
-    }, [minDate, maxDate, calendar, type, separator])
+    }, [minDate, maxDate, calendar, type, separator, format, formattingIgnoreList])
 
     useEffect(() => {
         const calendar = calendarRef.current
@@ -242,6 +248,8 @@ export default function DatePicker({
                         showOtherDays={showOtherDays}
                         minDate={minDate}
                         maxDate={maxDate}
+                        formattingIgnoreList={JSON.parse(formattingIgnoreList)}
+                        {...otherProps}
                     >
                         {children}
                         {isMobileMode() &&
@@ -341,11 +349,11 @@ export default function DatePicker({
             if (Array.isArray(date)) {
                 date.map(setCustomNames)
 
-                setStringDate(getStringDate(date, type, separator))
+                setStringDate(getStringDate(date, type, separator, format, formattingIgnoreList))
             } else {
                 setCustomNames(date)
 
-                setStringDate(date.format(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple)))
+                setStringDate(date.format(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple), JSON.parse(formattingIgnoreList)))
             }
         }
     }
@@ -482,11 +490,13 @@ function isValidWeekDays(value) {
     })
 }
 
-function getStringDate(date, type, separator) {
+function getStringDate(date, type, separator, format, formattingIgnoreList) {
     if (!date) return ""
 
+    let toString = date => date.format(format, JSON.parse(formattingIgnoreList))
+
     return type === "button" && date.length > 1 ?
-        [date[0], date[1]].join(separator)
+        [date[0], date[1]].map(toString).join(separator)
         :
-        date.join(separator)
+        date.map(toString).join(separator)
 }

@@ -27,7 +27,11 @@ export default function Calendar({
     onChange,
     showOtherDays,
     minDate,
-    maxDate
+    maxDate,
+    mapDays,
+    disableMonthPicker,
+    disableYearPicker,
+    formattingIgnoreList
 }) {
     let [state, setState] = useState({})
 
@@ -208,19 +212,49 @@ export default function Calendar({
 
     return (state.date ?
         <div
-            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${state.range || state.multiple ? "" : "rmdp-single"}`}
+            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
         >
             <div>
                 <div className="rmdp-calendar">
-                    <Header state={state} setState={setState} onChange={onChange} />
-                    <DayPicker state={state} setState={setState} onChange={onChange} showOtherDays={showOtherDays} />
-                    <MonthPicker state={state} setState={setState} onChange={onChange} />
-                    <YearPicker state={state} setState={setState} onChange={onChange} />
+                    <Header
+                        state={state}
+                        setState={setState}
+                        onChange={onChange}
+                        disableYearPicker={disableYearPicker}
+                        disableMonthPicker={disableMonthPicker}
+                    />
+                    <DayPicker
+                        state={state}
+                        setState={setState}
+                        onChange={onChange}
+                        showOtherDays={showOtherDays}
+                        mapDays={mapDays}
+                    />
+                    <MonthPicker
+                        state={state}
+                        setState={setState}
+                        onChange={onChange}
+                    />
+                    <YearPicker
+                        state={state}
+                        setState={setState}
+                        onChange={onChange}
+                    />
                 </div>
-                <TimePicker state={state} setState={setState} onChange={onChange} />
+                <TimePicker
+                    state={state}
+                    setState={setState}
+                    onChange={onChange}
+                    formattingIgnoreList={formattingIgnoreList}
+                />
                 {children}
             </div>
-            <DaysPanel state={state} setState={setState} onChange={onChange} />
+            <DaysPanel
+                state={state}
+                setState={setState}
+                onChange={onChange}
+                formattingIgnoreList={formattingIgnoreList}
+            />
         </div>
         :
         null

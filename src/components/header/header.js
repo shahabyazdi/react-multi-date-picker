@@ -2,7 +2,7 @@ import React from "react"
 import Arrow from "../arrow/arrow"
 import DateObject from "react-date-object"
 
-export default function Header({ state, setState, onChange }) {
+export default function Header({ state, setState, onChange, disableYearPicker, disableMonthPicker }) {
     let monthName = undefined
 
     if (Array.isArray(state.months) && state.months.length === 12) {
@@ -21,14 +21,14 @@ export default function Header({ state, setState, onChange }) {
                     {!state.onlyYearPicker &&
                         <span
                             className={`${state.mustShowMonthPicker ? "active" : ""}`}
-                            onClick={() => toggle("mustShowMonthPicker")}
+                            onClick={() => !disableMonthPicker && toggle("mustShowMonthPicker")}
                         >
                             {monthName},
                         </span>
                     }
                     <span
                         className={`${state.mustShowYearPicker ? "active" : ""}`}
-                        onClick={() => toggle("mustShowYearPicker")}
+                        onClick={() => !disableYearPicker && toggle("mustShowYearPicker")}
                     >
                         {state.date.format("YYYY")}
                     </span>

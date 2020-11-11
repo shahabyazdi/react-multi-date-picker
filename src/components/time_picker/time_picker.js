@@ -3,7 +3,7 @@ import DateObject from "react-date-object"
 import Arrow from "../arrow/arrow"
 import Input from "../input/input"
 
-export default function TimePicker({ state, setState, onChange }) {
+export default function TimePicker({ state, setState, onChange, formattingIgnoreList }) {
     const [am, setAm] = useState(true),
         [mustDisplayMeridiem, setMustDisplayMeridiem] = useState(false),
         meridiems = useMemo(() => new DateObject({ calendar: state.calendar, local: state.local }).meridiems, [state.calendar, state.local]),
@@ -11,7 +11,21 @@ export default function TimePicker({ state, setState, onChange }) {
         mustShowTimePicker = (state.timePicker || state.onlyTimePicker) && !state.multiple && !state.range
 
     useEffect(() => {
-        const $mustDisplayMeridiem = state.format && (state.format.toLowerCase().includes("a") || state.format.includes("hh"))
+        const $mustDisplayMeridiem = () => {
+            let format = state.format
+
+            if (typeof format !== "string") return false
+
+            if (Array.isArray(formattingIgnoreList)) {
+                formattingIgnoreList.forEach(item => {
+                    if (typeof item === "string") {
+                        format = format.replace(new RegExp(item, "g"), "")
+                    }
+                })
+            }
+
+            return format.toLowerCase().includes("a") || format.includes("hh")
+        }
 
         setMustDisplayMeridiem($mustDisplayMeridiem)
 
@@ -24,7 +38,7 @@ export default function TimePicker({ state, setState, onChange }) {
         }
 
         if (state.onlyTimePicker) setState(state => { return { ...state, ready: true } })
-    }, [hour, state.format, state.onlyTimePicker, setState])
+    }, [hour, state.format, state.onlyTimePicker, setState, formattingIgnoreList])
 
     return (mustShowTimePicker ?
         <div className={`rmdp-time-picker ${state.onlyTimePicker ? "rmdp-only-time-picker" : ""}`}>

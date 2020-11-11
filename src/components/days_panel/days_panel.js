@@ -2,21 +2,21 @@ import React from "react"
 import DateObject from "react-date-object"
 import { isSameDate } from "../day_picker/day_picker"
 
-export default function DaysPanel({ state, setState, onChange }) {
+export default function DaysPanel({ state, setState, onChange, formattingIgnoreList }) {
     let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" }
 
-    return (
+    return (state.mustShowDates &&
         <div className="rmpd-panel" style={{ display: state.mustShowDates ? "block" : "none" }}>
             <div className="rmdp-panel-header">{header[state.local]}</div>
             <ul className="rmdp-panel-body">
                 {Array.isArray(state.selectedDate) ?
                     state.selectedDate.map(($date, index) => <li
                         key={index}>
-                        <span onClick={() => selectDate($date)}>{$date.format()}</span>
+                        <span onClick={() => selectDate($date)}>{$date.format(undefined, formattingIgnoreList)}</span>
                         <button type="button" className="b-deselect" onClick={() => deSelect($date)}>+</button>
                     </li>)
                     :
-                    <li>{state.stringDate}</li>
+                    <li>{state.selectedDate.format(undefined, formattingIgnoreList)}</li>
                 }
             </ul>
         </div>

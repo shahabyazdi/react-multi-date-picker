@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react"
 import DateObject from "react-date-object"
 import WeekDays from "../week_days/week_days"
 
-export default function DayPicker({ state, setState, onChange, showOtherDays = true }) {
+export default function DayPicker({ state, setState, onChange, showOtherDays = true, mapDays }) {
     const [weeks, setWeeks] = useState([]),
         ref = useRef(false),
         today = useMemo(() => new DateObject({ calendar: state.calendar }), [state.calendar]),
@@ -23,8 +23,9 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
             ) return
         }
 
-        setWeeks(getWeeks(state.date))
         ref.current = state.date.toObject()
+
+        setWeeks(getWeeks(state.date))
         setState(state => { return { ...state, ready: true } })
     }, [state.date, state.date.month, state.date.year, state.local, state.calendar, setState, mustShowDayPicker])
 
@@ -32,23 +33,38 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
         <div className="rmdp-day-picker">
             <WeekDays state={state} />
             {weeks.map((week, index) => <div key={index} className="rmdp-week">
-                {week.map((object, i) => <div
-                    key={i}
-                    className={getClassName(object)}
-                    onClick={() => {
-                        if (!mustDisplayDay(object)) return
-                        if (object.disabled) return
+                {week.map((object, i) => {
+                    let otherProps = {}
+                    let className = `${mustDisplayDay(object) && !object.disabled && "sd"}`
 
-                        selectDay(object.date)
-                    }}
-                >
-                    <span
-                        className={`${mustDisplayDay(object) && !object.disabled && "sd"}`}
-                    >
-                        {mustDisplayDay(object) && object.date.format("D")}
-                    </span>
-                </div>
-                )}
+                    if (mapDays instanceof Function) {
+                        otherProps = getOtherProps(object)
+
+                        className = `${className} ${otherProps.className || ""}`
+
+                        delete otherProps.className
+                    }
+
+                    return (
+                        <div
+                            key={i}
+                            className={getClassName(object)}
+                            onClick={() => {
+                                if (!mustDisplayDay(object)) return
+                                if (object.disabled) return
+
+                                selectDay(object.date)
+                            }}
+                        >
+                            <span
+                                className={className}
+                                {...otherProps}
+                            >
+                                {mustDisplayDay(object) && !object.hidden ? object.date.format("D") : ""}
+                            </span>
+                        </div>
+                    )
+                })}
             </div>)}
         </div>
     )
@@ -96,15 +112,17 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
     function getClassName(object) {
         let names = ["rmdp-day"]
 
-        if (!mustDisplayDay(object)) {
+        if (!mustDisplayDay(object) || object.hidden) {
             names.push("rmdp-day-hidden")
         } else {
             if (
-                (minDate && object.date < minDate) ||
-                (maxDate && object.date > maxDate)
+                ((minDate && object.date < minDate) ||
+                    (maxDate && object.date > maxDate)) ||
+                object.disabled
             ) {
                 names.push("rmdp-disabled")
-                object.disabled = true
+
+                if (!object.disabled) object.disabled = true
             }
 
             if (!object.current) names.push("rmdp-deactive")
@@ -140,6 +158,26 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
         } else {
             return isSameDate(state.selectedDate, date)
         }
+    }
+
+    function getOtherProps(object) {
+        let otherProps = mapDays({
+            date: object.date,
+            today,
+            currentMonth: state.date.month,
+            selectedDate: state.selectedDate,
+            isSameDate
+        })
+
+        if (!otherProps || (otherProps && otherProps.constructor !== Object)) otherProps = {}
+
+        if (otherProps.disabled || otherProps.hidden) object.disabled = true
+        if (otherProps.hidden) object.hidden = true
+
+        delete otherProps.disabled
+        delete otherProps.hidden
+
+        return otherProps
     }
 }
 
