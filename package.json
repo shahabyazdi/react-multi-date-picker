@@ -1,6 +1,6 @@
 {
   "name": "react-multi-date-picker",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "a simple React datepicker component for work with gregorian, persian, arabic and indian calendars",
   "main": "./build/index.js",
   "scripts": {
@@ -11,9 +11,11 @@
     "url": "git+https://github.com/shahabyazdi/react-multi-date-picker.git"
   },
   "keywords": [
+    "react",
+    "multi",
+    "date",
     "datepicker",
     "gregorian",
-    "date",
     "calendar",
     "persian",
     "georgian",

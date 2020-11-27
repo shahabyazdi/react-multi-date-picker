@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from "react"
+import React, { useState, useEffect, useRef, useMemo, useLayoutEffect } from "react"
 import Calendar, { getDateInRangeOfMinAndMaxDate } from "../calendar/calendar"
 import DateObject from "react-date-object"
 import { ReactComponent as Icon } from "./calendar.svg"
@@ -37,16 +37,17 @@ export default function DatePicker({
     formattingIgnoreList,
     ...otherProps
 }) {
-    let [date, setDate] = useState(value),
+    let [date, setDate] = useState(),
         [stringDate, setStringDate] = useState(""),
         [isVisible, setIsVisible] = useState(false),
         datePickerRef = useRef(null),
         inputRef = useRef(null),
         calendarRef = useRef(null),
-        ref = useRef({ _calendar: calendar, _local: local, _format: format }),
+        ref = useRef({}),
         separator = useMemo(() => range ? " ~ " : ", ", [range])
 
     if (isMobileMode() && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
+    if (!isMobileMode() && ref.current.mobile) ref.current = { ...ref.current, mobile: false }
     if (!Array.isArray(formattingIgnoreList)) formattingIgnoreList = []
 
     formattingIgnoreList = JSON.stringify(formattingIgnoreList)
@@ -74,55 +75,49 @@ export default function DatePicker({
     }, [])
 
     useEffect(() => {
-        ref.current.date = value
+        let date = value,
+            getLastDate = () => date[date.length - 1]
 
-        setDate(value)
-    }, [value])
-
-    useEffect(() => {
-        setDate(date => {
+        function checkDate(date) {
             if (!date) return
+            if (!(date instanceof DateObject)) date = new DateObject({ date, calendar, local, format })
 
-            let { _calendar, _format, _local, _range, _multiple } = ref.current,
-                getLastDate = () => date[date.length - 1]
+            if (date.calendar !== calendar) date.setCalendar(calendar)
+            if (date.local !== local) date.setLocal(local)
+            if (date.format !== format) date.setFormat(format)
+            if (isValidMonths(months)) date.months = months
+            if (isValidWeekDays(weekDays)) date.weekDays = weekDays
 
-            function checkDate(date) {
-                if (!(date instanceof DateObject)) date = new DateObject({ date, calendar: _calendar, local: _local, format: _format })
-
-                if (date.calendar !== calendar) date.setCalendar(calendar)
-                if (date.local !== local) date.setLocal(local)
-                if (date.format !== format) date.setFormat(format)
-                if (isValidMonths(months)) date.months = months
-                if (isValidWeekDays(weekDays)) date.weekDays = weekDays
-
-                date.setFormat(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple))
-
-                return date
-            }
-
-            if (!range && !multiple && (_range || _multiple) && Array.isArray(date)) date = getLastDate()
-
-            if (range || multiple || Array.isArray(date)) {
-                if (!Array.isArray(date)) date = [date]
-
-                date = date.map(checkDate)
-
-                if (range && date.length > 2) date = [date[0], getLastDate()]
-
-                setStringDate(getStringDate(date, type, separator, format, formattingIgnoreList))
-            } else {
-                if (Array.isArray(date)) date = getLastDate()
-
-                date = checkDate(date)
-
-                setStringDate(date.format(undefined, JSON.parse(formattingIgnoreList)))
-            }
-
-            ref.current = { ...ref.current, date, _calendar: calendar, _local: local, _format: format, separator, _range: range, _multiple: multiple }
+            date.setFormat(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple))
 
             return date
-        })
+        }
+
+        if (range || multiple || Array.isArray(date)) {
+            if (!Array.isArray(date)) date = [date]
+
+            date = date.map(checkDate).filter(value => value !== undefined)
+
+            if (range && date.length > 2) date = [date[0], getLastDate()]
+
+            setStringDate(getStringDate(date, type, separator, format, formattingIgnoreList))
+        } else {
+            if (Array.isArray(date)) date = getLastDate()
+
+            date = checkDate(date)
+
+            let input = inputRef.current.querySelector("input")
+
+            if (document.activeElement !== input) {
+                setStringDate(date ? date.format(undefined, JSON.parse(formattingIgnoreList)) : "")
+            }
+        }
+
+        ref.current = { ...ref.current, date, separator }
+
+        setDate(date)
     }, [
+        value,
         calendar,
         local,
         format,
@@ -161,7 +156,7 @@ export default function DatePicker({
         })
     }, [minDate, maxDate, calendar, type, separator, format, formattingIgnoreList])
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const calendar = calendarRef.current
 
         if (
@@ -188,8 +183,8 @@ export default function DatePicker({
 
             if (!wrapper) return
 
-            let { top, height } = wrapper.getBoundingClientRect(),
-                inputHeight = (inputRef.current.offsetHeight + 3 | 0),
+            let { top, height } = calendarRef.current.getBoundingClientRect(),
+                inputHeight = (inputRef.current?.offsetHeight + 3 | 0),
                 heightPX = inputHeight + "px",
                 clientHeight
 
@@ -200,14 +195,21 @@ export default function DatePicker({
                 top -= e.target.offsetTop
             }
 
-            if (top > clientHeight) return
-            if (calendar.style.bottom !== heightPX && top < 0) return
-
             if (top + height > clientHeight && top - height - inputHeight - 5 > 0) {
-                calendar.style.bottom = heightPX
-            } else if (calendar.style.bottom === heightPX && top < 0) {
-                calendar.style.bottom = "unset"
+                wrapper.style.top = "unset"
+                wrapper.style.bottom = heightPX
+            } else if (top < 0) {
+                wrapper.style.bottom = "unset"
+                wrapper.style.top = "0"
             }
+
+            let left = datePickerRef.current.offsetLeft
+
+            if (left > wrapper.clientWidth / 4) {
+                left = left - (wrapper.clientWidth / 2) + (inputRef.current.clientWidth / 2) - 12
+            }
+
+            wrapper.style.left = (left > 10 ? left : 0) + "px"
         }
 
         setTimeout(() => checkPosition(), 10)
@@ -222,12 +224,13 @@ export default function DatePicker({
     }, [isVisible, scrollSensitive, hideOnScroll])
 
     return (
-        <div ref={datePickerRef} className="rmdp-container" style={{ position: "relative" }}>
+        <div ref={datePickerRef} className="rmdp-container">
             {renderInput()}
             {isVisible && (
                 <div
                     ref={calendarRef}
                     className={`rmdp-calendar-container ${isMobileMode() ? "rmdp-calendar-container-mobile" : ""}`}
+
                 >
                     <Calendar
                         value={date}
@@ -283,6 +286,7 @@ export default function DatePicker({
                     </Calendar>
                 </div>
             )}
+
         </div>
     )
 
@@ -335,7 +339,7 @@ export default function DatePicker({
 
         setDate(date)
 
-        ref.current = { ...ref.current, date, _calendar: calendar, _local: local, _format: format }
+        ref.current = { ...ref.current, date }
 
         if (onChange instanceof Function) {
             if (!Array.isArray(date)) {
@@ -419,7 +423,7 @@ export default function DatePicker({
                 return (
                     <div
                         ref={inputRef}
-                        style={{ display: "inline" }}
+                        style={{ display: "inline-block" }}
                     >
                         <Icon
                             onClick={openCalendar}
@@ -433,7 +437,7 @@ export default function DatePicker({
                 return (
                     <div
                         ref={inputRef}
-                        style={{ display: "inline" }}
+                        style={{ display: "inline-block" }}
                     >
                         {React.isValidElement(render) ?
                             React.cloneElement(render, { stringDate, openCalendar }) :
@@ -447,7 +451,7 @@ export default function DatePicker({
                 return (
                     <div
                         ref={inputRef}
-                        style={{ display: "inline", position: "relative" }}
+                        style={{ display: "inline-block", position: "relative" }}
                     >
                         <input
                             type="text"
