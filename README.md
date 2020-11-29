@@ -59,6 +59,9 @@ export default function Example() {
 | inputMode            |                                            String                                             |               undefined               | DatePicker                          |
 | scrollSensitive      |                                            Boolean                                            |                 true                  | DatePicker                          |
 | hideOnScroll         |                                            Boolean                                            |                 false                 | DatePicker                          |
+| calendarPosition     |                                            String                                             |                 auto                  | DatePicker                          |
+| containerStyle       |                                            Object                                             |               undefined               | DatePicker                          |
+| containerClassName   |                                            String                                             |               undefined               | DatePicker                          |
 
 ## Calendars and Locals
 

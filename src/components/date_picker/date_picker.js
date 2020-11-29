@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, useLayoutEffect } from "react"
+import React, { useState, useEffect, useRef, useMemo, useCallback } from "react"
 import Calendar, { getDateInRangeOfMinAndMaxDate } from "../calendar/calendar"
 import DateObject from "react-date-object"
 import { ReactComponent as Icon } from "./calendar.svg"
@@ -35,16 +35,24 @@ export default function DatePicker({
     minDate,
     maxDate,
     formattingIgnoreList,
+    containerStyle,
+    containerClassName,
+    calendarPosition = "auto",
     ...otherProps
 }) {
     let [date, setDate] = useState(),
         [stringDate, setStringDate] = useState(""),
         [isVisible, setIsVisible] = useState(false),
+        [isCalendarReady, setIsCalendarReady] = useState(false),
         datePickerRef = useRef(null),
         inputRef = useRef(null),
         calendarRef = useRef(null),
         ref = useRef({}),
-        separator = useMemo(() => range ? " ~ " : ", ", [range])
+        separator = useMemo(() => range ? " ~ " : ", ", [range]),
+        closeCalendar = useCallback(() => {
+            setIsVisible(false)
+            setIsCalendarReady(false)
+        }, [])
 
     if (isMobileMode() && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
     if (!isMobileMode() && ref.current.mobile) ref.current = { ...ref.current, mobile: false }
@@ -72,7 +80,7 @@ export default function DatePicker({
         document.addEventListener("click", handleClickOutside, false)
 
         return () => document.removeEventListener("click", handleClickOutside, false)
-    }, [])
+    }, [closeCalendar])
 
     useEffect(() => {
         let date = value,
@@ -106,7 +114,7 @@ export default function DatePicker({
 
             date = checkDate(date)
 
-            let input = inputRef.current.querySelector("input")
+            let input = inputRef.current
 
             if (document.activeElement !== input) {
                 setStringDate(date ? date.format(undefined, JSON.parse(formattingIgnoreList)) : "")
@@ -156,11 +164,11 @@ export default function DatePicker({
         })
     }, [minDate, maxDate, calendar, type, separator, format, formattingIgnoreList])
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const calendar = calendarRef.current
 
         if (
-            !isVisible ||
+            !isCalendarReady ||
             !calendar ||
             !scrollSensitive ||
             ref.current.mobile
@@ -169,11 +177,11 @@ export default function DatePicker({
         function checkPosition(e) {
             if (e) {
                 if (hideOnScroll) {
-                    let input = inputRef.current.querySelector("input")
+                    let input = inputRef.current
 
                     if (input) input.blur()
 
-                    return setIsVisible(false)
+                    return closeCalendar()
                 }
 
                 if (!e.target.querySelector(".rmdp-calendar-container")) return
@@ -183,36 +191,54 @@ export default function DatePicker({
 
             if (!wrapper) return
 
-            let { top, height } = calendarRef.current.getBoundingClientRect(),
-                inputHeight = (inputRef.current?.offsetHeight + 3 | 0),
-                heightPX = inputHeight + "px",
-                clientHeight
+            let { height } = wrapper.getBoundingClientRect(),
+                { top } = inputRef.current.getBoundingClientRect(),
+                inputHeight = (inputRef.current?.offsetHeight | 0),
+                clientHeight,
+                [positionY, positionX] = calendarPosition === "auto" ?
+                    [] :
+                    calendarPosition.split("-")
 
             if (!e) {
                 clientHeight = document.documentElement.clientHeight
             } else {
+                top -= document.documentElement.clientHeight - e.target.clientHeight
                 clientHeight = e.target.clientHeight
-                top -= e.target.offsetTop
             }
 
-            if (top + height > clientHeight && top - height - inputHeight - 5 > 0) {
-                wrapper.style.top = "unset"
-                wrapper.style.bottom = heightPX
+            let translateY = ""
+
+            if (
+                (top + height > clientHeight && top - height - inputHeight - 5 > 0 && calendarPosition === "auto") ||
+                positionY === "top"
+            ) {
+                translateY = `translateY(-${height + inputHeight + 4}px)`
+                wrapper.style.transform = translateY
             } else if (top < 0) {
-                wrapper.style.bottom = "unset"
-                wrapper.style.top = "0"
+                translateY = "translateY(0)"
+                wrapper.style.transform = translateY
             }
 
             let left = datePickerRef.current.offsetLeft
 
-            if (left > wrapper.clientWidth / 4) {
-                left = left - (wrapper.clientWidth / 2) + (inputRef.current.clientWidth / 2) - 12
-            }
+            if (
+                (wrapper.clientWidth > 10 && left > wrapper.clientWidth / 4 && calendarPosition === "auto") ||
+                positionX === "center"
+            ) {
+                let translateX = (inputRef.current.clientWidth - wrapper.clientWidth) / 2
 
-            wrapper.style.left = (left > 10 ? left : 0) + "px"
+                wrapper.style.transform = `translateX(${translateX}px) ${translateY}`
+            } else if (positionX === "right") {
+                let translateX = inputRef.current.clientWidth - wrapper.clientWidth
+
+                wrapper.style.transform = `translateX(${translateX}px) ${translateY}`
+            } else {
+                wrapper.style.left = "unset"
+                wrapper.style.transform = `translateX(0) ${translateY}`
+            }
         }
 
-        setTimeout(() => checkPosition(), 10)
+        setTimeout(() => checkPosition(), 10);
 
         document.addEventListener("scroll", checkPosition, true)
         window.addEventListener("resize", () => checkPosition())
@@ -221,16 +247,19 @@ export default function DatePicker({
             document.removeEventListener("scroll", checkPosition, true)
             window.removeEventListener("resize", () => checkPosition())
         }
-    }, [isVisible, scrollSensitive, hideOnScroll])
+    }, [scrollSensitive, hideOnScroll, isCalendarReady, closeCalendar, isVisible, calendarPosition])
 
     return (
-        <div ref={datePickerRef} className="rmdp-container">
+        <div
+            ref={datePickerRef}
+            className={`rmdp-container ${containerClassName}`}
+            style={{ ...containerStyle }}
+        >
             {renderInput()}
             {isVisible && (
                 <div
                     ref={calendarRef}
                     className={`rmdp-calendar-container ${isMobileMode() ? "rmdp-calendar-container-mobile" : ""}`}
-
                 >
                     <Calendar
                         value={date}
@@ -252,6 +281,7 @@ export default function DatePicker({
                         minDate={minDate}
                         maxDate={maxDate}
                         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
+                        onReady={() => setIsCalendarReady(true)}
                         {...otherProps}
                     >
                         {children}
@@ -266,7 +296,7 @@ export default function DatePicker({
                                             delete ref.current.temporaryDate
                                         }
 
-                                        setIsVisible(false)
+                                        closeCalendar()
                                     }}
                                 >
                                     {toLocal("OK")}
@@ -275,7 +305,7 @@ export default function DatePicker({
                                     type="button"
                                     className="rmdp-button rmdp-action-button"
                                     onClick={() => {
-                                        setIsVisible(false)
+                                        closeCalendar()
                                         delete ref.current.temporaryDate
                                     }}
                                 >
@@ -286,7 +316,6 @@ export default function DatePicker({
                     </Calendar>
                 </div>
             )}
-
         </div>
     )
 
@@ -311,6 +340,7 @@ export default function DatePicker({
         if (disabled) return
 
         let isMobile = isMobileMode()
+        let isInput = inputRef.current.tagName === "INPUT" || inputRef.current.querySelector("input")
 
         if (!value && !ref.current.date && !range && !multiple) {
             let date = new DateObject({ calendar, local, format })
@@ -320,13 +350,9 @@ export default function DatePicker({
             ref.current.date = date
         }
 
-        if (isMobile) {
-            let input = inputRef.current.querySelector("input")
+        if (isMobile && isInput) inputRef.current.blur()
 
-            if (input) input.blur()
-        }
-
-        setIsVisible(["input", "input-icon"].includes(type) ? true : !isVisible)
+        setIsVisible(isInput ? true : !isVisible)
     }
 
     function setCustomNames(date) {
@@ -449,11 +475,9 @@ export default function DatePicker({
                 )
             default:
                 return (
-                    <div
-                        ref={inputRef}
-                        style={{ display: "inline-block", position: "relative" }}
-                    >
+                    <>
                         <input
+                            ref={inputRef}
                             type="text"
                             name={name || ""}
                             onFocus={openCalendar}
@@ -466,8 +490,22 @@ export default function DatePicker({
                             disabled={disabled ? true : false}
                             inputMode={inputMode || (isMobileMode() ? "none" : undefined)}
                         />
-                        {type === "input-icon" && <Icon className="rmdp-input-icon" onClick={openCalendar} />}
-                    </div>
+                        {type === "input-icon" &&
+                            <Icon
+                                className="rmdp-input-icon"
+                                style={{
+                                    marginTop: `${((((inputRef.current?.clientHeight - 21) / 2) | 0) + 2) || 2}px`
+                                }}
+                                onClick={() => {
+                                    if (isVisible) {
+                                        closeCalendar()
+                                    } else {
+                                        inputRef.current.focus()
+                                    }
+                                }}
+                            />
+                        }
+                    </>
                 )
         }
     }

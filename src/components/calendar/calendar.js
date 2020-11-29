@@ -31,7 +31,8 @@ export default function Calendar({
     mapDays,
     disableMonthPicker,
     disableYearPicker,
-    formattingIgnoreList
+    formattingIgnoreList,
+    onReady
 }) {
     let [state, setState] = useState({})
 
@@ -209,6 +210,10 @@ export default function Calendar({
             }
         })
     }, [minDate, maxDate])
+
+    useEffect(() => {
+        if (state.ready && onReady instanceof Function) onReady()
+    }, [state.ready, onReady])
 
     return (state.date ?
         <div

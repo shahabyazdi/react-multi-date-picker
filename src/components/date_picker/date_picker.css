@@ -1,15 +1,13 @@
 .rmdp-container {
-  display: inline;
+  display: inline-block;
 }
 
-.rmdp-calendar-container,
+.rmdp-calendar-container {
+  z-index: 1000;
+}
+
 .rmdp-calendar-container .rmdp-wrapper {
   position: absolute;
-}
-
-.rmdp-calendar-container:not(.rmdp-calendar-container-mobile) {
-  margin-top: 1px;
-  margin-left: 5px;
 }
 
 .rmdp-input {
@@ -57,11 +55,9 @@
 
 .rmdp-input-icon {
   position: absolute;
-  width: 21px;
   height: 21px;
-  right: 8px;
-  top: 3px;
-  bottom: 2px;
+  width: 21px;
+  margin-left: -27px;
   background-color: #f9faff;
   cursor: pointer;
 }
