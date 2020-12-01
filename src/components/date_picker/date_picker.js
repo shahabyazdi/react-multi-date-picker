@@ -39,7 +39,6 @@ export default function DatePicker({
     containerClassName,
     calendarPosition = "auto",
     animation,
-    mapDays,
     ...otherProps
 }) {
     let [date, setDate] = useState(),
