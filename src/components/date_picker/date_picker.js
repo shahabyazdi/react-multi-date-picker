@@ -52,7 +52,8 @@ export default function DatePicker({
         ref = useRef({}),
         separator = useMemo(() => range ? " ~ " : ", ", [range]),
         closeCalendar = useCallback(() => {
-            calendarRef.current.classList.remove("active")
+            if (calendarRef.current) calendarRef.current.classList.remove("active")
+
             setIsVisible(false)
             setIsCalendarReady(false)
         }, [])
@@ -65,18 +66,21 @@ export default function DatePicker({
 
     useEffect(() => {
         const handleClickOutside = event => {
-            if (inputRef.current && calendarRef.current &&
-                !inputRef.current.contains(event.target) &&
-                !calendarRef.current.contains(event.target) &&
-                !event.target.classList.contains("b-deselect")) {
-
-                if (!ref.current.mobile) closeCalendar()
-            } else if (inputRef.current && calendarRef.current &&
+            if (
+                datePickerRef.current &&
+                !datePickerRef.current.contains(event.target) &&
+                !event.target.classList.contains("b-deselect") &&
+                !ref.current.mobile
+            ) {
+                closeCalendar()
+            } else if (
+                inputRef.current && calendarRef.current &&
                 calendarRef.current.contains(event.target) &&
                 !Array.isArray(ref.current.date) &&
-                event.target.classList.contains("sd")) {
-
-                if (!ref.current.mobile) closeCalendar()
+                event.target.classList.contains("sd") &&
+                !ref.current.mobile
+            ) {
+                closeCalendar()
             }
         }
 
@@ -201,7 +205,8 @@ export default function DatePicker({
                 translateX = 0,
                 distance = (inputWidth - calendarWidth) / 2,
                 getTransform = (x, y) => `translateX(${x}px) translateY(${y}px)`,
-                left = datePickerRef.current.offsetLeft, [positionY, positionX] = calendarPosition === "auto" ?
+                left = datePickerRef.current.offsetLeft,
+                [positionY, positionX] = calendarPosition === "auto" ?
                     [] :
                     calendarPosition.split("-")
 
@@ -267,7 +272,7 @@ export default function DatePicker({
         <div
             ref={datePickerRef}
             className={`rmdp-container ${containerClassName}`}
-            style={{ ...containerStyle }}
+            style={containerStyle}
         >
             {renderInput()}
             {isVisible && (
@@ -366,9 +371,9 @@ export default function DatePicker({
 
         if (isMobile && isInput) inputRef.current.blur()
 
-        if (isInput) {
+        if (isInput || (!isInput && !isVisible)) {
             setIsVisible(true)
-        } else {
+        } else if (!isInput && isVisible) {
             closeCalendar()
         }
     }
@@ -481,7 +486,6 @@ export default function DatePicker({
                 return (
                     <div
                         ref={inputRef}
-                        style={{ display: "inline-block" }}
                     >
                         {React.isValidElement(render) ?
                             React.cloneElement(render, { stringDate, openCalendar }) :
@@ -493,7 +497,7 @@ export default function DatePicker({
                 )
             default:
                 return (
-                    <>
+                    <div style={{ position: "relative" }}>
                         <input
                             ref={inputRef}
                             type="text"
@@ -523,7 +527,7 @@ export default function DatePicker({
                                 }}
                             />
                         }
-                    </>
+                    </div>
                 )
         }
     }
