@@ -38,6 +38,8 @@ export default function DatePicker({
     containerStyle,
     containerClassName,
     calendarPosition = "auto",
+    animation,
+    mapDays,
     ...otherProps
 }) {
     let [date, setDate] = useState(),
@@ -50,6 +52,7 @@ export default function DatePicker({
         ref = useRef({}),
         separator = useMemo(() => range ? " ~ " : ", ", [range]),
         closeCalendar = useCallback(() => {
+            calendarRef.current.classList.remove("active")
             setIsVisible(false)
             setIsCalendarReady(false)
         }, [])
@@ -67,13 +70,13 @@ export default function DatePicker({
                 !calendarRef.current.contains(event.target) &&
                 !event.target.classList.contains("b-deselect")) {
 
-                if (!ref.current.mobile) setIsVisible(false)
+                if (!ref.current.mobile) closeCalendar()
             } else if (inputRef.current && calendarRef.current &&
                 calendarRef.current.contains(event.target) &&
                 !Array.isArray(ref.current.date) &&
                 event.target.classList.contains("sd")) {
 
-                if (!ref.current.mobile) setIsVisible(false)
+                if (!ref.current.mobile) closeCalendar()
             }
         }
 
@@ -167,14 +170,14 @@ export default function DatePicker({
     useEffect(() => {
         const calendar = calendarRef.current
 
-        if (
-            !isCalendarReady ||
-            !calendar ||
-            !scrollSensitive ||
-            ref.current.mobile
-        ) return
+        if (!isCalendarReady || !calendar) return
+        if (ref.current.mobile) return calendar.classList.add("active")
 
         function checkPosition(e) {
+            let resize = e && e.target.constructor === Window
+
+            if (resize) e = undefined
+
             if (e) {
                 if (hideOnScroll) {
                     let input = inputRef.current
@@ -184,70 +187,81 @@ export default function DatePicker({
                     return closeCalendar()
                 }
 
-                if (!e.target.querySelector(".rmdp-calendar-container")) return
+                if (!e.target.querySelector(".rmdp-calendar-container") || !scrollSensitive) return
             }
 
             let wrapper = calendar.querySelector(".rmdp-wrapper")
 
-            if (!wrapper) return
+            if (!wrapper || !inputRef.current) return
 
-            let { height } = wrapper.getBoundingClientRect(),
-                { top } = inputRef.current.getBoundingClientRect(),
-                inputHeight = (inputRef.current?.offsetHeight | 0),
-                clientHeight,
-                [positionY, positionX] = calendarPosition === "auto" ?
+            let { height: calendarHeight, width: calendarWidth } = wrapper.getBoundingClientRect(),
+                { top, height: inputHeight, width: inputWidth } = inputRef.current.getBoundingClientRect(),
+                clientHeight = document.documentElement.clientHeight,
+                translateY = (wrapper.style.transform.match(/translateY\((.*)px\)/) || [])[1] || 2,
+                translateX = 0,
+                distance = (inputWidth - calendarWidth) / 2,
+                getTransform = (x, y) => `translateX(${x}px) translateY(${y}px)`,
+                left = datePickerRef.current.offsetLeft, [positionY, positionX] = calendarPosition === "auto" ?
                     [] :
                     calendarPosition.split("-")
 
-            if (!e) {
-                clientHeight = document.documentElement.clientHeight
-            } else {
-                top -= document.documentElement.clientHeight - e.target.clientHeight
+            if (e) {
+                top -= clientHeight - e.target.clientHeight
                 clientHeight = e.target.clientHeight
             }
 
-            let translateY = ""
-
             if (
-                (top + height > clientHeight && top - height - inputHeight - 5 > 0 && calendarPosition === "auto") ||
+                (
+                    top + calendarHeight + inputHeight > clientHeight &&
+                    top - (calendarHeight / 1.5) > 0 &&
+                    (calendarPosition === "auto" || positionY === "auto")
+                ) ||
                 positionY === "top"
             ) {
-                translateY = `translateY(-${height + inputHeight + 4}px)`
-                wrapper.style.transform = translateY
-            } else if (top < 0) {
-                translateY = "translateY(0)"
-                wrapper.style.transform = translateY
+                translateY = (calendarHeight + inputHeight + 4) * -1
+            } else if (top - calendarHeight < 0) {
+                translateY = 2
             }
-
-            let left = datePickerRef.current.offsetLeft
 
             if (
-                (wrapper.clientWidth > 10 && left > wrapper.clientWidth / 4 && calendarPosition === "auto") ||
+                (
+                    calendarWidth > 10 &&
+                    (left > Math.abs(distance) || inputWidth > calendarWidth) &&
+                    (calendarPosition === "auto" || positionX === "auto")
+                ) ||
                 positionX === "center"
             ) {
-                let translateX = (inputRef.current.clientWidth - wrapper.clientWidth) / 2
-
-                wrapper.style.transform = `translateX(${translateX}px) ${translateY}`
+                translateX = distance
             } else if (positionX === "right") {
-                let translateX = inputRef.current.clientWidth - wrapper.clientWidth
-
-                wrapper.style.transform = `translateX(${translateX}px) ${translateY}`
+                translateX = inputWidth - calendarWidth
             } else {
-                wrapper.style.left = "unset"
-                wrapper.style.transform = `translateX(0) ${translateY}`
+                translateX = 0
             }
+
+            if (animation && !e && !resize) translateY += translateY >= 0 ? 12 : -12
+
+            wrapper.style.transform = getTransform(translateX, translateY)
+
+            if (animation && !e && !resize) {
+                setTimeout(() => {
+                    wrapper.style.transition = "0.4s"
+                    wrapper.style.transform = getTransform(translateX, translateY > 0 ? 2 : (translateY += 12))
+                }, 8);
+            }
+
+            calendar.classList.add("active")
         }
 
-        setTimeout(() => checkPosition(), 10);
+        checkPosition()
 
         document.addEventListener("scroll", checkPosition, true)
-        window.addEventListener("resize", () => checkPosition())
+        window.addEventListener("resize", checkPosition)
 
         return () => {
             document.removeEventListener("scroll", checkPosition, true)
-            window.removeEventListener("resize", () => checkPosition())
+            window.removeEventListener("resize", checkPosition)
         }
-    }, [scrollSensitive, hideOnScroll, isCalendarReady, closeCalendar, isVisible, calendarPosition])
+    }, [scrollSensitive, hideOnScroll, isCalendarReady, closeCalendar, isVisible, calendarPosition, animation])
 
     return (
         <div
@@ -352,7 +366,11 @@ export default function DatePicker({
 
         if (isMobile && isInput) inputRef.current.blur()
 
-        setIsVisible(isInput ? true : !isVisible)
+        if (isInput) {
+            setIsVisible(true)
+        } else {
+            closeCalendar()
+        }
     }
 
     function setCustomNames(date) {

@@ -1,10 +1,6 @@
 .rmdp-wrapper {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: none;
+  visibility: hidden;
+  display: flex;
   width: max-content;
   border: 1px solid #8798ad;
   box-shadow: 0 0 5px #8798ad;
@@ -15,7 +11,7 @@
 }
 
 .rmdp-wrapper.active {
-  display: flex;
+  visibility: visible;
 }
 
 .rmdp-calendar {

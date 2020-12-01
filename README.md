@@ -49,6 +49,7 @@ export default function Example() {
 | maxDate              |                              Date, DateObject, String or Number                               |               undefined               | both                                |
 | disableYearPicker    |                                            Boolean                                            |               undefined               | both                                |
 | disableMonthPicker   |                                            Boolean                                            |               undefined               | both                                |
+| animation            |                                            Boolean                                            |                 false                 | DatePicker                          |
 | inputClass           |                                            String                                             |                  ""                   | DatePicker                          |
 | name                 |                                            String                                             |                  ""                   | DatePicker                          |
 | style                |                                            Object                                             |                  {}                   | DatePicker                          |

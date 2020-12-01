@@ -8,10 +8,16 @@
 
 .rmdp-calendar-container .rmdp-wrapper {
   position: absolute;
+  transform: translateY(2px);
+  visibility: hidden;
+}
+
+.rmdp-calendar-container.active .rmdp-wrapper {
+  visibility: visible;
 }
 
 .rmdp-input {
-  margin: 1px 4px;
+  margin: 1px 0;
   border-radius: 5px;
   border: 1px #eaeeff solid;
   padding: 2px 5px;
