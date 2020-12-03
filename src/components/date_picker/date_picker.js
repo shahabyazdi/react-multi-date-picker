@@ -249,7 +249,7 @@ export default function DatePicker({
             if (animation && !e && !resize) {
                 setTimeout(() => {
                     wrapper.style.transition = "0.4s"
-                    wrapper.style.transform = getTransform(translateX, translateY > 0 ? 2 : (translateY += 12))
+                    wrapper.style.transform = getTransform(translateX, translateY + (translateY > 0 ? -12 : 12))
                 }, 8);
             }
 
@@ -477,15 +477,13 @@ export default function DatePicker({
                             onClick={openCalendar}
                             name={name || ""}
                             className={`rmdp-icon ${inputClass || ""}`}
-                            style={{ ...style }}
+                            style={style}
                         />
                     </div>
                 )
             case "custom":
                 return (
-                    <div
-                        ref={inputRef}
-                    >
+                    <div ref={inputRef}>
                         {React.isValidElement(render) ?
                             React.cloneElement(render, { stringDate, openCalendar }) :
                             render instanceof Function ?
