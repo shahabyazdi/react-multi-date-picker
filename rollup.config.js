@@ -17,13 +17,20 @@ export default {
             exports: "named"
         }
     ],
-    external: ["react", "react-dom", "react-date-object"],
+    external: [
+        "react",
+        "react-dom",
+        "react-date-object"
+    ],
     plugins: [
         resolve(),
         peerDepsExternal(),
         babel({
             exclude: /node_modules/,
-            presets: ["@babel/preset-react", "@babel/preset-env"]
+            presets: [
+                "@babel/preset-react",
+                "@babel/preset-env"
+            ]
         }),
         commonjs(),
         postcss(),

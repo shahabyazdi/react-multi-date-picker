@@ -44,19 +44,19 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
         <div className={`rmdp-time-picker ${state.onlyTimePicker ? "rmdp-only-time-picker" : ""}`}>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("hours", 1)} />
-                <Input value={getHours()} onChange={handleChange} name="hours" local={state.local} />
+                <Input value={getHours()} onChange={handleChange} digits={state.date.digits} name="hours" />
                 <Arrow direction="rmdp-down" onClick={() => changeValue("hours", -1)} />
             </div>
             <span className="dvdr">:</span>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("minutes", 1)} />
-                <Input value={getMinutes()} onChange={handleChange} name="minutes" local={state.local} />
+                <Input value={getMinutes()} onChange={handleChange} digits={state.date.digits} name="minutes" />
                 <Arrow direction="rmdp-down" onClick={() => changeValue("minutes", -1)} />
             </div>
             <span className="dvdr">:</span>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("seconds", 1)} />
-                <Input value={getSeconds()} onChange={handleChange} name="seconds" local={state.local} />
+                <Input value={getSeconds()} onChange={handleChange} digits={state.date.digits} name="seconds" />
                 <Arrow direction="rmdp-down" onClick={() => changeValue("seconds", -1)} />
             </div>
             <div style={getStyle()}>

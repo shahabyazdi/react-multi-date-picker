@@ -64,7 +64,7 @@ export default function DatePicker({
     formattingIgnoreList = JSON.stringify(formattingIgnoreList)
 
     useEffect(() => {
-        const handleClickOutside = event => {
+        function handleClickOutside(event) {
             if (
                 datePickerRef.current &&
                 !datePickerRef.current.contains(event.target) &&
@@ -177,13 +177,15 @@ export default function DatePicker({
         if (ref.current.mobile) return calendar.classList.add("active")
 
         function checkPosition(e) {
-            let resize = e && e.target.constructor === Window
+            const resize = e?.type === "resize",
+                wrapper = calendar.querySelector(".rmdp-wrapper")
 
+            if (!wrapper || !inputRef.current) return
             if (resize) e = undefined
 
             if (e) {
                 if (hideOnScroll) {
-                    let input = inputRef.current
+                    const input = inputRef.current.tagName === "INPUT" ? inputRef.current : inputRef.current.querySelector("input")
 
                     if (input) input.blur()
 
@@ -193,18 +195,15 @@ export default function DatePicker({
                 if (!e.target.querySelector(".rmdp-calendar-container") || !scrollSensitive) return
             }
 
-            let wrapper = calendar.querySelector(".rmdp-wrapper")
-
-            if (!wrapper || !inputRef.current) return
-
             let { height: calendarHeight, width: calendarWidth } = wrapper.getBoundingClientRect(),
                 { top, height: inputHeight, width: inputWidth } = inputRef.current.getBoundingClientRect(),
-                clientHeight = document.documentElement.clientHeight,
+                { clientHeight } = document.documentElement,
                 translateY = (wrapper.style.transform.match(/translateY\((.*)px\)/) || [])[1] || 2,
                 translateX = 0,
                 distance = (inputWidth - calendarWidth) / 2,
                 getTransform = (x, y) => `translateX(${x}px) translateY(${y}px)`,
                 left = datePickerRef.current.offsetLeft,
+                mustAddAnimation = animation && !e && !resize,
                 [positionY, positionX] = calendarPosition === "auto" ?
                     [] :
                     calendarPosition.split("-")
@@ -242,11 +241,11 @@ export default function DatePicker({
                 translateX = 0
             }
 
-            if (animation && !e && !resize) translateY += translateY >= 0 ? 12 : -12
+            if (mustAddAnimation) translateY += translateY >= 0 ? 12 : -12
 
             wrapper.style.transform = getTransform(translateX, translateY)
 
-            if (animation && !e && !resize) {
+            if (mustAddAnimation) {
                 setTimeout(() => {
                     wrapper.style.transition = "0.4s"
                     wrapper.style.transform = getTransform(translateX, translateY + (translateY > 0 ? -12 : 12))
