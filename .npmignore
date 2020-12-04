@@ -1,4 +1,5 @@
 /src
 /screenshot
-webpack.config.js
+rollup.config.js
 .github
+.gitignore

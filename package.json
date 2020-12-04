@@ -1,11 +1,11 @@
 {
   "name": "react-multi-date-picker",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "description": "a simple React datepicker component for work with gregorian, persian, arabic and indian calendars",
   "main": "./build/index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "webpack"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -41,19 +41,26 @@
   },
   "homepage": "https://github.com/shahabyazdi/react-multi-date-picker#readme",
   "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-react": "^7.10.4",
-    "@svgr/webpack": "^5.4.0",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^4.2.2",
-    "style-loader": "^1.2.1",
-    "url-loader": "^4.1.1",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "@rollup/plugin-url": "^6.0.0",
+    "@svgr/rollup": "^5.5.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "rollup": "^2.34.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^3.1.8",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
-    "react": "^16.13.1",
     "react-date-object": "^1.1.4"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   }
 }
