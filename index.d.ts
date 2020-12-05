@@ -12,26 +12,26 @@ declare module "react-multi-date-picker" {
          */
         value: Date | string | number | DateObject,
         /**
-         * @type string
-         * @default "gregorian"
-         * @calendars 
-         * gregorian,
-         * persian,
-         * arabic,
-         * indian
+         * Availble calendars: 
+         *
+         *   - gregorian
+         *   - persian
+         *   - arabic
+         *   - indian
+         * 
          * @example
          * <Calendar calendar="persian" />
          * <DatePicker calendar="indian" />
          */
         calendar: string,
         /**
-         * @type string
-         * @default "en"
-         * @locals
-         * en,
-         * fa,
-         * ar,
-         * hi
+         * Availble locals: 
+         *
+         *  - en `english`
+         *  - fa `farsi`
+         *  - ar `arabic`
+         *  - hi `hindi`
+         * 
          * @example
          * <Calendar local="fa" />
          * <DatePicker local="ar" />
@@ -136,7 +136,29 @@ declare module "react-multi-date-picker" {
          */
         onChange:Function,
         showOtherDays:boolean,
+        /**
+         * the date you set in datepicker as value must be equal or bigger than min date.
+         * 
+         * otherwise datepicker recognise it as `invalid date` and doesn't format it.
+         * 
+         * @example
+         * <DatePicker 
+         *  value="2020/12/05" 
+         *  minDate="2020/12/05" 
+         * />
+         */
         minDate:Date | string | number | DateObject,
+        /**
+         * the date you set in datepicker as value must be equal or smaller than max date.
+         * 
+         * otherwise datepicker recognise it as `invalid date` and doesn't format it.
+         * 
+         * @example
+         * <DatePicker 
+         *  value="2020/12/01" 
+         *  maxDate="2020/12/06" 
+         * />
+         */
         maxDate:Date | string | number | DateObject,
         /**
          * You can customize your calendar days 
@@ -172,19 +194,31 @@ declare module "react-multi-date-picker" {
     interface DatePickerProps{
         /**
          * Input name.
+         * This feature does not work in custom type.
          */
         name:string,
         /**
          * Input placeholder.
+         * This feature does not work in custom type.
          */
         placeholder:string,
         /**
          * Input style.
          * This feature does not work in custom type.
          */
-        style:object,
+        style:React.CSSProperties,
         /**
          * This feature does not work in custom type.
+         * 
+         * You can also use this prop for button and icon type.
+         * 
+         * Default class names:
+         * 
+         *  - input : `rmdp-input`
+         * 
+         *  - button : `rmdp-button`
+         * 
+         * Note that when you enter a new className, the default className is automatically `removed`.
          */
         inputClass:string
         /**
@@ -192,12 +226,14 @@ declare module "react-multi-date-picker" {
          */
         disabled:boolean,
         /**
-         * Availble types :
-         * input,
-         * input-icon,
-         * icon,
-         * button,
-         * custom
+         * Availble types:
+         *
+         *   - input
+         *   - input-icon
+         *   - icon
+         *   - button
+         *   - custom
+         * 
          * @default "input"
          */
         type:string,
@@ -210,19 +246,30 @@ declare module "react-multi-date-picker" {
          * />
          */
         render:React.ReactElement | Function
+        /**
+         * This feature only affects on `input` in `single` mode
+         * 
+         * Input modes:
+         * 
+         *  - none `useful for disabling virtual keyboard`
+         *  - text 
+         * 
+         * @default "text"
+         */
         inputMode:string,
         scrollSensitive:boolean,
         hideOnScroll:boolean,
         /**
          * DatePicker container style.
          */
-        containerStyle:string,
+        containerStyle:React.CSSProperties,
         /**
          * DatePicker container className.
          */
         containerClassName:string,
         /**
          * You can use this feature to adjust the calendar position relative to the input.
+         * 
          * To use this, you must enter the X and Y positions as positionY-positionX.
          * @see https://shahabyazdi.github.io/react-multi-date-picker/#calendar-position
          * @example
@@ -231,7 +278,11 @@ declare module "react-multi-date-picker" {
          * />
          */
         calendarPosition:string,
-        animation:boolean
+        animation:boolean,
+        /**
+         * This feature only affects on `input` in `single` mode
+         */
+        editable:boolean
     }
 
     export { DateObject }

@@ -63,6 +63,7 @@ export default function Example() {
 | calendarPosition     |                                            String                                             |                 auto                  | DatePicker                          |
 | containerStyle       |                                            Object                                             |               undefined               | DatePicker                          |
 | containerClassName   |                                            String                                             |               undefined               | DatePicker                          |
+| editable             |                                            Boolean                                            |                 true                  | DatePicker                          |
 
 ## Calendars and Locals
 

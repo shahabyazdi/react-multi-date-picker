@@ -12,7 +12,7 @@ export default {
     output: [
         {
             file: "build/index.js",
-            format: "cjs",
+            format: "esm",
             plugins: [terser()],
             exports: "named"
         }

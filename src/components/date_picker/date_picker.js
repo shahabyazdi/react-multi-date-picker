@@ -39,6 +39,7 @@ export default function DatePicker({
     containerClassName,
     calendarPosition = "auto",
     animation,
+    editable = true,
     ...otherProps
 }) {
     let [date, setDate] = useState(),
@@ -410,7 +411,7 @@ export default function DatePicker({
     }
 
     function handleValueChange(e) {
-        if (Array.isArray(date)) return
+        if (Array.isArray(date) || !editable) return
 
         let value = e.target.value,
             object = { year: 1, calendar, local, format },
@@ -455,13 +456,14 @@ export default function DatePicker({
                         ref={inputRef}
                         onClick={openCalendar}
                         name={name || ""}
-                        className={`rmdp-button ${inputClass || ""}`}
+                        className={inputClass || "rmdp-button"}
                         style={{
                             minWidth: Array.isArray(date) ? "185px" : "unset",
                             ...multipleStyle,
                             ...style
                         }}
                         disabled={disabled ? true : false}
+                        type="button"
                     >
                         {stringDate || placeholder || "click to select"}
                     </button>
@@ -484,9 +486,9 @@ export default function DatePicker({
                 return (
                     <div ref={inputRef}>
                         {React.isValidElement(render) ?
-                            React.cloneElement(render, { stringDate, openCalendar }) :
+                            React.cloneElement(render, { stringDate, openCalendar, handleValueChange }) :
                             render instanceof Function ?
-                                render(stringDate, openCalendar) :
+                                render(stringDate, openCalendar, handleValueChange) :
                                 null
                         }
                     </div>
@@ -499,7 +501,7 @@ export default function DatePicker({
                             type="text"
                             name={name || ""}
                             onFocus={openCalendar}
-                            className={`rmdp-input ${inputClass || ""}`}
+                            className={inputClass || "rmdp-input"}
                             placeholder={placeholder || ""}
                             value={stringDate}
                             onChange={handleValueChange}
