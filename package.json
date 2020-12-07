@@ -39,7 +39,7 @@
   "bugs": {
     "url": "https://github.com/shahabyazdi/react-multi-date-picker/issues"
   },
-  "homepage": "https://github.com/shahabyazdi/react-multi-date-picker#readme",
+  "homepage": "https://shahabyazdi.github.io/react-multi-date-picker/",
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
