@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/react-multi-date-picker/static/css/main.471e624d.chunk.css",
-    "main.js": "/react-multi-date-picker/static/js/main.1cc98082.chunk.js",
-    "main.js.map": "/react-multi-date-picker/static/js/main.1cc98082.chunk.js.map",
+    "main.css": "/react-multi-date-picker/static/css/main.0dc4bf51.chunk.css",
+    "main.js": "/react-multi-date-picker/static/js/main.79b1dbbe.chunk.js",
+    "main.js.map": "/react-multi-date-picker/static/js/main.79b1dbbe.chunk.js.map",
     "runtime-main.js": "/react-multi-date-picker/static/js/runtime-main.108b7ab5.js",
     "runtime-main.js.map": "/react-multi-date-picker/static/js/runtime-main.108b7ab5.js.map",
     "static/css/2.83ff4248.chunk.css": "/react-multi-date-picker/static/css/2.83ff4248.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.8750f396.chunk.js.map": "/react-multi-date-picker/static/js/2.8750f396.chunk.js.map",
     "index.html": "/react-multi-date-picker/index.html",
     "static/css/2.83ff4248.chunk.css.map": "/react-multi-date-picker/static/css/2.83ff4248.chunk.css.map",
-    "static/css/main.471e624d.chunk.css.map": "/react-multi-date-picker/static/css/main.471e624d.chunk.css.map",
+    "static/css/main.0dc4bf51.chunk.css.map": "/react-multi-date-picker/static/css/main.0dc4bf51.chunk.css.map",
     "static/js/2.8750f396.chunk.js.LICENSE.txt": "/react-multi-date-picker/static/js/2.8750f396.chunk.js.LICENSE.txt",
     "static/media/calendar.0a1acf3b.svg": "/react-multi-date-picker/static/media/calendar.0a1acf3b.svg",
     "static/media/github.255db585.svg": "/react-multi-date-picker/static/media/github.255db585.svg",
@@ -21,7 +21,7 @@
     "static/js/runtime-main.108b7ab5.js",
     "static/css/2.83ff4248.chunk.css",
     "static/js/2.8750f396.chunk.js",
-    "static/css/main.471e624d.chunk.css",
-    "static/js/main.1cc98082.chunk.js"
+    "static/css/main.0dc4bf51.chunk.css",
+    "static/js/main.79b1dbbe.chunk.js"
   ]
 }
