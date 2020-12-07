@@ -2,23 +2,31 @@ import React from "react"
 import DateObject from "react-date-object"
 import { isSameDate } from "../day_picker/day_picker"
 
-export default function DaysPanel({ state, setState, onChange, formattingIgnoreList }) {
+export default function DaysPanel({ state, setState, onChange, formattingIgnoreList, height }) {
     let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" }
 
     return (state.mustShowDates &&
-        <div className="rmpd-panel" style={{ display: state.mustShowDates ? "block" : "none" }}>
+        <div
+            className="rmpd-panel"
+            style={{
+                display: state.mustShowDates ? "grid" : "none",
+                gridTemplateRows: "auto 1fr"
+            }}
+        >
             <div className="rmdp-panel-header">{header[state.local]}</div>
-            <ul className="rmdp-panel-body">
-                {Array.isArray(state.selectedDate) ?
-                    state.selectedDate.map(($date, index) => <li
-                        key={index}>
-                        <span onClick={() => selectDate($date)}>{$date.format(undefined, formattingIgnoreList)}</span>
-                        <button type="button" className="b-deselect" onClick={() => deSelect($date)}>+</button>
-                    </li>)
-                    :
-                    <li>{state.selectedDate.format(undefined, formattingIgnoreList)}</li>
-                }
-            </ul>
+            <div style={{ position: "relative", overflow: "auto" }}>
+                <ul className="rmdp-panel-body">
+                    {Array.isArray(state.selectedDate) ?
+                        state.selectedDate.map(($date, index) => <li
+                            key={index}>
+                            <span onClick={() => selectDate($date)}>{$date.format(undefined, formattingIgnoreList)}</span>
+                            <button type="button" className="b-deselect" onClick={() => deSelect($date)}>+</button>
+                        </li>)
+                        :
+                        <li>{state.selectedDate.format(undefined, formattingIgnoreList)}</li>
+                    }
+                </ul>
+            </div>
         </div>
     )
 

@@ -121,7 +121,7 @@ export default function DatePicker({
 
             date = checkDate(date)
 
-            let input = inputRef.current
+            let input = getInput(inputRef)
 
             if (document.activeElement !== input) {
                 setStringDate(date ? date.format(undefined, JSON.parse(formattingIgnoreList)) : "")
@@ -186,7 +186,7 @@ export default function DatePicker({
 
             if (e) {
                 if (hideOnScroll) {
-                    const input = inputRef.current.tagName === "INPUT" ? inputRef.current : inputRef.current.querySelector("input")
+                    const input = getInput(inputRef)
 
                     if (input) input.blur()
 
@@ -266,6 +266,8 @@ export default function DatePicker({
             window.removeEventListener("resize", checkPosition)
         }
     }, [scrollSensitive, hideOnScroll, isCalendarReady, closeCalendar, isVisible, calendarPosition, animation])
+
+    if (multiple || range || Array.isArray(date) || !editable) inputMode = "none"
 
     return (
         <div
@@ -561,4 +563,10 @@ function getStringDate(date, type, separator, format, formattingIgnoreList) {
         [date[0], date[1]].map(toString).join(separator)
         :
         date.map(toString).join(separator)
+}
+
+function getInput(inputRef) {
+    if (!inputRef.current) return
+
+    return inputRef.current.tagName === "INPUT" ? inputRef.current : inputRef.current.querySelector("input")
 }

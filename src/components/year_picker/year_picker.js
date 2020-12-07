@@ -41,7 +41,7 @@ export default function YearPicker({ state, setState, onChange }) {
         >
             {years.map((array, i) => <div
                 key={i}
-                className="rmdp-week"
+                className="rmdp-ym"
             >
                 {array.map((year, j) => <div
                     key={j}
@@ -82,7 +82,7 @@ export default function YearPicker({ state, setState, onChange }) {
     }
 
     function getClassName(year) {
-        let names = ["rmdp-day", "ym"],
+        let names = ["rmdp-day"],
             { date, selectedDate } = state
 
         if (year === (selectedDate && !Array.isArray(selectedDate) ? selectedDate.year : date.year)) names.push("rmdp-selected")

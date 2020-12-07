@@ -251,8 +251,10 @@ declare module "react-multi-date-picker" {
          * 
          * Input modes:
          * 
-         *  - none `useful for disabling virtual keyboard`
          *  - text 
+         *  - numeric
+         *  - decimal 
+         *  - none `useful for disabling virtual keyboard`
          * 
          * @default "text"
          */

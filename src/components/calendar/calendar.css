@@ -14,36 +14,36 @@
   visibility: visible;
 }
 
-.rmdp-calendar {
-  position: relative;
-}
-
 .rmpd-panel {
   min-width: 120px;
   border-left: 1px solid #8798ad;
 }
 
 .rmdp-panel-body {
+  position: absolute;
+  left: 0;
+  right: 0;
   list-style: none;
   padding: 0px 5px;
-  margin: 5px 0;
+  margin: 0;
   text-align: center;
-  max-height: 235px;
   overflow: auto;
 }
 
 .rmdp-panel-body li {
-  margin: 0;
-  padding: 0 5px;
-  margin-bottom: 5px;
   border-radius: 5px;
   box-shadow: 0 0 2px #8798ad;
   background-color: #0074d9;
   color: white;
   display: flex;
-  justify-content: center;
   cursor: pointer;
-  text-align: center;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.rmdp-panel-body span {
+  margin: 0 5px;
+  line-height: 23px;
 }
 
 .rmdp-panel-body li .b-deselect {
@@ -52,23 +52,28 @@
   border: none;
   cursor: pointer;
   height: 12px;
-  width: 10px;
+  width: 12px;
   justify-content: center;
   border-radius: 50%;
-  font-size: 9px;
-  transform: rotate(45deg);
-  margin-left: 4px;
-  margin-top: 5.5px;
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 52%;
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .rmdp-panel-body li .b-deselect:focus {
   outline: none;
 }
 
-.rmdp-week {
+.rmdp-week,
+.rmdp-ym {
   display: flex;
   justify-content: center;
-  font-size: 14px;
+}
+
+.rmdp-ym {
+  height: 25%;
 }
 
 .rmdp-day,
@@ -124,16 +129,15 @@
   box-shadow: 0 0 3px #bac5d3;
 }
 
-.rmdp-day.ym {
+.rmdp-ym .rmdp-day {
   flex: 1;
-  height: 60px;
+  margin: auto;
 }
 
-.rmdp-day.ym span {
-  border-radius: 10px;
-  font-size: 14px;
-  top: 20%;
-  bottom: 20%;
+.rmdp-ym .rmdp-day span {
+  border-radius: 12px;
+  height: 98%;
+  padding: 2px 0px;
 }
 
 .rmdp-range {
@@ -164,23 +168,24 @@
 .rmdp-header,
 .rmdp-panel-header {
   border-bottom: 1px solid #8798ad;
-  height: 28px;
-  padding-top: 8px;
+  height: 38px;
+  line-height: 37px;
 }
 
 .rmdp-panel-header {
   font-size: 14px;
   color: black;
+  margin-bottom: 5px;
 }
 
 .rmdp-month-picker,
 .rmdp-year-picker {
   background-color: white;
   position: absolute;
-  top: 38px;
-  left: 0;
+  top: 2px;
+  left: 2px;
   bottom: 2px;
-  right: 0;
+  right: 2px;
   border-radius: 0 0 5px 5px;
 }
 
@@ -188,11 +193,10 @@
 .only.rmdp-year-picker {
   position: static;
   width: 250px;
+  height: 240px;
 }
 
 .rmdp-header-values {
-  flex: 1;
-  margin-top: -2px;
   color: black;
 }
 
@@ -212,28 +216,39 @@
   margin-top: 5px;
 }
 
-.rmdp-up {
+.rmdp-up i {
   transform: rotate(-135deg);
   -webkit-transform: rotate(-135deg);
   margin-top: 7px;
 }
 
-.rmdp-down {
+.rmdp-down i {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   margin-top: 3px;
 }
 
-.rmdp-right {
+.rmdp-right i {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   margin-right: 3px;
 }
 
-.rmdp-left {
+.rmdp-left i {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
   margin-left: 3px;
+}
+
+.rmdp-left,
+.rmdp-right {
+  position: absolute;
+  top: 54%;
+  transform: translateY(-50%);
+}
+
+.rmdp-right {
+  right: 0;
 }
 
 .rmdp-arrow-container {
@@ -327,18 +342,23 @@
   direction: rtl;
 }
 
-.rmdp-rtl .rmdp-left {
+.rmdp-rtl .rmdp-left i {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   margin-left: unset;
   margin-right: 3px;
 }
 
-.rmdp-rtl .rmdp-right {
+.rmdp-rtl .rmdp-right i {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
   margin-right: unset;
   margin-left: 3px;
+}
+
+.rmdp-rtl .rmdp-right {
+  right: unset;
+  left: 0;
 }
 
 .rmdp-rtl .rmpd-panel {
@@ -346,10 +366,9 @@
   border-right: 1px solid #8798ad;
 }
 
-.rmdp-rtl .b-deselect {
-  margin-left: unset;
-  margin-right: 4px;
-  margin-top: 5.5px;
+.rmdp-rtl .rmdp-panel-body li .b-deselect {
+  right: unset;
+  left: 5px;
 }
 
 .rmdp-rtl .rmdp-range.start {
@@ -409,30 +428,16 @@
     font-size: 12px;
   }
 
-  .rmdp-day.ym {
-    height: 50px;
-  }
-
-  .rmdp-day.ym span {
-    font-size: 12px;
-  }
-
   .rmpd-panel {
-    min-width: 80px;
+    min-width: 93px;
+  }
+
+  .rmdp-panel-body {
+    padding: 0 2px;
   }
 
   .rmdp-panel-body li {
-    font-size: 14px;
-  }
-
-  .rmdp-panel-body li .b-deselect {
-    margin-left: 4px;
-    margin-top: 3px;
-  }
-
-  .rmdp-year-picker,
-  .rmdp-month-picker {
-    top: 41px;
+    font-size: 12px;
   }
 
   .only.rmdp-year-picker,
@@ -440,8 +445,10 @@
     width: 205px;
   }
 
-  .rmdp-panel-body {
-    max-height: 195px;
+  .rmdp-header,
+  .rmdp-panel-header {
+    height: 32px;
+    line-height: 32px;
   }
 }
 

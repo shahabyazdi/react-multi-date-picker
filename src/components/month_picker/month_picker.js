@@ -45,7 +45,7 @@ export default function MonthPicker({ state, setState, onChange }) {
             className={`${state.onlyMonthPicker ? "only " : ""}rmdp-month-picker`}
             style={{ display: mustShowMonthPicker ? "block" : "none" }}
         >
-            {months.map((array, i) => <div key={i} className="rmdp-week">
+            {months.map((array, i) => <div key={i} className="rmdp-ym">
                 {array.map((name, j) => <div
                     key={j}
                     className={getClassName(i * 3 + j)}
@@ -80,7 +80,7 @@ export default function MonthPicker({ state, setState, onChange }) {
     }
 
     function getClassName(monthIndex) {
-        let names = ["rmdp-day", "ym"],
+        let names = ["rmdp-day"],
             { date } = state
 
         if (date.month.index === monthIndex) names.push("rmdp-selected")

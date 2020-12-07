@@ -19,19 +19,16 @@
   box-shadow: unset;
 }
 
-.rmdp-mobile .rmdp-day-picker {
-  padding: 15px;
+.rmdp-mobile.rmdp-wrapper > div {
+  padding: 30px 15px;
+  padding-bottom: 15px;
 }
 
 .rmdp-mobile .rmdp-header,
 .rmdp-mobile .rmdp-panel-header {
   height: 30px;
-  padding-top: 35px;
+  padding-bottom: 15px;
   border-bottom: unset;
-}
-
-.rmdp-mobile .rmdp-panel-header {
-  padding-bottom: 25px;
 }
 
 .rmdp-mobile .rmdp-time-picker {
@@ -46,7 +43,6 @@
 .rmdp-mobile .rmdp-arrow-container {
   height: 26px;
   width: 26px;
-  margin: 0 15px;
 }
 
 .rmdp-mobile .rmdp-arrow {
@@ -56,9 +52,26 @@
   margin-top: 6px;
 }
 
-.rmdp-mobile .rmdp-month-picker,
-.rmdp-mobile .rmdp-year-picker {
-  top: 80px;
+.rmdp-mobile .rmdp-up i {
+  margin-top: 10px;
+}
+
+.rmdp-mobile .rmdp-left i {
+  margin-left: 4px;
+  margin-top: 7px;
+}
+
+.rmdp-mobile .rmdp-right i {
+  margin-left: -2px;
+  margin-top: 7px;
+}
+
+.rmdp-rtl.rmdp-mobile .rmdp-right i {
+  margin-left: 5px;
+}
+
+.rmdp-rtl.rmdp-mobile .rmdp-left i {
+  margin-left: -1px;
 }
 
 .rmdp-mobile .rmdp-day,
@@ -71,20 +84,18 @@
   font-size: 15px;
 }
 
-.rmdp-mobile .rmdp-day.ym {
-  height: 70px;
-}
-
-.rmdp-mobile .only.rmdp-month-picker,
-.rmdp-mobile .only.rmdp-year-picker {
-  position: static;
-  width: 300px;
+.rmdp-mobile .rmdp-time-picker div input {
+  margin: 5px 0;
 }
 
 .rmdp-mobile .rmdp-only-time-picker {
   width: 260px;
   padding: 10px;
   padding-top: 20px;
+}
+
+.rmdp-mobile .dvdr {
+  margin: 0 10px;
 }
 
 .rmdp-mobile .ok {
@@ -102,22 +113,9 @@
   margin: 15px 0;
 }
 
-.rmdp-mobile .rmdp-panel-body {
-  max-height: 270px;
-}
-
-.rmdp-mobile .rmdp-panel-body li {
-  padding: 0 10px;
-  margin: 5px 10px;
-}
-
-.rmdp-calendar-container-mobile .rmdp-panel-body {
-  max-height: 335px;
-}
-
-.rmdp-mobile .rmdp-action-buttons {
-  display: unset;
-  margin: 5px 10px;
+.rmdp-mobile .rmdp-action-button {
+  margin: 0 3px;
+  margin-top: 15px;
 }
 
 .rmdp-mobile .rmdp-action-buttons.rmdp-rtl {
@@ -134,16 +132,16 @@
   outline: none;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
+  .rmdp-mobile.rmdp-wrapper > div {
+    padding: 15px 5px;
+    padding-bottom: 10px;
+  }
+
   .rmdp-mobile .rmdp-day,
   .rmdp-mobile .rmdp-week-day {
     height: 32px;
     width: 32px;
-  }
-
-  .rmdp-mobile .rmdp-month-picker,
-  .rmdp-mobile .rmdp-year-picker {
-    top: 65px;
   }
 
   .rmdp-mobile .only.rmdp-month-picker,
@@ -158,12 +156,6 @@
   .rmdp-mobile .rmdp-header,
   .rmdp-mobile .rmdp-panel-header {
     height: 20px;
-    padding-top: 25px;
-  }
-
-  .rmdp-mobile .rmdp-panel-body li {
-    margin: 5px;
-    padding: 0 4px;
   }
 
   .rmdp-mobile .rmdp-day span {
@@ -171,7 +163,7 @@
   }
 
   .rmdp-mobile .rmdp-day-picker {
-    padding: 10px 0;
+    padding: 10px 5px;
   }
 
   .rmdp-mobile.rmdp-single .rmdp-day-picker {
@@ -191,15 +183,6 @@
     margin-top: 6px;
   }
 
-  .rmdp-calendar-container-mobile .rmdp-mobile .rmdp-panel-body {
-    max-height: 280px;
-    padding: 0 2px;
-  }
-
-  .rmdp-mobile .rmdp-panel-body {
-    max-height: 225px;
-  }
-
   .rmdp-mobile .rmdp-action-button {
     font-size: 13px;
     padding: 5px 5px;
@@ -209,30 +192,31 @@
     padding-right: 10px;
   }
 
-  .rmdp-mobile .rmdp-day.ym {
-    height: 55px;
-  }
-
-  .rmdp-mobile .rmdp-day.ym span {
-    font-size: 12px;
-  }
-
   .rmdp-mobile .rmdp-panel-header {
     font-size: 16px;
-    padding: 23px 0;
+    padding-bottom: 20px;
+  }
+
+  .rmdp-mobile .rmdp-left i,
+  .rmdp-mobile .rmdp-right i {
+    margin-top: 6px;
+  }
+
+  .rmdp-mobile .rmdp-up i {
+    margin-top: 8px;
+  }
+
+  .rmdp-mobile .rmdp-down i {
+    margin-top: 4px;
   }
 }
 
 @media (max-height: 450px) {
   .rmdp-mobile .rmdp-header,
   .rmdp-mobile .rmdp-panel-header {
-    height: 15px;
-    padding-top: 15px;
+    height: 9px;
     font-size: 12px;
-  }
-
-  .rmdp-mobile .rmdp-panel-header {
-    padding-bottom: 12px;
+    line-height: 15px;
   }
 
   .rmdp-mobile .rmdp-day,
@@ -242,7 +226,7 @@
   }
 
   .rmdp-mobile .rmdp-time-picker {
-    padding-top: 5px;
+    padding: 0;
   }
 
   .rmdp-mobile .rmdp-time-picker div input {
@@ -251,9 +235,10 @@
   }
 
   .rmdp-mobile .rmdp-day span {
-    font-size: 13px;
+    font-size: 12px;
   }
 
+  .rmdp-mobile .rmdp-month-picker .rmdp-day span,
   .rmdp-mobile .rmdp-week-day {
     font-size: 10px;
   }
@@ -263,33 +248,17 @@
   }
 
   .rmdp-mobile .rmdp-panel-body {
-    max-height: 175px;
     padding: 0px;
     margin: 5px 0px;
   }
 
   .rmdp-mobile .rmdp-panel-body li {
     font-size: 11px;
-    height: 16px;
     margin: 5px;
   }
 
-  .rmdp-mobile .rmdp-panel-body li span {
-    padding-top: 1.5px;
-  }
-
-  .rmdp-mobile .rmdp-panel-body li .b-deselect {
-    margin-top: 2px;
-    height: 11px;
-    width: 8px;
-  }
-
-  .rmdp-mobile .rmdp-action-buttons {
-    margin: 0px 10px;
-  }
-
   .rmdp-mobile .rmdp-action-button {
-    font-size: 11px;
+    font-size: 9px;
     padding: 0 5px;
     margin: 10px 5px;
   }
@@ -311,16 +280,35 @@
     margin-top: 3px;
   }
 
-  .rmdp-mobile .rmdp-month-picker,
-  .rmdp-mobile .rmdp-year-picker {
-    top: 40px;
+  .rmdp-mobile .only.rmdp-month-picker,
+  .rmdp-mobile .only.rmdp-year-picker {
+    height: 160px;
   }
 
-  .rmdp-mobile .rmdp-day.ym {
-    height: 40px;
+  .rmdp-mobile .rmdp-time-picker div input {
+    margin: 0;
   }
 
-  .rmdp-mobile .rmdp-day.ym span {
-    font-size: 9px;
+  .rmdp-mobile.rmdp-wrapper > div {
+    padding: 15px 8px;
+    padding-bottom: 5px;
+  }
+
+  .rmdp-mobile .rmdp-week-day {
+    margin-top: 0;
+  }
+
+  .rmdp-mobile .rmdp-left i {
+    margin-top: 4px;
+    margin-left: 4px;
+  }
+
+  .rmdp-mobile .rmdp-right i {
+    margin-top: 4px;
+    margin-left: 0px;
+  }
+
+  .rmdp-mobile .rmdp-up i {
+    margin-top: 5px;
   }
 }

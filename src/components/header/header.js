@@ -15,7 +15,7 @@ export default function Header({ state, setState, onChange, disableYearPicker, d
 
     return (
         <div className="rmdp-header" style={{ display: state.onlyTimePicker ? "none" : "block" }}>
-            <div style={{ display: "flex" }}>
+            <div style={{ position: "relative" }}>
                 <Arrow direction="rmdp-left" onClick={() => increaseValue(-1)} />
                 <div className="rmdp-header-values">
                     {!state.onlyYearPicker &&

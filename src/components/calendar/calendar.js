@@ -219,15 +219,15 @@ export default function Calendar({
         <div
             className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
         >
-            <div>
-                <div className="rmdp-calendar">
-                    <Header
-                        state={state}
-                        setState={setState}
-                        onChange={onChange}
-                        disableYearPicker={disableYearPicker}
-                        disableMonthPicker={disableMonthPicker}
-                    />
+            <div style={{ height: "max-content" }}>
+                <Header
+                    state={state}
+                    setState={setState}
+                    onChange={onChange}
+                    disableYearPicker={disableYearPicker}
+                    disableMonthPicker={disableMonthPicker}
+                />
+                <div style={{ position: "relative" }}>
                     <DayPicker
                         state={state}
                         setState={setState}

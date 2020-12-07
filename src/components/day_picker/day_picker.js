@@ -19,15 +19,26 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
                 state.date.month.number === month.number &&
                 state.date.year === year &&
                 state.local === local &&
-                state.calendar === calendar
+                state.calendar === calendar &&
+                ref.current.showOtherDays === showOtherDays
             ) return
         }
 
         ref.current = state.date.toObject()
+        ref.current.showOtherDays = showOtherDays
 
-        setWeeks(getWeeks(state.date))
+        setWeeks(getWeeks(state.date, showOtherDays))
         setState(state => { return { ...state, ready: true } })
-    }, [state.date, state.date.month, state.date.year, state.local, state.calendar, setState, mustShowDayPicker])
+    }, [
+        state.date,
+        state.date.month,
+        state.date.year,
+        state.local,
+        state.calendar,
+        setState,
+        mustShowDayPicker,
+        showOtherDays
+    ])
 
     return (mustShowDayPicker &&
         <div className="rmdp-day-picker">
@@ -181,7 +192,7 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
     }
 }
 
-function getWeeks(date) {
+function getWeeks(date, showOtherDays) {
     if (!date) return []
     date = new DateObject(date).toFirstOfMonth()
 
@@ -203,6 +214,8 @@ function getWeeks(date) {
         }
 
         weeks.push(week)
+
+        if (weekIndex > 2 && date.month.number !== monthNumber && !showOtherDays) return weeks
     }
 
     return weeks
