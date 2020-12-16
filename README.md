@@ -47,8 +47,9 @@ export default function Example() {
 | showOtherDays        |                                            Boolean                                            |                 true                  | both                                |
 | minDate              |                              Date, DateObject, String or Number                               |               undefined               | both                                |
 | maxDate              |                              Date, DateObject, String or Number                               |               undefined               | both                                |
-| disableYearPicker    |                                            Boolean                                            |               undefined               | both                                |
-| disableMonthPicker   |                                            Boolean                                            |               undefined               | both                                |
+| disableYearPicker    |                                            Boolean                                            |                 false                 | both                                |
+| disableMonthPicker   |                                            Boolean                                            |                 false                 | both                                |
+| eachDaysInRange      |                                            Boolean                                            |                 false                 | both                                |
 | animation            |                                            Boolean                                            |                 false                 | DatePicker                          |
 | inputClass           |                                            String                                             |                  ""                   | DatePicker                          |
 | name                 |                                            String                                             |                  ""                   | DatePicker                          |
@@ -64,6 +65,7 @@ export default function Example() {
 | containerStyle       |                                            Object                                             |               undefined               | DatePicker                          |
 | containerClassName   |                                            String                                             |               undefined               | DatePicker                          |
 | editable             |                                            Boolean                                            |                 true                  | DatePicker                          |
+| onlyShowInRangeDates |                                            Boolean                                            |                 true                  | DatePicker                          |
 
 ## Calendars and Locals
 

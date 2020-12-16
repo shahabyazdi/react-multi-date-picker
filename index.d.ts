@@ -188,7 +188,17 @@ declare module "react-multi-date-picker" {
          *   formattingIgnoreList={["Date", "Time"]}
          * />
          */
-        formattingIgnoreList:string[]
+        formattingIgnoreList:string[],
+        /**
+         * In range mode, only the start and end dates are displayed in the dates panel. 
+         * 
+         * Enable it to see the dates between start and end date in the dates panel. 
+         * 
+         * Keep in mind that activating this prop may cause slow rendering at big ranges of Dates
+         * 
+         * @default false
+         */
+        eachDaysInRange:boolean
     } 
 
     interface DatePickerProps{
@@ -284,10 +294,17 @@ declare module "react-multi-date-picker" {
         /**
          * This feature only affects on `input` in `single` mode
          */
-        editable:boolean
+        editable:boolean,
+        /**
+         * Set it to false if you want to see selected date(s) 
+         * that are not in range of min and max dates in calendar.
+         * @default true
+         */
+        onlyShowInRangeDates:boolean
     }
 
     export { DateObject }
     export function Calendar(props: CalendarProps): React.ReactElement
+    export function getAllDatesInRange(range:DateObject[], toDate?:boolean): DateObject[] | Date[]
     export default function DatePicker(props: CalendarProps & DatePickerProps): React.ReactElement
 }

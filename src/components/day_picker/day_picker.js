@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react"
 import DateObject from "react-date-object"
 import WeekDays from "../week_days/week_days"
 
-export default function DayPicker({ state, setState, onChange, showOtherDays = true, mapDays }) {
+export default function DayPicker({ state, setState, onChange, showOtherDays = true, mapDays, onlyShowInRangeDates }) {
     const [weeks, setWeeks] = useState([]),
         ref = useRef(false),
         today = useMemo(() => new DateObject({ calendar: state.calendar }), [state.calendar]),
@@ -45,6 +45,9 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
             <WeekDays state={state} />
             {weeks.map((week, index) => <div key={index} className="rmdp-week">
                 {week.map((object, i) => {
+                    //To clear the properties which are added from the previous render;
+                    object = { date: object.date, current: object.current }
+
                     let otherProps = {}
                     let className = `${mustDisplayDay(object) && !object.disabled && "sd"}`
 
@@ -127,8 +130,10 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
             names.push("rmdp-day-hidden")
         } else {
             if (
-                ((minDate && object.date < minDate) ||
-                    (maxDate && object.date > maxDate)) ||
+                (
+                    (minDate && object.date < minDate) ||
+                    (maxDate && object.date > maxDate)
+                ) ||
                 object.disabled
             ) {
                 names.push("rmdp-disabled")
@@ -138,7 +143,10 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
 
             if (!object.current) names.push("rmdp-deactive")
 
-            if (!object.disabled) {
+            if (
+                !object.disabled ||
+                (object.disabled && !onlyShowInRangeDates)
+            ) {
                 if (isSameDate(object.date, today)) names.push("rmdp-today")
                 if (isSelected(object.date)) names.push("rmdp-selected")
             }

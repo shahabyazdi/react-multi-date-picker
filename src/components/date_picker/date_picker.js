@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from "react"
-import Calendar, { getDateInRangeOfMinAndMaxDate } from "../calendar/calendar"
+import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
+import { getAllDatesInRange } from "../days_panel/days_panel"
 import { ReactComponent as Icon } from "./calendar.svg"
 import "./date_picker.css"
 
@@ -40,6 +41,7 @@ export default function DatePicker({
     calendarPosition = "auto",
     animation,
     editable = true,
+    onlyShowInRangeDates = true,
     ...otherProps
 }) {
     let [date, setDate] = useState(),
@@ -154,22 +156,6 @@ export default function DatePicker({
 
         inputRef.current.selectionStart = inputRef.current.selectionEnd = ref.current.start
     }, [stringDate, type])
-
-    useEffect(() => {
-        if (!minDate && !maxDate) return
-
-        setDate(date => {
-            let [$date] = getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar)
-
-            if (Array.isArray($date)) {
-                setStringDate(getStringDate($date, type, separator, format, formattingIgnoreList))
-            } else {
-                setStringDate($date ? $date.format(undefined, JSON.parse(formattingIgnoreList)) : "")
-            }
-
-            return $date
-        })
-    }, [minDate, maxDate, calendar, type, separator, format, formattingIgnoreList])
 
     useEffect(() => {
         const calendar = calendarRef.current
@@ -302,6 +288,7 @@ export default function DatePicker({
                         maxDate={maxDate}
                         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
                         onReady={() => setIsCalendarReady(true)}
+                        onlyShowInRangeDates={onlyShowInRangeDates}
                         {...otherProps}
                     >
                         {children}
@@ -365,9 +352,14 @@ export default function DatePicker({
         if (!value && !ref.current.date && !range && !multiple) {
             let date = new DateObject({ calendar, local, format })
 
-            handleChange(date, isMobile)
+            if (
+                (!minDate || (minDate && date > minDate)) &&
+                (!maxDate || (maxDate && date < maxDate))
+            ) {
+                handleChange(date, isMobile)
 
-            ref.current.date = date
+                ref.current.date = date
+            }
         }
 
         if (isMobile && isInput) inputRef.current.blur()
@@ -440,6 +432,7 @@ export default function DatePicker({
         let newDate = new DateObject(date?.isValid ? date : object).parse(value)
 
         handleChange(newDate)
+
         setStringDate(value.replace(/[0-9]/g, w => digits[w]))
     }
 
@@ -485,12 +478,36 @@ export default function DatePicker({
                     </div>
                 )
             case "custom":
+                let strDate = stringDate || ""
+                let toString = date => date.format(format, JSON.parse(formattingIgnoreList))
+
+                if (
+                    multiple ||
+                    (range && !otherProps.eachDaysInRange)
+                ) {
+                    if (!Array.isArray(date)) {
+                        strDate = []
+                    } else {
+                        strDate = date.map(toString)
+                    }
+                } else if (range && otherProps.eachDaysInRange) {
+                    if (!Array.isArray(date)) {
+                        strDate = []
+                    } else {
+                        strDate = getAllDatesInRange(date).map(toString)
+                    }
+                }
+
                 return (
                     <div ref={inputRef}>
                         {React.isValidElement(render) ?
-                            React.cloneElement(render, { stringDate, openCalendar, handleValueChange }) :
+                            React.cloneElement(render, {
+                                [multiple || range ? "stringDates" : "stringDate"]: strDate,
+                                openCalendar,
+                                handleValueChange
+                            }) :
                             render instanceof Function ?
-                                render(stringDate, openCalendar, handleValueChange) :
+                                render(strDate, openCalendar, handleValueChange) :
                                 null
                         }
                     </div>

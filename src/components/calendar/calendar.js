@@ -32,7 +32,9 @@ export default function Calendar({
     disableMonthPicker,
     disableYearPicker,
     formattingIgnoreList,
-    onReady
+    onReady,
+    eachDaysInRange,
+    onlyShowInRangeDates = true
 }) {
     let [state, setState] = useState({})
 
@@ -49,28 +51,7 @@ export default function Calendar({
                 if (range || multiple) return "YYYY/MM/DD"
             }
 
-            function getSelectedDate(value) {
-                let selectedDate = undefined
-                let getObject = date => { return { date, calendar, local, format: $format } }
 
-                if (Array.isArray(value)) {
-                    selectedDate = value.map(val => {
-                        if (val instanceof DateObject) return val
-
-                        let date = new DateObject(getObject(val))
-
-                        return date.isValid ? date : undefined
-                    }).filter(i => i !== undefined)
-                } else if (value instanceof DateObject) {
-                    selectedDate = value.isValid ? value : undefined
-                } else {
-                    selectedDate = new DateObject(getObject(value))
-
-                    if (!selectedDate.isValid) selectedDate = undefined
-                }
-
-                return selectedDate
-            }
 
             function checkDate(date) {
                 if (date.calendar !== calendar) date.setCalendar(calendar)
@@ -116,9 +97,9 @@ export default function Calendar({
 
                     if (!date.isValid) date = new DateObject({ calendar, local, format: $format })
 
-                    selectedDate = getSelectedDate($value)
+                    selectedDate = getSelectedDate($value, calendar, local, $format)
                 } else {
-                    selectedDate = isValid ? $value : getSelectedDate($value)
+                    selectedDate = isValid ? $value : getSelectedDate($value, calendar, local, $format)
                 }
 
                 if (Array.isArray(selectedDate)) {
@@ -172,7 +153,8 @@ export default function Calendar({
                 initialValue: state.initialValue || $value,
                 format: $format,
                 weekDays,
-                months
+                months,
+                value: $value
             }
         })
     }, [
@@ -195,8 +177,10 @@ export default function Calendar({
         if (!minDate && !maxDate) return
 
         setState(state => {
+            let { calendar, local, format } = state
+
             let [selectedDate, $minDate, $maxDate] = getDateInRangeOfMinAndMaxDate(
-                state.selectedDate,
+                getSelectedDate(value, calendar, local, format),
                 minDate,
                 maxDate,
                 state.calendar
@@ -204,12 +188,12 @@ export default function Calendar({
 
             return {
                 ...state,
-                selectedDate,
+                inRangeDates: onlyShowInRangeDates ? selectedDate : state.selectedDate,
                 minDate: $minDate,
                 maxDate: $maxDate
             }
         })
-    }, [minDate, maxDate])
+    }, [minDate, maxDate, onlyShowInRangeDates, value])
 
     useEffect(() => {
         if (state.ready && onReady instanceof Function) onReady()
@@ -234,6 +218,7 @@ export default function Calendar({
                         onChange={onChange}
                         showOtherDays={showOtherDays}
                         mapDays={mapDays}
+                        onlyShowInRangeDates={onlyShowInRangeDates}
                     />
                     <MonthPicker
                         state={state}
@@ -259,6 +244,7 @@ export default function Calendar({
                 setState={setState}
                 onChange={onChange}
                 formattingIgnoreList={formattingIgnoreList}
+                eachDaysInRange={eachDaysInRange}
             />
         </div>
         :
@@ -290,7 +276,7 @@ function isValidDate(date) {
     return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())
 }
 
-export function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
+export function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar, onlyShowInRangeDates) {
     if (minDate) minDate = toDateObject(minDate, calendar).set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
     if (maxDate) maxDate = toDateObject(maxDate, calendar).set({ hour: 23, minute: 59, second: 59, millisecond: 999 })
 
@@ -301,8 +287,6 @@ export function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) 
 
             return true
         })
-    } else {
-        if ((minDate && date < minDate) || (maxDate && date > maxDate)) date = undefined
     }
 
     return [date, minDate, maxDate]
@@ -318,4 +302,27 @@ function toDateObject(date, calendar) {
     }
 
     return date
+}
+
+function getSelectedDate(value, calendar, local, format) {
+    let selectedDate = undefined
+    let getObject = date => { return { date, calendar, local, format } }
+
+    if (Array.isArray(value)) {
+        selectedDate = value.map(val => {
+            if (val instanceof DateObject) return val
+
+            let date = new DateObject(getObject(val))
+
+            return date.isValid ? date : undefined
+        }).filter(i => i !== undefined)
+    } else if (value instanceof DateObject) {
+        selectedDate = value.isValid ? value : undefined
+    } else {
+        selectedDate = new DateObject(getObject(value))
+
+        if (!selectedDate.isValid) selectedDate = undefined
+    }
+
+    return selectedDate
 }
