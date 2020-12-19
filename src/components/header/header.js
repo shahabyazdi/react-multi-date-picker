@@ -20,14 +20,14 @@ export default function Header({ state, setState, onChange, disableYearPicker, d
                 <div className="rmdp-header-values">
                     {!state.onlyYearPicker &&
                         <span
-                            className={`${state.mustShowMonthPicker ? "active" : ""}`}
+                            style={{ cursor: disableMonthPicker || state.onlyMonthPicker ? "default" : "pointer" }}
                             onClick={() => !disableMonthPicker && toggle("mustShowMonthPicker")}
                         >
                             {monthName},
                         </span>
                     }
                     <span
-                        className={`${state.mustShowYearPicker ? "active" : ""}`}
+                        style={{ cursor: disableYearPicker || state.onlyYearPicker ? "default" : "pointer" }}
                         onClick={() => !disableYearPicker && toggle("mustShowYearPicker")}
                     >
                         {state.date.format("YYYY")}

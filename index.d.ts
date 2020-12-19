@@ -198,7 +198,12 @@ declare module "react-multi-date-picker" {
          * 
          * @default false
          */
-        eachDaysInRange:boolean
+        eachDaysInRange:boolean,
+        /**
+         * Calendar z-index
+         * @default 100
+         */
+        zIndex:number
     } 
 
     interface DatePickerProps{

@@ -5,7 +5,6 @@
   border: 1px solid #8798ad;
   box-shadow: 0 0 5px #8798ad;
   border-radius: 7px;
-  z-index: 1000000;
   text-align: center;
   background-color: white;
 }
@@ -200,7 +199,6 @@
 }
 
 .rmdp-header-values span {
-  cursor: pointer;
   padding: 0 5px;
   padding-right: 0;
 }
@@ -244,6 +242,10 @@
   position: absolute;
   top: 54%;
   transform: translateY(-50%);
+}
+
+.rmdp-left {
+  left: 0;
 }
 
 .rmdp-right {
@@ -328,6 +330,7 @@
 
 .rmdp-time-picker div .rmdp-am {
   font-size: 13px;
+  line-height: 21px;
   color: black;
   margin-top: 2px;
 }
@@ -358,6 +361,11 @@
 .rmdp-rtl .rmdp-right {
   right: unset;
   left: 0;
+}
+
+.rmdp-rtl .rmdp-left {
+  left: unset;
+  right: 0;
 }
 
 .rmdp-rtl .rmpd-panel {
@@ -442,6 +450,7 @@
   .only.rmdp-year-picker,
   .only.rmdp-month-picker {
     width: 205px;
+    height: 200px;
   }
 
   .rmdp-header,

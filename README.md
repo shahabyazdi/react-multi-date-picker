@@ -19,6 +19,37 @@ export default function Example() {
 }
 ```
 
+## Browser (none react-app)
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add React in One Minute</title>
+  </head>
+  <body>
+    <span>Calendar Example :</span>
+    <div id="calendar"></div>
+
+    <span>DatePicker Example :</span>
+    <div id="datePicker"></div>
+
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-object@1.1.7/dist/date-object.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@1.8.2/build/date-picker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@1.8.2/build/calendar.min.js"></script>
+
+    <script type="text/babel">
+      ReactDOM.render(<Calendar />, document.getElementById("calendar"));
+      ReactDOM.render(<DatePicker />, document.getElementById("datePicker"));
+    </script>
+  </body>
+</html>
+```
+
 ## Demo
 
 [https://shahabyazdi.github.io/react-multi-date-picker](https://shahabyazdi.github.io/react-multi-date-picker/)
@@ -50,6 +81,7 @@ export default function Example() {
 | disableYearPicker    |                                            Boolean                                            |                 false                 | both                                |
 | disableMonthPicker   |                                            Boolean                                            |                 false                 | both                                |
 | eachDaysInRange      |                                            Boolean                                            |                 false                 | both                                |
+| zIndex               |                                            Number                                             |                  100                  | both                                |
 | animation            |                                            Boolean                                            |                 false                 | DatePicker                          |
 | inputClass           |                                            String                                             |                  ""                   | DatePicker                          |
 | name                 |                                            String                                             |                  ""                   | DatePicker                          |

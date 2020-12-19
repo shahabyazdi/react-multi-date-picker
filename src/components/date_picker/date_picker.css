@@ -2,10 +2,6 @@
   display: inline-block;
 }
 
-.rmdp-calendar-container {
-  z-index: 1000;
-}
-
 .rmdp-calendar-container .rmdp-wrapper {
   position: absolute;
   transform: translateY(2px);

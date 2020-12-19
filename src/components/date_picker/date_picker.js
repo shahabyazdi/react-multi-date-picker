@@ -182,9 +182,9 @@ export default function DatePicker({
                 if (!e.target.querySelector(".rmdp-calendar-container") || !scrollSensitive) return
             }
 
-            let { height: calendarHeight, width: calendarWidth } = wrapper.getBoundingClientRect(),
-                { top, height: inputHeight, width: inputWidth } = inputRef.current.getBoundingClientRect(),
-                { clientHeight } = document.documentElement,
+            let { height: calendarHeight, width: calendarWidth, left: calendarLeft } = wrapper.getBoundingClientRect(),
+                { top, height: inputHeight, width: inputWidth, right, left: inputLeft } = inputRef.current.getBoundingClientRect(),
+                { clientHeight, clientWidth } = document.documentElement,
                 translateY = (wrapper.style.transform.match(/translateY\((.*)px\)/) || [])[1] || 2,
                 translateX = 0,
                 distance = (inputWidth - calendarWidth) / 2,
@@ -208,24 +208,31 @@ export default function DatePicker({
                 ) ||
                 positionY === "top"
             ) {
-                translateY = (calendarHeight + inputHeight + 4) * -1
+                translateY = -(calendarHeight + inputHeight + 4)
             } else if (top - calendarHeight < 0) {
                 translateY = 2
             }
 
             if (
                 (
-                    calendarWidth > 10 &&
-                    (left > Math.abs(distance) || inputWidth > calendarWidth) &&
+                    (
+                        (left > Math.abs(distance) && right + Math.abs(distance) < clientWidth) ||
+                        inputWidth > calendarWidth
+                    ) &&
                     (calendarPosition === "auto" || positionX === "auto")
                 ) ||
                 positionX === "center"
             ) {
-                translateX = distance
-            } else if (positionX === "right") {
-                translateX = inputWidth - calendarWidth
-            } else {
-                translateX = 0
+                translateX = ((inputLeft - calendarLeft) / 2) || distance
+
+            } else if (
+                (right + Math.abs(distance) > clientWidth) ||
+                positionX === "right"
+            ) {
+                translateX = (inputLeft + inputWidth) - (calendarLeft + calendarWidth)
+
+            } else if (positionX === "left") {
+                translateX = inputLeft - calendarLeft
             }
 
             if (mustAddAnimation) translateY += translateY >= 0 ? 12 : -12

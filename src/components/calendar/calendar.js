@@ -34,7 +34,8 @@ export default function Calendar({
     formattingIgnoreList,
     onReady,
     eachDaysInRange,
-    onlyShowInRangeDates = true
+    onlyShowInRangeDates = true,
+    zIndex = 100
 }) {
     let [state, setState] = useState({})
 
@@ -202,6 +203,7 @@ export default function Calendar({
     return (state.date ?
         <div
             className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
+            style={{ zIndex }}
         >
             <div style={{ height: "max-content" }}>
                 <Header
@@ -276,7 +278,7 @@ function isValidDate(date) {
     return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())
 }
 
-export function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar, onlyShowInRangeDates) {
+function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar, onlyShowInRangeDates) {
     if (minDate) minDate = toDateObject(minDate, calendar).set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
     if (maxDate) maxDate = toDateObject(maxDate, calendar).set({ hour: 23, minute: 59, second: 59, millisecond: 999 })
 
