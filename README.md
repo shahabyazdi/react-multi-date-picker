@@ -39,8 +39,8 @@ export default function Example() {
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/date-object@1.1.7/dist/date-object.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@1.8.2/build/date-picker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@1.8.2/build/calendar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@1.8.3/build/date-picker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@1.8.3/build/calendar.min.js"></script>
 
     <script type="text/babel">
       ReactDOM.render(<Calendar />, document.getElementById("calendar"));
