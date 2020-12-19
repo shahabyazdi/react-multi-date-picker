@@ -185,8 +185,8 @@ export default function DatePicker({
             let { height: calendarHeight, width: calendarWidth, left: calendarLeft } = wrapper.getBoundingClientRect(),
                 { top, height: inputHeight, width: inputWidth, right, left: inputLeft } = inputRef.current.getBoundingClientRect(),
                 { clientHeight, clientWidth } = document.documentElement,
-                translateY = (wrapper.style.transform.match(/translateY\((.*)px\)/) || [])[1] || 2,
-                translateX = 0,
+                translateY = (wrapper.style.transform.match(/translateY\((.*?)px\)/) || [])[1] || 2,
+                translateX = (wrapper.style.transform.match(/translateX\((.*?)px\)/) || [])[1] || 0,
                 distance = (inputWidth - calendarWidth) / 2,
                 getTransform = (x, y) => `translateX(${x}px) translateY(${y}px)`,
                 left = datePickerRef.current.offsetLeft,
@@ -213,6 +213,12 @@ export default function DatePicker({
                 translateY = 2
             }
 
+            if (!ref.current.initRTL) {
+                ref.current = { ...ref.current, initRTL: true, isRTL: inputLeft - calendarLeft !== 0 }
+            }
+
+            let isRTL = ref.current.isRTL
+
             if (
                 (
                     (
@@ -223,16 +229,26 @@ export default function DatePicker({
                 ) ||
                 positionX === "center"
             ) {
-                translateX = ((inputLeft - calendarLeft) / 2) || distance
-
+                if (isRTL && !e) {
+                    translateX = (inputLeft - calendarLeft) / 2
+                } else if (!isRTL) {
+                    translateX = distance
+                }
             } else if (
                 (right + Math.abs(distance) > clientWidth) ||
                 positionX === "right"
             ) {
-                translateX = (inputLeft + inputWidth) - (calendarLeft + calendarWidth)
-
+                if (isRTL && !e) {
+                    translateX = (inputLeft + inputWidth) - (calendarLeft + calendarWidth)
+                } else if (!isRTL) {
+                    translateX = inputWidth - calendarWidth
+                }
             } else if (positionX === "left") {
-                translateX = inputLeft - calendarLeft
+                if (isRTL && !e && !resize) {
+                    translateX = inputLeft - calendarLeft
+                } else if (!isRTL) {
+                    translateX = 0
+                }
             }
 
             if (mustAddAnimation) translateY += translateY >= 0 ? 12 : -12
