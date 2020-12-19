@@ -26,7 +26,7 @@ export default function Example() {
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Add React in One Minute</title>
+    <title>React Multi Date Picker</title>
   </head>
   <body>
     <span>Calendar Example :</span>
