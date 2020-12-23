@@ -291,19 +291,19 @@ function DatePicker(
 
     if (multiple || range || Array.isArray(date) || !editable) inputMode = "none"
 
-    if (outerRef) {
-        datePickerRef = outerRef
-
-        if (outerRef.current) {
-            outerRef.current.openCalendar = openCalendar
-            outerRef.current.closeCalendar = closeCalendar
-            outerRef.current.isOpen = isVisible && isCalendarReady
-        }
-    }
-
     return (
         <div
-            ref={datePickerRef}
+            ref={element => {
+                datePickerRef.current = element
+
+                if (outerRef) outerRef.current = element
+
+                if (outerRef?.current) {
+                    outerRef.current.openCalendar = () => setTimeout(() => openCalendar(), 10)
+                    outerRef.current.closeCalendar = closeCalendar
+                    outerRef.current.isOpen = isVisible && isCalendarReady
+                }
+            }}
             className={`rmdp-container ${containerClassName}`}
             style={containerStyle}
         >
