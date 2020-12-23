@@ -72,7 +72,7 @@
 }
 
 .purple .rmdp-day:not(.rmdp-day-hidden):hover span {
-  background-color: var(--rmdp-hover-purple);
+  background-color: var(--rmdp-hover-purple) !important;
 }
 
 .purple .b-deselect {

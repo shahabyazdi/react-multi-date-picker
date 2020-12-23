@@ -62,7 +62,7 @@
 }
 
 .green .rmdp-day:not(.rmdp-day-hidden):hover span {
-  background-color: #2ecc40;
+  background-color: #2ecc40 !important;
 }
 
 .green .b-deselect {

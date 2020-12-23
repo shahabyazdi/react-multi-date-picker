@@ -1,49 +1,55 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react"
+import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } from "react"
 import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
 import { getAllDatesInRange } from "../days_panel/days_panel"
 import { ReactComponent as Icon } from "./calendar.svg"
 import "./date_picker.css"
 
-export default function DatePicker({
-    value,
-    calendar = "gregorian",
-    local = "en",
-    format,
-    timePicker,
-    onlyTimePicker,
-    onlyMonthPicker,
-    onlyYearPicker,
-    onChange,
-    range = false,
-    multiple = false,
-    mustShowDates = true,
-    name,
-    placeholder,
-    style = {},
-    className = "",
-    inputClass,
-    disabled,
-    type = "input",
-    render,
-    weekDays,
-    months,
-    showOtherDays,
-    children,
-    inputMode,
-    scrollSensitive = true,
-    hideOnScroll,
-    minDate,
-    maxDate,
-    formattingIgnoreList,
-    containerStyle,
-    containerClassName,
-    calendarPosition = "auto",
-    animation,
-    editable = true,
-    onlyShowInRangeDates = true,
-    ...otherProps
-}) {
+function DatePicker(
+    {
+        value,
+        calendar = "gregorian",
+        local = "en",
+        format,
+        timePicker,
+        onlyTimePicker,
+        onlyMonthPicker,
+        onlyYearPicker,
+        onChange,
+        range = false,
+        multiple = false,
+        mustShowDates = true,
+        name,
+        id,
+        title,
+        placeholder,
+        required,
+        style = {},
+        className = "",
+        inputClass,
+        disabled,
+        type = "input",
+        render,
+        weekDays,
+        months,
+        showOtherDays,
+        children,
+        inputMode,
+        scrollSensitive = true,
+        hideOnScroll,
+        minDate,
+        maxDate,
+        formattingIgnoreList,
+        containerStyle,
+        containerClassName,
+        calendarPosition = "auto",
+        animation,
+        editable = true,
+        onlyShowInRangeDates = true,
+        ...otherProps
+    },
+    outerRef
+) {
     let [date, setDate] = useState(),
         [stringDate, setStringDate] = useState(""),
         [isVisible, setIsVisible] = useState(false),
@@ -285,6 +291,16 @@ export default function DatePicker({
 
     if (multiple || range || Array.isArray(date) || !editable) inputMode = "none"
 
+    if (outerRef) {
+        datePickerRef = outerRef
+
+        if (outerRef.current) {
+            outerRef.current.openCalendar = openCalendar
+            outerRef.current.closeCalendar = closeCalendar
+            outerRef.current.isOpen = isVisible && isCalendarReady
+        }
+    }
+
     return (
         <div
             ref={datePickerRef}
@@ -481,6 +497,8 @@ export default function DatePicker({
                         ref={inputRef}
                         onClick={openCalendar}
                         name={name || ""}
+                        id={id}
+                        title={title}
                         className={inputClass || "rmdp-button"}
                         style={{
                             minWidth: Array.isArray(date) ? "185px" : "unset",
@@ -498,6 +516,8 @@ export default function DatePicker({
                     <div
                         ref={inputRef}
                         style={{ display: "inline-block" }}
+                        id={id}
+                        title={title}
                     >
                         <Icon
                             onClick={openCalendar}
@@ -548,10 +568,13 @@ export default function DatePicker({
                         <input
                             ref={inputRef}
                             type="text"
-                            name={name || ""}
+                            name={name}
+                            id={id}
+                            title={title}
+                            required={required}
                             onFocus={openCalendar}
                             className={inputClass || "rmdp-input"}
-                            placeholder={placeholder || ""}
+                            placeholder={placeholder}
                             value={stringDate}
                             onChange={handleValueChange}
                             style={style}
@@ -579,6 +602,8 @@ export default function DatePicker({
         }
     }
 }
+
+export default forwardRef(DatePicker)
 
 function getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple) {
     if (format) return format

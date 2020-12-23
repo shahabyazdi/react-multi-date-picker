@@ -38,9 +38,9 @@ export default function Example() {
     <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/date-object@1.1.7/dist/date-object.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@1.8.5/build/date-picker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@1.8.5/build/calendar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-object@latest/dist/date-object.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date-picker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/calendar.min.js"></script>
 
     <script type="text/babel">
       ReactDOM.render(<Calendar />, document.getElementById("calendar"));
@@ -84,12 +84,14 @@ export default function Example() {
 | zIndex               |                                            Number                                             |                  100                  | both                                |
 | animation            |                                            Boolean                                            |                 false                 | DatePicker                          |
 | inputClass           |                                            String                                             |                  ""                   | DatePicker                          |
-| name                 |                                            String                                             |                  ""                   | DatePicker                          |
+| name                 |                                            String                                             |               undefined               | DatePicker                          |
+| id                   |                                            String                                             |               undefined               | DatePicker                          |
+| title                |                                            String                                             |               undefined               | DatePicker                          |
+| placeholder          |                                            String                                             |               undefined               | DatePicker                          |
 | style                |                                            Object                                             |                  {}                   | DatePicker                          |
 | type                 |                                            String                                             |                 input                 | DatePicker                          |
 | render               |                                  React.Component or Function                                  |               undefined               | DatePicker                          |
 | disabled             |                                            Boolean                                            |                 false                 | DatePicker                          |
-| placeholder          |                                            String                                             |                  ""                   | DatePicker                          |
 | inputMode            |                                            String                                             |               undefined               | DatePicker                          |
 | scrollSensitive      |                                            Boolean                                            |                 true                  | DatePicker                          |
 | hideOnScroll         |                                            Boolean                                            |                 false                 | DatePicker                          |

@@ -23,7 +23,7 @@ declare module "react-multi-date-picker" {
          * <Calendar calendar="persian" />
          * <DatePicker calendar="indian" />
          */
-        calendar: string,
+        calendar?: string,
         /**
          * Availble locals: 
          *
@@ -36,7 +36,7 @@ declare module "react-multi-date-picker" {
          * <Calendar local="fa" />
          * <DatePicker local="ar" />
          */
-        local: string,
+        local?: string,
         /**
          * @type string
          * @default "YYYY/MM/DD"
@@ -45,17 +45,17 @@ declare module "react-multi-date-picker" {
          * <Calendar format="MM/DD/YYYY hh:mm:ss a" />
          * <DatePicker format="MM-DD-YYYY HH:mm:ss" />
          */
-        format: string,
+        format?: string,
         /**
          * Enable it if you want to use time picker.
          * @example
          * <Calendar timePicker />
          * <DatePicker timePicker />
          */
-        timePicker: boolean,
-        onlyTimePicker:boolean,
-        onlyMonthPicker:boolean,
-        onlyYearPicker:boolean,
+        timePicker?: boolean,
+        onlyTimePicker?:boolean,
+        onlyMonthPicker?:boolean,
+        onlyYearPicker?:boolean,
         /**
          * @example
          * <Calendar
@@ -64,7 +64,7 @@ declare module "react-multi-date-picker" {
          * />
          * <DatePicker range />
          */
-        range:boolean,
+        range?:boolean,
         /**
          * @example
          * <Calendar
@@ -73,17 +73,17 @@ declare module "react-multi-date-picker" {
          * />
          * <DatePicker multiple />
          */
-        multiple:boolean,
+        multiple?:boolean,
         /**
          * This feature is only available in range and multiple mode.
          * Disable it if you don't want to see dates panel.
          * @default true
          */
-        mustShowDates:boolean,
+        mustShowDates?:boolean,
         /**
          * Calendar wrapper className
          */
-        className:string,
+        className?:string,
         /**
          * @see https://shahabyazdi.github.io/react-multi-date-picker/#custom-months-&-weekdays
          * @example
@@ -99,7 +99,7 @@ declare module "react-multi-date-picker" {
          *   ]}
          * />
          */
-        weekDays:[string[]],
+        weekDays?:[string[]],
         /**
          * @see https://shahabyazdi.github.io/react-multi-date-picker/#custom-months-&-weekdays
          * @example
@@ -120,7 +120,7 @@ declare module "react-multi-date-picker" {
          *  ]}
          * />
          */
-        months:[string[]],
+        months?:[string[]],
         /**
          * @example
          * <Calendar
@@ -134,8 +134,8 @@ declare module "react-multi-date-picker" {
          *  }}
          * />
          */
-        onChange:Function,
-        showOtherDays:boolean,
+        onChange?(selectedDates:DateObject|DateObject[]):void,
+        showOtherDays?:boolean,
         /**
          * the date you set in datepicker as value must be equal or bigger than min date.
          * 
@@ -147,7 +147,7 @@ declare module "react-multi-date-picker" {
          *  minDate="2020/12/05" 
          * />
          */
-        minDate:Date | string | number | DateObject,
+        minDate?:Date | string | number | DateObject,
         /**
          * the date you set in datepicker as value must be equal or smaller than max date.
          * 
@@ -159,7 +159,7 @@ declare module "react-multi-date-picker" {
          *  maxDate="2020/12/06" 
          * />
          */
-        maxDate:Date | string | number | DateObject,
+        maxDate?:Date | string | number | DateObject,
         /**
          * You can customize your calendar days 
          * with the mapDays Prop and create different properties 
@@ -177,9 +177,14 @@ declare module "react-multi-date-picker" {
          *  }}
          * />
          */
-        mapDays:Function,
-        disableMonthPicker:boolean,
-        disableYearPicker:boolean,
+        mapDays?(object:{
+            date: DateObject,
+            selectedDate: DateObject | DateObject[],
+            currentMonth: object,
+            isSameDate(arg1:DateObject,arg2:DateObject):boolean
+        }):object,
+        disableMonthPicker?:boolean,
+        disableYearPicker?:boolean,
         /**
          * @example
          * <DatePicker
@@ -188,7 +193,7 @@ declare module "react-multi-date-picker" {
          *   formattingIgnoreList={["Date", "Time"]}
          * />
          */
-        formattingIgnoreList:string[],
+        formattingIgnoreList?:string[],
         /**
          * In range mode, only the start and end dates are displayed in the dates panel. 
          * 
@@ -198,12 +203,12 @@ declare module "react-multi-date-picker" {
          * 
          * @default false
          */
-        eachDaysInRange:boolean,
+        eachDaysInRange?:boolean,
         /**
          * Calendar z-index
          * @default 100
          */
-        zIndex:number
+        zIndex?:number
     } 
 
     interface DatePickerProps{
@@ -211,17 +216,20 @@ declare module "react-multi-date-picker" {
          * Input name.
          * This feature does not work in custom type.
          */
-        name:string,
+        name?:string,
         /**
          * Input placeholder.
          * This feature does not work in custom type.
          */
-        placeholder:string,
+        id?:string,
+        title?:string,
+        required?:boolean,
+        placeholder?:string,
         /**
          * Input style.
          * This feature does not work in custom type.
          */
-        style:React.CSSProperties,
+        style?:React.CSSProperties,
         /**
          * This feature does not work in custom type.
          * 
@@ -235,11 +243,11 @@ declare module "react-multi-date-picker" {
          * 
          * Note that when you enter a new className, the default className is automatically `removed`.
          */
-        inputClass:string
+        inputClass?:string
         /**
          * This feature does not work in custom type.
          */
-        disabled:boolean,
+        disabled?:boolean,
         /**
          * Availble types:
          *
@@ -251,7 +259,7 @@ declare module "react-multi-date-picker" {
          * 
          * @default "input"
          */
-        type:string,
+        type?:string,
         /**
          * This feature only works in custom type.
          * @example
@@ -260,7 +268,7 @@ declare module "react-multi-date-picker" {
          *   render={<CustomComponent/>}
          * />
          */
-        render:React.ReactElement | Function
+        render?:React.ReactElement | Function
         /**
          * This feature only affects on `input` in `single` mode
          * 
@@ -273,17 +281,17 @@ declare module "react-multi-date-picker" {
          * 
          * @default "text"
          */
-        inputMode:string,
-        scrollSensitive:boolean,
-        hideOnScroll:boolean,
+        inputMode?:string,
+        scrollSensitive?:boolean,
+        hideOnScroll?:boolean,
         /**
          * DatePicker container style.
          */
-        containerStyle:React.CSSProperties,
+        containerStyle?:React.CSSProperties,
         /**
          * DatePicker container className.
          */
-        containerClassName:string,
+        containerClassName?:string,
         /**
          * You can use this feature to adjust the calendar position relative to the input.
          * 
@@ -294,18 +302,18 @@ declare module "react-multi-date-picker" {
          *   calendarPosition="bottom-left"
          * />
          */
-        calendarPosition:string,
-        animation:boolean,
+        calendarPosition?:string,
+        animation?:boolean,
         /**
          * This feature only affects on `input` in `single` mode
          */
-        editable:boolean,
+        editable?:boolean,
         /**
          * Set it to false if you want to see selected date(s) 
          * that are not in range of min and max dates in calendar.
          * @default true
          */
-        onlyShowInRangeDates:boolean
+        onlyShowInRangeDates?:boolean
     }
 
     export { DateObject }
