@@ -35,7 +35,8 @@ export default function Calendar({
     onReady,
     eachDaysInRange,
     onlyShowInRangeDates = true,
-    zIndex = 100
+    zIndex = 100,
+    plugins = []
 }) {
     let [state, setState] = useState({})
 
@@ -213,6 +214,14 @@ export default function Calendar({
                     disableYearPicker={disableYearPicker}
                     disableMonthPicker={disableMonthPicker}
                 />
+                {plugins.filter(object => object.position === "top").map(object => {
+                    return (
+                        React.cloneElement(object.plugin, {
+                            state,
+                            setState
+                        })
+                    )
+                })}
                 <div style={{ position: "relative" }}>
                     <DayPicker
                         state={state}
