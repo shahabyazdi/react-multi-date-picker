@@ -103,10 +103,10 @@ function DatePicker(
             a.style.width = "10px"
             b.style.width = "5px"
 
-            div.append(a)
-            div.append(b)
+            div.appendChild(a)
+            div.appendChild(b)
 
-            datePickerRef.current.append(div)
+            datePickerRef.current.appendChild(div)
 
             isRTL = a.getBoundingClientRect().left - b.getBoundingClientRect().left !== 0
 
