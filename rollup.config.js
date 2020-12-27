@@ -7,6 +7,22 @@ import svgr from "@svgr/rollup"
 import url from "@rollup/plugin-url"
 import { terser } from "rollup-plugin-terser"
 
+const external = [
+    "react",
+    "react-dom",
+    "react-date-object"
+]
+
+const presets = [
+    "@babel/preset-react",
+    "@babel/preset-env"
+]
+
+const globals = {
+    react: "React",
+    "react-date-object": "DateObject"
+}
+
 export default [
     {
         input: "src/index.js",
@@ -18,20 +34,13 @@ export default [
                 exports: "named"
             }
         ],
-        external: [
-            "react",
-            "react-dom",
-            "react-date-object"
-        ],
+        external,
         plugins: [
             resolve(),
             peerDepsExternal(),
             babel({
                 exclude: /node_modules/,
-                presets: [
-                    "@babel/preset-react",
-                    "@babel/preset-env"
-                ]
+                presets
             }),
             commonjs(),
             postcss(),
@@ -40,34 +49,24 @@ export default [
         ]
     },
     {
-        input: "src/components/date_picker/date_picker.js",
+        input: "src/index_browser.js",
         output: [
             {
-                file: "build/date-picker.min.js",
+                file: "build/browser.min.js",
                 format: "umd",
                 plugins: [terser()],
-                name: "DatePicker",
-                exports: "default",
-                globals: {
-                    react: "React",
-                    "react-date-object": "DateObject"
-                }
+                name: "ReactMultiDatePicker",
+                exports: "named",
+                globals
             }
         ],
-        external: [
-            "react",
-            "react-dom",
-            "react-date-object"
-        ],
+        external,
         plugins: [
             resolve(),
             peerDepsExternal(),
             babel({
                 exclude: /node_modules/,
-                presets: [
-                    "@babel/preset-react",
-                    "@babel/preset-env"
-                ]
+                presets
             }),
             commonjs(),
             postcss(),
@@ -76,34 +75,48 @@ export default [
         ]
     },
     {
-        input: "src/components/calendar/calendar.js",
+        input: "plugins/all.js",
         output: [
             {
-                file: "build/calendar.min.js",
-                format: "umd",
+                file: "plugins/index.js",
+                format: "esm",
                 plugins: [terser()],
-                name: "Calendar",
-                exports: "default",
-                globals: {
-                    react: "React",
-                    "react-date-object": "DateObject"
-                }
+                exports: "named"
             }
         ],
-        external: [
-            "react",
-            "react-dom",
-            "react-date-object"
-        ],
+        external,
         plugins: [
             resolve(),
             peerDepsExternal(),
             babel({
                 exclude: /node_modules/,
-                presets: [
-                    "@babel/preset-react",
-                    "@babel/preset-env"
-                ]
+                presets
+            }),
+            commonjs(),
+            postcss(),
+            svgr(),
+            url()
+        ]
+    },
+    {
+        input: "plugins/all.js",
+        output: [
+            {
+                file: "build/browser_plugins.min.js",
+                format: "umd",
+                plugins: [terser()],
+                name: "ReactMultiDatePickerPlugins",
+                exports: "named",
+                globals
+            }
+        ],
+        external,
+        plugins: [
+            resolve(),
+            peerDepsExternal(),
+            babel({
+                exclude: /node_modules/,
+                presets
             }),
             commonjs(),
             postcss(),

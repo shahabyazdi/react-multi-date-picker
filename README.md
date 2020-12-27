@@ -35,16 +35,42 @@ export default function Example() {
     <span>DatePicker Example :</span>
     <div id="datePicker"></div>
 
+    <!-- Ract -->
     <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/date-object@latest/dist/date-object.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date-picker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/calendar.min.js"></script>
 
-    <script type="text/babel">
-      ReactDOM.render(<Calendar />, document.getElementById("calendar"));
-      ReactDOM.render(<DatePicker />, document.getElementById("datePicker"));
+    <!-- DateObject -->
+    <script src="https://cdn.jsdelivr.net/npm/date-object@latest/dist/date-object.min.js"></script>
+
+    <!-- ReactMultiDatePicker -->
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/browser.min.js"></script>
+
+    <!-- Optional Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/browser_plugins.min.js"></script>
+
+    <script>
+      const { DatePicker, Calendar } = ReactMultiDatePicker;
+
+      const { Settings, DatePickerHeader } = ReactMultiDatePickerPlugins;
+
+      ReactDOM.render(
+        React.createElement(Calendar),
+        document.getElementById("calendar")
+      );
+      ReactDOM.render(
+        React.createElement(DatePicker),
+        document.getElementById("datePicker")
+      );
+
+      ReactDOM.render(
+        React.createElement(DatePicker, {
+          plugins: [
+            { position: "left", plugin: React.createElement(DatePickerHeader) },
+            { position: "bottom", plugin: React.createElement(Settings) },
+          ],
+        }),
+        document.getElementById("datePicker")
+      );
     </script>
   </body>
 </html>
