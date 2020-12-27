@@ -35,6 +35,9 @@ export default function Example() {
     <span>DatePicker Example :</span>
     <div id="datePicker"></div>
 
+    <span>DatePicker Example :</span>
+    <div id="datePickerWithPlugin"></div>
+
     <!-- Ract -->
     <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
@@ -57,6 +60,7 @@ export default function Example() {
         React.createElement(Calendar),
         document.getElementById("calendar")
       );
+
       ReactDOM.render(
         React.createElement(DatePicker),
         document.getElementById("datePicker")
@@ -69,7 +73,7 @@ export default function Example() {
             { position: "bottom", plugin: React.createElement(Settings) },
           ],
         }),
-        document.getElementById("datePicker")
+        document.getElementById("datePickerWithPlugin")
       );
     </script>
   </body>
