@@ -1,7 +1,8 @@
 .bg-dark.rmdp-wrapper,
 .bg-dark .rmdp-month-picker,
 .bg-dark .rmdp-year-picker,
-.bg-dark .rmdp-time-picker div input {
+.bg-dark .rmdp-time-picker div input,
+.bg-dark.rmdp-triangle::after {
   background-color: rgb(49, 47, 47);
   color: rgb(196, 199, 202);
 }

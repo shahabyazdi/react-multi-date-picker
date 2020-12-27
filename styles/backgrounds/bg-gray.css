@@ -1,6 +1,7 @@
 .bg-gray.rmdp-wrapper,
 .bg-gray .rmdp-month-picker,
-.bg-gray .rmdp-year-picker {
+.bg-gray .rmdp-year-picker,
+.bg-gray.rmdp-triangle::after {
   background-color: rgb(177, 171, 171);
   color: white;
 }

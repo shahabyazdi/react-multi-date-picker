@@ -1,42 +1,52 @@
+:root {
+  --rmdp-primary-green: #3d9970;
+  --rmdp-secondary-green: #87ad92;
+  --rmdp-shadow-green: #87ad92;
+  --rmdp-today-green: #01ff70;
+  --rmdp-hover-green: #2ecc40;
+  --rmdp-deselect-green: #39795c;
+}
+
 .green .rmdp-wrapper {
-  border: 1px solid #87ad92;
-  box-shadow: 0 0 5px #87ad92;
+  border: 1px solid var(--rmdp-secondary-green);
+  box-shadow: 0 0 5px var(--rmdp-secondary-green);
 }
 
 .green .rmdp-panel-body li {
-  background-color: #3d9970;
-  box-shadow: 0 0 2px #87ad92;
+  background-color: var(--rmdp-primary-green);
+  box-shadow: 0 0 2px var(--rmdp-secondary-green);
 }
 
 .green .rmdp-week-day {
-  color: #3d9970;
+  color: var(--rmdp-primary-green);
 }
 
 .green .rmdp-day.rmdp-deactive {
-  color: #87ad92;
+  color: var(--rmdp-secondary-green);
 }
 
 .green .rmdp-range {
-  background-color: #3d9970;
+  background-color: var(--rmdp-primary-green);
+  box-shadow: 0 0 3px var(--rmdp-shadow-green);
 }
 
 .green .rmdp-header,
 .green .rmdp-panel-header {
-  border-bottom: 1px solid #87ad92;
+  border-bottom: 1px solid var(--rmdp-secondary-green);
 }
 
 .green .rmdp-arrow {
-  border: solid #3d9970;
+  border: solid var(--rmdp-primary-green);
   border-width: 0 2px 2px 0;
 }
 
 .green .rmdp-arrow-container:hover {
-  background-color: #3d9970;
-  box-shadow: 0 0 3px #87ad92;
+  background-color: var(--rmdp-primary-green);
+  box-shadow: 0 0 3px var(--rmdp-secondary-green);
 }
 
 .green .rmdp-time-picker {
-  border-top: 1px solid #87ad92;
+  border-top: 1px solid var(--rmdp-secondary-green);
 }
 
 .green .rmdp-only-time-picker {
@@ -44,32 +54,32 @@
 }
 
 .green .rmdp-panel-body::-webkit-scrollbar-thumb {
-  background: #3d9970;
+  background: var(--rmdp-primary-green);
 }
 
 .green .rmdp-day.rmdp-today span {
-  background-color: #01ff70;
+  background-color: var(--rmdp-today-green);
 }
 
 .green .rmdp-rtl .rmpd-panel {
   border-left: unset;
-  border-right: 1px solid #87ad92;
+  border-right: 1px solid var(--rmdp-secondary-green);
 }
 
 .green .rmdp-day.rmdp-selected span:not(.rmdp-weekend) {
-  background-color: #3d9970;
-  box-shadow: 0 0 3px #87ad92;
+  background-color: var(--rmdp-primary-green);
+  box-shadow: 0 0 3px var(--rmdp-shadow-green);
 }
 
 .green .rmdp-day:not(.rmdp-day-hidden):hover span {
-  background-color: #2ecc40 !important;
+  background-color: var(--rmdp-hover-green) !important;
 }
 
 .green .b-deselect {
-  color: #39795c;
+  color: var(--rmdp-deselect-green);
   background-color: white;
 }
 
 .green .rmdp-action-button {
-  color: #3d9970;
+  color: var(--rmdp-primary-green);
 }

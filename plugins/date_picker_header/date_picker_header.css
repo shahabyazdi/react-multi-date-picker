@@ -1,0 +1,202 @@
+.rmdp-header-plugin {
+  background-color: #0074d9;
+  display: grid;
+  color: white;
+  grid-template-rows: repeat(1fr);
+}
+
+.rmdp-header-plugin.top {
+  border-radius: 7px 7px 0 0;
+}
+
+.rmdp-header-plugin.bottom {
+  border-radius: 0 0 7px 7px;
+}
+
+.rmdp-header-plugin.left {
+  border-radius: 7px 0 0 7px;
+}
+
+.rmdp-header-plugin.right {
+  border-radius: 0 7px 7px 0;
+}
+
+.rmdp-header-plugin.top.big,
+.rmdp-header-plugin.bottom.big {
+  height: 200px;
+}
+
+.rmdp-header-plugin.left.big,
+.rmdp-header-plugin.right.big {
+  width: 250px;
+}
+
+.rmdp-header-plugin.top.medium,
+.rmdp-header-plugin.bottom.medium {
+  height: 150px;
+}
+
+.rmdp-header-plugin.left.medium,
+.rmdp-header-plugin.right.medium {
+  width: 150px;
+}
+
+.rmdp-header-plugin.top.small,
+.rmdp-header-plugin.bottom.small {
+  height: 90px;
+}
+
+.rmdp-header-plugin.left.small,
+.rmdp-header-plugin.right.small {
+  width: 110px;
+}
+
+.rmdp-header-plugin.not-single.top {
+  border-radius: 7px 0 0 0;
+}
+
+.rmdp-header-plugin.not-single.bottom {
+  border-radius: 0 0 0 7px;
+}
+
+.rmdp-header-plugin div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rmdp-header-plugin .rmdp-hp-dd {
+  font-size: 50px;
+  font-weight: 500;
+}
+
+.rmdp-header-plugin.small.top .rmdp-hp-dd,
+.rmdp-header-plugin.small.bottom .rmdp-hp-dd {
+  font-size: 28px;
+}
+
+.rmdp-rtl .rmdp-header-plugin.left {
+  border-radius: 0 7px 7px 0;
+}
+
+.rmdp-rtl .rmdp-header-plugin.right {
+  border-radius: 7px 0 0 7px;
+}
+
+.rmdp-rtl .rmdp-header-plugin.not-single.top {
+  border-radius: 0 7px 0 0;
+}
+
+.rmdp-rtl .rmdp-header-plugin.not-single.bottom {
+  border-radius: 0 0 7px 0;
+}
+
+.green .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-yellow);
+}
+
+.rmdp-mobile .rmdp-header-plugin {
+  border-radius: 0;
+}
+
+.rmdp-header-plugin.no-border-radius-top {
+  border-top-left-radius: 0;
+}
+
+.rmdp-rtl .rmdp-header-plugin.no-border-radius-top {
+  border-top-right-radius: 0;
+}
+
+.rmdp-header-plugin.no-border-radius-bottom {
+  border-bottom-left-radius: 0;
+}
+
+.rmdp-rtl .rmdp-header-plugin.no-border-radius-bottom {
+  border-bottom-right-radius: 0;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-header-plugin.top.big,
+  .rmdp-header-plugin.bottom.big {
+    height: 100px;
+  }
+
+  .rmdp-header-plugin.left.big,
+  .rmdp-header-plugin.right.big {
+    width: 125px;
+  }
+
+  .rmdp-header-plugin.top.medium,
+  .rmdp-header-plugin.bottom.medium {
+    height: 75px;
+  }
+
+  .rmdp-header-plugin.left.medium,
+  .rmdp-header-plugin.right.medium {
+    width: 75px;
+  }
+
+  .rmdp-header-plugin.top.small,
+  .rmdp-header-plugin.bottom.small {
+    height: 55px;
+  }
+
+  .rmdp-header-plugin.left.small,
+  .rmdp-header-plugin.right.small {
+    width: 55px;
+  }
+
+  .rmdp-header-plugin.big.top .rmdp-hp-dd,
+  .rmdp-header-plugin.big.bottom .rmdp-hp-dd,
+  .rmdp-header-plugin.small.left .rmdp-hp-dd,
+  .rmdp-header-plugin.small.right .rmdp-hp-dd {
+    font-size: 30px;
+  }
+
+  .rmdp-header-plugin.medium.top .rmdp-hp-dd,
+  .rmdp-header-plugin.medium.bottom .rmdp-hp-dd {
+    font-size: 20px;
+  }
+
+  .rmdp-header-plugin.medium.top .rmdp-hp-dddd,
+  .rmdp-header-plugin.medium.bottom .rmdp-hp-dddd,
+  .rmdp-header-plugin.medium.top .rmdp-hp-my,
+  .rmdp-header-plugin.medium.bottom .rmdp-hp-my {
+    font-size: 14px;
+  }
+
+  .rmdp-header-plugin.small.top .rmdp-hp-dd,
+  .rmdp-header-plugin.small.bottom .rmdp-hp-dd {
+    font-size: 18px;
+  }
+
+  .rmdp-header-plugin.small.top .rmdp-hp-dddd,
+  .rmdp-header-plugin.small.bottom .rmdp-hp-dddd,
+  .rmdp-header-plugin.small.top .rmdp-hp-my,
+  .rmdp-header-plugin.small.bottom .rmdp-hp-my {
+    font-size: 12px;
+  }
+
+  .rmdp-header-plugin.small.left .rmdp-hp-dddd,
+  .rmdp-header-plugin.small.right .rmdp-hp-dddd,
+  .rmdp-header-plugin.small.left .rmdp-hp-my,
+  .rmdp-header-plugin.small.right .rmdp-hp-my {
+    font-size: 12px;
+  }
+}

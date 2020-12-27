@@ -46,6 +46,8 @@ function DatePicker(
         animation,
         editable = true,
         onlyShowInRangeDates = true,
+        arrow = false,
+        zIndex = 100,
         ...otherProps
     },
     outerRef
@@ -103,10 +105,10 @@ function DatePicker(
             a.style.width = "10px"
             b.style.width = "5px"
 
-            div.append(a)
-            div.append(b)
+            div.appendChild(a)
+            div.appendChild(b)
 
-            datePickerRef.current.append(div)
+            datePickerRef.current.appendChild(div)
 
             isRTL = a.getBoundingClientRect().left - b.getBoundingClientRect().left !== 0
 
@@ -118,7 +120,7 @@ function DatePicker(
         ref.current.isRTL = isRTL()
 
         return () => document.removeEventListener("click", handleClickOutside, false)
-    }, [closeCalendar])
+    }, [closeCalendar, outerRef])
 
     useEffect(() => {
         let date = value,
@@ -193,7 +195,7 @@ function DatePicker(
         if (ref.current.mobile) return calendar.classList.add("active")
 
         function checkPosition(e) {
-            const resize = e?.type === "resize",
+            const resize = e && e.type !== "scroll",
                 wrapper = calendar.querySelector(".rmdp-wrapper")
 
             if (!wrapper || !inputRef.current) return
@@ -224,7 +226,10 @@ function DatePicker(
                 isRTL = ref.current.isRTL,
                 [positionY, positionX] = calendarPosition === "auto" ?
                     [] :
-                    calendarPosition.split("-")
+                    calendarPosition.split("-"),
+                triangle,
+                triangleX,
+                triangleY
 
             if (e) {
                 top -= clientHeight - e.target.clientHeight
@@ -240,7 +245,10 @@ function DatePicker(
                 positionY === "top"
             ) {
                 translateY = -(calendarHeight + inputHeight + 4)
-            } else if (top - calendarHeight < 0) {
+            } else if (
+                top - calendarHeight < 0 ||
+                (calendarHeight + inputHeight + 4) < Math.abs(Number(translateY))
+            ) {
                 translateY = 2
             }
 
@@ -264,30 +272,77 @@ function DatePicker(
                 translateX = isRTL ? -distance : 0
             }
 
-            if (mustAddAnimation) translateY += translateY >= 0 ? 12 : -12
+            let isInBottom = translateY >= 0
+
+            if (arrow) {
+                translateY += isInBottom ? 7.5 : -7.5
+
+                triangleY = isInBottom ? 0 : (-inputHeight - 13)
+                triangleX = ((inputWidth / 2) - 18) * (isRTL ? -1 : 1)
+
+                triangle = calendarRef.current.querySelector(".rmdp-triangle")
+
+                triangle.classList.remove("rmdp-triangle-up")
+                triangle.classList.remove("rmdp-triangle-down")
+                triangle.classList.add(`rmdp-triangle-${isInBottom ? "up" : "down"}`)
+
+                triangle.style.zIndex = zIndex + 1
+            }
+
+            if (mustAddAnimation) {
+                translateY += isInBottom ? 12 : -12
+                triangleY += isInBottom ? 12 : -12
+            }
 
             wrapper.style.transform = getTransform(translateX, translateY)
+
+            if (arrow) triangle.style.transform = getTransform(triangleX, triangleY)
 
             if (mustAddAnimation) {
                 setTimeout(() => {
                     wrapper.style.transition = "0.4s"
-                    wrapper.style.transform = getTransform(translateX, translateY + (translateY > 0 ? -12 : 12))
+                    wrapper.style.transform = getTransform(translateX, translateY + (isInBottom ? -12 : 12))
+
+                    if (arrow) {
+                        triangle.style.transition = "0.4s"
+                        triangle.style.transform = getTransform(triangleX, triangleY + (isInBottom ? -12 : 12))
+                    }
                 }, 8);
             }
 
             calendar.classList.add("active")
+
+            if (arrow) triangle.classList.add("active")
         }
 
         checkPosition()
 
+        function handleClick(e) {
+            if (calendarRef.current && calendarRef.current.contains(e.target)) {
+                setTimeout(() => checkPosition(e), 3)
+            }
+        }
+
+        document.addEventListener("click", handleClick)
         document.addEventListener("scroll", checkPosition, true)
         window.addEventListener("resize", checkPosition)
 
         return () => {
+            document.removeEventListener("click", handleClick)
             document.removeEventListener("scroll", checkPosition, true)
             window.removeEventListener("resize", checkPosition)
         }
-    }, [scrollSensitive, hideOnScroll, isCalendarReady, closeCalendar, isVisible, calendarPosition, animation])
+    }, [
+        scrollSensitive,
+        hideOnScroll,
+        isCalendarReady,
+        closeCalendar,
+        isVisible,
+        calendarPosition,
+        animation,
+        arrow,
+        zIndex
+    ])
 
     if (multiple || range || Array.isArray(date) || !editable) inputMode = "none"
 
@@ -313,6 +368,7 @@ function DatePicker(
                     ref={calendarRef}
                     className={`rmdp-calendar-container ${isMobileMode() ? "rmdp-calendar-container-mobile" : ""}`}
                 >
+                    {arrow && !isMobileMode() && <div className={`rmdp-triangle ${(className.match(/bg-\w+/g) || []).join(" ")}`}></div>}
                     <Calendar
                         value={date}
                         onChange={handleChange}
@@ -335,6 +391,7 @@ function DatePicker(
                         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
                         onReady={() => setIsCalendarReady(true)}
                         onlyShowInRangeDates={onlyShowInRangeDates}
+                        zIndex={zIndex}
                         {...otherProps}
                     >
                         {children}

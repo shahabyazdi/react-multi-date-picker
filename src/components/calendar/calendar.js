@@ -53,8 +53,6 @@ export default function Calendar({
                 if (range || multiple) return "YYYY/MM/DD"
             }
 
-
-
             function checkDate(date) {
                 if (date.calendar !== calendar) date.setCalendar(calendar)
                 if (date.local !== local) date.setLocal(local)
@@ -201,66 +199,102 @@ export default function Calendar({
         if (state.ready && onReady instanceof Function) onReady()
     }, [state.ready, onReady])
 
+    let topClassName = getBorderClassName(["top", "bottom"])
+
     return (state.date ?
         <div
             className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
             style={{ zIndex }}
         >
-            <div style={{ height: "max-content" }}>
-                <Header
-                    state={state}
-                    setState={setState}
-                    onChange={onChange}
-                    disableYearPicker={disableYearPicker}
-                    disableMonthPicker={disableMonthPicker}
-                />
-                {plugins.filter(object => object.position === "top").map(object => {
-                    return (
-                        React.cloneElement(object.plugin, {
-                            state,
-                            setState
-                        })
-                    )
-                })}
-                <div style={{ position: "relative" }}>
-                    <DayPicker
+            {renderPlugin("top")}
+            <div style={{ display: "flex" }} className={topClassName}>
+                {renderPlugin("left")}
+                <div style={{ display: "flex" }} className={getBorderClassName(["left", "right"])}>
+                    <div style={{ height: "max-content" }}>
+                        <Header
+                            state={state}
+                            setState={setState}
+                            onChange={onChange}
+                            disableYearPicker={disableYearPicker}
+                            disableMonthPicker={disableMonthPicker}
+                        />
+                        <div style={{ position: "relative" }}>
+                            <DayPicker
+                                state={state}
+                                setState={setState}
+                                onChange={onChange}
+                                showOtherDays={showOtherDays}
+                                mapDays={mapDays}
+                                onlyShowInRangeDates={onlyShowInRangeDates}
+                            />
+                            <MonthPicker
+                                state={state}
+                                setState={setState}
+                                onChange={onChange}
+                            />
+                            <YearPicker
+                                state={state}
+                                setState={setState}
+                                onChange={onChange}
+                            />
+                        </div>
+                        <TimePicker
+                            state={state}
+                            setState={setState}
+                            onChange={onChange}
+                            formattingIgnoreList={formattingIgnoreList}
+                        />
+                        {children}
+                    </div>
+                    <DaysPanel
                         state={state}
                         setState={setState}
                         onChange={onChange}
-                        showOtherDays={showOtherDays}
-                        mapDays={mapDays}
-                        onlyShowInRangeDates={onlyShowInRangeDates}
-                    />
-                    <MonthPicker
-                        state={state}
-                        setState={setState}
-                        onChange={onChange}
-                    />
-                    <YearPicker
-                        state={state}
-                        setState={setState}
-                        onChange={onChange}
+                        formattingIgnoreList={formattingIgnoreList}
+                        eachDaysInRange={eachDaysInRange}
                     />
                 </div>
-                <TimePicker
-                    state={state}
-                    setState={setState}
-                    onChange={onChange}
-                    formattingIgnoreList={formattingIgnoreList}
-                />
-                {children}
+                {renderPlugin("right")}
             </div>
-            <DaysPanel
-                state={state}
-                setState={setState}
-                onChange={onChange}
-                formattingIgnoreList={formattingIgnoreList}
-                eachDaysInRange={eachDaysInRange}
-            />
+            {renderPlugin("bottom")}
         </div>
         :
         null
     )
+
+    function renderPlugin(position) {
+        return (
+            plugins.filter(object => object.position === position).map((object, index) => {
+                let obj = {}
+
+                if (["left", "right"].includes(object.position)) {
+                    if (topClassName.includes("top")) {
+                        obj.isChildInTop = true
+                    } else if (topClassName.includes("bottom")) {
+                        obj.isChildInBottom = true
+                    }
+                }
+
+                return (
+                    React.cloneElement(object.plugin, {
+                        key: index,
+                        state,
+                        setState,
+                        position: object.position,
+                        ...obj
+                    })
+                )
+            })
+        )
+    }
+
+    function getBorderClassName(positions) {
+        return Array.from(
+            new Set(
+                plugins.map(plugin => positions.includes(plugin.position) ? ("border-" + plugin.position) : "")
+            )
+        ).join(" ")
+    }
 }
 
 function isValidDateObject(date, calendar, local, format) {
