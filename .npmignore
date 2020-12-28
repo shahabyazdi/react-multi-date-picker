@@ -1,5 +1,8 @@
 /src 
 /screenshot
+/plugins/all.js
+/plugins/date_picker_header
+/plugins/settings
 rollup.config.js
 .github
 .gitignore

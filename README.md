@@ -1,6 +1,6 @@
 # DatePicker
 
-![DatePicker](/screenshot/screenshot.jpg?raw=true)
+![DatePicker](/screenshot/screenshot-1.jpg?raw=true)
 
 ## Installation
 

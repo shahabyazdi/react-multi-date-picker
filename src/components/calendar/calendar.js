@@ -206,9 +206,9 @@ export default function Calendar({
             className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
             style={{ zIndex }}
         >
-            {renderPlugin("top")}
+            {renderPlugins("top")}
             <div style={{ display: "flex" }} className={topClassName}>
-                {renderPlugin("left")}
+                {renderPlugins("left")}
                 <div style={{ display: "flex" }} className={getBorderClassName(["left", "right"])}>
                     <div style={{ height: "max-content" }}>
                         <Header
@@ -254,24 +254,47 @@ export default function Calendar({
                         eachDaysInRange={eachDaysInRange}
                     />
                 </div>
-                {renderPlugin("right")}
+                {renderPlugins("right")}
             </div>
-            {renderPlugin("bottom")}
+            {renderPlugins("bottom")}
         </div>
         :
         null
     )
 
-    function renderPlugin(position) {
+    function renderPlugins(position) {
+        if (!state.ready) return null
+
+        if (["fa", "ar"].includes(state.local)) {
+            if (position === "left") {
+                position = "right"
+            } else if (position === "right") {
+                position = "left"
+            }
+        }
+
+        let AvailblePlugins = plugins.filter(object => object.position === position && !object.disable)
+
         return (
-            plugins.filter(object => object.position === position).map((object, index) => {
+            AvailblePlugins.map((object, index) => {
                 let obj = {}
 
-                if (["left", "right"].includes(object.position)) {
-                    if (topClassName.includes("top")) {
-                        obj.isChildInTop = true
-                    } else if (topClassName.includes("bottom")) {
-                        obj.isChildInBottom = true
+                if (["top", "bottom"].includes(position)) {
+                    for (let i = index + 1; i < AvailblePlugins.length; i++) {
+                        if (AvailblePlugins[i].position !== position) continue
+
+                        obj[`isChildIn${position === "top" ? "Top" : "Bottom"}`] = true
+                        break
+                    }
+                } else {
+                    if (topClassName.includes("top")) obj.isChildInTop = true
+                    if (topClassName.includes("bottom")) obj.isChildInBottom = true
+
+                    for (let i = 0; i < AvailblePlugins.length; i++) {
+                        if (["top", "bottom"].includes(AvailblePlugins[i].position)) continue
+                        if (obj.isChildInLeft && obj.isChildInRight) break
+                        if (object.position === "left" && i < index) obj.isChildInLeft = true
+                        if (object.position === "right" && i > index) obj.isChildInRight = true
                     }
                 }
 
@@ -291,7 +314,12 @@ export default function Calendar({
     function getBorderClassName(positions) {
         return Array.from(
             new Set(
-                plugins.map(plugin => positions.includes(plugin.position) ? ("border-" + plugin.position) : "")
+                plugins.map(plugin => {
+                    if (plugin.disable) return ""
+                    if (positions.includes(plugin.position)) return "border-" + plugin.position
+
+                    return ""
+                })
             )
         ).join(" ")
     }

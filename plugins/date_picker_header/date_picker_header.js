@@ -2,7 +2,19 @@ import React from "react"
 import DateObject from "react-date-object"
 import "./date_picker_header.css"
 
-export default function DatePickerHeader({ state, setState, position, size = "big", isChildInTop, isChildInBottom, ...props }) {
+export default function DatePickerHeader({
+    state,
+    setState,
+    position,
+    size = "big",
+    isChildInTop,
+    isChildInBottom,
+    isChildInLeft,
+    isChildInRight,
+    calendar = state.calendar,
+    local = state.local,
+    ...props
+}) {
     let selectedDate, isSingle
 
     if (state.selectedDate && !state.multiple && !state.range && !Array.isArray(state.selectedDate)) {
@@ -17,9 +29,26 @@ export default function DatePickerHeader({ state, setState, position, size = "bi
         isSingle = false
     }
 
+    selectedDate = new DateObject(selectedDate).set({ calendar, local })
+
+    let classNames = ["rmdp-header-plugin", position, size]
+
+    if (!isSingle) classNames.push("not-single")
+
+    if (["left", "right"].includes(position)) {
+        if (isChildInTop) classNames.push("no-border-radius-top-left")
+        if (isChildInBottom) classNames.push("no-border-radius-bottom-left")
+        if (isChildInLeft) classNames.push("no-border-radius-left")
+        if (isChildInRight) classNames.push("no-border-radius-right")
+    } else {
+        if (isChildInTop) classNames.push("no-border-radius-top")
+        if (isChildInBottom) classNames.push("no-border-radius-bottom")
+    }
+
+
     return (
         <div
-            className={`rmdp-header-plugin ${position} ${size} ${isSingle ? "" : "not-single"} ${isChildInTop ? "no-border-radius-top" : isChildInBottom ? "no-border-radius-bottom" : ""}`}
+            className={classNames.join(" ")}
             {...props}
         >
             <div className="rmdp-hp-dddd">{selectedDate.format("dddd")}</div>

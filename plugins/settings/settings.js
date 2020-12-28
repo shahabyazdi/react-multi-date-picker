@@ -24,6 +24,11 @@ export default function Settings({
         "only year picker": "OY"
     }
 
+    delete props.isChildInTop
+    delete props.isChildInBottom
+    delete props.isChildInLeft
+    delete props.isChildInRight
+
     return (
         <div className={`settings ${position}`} {...props}>
             {!disabledList.includes("calendar") &&

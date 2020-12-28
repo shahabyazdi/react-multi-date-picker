@@ -46,8 +46,13 @@
 
 .setting .icon {
   cursor: pointer;
-  margin: auto 2px;
+  margin: 2.5px;
   transition: 0.4s;
+}
+
+.top .setting,
+.bottom .setting {
+  margin: auto 2px;
 }
 
 .setting .items {
@@ -140,28 +145,16 @@
 
 @media (max-width: 400px) {
   .rmdp-wrapper:not(.rmdp-mobile) .settings:not(.left):not(.right) {
-    width: 190px;
     height: 35px;
     overflow: hidden;
     margin: auto;
-  }
-
-  .rmdp-wrapper:not(.rmdp-mobile) .top .setting.active,
-  .rmdp-wrapper:not(.rmdp-mobile) .bottom .setting.active {
-    width: 120px;
   }
 }
 
 @media (max-height: 400px) {
   .rmdp-wrapper .settings:not(.left):not(.right) {
-    width: 190px;
     height: 35px;
     overflow: hidden;
     margin: auto;
-  }
-
-  .rmdp-wrapper .top .setting.active,
-  .rmdp-wrapper .bottom .setting.active {
-    width: 120px;
   }
 }
