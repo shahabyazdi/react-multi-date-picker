@@ -18,7 +18,7 @@ export default function DatePickerHeader({
     let selectedDate, isSingle
 
     if (state.selectedDate && !state.multiple && !state.range && !Array.isArray(state.selectedDate)) {
-        //single mode 
+        //single mode
         selectedDate = state.selectedDate
         isSingle = true
     } else if (Array.isArray(state.selectedDate)) {
@@ -36,8 +36,8 @@ export default function DatePickerHeader({
     if (!isSingle) classNames.push("not-single")
 
     if (["left", "right"].includes(position)) {
-        if (isChildInTop) classNames.push("no-border-radius-top-left")
-        if (isChildInBottom) classNames.push("no-border-radius-bottom-left")
+        if (isChildInTop) classNames.push("no-border-radius-top-" + position)
+        if (isChildInBottom) classNames.push("no-border-radius-bottom-" + position)
         if (isChildInLeft) classNames.push("no-border-radius-left")
         if (isChildInRight) classNames.push("no-border-radius-right")
     } else {

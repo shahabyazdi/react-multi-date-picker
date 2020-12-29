@@ -5,13 +5,13 @@ import { isSameDate } from "../day_picker/day_picker"
 export default function DaysPanel({ state, setState, onChange, formattingIgnoreList, eachDaysInRange }) {
     let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
         dates = [],
-        { multiple, range, inRangeDates, selectedDate, mustShowDates, local } = state
+        { multiple, range, inRangeDates, selectedDate, mustShowDates, date: { local } } = state
 
     if (
         multiple ||
         (range && !eachDaysInRange)
     ) {
-        dates = (inRangeDates || selectedDate).map(date => { 
+        dates = (inRangeDates || selectedDate).map(date => {
             return {
                 date,
                 format: date.format(undefined, formattingIgnoreList)

@@ -2,7 +2,6 @@
   background-color: #0074d9;
   display: grid;
   color: white;
-  grid-template-rows: repeat(1fr);
 }
 
 .rmdp-header-plugin.top {
@@ -15,6 +14,10 @@
 
 .rmdp-header-plugin.left {
   border-radius: 7px 0 0 7px;
+}
+
+.rmdp-rtl .rmdp-header-plugin.left {
+  border-radius: 0 7px 0 0;
 }
 
 .rmdp-header-plugin.right {
@@ -101,6 +104,14 @@
 
 .rmdp-header-plugin.no-border-radius-bottom-left {
   border-bottom-left-radius: 0;
+}
+
+.rmdp-header-plugin.no-border-radius-top-right {
+  border-top-right-radius: 0;
+}
+
+.rmdp-header-plugin.no-border-radius-bottom-right {
+  border-bottom-right-radius: 0;
 }
 
 .rmdp-mobile .rmdp-header-plugin,

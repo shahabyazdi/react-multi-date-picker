@@ -5,7 +5,7 @@ import MonthPicker from "../month_picker/month_picker"
 import YearPicker from "../year_picker/year_picker"
 import DaysPanel from "../days_panel/days_panel"
 import TimePicker from "../time_picker/time_picker"
-import DateObject from "react-date-object" 
+import DateObject from "react-date-object"
 import "./calendar.css"
 
 export default function Calendar({
@@ -201,11 +201,20 @@ export default function Calendar({
         if (state.ready && onReady instanceof Function) onReady()
     }, [state.ready, onReady])
 
-    let topClassName = getBorderClassName(["top", "bottom"])
+    let isRTL = ["fa", "ar"].includes(state.date?.local),
+        topClassName = getBorderClassName(["top", "bottom"])
+
+    if (isRTL) plugins = plugins.map(plugin => {
+        return {
+            ...plugin,
+            position: getPositionBasedOnDirection(plugin.position)
+        }
+    })
+
 
     return (state.date ?
         <div
-            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.date.local) ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
+            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${isRTL ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
             style={{ zIndex }}
         >
             {renderPlugins("top")}
@@ -267,14 +276,6 @@ export default function Calendar({
     function renderPlugins(position) {
         if (!state.ready) return null
 
-        if (["fa", "ar"].includes(state.date.local)) {
-            if (position === "left") {
-                position = "right"
-            } else if (position === "right") {
-                position = "left"
-            }
-        }
-
         let AvailblePlugins = plugins.filter(object => object.position === position && !object.disable)
 
         return (
@@ -318,12 +319,23 @@ export default function Calendar({
             new Set(
                 plugins.map(plugin => {
                     if (plugin.disable) return ""
+
                     if (positions.includes(plugin.position)) return "border-" + plugin.position
 
                     return ""
                 })
             )
         ).join(" ")
+    }
+
+    function getPositionBasedOnDirection(position) {
+        if (position === "left") {
+            position = "right"
+        } else if (position === "right") {
+            position = "left"
+        }
+
+        return position
     }
 }
 

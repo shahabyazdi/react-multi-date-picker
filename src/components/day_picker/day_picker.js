@@ -10,7 +10,7 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
         { minDate, maxDate } = state
 
     useEffect(() => {
-        if (!mustShowDayPicker) return 
+        if (!mustShowDayPicker) return
 
         if (ref.current) {
             let { month, year, local, calendar } = ref.current

@@ -187,7 +187,7 @@ export default function Settings({
                 }
                 break
             default:
-                //single 
+                //single
                 $state = {
                     ...state,
                     selectedDate: Array.isArray(state.selectedDate) ? getLastItem(state.selectedDate) : state.selectedDate,

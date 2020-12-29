@@ -1,6 +1,10 @@
 # DatePicker
 
-![DatePicker](/screenshot/screenshot-1.jpg?raw=true)
+![DatePicker](/screenshot/screenshot.jpg?raw=true)
+
+# Plugins
+
+![Plugins](/screenshot/plugins.jpg?raw=true)
 
 ## Installation
 

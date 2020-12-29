@@ -13,7 +13,7 @@ export default function MonthPicker({ state, setState, onChange }) {
             if (months.length > 12) months.length = 12
 
             months = months.map(month => Array.isArray(month) ? month[0] : month)
-        } else { 
+        } else {
             months = new DateObject({
                 year: undefined,
                 calendar,
