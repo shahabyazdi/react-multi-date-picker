@@ -11,8 +11,8 @@ export default function DatePickerHeader({
     isChildInBottom,
     isChildInLeft,
     isChildInRight,
-    calendar = state.date.calendar,
-    local = state.date.local,
+    calendar = state.calendar,
+    local = state.local,
     ...props
 }) {
     let selectedDate, isSingle
@@ -44,7 +44,6 @@ export default function DatePickerHeader({
         if (isChildInTop) classNames.push("no-border-radius-top")
         if (isChildInBottom) classNames.push("no-border-radius-bottom")
     }
-
 
     return (
         <div
