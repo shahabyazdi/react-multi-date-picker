@@ -157,7 +157,10 @@ export default function Calendar({
                 weekDays,
                 months,
                 value: $value,
-                focused
+                focused,
+                calendar,
+                local,
+                format: $format
             }
         })
     }, [
