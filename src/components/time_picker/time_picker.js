@@ -15,7 +15,7 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
         const $mustDisplayMeridiem = () => {
             let format = date._format
 
-            if (typeof format !== "string") return false
+            if (typeof format !== "string") return false 
 
             if (Array.isArray(formattingIgnoreList)) {
                 formattingIgnoreList.forEach(item => {

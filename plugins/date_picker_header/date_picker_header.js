@@ -18,7 +18,7 @@ export default function DatePickerHeader({
     let selectedDate, isSingle
 
     if (state.selectedDate && !state.multiple && !state.range && !Array.isArray(state.selectedDate)) {
-        //single mode
+        //single mode 
         selectedDate = state.selectedDate
         isSingle = true
     } else if (Array.isArray(state.selectedDate)) {

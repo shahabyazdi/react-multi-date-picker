@@ -11,7 +11,7 @@ export default function DaysPanel({ state, setState, onChange, formattingIgnoreL
         multiple ||
         (range && !eachDaysInRange)
     ) {
-        dates = (inRangeDates || selectedDate).map(date => {
+        dates = (inRangeDates || selectedDate).map(date => { 
             return {
                 date,
                 format: date.format(undefined, formattingIgnoreList)
