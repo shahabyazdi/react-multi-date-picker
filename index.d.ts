@@ -208,10 +208,40 @@ declare module "react-multi-date-picker" {
          * Calendar z-index
          * @default 100
          */
-        zIndex?:number
+        zIndex?:number,
+        /**
+         * Plugins Prop accepts an array of objects, 
+         * 
+         * which the following three properties can be entered on each of them.
+         * 
+         *  - plugin
+         *  - position
+         *  - disable
+         * 
+         * Availble Positions:
+         *  - top
+         *  - bottom
+         *  - left
+         *  - right
+         * 
+         * @see http://shahabyazdi.github.io/react-multi-date-picker/plugins
+         * @example
+         * 
+         * <DatePicker 
+         *  plugins={[
+         *      {
+         *          plugin: <ImportedPlugin />
+         *          position: "left"
+         *      }
+         *  ]}
+         * />
+         */
+        plugins?:object[]
     } 
 
     interface DatePickerProps{
+        ref?:React.RefObject,
+        arrow?:boolean,
         /**
          * Input name.
          * This feature does not work in custom type.

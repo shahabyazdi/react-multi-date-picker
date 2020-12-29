@@ -46,7 +46,7 @@ function DatePicker(
         animation,
         editable = true,
         onlyShowInRangeDates = true,
-        arrow = false,
+        arrow = true,
         zIndex = 100,
         ...otherProps
     },
@@ -277,7 +277,7 @@ function DatePicker(
             if (arrow) {
                 translateY += isInBottom ? 7.5 : -7.5
 
-                triangleY = isInBottom ? 0 : (-inputHeight - 13)
+                triangleY = isInBottom ? 1 : (-inputHeight - 13)
                 triangleX = ((inputWidth / 2) - 18) * (isRTL ? -1 : 1)
 
                 triangle = calendarRef.current.querySelector(".rmdp-triangle")

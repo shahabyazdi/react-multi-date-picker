@@ -71,7 +71,7 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
     )
 
     function handleChange(value, name) {
-        let { selectedDate } = state.selectedDate
+        let { selectedDate } = state
 
         switch (name) {
             case "hours":

@@ -116,6 +116,7 @@ export default function Example() {
 | disableMonthPicker   |                                            Boolean                                            |                 false                 | both                                |
 | eachDaysInRange      |                                            Boolean                                            |                 false                 | both                                |
 | zIndex               |                                            Number                                             |                  100                  | both                                |
+| arrow                |                                            Boolean                                            |                 true                  | DatePicker                          |
 | animation            |                                            Boolean                                            |                 false                 | DatePicker                          |
 | inputClass           |                                            String                                             |                  ""                   | DatePicker                          |
 | name                 |                                            String                                             |               undefined               | DatePicker                          |
