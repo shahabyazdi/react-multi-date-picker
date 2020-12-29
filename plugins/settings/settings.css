@@ -1,0 +1,160 @@
+.settings {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 5px;
+}
+
+.settings.bottom,
+.settings.top {
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.settings.left,
+.settings.right {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.setting {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: 15px;
+  background-color: #0074d9;
+  color: white;
+  box-shadow: 0 0 3px 1px #ccc;
+  display: flex;
+  transition: 0.4s;
+  margin: auto 3px;
+}
+
+.left .setting,
+.right .setting {
+  display: grid;
+}
+
+.setting.active {
+  flex: 1;
+}
+
+.left .setting.active,
+.right .setting.active {
+  height: 100%;
+}
+
+.setting .icon {
+  cursor: pointer;
+  margin: 2.5px;
+  transition: 0.4s;
+}
+
+.top .setting,
+.bottom .setting {
+  margin: auto 2px;
+}
+
+.setting .items {
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.setting.active .items {
+  flex: 1;
+  box-shadow: inset 0 0 3px #ccc;
+  visibility: visible;
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 1px;
+  border-radius: 15px;
+  padding: 0 5px;
+  width: unset;
+  background-color: white;
+  transition: 0.4s;
+}
+
+.left .setting.active .items,
+.right .setting.active .items {
+  display: grid;
+}
+
+.items .item {
+  background-color: rgb(126, 166, 240);
+  box-shadow: 0 0 3px 1px #ccc;
+  width: 16px;
+  height: 16px;
+  margin: auto 0;
+  font-size: 9px;
+  line-height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.items .item.active {
+  background-color: #0074d9;
+  color: white;
+}
+
+.green .items .item {
+  background-color: var(--rmdp-hover-green);
+}
+
+.green .setting,
+.green .items .item.active {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .items .item {
+  background-color: var(--rmdp-hover-purple);
+}
+
+.purple .setting,
+.purple .items .item.active {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .items .item {
+  background-color: var(--rmdp-hover-red);
+}
+
+.red .setting,
+.red .items .item.active {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .items .item {
+  background-color: var(--rmdp-hover-teal);
+}
+
+.teal .setting,
+.teal .items .item.active {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .items .item {
+  background-color: var(--rmdp-hover-yellow);
+}
+
+.yellow .setting,
+.yellow .items .item.active {
+  background-color: var(--rmdp-primary-yellow);
+}
+
+@media (max-width: 400px) {
+  .rmdp-wrapper:not(.rmdp-mobile) .settings:not(.left):not(.right) {
+    height: 35px;
+    overflow: hidden;
+    margin: auto;
+  }
+}
+
+@media (max-height: 400px) {
+  .rmdp-wrapper .settings:not(.left):not(.right) {
+    height: 35px;
+    overflow: hidden;
+    margin: auto;
+  }
+}

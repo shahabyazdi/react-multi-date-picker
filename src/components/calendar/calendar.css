@@ -1,6 +1,5 @@
 .rmdp-wrapper {
   visibility: hidden;
-  display: flex;
   width: max-content;
   border: 1px solid #8798ad;
   box-shadow: 0 0 5px #8798ad;
@@ -11,6 +10,32 @@
 
 .rmdp-wrapper.active {
   visibility: visible;
+}
+
+.rmdp-wrapper .border-top {
+  border-top: 1px solid #8798ad;
+}
+
+.rmdp-wrapper .border-bottom {
+  border-bottom: 1px solid #8798ad;
+}
+
+.rmdp-wrapper .border-left {
+  border-left: 1px solid #8798ad;
+}
+
+.rmdp-wrapper .border-right {
+  border-right: 1px solid #8798ad;
+}
+
+.rmdp-rtl.rmdp-wrapper .border-left {
+  border-left: unset;
+  border-right: 1px solid #8798ad;
+}
+
+.rmdp-rtl.rmdp-wrapper .border-right {
+  border-right: unset;
+  border-left: 1px solid #8798ad;
 }
 
 .rmpd-panel {

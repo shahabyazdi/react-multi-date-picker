@@ -5,7 +5,7 @@ import WeekDays from "../week_days/week_days"
 export default function DayPicker({ state, setState, onChange, showOtherDays = true, mapDays, onlyShowInRangeDates }) {
     const [weeks, setWeeks] = useState([]),
         ref = useRef(false),
-        today = useMemo(() => new DateObject({ calendar: state.calendar }), [state.calendar]),
+        today = useMemo(() => new DateObject({ calendar: state.date.calendar }), [state.date.calendar]),
         mustShowDayPicker = !state.onlyTimePicker && !state.onlyMonthPicker && !state.onlyYearPicker,
         { minDate, maxDate } = state
 
@@ -18,8 +18,8 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
             if (
                 state.date.month.number === month.number &&
                 state.date.year === year &&
-                state.local === local &&
-                state.calendar === calendar &&
+                state.date.local === local &&
+                state.date.calendar === calendar &&
                 ref.current.showOtherDays === showOtherDays
             ) return
         }
@@ -33,8 +33,6 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
         state.date,
         state.date.month,
         state.date.year,
-        state.local,
-        state.calendar,
         setState,
         mustShowDayPicker,
         showOtherDays
@@ -97,13 +95,25 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
 
         let $state = {
             ...state,
-            date: new DateObject(date)
+            date: new DateObject(date),
+            focused: date
         }
 
         if (state.multiple) {
-            let dates = $state.selectedDate.filter($date => !isSameDate(date, $date))
+            let index,
+                dates = $state.selectedDate.filter(($date, i) => {
+                    let result = !isSameDate(date, $date)
 
-            if (dates.length === $state.selectedDate.length) dates.push(date)
+                    if (!result) index = i
+
+                    return result
+                })
+
+            if (dates.length === $state.selectedDate.length) {
+                dates.push(date)
+            } else {
+                $state.focused = dates[index] || dates[index - 1]
+            }
 
             dates.sort((a, b) => a - b)
             $state.selectedDate = dates

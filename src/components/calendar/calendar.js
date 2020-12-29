@@ -35,13 +35,14 @@ export default function Calendar({
     onReady,
     eachDaysInRange,
     onlyShowInRangeDates = true,
-    zIndex = 100
+    zIndex = 100,
+    plugins = []
 }) {
     let [state, setState] = useState({})
 
     useEffect(() => {
         setState(state => {
-            let { date, selectedDate, initialValue } = state
+            let { date, selectedDate, initialValue, focused } = state
 
             function getFormat() {
                 if (format) return format
@@ -51,8 +52,6 @@ export default function Calendar({
                 if (onlyYearPicker) return "YYYY"
                 if (range || multiple) return "YYYY/MM/DD"
             }
-
-
 
             function checkDate(date) {
                 if (date.calendar !== calendar) date.setCalendar(calendar)
@@ -125,8 +124,13 @@ export default function Calendar({
             if ($multiple || range || Array.isArray($value)) {
                 if (!selectedDate) selectedDate = []
                 if (!Array.isArray(selectedDate)) selectedDate = [selectedDate]
-                if (range && selectedDate.length > 2) selectedDate = [selectedDate[0], selectedDate[selectedDate.length - 1]]
                 if (!range && !$multiple) $multiple = true
+                if (range && selectedDate.length > 2) {
+                    let lastItem = selectedDate[selectedDate.length - 1]
+
+                    selectedDate = [selectedDate[0], lastItem]
+                    focused = lastItem
+                }
 
                 $timePicker = false
                 $onlyTimePicker = false
@@ -142,8 +146,6 @@ export default function Calendar({
                 ...state,
                 date,
                 selectedDate,
-                local,
-                calendar,
                 multiple: $multiple,
                 range,
                 mustShowDates: $mustShowDates,
@@ -152,10 +154,10 @@ export default function Calendar({
                 onlyMonthPicker: $onlyMonthPicker,
                 onlyYearPicker: $onlyYearPicker,
                 initialValue: state.initialValue || $value,
-                format: $format,
                 weekDays,
                 months,
-                value: $value
+                value: $value,
+                focused
             }
         })
     }, [
@@ -183,8 +185,7 @@ export default function Calendar({
             let [selectedDate, $minDate, $maxDate] = getDateInRangeOfMinAndMaxDate(
                 getSelectedDate(value, calendar, local, format),
                 minDate,
-                maxDate,
-                state.calendar
+                maxDate
             )
 
             return {
@@ -200,58 +201,142 @@ export default function Calendar({
         if (state.ready && onReady instanceof Function) onReady()
     }, [state.ready, onReady])
 
+    let isRTL = ["fa", "ar"].includes(state.date?.local),
+        topClassName = getBorderClassName(["top", "bottom"])
+
+    if (isRTL) plugins = plugins.map(plugin => {
+        return {
+            ...plugin,
+            position: getPositionBasedOnDirection(plugin.position)
+        }
+    })
+
+
     return (state.date ?
         <div
-            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
+            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${isRTL ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
             style={{ zIndex }}
         >
-            <div style={{ height: "max-content" }}>
-                <Header
-                    state={state}
-                    setState={setState}
-                    onChange={onChange}
-                    disableYearPicker={disableYearPicker}
-                    disableMonthPicker={disableMonthPicker}
-                />
-                <div style={{ position: "relative" }}>
-                    <DayPicker
+            {renderPlugins("top")}
+            <div style={{ display: "flex" }} className={topClassName}>
+                {renderPlugins("left")}
+                <div style={{ display: "flex" }} className={getBorderClassName(["left", "right"])}>
+                    <div style={{ height: "max-content" }}>
+                        <Header
+                            state={state}
+                            setState={setState}
+                            onChange={onChange}
+                            disableYearPicker={disableYearPicker}
+                            disableMonthPicker={disableMonthPicker}
+                        />
+                        <div style={{ position: "relative" }}>
+                            <DayPicker
+                                state={state}
+                                setState={setState}
+                                onChange={onChange}
+                                showOtherDays={showOtherDays}
+                                mapDays={mapDays}
+                                onlyShowInRangeDates={onlyShowInRangeDates}
+                            />
+                            <MonthPicker
+                                state={state}
+                                setState={setState}
+                                onChange={onChange}
+                            />
+                            <YearPicker
+                                state={state}
+                                setState={setState}
+                                onChange={onChange}
+                            />
+                        </div>
+                        <TimePicker
+                            state={state}
+                            setState={setState}
+                            onChange={onChange}
+                            formattingIgnoreList={formattingIgnoreList}
+                        />
+                        {children}
+                    </div>
+                    <DaysPanel
                         state={state}
                         setState={setState}
                         onChange={onChange}
-                        showOtherDays={showOtherDays}
-                        mapDays={mapDays}
-                        onlyShowInRangeDates={onlyShowInRangeDates}
-                    />
-                    <MonthPicker
-                        state={state}
-                        setState={setState}
-                        onChange={onChange}
-                    />
-                    <YearPicker
-                        state={state}
-                        setState={setState}
-                        onChange={onChange}
+                        formattingIgnoreList={formattingIgnoreList}
+                        eachDaysInRange={eachDaysInRange}
                     />
                 </div>
-                <TimePicker
-                    state={state}
-                    setState={setState}
-                    onChange={onChange}
-                    formattingIgnoreList={formattingIgnoreList}
-                />
-                {children}
+                {renderPlugins("right")}
             </div>
-            <DaysPanel
-                state={state}
-                setState={setState}
-                onChange={onChange}
-                formattingIgnoreList={formattingIgnoreList}
-                eachDaysInRange={eachDaysInRange}
-            />
+            {renderPlugins("bottom")}
         </div>
         :
         null
     )
+
+    function renderPlugins(position) {
+        if (!state.ready) return null
+
+        let AvailblePlugins = plugins.filter(object => object.position === position && !object.disable)
+
+        return (
+            AvailblePlugins.map((object, index) => {
+                let obj = {}
+
+                if (["top", "bottom"].includes(position)) {
+                    for (let i = index + 1; i < AvailblePlugins.length; i++) {
+                        if (AvailblePlugins[i].position !== position) continue
+
+                        obj[`isChildIn${position === "top" ? "Top" : "Bottom"}`] = true
+                        break
+                    }
+                } else {
+                    if (topClassName.includes("top")) obj.isChildInTop = true
+                    if (topClassName.includes("bottom")) obj.isChildInBottom = true
+
+                    for (let i = 0; i < AvailblePlugins.length; i++) {
+                        if (["top", "bottom"].includes(AvailblePlugins[i].position)) continue
+                        if (obj.isChildInLeft && obj.isChildInRight) break
+                        if (object.position === "left" && i < index) obj.isChildInLeft = true
+                        if (object.position === "right" && i > index) obj.isChildInRight = true
+                    }
+                }
+
+                return (
+                    React.cloneElement(object.plugin, {
+                        key: index,
+                        state,
+                        setState,
+                        position: object.position,
+                        ...obj
+                    })
+                )
+            })
+        )
+    }
+
+    function getBorderClassName(positions) {
+        return Array.from(
+            new Set(
+                plugins.map(plugin => {
+                    if (plugin.disable) return ""
+
+                    if (positions.includes(plugin.position)) return "border-" + plugin.position
+
+                    return ""
+                })
+            )
+        ).join(" ")
+    }
+
+    function getPositionBasedOnDirection(position) {
+        if (position === "left") {
+            position = "right"
+        } else if (position === "right") {
+            position = "left"
+        }
+
+        return position
+    }
 }
 
 function isValidDateObject(date, calendar, local, format) {
@@ -278,7 +363,9 @@ function isValidDate(date) {
     return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())
 }
 
-function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar, onlyShowInRangeDates) {
+function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate) {
+    let { calendar } = date
+
     if (minDate) minDate = toDateObject(minDate, calendar).set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
     if (maxDate) maxDate = toDateObject(maxDate, calendar).set({ hour: 23, minute: 59, second: 59, millisecond: 999 })
 

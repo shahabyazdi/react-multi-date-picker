@@ -82,6 +82,39 @@
   background-color: transparent;
 }
 
+.rmdp-triangle {
+  width: 30px;
+  height: 10px;
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0 0 10px -17px rgba(0, 0, 0);
+  visibility: hidden;
+}
+
+.rmdp-triangle.active {
+  visibility: visible;
+}
+
+.rmdp-triangle:after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  left: 8px;
+}
+
+.rmdp-triangle-up::after {
+  box-shadow: -1px -1px 5px #8798ad;
+  top: 4px;
+}
+
+.rmdp-triangle-down::after {
+  box-shadow: 1px 1px 5px #8798ad;
+  top: -6px;
+}
+
 @media (max-width: 400px), (max-height: 400px) {
   .rmdp-input-icon {
     top: 0px;

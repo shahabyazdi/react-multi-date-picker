@@ -3,42 +3,46 @@ import DateObject from "react-date-object"
 import { isSameDate } from "../day_picker/day_picker"
 
 export default function DaysPanel({ state, setState, onChange, formattingIgnoreList, eachDaysInRange }) {
-    let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" }
-    let dates = []
+    let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
+        dates = [],
+        { multiple, range, inRangeDates, selectedDate, mustShowDates, date: { local } } = state
 
     if (
-        state.multiple ||
-        (state.range && !eachDaysInRange)
+        multiple ||
+        (range && !eachDaysInRange)
     ) {
-        dates = (state.inRangeDates || state.selectedDate).map(date => {
+        dates = (inRangeDates || selectedDate).map(date => {
             return {
                 date,
                 format: date.format(undefined, formattingIgnoreList)
             }
         })
-    } else if (state.range && eachDaysInRange) {
-        let allDates = getAllDatesInRange(state.inRangeDates || state.selectedDate)
+    } else if (range && eachDaysInRange) {
+        let allDates = getAllDatesInRange(inRangeDates || selectedDate)
 
         dates = allDates.map((date, index) => {
             return {
+                //in range mode
+                //To find out which date is between the start and end date
+                //We change its value to undefined
                 date: (index === 0 || index === (allDates.length - 1)) ? date : undefined,
                 format: date.format(undefined, formattingIgnoreList)
             }
         })
     }
 
-    return (state.mustShowDates &&
+    return (mustShowDates &&
         <div
             className="rmpd-panel"
             style={{
-                display: state.mustShowDates ? "grid" : "none",
+                display: mustShowDates ? "grid" : "none",
                 gridTemplateRows: "auto 1fr"
             }}
         >
-            <div className="rmdp-panel-header">{header[state.local]}</div>
+            <div className="rmdp-panel-header">{header[local]}</div>
             <div style={{ position: "relative", overflow: "auto" }}>
                 <ul className="rmdp-panel-body">
-                    {Array.isArray(state.selectedDate) ?
+                    {Array.isArray(selectedDate) ?
                         dates.map((object, index) => {
                             return (
                                 <li
@@ -62,7 +66,7 @@ export default function DaysPanel({ state, setState, onChange, formattingIgnoreL
                             )
                         })
                         :
-                        <li>{state.selectedDate.format(undefined, formattingIgnoreList)}</li>
+                        <li>{selectedDate.format(undefined, formattingIgnoreList)}</li>
                     }
                 </ul>
             </div>
@@ -74,16 +78,25 @@ export default function DaysPanel({ state, setState, onChange, formattingIgnoreL
 
         setState({
             ...state,
-            date: new DateObject(date)
+            date: new DateObject(date),
+            focused: date
         })
     }
 
     function deSelect(date) {
-        let dates = state.selectedDate.filter($date => !isSameDate($date, date))
+        let index = 0,
+            dates = selectedDate.filter(($date, i) => {
+                let result = !isSameDate($date, date)
+
+                if (!result) index = i
+
+                return result
+            })
 
         setState({
             ...state,
-            selectedDate: dates
+            selectedDate: dates,
+            focused: dates[index] || dates[index - 1]
         })
 
         if (onChange instanceof Function) onChange(dates)
