@@ -44,7 +44,7 @@ export default function Settings({
                             return (
                                 <span
                                     key={index}
-                                    className={`item ${state.calendar === calendar ? "active" : ""}`}
+                                    className={`item ${state.date.calendar === calendar ? "active" : ""}`}
                                     title={calendar}
                                     onClick={e => setKeyValue(e, "calendar")}
                                 >
@@ -68,7 +68,7 @@ export default function Settings({
                             return (
                                 <span
                                     key={index}
-                                    className={`item ${state.local === local ? "active" : ""}`}
+                                    className={`item ${state.date.local === local ? "active" : ""}`}
                                     title={local}
                                     onClick={e => setKeyValue(e, "local")}
                                 >

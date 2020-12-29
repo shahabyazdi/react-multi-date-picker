@@ -11,8 +11,8 @@ export default function DatePickerHeader({
     isChildInBottom,
     isChildInLeft,
     isChildInRight,
-    calendar = state.calendar,
-    local = state.local,
+    calendar = state.date.calendar,
+    local = state.date.local,
     ...props
 }) {
     let selectedDate, isSingle
@@ -22,7 +22,7 @@ export default function DatePickerHeader({
         selectedDate = state.selectedDate
         isSingle = true
     } else if (Array.isArray(state.selectedDate)) {
-        selectedDate = getLastItem(state.selectedDate)
+        selectedDate = state.focused || getLastItem(state.selectedDate)
         isSingle = false
     } else if (!selectedDate) {
         selectedDate = new DateObject()

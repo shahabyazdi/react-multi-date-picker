@@ -6,13 +6,14 @@ import Input from "../input/input"
 export default function TimePicker({ state, setState, onChange, formattingIgnoreList }) {
     const [am, setAm] = useState(true),
         [mustDisplayMeridiem, setMustDisplayMeridiem] = useState(false),
-        meridiems = useMemo(() => new DateObject({ calendar: state.calendar, local: state.local }).meridiems, [state.calendar, state.local]),
-        hour = state.selectedDate?.hour,
-        mustShowTimePicker = (state.timePicker || state.onlyTimePicker) && !state.multiple && !state.range
+        { calendar, local, date, timePicker, onlyTimePicker, selectedDate } = state,
+        meridiems = useMemo(() => new DateObject({ calendar, local }).meridiems, [calendar, local]),
+        hour = selectedDate?.hour,
+        mustShowTimePicker = (timePicker || onlyTimePicker) && !state.multiple && !state.range
 
     useEffect(() => {
         const $mustDisplayMeridiem = () => {
-            let format = state.format
+            let format = date._format
 
             if (typeof format !== "string") return false
 
@@ -37,26 +38,26 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
             setAm($hour < 12 ? true : false)
         }
 
-        if (state.onlyTimePicker) setState(state => { return { ...state, ready: true } })
-    }, [hour, state.format, state.onlyTimePicker, setState, formattingIgnoreList])
+        if (onlyTimePicker) setState(state => { return { ...state, ready: true } })
+    }, [hour, date._format, onlyTimePicker, setState, formattingIgnoreList])
 
     return (mustShowTimePicker ?
-        <div className={`rmdp-time-picker ${state.onlyTimePicker ? "rmdp-only-time-picker" : ""}`}>
+        <div className={`rmdp-time-picker ${onlyTimePicker ? "rmdp-only-time-picker" : ""}`}>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("hours", 1)} />
-                <Input value={getHours()} onChange={handleChange} digits={state.date.digits} name="hours" />
+                <Input value={getHours()} onChange={handleChange} digits={date.digits} name="hours" />
                 <Arrow direction="rmdp-down" onClick={() => changeValue("hours", -1)} />
             </div>
             <span className="dvdr">:</span>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("minutes", 1)} />
-                <Input value={getMinutes()} onChange={handleChange} digits={state.date.digits} name="minutes" />
+                <Input value={getMinutes()} onChange={handleChange} digits={date.digits} name="minutes" />
                 <Arrow direction="rmdp-down" onClick={() => changeValue("minutes", -1)} />
             </div>
             <span className="dvdr">:</span>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("seconds", 1)} />
-                <Input value={getSeconds()} onChange={handleChange} digits={state.date.digits} name="seconds" />
+                <Input value={getSeconds()} onChange={handleChange} digits={date.digits} name="seconds" />
                 <Arrow direction="rmdp-down" onClick={() => changeValue("seconds", -1)} />
             </div>
             <div style={getStyle()}>
@@ -89,9 +90,8 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
 
     function changeValue(type, value) {
         value = Number(value)
-        let { selectedDate } = state
 
-        if (!selectedDate) selectedDate = state.date
+        if (!selectedDate) selectedDate = date
 
         switch (type) {
             case "hours":
@@ -119,8 +119,6 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
     }
 
     function toggleMeridiem() {
-        let { selectedDate } = state
-
         if (am && selectedDate.hour < 12) selectedDate.hour += 12
         if (!am && selectedDate.hour > 12) selectedDate.hour -= 12
 
@@ -131,27 +129,27 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
     function getHours() {
         let hours = ""
 
-        if (state.selectedDate) {
-            if (!state.selectedDate.hour) state.selectedDate.hour = 0
+        if (selectedDate) {
+            if (!selectedDate.hour) selectedDate.hour = 0
 
-            hours = mustDisplayMeridiem ? state.selectedDate.format("hh") : state.selectedDate.format("HH")
+            hours = mustDisplayMeridiem ? selectedDate.format("hh") : selectedDate.format("HH")
         } else {
-            hours = mustDisplayMeridiem ? state.date.format("hh") : state.date.format("HH")
+            hours = mustDisplayMeridiem ? date.format("hh") : date.format("HH")
         }
 
         return hours
     }
 
     function getMinutes() {
-        if (state.selectedDate && !state.selectedDate.minute) state.selectedDate.minute = 0
+        if (selectedDate && !selectedDate.minute) selectedDate.minute = 0
 
-        return state.selectedDate ? state.selectedDate.format("mm") : state.date.format("mm")
+        return selectedDate ? selectedDate.format("mm") : date.format("mm")
     }
 
     function getSeconds() {
-        if (state.selectedDate && !state.selectedDate.second) state.selectedDate.second = 0
+        if (selectedDate && !selectedDate.second) selectedDate.second = 0
 
-        return state.selectedDate ? state.selectedDate.format("ss") : state.date.format("ss")
+        return selectedDate ? selectedDate.format("ss") : date.format("ss")
     }
 
     function getStyle() {

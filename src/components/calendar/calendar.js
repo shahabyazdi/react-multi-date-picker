@@ -42,7 +42,7 @@ export default function Calendar({
 
     useEffect(() => {
         setState(state => {
-            let { date, selectedDate, initialValue } = state
+            let { date, selectedDate, initialValue, focused } = state
 
             function getFormat() {
                 if (format) return format
@@ -124,8 +124,13 @@ export default function Calendar({
             if ($multiple || range || Array.isArray($value)) {
                 if (!selectedDate) selectedDate = []
                 if (!Array.isArray(selectedDate)) selectedDate = [selectedDate]
-                if (range && selectedDate.length > 2) selectedDate = [selectedDate[0], selectedDate[selectedDate.length - 1]]
                 if (!range && !$multiple) $multiple = true
+                if (range && selectedDate.length > 2) {
+                    let lastItem = selectedDate[selectedDate.length - 1]
+
+                    selectedDate = [selectedDate[0], lastItem]
+                    focused = lastItem
+                }
 
                 $timePicker = false
                 $onlyTimePicker = false
@@ -141,8 +146,6 @@ export default function Calendar({
                 ...state,
                 date,
                 selectedDate,
-                local,
-                calendar,
                 multiple: $multiple,
                 range,
                 mustShowDates: $mustShowDates,
@@ -151,10 +154,10 @@ export default function Calendar({
                 onlyMonthPicker: $onlyMonthPicker,
                 onlyYearPicker: $onlyYearPicker,
                 initialValue: state.initialValue || $value,
-                format: $format,
                 weekDays,
                 months,
-                value: $value
+                value: $value,
+                focused
             }
         })
     }, [
@@ -182,8 +185,7 @@ export default function Calendar({
             let [selectedDate, $minDate, $maxDate] = getDateInRangeOfMinAndMaxDate(
                 getSelectedDate(value, calendar, local, format),
                 minDate,
-                maxDate,
-                state.calendar
+                maxDate
             )
 
             return {
@@ -203,7 +205,7 @@ export default function Calendar({
 
     return (state.date ?
         <div
-            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.local) ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
+            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${["fa", "ar"].includes(state.date.local) ? "rmdp-rtl" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
             style={{ zIndex }}
         >
             {renderPlugins("top")}
@@ -265,7 +267,7 @@ export default function Calendar({
     function renderPlugins(position) {
         if (!state.ready) return null
 
-        if (["fa", "ar"].includes(state.local)) {
+        if (["fa", "ar"].includes(state.date.local)) {
             if (position === "left") {
                 position = "right"
             } else if (position === "right") {
@@ -349,7 +351,9 @@ function isValidDate(date) {
     return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())
 }
 
-function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar, onlyShowInRangeDates) {
+function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate) {
+    let { calendar } = date
+
     if (minDate) minDate = toDateObject(minDate, calendar).set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
     if (maxDate) maxDate = toDateObject(maxDate, calendar).set({ hour: 23, minute: 59, second: 59, millisecond: 999 })
 
