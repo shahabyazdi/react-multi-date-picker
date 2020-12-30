@@ -10,7 +10,7 @@ declare module "react-multi-date-picker" {
          * <Calendar value={new Date()} />
          * <DatePicker value={[new Date(), new Date(2020, 2, 12)]} />
          */
-        value: Date | string | number | DateObject,
+        value?: Date | string | number | DateObject | Date[] | string[] | number[] | DateObject[],
         /**
          * Availble calendars: 
          *
@@ -240,7 +240,7 @@ declare module "react-multi-date-picker" {
     } 
 
     interface DatePickerProps{
-        ref?:React.RefObject,
+        ref?:React.RefObject<any>,
         arrow?:boolean,
         /**
          * Input name.

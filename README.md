@@ -39,7 +39,7 @@ export default function Example() {
     <span>DatePicker Example :</span>
     <div id="datePicker"></div>
 
-    <span>DatePicker Example :</span>
+    <span>Plugins Example :</span>
     <div id="datePickerWithPlugin"></div>
 
     <!-- Ract -->
@@ -116,6 +116,7 @@ export default function Example() {
 | disableMonthPicker   |                                            Boolean                                            |                 false                 | both                                |
 | eachDaysInRange      |                                            Boolean                                            |                 false                 | both                                |
 | zIndex               |                                            Number                                             |                  100                  | both                                |
+| plugins              |                                             Array                                             |                  []                   | both                                |
 | arrow                |                                            Boolean                                            |                 true                  | DatePicker                          |
 | animation            |                                            Boolean                                            |                 false                 | DatePicker                          |
 | inputClass           |                                            String                                             |                  ""                   | DatePicker                          |
@@ -183,3 +184,4 @@ export default function Example() {
     </tr>
   </tbody>
 </table>
+-
