@@ -28,6 +28,7 @@ export default function Settings({
     delete props.isChildInBottom
     delete props.isChildInLeft
     delete props.isChildInRight
+    delete props.registerListener
 
     return (
         <div className={`settings ${position}`} {...props}>

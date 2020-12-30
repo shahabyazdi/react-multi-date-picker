@@ -1,0 +1,69 @@
+:root {
+  --highlight-blue-color: #4ca6f5;
+  --highlight-blue-color-deactive: #7b98ce;
+  --highlight-blue-selected: #0074d9;
+  --highlight-blue-selected-deactive: #aec0e0;
+  --highlight-blue-hover: #7ea6f0;
+}
+
+.rmdp-colors {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+
+.rmdp-colors.left,
+.rmdp-colors.right {
+  display: grid;
+  padding: 0 8px;
+}
+
+.rmdp-color {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.left .rmdp-color,
+.right .rmdp-color {
+  margin: auto;
+}
+
+.rmdp-blue {
+  background-color: var(--highlight-blue-selected);
+}
+
+.rmdp-red {
+  background-color: var(--highlight-red-selected);
+}
+
+.rmdp-green {
+  background-color: var(--highlight-green-selected);
+}
+
+.rmdp-color.active {
+  box-shadow: 0 0 3px #8798ad;
+}
+
+.rmdp-day:hover:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-blue {
+  background-color: var(--highlight-blue-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-blue {
+  color: var(--highlight-blue-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-blue {
+  color: var(--highlight-blue-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-blue {
+  background-color: var(--highlight-blue-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-blue {
+  background-color: var(--highlight-blue-selected-deactive);
+  color: white;
+}

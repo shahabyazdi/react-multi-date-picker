@@ -71,14 +71,24 @@ export default function YearPicker({ state, setState, onChange }) {
             date = date.setMonth(maxDate.month.number)
         }
 
-        setState({
-            ...state,
-            date,
-            selectedDate,
-            mustShowYearPicker: false
-        })
+        // setState({
+        //     ...state,
+        //     date,
+        //     selectedDate,
+        //     mustShowYearPicker: false
+        // })
 
-        if (onChange instanceof Function && state.onlyYearPicker) onChange(selectedDate)
+        // if (onChange instanceof Function && state.onlyYearPicker) onChange(selectedDate)
+
+        onChange(
+            state.onlyYearPicker ? selectedDate : undefined,
+            {
+                ...state,
+                date,
+                selectedDate,
+                mustShowYearPicker: false
+            }
+        )
     }
 
     function getClassName(year) {

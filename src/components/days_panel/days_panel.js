@@ -93,13 +93,22 @@ export default function DaysPanel({ state, setState, onChange, formattingIgnoreL
                 return result
             })
 
-        setState({
-            ...state,
-            selectedDate: dates,
-            focused: dates[index] || dates[index - 1]
-        })
+        // setState({
+        //     ...state,
+        //     selectedDate: dates,
+        //     focused: dates[index] || dates[index - 1]
+        // })
 
-        if (onChange instanceof Function) onChange(dates)
+        // if (onChange instanceof Function) onChange(dates)
+
+        onChange(
+            dates,
+            {
+                ...state,
+                selectedDate: dates,
+                focused: dates[index] || dates[index - 1]
+            }
+        )
     }
 }
 

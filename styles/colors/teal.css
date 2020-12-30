@@ -66,7 +66,7 @@
   border-right: 1px solid var(--rmdp-secondary-teal);
 }
 
-.teal .rmdp-day.rmdp-selected span:not(.rmdp-weekend) {
+.teal .rmdp-day.rmdp-selected span:not(.highlight) {
   background-color: var(--rmdp-primary-teal);
   box-shadow: 0 0 3px var(--rmdp-shadow-teal);
 }

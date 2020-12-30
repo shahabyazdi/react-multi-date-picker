@@ -45,6 +45,8 @@ export default function DatePickerHeader({
         if (isChildInBottom) classNames.push("no-border-radius-bottom")
     }
 
+    delete props.registerListener
+
     return (
         <div
             className={classNames.join(" ")}

@@ -128,9 +128,11 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
             $state.selectedDate = new DateObject(date)
         }
 
-        setState($state)
+        // setState($state)
 
-        if (onChange instanceof Function) onChange($state.selectedDate)
+        // if (onChange instanceof Function) onChange($state.selectedDate)
+
+        onChange($state.selectedDate, $state)
     }
 
     function getClassName(object) {
