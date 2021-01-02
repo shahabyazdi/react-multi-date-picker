@@ -204,14 +204,6 @@ declare module "react-multi-date-picker" {
          */
         zIndex?:number,
         /**
-         * Plugins Prop accepts an array of objects, 
-         * 
-         * which the following three properties can be entered on each of them.
-         * 
-         *  - plugin
-         *  - position
-         *  - disable
-         * 
          * Availble Positions:
          *  - top
          *  - bottom
@@ -223,14 +215,11 @@ declare module "react-multi-date-picker" {
          * 
          * <DatePicker 
          *  plugins={[
-         *      {
-         *          plugin: <ImportedPlugin />
-         *          position: "left"
-         *      }
+         *          plugin: <ImportedPlugin position="right" />
          *  ]}
          * />
          */
-        plugins?:object[]
+        plugins?:React.ReactElement[]
     } 
 
     interface DatePickerProps{
