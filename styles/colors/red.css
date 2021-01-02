@@ -66,12 +66,12 @@
   border-right: 1px solid var(--rmdp-secondary-red);
 }
 
-.red .rmdp-day.rmdp-selected span:not(.rmdp-weekend) {
+.red .rmdp-day.rmdp-selected span:not(.highlight) {
   background-color: var(--rmdp-primary-red);
   box-shadow: 0 0 3px var(--rmdp-secondary-red);
 }
 
-.red .rmdp-day:not(.rmdp-day-hidden):hover span {
+.red .rmdp-day:not(.rmdp-day-hidden) span:hover {
   background-color: var(--rmdp-hover-red) !important;
 }
 

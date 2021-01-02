@@ -66,12 +66,12 @@
   border-right: 1px solid var(--rmdp-secondary-purple);
 }
 
-.purple .rmdp-day.rmdp-selected span:not(.rmdp-weekend) {
+.purple .rmdp-day.rmdp-selected span:not(.highlight) {
   background-color: var(--rmdp-primary-purple);
   box-shadow: 0 0 3px var(--rmdp-shadow-purple);
 }
 
-.purple .rmdp-day:not(.rmdp-day-hidden):hover span {
+.purple .rmdp-day:not(.rmdp-day-hidden) span:hover {
   background-color: var(--rmdp-hover-purple) !important;
 }
 

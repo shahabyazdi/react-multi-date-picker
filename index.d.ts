@@ -10,7 +10,7 @@ declare module "react-multi-date-picker" {
          * <Calendar value={new Date()} />
          * <DatePicker value={[new Date(), new Date(2020, 2, 12)]} />
          */
-        value: Date | string | number | DateObject,
+        value?: Date | string | number | DateObject | Date[] | string[] | number[] | DateObject[],
         /**
          * Availble calendars: 
          *
@@ -74,12 +74,6 @@ declare module "react-multi-date-picker" {
          * <DatePicker multiple />
          */
         multiple?:boolean,
-        /**
-         * This feature is only available in range and multiple mode.
-         * Disable it if you don't want to see dates panel.
-         * @default true
-         */
-        mustShowDates?:boolean,
         /**
          * Calendar wrapper className
          */
@@ -210,14 +204,6 @@ declare module "react-multi-date-picker" {
          */
         zIndex?:number,
         /**
-         * Plugins Prop accepts an array of objects, 
-         * 
-         * which the following three properties can be entered on each of them.
-         * 
-         *  - plugin
-         *  - position
-         *  - disable
-         * 
          * Availble Positions:
          *  - top
          *  - bottom
@@ -229,18 +215,15 @@ declare module "react-multi-date-picker" {
          * 
          * <DatePicker 
          *  plugins={[
-         *      {
-         *          plugin: <ImportedPlugin />
-         *          position: "left"
-         *      }
+         *          plugin: <ImportedPlugin position="right" />
          *  ]}
          * />
          */
-        plugins?:object[]
+        plugins?:React.ReactElement[]
     } 
 
     interface DatePickerProps{
-        ref?:React.RefObject,
+        ref?:React.RefObject<any>,
         arrow?:boolean,
         /**
          * Input name.

@@ -111,13 +111,14 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
     }
 
     function setDate(selectedDate) {
-        setState({
-            ...state,
+        onChange(
             selectedDate,
-            date: new DateObject(selectedDate)
-        })
-
-        if (onChange instanceof Function) onChange(selectedDate)
+            {
+                ...state,
+                selectedDate,
+                date: new DateObject(selectedDate)
+            }
+        )
     }
 
     function toggleMeridiem() {

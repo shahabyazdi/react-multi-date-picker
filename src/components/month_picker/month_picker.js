@@ -69,14 +69,15 @@ export default function MonthPicker({ state, setState, onChange }) {
 
         let selectedDate = state.onlyMonthPicker ? new DateObject(date) : state.selectedDate
 
-        setState({
-            ...state,
-            date,
-            selectedDate,
-            mustShowMonthPicker: false,
-        })
-
-        if (onChange instanceof Function && state.onlyMonthPicker) onChange(selectedDate)
+        onChange(
+            state.onlyMonthPicker ? selectedDate : undefined,
+            {
+                ...state,
+                date,
+                selectedDate,
+                mustShowMonthPicker: false,
+            }
+        )
     }
 
     function getClassName(monthIndex) {
