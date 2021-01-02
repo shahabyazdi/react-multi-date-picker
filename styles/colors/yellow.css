@@ -71,7 +71,7 @@
   box-shadow: 0 0 3px var(--rmdp-shadow-yellow);
 }
 
-.yellow .rmdp-day:not(.rmdp-day-hidden):hover span {
+.yellow .rmdp-day:not(.rmdp-day-hidden) span:hover {
   background-color: var(--rmdp-hover-yellow) !important;
 }
 
