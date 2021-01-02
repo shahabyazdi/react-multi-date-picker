@@ -3,6 +3,8 @@
 /plugins/all.js
 /plugins/date_picker_header
 /plugins/settings
+/plugins/date_panel
+/plugins/multi_colors
 rollup.config.js
 .github
 .gitignore
