@@ -3,7 +3,6 @@ import DayPicker from "../day_picker/day_picker"
 import Header from "../header/header"
 import MonthPicker from "../month_picker/month_picker"
 import YearPicker from "../year_picker/year_picker"
-import DaysPanel from "../days_panel/days_panel"
 import TimePicker from "../time_picker/time_picker"
 import DateObject from "react-date-object"
 import "./calendar.css"
@@ -19,7 +18,6 @@ export default function Calendar({
     onlyYearPicker,
     range = false,
     multiple = false,
-    mustShowDates = true,
     className,
     weekDays,
     months,
@@ -33,7 +31,6 @@ export default function Calendar({
     disableYearPicker,
     formattingIgnoreList,
     onReady,
-    eachDaysInRange,
     onlyShowInRangeDates = true,
     zIndex = 100,
     plugins = []
@@ -62,8 +59,7 @@ export default function Calendar({
                 return date
             }
 
-            let $mustShowDates = multiple || range || Array.isArray(value) ? mustShowDates : false,
-                $timePicker = timePicker,
+            let $timePicker = timePicker,
                 $onlyTimePicker = onlyTimePicker,
                 $onlyMonthPicker = onlyMonthPicker,
                 $onlyYearPicker = onlyYearPicker,
@@ -137,10 +133,8 @@ export default function Calendar({
                 $onlyTimePicker = false
                 $onlyMonthPicker = false
                 $onlyYearPicker = false
-            } else {
-                if (Array.isArray(selectedDate)) selectedDate = selectedDate[selectedDate.length - 1]
-
-                $mustShowDates = false
+            } else if (Array.isArray(selectedDate)) {
+                selectedDate = selectedDate[selectedDate.length - 1]
             }
 
             return {
@@ -149,7 +143,6 @@ export default function Calendar({
                 selectedDate,
                 multiple: $multiple,
                 range,
-                mustShowDates: $mustShowDates,
                 timePicker: $timePicker,
                 onlyTimePicker: $onlyTimePicker,
                 onlyMonthPicker: $onlyMonthPicker,
@@ -175,7 +168,6 @@ export default function Calendar({
         onlyYearPicker,
         range,
         multiple,
-        mustShowDates,
         weekDays,
         months
     ])
@@ -205,65 +197,58 @@ export default function Calendar({
         if (state.ready && onReady instanceof Function) onReady()
     }, [state.ready, onReady])
 
-    let isRTL = ["fa", "ar"].includes(state.date?.local),
-        topClassName = getBorderClassName(["top", "bottom"]),
+    let topClassName = getBorderClassName(["top", "bottom"]),
         clonedPlugins = { top: [], bottom: [], left: [], right: [] }
 
     initPlugins(arguments[0])
 
     return (state.date ?
         <div
-            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${className || ""} ${(state.range || state.multiple) && state.mustShowDates ? "" : "rmdp-single"}`}
+            className={`rmdp-wrapper ${state.ready ? "active" : ""} ${className || ""}`}
             style={{ zIndex, direction: "ltr" }}
         >
             {clonedPlugins.top}
             <div style={{ display: "flex" }} className={topClassName}>
                 {clonedPlugins.left}
-                <div style={{ display: "flex" }} className={`${isRTL ? "rmdp-rtl" : ""} ${getBorderClassName(["left", "right"])}`}>
-                    <div style={{ height: "max-content", margin: "auto" }}>
-                        <Header
+                <div
+                    style={{ height: "max-content", margin: "auto" }}
+                    className={`${["fa", "ar"].includes(state.date?.local) ? "rmdp-rtl" : ""} ${getBorderClassName(["left", "right"])}`}
+                >
+                    <Header
+                        state={state}
+                        setState={setState}
+                        onChange={handleChange}
+                        disableYearPicker={disableYearPicker}
+                        disableMonthPicker={disableMonthPicker}
+                    />
+                    <div style={{ position: "relative" }}>
+                        <DayPicker
                             state={state}
                             setState={setState}
                             onChange={handleChange}
-                            disableYearPicker={disableYearPicker}
-                            disableMonthPicker={disableMonthPicker}
+                            showOtherDays={showOtherDays}
+                            mapDays={mapDays}
+                            listeners={listeners}
+                            onlyShowInRangeDates={onlyShowInRangeDates}
                         />
-                        <div style={{ position: "relative" }}>
-                            <DayPicker
-                                state={state}
-                                setState={setState}
-                                onChange={handleChange}
-                                showOtherDays={showOtherDays}
-                                mapDays={mapDays}
-                                listeners={listeners}
-                                onlyShowInRangeDates={onlyShowInRangeDates}
-                            />
-                            <MonthPicker
-                                state={state}
-                                setState={setState}
-                                onChange={handleChange}
-                            />
-                            <YearPicker
-                                state={state}
-                                setState={setState}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <TimePicker
+                        <MonthPicker
                             state={state}
                             setState={setState}
                             onChange={handleChange}
-                            formattingIgnoreList={formattingIgnoreList}
                         />
-                        {children}
+                        <YearPicker
+                            state={state}
+                            setState={setState}
+                            onChange={handleChange}
+                        />
                     </div>
-                    <DaysPanel
+                    <TimePicker
                         state={state}
                         setState={setState}
                         onChange={handleChange}
                         formattingIgnoreList={formattingIgnoreList}
-                        eachDaysInRange={eachDaysInRange}
                     />
+                    {children}
                 </div>
                 {clonedPlugins.right}
             </div>
@@ -273,33 +258,29 @@ export default function Calendar({
         null
     )
 
-    function initPlugins(calendarArguments) {
+    function initPlugins(calendarProps) {
         if (!state.ready) return
 
-        let getPosition = index => plugins[index].props.position
-
         plugins.forEach((plugin, index) => {
-            let obj = {},
+            let nodes = {},
                 position = plugin.props.position
 
             if (!clonedPlugins[position] || plugin.props.disabled) return
 
-            if (["top", "bottom"].includes(position)) {
-                for (let i = 0; i < plugins.length; i++) {
-                    if (["left", "right"].includes(getPosition(i)) || plugins[i].props.disabled) continue
-                    if (obj.isChildInTop && obj.isChildInBottom) break
-                    if (getPosition(i) === position && i < index) obj.isChildInTop = true
-                    if (getPosition(i) === position && i > index) obj.isChildInBottom = true
-                }
-            } else {
-                if (topClassName.includes("top")) obj.isChildInTop = true
-                if (topClassName.includes("bottom")) obj.isChildInBottom = true
+            for (let i = 0; i < plugins.length; i++) {
+                if (plugins[i].props.disabled) continue
+                if (Object.keys(nodes).length === 4) break
 
-                for (let i = 0; i < plugins.length; i++) {
-                    if (["top", "bottom"].includes(getPosition(i)) || plugins[i].props.disabled) continue
-                    if (obj.isChildInLeft && obj.isChildInRight) break
-                    if (getPosition(i) === "left" && i < index) obj.isChildInLeft = true
-                    if (getPosition(i) === "right" && i > index) obj.isChildInRight = true
+                let pluginPosition = plugins[i].props.position
+
+                if (["top", "bottom"].includes(position)) {
+                    if (pluginPosition === position && i > index) nodes.bottom = true
+                    if (pluginPosition === position && i < index) nodes.top = true
+                } else {
+                    if (topClassName.includes("top")) nodes.top = true
+                    if (topClassName.includes("bottom")) nodes.bottom = true
+                    if (pluginPosition === position && i > index) nodes.right = true
+                    if (pluginPosition === position && i < index) nodes.left = true
                 }
             }
 
@@ -309,16 +290,17 @@ export default function Calendar({
                 setState,
                 position,
                 registerListener,
-                calendarArguments,
-                ...obj
+                calendarProps,
+                handleChange,
+                nodes
             }))
         })
     }
 
     function handleChange(selectedDate, state) {
-        if (selectedDate && listeners.change) listeners.change.forEach(callback => callback(selectedDate))
+        if ((selectedDate || selectedDate === null) && listeners.change) listeners.change.forEach(callback => callback(selectedDate))
         if (state) setState(state)
-        if (selectedDate && onChange instanceof Function) onChange(selectedDate)
+        if ((selectedDate || selectedDate === null) && onChange instanceof Function) onChange(selectedDate)
     }
 
     function getBorderClassName(positions) {
@@ -328,7 +310,7 @@ export default function Calendar({
                     if (
                         positions.includes(plugin.props.position) &&
                         !plugin.props.disabled
-                    ) return "border-" + plugin.props.position
+                    ) return "rmdp-border-" + plugin.props.position
 
                     return ""
                 })

@@ -111,14 +111,6 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
     }
 
     function setDate(selectedDate) {
-        // setState({
-        //     ...state,
-        //     selectedDate,
-        //     date: new DateObject(selectedDate)
-        // })
-
-        // if (onChange instanceof Function) onChange(selectedDate)
-
         onChange(
             selectedDate,
             {

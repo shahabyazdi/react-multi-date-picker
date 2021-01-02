@@ -75,12 +75,6 @@ declare module "react-multi-date-picker" {
          */
         multiple?:boolean,
         /**
-         * This feature is only available in range and multiple mode.
-         * Disable it if you don't want to see dates panel.
-         * @default true
-         */
-        mustShowDates?:boolean,
-        /**
          * Calendar wrapper className
          */
         className?:string,

@@ -7,10 +7,7 @@ export default function DatePickerHeader({
     setState,
     position,
     size = "big",
-    isChildInTop,
-    isChildInBottom,
-    isChildInLeft,
-    isChildInRight,
+    nodes,
     calendar = state.calendar,
     local = state.local,
     ...props
@@ -33,19 +30,16 @@ export default function DatePickerHeader({
 
     let classNames = ["rmdp-header-plugin", position, size]
 
-    if (!isSingle) classNames.push("not-single")
+    if (nodes[position]) classNames.push("no-border-radius")
 
     if (["left", "right"].includes(position)) {
-        if (isChildInTop) classNames.push("no-border-radius-top-" + position)
-        if (isChildInBottom) classNames.push("no-border-radius-bottom-" + position)
-        if (isChildInLeft) classNames.push("no-border-radius-left")
-        if (isChildInRight) classNames.push("no-border-radius-right")
-    } else {
-        if (isChildInTop) classNames.push("no-border-radius-top")
-        if (isChildInBottom) classNames.push("no-border-radius-bottom")
+        if (nodes.top) classNames.push(`no-border-top-${position}-radius`)
+        if (nodes.bottom) classNames.push(`no-border-bottom-${position}-radius`)
     }
 
     delete props.registerListener
+    delete props.calendarProps
+    delete props.handleChange
 
     return (
         <div

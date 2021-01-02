@@ -6,7 +6,7 @@ export default function Settings({
     state,
     setState,
     position,
-    onSettingChanged,
+    setProps,
     calendars = ["gregorian", "persian", "arabic", "indian"],
     locals = ["en", "fa", "ar", "hi"],
     modes = ["single", "multiple", "range"],
@@ -24,11 +24,10 @@ export default function Settings({
         "only year picker": "OY"
     }
 
-    delete props.isChildInTop
-    delete props.isChildInBottom
-    delete props.isChildInLeft
-    delete props.isChildInRight
+    delete props.nodes
     delete props.registerListener
+    delete props.calendarProps
+    delete props.handleChange
 
     return (
         <div className={`settings ${position}`} {...props}>
@@ -167,8 +166,7 @@ export default function Settings({
                     ...state,
                     selectedDate: Array.isArray(state.selectedDate) ? state.selectedDate : [state.selectedDate],
                     multiple: true,
-                    range: false,
-                    mustShowDates: true
+                    range: false
                 }
                 break
             case "range":
@@ -176,8 +174,7 @@ export default function Settings({
                     ...state,
                     selectedDate: Array.isArray(state.selectedDate) ? state.selectedDate : [state.selectedDate],
                     multiple: false,
-                    range: true,
-                    mustShowDates: true
+                    range: true
                 }
 
                 if ($state.selectedDate.length > 2) {
@@ -193,8 +190,7 @@ export default function Settings({
                     ...state,
                     selectedDate: Array.isArray(state.selectedDate) ? getLastItem(state.selectedDate) : state.selectedDate,
                     multiple: false,
-                    range: false,
-                    mustShowDates: false
+                    range: false
                 }
         }
 
@@ -266,9 +262,14 @@ export default function Settings({
     }
 
     function notifyChange($state) {
-        setState($state)
-        $state.value = $state.selectedDate
-
-        if (onSettingChanged instanceof Function) onSettingChanged($state)
+        if (setProps instanceof Function) {
+            setProps(props => {
+                return {
+                    ...props,
+                    ...$state,
+                    value: $state.selectedDate
+                }
+            })
+        }
     }
 }

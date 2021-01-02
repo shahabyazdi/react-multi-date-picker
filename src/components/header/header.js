@@ -47,12 +47,6 @@ export default function Header({ state, setState, onChange, disableYearPicker, d
 
             date.month += value
 
-            // if (onlyMonthPicker) {
-            //     selectedDate = new DateObject(date)
-
-            //     if (onChange instanceof Function) onChange(selectedDate)
-            // }
-
             if (onlyMonthPicker) selectedDate = new DateObject(date)
 
         } else {
@@ -66,12 +60,6 @@ export default function Header({ state, setState, onChange, disableYearPicker, d
 
             date.year = year
         }
-
-        // setState({
-        //     ...state,
-        //     date,
-        //     selectedDate
-        // })
 
         onChange(
             onlyMonthPicker ? selectedDate : undefined,

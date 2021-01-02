@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } from "react"
 import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
-import { getAllDatesInRange } from "../days_panel/days_panel"
+import { getAllDatesInRange } from "../../../plugins/date_panel/date_panel"
 import { ReactComponent as Icon } from "./calendar.svg"
 import "./date_picker.css"
 
@@ -18,7 +18,6 @@ function DatePicker(
         onChange,
         range = false,
         multiple = false,
-        mustShowDates = true,
         name,
         id,
         title,
@@ -381,7 +380,6 @@ function DatePicker(
                         onlyTimePicker={onlyTimePicker}
                         onlyMonthPicker={onlyMonthPicker}
                         onlyYearPicker={onlyYearPicker}
-                        mustShowDates={mustShowDates}
                         className={className}
                         weekDays={weekDays}
                         months={months}
@@ -486,13 +484,7 @@ function DatePicker(
 
         ref.current = { ...ref.current, date }
 
-        if (onChange instanceof Function) {
-            if (!Array.isArray(date)) {
-                onChange(new DateObject(date))
-            } else {
-                onChange(date.map(d => new DateObject(d)))
-            }
-        }
+        if (onChange instanceof Function) onChange(date)
 
         if (date) {
             if (Array.isArray(date)) {

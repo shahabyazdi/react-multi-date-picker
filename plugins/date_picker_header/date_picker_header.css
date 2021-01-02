@@ -4,6 +4,22 @@
   color: white;
 }
 
+.rmdp-header-plugin div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rmdp-header-plugin .rmdp-hp-dd {
+  font-size: 50px;
+  font-weight: 500;
+}
+
+.rmdp-header-plugin.small.top .rmdp-hp-dd,
+.rmdp-header-plugin.small.bottom .rmdp-hp-dd {
+  font-size: 28px;
+}
+
 .rmdp-header-plugin.top {
   border-radius: 7px 7px 0 0;
 }
@@ -14,10 +30,6 @@
 
 .rmdp-header-plugin.left {
   border-radius: 7px 0 0 7px;
-}
-
-.rmdp-rtl .rmdp-header-plugin.left {
-  border-radius: 0 7px 0 0;
 }
 
 .rmdp-header-plugin.right {
@@ -54,30 +66,6 @@
   width: 110px;
 }
 
-.rmdp-header-plugin.not-single.top {
-  border-radius: 7px 0 0 0;
-}
-
-.rmdp-header-plugin.not-single.bottom {
-  border-radius: 0 0 0 7px;
-}
-
-.rmdp-header-plugin div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.rmdp-header-plugin .rmdp-hp-dd {
-  font-size: 50px;
-  font-weight: 500;
-}
-
-.rmdp-header-plugin.small.top .rmdp-hp-dd,
-.rmdp-header-plugin.small.bottom .rmdp-hp-dd {
-  font-size: 28px;
-}
-
 .green .rmdp-header-plugin {
   background-color: var(--rmdp-primary-green);
 }
@@ -98,27 +86,27 @@
   background-color: var(--rmdp-primary-yellow);
 }
 
-.rmdp-header-plugin.no-border-radius-top-left {
+.rmdp-mobile .rmdp-header-plugin {
+  border-radius: 0;
+}
+
+.rmdp-header-plugin.no-border-top-left-radius {
   border-top-left-radius: 0;
 }
 
-.rmdp-header-plugin.no-border-radius-bottom-left {
+.rmdp-header-plugin.no-border-bottom-left-radius {
   border-bottom-left-radius: 0;
 }
 
-.rmdp-header-plugin.no-border-radius-top-right {
+.rmdp-header-plugin.no-border-top-right-radius {
   border-top-right-radius: 0;
 }
 
-.rmdp-header-plugin.no-border-radius-bottom-right {
+.rmdp-header-plugin.no-border-bottom-right-radius {
   border-bottom-right-radius: 0;
 }
 
-.rmdp-mobile .rmdp-header-plugin,
-.rmdp-header-plugin.no-border-radius-top,
-.rmdp-header-plugin.no-border-radius-bottom,
-.rmdp-header-plugin.no-border-radius-left,
-.rmdp-header-plugin.no-border-radius-right {
+.rmdp-header-plugin.no-border-radius {
   border-radius: 0;
 }
 
@@ -177,17 +165,8 @@
     font-size: 18px;
   }
 
-  .rmdp-header-plugin.small.top .rmdp-hp-dddd,
-  .rmdp-header-plugin.small.bottom .rmdp-hp-dddd,
-  .rmdp-header-plugin.small.top .rmdp-hp-my,
-  .rmdp-header-plugin.small.bottom .rmdp-hp-my {
-    font-size: 12px;
-  }
-
-  .rmdp-header-plugin.small.left .rmdp-hp-dddd,
-  .rmdp-header-plugin.small.right .rmdp-hp-dddd,
-  .rmdp-header-plugin.small.left .rmdp-hp-my,
-  .rmdp-header-plugin.small.right .rmdp-hp-my {
+  .rmdp-header-plugin.small .rmdp-hp-dddd,
+  .rmdp-header-plugin.small .rmdp-hp-my {
     font-size: 12px;
   }
 }

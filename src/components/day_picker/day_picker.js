@@ -100,37 +100,22 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = t
         }
 
         if (state.multiple) {
-            let index,
-                dates = $state.selectedDate.filter(($date, i) => {
-                    let result = !isSameDate(date, $date)
+            let dates = $state.selectedDate.filter($date => !isSameDate(date, $date))
 
-                    if (!result) index = i
+            if (dates.length === $state.selectedDate.length) dates.push(new DateObject(date))
 
-                    return result
-                })
-
-            if (dates.length === $state.selectedDate.length) {
-                dates.push(date)
-            } else {
-                $state.focused = dates[index] || dates[index - 1]
-            }
-
-            dates.sort((a, b) => a - b)
             $state.selectedDate = dates
+            $state.focused = dates[dates.length - 1]
         } else if (state.range) {
             if ($state.selectedDate.length === 2 || $state.selectedDate.length === 0) {
-                $state.selectedDate = [date]
+                $state.selectedDate = [new DateObject(date)]
             } else if ($state.selectedDate.length === 1) {
-                $state.selectedDate.push(date)
+                $state.selectedDate.push(new DateObject(date))
                 $state.selectedDate.sort((a, b) => a - b)
             }
         } else {
             $state.selectedDate = new DateObject(date)
         }
-
-        // setState($state)
-
-        // if (onChange instanceof Function) onChange($state.selectedDate)
 
         onChange($state.selectedDate, $state)
     }
