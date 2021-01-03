@@ -1,8 +1,11 @@
 /src 
 /screenshot
-/plugins/all.js
+/plugins/date_panel
 /plugins/date_picker_header
+/plugins/mutli_colors
 /plugins/settings
+/plugins/weekends
+/plugins/all.js
 rollup.config.js
 .github
 .gitignore

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } 
 import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
 import { getAllDatesInRange } from "../../../plugins/date_panel/date_panel"
-import { ReactComponent as Icon } from "./calendar.svg"
+import { IconCalendarEvent } from '@tabler/icons';
 import "./date_picker.css"
 
 function DatePicker(
@@ -277,7 +277,7 @@ function DatePicker(
                 translateY += isInBottom ? 7.5 : -7.5
 
                 triangleY = isInBottom ? 1 : (-inputHeight - 13)
-                triangleX = ((inputWidth / 2) - 18) * (isRTL ? -1 : 1)
+                triangleX = (((inputWidth - 28) / 2)) * (isRTL ? -1 : 1)
 
                 triangle = calendarRef.current.querySelector(".rmdp-triangle")
 
@@ -568,11 +568,13 @@ function DatePicker(
                         id={id}
                         title={title}
                     >
-                        <Icon
+                        <IconCalendarEvent
                             onClick={openCalendar}
                             name={name || ""}
                             className={`rmdp-icon ${inputClass || ""}`}
                             style={style}
+                            size={30}
+                            stroke={1.5}
                         />
                     </div>
                 )
@@ -632,7 +634,7 @@ function DatePicker(
                             inputMode={inputMode || (isMobileMode() ? "none" : undefined)}
                         />
                         {type === "input-icon" &&
-                            <Icon
+                            <IconCalendarEvent
                                 className="rmdp-input-icon"
                                 style={{
                                     marginTop: `${((((inputRef.current?.clientHeight - 21) / 2) | 0) + 2) || 2}px`
@@ -644,6 +646,7 @@ function DatePicker(
                                         inputRef.current.focus()
                                     }
                                 }}
+                                stroke={1.5}
                             />
                         }
                     </div>

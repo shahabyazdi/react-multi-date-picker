@@ -356,7 +356,7 @@
   box-shadow: 0 0 3px var(--rmdp-shadow);
 }
 
-.rmdp-day:hover:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-red {
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-red:hover {
   background-color: var(--highlight-red-hover);
 }
 
@@ -378,7 +378,7 @@
   color: white;
 }
 
-.rmdp-day:hover:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-green {
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-green:hover {
   background-color: var(--highlight-green-hover);
 }
 
