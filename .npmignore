@@ -4,13 +4,8 @@
 /plugins/date_picker_header
 /plugins/mutli_colors
 /plugins/settings
-<<<<<<< HEAD
-/plugins/date_panel
-/plugins/multi_colors
-=======
 /plugins/weekends
 /plugins/all.js
->>>>>>> develop
 rollup.config.js
 .github
 .gitignore
