@@ -189,16 +189,6 @@ declare module "react-multi-date-picker" {
          */
         formattingIgnoreList?:string[],
         /**
-         * In range mode, only the start and end dates are displayed in the dates panel. 
-         * 
-         * Enable it to see the dates between start and end date in the dates panel. 
-         * 
-         * Keep in mind that activating this prop may cause slow rendering at big ranges of Dates
-         * 
-         * @default false
-         */
-        eachDaysInRange?:boolean,
-        /**
          * Calendar z-index
          * @default 100
          */
@@ -210,12 +200,11 @@ declare module "react-multi-date-picker" {
          *  - left
          *  - right
          * 
-         * @see http://shahabyazdi.github.io/react-multi-date-picker/plugins
          * @example
          * 
          * <DatePicker 
          *  plugins={[
-         *          plugin: <ImportedPlugin position="right" />
+         *      <ImportedPlugin position="right" />
          *  ]}
          * />
          */

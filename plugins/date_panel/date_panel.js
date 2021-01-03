@@ -90,7 +90,7 @@ export default function DatePanel({ state, setState, position, nodes, handleChan
                                         onClick={() => deSelect(object.index)}
                                     >
                                         +
-                                        </button>
+                                    </button>
                                 }
                             </li>
                         )

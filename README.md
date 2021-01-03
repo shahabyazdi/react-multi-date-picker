@@ -58,7 +58,7 @@ export default function Example() {
     <script>
       const { DatePicker, Calendar } = ReactMultiDatePicker;
 
-      const { Settings, DatePickerHeader } = ReactMultiDatePickerPlugins;
+      const { DatePickerHeader } = ReactMultiDatePickerPlugins;
 
       ReactDOM.render(
         React.createElement(Calendar),
@@ -72,10 +72,7 @@ export default function Example() {
 
       ReactDOM.render(
         React.createElement(DatePicker, {
-          plugins: [
-            { position: "left", plugin: React.createElement(DatePickerHeader) },
-            { position: "bottom", plugin: React.createElement(Settings) },
-          ],
+          plugins: [React.createElement(DatePickerHeader)],
         }),
         document.getElementById("datePickerWithPlugin")
       );
@@ -113,7 +110,6 @@ export default function Example() {
 | maxDate              |                              Date, DateObject, String or Number                               |           undefined            | both                                |
 | disableYearPicker    |                                            Boolean                                            |             false              | both                                |
 | disableMonthPicker   |                                            Boolean                                            |             false              | both                                |
-| eachDaysInRange      |                                            Boolean                                            |             false              | both                                |
 | zIndex               |                                            Number                                             |              100               | both                                |
 | plugins              |                                             Array                                             |               []               | both                                |
 | arrow                |                                            Boolean                                            |              true              | DatePicker                          |

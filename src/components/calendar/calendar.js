@@ -263,7 +263,7 @@ export default function Calendar({
 
         plugins.forEach((plugin, index) => {
             let nodes = {},
-                position = plugin.props.position
+                position = plugin.props.position || "right"
 
             if (!clonedPlugins[position] || plugin.props.disabled) return
 
@@ -298,6 +298,7 @@ export default function Calendar({
     }
 
     function handleChange(selectedDate, state) {
+        //This one must be done before setState
         if ((selectedDate || selectedDate === null) && listeners.change) listeners.change.forEach(callback => callback(selectedDate))
         if (state) setState(state)
         if ((selectedDate || selectedDate === null) && onChange instanceof Function) onChange(selectedDate)
@@ -307,10 +308,12 @@ export default function Calendar({
         return Array.from(
             new Set(
                 plugins.map(plugin => {
+                    let position = plugin.props.position || "right"
+
                     if (
-                        positions.includes(plugin.props.position) &&
+                        positions.includes(position) &&
                         !plugin.props.disabled
-                    ) return "rmdp-border-" + plugin.props.position
+                    ) return "rmdp-border-" + position
 
                     return ""
                 })

@@ -57,7 +57,7 @@
 
 /* highlight-blue */
 
-.rmdp-day:hover:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-blue {
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-blue:hover {
   background-color: var(--highlight-blue-hover);
 }
 
@@ -81,7 +81,7 @@
 
 /* highlight-yellow */
 
-.rmdp-day:hover:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-yellow {
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-yellow:hover {
   background-color: var(--highlight-yellow-hover);
 }
 

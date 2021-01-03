@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
+import DateObject from "react-date-object"
 import "./multi_colors.css"
 
 export default function MultiColors({
@@ -6,11 +7,12 @@ export default function MultiColors({
     setProps,
     position,
     colors = ["blue", "red", "green", "yellow"],
+    defaultColor = colors[0],
     nodes,
     calendarProps,
     registerListener
 }) {
-    let [activeColor, setActiveColor] = useState(calendarProps.activeColor || "blue"),
+    let [activeColor, setActiveColor] = useState(calendarProps.activeColor || defaultColor),
         classNames = ["rmdp-colors", position]
 
     let ref = useRef({})
@@ -22,7 +24,7 @@ export default function MultiColors({
 
             for (let i = 0; i < state.selectedDate.length; i++) {
                 let date = state.selectedDate[i],
-                    value = date.valueOf(),
+                    value = new DateObject(date).setLocal("en").format("YYYYMMDD"),
                     color = date.color || activeColor
 
                 if (!date.color) state.selectedDate[i].color = color
@@ -39,29 +41,17 @@ export default function MultiColors({
             ref.current.colors = colors
         }
 
-        setProps(props => {
+        if (setProps instanceof Function) setProps(props => {
             return {
                 ...props,
-                mapDays: getMapDays(state, ref, activeColor),
+                mapDays: getMapDays(state.selectedDate, state.range, ref, activeColor),
                 value: state.selectedDate,
                 activeColor
             }
         })
-    }, [state.selectedDate, activeColor, setProps])
+    }, [state.selectedDate, state.range, activeColor, setProps])
 
     registerListener("change", handleChange)
-
-    function handleChange(selectedDate) {
-        if (!Array.isArray(selectedDate)) {
-            if (selectedDate) selectedDate.color = activeColor
-        } else {
-            for (let i = 0; i < selectedDate.length; i++) {
-                if (!selectedDate[i].color) {
-                    selectedDate[i].color = activeColor
-                }
-            }
-        }
-    }
 
     if (["left", "right"].includes(position)) {
         if (nodes.left) classNames.push("rmdp-border-left")
@@ -78,43 +68,57 @@ export default function MultiColors({
                     <div
                         key={index}
                         className={`rmdp-color rmdp-${color} ${activeColor === color ? "active" : ""}`}
-                        onClick={() => {
-                            setActiveColor(color)
-
-                            let { selectedDate } = state
-
-                            if (selectedDate && !Array.isArray(selectedDate)) selectedDate.color = color
-
-                            setProps(props => {
-                                return {
-                                    ...props,
-                                    activeColor: color,
-                                    value: selectedDate,
-                                    mapDays: getMapDays(state, ref, color)
-                                }
-                            })
-                        }}
+                        onClick={() => handleClick(color)}
                     ></div>
                 )
             })}
         </div>
     )
+
+    function handleChange(selectedDate) {
+        if (!Array.isArray(selectedDate)) {
+            if (selectedDate) selectedDate.color = activeColor
+        } else {
+            for (let i = 0; i < selectedDate.length; i++) {
+                if (!selectedDate[i].color) {
+                    selectedDate[i].color = activeColor
+                }
+            }
+        }
+    }
+
+    function handleClick(color) {
+        setActiveColor(color)
+
+        let { selectedDate, range } = state
+
+        if (selectedDate && !Array.isArray(selectedDate)) selectedDate.color = color
+
+        if (setProps instanceof Function) setProps(props => {
+            return {
+                ...props,
+                activeColor: color,
+                value: selectedDate,
+                mapDays: getMapDays(selectedDate, range, ref, color)
+            }
+        })
+    }
 }
 
-function getMapDays(state, ref, activeColor) {
+function getMapDays(selectedDate, range, ref, activeColor) {
     return function mapDays({ date }) {
         let color, className
 
-        if (state.range) return
+        if (range) return
 
-        if (state.selectedDate && !Array.isArray(state.selectedDate) && date.format() === state.selectedDate.format()) {
+        if (selectedDate && !Array.isArray(selectedDate) && date.format() === selectedDate.format()) {
             //single mode
             color = activeColor
         }
 
-        if (Array.isArray(state.selectedDate)) {
+        if (Array.isArray(selectedDate)) {
             //not single mode
-            let value = date.valueOf()
+            let value = new DateObject(date).setLocal("en").format("YYYYMMDD")
 
             if (ref.current.stringValues.includes(value)) color = ref.current.colors[value]
         }

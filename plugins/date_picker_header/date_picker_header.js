@@ -4,7 +4,6 @@ import "./date_picker_header.css"
 
 export default function DatePickerHeader({
     state,
-    setState,
     position,
     size = "big",
     nodes,
@@ -12,31 +11,29 @@ export default function DatePickerHeader({
     local = state.local,
     ...props
 }) {
-    let selectedDate, isSingle
+    let selectedDate
 
     if (state.selectedDate && !state.multiple && !state.range && !Array.isArray(state.selectedDate)) {
         //single mode
         selectedDate = state.selectedDate
-        isSingle = true
     } else if (Array.isArray(state.selectedDate)) {
         selectedDate = state.focused || getLastItem(state.selectedDate)
-        isSingle = false
     } else if (!selectedDate) {
         selectedDate = new DateObject()
-        isSingle = false
     }
 
     selectedDate = new DateObject(selectedDate).set({ calendar, local })
 
     let classNames = ["rmdp-header-plugin", position, size]
 
-    if (nodes[position]) classNames.push("no-border-radius")
-
-    if (["left", "right"].includes(position)) {
+    if (nodes[position]) {
+        classNames.push("no-border-radius")
+    } else if (["left", "right"].includes(position)) {
         if (nodes.top) classNames.push(`no-border-top-${position}-radius`)
         if (nodes.bottom) classNames.push(`no-border-bottom-${position}-radius`)
     }
 
+    delete props.setState
     delete props.registerListener
     delete props.calendarProps
     delete props.handleChange
