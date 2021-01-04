@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react/cjs/react.development"
 
 export default function Weekends({ state, setMapDays, weekends }) {
   const ref = useRef({})

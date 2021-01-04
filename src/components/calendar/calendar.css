@@ -4,6 +4,7 @@
   --rmdp-shadow: #8798ad;
   --rmdp-today: #7fdbff;
   --rmdp-hover: #7ea6f0;
+  --rmdp-border: #cfd8e2;
   --highlight-red-color: #cc0303;
   --highlight-red-color-deactive: #e08e8e;
   --highlight-red-selected: #ea0034;
@@ -19,9 +20,7 @@
 .rmdp-wrapper {
   visibility: hidden;
   width: max-content;
-  border: 1px solid var(--rmdp-shadow);
   box-shadow: 0 0 5px var(--rmdp-shadow);
-  border-radius: 7px;
   text-align: center;
   background-color: white;
 }
@@ -31,19 +30,19 @@
 }
 
 .rmdp-border-top {
-  border-top: 1px solid var(--rmdp-shadow);
+  border-top: 1px solid var(--rmdp-border);
 }
 
 .rmdp-border-bottom {
-  border-bottom: 1px solid var(--rmdp-shadow);
+  border-bottom: 1px solid var(--rmdp-border);
 }
 
 .rmdp-border-left {
-  border-left: 1px solid var(--rmdp-shadow);
+  border-left: 1px solid var(--rmdp-border);
 }
 
 .rmdp-border-right {
-  border-right: 1px solid var(--rmdp-shadow);
+  border-right: 1px solid var(--rmdp-border);
 }
 
 .rmdp-week,
@@ -146,7 +145,8 @@
 }
 
 .rmdp-header {
-  border-bottom: 1px solid var(--rmdp-shadow);
+  margin-top: 8px;
+  font-size: 14px;
   height: 38px;
   line-height: 37px;
 }
@@ -250,7 +250,7 @@
 .rmdp-time-picker {
   display: flex;
   padding: 3px 0;
-  border-top: 1px solid var(--rmdp-shadow);
+  margin-bottom: 3px;
 }
 
 .rmdp-time-picker.active {
@@ -290,15 +290,15 @@
 }
 
 .rmdp-time-picker div .rmdp-am {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 21px;
   color: black;
   margin-top: 2px;
 }
 
 .rmdp-only-time-picker {
-  border-top: unset;
   width: 220px;
+  margin-bottom: 0;
 }
 
 .rmdp-rtl {
@@ -420,7 +420,12 @@
 
   .rmdp-header {
     height: 32px;
+    font-size: 12px;
     line-height: 32px;
+  }
+
+  .rmdp-time-picker div input {
+    font-size: 12px;
   }
 }
 

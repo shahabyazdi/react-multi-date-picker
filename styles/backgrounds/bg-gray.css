@@ -17,11 +17,6 @@
   color: #e3e5e9;
 }
 
-.bg-gray .rmdp-header,
-.bg-gray .rmdp-panel-header {
-  border-bottom: 1px solid #6b6969;
-}
-
 .bg-gray .rmdp-time-picker div input {
   background-color: rgb(177, 171, 171);
   color: white;

@@ -2,6 +2,10 @@
 
 ![DatePicker](/screenshot/screenshot.jpg?raw=true)
 
+# Layouts
+
+![Layouts](/screenshot/layouts.jpg?raw=true)
+
 # Plugins
 
 ![Plugins](/screenshot/plugins.jpg?raw=true)
@@ -11,6 +15,10 @@
 ```code
 npm install --save react-multi-date-picker
 ```
+
+## Demo
+
+[https://shahabyazdi.github.io/react-multi-date-picker](https://shahabyazdi.github.io/react-multi-date-picker/)
 
 ## Usage
 
@@ -80,10 +88,6 @@ export default function Example() {
   </body>
 </html>
 ```
-
-## Demo
-
-[https://shahabyazdi.github.io/react-multi-date-picker](https://shahabyazdi.github.io/react-multi-date-picker/)
 
 ## Availble props
 

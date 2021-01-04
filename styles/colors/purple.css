@@ -30,11 +30,6 @@
   box-shadow: 0 0 3px var(--rmdp-shadow-purple);
 }
 
-.purple .rmdp-header,
-.purple .rmdp-panel-header {
-  border-bottom: 1px solid var(--rmdp-secondary-purple);
-}
-
 .purple .rmdp-arrow {
   border: solid var(--rmdp-primary-purple);
   border-width: 0 2px 2px 0;
@@ -43,14 +38,6 @@
 .purple .rmdp-arrow-container:hover {
   background-color: var(--rmdp-primary-purple);
   box-shadow: 0 0 3px var(--rmdp-secondary-purple);
-}
-
-.purple .rmdp-time-picker {
-  border-top: 1px solid var(--rmdp-secondary-purple);
-}
-
-.purple .rmdp-only-time-picker {
-  border-top: unset;
 }
 
 .purple .rmdp-panel-body::-webkit-scrollbar-thumb {

@@ -30,11 +30,6 @@
   box-shadow: 0 0 3px var(--rmdp-shadow-green);
 }
 
-.green .rmdp-header,
-.green .rmdp-panel-header {
-  border-bottom: 1px solid var(--rmdp-secondary-green);
-}
-
 .green .rmdp-arrow {
   border: solid var(--rmdp-primary-green);
   border-width: 0 2px 2px 0;
@@ -43,14 +38,6 @@
 .green .rmdp-arrow-container:hover {
   background-color: var(--rmdp-primary-green);
   box-shadow: 0 0 3px var(--rmdp-secondary-green);
-}
-
-.green .rmdp-time-picker {
-  border-top: 1px solid var(--rmdp-secondary-green);
-}
-
-.green .rmdp-only-time-picker {
-  border-top: unset;
 }
 
 .green .rmdp-panel-body::-webkit-scrollbar-thumb {

@@ -18,17 +18,15 @@
 
 .rmdp-input {
   margin: 1px 0;
-  border-radius: 5px;
   border: 1px #eaeeff solid;
   padding: 2px 5px;
-  background-color: #f9faff;
-  height: 20px;
+  height: 22px;
 }
 
 .rmdp-input:focus {
   outline: none !important;
-  border: 1px solid #8798ad;
-  box-shadow: 0 0 2px #8798ad;
+  border: 1px solid #a4b3c5;
+  box-shadow: 0 0 2px #a4b3c5;
 }
 
 .rmdp-button {
@@ -39,7 +37,6 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -85,7 +82,7 @@
   height: 10px;
   position: absolute;
   overflow: hidden;
-  box-shadow: 0 0 10px -17px rgba(0, 0, 0);
+  box-shadow: 0 0 10px -17px #8798ad;
   visibility: hidden;
 }
 
@@ -104,12 +101,12 @@
 }
 
 .rmdp-triangle-up::after {
-  box-shadow: -1px -1px 5px #8798ad;
-  top: 4px;
+  box-shadow: -1px -1px 3px #becadb;
+  top: 3px;
 }
 
 .rmdp-triangle-down::after {
-  box-shadow: 1px 1px 5px #8798ad;
+  box-shadow: 1px 1px 3px #becadb;
   top: -6px;
 }
 

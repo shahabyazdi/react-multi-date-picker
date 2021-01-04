@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react"
 import DateObject from "react-date-object"
 import WeekDays from "../week_days/week_days"
 
-export default function DayPicker({ state, setState, onChange, showOtherDays = true, mapDays, onlyShowInRangeDates }) {
+export default function DayPicker({ state, setState, onChange, showOtherDays = false, mapDays, onlyShowInRangeDates }) {
     const [weeks, setWeeks] = useState([]),
         ref = useRef(false),
         today = useMemo(() => new DateObject({ calendar: state.date.calendar }), [state.date.calendar]),
