@@ -2,7 +2,19 @@ import React from "react"
 import DateObject from "react-date-object"
 import "./date_panel.css"
 
-export default function DatePanel({ state, setState, position, nodes, handleChange, calendarProps, eachDaysInRange, sort }) {
+export default function DatePanel({
+    state,
+    setState,
+    position,
+    nodes,
+    handleChange,
+    calendarProps,
+    eachDaysInRange,
+    sort,
+    style = {},
+    className = "",
+    ...props
+}) {
     let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
         dates = [],
         { multiple, range, inRangeDates, selectedDate, date: { local } } = state,
@@ -60,13 +72,17 @@ export default function DatePanel({ state, setState, position, nodes, handleChan
         if (nodes.bottom) classNames.push("rmdp-border-bottom")
     }
 
+    delete props.registerListener
+
     return (
         <div
-            className={classNames.join(" ")}
+            className={`${classNames.join(" ")} ${className}`}
             style={{
                 display: "grid",
-                gridTemplateRows: "auto 1fr"
+                gridTemplateRows: "auto 1fr",
+                ...style
             }}
+            {...props}
         >
             <div className="rmdp-panel-header">{header[local]}</div>
             <div style={{ position: "relative", overflow: "auto", height: ["top", "bottom"].includes(position) ? "100px" : "" }}>

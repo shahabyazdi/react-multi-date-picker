@@ -271,7 +271,7 @@ export default function Calendar({
                 if (plugins[i].props.disabled) continue
                 if (Object.keys(nodes).length === 4) break
 
-                let pluginPosition = plugins[i].props.position
+                let pluginPosition = plugins[i].props.position || "right"
 
                 if (["top", "bottom"].includes(position)) {
                     if (pluginPosition === position && i > index) nodes.bottom = true

@@ -10,7 +10,9 @@ export default function MultiColors({
     defaultColor = colors[0],
     nodes,
     calendarProps,
-    registerListener
+    registerListener,
+    className = "",
+    ...props
 }) {
     let [activeColor, setActiveColor] = useState(calendarProps.activeColor || defaultColor),
         classNames = ["rmdp-colors", position]
@@ -61,8 +63,11 @@ export default function MultiColors({
         if (nodes.bottom) classNames.push("rmdp-border-bottom")
     }
 
+    delete props.setState
+    delete props.handleChange
+
     return (
-        <div className={classNames.join(" ")}>
+        <div className={`${classNames.join(" ")} ${className}`} {...props}>
             {colors.map((color, index) => {
                 return (
                     <div

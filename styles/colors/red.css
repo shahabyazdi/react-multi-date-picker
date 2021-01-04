@@ -30,11 +30,6 @@
   box-shadow: 0 0 3px var(--rmdp-shadow-red);
 }
 
-.red .rmdp-header,
-.red .rmdp-panel-header {
-  border-bottom: 1px solid var(--rmdp-secondary-red);
-}
-
 .red .rmdp-arrow {
   border: solid var(--rmdp-primary-red);
   border-width: 0 2px 2px 0;
@@ -43,14 +38,6 @@
 .red .rmdp-arrow-container:hover {
   background-color: var(--rmdp-primary-red);
   box-shadow: 0 0 3px var(--rmdp-secondary-red);
-}
-
-.red .rmdp-time-picker {
-  border-top: 1px solid var(--rmdp-secondary-red);
-}
-
-.red .rmdp-only-time-picker {
-  border-top: unset;
 }
 
 .red .rmdp-panel-body::-webkit-scrollbar-thumb {
@@ -68,7 +55,7 @@
 
 .red .rmdp-day.rmdp-selected span:not(.highlight) {
   background-color: var(--rmdp-primary-red);
-  box-shadow: 0 0 3px var(--rmdp-secondary-red);
+  box-shadow: 0 0 3px var(--rmdp-shadow-red);
 }
 
 .red .rmdp-day:not(.rmdp-day-hidden) span:hover {

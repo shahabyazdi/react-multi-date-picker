@@ -1,10 +1,6 @@
 /src 
 /screenshot
-/plugins/date_panel
-/plugins/date_picker_header
-/plugins/mutli_colors
-/plugins/settings
-/plugins/weekends
+/plugins/all
 /plugins/all.js
 rollup.config.js
 .github

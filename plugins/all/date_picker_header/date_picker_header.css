@@ -20,19 +20,19 @@
   font-size: 28px;
 }
 
-.rmdp-header-plugin.top {
+.rmdp-prime .rmdp-header-plugin.top {
   border-radius: 7px 7px 0 0;
 }
 
-.rmdp-header-plugin.bottom {
+.rmdp-prime .rmdp-header-plugin.bottom {
   border-radius: 0 0 7px 7px;
 }
 
-.rmdp-header-plugin.left {
+.rmdp-prime .rmdp-header-plugin.left {
   border-radius: 7px 0 0 7px;
 }
 
-.rmdp-header-plugin.right {
+.rmdp-prime .rmdp-header-plugin.right {
   border-radius: 0 7px 7px 0;
 }
 
@@ -90,23 +90,23 @@
   border-radius: 0;
 }
 
-.rmdp-header-plugin.no-border-top-left-radius {
+.rmdp-prime .rmdp-header-plugin.no-border-top-left-radius {
   border-top-left-radius: 0;
 }
 
-.rmdp-header-plugin.no-border-bottom-left-radius {
+.rmdp-prime .rmdp-header-plugin.no-border-bottom-left-radius {
   border-bottom-left-radius: 0;
 }
 
-.rmdp-header-plugin.no-border-top-right-radius {
+.rmdp-prime .rmdp-header-plugin.no-border-top-right-radius {
   border-top-right-radius: 0;
 }
 
-.rmdp-header-plugin.no-border-bottom-right-radius {
+.rmdp-prime .rmdp-header-plugin.no-border-bottom-right-radius {
   border-bottom-right-radius: 0;
 }
 
-.rmdp-header-plugin.no-border-radius {
+.rmdp-prime .rmdp-header-plugin.no-border-radius {
   border-radius: 0;
 }
 

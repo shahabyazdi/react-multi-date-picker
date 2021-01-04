@@ -15,19 +15,18 @@
 }
 
 .rmdp-mobile.rmdp-wrapper {
-  border-radius: unset;
   box-shadow: unset;
+  border: 1px solid var(--rmdp-border);
 }
 
 .rmdp-mobile .rmdp-header,
 .rmdp-mobile .rmdp-panel-header {
   height: 30px;
+  font-size: 16px;
   padding-bottom: 15px;
-  border-bottom: unset;
 }
 
 .rmdp-mobile .rmdp-time-picker {
-  border-top: unset;
   margin-bottom: 15px;
 }
 
@@ -202,7 +201,6 @@
   }
 
   .rmdp-mobile .rmdp-panel-header {
-    font-size: 16px;
     padding-bottom: 20px;
   }
 
@@ -227,6 +225,11 @@
 
   .rmdp-mobile .rmdp-panel-header {
     margin-top: 15px;
+  }
+
+  .rmdp-mobile .rmdp-header,
+  .rmdp-mobile .rmdp-panel-header {
+    font-size: 14px;
   }
 
   .rmdp-mobile .rmdp-day-picker {

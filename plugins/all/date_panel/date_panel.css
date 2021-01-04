@@ -1,5 +1,5 @@
 .rmpd-panel {
-  min-width: 120px;
+  min-width: 125px;
 }
 
 .rmdp-panel-body {
@@ -14,13 +14,12 @@
 }
 
 .rmdp-panel-body li {
-  border-radius: 5px;
   box-shadow: 0 0 2px var(--rmdp-shadow);
   background-color: var(--rmdp-primary);
   color: white;
   display: flex;
   position: relative;
-  margin-bottom: 4px;
+  margin: 4px 1px;
 }
 
 .rmdp-panel-body li.bg-blue {
@@ -65,12 +64,9 @@
 }
 
 .rmdp-panel-header {
-  border-bottom: 1px solid var(--rmdp-shadow);
+  margin-top: 8px;
   height: 38px;
   line-height: 37px;
-}
-
-.rmdp-panel-header {
   font-size: 14px;
   color: black;
   margin-bottom: 5px;
@@ -100,9 +96,18 @@
   left: 5px;
 }
 
+.rmdp-flat .rmdp-panel-header {
+  border-bottom: none;
+  margin-top: 8px;
+}
+
+.rmdp-flat .rmdp-panel-body li {
+  border-radius: 0;
+}
+
 @media (max-width: 400px), (max-height: 400px) {
   .rmpd-panel {
-    min-width: 93px;
+    min-width: 103px;
   }
 
   .rmdp-panel-body {
@@ -111,9 +116,11 @@
 
   .rmdp-panel-body li {
     font-size: 12px;
+    margin: 4px;
   }
 
   .rmdp-panel-header {
+    font-size: 12px;
     height: 32px;
     line-height: 32px;
   }

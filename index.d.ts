@@ -315,7 +315,15 @@ declare module "react-multi-date-picker" {
          * that are not in range of min and max dates in calendar.
          * @default true
          */
-        onlyShowInRangeDates?:boolean
+        onlyShowInRangeDates?:boolean,
+        /**
+         * Return `false` in case you don't want to open Calendar
+         */
+        onOpen?():void | boolean,
+        /**
+         * Return `false` in case you don't want to close Calendar
+         */
+        onClose?():void | boolean,
     }
 
     export { DateObject }

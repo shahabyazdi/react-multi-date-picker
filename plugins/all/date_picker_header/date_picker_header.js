@@ -9,6 +9,7 @@ export default function DatePickerHeader({
     nodes,
     calendar = state.calendar,
     local = state.local,
+    className = "",
     ...props
 }) {
     let selectedDate
@@ -40,7 +41,7 @@ export default function DatePickerHeader({
 
     return (
         <div
-            className={classNames.join(" ")}
+            className={`${classNames.join(" ")} ${className}`}
             {...props}
         >
             <div className="rmdp-hp-dddd">{selectedDate.format("dddd")}</div>

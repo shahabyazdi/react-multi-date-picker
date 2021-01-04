@@ -1,0 +1,36 @@
+.rmdp-prime.rmdp-wrapper {
+  border-radius: 7px;
+  border: 1px solid var(--rmdp-shadow);
+  margin-top: -1px;
+}
+
+.rmdp-prime .rmdp-header,
+.rmdp-prime .rmdp-panel-header {
+  border-bottom: 1px solid var(--rmdp-shadow);
+  margin-top: 0 !important;
+}
+
+.rmdp-prime .rmdp-time-picker {
+  border-top: 1px solid var(--rmdp-shadow);
+  margin-bottom: 0 !important;
+}
+
+.rmdp-prime .rmdp-panel-body li {
+  border-radius: 5px;
+}
+
+.rmdp-prime .rmdp-border-top {
+  border-top: 1px solid var(--rmdp-shadow) !important;
+}
+
+.rmdp-prime .rmdp-border-bottom {
+  border-bottom: 1px solid var(--rmdp-shadow) !important;
+}
+
+.rmdp-prime .rmdp-border-left {
+  border-left: 1px solid var(--rmdp-shadow) !important;
+}
+
+.rmdp-prime .rmdp-border-right {
+  border-right: 1px solid var(--rmdp-shadow) !important;
+}
