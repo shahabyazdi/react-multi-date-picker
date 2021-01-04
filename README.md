@@ -109,7 +109,7 @@ export default function Example() {
 | className            |                                            String                                             |               ""               | both                                |
 | weekDays             |                                             Array                                             |           undefined            | both                                |
 | months               |                                             Array                                             |           undefined            | both                                |
-| showOtherDays        |                                            Boolean                                            |              true              | both                                |
+| showOtherDays        |                                            Boolean                                            |             false              | both                                |
 | minDate              |                              Date, DateObject, String or Number                               |           undefined            | both                                |
 | maxDate              |                              Date, DateObject, String or Number                               |           undefined            | both                                |
 | disableYearPicker    |                                            Boolean                                            |             false              | both                                |
@@ -135,6 +135,8 @@ export default function Example() {
 | containerClassName   |                                            String                                             |           undefined            | DatePicker                          |
 | editable             |                                            Boolean                                            |              true              | DatePicker                          |
 | onlyShowInRangeDates |                                            Boolean                                            |              true              | DatePicker                          |
+| onOpen               |                                           Function                                            |           undefined            | DatePicker                          |
+| onClose              |                                           Function                                            |           undefined            | DatePicker                          |
 
 ## Calendars and Locals
 

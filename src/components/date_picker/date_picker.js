@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } from "react"
 import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
-import { getAllDatesInRange } from "../../../plugins/date_panel/date_panel"
+import { getAllDatesInRange } from "../../../plugins/all/date_panel/date_panel"
 import { IconCalendarEvent } from '@tabler/icons';
 import "./date_picker.css"
 
@@ -47,6 +47,8 @@ function DatePicker(
         onlyShowInRangeDates = true,
         arrow = true,
         zIndex = 100,
+        onOpen,
+        onClose,
         ...otherProps
     },
     outerRef
@@ -61,11 +63,14 @@ function DatePicker(
         ref = useRef({}),
         separator = useMemo(() => range ? " ~ " : ", ", [range]),
         closeCalendar = useCallback(() => {
+            let shouldCloseCalendar = onClose instanceof Function ? onClose() : true
+
+            if (shouldCloseCalendar === false) return
             if (calendarRef.current) calendarRef.current.classList.remove("active")
 
             setIsVisible(false)
             setIsCalendarReady(false)
-        }, [])
+        }, [onClose])
 
     if (isMobileMode() && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
     if (!isMobileMode() && ref.current.mobile) ref.current = { ...ref.current, mobile: false }
@@ -447,8 +452,12 @@ function DatePicker(
     function openCalendar() {
         if (disabled) return
 
-        let isMobile = isMobileMode()
-        let isInput = inputRef.current.tagName === "INPUT" || inputRef.current.querySelector("input")
+        let shouldOpenCalendar = onOpen instanceof Function ? onOpen() : true
+
+        if (shouldOpenCalendar === false) return
+
+        let isMobile = isMobileMode(),
+            isInput = inputRef.current.tagName === "INPUT" || inputRef.current.querySelector("input")
 
         if (!value && !ref.current.date && !range && !multiple) {
             let date = new DateObject({ calendar, local, format })

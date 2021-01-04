@@ -14,6 +14,7 @@ export default function Settings({
   defaultActive = "",
   disabledList = [],
   defaultFormat = {},
+  className = "",
   ...props
 }) {
   const [section, setSection] = useState(defaultActive)
@@ -30,7 +31,7 @@ export default function Settings({
   delete props.handleChange
 
   return (
-    <div className={`settings ${position}`} {...props}>
+    <div className={`settings ${position} ${className}`} {...props}>
       {!disabledList.includes("calendar") &&
         <div title="Calendar" className={`setting ${section === "calendar" ? "active" : ""}`}>
           <IconCalendarEvent
