@@ -26,7 +26,7 @@ export default function MultiColors({
 
             for (let i = 0; i < state.selectedDate.length; i++) {
                 let date = state.selectedDate[i],
-                    value = new DateObject(date).setLocal("en").format("YYYYMMDD"),
+                    value = new DateObject(date).setLocale("en").format("YYYYMMDD"),
                     color = date.color || activeColor
 
                 if (!date.color) state.selectedDate[i].color = color
@@ -123,7 +123,7 @@ function getMapDays(selectedDate, range, ref, activeColor) {
 
         if (Array.isArray(selectedDate)) {
             //not single mode
-            let value = new DateObject(date).setLocal("en").format("YYYYMMDD")
+            let value = new DateObject(date).setLocale("en").format("YYYYMMDD")
 
             if (ref.current.stringValues.includes(value)) color = ref.current.colors[value]
         }

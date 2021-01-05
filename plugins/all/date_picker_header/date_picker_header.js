@@ -8,7 +8,7 @@ export default function DatePickerHeader({
     size = "big",
     nodes,
     calendar = state.calendar,
-    local = state.local,
+    locale = state.locale,
     className = "",
     ...props
 }) {
@@ -23,7 +23,7 @@ export default function DatePickerHeader({
         selectedDate = new DateObject()
     }
 
-    selectedDate = new DateObject(selectedDate).set({ calendar, local })
+    selectedDate = new DateObject(selectedDate).set({ calendar, locale })
 
     let classNames = ["rmdp-header-plugin", position, size]
 

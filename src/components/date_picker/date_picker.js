@@ -9,7 +9,7 @@ function DatePicker(
     {
         value,
         calendar = "gregorian",
-        local = "en",
+        locale = "en",
         format,
         timePicker,
         onlyTimePicker,
@@ -100,29 +100,6 @@ function DatePicker(
 
         document.addEventListener("click", handleClickOutside, false)
 
-        function isRTL() {
-            let div = document.createElement("div"),
-                a = document.createElement("div"),
-                b = document.createElement("div"),
-                isRTL
-
-            a.style.width = "10px"
-            b.style.width = "5px"
-
-            div.appendChild(a)
-            div.appendChild(b)
-
-            datePickerRef.current.appendChild(div)
-
-            isRTL = a.getBoundingClientRect().left - b.getBoundingClientRect().left !== 0
-
-            datePickerRef.current.removeChild(div)
-
-            return isRTL
-        }
-
-        ref.current.isRTL = isRTL()
-
         return () => document.removeEventListener("click", handleClickOutside, false)
     }, [closeCalendar, outerRef])
 
@@ -132,10 +109,10 @@ function DatePicker(
 
         function checkDate(date) {
             if (!date) return
-            if (!(date instanceof DateObject)) date = new DateObject({ date, calendar, local, format })
+            if (!(date instanceof DateObject)) date = new DateObject({ date, calendar, locale, format })
 
             if (date.calendar !== calendar) date.setCalendar(calendar)
-            if (date.local !== local) date.setLocal(local)
+            if (date.locale !== locale) date.setLocale(locale)
             if (date.format !== format) date.setFormat(format)
             if (isValidMonths(months)) date.months = months
             if (isValidWeekDays(weekDays)) date.weekDays = weekDays
@@ -171,7 +148,7 @@ function DatePicker(
     }, [
         value,
         calendar,
-        local,
+        locale,
         format,
         range,
         multiple,
@@ -193,7 +170,8 @@ function DatePicker(
     }, [stringDate, type])
 
     useEffect(() => {
-        const calendar = calendarRef.current
+        const calendar = calendarRef.current,
+            datePicker = datePickerRef.current
 
         if (!isCalendarReady || !calendar) return
         if (ref.current.mobile) return calendar.classList.add("active")
@@ -225,15 +203,19 @@ function DatePicker(
                 distance = inputWidth - calendarWidth,
                 halfDistance = distance / 2,
                 getTransform = (x, y) => `translateX(${x}px) translateY(${y}px)`,
-                left = datePickerRef.current.offsetLeft,
+                left = datePicker.offsetLeft,
                 mustAddAnimation = animation && !e && !resize,
-                isRTL = ref.current.isRTL,
                 [positionY, positionX] = calendarPosition === "auto" ?
                     [] :
                     calendarPosition.split("-"),
                 triangle,
                 triangleX,
-                triangleY
+                triangleY,
+                isRTL,
+                a = datePicker.childNodes[2],
+                b = datePicker.childNodes[3]
+
+            if (a && b) isRTL = a.getBoundingClientRect().left - b.getBoundingClientRect().left !== 0
 
             if (e) {
                 top -= clientHeight - e.target.clientHeight
@@ -379,7 +361,7 @@ function DatePicker(
                         range={range}
                         multiple={multiple}
                         calendar={calendar}
-                        local={local}
+                        locale={locale}
                         format={format}
                         timePicker={timePicker}
                         onlyTimePicker={onlyTimePicker}
@@ -399,7 +381,7 @@ function DatePicker(
                     >
                         {children}
                         {isMobileMode() &&
-                            <div className={`rmdp-action-buttons ${["fa", "ar"].includes(local) ? "rmdp-rtl" : ""}`} >
+                            <div className={`rmdp-action-buttons ${["fa", "ar"].includes(locale) ? "rmdp-rtl" : ""}`} >
                                 <button
                                     type="button"
                                     className="rmdp-button rmdp-action-button"
@@ -412,7 +394,7 @@ function DatePicker(
                                         closeCalendar()
                                     }}
                                 >
-                                    {toLocal("OK")}
+                                    {toLocale("OK")}
                                 </button>
                                 <button
                                     type="button"
@@ -422,13 +404,15 @@ function DatePicker(
                                         delete ref.current.temporaryDate
                                     }}
                                 >
-                                    {toLocal("CANCEL")}
+                                    {toLocale("CANCEL")}
                                 </button>
                             </div>
                         }
                     </Calendar>
                 </div>
             )}
+            <div style={{ width: "10px", visibility: "hidden" }}></div>
+            <div style={{ width: "5px", visibility: "hidden" }}></div>
         </div>
     )
 
@@ -436,15 +420,15 @@ function DatePicker(
         return typeof className === "string" && className.includes("rmdp-mobile")
     }
 
-    function toLocal(string) {
+    function toLocale(string) {
         let actions = {
-            [DateObject.locals.EN]: { OK: "OK", CANCEL: "CANCEL" },
-            [DateObject.locals.FA]: { OK: "تأیید", CANCEL: "لغو" },
-            [DateObject.locals.AR]: { OK: "تأكيد", CANCEL: "الغاء" },
-            [DateObject.locals.HI]: { OK: "पुष्टि", CANCEL: "रद्द करें" }
+            [DateObject.locales.EN]: { OK: "OK", CANCEL: "CANCEL" },
+            [DateObject.locales.FA]: { OK: "تأیید", CANCEL: "لغو" },
+            [DateObject.locales.AR]: { OK: "تأكيد", CANCEL: "الغاء" },
+            [DateObject.locales.HI]: { OK: "पुष्टि", CANCEL: "रद्द करें" }
         }
 
-        if (typeof local === "string" && actions[local.toUpperCase()]) return actions[local.toUpperCase()][string]
+        if (typeof locale === "string" && actions[locale.toUpperCase()]) return actions[locale.toUpperCase()][string]
 
         return string
     }
@@ -460,7 +444,7 @@ function DatePicker(
             isInput = inputRef.current.tagName === "INPUT" || inputRef.current.querySelector("input")
 
         if (!value && !ref.current.date && !range && !multiple) {
-            let date = new DateObject({ calendar, local, format })
+            let date = new DateObject({ calendar, locale, format })
 
             if (
                 (!minDate || (minDate && date > minDate)) &&
@@ -512,7 +496,7 @@ function DatePicker(
         if (Array.isArray(date) || !editable) return
 
         let value = e.target.value,
-            object = { year: 1, calendar, local, format },
+            object = { year: 1, calendar, locale, format },
             digits = date && date.isValid ? date.digits : new DateObject(object).digits
 
         if (type === "input") {

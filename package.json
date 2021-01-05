@@ -1,6 +1,6 @@
 {
   "name": "react-multi-date-picker",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "a simple React datepicker component for work with gregorian, persian, arabic and indian calendars",
   "main": "./build/index.js",
   "types": "index.d.ts",
@@ -58,7 +58,7 @@
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
-    "react-date-object": "^1.1.8"
+    "react-date-object": "^1.1.9"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

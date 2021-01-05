@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 import DateObject from "react-date-object"
 
-export default function WeekDays({ state }) {
+export default function WeekDays({ state, customWeekDays }) {
     const [weekDays, setWeekDays] = useState([])
 
     useEffect(() => {
-        let weekDays = state.weekDays
+        let weekDays = customWeekDays
 
         if (Array.isArray(weekDays)) {
             if (weekDays.length > 7) weekDays.length = 7
@@ -23,12 +23,12 @@ export default function WeekDays({ state }) {
             weekDays = new DateObject({
                 year: undefined,
                 calendar: state.date.calendar,
-                local: state.date.local
+                locale: state.date.locale
             }).weekDays.map(weekDay => weekDay.shortName)
         }
 
         setWeekDays(weekDays)
-    }, [state.date.calendar, state.date.local, state.weekDays])
+    }, [state.date.calendar, state.date.locale, customWeekDays])
 
     return (
         <div className="rmdp-week">

@@ -17,7 +17,7 @@ export default function DatePanel({
 }) {
     let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
         dates = [],
-        { multiple, range, inRangeDates, selectedDate, date: { local } } = state,
+        { multiple, range, inRangeDates, selectedDate, date: { locale } } = state,
         { formattingIgnoreList } = calendarProps,
         classNames = ["rmpd-panel", position]
 
@@ -84,7 +84,7 @@ export default function DatePanel({
             }}
             {...props}
         >
-            <div className="rmdp-panel-header">{header[local]}</div>
+            <div className="rmdp-panel-header">{header[locale]}</div>
             <div style={{ position: "relative", overflow: "auto", height: ["top", "bottom"].includes(position) ? "100px" : "" }}>
                 <ul className="rmdp-panel-body">
                     {Array.isArray(dates) && dates.map((object, index) => {

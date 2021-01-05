@@ -2,7 +2,15 @@ import React, { useState, useEffect, useRef, useMemo } from "react"
 import DateObject from "react-date-object"
 import WeekDays from "../week_days/week_days"
 
-export default function DayPicker({ state, setState, onChange, showOtherDays = false, mapDays, onlyShowInRangeDates }) {
+export default function DayPicker({
+    state,
+    setState,
+    onChange,
+    showOtherDays = false,
+    mapDays,
+    onlyShowInRangeDates,
+    customWeekDays
+}) {
     const [weeks, setWeeks] = useState([]),
         ref = useRef(false),
         today = useMemo(() => new DateObject({ calendar: state.date.calendar }), [state.date.calendar]),
@@ -13,12 +21,12 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = f
         if (!mustShowDayPicker) return
 
         if (ref.current) {
-            let { month, year, local, calendar } = ref.current
+            let { month, year, locale, calendar } = ref.current
 
             if (
                 state.date.month.number === month.number &&
                 state.date.year === year &&
-                state.date.local === local &&
+                state.date.locale === locale &&
                 state.date.calendar === calendar &&
                 ref.current.showOtherDays === showOtherDays
             ) return
@@ -40,7 +48,7 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = f
 
     return (mustShowDayPicker &&
         <div className="rmdp-day-picker">
-            <WeekDays state={state} />
+            <WeekDays state={state} customWeekDays={customWeekDays} />
             {weeks.map((week, index) => <div key={index} className="rmdp-week">
                 {week.map((object, i) => {
                     //To clear the properties which are added from the previous render;
@@ -199,6 +207,7 @@ export default function DayPicker({ state, setState, onChange, showOtherDays = f
 
 function getWeeks(date, showOtherDays) {
     if (!date) return []
+
     date = new DateObject(date).toFirstOfMonth()
 
     let monthNumber = date.month.number

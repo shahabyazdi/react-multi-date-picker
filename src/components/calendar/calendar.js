@@ -10,7 +10,7 @@ import "./calendar.css"
 export default function Calendar({
     value,
     calendar = "gregorian",
-    local = "en",
+    locale = "en",
     format,
     timePicker,
     onlyTimePicker,
@@ -53,7 +53,7 @@ export default function Calendar({
 
             function checkDate(date) {
                 if (date.calendar !== calendar) date.setCalendar(calendar)
-                if (date.local !== local) date.setLocal(local)
+                if (date.locale !== locale) date.setLocale(locale)
                 if (date._format !== $format) date.setFormat($format)
 
                 return date
@@ -68,13 +68,13 @@ export default function Calendar({
                 $value = value
 
             if (!$value) {
-                if (!date) date = new DateObject({ date, calendar, local, format: $format })
+                if (!date) date = new DateObject({ date, calendar, locale, format: $format })
                 if (initialValue) selectedDate = undefined
             }
 
             if ($value) {
                 let values = [].concat($value)
-                let isValid = values.every(val => isValidDateObject(val, calendar, local, $format))
+                let isValid = values.every(val => isValidDateObject(val, calendar, locale, $format))
 
                 let isValueSameAsInitialValue = false
 
@@ -88,15 +88,15 @@ export default function Calendar({
                     date = new DateObject({
                         date: Array.isArray($value) ? $value[$value.length - 1] : $value,
                         calendar,
-                        local,
+                        locale,
                         format: $format
                     })
 
-                    if (!date.isValid) date = new DateObject({ calendar, local, format: $format })
+                    if (!date.isValid) date = new DateObject({ calendar, locale, format: $format })
 
-                    selectedDate = getSelectedDate($value, calendar, local, $format)
+                    selectedDate = getSelectedDate($value, calendar, locale, $format)
                 } else {
-                    selectedDate = isValid ? $value : getSelectedDate($value, calendar, local, $format)
+                    selectedDate = isValid ? $value : getSelectedDate($value, calendar, locale, $format)
                 }
 
                 if (Array.isArray(selectedDate)) {
@@ -148,38 +148,34 @@ export default function Calendar({
                 onlyMonthPicker: $onlyMonthPicker,
                 onlyYearPicker: $onlyYearPicker,
                 initialValue: state.initialValue || $value,
-                weekDays,
-                months,
                 value: $value,
                 focused,
                 calendar,
-                local,
+                locale,
                 format: $format
             }
         })
     }, [
         value,
         calendar,
-        local,
+        locale,
         format,
         timePicker,
         onlyTimePicker,
         onlyMonthPicker,
         onlyYearPicker,
         range,
-        multiple,
-        weekDays,
-        months
+        multiple
     ])
 
     useEffect(() => {
         if (!minDate && !maxDate) return
 
         setState(state => {
-            let { calendar, local, format } = state
+            let { calendar, locale, format } = state
 
             let [selectedDate, $minDate, $maxDate] = getDateInRangeOfMinAndMaxDate(
-                getSelectedDate(value, calendar, local, format),
+                getSelectedDate(value, calendar, locale, format),
                 minDate,
                 maxDate
             )
@@ -212,7 +208,7 @@ export default function Calendar({
                 {clonedPlugins.left}
                 <div
                     style={{ height: "max-content", margin: "auto" }}
-                    className={`${["fa", "ar"].includes(state.date?.local) ? "rmdp-rtl" : ""} ${getBorderClassName(["left", "right"])}`}
+                    className={`${["fa", "ar"].includes(state.date?.locale) ? "rmdp-rtl" : ""} ${getBorderClassName(["left", "right"])}`}
                 >
                     <Header
                         state={state}
@@ -220,6 +216,7 @@ export default function Calendar({
                         onChange={handleChange}
                         disableYearPicker={disableYearPicker}
                         disableMonthPicker={disableMonthPicker}
+                        customMonths={months}
                     />
                     <div style={{ position: "relative" }}>
                         <DayPicker
@@ -230,11 +227,13 @@ export default function Calendar({
                             mapDays={mapDays}
                             listeners={listeners}
                             onlyShowInRangeDates={onlyShowInRangeDates}
+                            customWeekDays={weekDays}
                         />
                         <MonthPicker
                             state={state}
                             setState={setState}
                             onChange={handleChange}
+                            customMonths={months}
                         />
                         <YearPicker
                             state={state}
@@ -328,11 +327,11 @@ export default function Calendar({
     }
 }
 
-function isValidDateObject(date, calendar, local, format) {
+function isValidDateObject(date, calendar, locale, format) {
     return date instanceof DateObject &&
         date.isValid &&
         date.calendar === calendar &&
-        date.local === local &&
+        date.locale === locale &&
         date._format === format
 }
 
@@ -382,9 +381,9 @@ function toDateObject(date, calendar) {
     return date
 }
 
-function getSelectedDate(value, calendar, local, format) {
+function getSelectedDate(value, calendar, locale, format) {
     let selectedDate = undefined
-    let getObject = date => { return { date, calendar, local, format } }
+    let getObject = date => { return { date, calendar, locale, format } }
 
     if (Array.isArray(value)) {
         selectedDate = value.map(val => {
