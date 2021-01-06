@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import DateObject from "react-date-object"
 
-export default function MonthPicker({ state, setState, onChange }) {
+export default function MonthPicker({ state, setState, onChange, customMonths }) {
     const [months, setMonths] = useState([]),
         mustShowMonthPicker = (state.mustShowMonthPicker || state.onlyMonthPicker) && !state.onlyTimePicker && !state.onlyYearPicker,
-        { minDate, maxDate, calendar, local } = state
+        { minDate, maxDate, calendar, locale } = state
 
     useEffect(() => {
-        let months = state.months
+        let months = customMonths
 
         if (Array.isArray(months)) {
             if (months.length > 12) months.length = 12
@@ -17,7 +17,7 @@ export default function MonthPicker({ state, setState, onChange }) {
             months = new DateObject({
                 year: undefined,
                 calendar,
-                local,
+                locale,
             }).months.map(month => month.name)
         }
 
@@ -38,7 +38,7 @@ export default function MonthPicker({ state, setState, onChange }) {
         setMonths(monthsArray)
 
         if (state.onlyMonthPicker) setState(state => { return { ...state, ready: true } })
-    }, [calendar, local, state.months, state.onlyMonthPicker, setState])
+    }, [calendar, locale, customMonths, state.onlyMonthPicker, setState])
 
     return (
         <div

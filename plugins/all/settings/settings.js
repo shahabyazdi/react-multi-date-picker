@@ -8,7 +8,7 @@ export default function Settings({
   position,
   setProps,
   calendars = ["gregorian", "persian", "arabic", "indian"],
-  locals = ["en", "fa", "ar", "hi"],
+  locales = ["en", "fa", "ar", "hi"],
   modes = ["single", "multiple", "range"],
   others = ["time picker", "only time picker", "only month picker", "only year picker"],
   defaultActive = "",
@@ -56,24 +56,24 @@ export default function Settings({
           </div>
         </div>
       }
-      {!disabledList.includes("local") &&
-        <div title="Local" className={`setting ${section === "local" ? "active" : ""}`}>
+      {!disabledList.includes("locale") &&
+        <div title="Locale" className={`setting ${section === "locale" ? "active" : ""}`}>
           <IconLanguage
             size={19}
             stroke={1.5}
             className="icon"
-            onClick={() => setSection(section === "local" ? "" : "local")}
+            onClick={() => setSection(section === "locale" ? "" : "locale")}
           />
           <div className="items">
-            {locals.map((local, index) => {
+            {locales.map((locale, index) => {
               return (
                 <span
                   key={index}
-                  className={`item ${state.date.local === local ? "active" : ""}`}
-                  title={local}
-                  onClick={e => setKeyValue(e, "local")}
+                  className={`item ${state.date.locale === locale ? "active" : ""}`}
+                  title={locale}
+                  onClick={e => setKeyValue(e, "locale")}
                 >
-                  {local.toUpperCase()}
+                  {locale.toUpperCase()}
                 </span>
               )
             })}

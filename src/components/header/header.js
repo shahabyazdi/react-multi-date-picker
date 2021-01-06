@@ -2,11 +2,11 @@ import React from "react"
 import Arrow from "../arrow/arrow"
 import DateObject from "react-date-object"
 
-export default function Header({ state, setState, onChange, disableYearPicker, disableMonthPicker }) {
+export default function Header({ state, setState, onChange, disableYearPicker, disableMonthPicker, customMonths }) {
     let monthName = undefined
 
-    if (Array.isArray(state.months) && state.months.length === 12) {
-        let month = state.months[state.date.month.index]
+    if (Array.isArray(customMonths) && customMonths.length === 12) {
+        let month = customMonths[state.date.month.index]
 
         monthName = Array.isArray(month) ? month[0] : month
     } else {

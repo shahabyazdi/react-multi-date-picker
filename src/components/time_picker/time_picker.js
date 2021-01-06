@@ -6,8 +6,8 @@ import Input from "../input/input"
 export default function TimePicker({ state, setState, onChange, formattingIgnoreList }) {
     const [am, setAm] = useState(true),
         [mustDisplayMeridiem, setMustDisplayMeridiem] = useState(false),
-        { calendar, local, date, timePicker, onlyTimePicker, selectedDate } = state,
-        meridiems = useMemo(() => new DateObject({ calendar, local }).meridiems, [calendar, local]),
+        { calendar, locale, date, timePicker, onlyTimePicker, selectedDate } = state,
+        meridiems = useMemo(() => new DateObject({ calendar, locale }).meridiems, [calendar, locale]),
         hour = selectedDate?.hour,
         mustShowTimePicker = (timePicker || onlyTimePicker) && !state.multiple && !state.range
 

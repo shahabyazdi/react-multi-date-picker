@@ -24,7 +24,7 @@
   border-radius: 15px;
   background-color: #0074d9;
   color: white;
-  box-shadow: 0 0 3px 1px #ccc;
+  box-shadow: 0 0 3px 1px var(--rmdp-shadow);
   display: flex;
   transition: 0.4s;
   margin: auto 3px;
@@ -63,7 +63,7 @@
 
 .setting.active .items {
   flex: 1;
-  box-shadow: inset 0 0 3px #ccc;
+  box-shadow: inset 0 0 3px var(--rmdp-shadow);
   visibility: visible;
   flex: 1;
   display: flex;
@@ -83,7 +83,7 @@
 
 .items .item {
   background-color: rgb(126, 166, 240);
-  box-shadow: 0 0 3px 1px #ccc;
+  box-shadow: 0 0 3px 1px var(--rmdp-shadow);
   width: 16px;
   height: 16px;
   margin: auto 0;
@@ -94,7 +94,7 @@
 }
 
 .items .item.active {
-  background-color: #0074d9;
+  background-color: var(--rmdp-primary);
   color: white;
 }
 
