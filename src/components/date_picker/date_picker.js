@@ -337,6 +337,7 @@ function DatePicker(
             ref={element => {
                 datePickerRef.current = element
 
+                if (datePickerRef.current) datePickerRef.current.closeCalendar = closeCalendar
                 if (outerRef) outerRef.current = element
 
                 if (outerRef?.current) {
@@ -377,6 +378,7 @@ function DatePicker(
                         onReady={() => setIsCalendarReady(true)}
                         onlyShowInRangeDates={onlyShowInRangeDates}
                         zIndex={zIndex}
+                        datePickerRef={datePickerRef}
                         {...otherProps}
                     >
                         {children}
