@@ -31,3 +31,23 @@
   margin: 5px 3px;
   padding: 0 5px;
 }
+
+.green .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-yellow);
+}
