@@ -86,11 +86,6 @@
   background: #0263b8;
 }
 
-.rmdp-rtl .rmpd-panel {
-  border-left: unset;
-  border-right: 1px solid var(--rmdp-shadow);
-}
-
 .rmdp-rtl .rmdp-panel-body li .b-deselect {
   right: unset;
   left: 5px;

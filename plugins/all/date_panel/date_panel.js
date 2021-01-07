@@ -13,6 +13,8 @@ export default function DatePanel({
     sort,
     style = {},
     className = "",
+    onDateClicked,
+    removeButton = true,
     ...props
 }) {
     let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
@@ -72,6 +74,10 @@ export default function DatePanel({
         if (nodes.bottom) classNames.push("rmdp-border-bottom")
     }
 
+    if (["fa", "ar"].includes(state.locale)) {
+        classNames.push("rmdp-rtl")
+    }
+
     delete props.registerListener
 
     return (
@@ -92,14 +98,15 @@ export default function DatePanel({
                             <li
                                 key={index}
                                 className={object.date?.color ? `bg-${object.date.color}` : ""}
+                                onClick={() => !removeButton && selectDate(object.date, object.index)}
                             >
                                 <span
-                                    onClick={() => selectDate(object.date, object.index)}
+                                    onClick={() => removeButton && selectDate(object.date, object.index)}
                                     style={{ cursor: object.date ? "pointer" : "default" }}
                                 >
                                     {object.format}
                                 </span>
-                                {object.date &&
+                                {object.date && removeButton &&
                                     <button
                                         type="button"
                                         className="b-deselect"
@@ -117,6 +124,7 @@ export default function DatePanel({
     )
 
     function selectDate(date, index) {
+        if (onDateClicked instanceof Function) onDateClicked(date ? state.selectedDate[index] : undefined)
         if (!date) return
 
         setState({
