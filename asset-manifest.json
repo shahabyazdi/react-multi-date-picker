@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/react-multi-date-picker/static/css/main.5c477717.chunk.css",
-    "main.js": "/react-multi-date-picker/static/js/main.9a79fa52.chunk.js",
-    "main.js.map": "/react-multi-date-picker/static/js/main.9a79fa52.chunk.js.map",
+    "main.css": "/react-multi-date-picker/static/css/main.c006a66b.chunk.css",
+    "main.js": "/react-multi-date-picker/static/js/main.a0b9ffc2.chunk.js",
+    "main.js.map": "/react-multi-date-picker/static/js/main.a0b9ffc2.chunk.js.map",
     "runtime-main.js": "/react-multi-date-picker/static/js/runtime-main.108b7ab5.js",
     "runtime-main.js.map": "/react-multi-date-picker/static/js/runtime-main.108b7ab5.js.map",
     "static/css/2.37165d06.chunk.css": "/react-multi-date-picker/static/css/2.37165d06.chunk.css",
-    "static/js/2.2a86a32e.chunk.js": "/react-multi-date-picker/static/js/2.2a86a32e.chunk.js",
-    "static/js/2.2a86a32e.chunk.js.map": "/react-multi-date-picker/static/js/2.2a86a32e.chunk.js.map",
+    "static/js/2.dcd98e22.chunk.js": "/react-multi-date-picker/static/js/2.dcd98e22.chunk.js",
+    "static/js/2.dcd98e22.chunk.js.map": "/react-multi-date-picker/static/js/2.dcd98e22.chunk.js.map",
     "index.html": "/react-multi-date-picker/index.html",
     "static/css/2.37165d06.chunk.css.map": "/react-multi-date-picker/static/css/2.37165d06.chunk.css.map",
-    "static/css/main.5c477717.chunk.css.map": "/react-multi-date-picker/static/css/main.5c477717.chunk.css.map",
-    "static/js/2.2a86a32e.chunk.js.LICENSE.txt": "/react-multi-date-picker/static/js/2.2a86a32e.chunk.js.LICENSE.txt",
+    "static/css/main.c006a66b.chunk.css.map": "/react-multi-date-picker/static/css/main.c006a66b.chunk.css.map",
+    "static/js/2.dcd98e22.chunk.js.LICENSE.txt": "/react-multi-date-picker/static/js/2.dcd98e22.chunk.js.LICENSE.txt",
     "static/media/github.255db585.svg": "/react-multi-date-picker/static/media/github.255db585.svg",
     "static/media/npm.3cad4cc6.svg": "/react-multi-date-picker/static/media/npm.3cad4cc6.svg",
     "static/media/screenshot.6b940f3f.jpg": "/react-multi-date-picker/static/media/screenshot.6b940f3f.jpg"
@@ -19,8 +19,8 @@
   "entrypoints": [
     "static/js/runtime-main.108b7ab5.js",
     "static/css/2.37165d06.chunk.css",
-    "static/js/2.2a86a32e.chunk.js",
-    "static/css/main.5c477717.chunk.css",
-    "static/js/main.9a79fa52.chunk.js"
+    "static/js/2.dcd98e22.chunk.js",
+    "static/css/main.c006a66b.chunk.css",
+    "static/js/main.a0b9ffc2.chunk.js"
   ]
 }
