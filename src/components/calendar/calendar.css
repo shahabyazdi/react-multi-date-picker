@@ -308,24 +308,24 @@
 .rmdp-rtl .rmdp-left i {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
-  margin-left: unset;
+  margin-left: 0;
   margin-right: 3px;
 }
 
 .rmdp-rtl .rmdp-right i {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
-  margin-right: unset;
+  margin-right: 0;
   margin-left: 3px;
 }
 
 .rmdp-rtl .rmdp-right {
-  right: unset;
+  right: auto;
   left: 0;
 }
 
 .rmdp-rtl .rmdp-left {
-  left: unset;
+  left: auto;
   right: 0;
 }
 

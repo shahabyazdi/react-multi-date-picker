@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } 
 import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
 import { getAllDatesInRange } from "../../../plugins/all/date_panel/date_panel"
-import { IconCalendarEvent } from '@tabler/icons'
+import { IconCalendarEvent } from '@tabler/icons';
 import "./date_picker.css"
 
 function DatePicker(
@@ -63,10 +63,12 @@ function DatePicker(
         ref = useRef({}),
         separator = useMemo(() => range ? " ~ " : ", ", [range]),
         closeCalendar = useCallback(() => {
-            let shouldCloseCalendar = onClose instanceof Function ? onClose() : true
+            let shouldCloseCalendar = onClose instanceof Function ? onClose() : true,
+                input = getInput(inputRef)
 
             if (shouldCloseCalendar === false) return
             if (calendarRef.current) calendarRef.current.classList.remove("active")
+            if (input) input.blur()
 
             setIsVisible(false)
             setIsCalendarReady(false)
@@ -80,10 +82,20 @@ function DatePicker(
 
     useEffect(() => {
         function handleClickOutside(event) {
+            if (!isVisible || !isCalendarReady) return
+
             if (
                 datePickerRef.current &&
                 !datePickerRef.current.contains(event.target) &&
                 !event.target.classList.contains("b-deselect") &&
+                !ref.current.mobile
+            ) {
+                closeCalendar()
+            } else if (
+                inputRef.current && calendarRef.current &&
+                calendarRef.current.contains(event.target) &&
+                !Array.isArray(ref.current.date) &&
+                event.target.classList.contains("sd") &&
                 !ref.current.mobile
             ) {
                 closeCalendar()
@@ -93,7 +105,7 @@ function DatePicker(
         document.addEventListener("click", handleClickOutside, false)
 
         return () => document.removeEventListener("click", handleClickOutside, false)
-    }, [closeCalendar, outerRef])
+    }, [closeCalendar, outerRef, isVisible, isCalendarReady])
 
     useEffect(() => {
         let date = value,
@@ -156,12 +168,6 @@ function DatePicker(
     ])
 
     useEffect(() => {
-        if (type !== "input") return
-
-        inputRef.current.selectionStart = inputRef.current.selectionEnd = ref.current.start
-    }, [stringDate, type])
-
-    useEffect(() => {
         const calendar = calendarRef.current,
             datePicker = datePickerRef.current
 
@@ -176,14 +182,7 @@ function DatePicker(
             if (resize) e = undefined
 
             if (e) {
-                if (hideOnScroll) {
-                    const input = getInput(inputRef)
-
-                    if (input) input.blur()
-
-                    return closeCalendar()
-                }
-
+                if (hideOnScroll) return closeCalendar()
                 if (!e.target.querySelector(".rmdp-calendar-container") || !scrollSensitive) return
             }
 
@@ -435,7 +434,7 @@ function DatePicker(
         if (shouldOpenCalendar === false) return
 
         let isMobile = isMobileMode(),
-            isInput = inputRef.current.tagName === "INPUT" || inputRef.current.querySelector("input")
+            input = getInput(inputRef)
 
         if (!value && !ref.current.date && !range && !multiple) {
             let date = new DateObject({ calendar, locale, format })
@@ -450,11 +449,11 @@ function DatePicker(
             }
         }
 
-        if (isMobile && isInput) inputRef.current.blur()
+        if (isMobile && input) input.blur()
 
-        if (isInput || (!isInput && !isVisible)) {
+        if (input || (!input && !isVisible)) {
             setIsVisible(true)
-        } else if (!isInput && isVisible) {
+        } else if (!input && isVisible) {
             closeCalendar()
         }
     }
@@ -464,7 +463,7 @@ function DatePicker(
         if (isValidWeekDays(weekDays)) date.weekDays = weekDays
     }
 
-    function handleChange(date, force, mustCloseCalendar = true) {
+    function handleChange(date, force) {
         if (isMobileMode() && !force) return ref.current.temporaryDate = date
 
         setDate(date)
@@ -495,8 +494,6 @@ function DatePicker(
                         JSON.parse(formattingIgnoreList)
                     )
                 )
-
-                if (mustCloseCalendar) closeCalendar()
             }
         }
     }
@@ -507,12 +504,6 @@ function DatePicker(
         let value = e.target.value,
             object = { year: 1, calendar, locale, format },
             digits = date && date.isValid ? date.digits : new DateObject(object).digits
-
-        if (type === "input") {
-            let start = e.target.selectionStart
-
-            ref.current.start = start
-        }
 
         if (!value) {
             setStringDate("")
@@ -528,7 +519,7 @@ function DatePicker(
 
         let newDate = new DateObject(date?.isValid ? date : object).parse(value)
 
-        handleChange(newDate, undefined, false)
+        handleChange(newDate)
 
         setStringDate(value.replace(/[0-9]/g, w => digits[w]))
     }
