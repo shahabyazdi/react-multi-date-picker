@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } 
 import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
 import { getAllDatesInRange } from "../../../plugins/all/date_panel/date_panel"
-import { IconCalendarEvent } from '@tabler/icons';
+import { IconCalendarEvent } from '@tabler/icons'
 import "./date_picker.css"
 
 function DatePicker(
@@ -84,14 +84,6 @@ function DatePicker(
                 datePickerRef.current &&
                 !datePickerRef.current.contains(event.target) &&
                 !event.target.classList.contains("b-deselect") &&
-                !ref.current.mobile
-            ) {
-                closeCalendar()
-            } else if (
-                inputRef.current && calendarRef.current &&
-                calendarRef.current.contains(event.target) &&
-                !Array.isArray(ref.current.date) &&
-                event.target.classList.contains("sd") &&
                 !ref.current.mobile
             ) {
                 closeCalendar()
@@ -472,7 +464,7 @@ function DatePicker(
         if (isValidWeekDays(weekDays)) date.weekDays = weekDays
     }
 
-    function handleChange(date, force) {
+    function handleChange(date, force, mustCloseCalendar = true) {
         if (isMobileMode() && !force) return ref.current.temporaryDate = date
 
         setDate(date)
@@ -489,7 +481,22 @@ function DatePicker(
             } else {
                 setCustomNames(date)
 
-                setStringDate(date.format(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple), JSON.parse(formattingIgnoreList)))
+                setStringDate(
+                    date.format(
+                        getFormat(
+                            timePicker,
+                            onlyTimePicker,
+                            onlyMonthPicker,
+                            onlyYearPicker,
+                            format,
+                            range,
+                            multiple
+                        ),
+                        JSON.parse(formattingIgnoreList)
+                    )
+                )
+
+                if (mustCloseCalendar) closeCalendar()
             }
         }
     }
@@ -521,7 +528,7 @@ function DatePicker(
 
         let newDate = new DateObject(date?.isValid ? date : object).parse(value)
 
-        handleChange(newDate)
+        handleChange(newDate, undefined, false)
 
         setStringDate(value.replace(/[0-9]/g, w => digits[w]))
     }
