@@ -1,4 +1,1319 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/react-multi-date-picker/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000000"><meta name="description" content="a simple React datepicker component for working with gregorian, persian, arabic and indian calendars"><meta name="keywords" content="react, multi, date, picker, react-multi-date-picker, datepicker, date, gregorian, persian, arabic, indian, farsi, hindi, calendar, component"><meta name="google-site-verification" content="eN9hWwtvlYdXL_37ZU2ML8AUY8685Fw3O98T5vidr-4"><meta name="msvalidate.01" content="C93B2672E5B60714555F0943FCAFE6C8"><link rel="apple-touch-icon" href="/react-multi-date-picker/logo192.png"><link rel="manifest" href="/react-multi-date-picker/manifest.json"><title>React Multi DatePicker</title><link href="/react-multi-date-picker/static/css/2.37165d06.chunk.css" rel="stylesheet"><link href="/react-multi-date-picker/static/css/main.c006a66b.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div class="App"><nav class="navbar"><span class="open-sidebar">☰</span><span class="title">React Multi Date Picker</span><span> 2.0.2</span><span style="margin-left:10px"><a href="/react-multi-date-picker">Home</a></span><div class="nav-images"><div class="nav-image"><a target="_blank" rel="noopener noreferrer" class="github" href="https://github.com/shahabyazdi/react-multi-date-picker"><svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)" fill="#1B1F23"></path></svg></a></div><div class="nav-image"><a target="_blank" rel="noopener noreferrer" class="npm" href="https://www.npmjs.com/package/react-multi-date-picker"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="540px" height="210px" viewBox="0 0 18 7"><path fill="#CB3837" d="M0,0h18v6H9v1H5V6H0V0z M1,5h2V2h1v3h1V1H1V5z M6,1v5h2V5h2V1H6z M8,2h1v2H8V2z M11,1v4h2V2h1v3h1V2h1v3h1V1H11z"></path><polygon fill="#FFFFFF" points="1,5 3,5 3,2 4,2 4,5 5,5 5,1 1,1 "></polygon><path fill="#FFFFFF" d="M6,1v5h2V5h2V1H6z M9,4H8V2h1V4z"></path><polygon fill="#FFFFFF" points="11,1 11,5 13,5 13,2 14,2 14,5 15,5 15,2 16,2 16,5 17,5 17,1 "></polygon></svg></a></div></div></nav><ul class="sidebar "><li><a href="#usage">Usage</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#plugins">Plugins</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#positions">Positions</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#examples">Examples</a><ul class="sidebar-sub-menu"><li><a href="#all-in-one">All In One</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#header">Header</a><ul class="sidebar-sub-menu"><li><a href="#header-right">Header Right</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#persian-calendar">Persian Calendar</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#english-calendar-with-indian-header">English Calendar with Indian Header</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#styling-header">Styling Header</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#date-panel">Date Panel</a><ul class="sidebar-sub-menu"><li><a href="#sort-by-date">Sort By Date</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#without-remove-button">Without Remove Button</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#date-click-listener">Date Click Listener</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#multi-colors">Multi Colors</a><ul class="sidebar-sub-menu"><li><a href="#default-color">Default Color</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#with-datepanel">With DatePanel</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#settings">Settings</a><ul class="sidebar-sub-menu"><li><a href="#settings-bottom">Settings Bottom</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#custom-settings">Custom Settings</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#time-picker">Time Picker</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#weekends">Weekends</a><ul class="sidebar-sub-menu"><li><a href="#weekends:-gregorian">Weekends: gregorian</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#weekends:-persian">Weekends: persian</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#weekends:-custom">Weekends: custom</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#toolbar">Toolbar</a><ul class="sidebar-sub-menu"></ul></li></ul></li></ul><div class="main"><div class="scroll-to-top"><span class="rmdp-arrow-container rmdp-up"><i class="rmdp-arrow"></i></span></div><div><div class="example" id="usage"><div class="title">Usage</div><div><p><b style="color:red">WARNING:</b>The plugins section is still under development and its capabilities may change rapidly. So until the development of plugins is completed, expect a sudden change in its features.</p><p>Plugins Prop accepts an array of plugins, which the following two properties can be entered on each of them.</p><table><thead><tr><th>Prop</th><th>default</th></tr></thead><tbody><tr><td>position</td><td>"right"</td></tr><tr><td>disabled</td><td>false</td></tr></tbody></table><p>This is the general way to add a imported plugin to Datepicker:</p><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">"react"</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/react-multi-date-picker/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000000"><meta name="description" content="a simple React datepicker component for working with gregorian, persian, arabic and indian calendars"><meta name="keywords" content="react, multi, date, picker, react-multi-date-picker, datepicker, date, gregorian, persian, arabic, indian, farsi, hindi, calendar, component"><meta name="google-site-verification" content="eN9hWwtvlYdXL_37ZU2ML8AUY8685Fw3O98T5vidr-4"><meta name="msvalidate.01" content="C93B2672E5B60714555F0943FCAFE6C8"><link rel="apple-touch-icon" href="/react-multi-date-picker/logo192.png"><link rel="manifest" href="/react-multi-date-picker/manifest.json"><title>React Multi DatePicker</title><link href="/react-multi-date-picker/static/css/2.37165d06.chunk.css" rel="stylesheet"><link href="/react-multi-date-picker/static/css/main.a5900833.chunk.css" rel="stylesheet"><style type="text/css">:root {
+  --rmdp-primary: #0074d9;
+  --rmdp-secondary: #4ca6f5;
+  --rmdp-shadow: #8798ad;
+  --rmdp-today: #7fdbff;
+  --rmdp-hover: #7ea6f0;
+  --rmdp-border: #cfd8e2;
+  --highlight-red-color: #cc0303;
+  --highlight-red-color-deactive: #e08e8e;
+  --highlight-red-selected: #ea0034;
+  --highlight-red-selected-deactive: #e4b0ba;
+  --highlight-red-hover: #ff6687;
+  --highlight-green-color: #00796b;
+  --highlight-green-color-deactive: #7ab3ac;
+  --highlight-green-selected: #009688;
+  --highlight-green-selected-deactive: #749c98;
+  --highlight-green-hover: #4db6ac;
+}
+
+.rmdp-wrapper {
+  visibility: hidden;
+  width: max-content;
+  box-shadow: 0 0 5px var(--rmdp-shadow);
+  text-align: center;
+  background-color: white;
+}
+
+.rmdp-wrapper.active {
+  visibility: visible;
+}
+
+.rmdp-border-top {
+  border-top: 1px solid var(--rmdp-border);
+}
+
+.rmdp-border-bottom {
+  border-bottom: 1px solid var(--rmdp-border);
+}
+
+.rmdp-border-left {
+  border-left: 1px solid var(--rmdp-border);
+}
+
+.rmdp-border-right {
+  border-right: 1px solid var(--rmdp-border);
+}
+
+.rmdp-week,
+.rmdp-ym {
+  display: flex;
+  justify-content: center;
+}
+
+.rmdp-ym {
+  height: 25%;
+}
+
+.rmdp-day,
+.rmdp-week-day {
+  height: 34px;
+  width: 34px;
+  cursor: pointer;
+  position: relative;
+  color: black;
+}
+
+.rmdp-week-day {
+  cursor: unset;
+  color: var(--rmdp-primary);
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.rmdp-day span {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.rmdp-day.rmdp-today span {
+  background-color: var(--rmdp-today);
+  color: white;
+}
+
+.rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: var(--rmdp-primary);
+  box-shadow: 0 0 3px var(--rmdp-shadow);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive,
+.rmdp-day.rmdp-disabled {
+  color: var(--rmdp-shadow);
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected span {
+  background-color: var(--rmdp-secondary);
+  box-shadow: 0 0 3px #bac5d3;
+}
+
+.rmdp-ym .rmdp-day {
+  flex: 1;
+  margin: auto;
+}
+
+.rmdp-ym .rmdp-day span {
+  border-radius: 12px;
+  height: 98%;
+  padding: 2px 0px;
+}
+
+.rmdp-range {
+  color: white;
+  background-color: var(--rmdp-primary);
+  box-shadow: 0 0 3px var(--rmdp-shadow);
+}
+
+.rmdp-range.start {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.rmdp-range.end {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+  background-color: var(--rmdp-hover);
+  color: white;
+}
+
+.rmdp-day-picker {
+  padding: 5px;
+}
+
+.rmdp-header {
+  margin-top: 8px;
+  font-size: 14px;
+  height: 38px;
+  line-height: 37px;
+}
+
+.rmdp-month-picker,
+.rmdp-year-picker {
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+  border-radius: 0 0 5px 5px;
+}
+
+.only.rmdp-month-picker,
+.only.rmdp-year-picker {
+  position: static;
+  width: 250px;
+  height: 240px;
+}
+
+.rmdp-header-values {
+  color: black;
+}
+
+.rmdp-header-values span {
+  padding: 0 5px;
+  padding-right: 0;
+}
+
+.rmdp-arrow {
+  border: solid var(--rmdp-primary);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 2px;
+  height: 3px;
+  width: 3px;
+  margin-top: 5px;
+}
+
+.rmdp-up i {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  margin-top: 7px;
+}
+
+.rmdp-down i {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-top: 3px;
+}
+
+.rmdp-right i {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-right: 3px;
+}
+
+.rmdp-left i {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-left: 3px;
+}
+
+.rmdp-left,
+.rmdp-right {
+  position: absolute;
+  top: 54%;
+  transform: translateY(-50%);
+}
+
+.rmdp-left {
+  left: 0;
+}
+
+.rmdp-right {
+  right: 0;
+}
+
+.rmdp-arrow-container {
+  cursor: pointer;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  margin: 0 5px;
+}
+
+.rmdp-arrow-container:hover {
+  background-color: var(--rmdp-primary);
+  box-shadow: 0 0 3px var(--rmdp-shadow);
+}
+
+.rmdp-arrow-container:hover .rmdp-arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+}
+
+.rmdp-time-picker {
+  display: flex;
+  padding: 3px 0;
+  margin-bottom: 3px;
+}
+
+.rmdp-time-picker.active {
+  display: flex;
+}
+
+.rmdp-time-picker div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  margin-top: 1px;
+}
+
+.rmdp-time-picker div input {
+  width: 20px;
+  flex-grow: 1;
+  text-align: center;
+  padding: 5px 2px;
+  border: none;
+}
+
+.rmdp-time-picker div input::-webkit-outer-spin-button,
+.rmdp-time-picker div input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.rmdp-time-picker div input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.rmdp-time-picker .dvdr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: -5px;
+}
+
+.rmdp-time-picker div .rmdp-am {
+  font-size: 12px;
+  line-height: 21px;
+  color: black;
+  margin-top: 2px;
+}
+
+.rmdp-only-time-picker {
+  width: 220px;
+  margin-bottom: 0;
+}
+
+.rmdp-rtl {
+  direction: rtl;
+}
+
+.rmdp-rtl .rmdp-left i {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-left: unset;
+  margin-right: 3px;
+}
+
+.rmdp-rtl .rmdp-right i {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-right: unset;
+  margin-left: 3px;
+}
+
+.rmdp-rtl .rmdp-right {
+  right: unset;
+  left: 0;
+}
+
+.rmdp-rtl .rmdp-left {
+  left: unset;
+  right: 0;
+}
+
+.rmdp-rtl .rmdp-range.start {
+  border-top-left-radius: unset;
+  border-bottom-left-radius: unset;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.rmdp-rtl .rmdp-range.end {
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.rmdp-rtl .rmdp-range.start.end {
+  border-radius: 50%;
+}
+
+.rmdp-day-hidden,
+.rmdp-day.rmdp-disabled {
+  cursor: unset;
+}
+
+.rmdp-selected .highlight {
+  box-shadow: 0 0 3px var(--rmdp-shadow);
+}
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-red:hover {
+  background-color: var(--highlight-red-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-red {
+  color: var(--highlight-red-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-red {
+  color: var(--highlight-red-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-red {
+  background-color: var(--highlight-red-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-red {
+  background-color: var(--highlight-red-selected-deactive);
+  color: white;
+}
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-green:hover {
+  background-color: var(--highlight-green-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-green {
+  color: var(--highlight-green-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-green {
+  color: var(--highlight-green-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-green {
+  background-color: var(--highlight-green-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-green {
+  background-color: var(--highlight-green-selected-deactive);
+  color: white;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-day,
+  .rmdp-week-day {
+    height: 28px;
+    width: 28px;
+  }
+
+  .rmdp-day span {
+    padding-left: 0.5px;
+    font-size: 12px;
+  }
+
+  .only.rmdp-year-picker,
+  .only.rmdp-month-picker {
+    width: 205px;
+    height: 200px;
+  }
+
+  .rmdp-header {
+    height: 32px;
+    font-size: 12px;
+    line-height: 32px;
+  }
+
+  .rmdp-time-picker div input {
+    font-size: 12px;
+  }
+}
+
+.rmdp-day-hidden:hover span,
+.rmdp-day-hidden {
+  background-color: unset;
+  color: transparent;
+}
+</style><style type="text/css">.rmpd-panel {
+  min-width: 125px;
+}
+
+.rmdp-panel-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  list-style: none;
+  padding: 0px 5px;
+  margin: 0;
+  text-align: center;
+  overflow: auto;
+}
+
+.rmdp-panel-body li {
+  box-shadow: 0 0 2px var(--rmdp-shadow);
+  background-color: var(--rmdp-primary);
+  color: white;
+  display: flex;
+  position: relative;
+  margin: 4px 1px;
+}
+
+.rmdp-panel-body li.bg-blue {
+  background-color: #0074d9;
+}
+
+.rmdp-panel-body li.bg-red {
+  background-color: var(--highlight-red-selected);
+}
+
+.rmdp-panel-body li.bg-green {
+  background-color: var(--highlight-green-selected);
+}
+
+.rmdp-panel-body li.bg-yellow {
+  background-color: #fad817;
+}
+
+.rmdp-panel-body span {
+  margin: 0 5px;
+  line-height: 23px;
+  font-size: 15px;
+}
+
+.rmdp-panel-body li .b-deselect {
+  align-items: center;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 52%;
+  transform: translateY(-50%) rotate(45deg);
+  padding: 0;
+  line-height: 5px;
+}
+
+.rmdp-panel-body li .b-deselect:focus {
+  outline: none;
+}
+
+.rmdp-panel-header {
+  margin-top: 8px;
+  height: 38px;
+  line-height: 37px;
+  font-size: 14px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb {
+  background: var(--rmdp-primary);
+  border-radius: 3px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb:hover {
+  background: #0263b8;
+}
+
+.rmdp-rtl .rmdp-panel-body li .b-deselect {
+  right: unset;
+  left: 5px;
+}
+
+.rmdp-flat .rmdp-panel-header {
+  border-bottom: none;
+  margin-top: 8px;
+}
+
+.rmdp-flat .rmdp-panel-body li {
+  border-radius: 0;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmpd-panel {
+    min-width: 103px;
+  }
+
+  .rmdp-panel-body {
+    padding: 0 2px;
+  }
+
+  .rmdp-panel-body li {
+    font-size: 12px;
+    margin: 4px;
+  }
+
+  .rmdp-panel-header {
+    font-size: 12px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  .rmdp-panel-body span {
+    font-size: 12px;
+  }
+}
+</style><style type="text/css">.rmdp-container {
+  display: inline-block;
+}
+
+.rmdp-calendar-container {
+  z-index: 1;
+}
+
+.rmdp-calendar-container .rmdp-wrapper {
+  position: absolute;
+  transform: translateY(2px);
+  visibility: hidden;
+}
+
+.rmdp-calendar-container.active .rmdp-wrapper {
+  visibility: visible;
+}
+
+.rmdp-input {
+  margin: 1px 0;
+  border: 1px #eaeeff solid;
+  padding: 2px 5px;
+  height: 22px;
+}
+
+.rmdp-input:focus {
+  outline: none !important;
+  border: 1px solid #a4b3c5;
+  box-shadow: 0 0 2px #a4b3c5;
+}
+
+.rmdp-button {
+  background-color: #0074d9;
+  border: none;
+  color: white;
+  padding: 7px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rmdp-button:hover {
+  background-color: #143ac5;
+  transition: 0.4s;
+}
+
+.rmdp-button:disabled {
+  background-color: #8798ad;
+}
+
+.rmdp-icon {
+  cursor: pointer;
+}
+
+.rmdp-input-icon {
+  position: absolute;
+  height: 21px;
+  width: 21px;
+  margin-left: -24px;
+  background-color: #f9faff;
+  cursor: pointer;
+}
+
+.rmdp-action-button {
+  margin: 15px 0;
+  margin-right: 10px;
+  border-radius: unset;
+  background-color: transparent;
+  float: right;
+  font-weight: bold;
+  color: #2682d3;
+}
+
+.rmdp-action-button:hover {
+  background-color: transparent;
+}
+
+.rmdp-triangle {
+  width: 30px;
+  height: 10px;
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0 0 10px -17px #8798ad;
+  visibility: hidden;
+}
+
+.rmdp-triangle.active {
+  visibility: visible;
+}
+
+.rmdp-triangle:after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  left: 8px;
+}
+
+.rmdp-triangle-up::after {
+  box-shadow: -1px -1px 3px #becadb;
+  top: 3px;
+}
+
+.rmdp-triangle-down::after {
+  box-shadow: 1px 1px 3px #becadb;
+  top: -6px;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-input-icon {
+    top: 0px;
+    bottom: 2px;
+  }
+}
+</style><style type="text/css">.settings {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 5px;
+}
+
+.settings.bottom,
+.settings.top {
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.settings.left,
+.settings.right {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.setting {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: 15px;
+  background-color: #0074d9;
+  color: white;
+  box-shadow: 0 0 3px 1px var(--rmdp-shadow);
+  display: flex;
+  transition: 0.4s;
+  margin: auto 3px;
+}
+
+.left .setting,
+.right .setting {
+  display: grid;
+}
+
+.setting.active {
+  flex: 1;
+}
+
+.left .setting.active,
+.right .setting.active {
+  height: 100%;
+}
+
+.setting .icon {
+  cursor: pointer;
+  margin: 2.5px;
+  transition: 0.4s;
+}
+
+.top .setting,
+.bottom .setting {
+  margin: auto 2px;
+}
+
+.setting .items {
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.setting.active .items {
+  flex: 1;
+  box-shadow: inset 0 0 3px var(--rmdp-shadow);
+  visibility: visible;
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 1px;
+  border-radius: 15px;
+  padding: 0 5px;
+  width: unset;
+  background-color: white;
+  transition: 0.4s;
+}
+
+.left .setting.active .items,
+.right .setting.active .items {
+  display: grid;
+}
+
+.items .item {
+  background-color: rgb(126, 166, 240);
+  box-shadow: 0 0 3px 1px var(--rmdp-shadow);
+  width: 16px;
+  height: 16px;
+  margin: auto 0;
+  font-size: 9px;
+  line-height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.items .item.active {
+  background-color: var(--rmdp-primary);
+  color: white;
+}
+
+.green .items .item {
+  background-color: var(--rmdp-hover-green);
+}
+
+.green .setting,
+.green .items .item.active {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .items .item {
+  background-color: var(--rmdp-hover-purple);
+}
+
+.purple .setting,
+.purple .items .item.active {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .items .item {
+  background-color: var(--rmdp-hover-red);
+}
+
+.red .setting,
+.red .items .item.active {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .items .item {
+  background-color: var(--rmdp-hover-teal);
+}
+
+.teal .setting,
+.teal .items .item.active {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .items .item {
+  background-color: var(--rmdp-hover-yellow);
+}
+
+.yellow .setting,
+.yellow .items .item.active {
+  background-color: var(--rmdp-primary-yellow);
+}
+
+@media (max-width: 400px) {
+  .rmdp-wrapper:not(.rmdp-mobile) .settings:not(.left):not(.right) {
+    height: 35px;
+    overflow: hidden;
+    margin: auto;
+  }
+}
+
+@media (max-height: 400px) {
+  .rmdp-wrapper .settings:not(.left):not(.right) {
+    height: 35px;
+    overflow: hidden;
+    margin: auto;
+  }
+}
+</style><style type="text/css">.rmdp-header-plugin {
+  background-color: #0074d9;
+  display: grid;
+  color: white;
+}
+
+.rmdp-header-plugin div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rmdp-header-plugin .rmdp-hp-dd {
+  font-size: 50px;
+  font-weight: 500;
+}
+
+.rmdp-header-plugin.small.top .rmdp-hp-dd,
+.rmdp-header-plugin.small.bottom .rmdp-hp-dd {
+  font-size: 28px;
+}
+
+.rmdp-prime .rmdp-header-plugin.top {
+  border-radius: 7px 7px 0 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.bottom {
+  border-radius: 0 0 7px 7px;
+}
+
+.rmdp-prime .rmdp-header-plugin.left {
+  border-radius: 7px 0 0 7px;
+}
+
+.rmdp-prime .rmdp-header-plugin.right {
+  border-radius: 0 7px 7px 0;
+}
+
+.rmdp-header-plugin.top.big,
+.rmdp-header-plugin.bottom.big {
+  height: 200px;
+}
+
+.rmdp-header-plugin.left.big,
+.rmdp-header-plugin.right.big {
+  width: 225px;
+}
+
+.rmdp-header-plugin.top.medium,
+.rmdp-header-plugin.bottom.medium {
+  height: 150px;
+}
+
+.rmdp-header-plugin.left.medium,
+.rmdp-header-plugin.right.medium {
+  width: 150px;
+}
+
+.rmdp-header-plugin.top.small,
+.rmdp-header-plugin.bottom.small {
+  height: 90px;
+}
+
+.rmdp-header-plugin.left.small,
+.rmdp-header-plugin.right.small {
+  width: 110px;
+}
+
+.green .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-yellow);
+}
+
+.rmdp-mobile .rmdp-header-plugin {
+  border-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-top-left-radius {
+  border-top-left-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-bottom-left-radius {
+  border-bottom-left-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-top-right-radius {
+  border-top-right-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-bottom-right-radius {
+  border-bottom-right-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-radius {
+  border-radius: 0;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-header-plugin.top.big,
+  .rmdp-header-plugin.bottom.big {
+    height: 100px;
+  }
+
+  .rmdp-header-plugin.left.big,
+  .rmdp-header-plugin.right.big {
+    width: 125px;
+  }
+
+  .rmdp-header-plugin.top.medium,
+  .rmdp-header-plugin.bottom.medium {
+    height: 75px;
+  }
+
+  .rmdp-header-plugin.left.medium,
+  .rmdp-header-plugin.right.medium {
+    width: 75px;
+  }
+
+  .rmdp-header-plugin.top.small,
+  .rmdp-header-plugin.bottom.small {
+    height: 55px;
+  }
+
+  .rmdp-header-plugin.left.small,
+  .rmdp-header-plugin.right.small {
+    width: 55px;
+  }
+
+  .rmdp-header-plugin.big.top .rmdp-hp-dd,
+  .rmdp-header-plugin.big.bottom .rmdp-hp-dd,
+  .rmdp-header-plugin.small.left .rmdp-hp-dd,
+  .rmdp-header-plugin.small.right .rmdp-hp-dd {
+    font-size: 30px;
+  }
+
+  .rmdp-header-plugin.medium.top .rmdp-hp-dd,
+  .rmdp-header-plugin.medium.bottom .rmdp-hp-dd {
+    font-size: 20px;
+  }
+
+  .rmdp-header-plugin.medium.top .rmdp-hp-dddd,
+  .rmdp-header-plugin.medium.bottom .rmdp-hp-dddd,
+  .rmdp-header-plugin.medium.top .rmdp-hp-my,
+  .rmdp-header-plugin.medium.bottom .rmdp-hp-my {
+    font-size: 14px;
+  }
+
+  .rmdp-header-plugin.small.top .rmdp-hp-dd,
+  .rmdp-header-plugin.small.bottom .rmdp-hp-dd {
+    font-size: 18px;
+  }
+
+  .rmdp-header-plugin.small .rmdp-hp-dddd,
+  .rmdp-header-plugin.small .rmdp-hp-my {
+    font-size: 12px;
+  }
+}
+</style><style type="text/css">:root {
+  --highlight-blue-color: #4ca6f5;
+  --highlight-blue-color-deactive: #7b98ce;
+  --highlight-blue-selected: #0074d9;
+  --highlight-blue-selected-deactive: #aec0e0;
+  --highlight-blue-hover: #7ea6f0;
+  --highlight-yellow-color: #f7da37;
+  --highlight-yellow-color-deactive: #c0b025;
+  --highlight-yellow-selected: #fad817;
+  --highlight-yellow-selected-deactive: #dfdd61;
+  --highlight-yellow-hover: #ffeb3b;
+}
+
+.rmdp-colors {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+
+.rmdp-colors.left,
+.rmdp-colors.right {
+  display: grid;
+  padding: 0 8px;
+}
+
+.rmdp-color {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.left .rmdp-color,
+.right .rmdp-color {
+  margin: auto;
+}
+
+.rmdp-blue {
+  background-color: var(--highlight-blue-selected);
+}
+
+.rmdp-red {
+  background-color: var(--highlight-red-selected);
+}
+
+.rmdp-green {
+  background-color: var(--highlight-green-selected);
+}
+
+.rmdp-yellow {
+  background-color: var(--highlight-yellow-selected);
+}
+
+.rmdp-color.active {
+  box-shadow: 0 0 4px 1px #8798ad;
+}
+
+/* highlight-blue */
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-blue:hover {
+  background-color: var(--highlight-blue-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-blue {
+  color: var(--highlight-blue-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-blue {
+  color: var(--highlight-blue-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-blue {
+  background-color: var(--highlight-blue-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-blue {
+  background-color: var(--highlight-blue-selected-deactive);
+  color: white;
+}
+
+/* highlight-yellow */
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-yellow:hover {
+  background-color: var(--highlight-yellow-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-yellow {
+  color: var(--highlight-yellow-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-yellow {
+  color: var(--highlight-yellow-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-yellow {
+  background-color: var(--highlight-yellow-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-yellow {
+  background-color: var(--highlight-yellow-selected-deactive);
+  color: white;
+}
+
+/* hover */
+
+.hover-red:hover {
+  background-color: var(--highlight-red-hover) !important;
+}
+
+.hover-green:hover {
+  background-color: var(--highlight-green-hover) !important;
+}
+
+.hover-yellow:hover {
+  background-color: var(--highlight-yellow-hover) !important;
+}
+</style><style type="text/css">.rmpd-panel {
+  min-width: 125px;
+}
+
+.rmdp-panel-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  list-style: none;
+  padding: 0px 5px;
+  margin: 0;
+  text-align: center;
+  overflow: auto;
+}
+
+.rmdp-panel-body li {
+  box-shadow: 0 0 2px var(--rmdp-shadow);
+  background-color: var(--rmdp-primary);
+  color: white;
+  display: flex;
+  position: relative;
+  margin: 4px 1px;
+}
+
+.rmdp-panel-body li.bg-blue {
+  background-color: #0074d9;
+}
+
+.rmdp-panel-body li.bg-red {
+  background-color: var(--highlight-red-selected);
+}
+
+.rmdp-panel-body li.bg-green {
+  background-color: var(--highlight-green-selected);
+}
+
+.rmdp-panel-body li.bg-yellow {
+  background-color: #fad817;
+}
+
+.rmdp-panel-body span {
+  margin: 0 5px;
+  line-height: 23px;
+  font-size: 15px;
+}
+
+.rmdp-panel-body li .b-deselect {
+  align-items: center;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 52%;
+  transform: translateY(-50%) rotate(45deg);
+  padding: 0;
+  line-height: 5px;
+}
+
+.rmdp-panel-body li .b-deselect:focus {
+  outline: none;
+}
+
+.rmdp-panel-header {
+  margin-top: 8px;
+  height: 38px;
+  line-height: 37px;
+  font-size: 14px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb {
+  background: var(--rmdp-primary);
+  border-radius: 3px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb:hover {
+  background: #0263b8;
+}
+
+.rmdp-rtl .rmdp-panel-body li .b-deselect {
+  right: unset;
+  left: 5px;
+}
+
+.rmdp-flat .rmdp-panel-header {
+  border-bottom: none;
+  margin-top: 8px;
+}
+
+.rmdp-flat .rmdp-panel-body li {
+  border-radius: 0;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmpd-panel {
+    min-width: 103px;
+  }
+
+  .rmdp-panel-body {
+    padding: 0 2px;
+  }
+
+  .rmdp-panel-body li {
+    font-size: 12px;
+    margin: 4px;
+  }
+
+  .rmdp-panel-header {
+    font-size: 12px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  .rmdp-panel-body span {
+    font-size: 12px;
+  }
+}
+</style><style type="text/css">.rmdp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.rmdp-toolbar div {
+  flex-basis: 31%;
+  margin: 5px 0;
+  background-color: var(--rmdp-primary);
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 3px 0;
+}
+
+.rmdp-toolbar div:hover {
+  box-shadow: 0 0 5px var(--rmdp-shadow);
+  transition: 0.4s;
+}
+
+.rmdp-toolbar.right,
+.rmdp-toolbar.left {
+  display: grid;
+}
+
+.rmdp-toolbar.right div,
+.rmdp-toolbar.left div {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  margin: 5px 3px;
+  padding: 0 5px;
+}
+
+.green .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-yellow);
+}
+</style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div class="App"><nav class="navbar"><span class="open-sidebar">☰</span><span class="title">React Multi Date Picker</span><span> 2.0.3</span><span style="margin-left:10px"><a href="/react-multi-date-picker">Home</a></span><div class="nav-images"><div class="nav-image"><a target="_blank" rel="noopener noreferrer" class="github" href="https://github.com/shahabyazdi/react-multi-date-picker"><svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)" fill="#1B1F23"></path></svg></a></div><div class="nav-image"><a target="_blank" rel="noopener noreferrer" class="npm" href="https://www.npmjs.com/package/react-multi-date-picker"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="540px" height="210px" viewBox="0 0 18 7"><path fill="#CB3837" d="M0,0h18v6H9v1H5V6H0V0z M1,5h2V2h1v3h1V1H1V5z M6,1v5h2V5h2V1H6z M8,2h1v2H8V2z M11,1v4h2V2h1v3h1V2h1v3h1V1H11z"></path><polygon fill="#FFFFFF" points="1,5 3,5 3,2 4,2 4,5 5,5 5,1 1,1 "></polygon><path fill="#FFFFFF" d="M6,1v5h2V5h2V1H6z M9,4H8V2h1V4z"></path><polygon fill="#FFFFFF" points="11,1 11,5 13,5 13,2 14,2 14,5 15,5 15,2 16,2 16,5 17,5 17,1 "></polygon></svg></a></div></div></nav><ul class="sidebar "><li><a href="#usage">Usage</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#plugins">Plugins</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#positions">Positions</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#examples">Examples</a><ul class="sidebar-sub-menu"><li><a href="#all-in-one">All In One</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#header">Header</a><ul class="sidebar-sub-menu"><li><a href="#header-right">Header Right</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#persian-calendar">Persian Calendar</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#english-calendar-with-indian-header">English Calendar with Indian Header</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#styling-header">Styling Header</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#date-panel">Date Panel</a><ul class="sidebar-sub-menu"><li><a href="#sort-by-date">Sort By Date</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#without-remove-button">Without Remove Button</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#date-click-listener">Date Click Listener</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#multi-colors">Multi Colors</a><ul class="sidebar-sub-menu"><li><a href="#default-color">Default Color</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#with-datepanel">With DatePanel</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#settings">Settings</a><ul class="sidebar-sub-menu"><li><a href="#settings-bottom">Settings Bottom</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#custom-settings">Custom Settings</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#time-picker">Time Picker</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#weekends">Weekends</a><ul class="sidebar-sub-menu"><li><a href="#weekends:-gregorian">Weekends: gregorian</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#weekends:-persian">Weekends: persian</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#weekends:-custom">Weekends: custom</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#toolbar">Toolbar</a><ul class="sidebar-sub-menu"></ul></li></ul></li></ul><div class="main"><div class="scroll-to-top"><span class="rmdp-arrow-container rmdp-up"><i class="rmdp-arrow"></i></span></div><div><div class="example" id="usage"><div class="title">Usage</div><div><p><b style="color:red">WARNING:</b>The plugins section is still under development and its capabilities may change rapidly. So until the development of plugins is completed, expect a sudden change in its features.</p><p>Plugins Prop accepts an array of plugins, which the following two properties can be entered on each of them.</p><table><thead><tr><th>Prop</th><th>default</th></tr></thead><tbody><tr><td>position</td><td>"right"</td></tr><tr><td>disabled</td><td>false</td></tr></tbody></table><p>This is the general way to add a imported plugin to Datepicker:</p><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">"react"</span>
 <span class="token keyword">import</span> DatePicker <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker"</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> MyFavoritePlugin <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-mylti-date-picker/plugins"</span>
 
@@ -287,4 +1602,4 @@ tomorrow<span class="token punctuation">.</span>color <span class="token operato
   <span class="token attr-name">plugins</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Toolbar</span></span> <span class="token attr-name">position</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bottom<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div></div></div></div></div><script type="text/javascript">!function(t,i){"use strict";i.write('<div id="amarfa-stats-9756" style="display: inline-block"></div>'),i.write('<script type="text/javascript" src="//amarfa.ir/stats/9756.js" async><\/script>')}(0,document)</script><script type="text/javascript" src="//amarfa.ir/stats/9756.js" async=""></script><div id="amarfa-stats-9756" style="display: inline-block"></div><script>!function(e){function r(r){for(var n,a,l=r[0],i=r[1],p=r[2],f=0,s=[];f<l.length;f++)a=l[f],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n]);for(c&&c(r);s.length;)s.shift()();return u.push.apply(u,p||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,l=1;l<t.length;l++){var i=t[l];0!==o[i]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="/react-multi-date-picker/";var l=this["webpackJsonpdatepicker-example"]=this["webpackJsonpdatepicker-example"]||[],i=l.push.bind(l);l.push=r,l=l.slice();for(var p=0;p<l.length;p++)r(l[p]);var c=i;t()}([])</script><script src="/react-multi-date-picker/static/js/2.dcd98e22.chunk.js"></script><script src="/react-multi-date-picker/static/js/main.a0b9ffc2.chunk.js"></script></body></html>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div></div></div></div></div><script type="text/javascript">!function(t,i){"use strict";i.write('<div id="amarfa-stats-9756" style="display: inline-block"></div>'),i.write('<script type="text/javascript" src="//amarfa.ir/stats/9756.js" async><\/script>')}(0,document)</script><script type="text/javascript" src="//amarfa.ir/stats/9756.js" async=""></script><div id="amarfa-stats-9756" style="display: inline-block"></div><script>!function(e){function r(r){for(var n,a,l=r[0],i=r[1],p=r[2],f=0,s=[];f<l.length;f++)a=l[f],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n]);for(c&&c(r);s.length;)s.shift()();return u.push.apply(u,p||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,l=1;l<t.length;l++){var i=t[l];0!==o[i]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="/react-multi-date-picker/";var l=this["webpackJsonpdatepicker-example"]=this["webpackJsonpdatepicker-example"]||[],i=l.push.bind(l);l.push=r,l=l.slice();for(var p=0;p<l.length;p++)r(l[p]);var c=i;t()}([])</script><script src="/react-multi-date-picker/static/js/2.e7b82d5a.chunk.js"></script><script src="/react-multi-date-picker/static/js/main.38fa653d.chunk.js"></script></body></html>
