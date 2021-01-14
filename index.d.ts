@@ -25,7 +25,7 @@ declare module "react-multi-date-picker" {
          */
         calendar?: string,
         /**
-         * Availble locals: 
+         * Availble locales: 
          *
          *  - en `english`
          *  - fa `farsi`
@@ -33,10 +33,10 @@ declare module "react-multi-date-picker" {
          *  - hi `hindi`
          * 
          * @example
-         * <Calendar local="fa" />
-         * <DatePicker local="ar" />
+         * <Calendar locale="fa" />
+         * <DatePicker locale="ar" />
          */
-        local?: string,
+        locale?: string,
         /**
          * @type string
          * @default "YYYY/MM/DD"
