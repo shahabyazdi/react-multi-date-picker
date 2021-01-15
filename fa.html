@@ -1,0 +1,1496 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/react-multi-date-picker/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000000"><meta name="description" content="a simple React datepicker component for working with gregorian, persian, arabic and indian calendars"><meta name="keywords" content="react, multi, date, picker, react-multi-date-picker, datepicker, date, gregorian, persian, arabic, indian, farsi, hindi, calendar, component"><meta name="google-site-verification" content="eN9hWwtvlYdXL_37ZU2ML8AUY8685Fw3O98T5vidr-4"><meta name="msvalidate.01" content="C93B2672E5B60714555F0943FCAFE6C8"><link rel="apple-touch-icon" href="/react-multi-date-picker/logo192.png"><link rel="manifest" href="/react-multi-date-picker/manifest.json"><title>React Multi DatePicker</title><link href="/react-multi-date-picker/static/css/2.a342842d.chunk.css" rel="stylesheet"><link href="/react-multi-date-picker/static/css/main.97999fa9.chunk.css" rel="stylesheet"><style type="text/css">:root {
+  --rmdp-primary: #0074d9;
+  --rmdp-secondary: #4ca6f5;
+  --rmdp-shadow: #8798ad;
+  --rmdp-today: #7fdbff;
+  --rmdp-hover: #7ea6f0;
+  --rmdp-border: #cfd8e2;
+  --highlight-red-color: #cc0303;
+  --highlight-red-color-deactive: #e08e8e;
+  --highlight-red-selected: #ea0034;
+  --highlight-red-selected-deactive: #e4b0ba;
+  --highlight-red-hover: #ff6687;
+  --highlight-green-color: #00796b;
+  --highlight-green-color-deactive: #7ab3ac;
+  --highlight-green-selected: #009688;
+  --highlight-green-selected-deactive: #749c98;
+  --highlight-green-hover: #4db6ac;
+}
+
+.rmdp-wrapper {
+  visibility: hidden;
+  width: max-content;
+  box-shadow: 0 0 5px var(--rmdp-shadow);
+  text-align: center;
+  background-color: white;
+}
+
+.rmdp-wrapper.active {
+  visibility: visible;
+}
+
+.rmdp-border-top {
+  border-top: 1px solid var(--rmdp-border);
+}
+
+.rmdp-border-bottom {
+  border-bottom: 1px solid var(--rmdp-border);
+}
+
+.rmdp-border-left {
+  border-left: 1px solid var(--rmdp-border);
+}
+
+.rmdp-border-right {
+  border-right: 1px solid var(--rmdp-border);
+}
+
+.rmdp-week,
+.rmdp-ym {
+  display: flex;
+  justify-content: center;
+}
+
+.rmdp-ym {
+  height: 25%;
+}
+
+.rmdp-day,
+.rmdp-week-day {
+  height: 34px;
+  width: 34px;
+  cursor: pointer;
+  position: relative;
+  color: black;
+}
+
+.rmdp-week-day {
+  cursor: unset;
+  color: var(--rmdp-primary);
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.rmdp-day span {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.rmdp-day.rmdp-today span {
+  background-color: var(--rmdp-today);
+  color: white;
+}
+
+.rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: var(--rmdp-primary);
+  box-shadow: 0 0 3px var(--rmdp-shadow);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive,
+.rmdp-day.rmdp-disabled {
+  color: var(--rmdp-shadow);
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected span {
+  background-color: var(--rmdp-secondary);
+  box-shadow: 0 0 3px #bac5d3;
+}
+
+.rmdp-ym .rmdp-day {
+  flex: 1;
+  margin: auto;
+}
+
+.rmdp-ym .rmdp-day span {
+  border-radius: 12px;
+  height: 98%;
+  padding: 2px 0px;
+}
+
+.rmdp-range {
+  color: white;
+  background-color: var(--rmdp-primary);
+  box-shadow: 0 0 3px var(--rmdp-shadow);
+}
+
+.rmdp-range.start {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.rmdp-range.end {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+  background-color: var(--rmdp-hover);
+  color: white;
+}
+
+.rmdp-day-picker {
+  padding: 5px;
+}
+
+.rmdp-header {
+  margin-top: 8px;
+  font-size: 14px;
+  height: 38px;
+  line-height: 37px;
+}
+
+.rmdp-month-picker,
+.rmdp-year-picker {
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+  border-radius: 0 0 5px 5px;
+}
+
+.only.rmdp-month-picker,
+.only.rmdp-year-picker {
+  position: static;
+  width: 250px;
+  height: 240px;
+}
+
+.rmdp-header-values {
+  color: black;
+}
+
+.rmdp-header-values span {
+  padding: 0 5px;
+  padding-right: 0;
+}
+
+.rmdp-arrow {
+  border: solid var(--rmdp-primary);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 2px;
+  height: 3px;
+  width: 3px;
+  margin-top: 5px;
+}
+
+.rmdp-up i {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  margin-top: 7px;
+}
+
+.rmdp-down i {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-top: 3px;
+}
+
+.rmdp-right i {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-right: 3px;
+}
+
+.rmdp-left i {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-left: 3px;
+}
+
+.rmdp-left,
+.rmdp-right {
+  position: absolute;
+  top: 54%;
+  transform: translateY(-50%);
+}
+
+.rmdp-left {
+  left: 0;
+}
+
+.rmdp-right {
+  right: 0;
+}
+
+.rmdp-arrow-container {
+  cursor: pointer;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  margin: 0 5px;
+}
+
+.rmdp-arrow-container:hover {
+  background-color: var(--rmdp-primary);
+  box-shadow: 0 0 3px var(--rmdp-shadow);
+}
+
+.rmdp-arrow-container:hover .rmdp-arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+}
+
+.rmdp-time-picker {
+  display: flex;
+  padding: 3px 0;
+  margin-bottom: 3px;
+}
+
+.rmdp-time-picker.active {
+  display: flex;
+}
+
+.rmdp-time-picker div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  margin-top: 1px;
+}
+
+.rmdp-time-picker div input {
+  width: 20px;
+  flex-grow: 1;
+  text-align: center;
+  padding: 5px 2px;
+  border: none;
+}
+
+.rmdp-time-picker div input::-webkit-outer-spin-button,
+.rmdp-time-picker div input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.rmdp-time-picker div input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.rmdp-time-picker .dvdr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: -5px;
+}
+
+.rmdp-time-picker div .rmdp-am {
+  font-size: 12px;
+  line-height: 21px;
+  color: black;
+  margin-top: 2px;
+}
+
+.rmdp-only-time-picker {
+  width: 220px;
+  margin-bottom: 0;
+}
+
+.rmdp-rtl {
+  direction: rtl;
+}
+
+.rmdp-rtl .rmdp-left i {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-left: 0;
+  margin-right: 3px;
+}
+
+.rmdp-rtl .rmdp-right i {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-right: 0;
+  margin-left: 3px;
+}
+
+.rmdp-rtl .rmdp-right {
+  right: auto;
+  left: 0;
+}
+
+.rmdp-rtl .rmdp-left {
+  left: auto;
+  right: 0;
+}
+
+.rmdp-rtl .rmdp-range.start {
+  border-top-left-radius: unset;
+  border-bottom-left-radius: unset;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.rmdp-rtl .rmdp-range.end {
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.rmdp-rtl .rmdp-range.start.end {
+  border-radius: 50%;
+}
+
+.rmdp-day-hidden,
+.rmdp-day.rmdp-disabled {
+  cursor: unset;
+}
+
+.rmdp-selected .highlight {
+  box-shadow: 0 0 3px var(--rmdp-shadow);
+}
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-red:hover {
+  background-color: var(--highlight-red-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-red {
+  color: var(--highlight-red-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-red {
+  color: var(--highlight-red-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-red {
+  background-color: var(--highlight-red-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-red {
+  background-color: var(--highlight-red-selected-deactive);
+  color: white;
+}
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-green:hover {
+  background-color: var(--highlight-green-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-green {
+  color: var(--highlight-green-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-green {
+  color: var(--highlight-green-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-green {
+  background-color: var(--highlight-green-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-green {
+  background-color: var(--highlight-green-selected-deactive);
+  color: white;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-day,
+  .rmdp-week-day {
+    height: 28px;
+    width: 28px;
+  }
+
+  .rmdp-day span {
+    padding-left: 0.5px;
+    font-size: 12px;
+  }
+
+  .only.rmdp-year-picker,
+  .only.rmdp-month-picker {
+    width: 205px;
+    height: 200px;
+  }
+
+  .rmdp-header {
+    height: 32px;
+    font-size: 12px;
+    line-height: 32px;
+  }
+
+  .rmdp-time-picker div input {
+    font-size: 12px;
+  }
+}
+
+.rmdp-day-hidden:hover span,
+.rmdp-day-hidden {
+  background-color: unset;
+  color: transparent;
+}
+</style><style type="text/css">.rmpd-panel {
+  min-width: 125px;
+}
+
+.rmdp-panel-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  list-style: none;
+  padding: 0px 5px;
+  margin: 0;
+  text-align: center;
+  overflow: auto;
+}
+
+.rmdp-panel-body li {
+  box-shadow: 0 0 2px var(--rmdp-shadow);
+  background-color: var(--rmdp-primary);
+  color: white;
+  display: flex;
+  position: relative;
+  margin: 4px 1px;
+}
+
+.rmdp-panel-body li.bg-blue {
+  background-color: #0074d9;
+}
+
+.rmdp-panel-body li.bg-red {
+  background-color: var(--highlight-red-selected);
+}
+
+.rmdp-panel-body li.bg-green {
+  background-color: var(--highlight-green-selected);
+}
+
+.rmdp-panel-body li.bg-yellow {
+  background-color: #fad817;
+}
+
+.rmdp-panel-body span {
+  margin: 0 5px;
+  line-height: 23px;
+  font-size: 15px;
+}
+
+.rmdp-panel-body li .b-deselect {
+  align-items: center;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 52%;
+  transform: translateY(-50%) rotate(45deg);
+  padding: 0;
+  line-height: 5px;
+}
+
+.rmdp-panel-body li .b-deselect:focus {
+  outline: none;
+}
+
+.rmdp-panel-header {
+  margin-top: 8px;
+  height: 38px;
+  line-height: 37px;
+  font-size: 14px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb {
+  background: var(--rmdp-primary);
+  border-radius: 3px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb:hover {
+  background: #0263b8;
+}
+
+.rmdp-rtl .rmdp-panel-body li .b-deselect {
+  right: unset;
+  left: 5px;
+}
+
+.rmdp-flat .rmdp-panel-header {
+  border-bottom: none;
+  margin-top: 8px;
+}
+
+.rmdp-flat .rmdp-panel-body li {
+  border-radius: 0;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmpd-panel {
+    min-width: 103px;
+  }
+
+  .rmdp-panel-body {
+    padding: 0 2px;
+  }
+
+  .rmdp-panel-body li {
+    font-size: 12px;
+    margin: 4px;
+  }
+
+  .rmdp-panel-header {
+    font-size: 12px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  .rmdp-panel-body span {
+    font-size: 12px;
+  }
+}
+</style><style type="text/css">.rmdp-container {
+  display: inline-block;
+}
+
+.rmdp-calendar-container {
+  z-index: 1;
+}
+
+.rmdp-calendar-container .rmdp-wrapper {
+  position: absolute;
+  transform: translateY(2px);
+  visibility: hidden;
+}
+
+.rmdp-calendar-container.active .rmdp-wrapper {
+  visibility: visible;
+}
+
+.rmdp-input {
+  margin: 1px 0;
+  border: 1px #eaeeff solid;
+  padding: 2px 5px;
+  height: 22px;
+}
+
+.rmdp-input:focus {
+  outline: none !important;
+  border: 1px solid #a4b3c5;
+  box-shadow: 0 0 2px #a4b3c5;
+}
+
+.rmdp-button {
+  background-color: #0074d9;
+  border: none;
+  color: white;
+  padding: 7px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rmdp-button:hover {
+  background-color: #143ac5;
+  transition: 0.4s;
+}
+
+.rmdp-button:disabled {
+  background-color: #8798ad;
+}
+
+.rmdp-icon {
+  cursor: pointer;
+}
+
+.rmdp-input-icon {
+  position: absolute;
+  height: 21px;
+  width: 21px;
+  margin-left: -24px;
+  background-color: #f9faff;
+  cursor: pointer;
+}
+
+.rmdp-action-button {
+  margin: 15px 0;
+  margin-right: 10px;
+  border-radius: unset;
+  background-color: transparent;
+  float: right;
+  font-weight: bold;
+  color: #2682d3;
+}
+
+.rmdp-action-button:hover {
+  background-color: transparent;
+}
+
+.rmdp-triangle {
+  width: 30px;
+  height: 10px;
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0 0 10px -17px #8798ad;
+  visibility: hidden;
+}
+
+.rmdp-triangle.active {
+  visibility: visible;
+}
+
+.rmdp-triangle:after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  left: 8px;
+}
+
+.rmdp-triangle-up::after {
+  box-shadow: -1px -1px 3px #becadb;
+  top: 3px;
+}
+
+.rmdp-triangle-down::after {
+  box-shadow: 1px 1px 3px #becadb;
+  top: -6px;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-input-icon {
+    top: 0px;
+    bottom: 2px;
+  }
+}
+</style><style type="text/css">.settings {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 5px;
+}
+
+.settings.bottom,
+.settings.top {
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.settings.left,
+.settings.right {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.setting {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: 15px;
+  background-color: #0074d9;
+  color: white;
+  box-shadow: 0 0 3px 1px var(--rmdp-shadow);
+  display: flex;
+  transition: 0.4s;
+  margin: auto 3px;
+}
+
+.left .setting,
+.right .setting {
+  display: grid;
+}
+
+.setting.active {
+  flex: 1;
+}
+
+.left .setting.active,
+.right .setting.active {
+  height: 100%;
+}
+
+.setting .icon {
+  cursor: pointer;
+  margin: 2.5px;
+  transition: 0.4s;
+}
+
+.top .setting,
+.bottom .setting {
+  margin: auto 2px;
+}
+
+.setting .items {
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.setting.active .items {
+  flex: 1;
+  box-shadow: inset 0 0 3px var(--rmdp-shadow);
+  visibility: visible;
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 1px;
+  border-radius: 15px;
+  padding: 0 5px;
+  width: unset;
+  background-color: white;
+  transition: 0.4s;
+}
+
+.left .setting.active .items,
+.right .setting.active .items {
+  display: grid;
+}
+
+.items .item {
+  background-color: rgb(126, 166, 240);
+  box-shadow: 0 0 3px 1px var(--rmdp-shadow);
+  width: 16px;
+  height: 16px;
+  margin: auto 0;
+  font-size: 9px;
+  line-height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.items .item.active {
+  background-color: var(--rmdp-primary);
+  color: white;
+}
+
+.green .items .item {
+  background-color: var(--rmdp-hover-green);
+}
+
+.green .setting,
+.green .items .item.active {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .items .item {
+  background-color: var(--rmdp-hover-purple);
+}
+
+.purple .setting,
+.purple .items .item.active {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .items .item {
+  background-color: var(--rmdp-hover-red);
+}
+
+.red .setting,
+.red .items .item.active {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .items .item {
+  background-color: var(--rmdp-hover-teal);
+}
+
+.teal .setting,
+.teal .items .item.active {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .items .item {
+  background-color: var(--rmdp-hover-yellow);
+}
+
+.yellow .setting,
+.yellow .items .item.active {
+  background-color: var(--rmdp-primary-yellow);
+}
+
+@media (max-width: 400px) {
+  .rmdp-wrapper:not(.rmdp-mobile) .settings:not(.left):not(.right) {
+    height: 35px;
+    overflow: hidden;
+    margin: auto;
+  }
+}
+
+@media (max-height: 400px) {
+  .rmdp-wrapper .settings:not(.left):not(.right) {
+    height: 35px;
+    overflow: hidden;
+    margin: auto;
+  }
+}
+</style><style type="text/css">.rmdp-header-plugin {
+  background-color: #0074d9;
+  display: grid;
+  color: white;
+}
+
+.rmdp-header-plugin div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rmdp-header-plugin .rmdp-hp-dd {
+  font-size: 50px;
+  font-weight: 500;
+}
+
+.rmdp-header-plugin.small.top .rmdp-hp-dd,
+.rmdp-header-plugin.small.bottom .rmdp-hp-dd {
+  font-size: 28px;
+}
+
+.rmdp-prime .rmdp-header-plugin.top {
+  border-radius: 7px 7px 0 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.bottom {
+  border-radius: 0 0 7px 7px;
+}
+
+.rmdp-prime .rmdp-header-plugin.left {
+  border-radius: 7px 0 0 7px;
+}
+
+.rmdp-prime .rmdp-header-plugin.right {
+  border-radius: 0 7px 7px 0;
+}
+
+.rmdp-header-plugin.top.big,
+.rmdp-header-plugin.bottom.big {
+  height: 200px;
+}
+
+.rmdp-header-plugin.left.big,
+.rmdp-header-plugin.right.big {
+  width: 225px;
+}
+
+.rmdp-header-plugin.top.medium,
+.rmdp-header-plugin.bottom.medium {
+  height: 150px;
+}
+
+.rmdp-header-plugin.left.medium,
+.rmdp-header-plugin.right.medium {
+  width: 150px;
+}
+
+.rmdp-header-plugin.top.small,
+.rmdp-header-plugin.bottom.small {
+  height: 90px;
+}
+
+.rmdp-header-plugin.left.small,
+.rmdp-header-plugin.right.small {
+  width: 110px;
+}
+
+.green .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .rmdp-header-plugin {
+  background-color: var(--rmdp-primary-yellow);
+}
+
+.rmdp-mobile .rmdp-header-plugin {
+  border-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-top-left-radius {
+  border-top-left-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-bottom-left-radius {
+  border-bottom-left-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-top-right-radius {
+  border-top-right-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-bottom-right-radius {
+  border-bottom-right-radius: 0;
+}
+
+.rmdp-prime .rmdp-header-plugin.no-border-radius {
+  border-radius: 0;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-header-plugin.top.big,
+  .rmdp-header-plugin.bottom.big {
+    height: 100px;
+  }
+
+  .rmdp-header-plugin.left.big,
+  .rmdp-header-plugin.right.big {
+    width: 125px;
+  }
+
+  .rmdp-header-plugin.top.medium,
+  .rmdp-header-plugin.bottom.medium {
+    height: 75px;
+  }
+
+  .rmdp-header-plugin.left.medium,
+  .rmdp-header-plugin.right.medium {
+    width: 75px;
+  }
+
+  .rmdp-header-plugin.top.small,
+  .rmdp-header-plugin.bottom.small {
+    height: 55px;
+  }
+
+  .rmdp-header-plugin.left.small,
+  .rmdp-header-plugin.right.small {
+    width: 55px;
+  }
+
+  .rmdp-header-plugin.big.top .rmdp-hp-dd,
+  .rmdp-header-plugin.big.bottom .rmdp-hp-dd,
+  .rmdp-header-plugin.small.left .rmdp-hp-dd,
+  .rmdp-header-plugin.small.right .rmdp-hp-dd {
+    font-size: 30px;
+  }
+
+  .rmdp-header-plugin.medium.top .rmdp-hp-dd,
+  .rmdp-header-plugin.medium.bottom .rmdp-hp-dd {
+    font-size: 20px;
+  }
+
+  .rmdp-header-plugin.medium.top .rmdp-hp-dddd,
+  .rmdp-header-plugin.medium.bottom .rmdp-hp-dddd,
+  .rmdp-header-plugin.medium.top .rmdp-hp-my,
+  .rmdp-header-plugin.medium.bottom .rmdp-hp-my {
+    font-size: 14px;
+  }
+
+  .rmdp-header-plugin.small.top .rmdp-hp-dd,
+  .rmdp-header-plugin.small.bottom .rmdp-hp-dd {
+    font-size: 18px;
+  }
+
+  .rmdp-header-plugin.small .rmdp-hp-dddd,
+  .rmdp-header-plugin.small .rmdp-hp-my {
+    font-size: 12px;
+  }
+}
+</style><style type="text/css">:root {
+  --highlight-blue-color: #4ca6f5;
+  --highlight-blue-color-deactive: #7b98ce;
+  --highlight-blue-selected: #0074d9;
+  --highlight-blue-selected-deactive: #aec0e0;
+  --highlight-blue-hover: #7ea6f0;
+  --highlight-yellow-color: #f7da37;
+  --highlight-yellow-color-deactive: #c0b025;
+  --highlight-yellow-selected: #fad817;
+  --highlight-yellow-selected-deactive: #dfdd61;
+  --highlight-yellow-hover: #ffeb3b;
+}
+
+.rmdp-colors {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+
+.rmdp-colors.left,
+.rmdp-colors.right {
+  display: grid;
+  padding: 0 8px;
+}
+
+.rmdp-color {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.left .rmdp-color,
+.right .rmdp-color {
+  margin: auto;
+}
+
+.rmdp-blue {
+  background-color: var(--highlight-blue-selected);
+}
+
+.rmdp-red {
+  background-color: var(--highlight-red-selected);
+}
+
+.rmdp-green {
+  background-color: var(--highlight-green-selected);
+}
+
+.rmdp-yellow {
+  background-color: var(--highlight-yellow-selected);
+}
+
+.rmdp-color.active {
+  box-shadow: 0 0 4px 1px #8798ad;
+}
+
+/* highlight-blue */
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-blue:hover {
+  background-color: var(--highlight-blue-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-blue {
+  color: var(--highlight-blue-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-blue {
+  color: var(--highlight-blue-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-blue {
+  background-color: var(--highlight-blue-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-blue {
+  background-color: var(--highlight-blue-selected-deactive);
+  color: white;
+}
+
+/* highlight-yellow */
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-yellow:hover {
+  background-color: var(--highlight-yellow-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-yellow {
+  color: var(--highlight-yellow-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-yellow {
+  color: var(--highlight-yellow-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-yellow {
+  background-color: var(--highlight-yellow-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-yellow {
+  background-color: var(--highlight-yellow-selected-deactive);
+  color: white;
+}
+
+/* hover */
+
+.hover-red:hover {
+  background-color: var(--highlight-red-hover) !important;
+}
+
+.hover-green:hover {
+  background-color: var(--highlight-green-hover) !important;
+}
+
+.hover-yellow:hover {
+  background-color: var(--highlight-yellow-hover) !important;
+}
+</style><style type="text/css">.rmpd-panel {
+  min-width: 125px;
+}
+
+.rmdp-panel-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  list-style: none;
+  padding: 0px 5px;
+  margin: 0;
+  text-align: center;
+  overflow: auto;
+}
+
+.rmdp-panel-body li {
+  box-shadow: 0 0 2px var(--rmdp-shadow);
+  background-color: var(--rmdp-primary);
+  color: white;
+  display: flex;
+  position: relative;
+  margin: 4px 1px;
+}
+
+.rmdp-panel-body li.bg-blue {
+  background-color: #0074d9;
+}
+
+.rmdp-panel-body li.bg-red {
+  background-color: var(--highlight-red-selected);
+}
+
+.rmdp-panel-body li.bg-green {
+  background-color: var(--highlight-green-selected);
+}
+
+.rmdp-panel-body li.bg-yellow {
+  background-color: #fad817;
+}
+
+.rmdp-panel-body span {
+  margin: 0 5px;
+  line-height: 23px;
+  font-size: 15px;
+}
+
+.rmdp-panel-body li .b-deselect {
+  align-items: center;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 52%;
+  transform: translateY(-50%) rotate(45deg);
+  padding: 0;
+  line-height: 5px;
+}
+
+.rmdp-panel-body li .b-deselect:focus {
+  outline: none;
+}
+
+.rmdp-panel-header {
+  margin-top: 8px;
+  height: 38px;
+  line-height: 37px;
+  font-size: 14px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb {
+  background: var(--rmdp-primary);
+  border-radius: 3px;
+}
+
+.rmdp-panel-body::-webkit-scrollbar-thumb:hover {
+  background: #0263b8;
+}
+
+.rmdp-rtl .rmdp-panel-body li .b-deselect {
+  right: unset;
+  left: 5px;
+}
+
+.rmdp-flat .rmdp-panel-header {
+  border-bottom: none;
+  margin-top: 8px;
+}
+
+.rmdp-flat .rmdp-panel-body li {
+  border-radius: 0;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmpd-panel {
+    min-width: 103px;
+  }
+
+  .rmdp-panel-body {
+    padding: 0 2px;
+  }
+
+  .rmdp-panel-body li {
+    font-size: 12px;
+    margin: 4px;
+  }
+
+  .rmdp-panel-header {
+    font-size: 12px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  .rmdp-panel-body span {
+    font-size: 12px;
+  }
+}
+</style><style type="text/css">.rmdp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.rmdp-toolbar div {
+  flex-basis: 31%;
+  margin: 5px 0;
+  background-color: var(--rmdp-primary);
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 3px 0;
+}
+
+.rmdp-toolbar div:hover {
+  box-shadow: 0 0 5px var(--rmdp-shadow);
+  transition: 0.4s;
+}
+
+.rmdp-toolbar.right,
+.rmdp-toolbar.left {
+  display: grid;
+}
+
+.rmdp-toolbar.right div,
+.rmdp-toolbar.left div {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  margin: 5px 3px;
+  padding: 0 5px;
+}
+
+.green .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-yellow);
+}
+</style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div class="App rtl"><nav class="navbar"><svg class="open-sidebar" width="30" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="9" y1="6" x2="20" y2="6"></line><line x1="9" y1="12" x2="20" y2="12"></line><line x1="9" y1="18" x2="20" y2="18"></line><line x1="5" y1="6" x2="5" y2="6.01"></line><line x1="5" y1="12" x2="5" y2="12.01"></line><line x1="5" y1="18" x2="5" y2="18.01"></line></svg><div class="navbar-title"><span class="name">React Multi Date Picker</span><span class="version"> 2.0.4</span></div><div class="icons"><div class="icon language"><a href="/react-multi-date-picker/"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 7410 3900" navbar-title="english"><rect width="7410" height="3900" fill="#b22234"></rect><path d="M0,450H7410m0,600H0m0,600H7410m0,600H0m0,600H7410m0,600H0" stroke="#fff" stroke-width="300"></path><rect width="2964" height="2100" fill="#3c3b6e"></rect><g fill="#fff"><g id="s18"><g id="s9"><g id="s5"><g id="s4"><path id="s" d="M247,90 317.534230,307.082039 132.873218,172.917961H361.126782L176.465770,307.082039z"></path><use xlink:href="#s" y="420"></use><use xlink:href="#s" y="840"></use><use xlink:href="#s" y="1260"></use></g><use xlink:href="#s" y="1680"></use></g><use xlink:href="#s4" x="247" y="210"></use></g><use xlink:href="#s9" x="494"></use></g><use xlink:href="#s18" x="988"></use><use xlink:href="#s9" x="1976"></use><use xlink:href="#s5" x="2470"></use></g></svg></a></div><div class="icon"><a target="_blank" rel="noopener noreferrer" class="github" href="https://github.com/shahabyazdi/react-multi-date-picker"><svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)" fill="#1B1F23"></path></svg></a></div><div class="icon"><a target="_blank" rel="noopener noreferrer" class="npm" href="https://www.npmjs.com/package/react-multi-date-picker"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="540px" height="210px" viewBox="0 0 18 7"><path fill="#CB3837" d="M0,0h18v6H9v1H5V6H0V0z M1,5h2V2h1v3h1V1H1V5z M6,1v5h2V5h2V1H6z M8,2h1v2H8V2z M11,1v4h2V2h1v3h1V2h1v3h1V1H11z"></path><polygon fill="#FFFFFF" points="1,5 3,5 3,2 4,2 4,5 5,5 5,1 1,1 "></polygon><path fill="#FFFFFF" d="M6,1v5h2V5h2V1H6z M9,4H8V2h1V4z"></path><polygon fill="#FFFFFF" points="11,1 11,5 13,5 13,2 14,2 14,5 15,5 15,2 16,2 16,5 17,5 17,1 "></polygon></svg></a></div></div></nav><div><ul class="sidebar "><li><a href="#نصب-و-راه-اندازی">نصب و راه اندازی</a><ul class="sidebar-sub-menu"><li><a href="#npm">npm</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#yarn">yarn</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#تقویم-ها">تقویم ها</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#زبان-ها">زبان ها</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تقویم-هجری-شمسی">تقویم هجری شمسی</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تقویم-هجری-قمری">تقویم هجری قمری</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#مشخص-کردن-زمان-دلخواه">مشخص کردن زمان دلخواه</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#مقدار-اولیه-با-تایپ-dateobject">مقدار اولیه با تایپ DateObject</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#چرا-dateobject-؟">چرا DateObject ؟</a><ul class="sidebar-sub-menu"><li><a href="#تولید-تاریخ-میلادی">تولید تاریخ میلادی</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تولید-تاریخ-شمسی">تولید تاریخ شمسی</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تولید-تاریخ-قمری">تولید تاریخ قمری</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تولید-تاریخ-شمسی-با-استفاده-از-متغیر-رشته-ای">تولید تاریخ شمسی با استفاده از متغیر رشته ای</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تولید-تاریخ-شمسی-توسط-مقدار-عددی">تولید تاریخ شمسی توسط مقدار عددی</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تولید-تاریخ-شمسی-توسط-date-جاوا-اسکریپت">تولید تاریخ شمسی توسط Date جاوا اسکریپت</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تولید-تاریخ-شمسی-توسط-زمان-یونیکس">تولید تاریخ شمسی توسط زمان یونیکس</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تبدیل-تاریخ-شمسی-به-قمری">تبدیل تاریخ شمسی به قمری</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تبدیل-تاریخ-قمری-به-شمسی">تبدیل تاریخ قمری به شمسی</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#تبدیل-تاریخ-میلادی-به-هندی">تبدیل تاریخ میلادی به هندی</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#مشخص-کردن-روزهای-هفته-دلخواه">مشخص کردن روزهای هفته دلخواه</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#نمایش-نام-ماه-های-دلخواه">نمایش نام ماه های دلخواه</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#قرمز-کردن-روز-های-جمعه">قرمز کردن روز های جمعه</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#استفاده-از-پلاگین-header">استفاده از پلاگین header</a><ul class="sidebar-sub-menu"></ul></li></ul><div class="main"><div class="scroll-to-top"><span class="rmdp-arrow-container rmdp-up"><i class="rmdp-arrow"></i></span></div><div><div class="example" id="نصب-و-راه-اندازی"><div class="title">نصب و راه اندازی</div></div><div><div class="example" id="npm"><div class="title">npm</div><p>برای نصب این کتابخانه توسط npm کد زیر را در ترمینال خود بنویسید . </p><pre class=" language-jsx"><code class=" language-jsx">npm install <span class="token operator">--</span>save react<span class="token operator">-</span>multi<span class="token operator">-</span>date<span class="token operator">-</span>picker</code></pre></div></div><div><div class="example" id="yarn"><div class="title">yarn</div><p>اگر از yarn استفاده میکنید میتونید از کد زیر استفاده کنید.</p><pre class=" language-jsx"><code class=" language-jsx">yarn add react<span class="token operator">-</span>multi<span class="token operator">-</span>date<span class="token operator">-</span>picker</code></pre></div></div></div><div><div class="example" id="تقویم-ها"><div class="title">تقویم ها</div><div><p>در حال حاضر از تقویم های میلادی ، هجری شمسی ، هجری قمری و هندی در این کتابخانه پشتبانی میشه.</p><p>برای استفاده از هر کدام از این تقویم ها باید مقدار calendar رو برابر با یکی از مقادیر زیر قرار بدید.</p><table><thead><tr><th>تقویم</th><th>مقدار</th></tr></thead><tbody><tr><td>میلادی</td><td>gregorian</td></tr><tr><td>هجری شمسی</td><td>persian</td></tr><tr><td>هجری قمری</td><td>arabic</td></tr><tr><td>هندی</td><td>indian</td></tr></tbody></table></div></div></div><div><div class="example" id="زبان-ها"><div class="title">زبان ها</div><div><p>زبان های موجود عبارت اند از : انگلیسی ، فارسی ، عربی و هندی.</p><p>همچنین برای استفاده از هر کدام از این زبان ها باید مقدار locale رو برابر با یکی از مقادیر زیر قرار بدید.</p><table><thead><tr><th>زبان</th><th>مقدار</th></tr></thead><tbody><tr><td>انگلیسی</td><td>en</td></tr><tr><td>فارسی</td><td>fa</td></tr><tr><td>عربی</td><td>ar</td></tr><tr><td>هندی</td><td>hi</td></tr></tbody></table></div></div></div><div><div class="example" id="تقویم-هجری-شمسی"><div class="title">تقویم هجری شمسی</div><div><p>این کتابخانه به صورت پیشفرض از تقویم میلادی و زبان انگلیسی استفاده میکنه و direction پیشفرضش هم چپ به راست در نظر گرفته شده. به همین دلیل در صفحاتی که direction آن راست به چپ هست، باید مقدار calendarPosition را برابر با auto-right قرار بدید.</p><p>فرمت پیشفرض نمایش تاریخ در input به صورت YYYY/MM/DD تعریف شده. در صورت نیاز و در صفحات راست به چپ، میتونید مقدار format رو به DD/MM/YYYY تفییر بدید.</p></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">"react"</span>
+<span class="token keyword">import</span> DatePicker <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker"</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">example</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePicker</span></span>
+      <span class="token attr-name">calendar</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>persian<span class="token punctuation">"</span></span>
+      <span class="token attr-name">locale</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa<span class="token punctuation">"</span></span>
+      <span class="token attr-name">calendarPosition</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>auto-right<span class="token punctuation">"</span></span>
+      <span class="token attr-name">format</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>DD/MM/YYYY<span class="token punctuation">"</span></span>
+    <span class="token punctuation">/&gt;</span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" style="direction:rtl" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="تقویم-هجری-قمری"><div class="title">تقویم هجری قمری</div><div><p><b style="color:red">نکته: </b>تقویم هجری قمری از محاسبات <a target="_blank" rel="noreferrer" href="https://fa.wikipedia.org/wiki/%DA%AF%D8%A7%D9%87%E2%80%8C%D8%B4%D9%85%D8%A7%D8%B1%DB%8C_%D9%87%D8%AC%D8%B1%DB%8C_%D9%82%D9%85%D8%B1%DB%8C">قراردادی</a> استفاده میکنه و ممکنه با گاه ‌شماری هجری قمری هلالی یک یا دو روز تفاوت داشته باشه.</p><p>برای تبدیل تقویم قراردادی به میلادی و برعکس روی این <a target="_blank" rel="noreferrer" href="https://www.searchtruth.com/hijri/">لینک</a> کلیک کنید.</p><p></p></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePicker</span></span>
+  <span class="token attr-name">calendar</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>arabic<span class="token punctuation">"</span></span>
+  <span class="token attr-name">locale</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa<span class="token punctuation">"</span></span>
+  <span class="token attr-name">calendarPosition</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>auto-right<span class="token punctuation">"</span></span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="مشخص-کردن-زمان-دلخواه"><div class="title">مشخص کردن زمان دلخواه</div><div><p>همانطور که در مثال های بالا مشاهده کردید هیچ مقدار اولیه ای به عنوان تاریخ برای دیتپیکر مشخص نشده، بنابراین با اولین کلیک، مقدار تاریخ آن برابر با همان روز در نظر گرفته میشه.</p><p>در صورت <b>مشخص نکردن</b> مقدار اولیه، تاریخی که توسط کاربر انتخاب میشه در یک استیت داخلی نگداری میشه، بنابراین با رندر شدن دوباره توسط ری اکت ، آن مقدار از دست نمیره.</p><p>ولی در صورتی که <b>تاریخ بخصوصی رو به عنوان مقدار اولیه</b> در نظر دارید، میبایست آن را در یک استیت نگداری کنید و زمانی که کاربر تاریخ جدیدی را انتخاب میکنه ،توسط متد onChange آن را در استیت خود بروزرسانی کنید تا با رندر شدن دوباره، تاریخ بروزرسانی شده تون از دست نره.</p><p>مقدار اولیه تاریخ میتونه از جنس Date , DateObject , Number و یا String باشه ولی به محض انتخاب تاریخ جدید توسط کاربر ، Type آن به DateObject تغییر میکنه.</p><p>بنابراین اگر در هنگام سابمیت فرم خود میخواید تاریخ انتخاب شده ی کاربر رو به Date جاوااسکریپت تبدیل کنید ، میتونید خیلی راحت از متد <span dir="ltr">toDate()</span> استفاده کنید.</p><p>برعکس مورد بالا، برای تبدیل String یا Date به DateObject باید آن مقدار را در کانستراکتور DateObject قرار بدید.ولی با توجه به اینکه تقویم پیشفرض DateObject، میلادی هست برای تبدیل String تاریخ شمسی به DateObject به جای خود String، یک آبجکت همانند مثال پایین در کانستراکتور قرار میگیره.</p><p>در این مثال، مقدار اولیه تاریخ از جنس String و زمان آن اول فروردین 1400 در نظر گرفته شده و توسط دکمه سابمیت تاریخ انتخاب شده کاربر از حالت DateObject به Date جاوا اسکریپت تبدیل شده و در یک span نمایش داده میشه.</p></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"React"</span>
+<span class="token keyword">import</span> DatePicker<span class="token punctuation">,</span> <span class="token punctuation">{</span> DateObject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-multi-date-picker'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">example</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token string">"1400/01/01"</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>date<span class="token punctuation">,</span> setDate<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span><span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePicker</span></span>
+        <span class="token attr-name">calendar</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>persian<span class="token punctuation">"</span></span>
+        <span class="token attr-name">locale</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa<span class="token punctuation">"</span></span>
+        <span class="token attr-name">calendarPosition</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>auto-right<span class="token punctuation">"</span></span>
+        <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>value<span class="token punctuation">}</span></span>
+        <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>setValue<span class="token punctuation">}</span></span>
+      <span class="token punctuation">/&gt;</span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> value <span class="token operator">===</span> <span class="token string">"string"</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token function">setDate</span><span class="token punctuation">(</span>
+            <span class="token comment">//هنوز تاریخ جدبد توسط کاربر انتخاب نشده</span>
+            <span class="token comment">//و مقدار آن 1400/01/01</span>
+            <span class="token comment">//میباشد. بنابراین اول آن را به صورت دستی به</span>
+            <span class="token comment">//DateObject</span>
+            <span class="token comment">//تبدیل کرده و سپس تاریخ تولید شده را به</span>
+            <span class="token comment">//Date </span>
+            <span class="token comment">//جاوا اسکریپت تبدیل میکنیم</span>
+            <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span> 
+              calendar<span class="token operator">:</span> <span class="token string">"persian"</span><span class="token punctuation">,</span> 
+              date 
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">)</span>
+          <span class="token comment">//تاریخ جدید توسط کاربر انتخاب شده و با متد</span>
+          <span class="token comment">//toDate()</span>
+          <span class="token comment">//قابل تبدیل میباشد</span>
+          <span class="token function">setDate</span><span class="token punctuation">(</span>value<span class="token punctuation">.</span><span class="token function">toDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
+      <span class="token punctuation">&gt;</span></span><span class="token plain-text">
+        سابمیت
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span><span class="token keyword">typeof</span> date <span class="token operator">===</span> <span class="token string">"undefined"</span> <span class="token operator">?</span> <span class="token string">""</span> <span class="token operator">:</span> <span class="token punctuation">(</span><span class="token string">""</span> <span class="token operator">+</span> date<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre><div><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div><button>سابمیت</button><span></span></div></div></div><div><div class="example" id="مقدار-اولیه-با-تایپ-dateobject"><div class="title">مقدار اولیه با تایپ DateObject</div><div><p>در مثال بالا برای تبدیل String به DateObject ، شرطی در متد onClick دکمه سابمیت قرارداده شده که ممکنه کمی گیج کننده باشه.</p><p>دلیل اونم اینه که مقدار اولیه ای که در state نگهداری میشه از نوع استرینگ هست، برای ساده تر شدن، مثال بالا را میشه به صورت زیر تعییر داد.</p><p></p></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"React"</span>
+<span class="token keyword">import</span> DatePicker<span class="token punctuation">,</span> <span class="token punctuation">{</span> DateObject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-multi-date-picker'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">example</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>value1<span class="token punctuation">,</span> setValue1<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span>
+    <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      calendar<span class="token operator">:</span> <span class="token string">"persian"</span><span class="token punctuation">,</span>
+      date<span class="token operator">:</span> <span class="token string">"1400/01/01"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+  
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>date<span class="token punctuation">,</span> setDate<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      
+  <span class="token keyword">return</span><span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePicker</span></span>
+        <span class="token attr-name">calendar</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>persian<span class="token punctuation">"</span></span>
+        <span class="token attr-name">locale</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa<span class="token punctuation">"</span></span>
+        <span class="token attr-name">calendarPosition</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>auto-right<span class="token punctuation">"</span></span>
+        <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>value<span class="token punctuation">}</span></span>
+        <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>setValue<span class="token punctuation">}</span></span>
+      <span class="token punctuation">/&gt;</span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">setDate</span><span class="token punctuation">(</span>value<span class="token punctuation">.</span><span class="token function">toDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span>
+      <span class="token punctuation">&gt;</span></span><span class="token plain-text">
+        سابمیت
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span><span class="token string">""</span> <span class="token operator">+</span> <span class="token punctuation">(</span>date <span class="token operator">??</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre><div><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div><button>سابمیت</button><span></span></div></div></div><div><div class="example" id="چرا-dateobject-؟"><div class="title">چرا DateObject ؟</div><div><p>اگر مثال های قبلی رو دیده باشید، ممکنه براتون این سوال پیش بیاد که DateObject دیگه چیه و چرا انقدر تکرار شده 😁</p><p>در جواب باید بهتون بگم که برای یکی از پروژه هام که چند زبانه طراحی شده بود و همینطور با تغییر زبان، تقویم و تاریخش هم به زبان انتخاب شده تغییر میکرد ، مجبور بودم هم از دیت پیکر های مختلف استفاده کنم هم طبیعتا چون هر دیتپیکری برای اجرا به یک کتابخانه خاص متصله ( مثلا یکی میخواد از moment jalali استفاده کنه یکی میخواد از moment hijri استفاده کنه دوباره همه اینا وابسته به خود مومنت هستن) مجبور بودم همه اون کتابخونه ها رو داخل پروژه import  کنم.</p><p>تا اینجا مشکل زیادی نبود فقط یکم حجم کار برای import کردن اینهمه کتابخانه بالا میرفت ، مشکل اصلی از اونجا پیدا شد که هر کدام از این دیت پیکر ها ، پیکر بندی های مخصوص به خودشون رو داشتن و کارو برای من سخت میکردن. برای همین تصمیم گرفتم خودم از صفر، یک کتابخانه کار با زمان بنویسم و براش یک کتابخانه دیگه دیتپیکر هم بنویسم تا بتونم با یک پیکربندی واحد از هر چهارتا تقویم و زبان پشتیبانی کنم. اینجوری بود که سر و کله DateObject پیدا شد 🤣</p><p>حقیقتش اینه که در در وهله اول ممکنه کار باهاش یکم عجبب و غریب باشه ولی بعد مشاهده چند تا مثال مختلف که در ادامه میارم میبینید که اونچنانم پیچیده نیست.</p><p>برای مشاهده مثال های بیشتر به <a target="blank" rel="noreferrer" href="https://github.com/shahabyazdi/date-object">صفحه گیت هاب</a> DateObject مراجعه کنید.</p></div></div><div><div class="example" id="تولید-تاریخ-میلادی"><div class="title">تولید تاریخ میلادی</div><div><p>همانطور که تا حالا متوجه شدید برای تولید یک نمونه از DateObject باید از کد <span dir="ltr">new DateObject()</span> استفاده کنید. اگر کد بالا رو بدون هیچ کانستراکتوری وارد کنید براتون یک نمونه از DateObject با تقویم میلادی (gregorian) و locale انگلیسی (en)  ساخته میشه مثلا برای امروز که به میلادی 2021/01/14 هست اگر من یک <span dir="ltr">new DateObject()</span> تعریف کنم، یک نمونه از همین تاریخ برای من تولید میشه:</p><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">const</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span>year<span class="token punctuation">)</span> <span class="token comment">//2021</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span>month<span class="token punctuation">.</span>number<span class="token punctuation">)</span> <span class="token comment">//1</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span>day<span class="token punctuation">)</span> <span class="token comment">//14</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span>calendar<span class="token punctuation">)</span> <span class="token comment">//gregorian</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span>locale<span class="token punctuation">)</span> <span class="token comment">//en</span></code></pre><p>حالا میتونید با متد format تاریخ خودتون رو فرمت کنید :</p><pre class=" language-jsx"><code class=" language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//2021/01/14</span></code></pre><p>همچنین اگر توکن خاصی مد نظرتون هست میتونید داخل متد فرمت اون token رو به صورت پارامتر وارد کنید :</p><pre class=" language-jsx"><code class=" language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"dddd DD MMMM YYYY"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//Thursday 14 January 2021</span></code></pre><p>و اگر داخل توکن هاتون از مقداری استفاده میکنید که میخواید ignore شه ، اون مقادیر را به صورت آرایه در پارامتر دوم تعریف کنید</p><pre class=" language-jsx"><code class=" language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>
+    <span class="token string">"Date: YYYY/MM/DD Time: HH:mm:ss"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token string">"Date"</span><span class="token punctuation">,</span> <span class="token string">"Time"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span> <span class="token comment">//Date: 2021/01/14 Time: 19:29:09</span></code></pre></div></div></div><div><div class="example" id="تولید-تاریخ-شمسی"><div class="title">تولید تاریخ شمسی</div><div><p>اگر میخواید تاریخ امروز رو به صورت شمسی تولید کنید کافیه یک آبجکت با پراپرتی calendar که برابر با persian هست رو داخل کانستراکتور DateObject قرار بدید.</p></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">const</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span> calendar<span class="token operator">:</span> <span class="token string">"persian"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//1399/10/25</span></code></pre></div></div><div><div class="example" id="تولید-تاریخ-قمری"><div class="title">تولید تاریخ قمری</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">const</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span> calendar<span class="token operator">:</span> <span class="token string">"arabic"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//1442/05/30</span></code></pre></div></div><div><div class="example" id="تولید-تاریخ-شمسی-با-استفاده-از-متغیر-رشته-ای"><div class="title">تولید تاریخ شمسی با استفاده از متغیر رشته ای</div><div><p>برای تولید تاریخ شمسی از روی String، یک آبجکت با دو پراپرتی date و calendar را به صورت زیر در constructor قرار بدید.</p><p>فقط به این نکته توجه کنید که تاریخ وارد شده باید از فرمت زیر تبعیت کند در غیر اینصورت به صورت اشتباه تولید میشه:</p><b>YYYY/MM/DD hh:mm:ss.zzz a</b></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">const</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  date<span class="token operator">:</span><span class="token string">"1400/01/01"</span><span class="token punctuation">,</span>
+  calendar<span class="token operator">:</span><span class="token string">"persian"</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//1400/01/01</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span>calendar<span class="token punctuation">)</span> <span class="token comment">//persian</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span>year<span class="token punctuation">)</span> <span class="token comment">//1400</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span>weekDay<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token comment">//YekShanbeh</span></code></pre></div></div><div><div class="example" id="تولید-تاریخ-شمسی-توسط-مقدار-عددی"><div class="title">تولید تاریخ شمسی توسط مقدار عددی</div><div><p>نکته ای که لازم هست اینجا بگم اینه که من کلمه سال رو داخل ignoreList قرار ندادم ، چون حروفش فارسی هست و خود به خود ignore میشه.</p></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">const</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  year<span class="token operator">:</span><span class="token number">1399</span><span class="token punctuation">,</span>
+  month<span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span>
+  day<span class="token operator">:</span><span class="token number">22</span><span class="token punctuation">,</span>
+  calendar<span class="token operator">:</span><span class="token string">"persian"</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"dddd DD MMMM سال YYYY"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//دوشنبه ۲۲ دی سال ۱۳۹۹</span></code></pre></div></div><div><div class="example" id="تولید-تاریخ-شمسی-توسط-date-جاوا-اسکریپت"><div class="title">تولید تاریخ شمسی توسط Date جاوا اسکریپت</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">const</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  date<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token number">2020</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  calendar<span class="token operator">:</span> <span class="token string">"persian"</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//1399/10/26</span></code></pre></div></div><div><div class="example" id="تولید-تاریخ-شمسی-توسط-زمان-یونیکس"><div class="title">تولید تاریخ شمسی توسط زمان یونیکس</div><div><p>خب اگه <a href="https://www.unixtimestamp.com/" target="_blank" rel="noreferrer">اینجا</a> برید بهتون ثانیه یونیکس همون لحظه رو میده.</p><p>زمان یونیکس در این لحظه ای که دارم این مطلب رو مینویسم 1610720390 هست.</p><p>فقط توجه کنید که این مقدار به ثانیه هست و ما باید به میلی ثانیه تبدیلش کنیم پس ضرب در 1000 اش میکنیم :</p><pre class=" language-js"><code class=" language-js"><span class="token keyword">const</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  date<span class="token operator">:</span> <span class="token number">1610720390</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+  calendar<span class="token operator">:</span> <span class="token string">"persian"</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//1399/10/26</span></code></pre><p>فقط اینم بگم که اگر بخواید مقدار unix هر تاریخی رو بدونید باید از متد <span dir="ltr">toUnix()</span> استفاده کنید. مثلا برای متغیر بالا اگر از متد toUnix استفاده کنیم دوباره همون عدد خودمون برامون چاپ میشه :</p></div><pre class=" language-jsx"><code class=" language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">toUnix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//1610720390</span></code></pre></div></div><div><div class="example" id="تبدیل-تاریخ-شمسی-به-قمری"><div class="title">تبدیل تاریخ شمسی به قمری</div><p>برای تبدیل هر تاریخ به تاریخ دیگه از متد convert استفاده کنید.</p><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">const</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span>calendar<span class="token operator">:</span><span class="token string">"persian"</span><span class="token punctuation">,</span> date<span class="token operator">:</span><span class="token string">"1399/12/24"</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+          
+date<span class="token punctuation">.</span><span class="token function">convert</span><span class="token punctuation">(</span><span class="token string">"arabic"</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//1442/07/30</span></code></pre></div></div><div><div class="example" id="تبدیل-تاریخ-قمری-به-شمسی"><div class="title">تبدیل تاریخ قمری به شمسی</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">const</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span> calendar<span class="token operator">:</span> <span class="token string">"arabic"</span><span class="token punctuation">,</span> date<span class="token operator">:</span> <span class="token string">"1442/05/10"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+date<span class="token punctuation">.</span><span class="token function">convert</span><span class="token punctuation">(</span><span class="token string">"persian"</span><span class="token punctuation">)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//1399/10/05</span></code></pre></div></div><div><div class="example" id="تبدیل-تاریخ-میلادی-به-هندی"><div class="title">تبدیل تاریخ میلادی به هندی</div><pre class=" language-jsx"><code class=" language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">convert</span><span class="token punctuation">(</span><span class="token string">"indian"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//1942/10/24</span></code></pre></div></div></div><div><div class="example" id="مشخص-کردن-روزهای-هفته-دلخواه"><div class="title">مشخص کردن روزهای هفته دلخواه</div><div>روزهای هفته فارسی در تقویم، به صورت پیشفرض شن، یک، دو، سه، چهار، پنج، جم، نمایش داده میشوند. ولی اگر تمایل دارید مقادیر دلخواه خود را جایگزین کنید ، میتونید به این روش عمل کنید.</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePicker</span></span>
+  <span class="token attr-name">calendar</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>persian<span class="token punctuation">"</span></span>
+  <span class="token attr-name">locale</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa<span class="token punctuation">"</span></span>
+  <span class="token attr-name">calendarPosition</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>auto-right<span class="token punctuation">"</span></span>
+  <span class="token attr-name">weekDays</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token string">"ش"</span><span class="token punctuation">,</span> <span class="token string">"ی"</span><span class="token punctuation">,</span> <span class="token string">"د"</span><span class="token punctuation">,</span> <span class="token string">"س"</span><span class="token punctuation">,</span> <span class="token string">"چ"</span><span class="token punctuation">,</span> <span class="token string">"پ"</span><span class="token punctuation">,</span> <span class="token string">"ج"</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="نمایش-نام-ماه-های-دلخواه"><div class="title">نمایش نام ماه های دلخواه</div><div><p>همانند مثال بالا میتونید مقادیر دلخواه خود را برای نمایش در تقویم جایگزین کنید</p></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePicker</span></span>
+  <span class="token attr-name">calendar</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>persian<span class="token punctuation">"</span></span>
+  <span class="token attr-name">locale</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa<span class="token punctuation">"</span></span>
+  <span class="token attr-name">calendarPosition</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>auto-right<span class="token punctuation">"</span></span>
+  <span class="token attr-name">months</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token string">"فر"</span><span class="token punctuation">,</span> <span class="token string">"ار"</span><span class="token punctuation">,</span> <span class="token string">"خر"</span><span class="token punctuation">,</span> <span class="token string">"تی"</span><span class="token punctuation">,</span> <span class="token string">"مر"</span><span class="token punctuation">,</span> <span class="token string">"شه"</span><span class="token punctuation">,</span> <span class="token string">"مه"</span><span class="token punctuation">,</span> <span class="token string">"اب"</span><span class="token punctuation">,</span> <span class="token string">"اذ"</span><span class="token punctuation">,</span> <span class="token string">"دی"</span><span class="token punctuation">,</span> <span class="token string">"به"</span><span class="token punctuation">,</span> <span class="token string">"اس"</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="قرمز-کردن-روز-های-جمعه"><div class="title">قرمز کردن روز های جمعه</div><div><p>برای قرمز کردن روزهای جمعه دو روش وجود داره ، روش اول یکم سخت تره و احتیاج به کد زنی بیشتر داره که میتونید تو <a href="https://shahabyazdi.github.io/react-multi-date-picker/" target="_blank" rel="noreferrer">صفحه اصلی</a> پیداش کنید (عبارت Styling Persian Weekends رو جستجو کنید)، روش دوم هم استفاده از پلاگین هست که هوشمند تر هم هست یعنی خودش با توجه به تقویمی که تعریف کردید، روز یا روزهای آخر هفته رو قرمز میکنه:</p></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> DatePicker <span class="token keyword">from</span> <span class="token string">'react-multi-date-picker'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Weekends <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">Example</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>mapDays<span class="token punctuation">,</span> setMapDays<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePicker</span></span>
+      <span class="token attr-name">calendar</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>persian<span class="token punctuation">"</span></span>
+      <span class="token attr-name">locale</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa<span class="token punctuation">"</span></span>
+      <span class="token attr-name">calendarPosition</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>auto-right<span class="token punctuation">"</span></span>
+      <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>value<span class="token punctuation">}</span></span>
+      <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>setValue<span class="token punctuation">}</span></span>
+      <span class="token attr-name">mapDays</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>mapDays<span class="token punctuation">}</span></span>
+      <span class="token attr-name">plugins</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Weekends</span></span> <span class="token attr-name">setMapDays</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>setMapDays<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span>
+      <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+    <span class="token punctuation">/&gt;</span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="استفاده-از-پلاگین-header"><div class="title">استفاده از پلاگین header</div><div><p>به عنوان آخرین مثال میخوام استفاده از پلاگین هدر هم نشون بدم ، بقیه مثال ها رو (که شامل همین مثال هم میشه) میتونید از صفحه اصلی یا <a href="https://shahabyazdi.github.io/react-multi-date-picker/plugins" rel="noreferrer" target="_blank">صفحه پلاگین ها</a> مشاهده کنید.</p></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> DatePicker <span class="token keyword">from</span> <span class="token string">'react-multi-date-picker'</span>
+      <span class="token keyword">import</span> <span class="token punctuation">{</span> DatePickerHeader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+      
+      <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">Example</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePicker</span></span>
+            <span class="token attr-name">calendar</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>persian<span class="token punctuation">"</span></span>
+            <span class="token attr-name">locale</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa<span class="token punctuation">"</span></span>
+            <span class="token attr-name">calendarPosition</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>auto-right<span class="token punctuation">"</span></span>
+            <span class="token attr-name">plugins</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePickerHeader</span></span> <span class="token attr-name">position</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>left<span class="token punctuation">"</span></span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>medium<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+            <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+          <span class="token punctuation">/&gt;</span></span>
+        <span class="token punctuation">)</span>
+      <span class="token punctuation">}</span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div></div></div></div></div><script type="text/javascript">!function(t,i){"use strict";i.write('<div id="amarfa-stats-9756" style="display: inline-block"></div>'),i.write('<script type="text/javascript" src="//amarfa.ir/stats/9756.js" async><\/script>')}(0,document)</script><script type="text/javascript" src="//amarfa.ir/stats/9756.js" async=""></script><div id="amarfa-stats-9756" style="display: inline-block"></div><script>!function(e){function r(r){for(var n,a,l=r[0],i=r[1],p=r[2],f=0,s=[];f<l.length;f++)a=l[f],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n]);for(c&&c(r);s.length;)s.shift()();return u.push.apply(u,p||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,l=1;l<t.length;l++){var i=t[l];0!==o[i]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="/react-multi-date-picker/";var l=this["webpackJsonpdatepicker-example"]=this["webpackJsonpdatepicker-example"]||[],i=l.push.bind(l);l.push=r,l=l.slice();for(var p=0;p<l.length;p++)r(l[p]);var c=i;t()}([])</script><script src="/react-multi-date-picker/static/js/2.d6e5649d.chunk.js"></script><script src="/react-multi-date-picker/static/js/main.3af8975e.chunk.js"></script></body></html>
