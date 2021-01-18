@@ -27,7 +27,9 @@ import React from "react";
 import DatePicker from "react-multi-date-picker";
 
 export default function Example() {
-  return <DatePicker />;
+  const [value, setValue] = useState(new Date());
+
+  return <DatePicker value={value} onChange={setValue} />;
 }
 ```
 
@@ -116,6 +118,7 @@ export default function Example() {
 | disableMonthPicker   |                                            Boolean                                            |             false              | both                                |
 | zIndex               |                                            Number                                             |              100               | both                                |
 | plugins              |                                             Array                                             |               []               | both                                |
+| sort                 |                                            Boolean                                            |             false              | both                                |
 | arrow                |                                            Boolean                                            |              true              | DatePicker                          |
 | animation            |                                            Boolean                                            |             false              | DatePicker                          |
 | inputClass           |                                            String                                             |               ""               | DatePicker                          |

@@ -208,7 +208,15 @@ declare module "react-multi-date-picker" {
          *  ]}
          * />
          */
-        plugins?:React.ReactElement[]
+        plugins?:React.ReactElement[],
+        /**
+         * In Multiple mode, use this Prop to sort the selected dates.
+         * 
+         * @example
+         * 
+         * <DatePicker multiple sort />
+         */
+        sort:boolean
     } 
 
     interface DatePickerProps{
