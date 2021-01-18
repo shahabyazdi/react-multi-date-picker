@@ -9,7 +9,8 @@ export default function DayPicker({
     showOtherDays = false,
     mapDays,
     onlyShowInRangeDates,
-    customWeekDays
+    customWeekDays,
+    sort
 }) {
     const [weeks, setWeeks] = useState([]),
         ref = useRef(false),
@@ -114,6 +115,8 @@ export default function DayPicker({
 
             $state.selectedDate = dates
             $state.focused = dates[dates.length - 1]
+
+            if (sort) $state.selectedDate.sort((a, b) => a - b)
         } else if (state.range) {
             if ($state.selectedDate.length === 2 || $state.selectedDate.length === 0) {
                 $state.selectedDate = [new DateObject(date)]
@@ -155,17 +158,17 @@ export default function DayPicker({
                 if (isSameDate(object.date, today)) names.push("rmdp-today")
                 if (isSelected(object.date)) names.push("rmdp-selected")
             }
-        }
 
-        if (state.range) {
-            let { selectedDate } = state
+            if (state.range && !object.disabled) {
+                let { selectedDate } = state
 
-            if (selectedDate.length === 1) {
-                if (isSameDate(object.date, selectedDate[0])) names.push("rmdp-range")
-            } else {
-                if (object.date >= selectedDate[0] && object.date <= selectedDate[1]) names.push("rmdp-range")
-                if (isSameDate(object.date, selectedDate[0])) names.push("start")
-                if (isSameDate(object.date, selectedDate[1])) names.push("end")
+                if (selectedDate.length === 1) {
+                    if (isSameDate(object.date, selectedDate[0])) names.push("rmdp-range")
+                } else {
+                    if (object.date >= selectedDate[0] && object.date <= selectedDate[1]) names.push("rmdp-range")
+                    if (isSameDate(object.date, selectedDate[0])) names.push("start")
+                    if (isSameDate(object.date, selectedDate[1])) names.push("end")
+                }
             }
         }
 

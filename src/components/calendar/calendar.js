@@ -33,14 +33,15 @@ export default function Calendar({
     onReady,
     onlyShowInRangeDates = true,
     zIndex = 100,
-    plugins = []
+    plugins = [],
+    sort
 }) {
     let [state, setState] = useState({}),
         listeners = {}
 
     useEffect(() => {
         setState(state => {
-            let { date, selectedDate, initialValue, focused } = state
+            let { date, selectedDate, initialValue, focused, mustSortDates } = state
 
             function getFormat() {
                 if (format) return format
@@ -122,11 +123,17 @@ export default function Calendar({
                 if (!selectedDate) selectedDate = []
                 if (!Array.isArray(selectedDate)) selectedDate = [selectedDate]
                 if (!range && !$multiple) $multiple = true
+
                 if (range && selectedDate.length > 2) {
                     let lastItem = selectedDate[selectedDate.length - 1]
 
                     selectedDate = [selectedDate[0], lastItem]
                     focused = lastItem
+                }
+
+                if ($multiple && sort && !mustSortDates) {
+                    mustSortDates = true
+                    selectedDate.sort((a, b) => a - b)
                 }
 
                 $timePicker = false
@@ -152,7 +159,8 @@ export default function Calendar({
                 focused,
                 calendar,
                 locale,
-                format: $format
+                format: $format,
+                mustSortDates
             }
         })
     }, [
@@ -165,7 +173,8 @@ export default function Calendar({
         onlyMonthPicker,
         onlyYearPicker,
         range,
-        multiple
+        multiple,
+        sort
     ])
 
     useEffect(() => {
@@ -228,6 +237,7 @@ export default function Calendar({
                             listeners={listeners}
                             onlyShowInRangeDates={onlyShowInRangeDates}
                             customWeekDays={weekDays}
+                            sort={sort}
                         />
                         <MonthPicker
                             state={state}
