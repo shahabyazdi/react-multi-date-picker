@@ -23,7 +23,7 @@ npm install --save react-multi-date-picker
 ## Usage
 
 ```javascript
-import React from "react";
+import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 
 export default function Example() {
