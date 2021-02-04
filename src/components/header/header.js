@@ -45,6 +45,7 @@ export default function Header({ state, setState, onChange, disableYearPicker, d
             if (minDate && date.year <= minDate.year && minDate.month.number > date.month.number + value) return
             if (maxDate && date.year >= maxDate.year && maxDate.month.number < date.month.number + value) return
 
+            date.toFirstOfMonth()
             date.month += value
 
             if (onlyMonthPicker) selectedDate = new DateObject(date)
