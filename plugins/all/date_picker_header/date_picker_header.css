@@ -20,20 +20,20 @@
   font-size: 28px;
 }
 
-.rmdp-prime .rmdp-header-plugin.top {
-  border-radius: 7px 7px 0 0;
+.rmdp-header-plugin.top {
+  border-radius: 5px 5px 0 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.bottom {
-  border-radius: 0 0 7px 7px;
+.rmdp-header-plugin.bottom {
+  border-radius: 0 0 5px 5px;
 }
 
-.rmdp-prime .rmdp-header-plugin.left {
-  border-radius: 7px 0 0 7px;
+.rmdp-header-plugin.left {
+  border-radius: 5px 0 0 5px;
 }
 
-.rmdp-prime .rmdp-header-plugin.right {
-  border-radius: 0 7px 7px 0;
+.rmdp-header-plugin.right {
+  border-radius: 0 5px 5px 0;
 }
 
 .rmdp-header-plugin.top.big,
@@ -86,27 +86,23 @@
   background-color: var(--rmdp-primary-yellow);
 }
 
-.rmdp-mobile .rmdp-header-plugin {
-  border-radius: 0;
-}
-
-.rmdp-prime .rmdp-header-plugin.no-border-top-left-radius {
+.rmdp-header-plugin.no-border-top-left-radius {
   border-top-left-radius: 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.no-border-bottom-left-radius {
+.rmdp-header-plugin.no-border-bottom-left-radius {
   border-bottom-left-radius: 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.no-border-top-right-radius {
+.rmdp-header-plugin.no-border-top-right-radius {
   border-top-right-radius: 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.no-border-bottom-right-radius {
+.rmdp-header-plugin.no-border-bottom-right-radius {
   border-bottom-right-radius: 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.no-border-radius {
+.rmdp-header-plugin.no-border-radius {
   border-radius: 0;
 }
 

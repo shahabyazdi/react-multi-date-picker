@@ -12,6 +12,7 @@
   cursor: pointer;
   font-size: 12px;
   padding: 3px 0;
+  border-radius: 3px;
 }
 
 .rmdp-toolbar div:hover {

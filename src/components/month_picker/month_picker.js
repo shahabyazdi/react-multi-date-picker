@@ -9,8 +9,8 @@ export default function MonthPicker({ state, setState, onChange, customMonths })
     useEffect(() => {
         let months = customMonths
 
-        if (Array.isArray(months)) {
-            if (months.length > 12) months.length = 12
+        if (Array.isArray(months) && months.length >= 12) {
+            months.length = 12
 
             months = months.map(month => Array.isArray(month) ? month[0] : month)
         } else {

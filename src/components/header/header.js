@@ -5,7 +5,7 @@ import DateObject from "react-date-object"
 export default function Header({ state, setState, onChange, disableYearPicker, disableMonthPicker, customMonths }) {
     let monthName = undefined
 
-    if (Array.isArray(customMonths) && customMonths.length === 12) {
+    if (Array.isArray(customMonths) && customMonths.length >= 12) {
         let month = customMonths[state.date.month.index]
 
         monthName = Array.isArray(month) ? month[0] : month

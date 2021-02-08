@@ -14,6 +14,7 @@
 }
 
 .rmdp-panel-body li {
+  border-radius: 3px;
   box-shadow: 0 0 2px var(--rmdp-shadow);
   background-color: var(--rmdp-primary);
   color: white;

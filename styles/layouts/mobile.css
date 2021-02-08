@@ -1,5 +1,4 @@
 .rmdp-calendar-container-mobile {
-  position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
@@ -110,6 +109,7 @@
 .rmdp-mobile .rmdp-action-button {
   margin: 0 3px;
   margin-top: 15px;
+  font-size: 13px;
 }
 
 .rmdp-mobile .rmdp-action-buttons.rmdp-rtl {
