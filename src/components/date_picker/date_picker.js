@@ -3,7 +3,9 @@ import ElementPopper from "react-element-popper"
 import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
 import { getAllDatesInRange } from "../../../plugins/all/date_panel/date_panel"
-import { IconCalendarEvent } from '@tabler/icons';
+import { IconCalendarEvent } from '@tabler/icons'
+import "react-element-popper/package.json/element_popper.css"
+import "./date_picker.css"
 
 function DatePicker(
   {
