@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://shahabyazdi.github.io/react-multi-date-picker</loc>
+    <loc>https://shahabyazdi.github.io/react-multi-date-picker/</loc>
+    <priority>1.00</priority>
   </url>
   <url>
     <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa</loc>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://shahabyazdi.github.io/react-multi-date-picker/plugins</loc>
+    <priority>0.80</priority>
   </url>
 </urlset>
