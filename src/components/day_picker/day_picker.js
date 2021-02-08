@@ -63,6 +63,7 @@ export default function DayPicker({
             otherProps = getOtherProps(object)
 
             if (mustAddClassName) className = `${className} ${otherProps.className || ""}`
+            if (object.hidden) className = className.replace("sd", "")
 
             delete otherProps.className
           }

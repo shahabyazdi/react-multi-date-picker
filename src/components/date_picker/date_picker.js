@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } from "react"
 import ElementPopper from "react-element-popper"
-import Calendar from "../calendar/calendar"
 import DateObject from "react-date-object"
+import Calendar from "../calendar/calendar"
 import { getAllDatesInRange } from "../../../plugins/all/date_panel/date_panel"
 import { IconCalendarEvent } from '@tabler/icons'
 import "./date_picker.css"

@@ -11,6 +11,7 @@
   border: 1px #c0c4d6 solid;
   padding: 2px 5px;
   height: 22px;
+  border-radius: 5px;
 }
 
 .rmdp-input:focus {
