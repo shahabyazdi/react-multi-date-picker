@@ -1,14 +1,27 @@
 # DatePicker
 
-![DatePicker](/screenshot/screenshot.jpg?raw=true)
+Simple React datepicker component for working with `gregorian`, `persian`, `arabic` and `indian` calendars
+with the ability to select the date in `single`, `multiple` and `range` modes.
+
+<div align="center">
+  <img src="https://github.com/shahabyazdi/react-multi-date-picker/blob/master/screenshot/screenshot.jpg?raw=true" alt="date picker"/>
+</div>
 
 # Layouts
 
-![Layouts](/screenshot/layouts.jpg?raw=true)
+You can change the appearance of the datepicker to `prime` or `mobile` by importing css files from the styles folder.
+
+<div align="center">
+  <img src="https://github.com/shahabyazdi/react-multi-date-picker/blob/master/screenshot/layouts.jpg?raw=true" alt="date picker layouts"/>
+</div>
 
 # Plugins
 
-![Plugins](/screenshot/plugins.jpg?raw=true)
+Ability to further customize the calendar and datepicker by adding one or more plugins.
+
+<div align="center">
+  <img src="https://github.com/shahabyazdi/react-multi-date-picker/blob/master/screenshot/plugins.jpg?raw=true" alt="date picker plugins all in one"/>
+</div>
 
 ## Installation
 
@@ -18,7 +31,9 @@ npm install --save react-multi-date-picker
 
 ## Demo
 
-[https://shahabyazdi.github.io/react-multi-date-picker](https://shahabyazdi.github.io/react-multi-date-picker/)
+- [DatePicker & Calendar](https://shahabyazdi.github.io/react-multi-date-picker/)
+- [Plugins](https://shahabyazdi.github.io/react-multi-date-picker/plugins)
+- [آموزش نصب و راه اندازی دیت پیکر به فارسی](https://shahabyazdi.github.io/react-multi-date-picker/fa)
 
 ## Usage
 
@@ -56,10 +71,9 @@ export default function Example() {
     <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 
-    <!-- DateObject -->
+    <!-- DatePicker and dependencies-->
     <script src="https://cdn.jsdelivr.net/npm/date-object@latest/dist/date-object.min.js"></script>
-
-    <!-- ReactMultiDatePicker -->
+    <script src="https://cdn.jsdelivr.net/npm/react-element-popper@latest/build/browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/browser.min.js"></script>
 
     <!-- Optional Plugins -->
@@ -103,89 +117,72 @@ export default function Example() {
 | onlyMonthPicker      |                                            Boolean                                            |             false              | both                                |
 | onlyYearPicker       |                                            Boolean                                            |             false              | both                                |
 | format               |                                            String                                             |           YYYY/MM/DD           | both                                |
-| formattingIgnoreList |                                             Array                                             |           undefined            | both                                |
+| formattingIgnoreList |                                             Array                                             |                                | both                                |
 | local                |                                            String                                             |               en               | both                                |
 | calendar             |                                            String                                             |           gregorian            | both                                |
-| mapDays              |                                           Function                                            |           undefined            | both                                |
-| onChange             |                                           Function                                            |           undefined            | both                                |
+| mapDays              |                                           Function                                            |                                | both                                |
+| onChange             |                                           Function                                            |                                | both                                |
 | className            |                                            String                                             |               ""               | both                                |
-| weekDays             |                                             Array                                             |           undefined            | both                                |
-| months               |                                             Array                                             |           undefined            | both                                |
+| weekDays             |                                             Array                                             |                                | both                                |
+| months               |                                             Array                                             |                                | both                                |
 | showOtherDays        |                                            Boolean                                            |             false              | both                                |
-| minDate              |                              Date, DateObject, String or Number                               |           undefined            | both                                |
-| maxDate              |                              Date, DateObject, String or Number                               |           undefined            | both                                |
+| minDate              |                              Date, DateObject, String or Number                               |                                | both                                |
+| maxDate              |                              Date, DateObject, String or Number                               |                                | both                                |
 | disableYearPicker    |                                            Boolean                                            |             false              | both                                |
 | disableMonthPicker   |                                            Boolean                                            |             false              | both                                |
 | zIndex               |                                            Number                                             |              100               | both                                |
 | plugins              |                                             Array                                             |               []               | both                                |
 | sort                 |                                            Boolean                                            |             false              | both                                |
-| arrow                |                                            Boolean                                            |              true              | DatePicker                          |
+| className            |                                            String                                             |               ""               | both                                |
+| containerClassName   |                                            String                                             |                                | DatePicker                          |
+| arrowClassName       |                                            String                                             |               0                | DatePicker                          |
+| style                |                                      React.CSSProperties                                      |               {}               | DatePicker                          |
+| containerStyle       |                                      React.CSSProperties                                      |                                | DatePicker                          |
+| arrowStyle           |                                      React.CSSProperties                                      |               0                | DatePicker                          |
+| arrow                |                                 Boolean or React.ReactElement                                 |              true              | DatePicker                          |
 | animation            |                                            Boolean                                            |             false              | DatePicker                          |
 | inputClass           |                                            String                                             |               ""               | DatePicker                          |
-| name                 |                                            String                                             |           undefined            | DatePicker                          |
-| id                   |                                            String                                             |           undefined            | DatePicker                          |
-| title                |                                            String                                             |           undefined            | DatePicker                          |
-| placeholder          |                                            String                                             |           undefined            | DatePicker                          |
-| style                |                                            Object                                             |               {}               | DatePicker                          |
+| name                 |                                            String                                             |                                | DatePicker                          |
+| id                   |                                            String                                             |                                | DatePicker                          |
+| title                |                                            String                                             |                                | DatePicker                          |
+| placeholder          |                                            String                                             |                                | DatePicker                          |
 | type                 |                                            String                                             |             input              | DatePicker                          |
-| render               |                                  React.Component or Function                                  |           undefined            | DatePicker                          |
+| render               |                                React.ReactElement or Function                                 |                                | DatePicker                          |
 | disabled             |                                            Boolean                                            |             false              | DatePicker                          |
-| inputMode            |                                            String                                             |           undefined            | DatePicker                          |
+| inputMode            |                                            String                                             |                                | DatePicker                          |
 | scrollSensitive      |                                            Boolean                                            |              true              | DatePicker                          |
 | hideOnScroll         |                                            Boolean                                            |             false              | DatePicker                          |
 | calendarPosition     |                                            String                                             |              auto              | DatePicker                          |
-| containerStyle       |                                            Object                                             |           undefined            | DatePicker                          |
-| containerClassName   |                                            String                                             |           undefined            | DatePicker                          |
 | editable             |                                            Boolean                                            |              true              | DatePicker                          |
 | onlyShowInRangeDates |                                            Boolean                                            |              true              | DatePicker                          |
-| onOpen               |                                           Function                                            |           undefined            | DatePicker                          |
-| onClose              |                                           Function                                            |           undefined            | DatePicker                          |
+| onOpen               |                                           Function                                            |                                | DatePicker                          |
+| onClose              |                                           Function                                            |                                | DatePicker                          |
+| fixMainPosition      |                                            Boolean                                            |             false              | DatePicker                          |
+| fixRelativePosition  |                                            Boolean                                            |             false              | DatePicker                          |
+| offsetY              |                                            Number                                             |               0                | DatePicker                          |
+| offsetX              |                                            Number                                             |               0                | DatePicker                          |
 
-## Calendars and Locals
+## Calendars
 
-<table>
-  <thead>
-    <tr>
-      <th>Calendars</th>
-      <th>Locals</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>gregorian (default)</td>
-      <td>en (default)</td>
-    </tr>
-    <tr>
-      <td>persian</td>
-      <td>fa</td>
-    </tr>
-    <tr>
-      <td>arabic</td>
-      <td>ar</td>
-    </tr>
-    <tr>
-      <td>indian</td>
-      <td>hi</td>
-    </tr>
-  </tbody>
-</table>
+- gregorian (default)
+- persian
+- arabic
+- indian
+
+## Locals
+
+- en (default)
+- fa
+- ar
+- hi
+
+Of course, you can customize the names of the months and days of the week
+in the both calendar & input using the `months` and `weekDays` Props.
 
 ## Types
 
-<table>
-  <thead>
-    <tr>
-      <th colSpan="5">DatePicker Types</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>input (default)</td>
-      <td>input-icon</td>
-      <td>icon</td>
-      <td>button</td>
-      <td>custom</td>
-    </tr>
-  </tbody>
-</table>
--
+- input (default)
+- input-icon
+- icon
+- button
+- custom
