@@ -10,7 +10,8 @@ import { terser } from "rollup-plugin-terser"
 const external = [
     "react",
     "react-dom",
-    "react-date-object"
+    "react-date-object",
+    "react-element-popper"
 ]
 
 const presets = [
@@ -20,7 +21,8 @@ const presets = [
 
 const globals = {
     react: "React",
-    "react-date-object": "DateObject"
+    "react-date-object": "DateObject",
+    "react-element-popper": "ElementPopper"
 }
 
 export default [

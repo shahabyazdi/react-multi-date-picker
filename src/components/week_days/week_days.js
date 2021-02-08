@@ -7,8 +7,8 @@ export default function WeekDays({ state, customWeekDays }) {
     useEffect(() => {
         let weekDays = customWeekDays
 
-        if (Array.isArray(weekDays)) {
-            if (weekDays.length > 7) weekDays.length = 7
+        if (Array.isArray(weekDays) && weekDays.length >= 7) {
+            weekDays.length = 7
 
             weekDays = weekDays.map(weekDay => {
                 if (Array.isArray(weekDay) & weekDay.length > 1) {

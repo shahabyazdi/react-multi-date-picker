@@ -2,16 +2,16 @@
 .bg-dark .rmdp-month-picker,
 .bg-dark .rmdp-year-picker,
 .bg-dark .rmdp-time-picker div input,
-.bg-dark.rmdp-triangle::after {
-  background-color: rgb(49, 47, 47);
-  color: rgb(196, 199, 202);
+.bg-dark.ep-arrow::after {
+  background-color: #312f2f;
+  color: #c4c7ca;
 }
 
 .bg-dark .rmdp-day:not(.rmdp-deactive),
 .bg-dark .rmdp-time-picker div .rmdp-am,
 .bg-dark .rmdp-header-values,
 .bg-dark .rmdp-panel-header {
-  color: rgb(196, 199, 202);
+  color: #c4c7ca;
 }
 
 .bg-dark .rmdp-day.rmdp-range {
@@ -19,5 +19,21 @@
 }
 
 .bg-dark .rmdp-panel-body li {
-  color: rgb(245, 245, 245);
+  color: #f5f5f5;
+}
+
+.bg-dark.ep-arrow[direction="top"] {
+  border-bottom: 1px solid #312f2f;
+}
+
+.bg-dark.ep-arrow[direction="left"] {
+  border-right: 1px solid #312f2f;
+}
+
+.bg-dark.ep-arrow[direction="right"] {
+  border-left: 1px solid #312f2f;
+}
+
+.bg-dark.ep-arrow[direction="bottom"] {
+  border-top: 1px solid #312f2f;
 }

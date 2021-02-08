@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, forwardRef } from "react"
 import DayPicker from "../day_picker/day_picker"
 import Header from "../header/header"
 import MonthPicker from "../month_picker/month_picker"
@@ -7,7 +7,7 @@ import TimePicker from "../time_picker/time_picker"
 import DateObject from "react-date-object"
 import "./calendar.css"
 
-export default function Calendar({
+function Calendar({
     value,
     calendar = "gregorian",
     locale = "en",
@@ -35,7 +35,9 @@ export default function Calendar({
     zIndex = 100,
     plugins = [],
     sort
-}) {
+},
+    outerRef
+) {
     let [state, setState] = useState({}),
         listeners = {}
 
@@ -209,6 +211,7 @@ export default function Calendar({
 
     return (state.date ?
         <div
+            ref={outerRef}
             className={`rmdp-wrapper ${state.ready ? "active" : ""} ${className || ""}`}
             style={{ zIndex, direction: "ltr" }}
         >
@@ -217,7 +220,7 @@ export default function Calendar({
                 {clonedPlugins.left}
                 <div
                     style={{ height: "max-content", margin: "auto" }}
-                    className={`${["fa", "ar"].includes(state.date?.locale) ? "rmdp-rtl" : ""} ${getBorderClassName(["left", "right"])}`}
+                    className={`rmdp-calendar ${["fa", "ar"].includes(state.date?.locale) ? "rmdp-rtl" : ""} ${getBorderClassName(["left", "right"])}`}
                 >
                     <Header
                         state={state}
@@ -336,6 +339,8 @@ export default function Calendar({
         listeners[event].push(callback)
     }
 }
+
+export default forwardRef(Calendar)
 
 function isValidDateObject(date, calendar, locale, format) {
     return date instanceof DateObject &&

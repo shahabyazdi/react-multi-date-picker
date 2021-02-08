@@ -1,26 +1,17 @@
-.rmdp-container {
-  display: inline-block;
-}
-
-.rmdp-calendar-container {
-  z-index: 1;
-}
-
-.rmdp-calendar-container .rmdp-wrapper {
-  position: absolute;
-  transform: translateY(2px);
-  visibility: hidden;
-}
-
-.rmdp-calendar-container.active .rmdp-wrapper {
+.rmdp-visible {
   visibility: visible;
+}
+
+.rmdp-invisible {
+  visibility: hidden;
 }
 
 .rmdp-input {
   margin: 1px 0;
-  border: 1px #eaeeff solid;
+  border: 1px #c0c4d6 solid;
   padding: 2px 5px;
   height: 22px;
+  border-radius: 5px;
 }
 
 .rmdp-input:focus {
@@ -77,37 +68,57 @@
   background-color: transparent;
 }
 
-.rmdp-triangle {
-  width: 30px;
-  height: 10px;
-  position: absolute;
+.ep-arrow {
   overflow: hidden;
-  box-shadow: 0 0 10px -17px #8798ad;
-  visibility: hidden;
+  will-change: transform;
 }
 
-.rmdp-triangle.active {
-  visibility: visible;
-}
-
-.rmdp-triangle:after {
+.ep-arrow::after {
   content: "";
-  position: absolute;
   width: 12px;
   height: 12px;
-  background: white;
+  background-color: white;
+  position: absolute;
   transform: rotate(45deg);
-  left: 8px;
+  box-shadow: 0 0 6px #8798ad;
 }
 
-.rmdp-triangle-up::after {
-  box-shadow: -1px -1px 3px #becadb;
+.ep-arrow[direction="top"] {
+  border-bottom: 1px solid white;
+}
+
+.ep-arrow[direction="left"] {
+  border-right: 1px solid white;
+}
+
+.ep-arrow[direction="right"] {
+  border-left: 1px solid white;
+  margin-left: -1px;
+}
+
+.ep-arrow[direction="bottom"] {
+  border-top: 1px solid white;
+  margin-top: -1.5px;
+}
+
+.ep-arrow[direction="top"]::after {
+  left: 4px;
+  top: 5px;
+}
+
+.ep-arrow[direction="bottom"]::after {
+  left: 4px;
+  top: -6px;
+}
+
+.ep-arrow[direction="left"]::after {
+  left: 5px;
   top: 3px;
 }
 
-.rmdp-triangle-down::after {
-  box-shadow: 1px 1px 3px #becadb;
-  top: -6px;
+.ep-arrow[direction="right"]::after {
+  left: -6px;
+  top: 3px;
 }
 
 @media (max-width: 400px), (max-height: 400px) {

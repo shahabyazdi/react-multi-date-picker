@@ -1,8 +1,8 @@
 .bg-gray.rmdp-wrapper,
 .bg-gray .rmdp-month-picker,
 .bg-gray .rmdp-year-picker,
-.bg-gray.rmdp-triangle::after {
-  background-color: rgb(177, 171, 171);
+.bg-gray.ep-arrow::after {
+  background-color: #b1abab;
   color: white;
 }
 
@@ -18,6 +18,22 @@
 }
 
 .bg-gray .rmdp-time-picker div input {
-  background-color: rgb(177, 171, 171);
+  background-color: #b1abab;
   color: white;
+}
+
+.bg-gray.ep-arrow[direction="top"] {
+  border-bottom: 1px solid #b1abab;
+}
+
+.bg-gray.ep-arrow[direction="left"] {
+  border-right: 1px solid #b1abab;
+}
+
+.bg-gray.ep-arrow[direction="right"] {
+  border-left: 1px solid #b1abab;
+}
+
+.bg-gray.ep-arrow[direction="bottom"] {
+  border-top: 1px solid #b1abab;
 }

@@ -1,7 +1,9 @@
 .rmdp-prime.rmdp-wrapper {
-  border-radius: 7px;
   border: 1px solid var(--rmdp-shadow);
-  margin-top: -1px;
+}
+
+.rmdp-prime .rmdp-calendar {
+  padding: 0 !important;
 }
 
 .rmdp-prime .rmdp-header,
@@ -33,4 +35,8 @@
 
 .rmdp-prime .rmdp-border-right {
   border-right: 1px solid var(--rmdp-shadow) !important;
+}
+
+.rmdp-prime.ep-arrow::after {
+  box-shadow: 0 0 6px #404050 !important;
 }

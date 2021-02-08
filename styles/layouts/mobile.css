@@ -1,5 +1,4 @@
 .rmdp-calendar-container-mobile {
-  position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
@@ -110,6 +109,7 @@
 .rmdp-mobile .rmdp-action-button {
   margin: 0 3px;
   margin-top: 15px;
+  font-size: 13px;
 }
 
 .rmdp-mobile .rmdp-action-buttons.rmdp-rtl {
@@ -127,22 +127,22 @@
 }
 
 .rmdp-mobile .rmdp-header {
-  margin-top: 30px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .rmdp-mobile .rmdp-panel-header {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .rmdp-mobile .rmdp-day-picker {
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .rmdp-mobile .rmdp-action-button {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 @media (max-width: 420px) {
@@ -218,7 +218,7 @@
   }
 
   .rmdp-mobile .rmdp-header {
-    margin-top: 15px;
+    margin-top: 10px;
     margin-left: 5px;
     margin-right: 5px;
   }
@@ -239,6 +239,7 @@
 
   .rmdp-mobile .rmdp-action-button {
     margin-bottom: 10px;
+    font-size: 12px;
   }
 }
 
@@ -339,21 +340,21 @@
   }
 
   .rmdp-mobile .rmdp-header {
-    margin-top: 15px;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 
   .rmdp-mobile .rmdp-panel-header {
-    margin-top: 15px;
+    margin-top: 13px;
   }
 
   .rmdp-mobile .rmdp-day-picker {
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 0px;
+    margin-right: 0px;
   }
 
   .rmdp-mobile .rmdp-action-button {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 }

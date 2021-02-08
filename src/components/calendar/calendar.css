@@ -23,10 +23,15 @@
   box-shadow: 0 0 5px var(--rmdp-shadow);
   text-align: center;
   background-color: white;
+  border-radius: 5px;
+}
+
+.rmdp-calendar {
+  padding: 4px;
 }
 
 .rmdp-wrapper.active {
-  visibility: visible;
+  visibility: unset;
 }
 
 .rmdp-border-top {
@@ -145,7 +150,7 @@
 }
 
 .rmdp-header {
-  margin-top: 8px;
+  margin-top: 5px;
   font-size: 14px;
   height: 38px;
   line-height: 37px;
@@ -271,6 +276,7 @@
   text-align: center;
   padding: 5px 2px;
   border: none;
+  font-size: 14px;
 }
 
 .rmdp-time-picker div input::-webkit-outer-spin-button,
@@ -290,8 +296,8 @@
 }
 
 .rmdp-time-picker div .rmdp-am {
-  font-size: 12px;
-  line-height: 21px;
+  font-size: 13px;
+  line-height: 22px;
   color: black;
   margin-top: 2px;
 }
@@ -400,6 +406,12 @@
   color: white;
 }
 
+.rmdp-day-hidden:hover span,
+.rmdp-day-hidden {
+  background-color: unset;
+  color: transparent;
+}
+
 @media (max-width: 400px), (max-height: 400px) {
   .rmdp-day,
   .rmdp-week-day {
@@ -427,10 +439,9 @@
   .rmdp-time-picker div input {
     font-size: 12px;
   }
-}
 
-.rmdp-day-hidden:hover span,
-.rmdp-day-hidden {
-  background-color: unset;
-  color: transparent;
+  .rmdp-time-picker div .rmdp-am {
+    font-size: 12px;
+    line-height: 22px;
+  }
 }
