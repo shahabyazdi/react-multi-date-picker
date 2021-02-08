@@ -439,4 +439,9 @@
   .rmdp-time-picker div input {
     font-size: 12px;
   }
+
+  .rmdp-time-picker div .rmdp-am {
+    font-size: 12px;
+    line-height: 22px;
+  }
 }
