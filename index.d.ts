@@ -221,11 +221,13 @@ declare module "react-multi-date-picker" {
 
     interface DatePickerProps{
         ref?:React.RefObject<any>,
-        arrow?:boolean,
+        arrow?:boolean | React.ReactElement,
         /**
          * Input name.
          * This feature does not work in custom type.
          */
+        arrowClassName?:string,
+        arrowStyle?:React.CSSProperties,
         name?:string,
         /**
          * Input placeholder.
@@ -332,6 +334,10 @@ declare module "react-multi-date-picker" {
          * Return `false` in case you don't want to close Calendar
          */
         onClose?():void | boolean,
+        fixMainPosition?:boolean,
+        fixRelativePosition?:boolean,
+        offsetY?:number,
+        offsetX?:number
     }
 
     export { DateObject }
