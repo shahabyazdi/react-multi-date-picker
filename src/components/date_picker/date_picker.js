@@ -48,6 +48,7 @@ function DatePicker(
     arrowClassName = "",
     zIndex = 100,
     arrow = true,
+    fixMainPosition,
     ...otherProps
   },
   outerRef
@@ -114,10 +115,18 @@ function DatePicker(
       }
     }
 
-    document.addEventListener("click", handleClickOutside, false)
+    function handleScroll() {
+      if (hideOnScroll && isVisible) closeCalendar()
+    }
 
-    return () => document.removeEventListener("click", handleClickOutside, false)
-  }, [closeCalendar, outerRef, isVisible])
+    document.addEventListener("click", handleClickOutside, false)
+    document.addEventListener("scroll", handleScroll, true)
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside, false)
+      document.removeEventListener("scroll", handleScroll, true)
+    }
+  }, [closeCalendar, outerRef, isVisible, hideOnScroll])
 
   useEffect(() => {
     let date = value,
@@ -202,6 +211,7 @@ function DatePicker(
       arrow={!isMobileMode() && arrow}
       containerClassName={`rmdp-container ${containerClassName}`}
       arrowClassName={`${className} ${arrowClassName}`}
+      fixMainPosition={!scrollSensitive || fixMainPosition}
       zIndex={zIndex}
       {...otherProps}
     />
