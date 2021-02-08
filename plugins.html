@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/react-multi-date-picker/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000000"><meta name="description" content="a simple React datepicker component for working with gregorian, persian, arabic and indian calendars"><meta name="keywords" content="react, multi, date, picker, react-multi-date-picker, datepicker, date, gregorian, persian, arabic, indian, farsi, hindi, calendar, component"><meta name="google-site-verification" content="eN9hWwtvlYdXL_37ZU2ML8AUY8685Fw3O98T5vidr-4"><meta name="msvalidate.01" content="C93B2672E5B60714555F0943FCAFE6C8"><link rel="apple-touch-icon" href="/react-multi-date-picker/logo192.png"><link rel="manifest" href="/react-multi-date-picker/manifest.json"><title>React Multi DatePicker</title><link href="/react-multi-date-picker/static/css/2.a342842d.chunk.css" rel="stylesheet"><link href="/react-multi-date-picker/static/css/main.91cf1cb6.chunk.css" rel="stylesheet"><style type="text/css">:root {
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/react-multi-date-picker/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000000"><meta name="description" content="a simple React datepicker component for working with gregorian, persian, arabic and indian calendars"><meta name="keywords" content="react, multi, date, picker, react-multi-date-picker, datepicker, date, gregorian, persian, arabic, indian, farsi, hindi, calendar, component"><meta name="google-site-verification" content="eN9hWwtvlYdXL_37ZU2ML8AUY8685Fw3O98T5vidr-4"><meta name="msvalidate.01" content="C93B2672E5B60714555F0943FCAFE6C8"><link rel="apple-touch-icon" href="/react-multi-date-picker/logo192.png"><link rel="manifest" href="/react-multi-date-picker/manifest.json"><title>React Multi DatePicker</title><link href="/react-multi-date-picker/static/css/2.cad039c5.chunk.css" rel="stylesheet"><link href="/react-multi-date-picker/static/css/main.ebe7134c.chunk.css" rel="stylesheet"><style type="text/css">:root {
   --rmdp-primary: #0074d9;
   --rmdp-secondary: #4ca6f5;
   --rmdp-shadow: #8798ad;
@@ -23,10 +23,15 @@
   box-shadow: 0 0 5px var(--rmdp-shadow);
   text-align: center;
   background-color: white;
+  border-radius: 5px;
+}
+
+.rmdp-calendar {
+  padding: 4px;
 }
 
 .rmdp-wrapper.active {
-  visibility: visible;
+  visibility: unset;
 }
 
 .rmdp-border-top {
@@ -145,7 +150,7 @@
 }
 
 .rmdp-header {
-  margin-top: 8px;
+  margin-top: 5px;
   font-size: 14px;
   height: 38px;
   line-height: 37px;
@@ -271,6 +276,7 @@
   text-align: center;
   padding: 5px 2px;
   border: none;
+  font-size: 14px;
 }
 
 .rmdp-time-picker div input::-webkit-outer-spin-button,
@@ -290,8 +296,8 @@
 }
 
 .rmdp-time-picker div .rmdp-am {
-  font-size: 12px;
-  line-height: 21px;
+  font-size: 13px;
+  line-height: 22px;
   color: black;
   margin-top: 2px;
 }
@@ -400,6 +406,12 @@
   color: white;
 }
 
+.rmdp-day-hidden:hover span,
+.rmdp-day-hidden {
+  background-color: unset;
+  color: transparent;
+}
+
 @media (max-width: 400px), (max-height: 400px) {
   .rmdp-day,
   .rmdp-week-day {
@@ -427,12 +439,11 @@
   .rmdp-time-picker div input {
     font-size: 12px;
   }
-}
 
-.rmdp-day-hidden:hover span,
-.rmdp-day-hidden {
-  background-color: unset;
-  color: transparent;
+  .rmdp-time-picker div .rmdp-am {
+    font-size: 12px;
+    line-height: 22px;
+  }
 }
 </style><style type="text/css">.rmpd-panel {
   min-width: 125px;
@@ -450,6 +461,7 @@
 }
 
 .rmdp-panel-body li {
+  border-radius: 3px;
   box-shadow: 0 0 2px var(--rmdp-shadow);
   background-color: var(--rmdp-primary);
   color: white;
@@ -563,29 +575,20 @@
     font-size: 12px;
   }
 }
-</style><style type="text/css">.rmdp-container {
-  display: inline-block;
-}
-
-.rmdp-calendar-container {
-  z-index: 1;
-}
-
-.rmdp-calendar-container .rmdp-wrapper {
-  position: absolute;
-  transform: translateY(2px);
-  visibility: hidden;
-}
-
-.rmdp-calendar-container.active .rmdp-wrapper {
+</style><style type="text/css">.rmdp-visible {
   visibility: visible;
+}
+
+.rmdp-invisible {
+  visibility: hidden;
 }
 
 .rmdp-input {
   margin: 1px 0;
-  border: 1px #eaeeff solid;
+  border: 1px #c0c4d6 solid;
   padding: 2px 5px;
   height: 22px;
+  border-radius: 5px;
 }
 
 .rmdp-input:focus {
@@ -642,37 +645,57 @@
   background-color: transparent;
 }
 
-.rmdp-triangle {
-  width: 30px;
-  height: 10px;
-  position: absolute;
+.ep-arrow {
   overflow: hidden;
-  box-shadow: 0 0 10px -17px #8798ad;
-  visibility: hidden;
+  will-change: transform;
 }
 
-.rmdp-triangle.active {
-  visibility: visible;
-}
-
-.rmdp-triangle:after {
+.ep-arrow::after {
   content: "";
-  position: absolute;
   width: 12px;
   height: 12px;
-  background: white;
+  background-color: white;
+  position: absolute;
   transform: rotate(45deg);
-  left: 8px;
+  box-shadow: 0 0 6px #8798ad;
 }
 
-.rmdp-triangle-up::after {
-  box-shadow: -1px -1px 3px #becadb;
+.ep-arrow[direction="top"] {
+  border-bottom: 1px solid white;
+}
+
+.ep-arrow[direction="left"] {
+  border-right: 1px solid white;
+}
+
+.ep-arrow[direction="right"] {
+  border-left: 1px solid white;
+  margin-left: -1px;
+}
+
+.ep-arrow[direction="bottom"] {
+  border-top: 1px solid white;
+  margin-top: -1.5px;
+}
+
+.ep-arrow[direction="top"]::after {
+  left: 4px;
+  top: 5px;
+}
+
+.ep-arrow[direction="bottom"]::after {
+  left: 4px;
+  top: -6px;
+}
+
+.ep-arrow[direction="left"]::after {
+  left: 5px;
   top: 3px;
 }
 
-.rmdp-triangle-down::after {
-  box-shadow: 1px 1px 3px #becadb;
-  top: -6px;
+.ep-arrow[direction="right"]::after {
+  left: -6px;
+  top: 3px;
 }
 
 @media (max-width: 400px), (max-height: 400px) {
@@ -863,20 +886,20 @@
   font-size: 28px;
 }
 
-.rmdp-prime .rmdp-header-plugin.top {
-  border-radius: 7px 7px 0 0;
+.rmdp-header-plugin.top {
+  border-radius: 5px 5px 0 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.bottom {
-  border-radius: 0 0 7px 7px;
+.rmdp-header-plugin.bottom {
+  border-radius: 0 0 5px 5px;
 }
 
-.rmdp-prime .rmdp-header-plugin.left {
-  border-radius: 7px 0 0 7px;
+.rmdp-header-plugin.left {
+  border-radius: 5px 0 0 5px;
 }
 
-.rmdp-prime .rmdp-header-plugin.right {
-  border-radius: 0 7px 7px 0;
+.rmdp-header-plugin.right {
+  border-radius: 0 5px 5px 0;
 }
 
 .rmdp-header-plugin.top.big,
@@ -929,27 +952,23 @@
   background-color: var(--rmdp-primary-yellow);
 }
 
-.rmdp-mobile .rmdp-header-plugin {
-  border-radius: 0;
-}
-
-.rmdp-prime .rmdp-header-plugin.no-border-top-left-radius {
+.rmdp-header-plugin.no-border-top-left-radius {
   border-top-left-radius: 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.no-border-bottom-left-radius {
+.rmdp-header-plugin.no-border-bottom-left-radius {
   border-bottom-left-radius: 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.no-border-top-right-radius {
+.rmdp-header-plugin.no-border-top-right-radius {
   border-top-right-radius: 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.no-border-bottom-right-radius {
+.rmdp-header-plugin.no-border-bottom-right-radius {
   border-bottom-right-radius: 0;
 }
 
-.rmdp-prime .rmdp-header-plugin.no-border-radius {
+.rmdp-header-plugin.no-border-radius {
   border-radius: 0;
 }
 
@@ -1147,6 +1166,7 @@
 }
 
 .rmdp-panel-body li {
+  border-radius: 3px;
   box-shadow: 0 0 2px var(--rmdp-shadow);
   background-color: var(--rmdp-primary);
   color: white;
@@ -1274,6 +1294,7 @@
   cursor: pointer;
   font-size: 12px;
   padding: 3px 0;
+  border-radius: 3px;
 }
 
 .rmdp-toolbar div:hover {
@@ -1313,7 +1334,7 @@
 .yellow .rmdp-toolbar div {
   background-color: var(--rmdp-primary-yellow);
 }
-</style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div class="App "><nav class="navbar"><svg class="open-sidebar" width="30" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="9" y1="6" x2="20" y2="6"></line><line x1="9" y1="12" x2="20" y2="12"></line><line x1="9" y1="18" x2="20" y2="18"></line><line x1="5" y1="6" x2="5" y2="6.01"></line><line x1="5" y1="12" x2="5" y2="12.01"></line><line x1="5" y1="18" x2="5" y2="18.01"></line></svg><div class="navbar-title"><span class="name">React Multi Date Picker</span><span class="version"> 2.0.7</span></div><div class="icons"><div class="icon home"><a class="icon" href="/react-multi-date-picker/"><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="5 12 3 12 12 3 21 12 19 12"></polyline><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path></svg></a></div><div class="icon"><a target="_blank" rel="noopener noreferrer" class="github" href="https://github.com/shahabyazdi/react-multi-date-picker"><svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)" fill="#1B1F23"></path></svg></a></div><div class="icon"><a target="_blank" rel="noopener noreferrer" class="npm" href="https://www.npmjs.com/package/react-multi-date-picker"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="540px" height="210px" viewBox="0 0 18 7"><path fill="#CB3837" d="M0,0h18v6H9v1H5V6H0V0z M1,5h2V2h1v3h1V1H1V5z M6,1v5h2V5h2V1H6z M8,2h1v2H8V2z M11,1v4h2V2h1v3h1V2h1v3h1V1H11z"></path><polygon fill="#FFFFFF" points="1,5 3,5 3,2 4,2 4,5 5,5 5,1 1,1 "></polygon><path fill="#FFFFFF" d="M6,1v5h2V5h2V1H6z M9,4H8V2h1V4z"></path><polygon fill="#FFFFFF" points="11,1 11,5 13,5 13,2 14,2 14,5 15,5 15,2 16,2 16,5 17,5 17,1 "></polygon></svg></a></div></div></nav><div><ul class="sidebar "><li><a href="#usage">Usage</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#plugins">Plugins</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#positions">Positions</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#examples">Examples</a><ul class="sidebar-sub-menu"><li><a href="#all-in-one">All In One</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#header">Header</a><ul class="sidebar-sub-menu"><li><a href="#header-right">Header Right</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#persian-calendar">Persian Calendar</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#english-calendar-with-indian-header">English Calendar with Indian Header</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#styling-header">Styling Header</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#date-panel">Date Panel</a><ul class="sidebar-sub-menu"><li><a href="#sort-by-date">Sort By Date</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#without-remove-button">Without Remove Button</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#date-click-listener">Date Click Listener</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#multi-colors">Multi Colors</a><ul class="sidebar-sub-menu"><li><a href="#default-color">Default Color</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#with-datepanel">With DatePanel</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#settings">Settings</a><ul class="sidebar-sub-menu"><li><a href="#settings-bottom">Settings Bottom</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#custom-settings">Custom Settings</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#time-picker">Time Picker</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#weekends">Weekends</a><ul class="sidebar-sub-menu"><li><a href="#weekends:-gregorian">Weekends: gregorian</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#weekends:-persian">Weekends: persian</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#weekends:-custom">Weekends: custom</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#toolbar">Toolbar</a><ul class="sidebar-sub-menu"></ul></li></ul></li></ul><div class="main"><div class="scroll-to-top"><span class="rmdp-arrow-container rmdp-up"><i class="rmdp-arrow"></i></span></div><div><div class="example" id="usage"><div class="title">Usage</div><div><p>Plugins Prop accepts an array of plugins, which the following two properties can be entered on each of them.</p><table><thead><tr><th>Prop</th><th>default</th></tr></thead><tbody><tr><td>position</td><td>"right"</td></tr><tr><td>disabled</td><td>false</td></tr></tbody></table><p>This is the general way to add a imported plugin to Datepicker:</p><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">"react"</span>
+</style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div class="App "><nav class="navbar"><svg class="open-sidebar" width="30" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="9" y1="6" x2="20" y2="6"></line><line x1="9" y1="12" x2="20" y2="12"></line><line x1="9" y1="18" x2="20" y2="18"></line><line x1="5" y1="6" x2="5" y2="6.01"></line><line x1="5" y1="12" x2="5" y2="12.01"></line><line x1="5" y1="18" x2="5" y2="18.01"></line></svg><div class="navbar-title"><span class="name">React Multi Date Picker</span><span class="version"> 2.1.1</span></div><div class="icons"><div class="icon home"><a class="icon" href="/react-multi-date-picker/"><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="5 12 3 12 12 3 21 12 19 12"></polyline><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path></svg></a></div><div class="icon"><a target="_blank" rel="noopener noreferrer" class="github" href="https://github.com/shahabyazdi/react-multi-date-picker"><svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)" fill="#1B1F23"></path></svg></a></div><div class="icon"><a target="_blank" rel="noopener noreferrer" class="npm" href="https://www.npmjs.com/package/react-multi-date-picker"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="540px" height="210px" viewBox="0 0 18 7"><path fill="#CB3837" d="M0,0h18v6H9v1H5V6H0V0z M1,5h2V2h1v3h1V1H1V5z M6,1v5h2V5h2V1H6z M8,2h1v2H8V2z M11,1v4h2V2h1v3h1V2h1v3h1V1H11z"></path><polygon fill="#FFFFFF" points="1,5 3,5 3,2 4,2 4,5 5,5 5,1 1,1 "></polygon><path fill="#FFFFFF" d="M6,1v5h2V5h2V1H6z M9,4H8V2h1V4z"></path><polygon fill="#FFFFFF" points="11,1 11,5 13,5 13,2 14,2 14,5 15,5 15,2 16,2 16,5 17,5 17,1 "></polygon></svg></a></div></div></nav><div><ul class="sidebar "><li><a href="#usage">Usage</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#plugins">Plugins</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#positions">Positions</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#examples">Examples</a><ul class="sidebar-sub-menu"><li><a href="#all-in-one">All In One</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#header">Header</a><ul class="sidebar-sub-menu"><li><a href="#header-right">Header Right</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#persian-calendar">Persian Calendar</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#english-calendar-with-indian-header">English Calendar with Indian Header</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#styling-header">Styling Header</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#date-panel">Date Panel</a><ul class="sidebar-sub-menu"><li><a href="#sort-by-date">Sort By Date</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#without-remove-button">Without Remove Button</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#date-click-listener">Date Click Listener</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#multi-colors">Multi Colors</a><ul class="sidebar-sub-menu"><li><a href="#default-color">Default Color</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#with-datepanel">With DatePanel</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#settings">Settings</a><ul class="sidebar-sub-menu"><li><a href="#settings-bottom">Settings Bottom</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#custom-settings">Custom Settings</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#time-picker">Time Picker</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#weekends">Weekends</a><ul class="sidebar-sub-menu"><li><a href="#weekends:-gregorian">Weekends: gregorian</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#weekends:-persian">Weekends: persian</a><ul class="sidebar-sub-menu"></ul></li><li><a href="#weekends:-custom">Weekends: custom</a><ul class="sidebar-sub-menu"></ul></li></ul></li><li><a href="#toolbar">Toolbar</a><ul class="sidebar-sub-menu"></ul></li></ul></li></ul><div class="main"><div class="scroll-to-top"><span class="rmdp-arrow-container rmdp-up"><i class="rmdp-arrow"></i></span></div><div><div class="example" id="usage"><div class="title">Usage</div><div><p>Plugins Prop accepts an array of plugins, which the following two properties can be entered on each of them.</p><table><thead><tr><th>Prop</th><th>default</th></tr></thead><tbody><tr><td>position</td><td>"right"</td></tr><tr><td>disabled</td><td>false</td></tr></tbody></table><p>This is the general way to add a imported plugin to Datepicker:</p><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">"react"</span>
 <span class="token keyword">import</span> DatePicker <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker"</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> MyFavoritePlugin <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-mylti-date-picker/plugins"</span>
 
@@ -1399,7 +1420,7 @@ Object<span class="token punctuation">.</span><span class="token function">keys<
   <span class="token attr-name">plugins</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePickerHeader</span></span> <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="persian-calendar"><div class="title">Persian Calendar</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePickerHeader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="persian-calendar"><div class="title">Persian Calendar</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePickerHeader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
@@ -1409,7 +1430,7 @@ Object<span class="token punctuation">.</span><span class="token function">keys<
   <span class="token attr-name">plugins</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePickerHeader</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">,</span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="english-calendar-with-indian-header"><div class="title">English Calendar with Indian Header</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePickerHeader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="english-calendar-with-indian-header"><div class="title">English Calendar with Indian Header</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePickerHeader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
@@ -1420,7 +1441,7 @@ Object<span class="token punctuation">.</span><span class="token function">keys<
       <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>medium<span class="token punctuation">"</span></span> 
     <span class="token punctuation">/&gt;</span></span><span class="token punctuation">,</span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="styling-header"><div class="title">Styling Header</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePickerHeader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="styling-header"><div class="title">Styling Header</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePickerHeader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
@@ -1432,7 +1453,7 @@ Object<span class="token punctuation">.</span><span class="token function">keys<
       <span class="token attr-name">style</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> backgroundColor<span class="token operator">:</span> <span class="token string">"red"</span> <span class="token punctuation">}</span><span class="token punctuation">}</span></span> 
     <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div></div><div><div class="example" id="date-panel"><div class="title">Date Panel</div><div><h5>Availble Props</h5><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody><tr><td>sort</td><td>String</td><td>""</td></tr><tr><td>eachDaysInRange</td><td>Boolean</td><td>false</td></tr><tr><td>onDateClicked</td><td>Function</td><td>undefined</td></tr><tr><td>removeButton</td><td>Boolean</td><td>true</td></tr></tbody></table><h5>sort:</h5><ul><li>date</li><li>color</li></ul></div></div><div><div class="example" id="sort-by-date"><div class="title">Sort By Date</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePanel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>    
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div></div><div><div class="example" id="date-panel"><div class="title">Date Panel</div><div><h5>Availble Props</h5><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody><tr><td>sort</td><td>String</td><td>""</td></tr><tr><td>eachDaysInRange</td><td>Boolean</td><td>false</td></tr><tr><td>onDateClicked</td><td>Function</td><td>undefined</td></tr><tr><td>removeButton</td><td>Boolean</td><td>true</td></tr></tbody></table><h5>sort:</h5><ul><li>date</li><li>color</li></ul></div></div><div><div class="example" id="sort-by-date"><div class="title">Sort By Date</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePanel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>    
 <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
   <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"days"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -1449,7 +1470,7 @@ Object<span class="token punctuation">.</span><span class="token function">keys<
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePanel</span></span> <span class="token attr-name">sort</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>date<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
 <span class="token punctuation">/&gt;</span></span>
-  </code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off" inputmode="none"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="without-remove-button"><div class="title">Without Remove Button</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePanel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+  </code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off" inputmode="none"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="without-remove-button"><div class="title">Without Remove Button</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePanel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
 <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
@@ -1462,7 +1483,7 @@ Object<span class="token punctuation">.</span><span class="token function">keys<
       <span class="token attr-name">removeButton</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token boolean">false</span><span class="token punctuation">}</span></span>
     <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="date-click-listener"><div class="title">Date Click Listener</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePanel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="date-click-listener"><div class="title">Date Click Listener</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> DatePanel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
 <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
@@ -1482,7 +1503,7 @@ Object<span class="token punctuation">.</span><span class="token function">keys<
       <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
     <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div></div><div><div class="example" id="multi-colors"><div class="title">Multi Colors</div><div><h5>Availble Props</h5><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody><tr><td>colors</td><td>Array</td><td>["blue", "red", "green", "yellow"]</td></tr><tr><td>defaultColor</td><td>String</td><td>first item of colors</td></tr><tr><td>setProps</td><td>Function</td><td>undefined</td></tr></tbody></table></div></div><div><div class="example" id="default-color"><div class="title">Default Color</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> MultiColors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>    
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div></div><div><div class="example" id="multi-colors"><div class="title">Multi Colors</div><div><h5>Availble Props</h5><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody><tr><td>colors</td><td>Array</td><td>["blue", "red", "green", "yellow"]</td></tr><tr><td>defaultColor</td><td>String</td><td>first item of colors</td></tr><tr><td>setProps</td><td>Function</td><td>undefined</td></tr></tbody></table></div></div><div><div class="example" id="default-color"><div class="title">Default Color</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> MultiColors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>    
 <span class="token keyword">const</span> <span class="token punctuation">[</span>props<span class="token punctuation">,</span> setProps<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> multiple<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
@@ -1497,7 +1518,7 @@ Object<span class="token punctuation">.</span><span class="token function">keys<
     <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
 <span class="token punctuation">/&gt;</span></span>
-                                </code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off" inputmode="none"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="with-datepanel"><div class="title">With DatePanel</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> MultiColors<span class="token punctuation">,</span> DatePanel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>   
+                                </code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off" inputmode="none"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="with-datepanel"><div class="title">With DatePanel</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> MultiColors<span class="token punctuation">,</span> DatePanel <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>   
 
 <span class="token keyword">const</span> yesterday <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">subtract</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"day"</span><span class="token punctuation">)</span>
 <span class="token keyword">const</span> today <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DateObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -1526,7 +1547,7 @@ tomorrow<span class="token punctuation">.</span>color <span class="token operato
     <span class="token punctuation">/&gt;</span></span><span class="token punctuation">,</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DatePanel</span></span> <span class="token attr-name">sort</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>color<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off" inputmode="none"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div></div><div><div class="example" id="settings"><div class="title">Settings</div><div><h5>Availble Props</h5><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody><tr><td>calendars</td><td>Array</td><td>["gregorian", "persian", "arabic", "indian"]</td></tr><tr><td>locales</td><td>Array</td><td>["en", "fa", "ar", "hi"]</td></tr><tr><td>modes</td><td>Array</td><td>["single", "multiple", "range"]</td></tr><tr><td>others</td><td>Array</td><td>["time picker", "only time picker", "only month picker", "only year picker"]</td></tr><tr><td>defaultActive</td><td>string</td><td>""</td></tr><tr><td>disabledList</td><td>Array</td><td>[]</td></tr><tr><td>defaultFormat</td><td>Object</td><td>{}</td></tr><tr><td>setProps</td><td>Function</td><td>undefined</td></tr></tbody></table></div></div><div><div class="example" id="settings-bottom"><div class="title">Settings Bottom</div><div></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Settings <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off" inputmode="none"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div></div><div><div class="example" id="settings"><div class="title">Settings</div><div><h5>Availble Props</h5><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody><tr><td>calendars</td><td>Array</td><td>["gregorian", "persian", "arabic", "indian"]</td></tr><tr><td>locales</td><td>Array</td><td>["en", "fa", "ar", "hi"]</td></tr><tr><td>modes</td><td>Array</td><td>["single", "multiple", "range"]</td></tr><tr><td>others</td><td>Array</td><td>["time picker", "only time picker", "only month picker", "only year picker"]</td></tr><tr><td>defaultActive</td><td>string</td><td>""</td></tr><tr><td>disabledList</td><td>Array</td><td>[]</td></tr><tr><td>defaultFormat</td><td>Object</td><td>{}</td></tr><tr><td>setProps</td><td>Function</td><td>undefined</td></tr></tbody></table></div></div><div><div class="example" id="settings-bottom"><div class="title">Settings Bottom</div><div></div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Settings <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
 <span class="token keyword">const</span> <span class="token punctuation">[</span>props<span class="token punctuation">,</span> setProps<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
@@ -1544,7 +1565,7 @@ tomorrow<span class="token punctuation">.</span>color <span class="token operato
       <span class="token attr-name">position</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token string">"fa"</span><span class="token punctuation">,</span> <span class="token string">"ar"</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>locale<span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">"left"</span> <span class="token operator">:</span> <span class="token string">"right"</span><span class="token punctuation">}</span></span>
     <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="custom-settings"><div class="title">Custom Settings</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Settings <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="custom-settings"><div class="title">Custom Settings</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Settings <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
 <span class="token keyword">const</span> <span class="token punctuation">[</span>props<span class="token punctuation">,</span> setProps<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> multiple<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
@@ -1561,7 +1582,7 @@ tomorrow<span class="token punctuation">.</span>color <span class="token operato
       <span class="token attr-name">setProps</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>setProps<span class="token punctuation">}</span></span>
     <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off" inputmode="none"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="time-picker"><div class="title">Time Picker</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Settings <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off" inputmode="none"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="time-picker"><div class="title">Time Picker</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Settings <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
 <span class="token keyword">const</span> initialProps <span class="token operator">=</span> <span class="token punctuation">{</span> 
   value<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
   format<span class="token operator">:</span> <span class="token string">"MM-DD-YYYY HH:mm:ss"</span><span class="token punctuation">,</span> 
@@ -1587,7 +1608,7 @@ tomorrow<span class="token punctuation">.</span>color <span class="token operato
       <span class="token attr-name">setProps</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>setProps<span class="token punctuation">}</span></span>
     <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div></div><div><div class="example" id="weekends"><div class="title">Weekends</div><div><h5>Availble Props:</h5><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody><tr><td>weekends</td><td>Array</td><td>*see default weekends</td></tr><tr><td>setMapDays</td><td>Function</td><td>undefined</td></tr></tbody></table><h5>Default Weekends:</h5><table><thead><tr><th>Calendar</th><th>Weekends</th></tr></thead><tbody><tr><td>gregorian</td><td>[0, 6]</td></tr><tr><td>persian</td><td>[6]</td></tr><tr><td>arabic</td><td>[0, 6]</td></tr><tr><td>indian</td><td>[0]</td></tr></tbody></table></div></div><div><div class="example" id="weekends:-gregorian"><div class="title">Weekends: gregorian</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Weekends <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span> 
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div></div><div><div class="example" id="weekends"><div class="title">Weekends</div><div><h5>Availble Props:</h5><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody><tr><td>weekends</td><td>Array</td><td>*see default weekends</td></tr><tr><td>setMapDays</td><td>Function</td><td>undefined</td></tr></tbody></table><h5>Default Weekends:</h5><table><thead><tr><th>Calendar</th><th>Weekends</th></tr></thead><tbody><tr><td>gregorian</td><td>[0, 6]</td></tr><tr><td>persian</td><td>[6]</td></tr><tr><td>arabic</td><td>[0, 6]</td></tr><tr><td>indian</td><td>[0]</td></tr></tbody></table></div></div><div><div class="example" id="weekends:-gregorian"><div class="title">Weekends: gregorian</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Weekends <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span> 
 <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">const</span> <span class="token punctuation">[</span>mapDays<span class="token punctuation">,</span> setMapDays<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span>
@@ -1601,7 +1622,7 @@ tomorrow<span class="token punctuation">.</span>color <span class="token operato
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Weekends</span></span> <span class="token attr-name">setMapDays</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>setMapDays<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
 <span class="token punctuation">/&gt;</span></span>
-            </code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="weekends:-persian"><div class="title">Weekends: persian</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Weekends <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span> 
+            </code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="weekends:-persian"><div class="title">Weekends: persian</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Weekends <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span> 
 <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">const</span> <span class="token punctuation">[</span>mapDays<span class="token punctuation">,</span> setMapDays<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span>
@@ -1615,7 +1636,7 @@ tomorrow<span class="token punctuation">.</span>color <span class="token operato
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Weekends</span></span> <span class="token attr-name">setMapDays</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>setMapDays<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
 <span class="token punctuation">/&gt;</span></span>
-                </code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div><div><div class="example" id="weekends:-custom"><div class="title">Weekends: custom</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Weekends <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span> 
+                </code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div><div><div class="example" id="weekends:-custom"><div class="title">Weekends: custom</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Weekends <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span> 
 <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">const</span> <span class="token punctuation">[</span>mapDays<span class="token punctuation">,</span> setMapDays<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span>
@@ -1632,7 +1653,7 @@ tomorrow<span class="token punctuation">.</span>color <span class="token operato
     <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
 <span class="token punctuation">/&gt;</span></span>
-                </code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div></div><div><div class="example" id="toolbar"><div class="title">Toolbar</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Toolbar <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
+                </code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div></div><div><div class="example" id="toolbar"><div class="title">Toolbar</div><pre class=" language-jsx"><code class=" language-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span> Toolbar <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react-multi-date-picker/plugins"</span>
 <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">.</span>
 <span class="token punctuation">.</span>
@@ -1643,4 +1664,4 @@ tomorrow<span class="token punctuation">.</span>color <span class="token operato
   <span class="token attr-name">plugins</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Toolbar</span></span> <span class="token attr-name">position</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bottom<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
   <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container undefined"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div style="width:10px;visibility:hidden"></div><div style="width:5px;visibility:hidden"></div></div></div></div></div></div></div></div></div><script type="text/javascript">!function(t,i){"use strict";i.write('<div id="amarfa-stats-9756" style="display: inline-block"></div>'),i.write('<script type="text/javascript" src="//amarfa.ir/stats/9756.js" async><\/script>')}(0,document)</script><script type="text/javascript" src="//amarfa.ir/stats/9756.js" async=""></script><div id="amarfa-stats-9756" style="display: inline-block"></div><script>!function(e){function r(r){for(var n,a,l=r[0],i=r[1],p=r[2],f=0,s=[];f<l.length;f++)a=l[f],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n]);for(c&&c(r);s.length;)s.shift()();return u.push.apply(u,p||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,l=1;l<t.length;l++){var i=t[l];0!==o[i]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="/react-multi-date-picker/";var l=this["webpackJsonpdatepicker-example"]=this["webpackJsonpdatepicker-example"]||[],i=l.push.bind(l);l.push=r,l=l.slice();for(var p=0;p<l.length;p++)r(l[p]);var c=i;t()}([])</script><script src="/react-multi-date-picker/static/js/2.21850db4.chunk.js"></script><script src="/react-multi-date-picker/static/js/main.36df4a72.chunk.js"></script></body></html>
+<span class="token punctuation">/&gt;</span></span></code></pre><div class="rmdp-container " style="display:inline-block;height:max-content"><div style="position:relative"><input type="text" class="rmdp-input" value="" autocomplete="off"></div><div class="" style="position:absolute;left:0;top:0;will-change:transform;visibility:hidden;z-index:100"><div></div></div></div></div></div></div></div></div></div></div><script type="text/javascript">!function(t,i){"use strict";i.write('<div id="amarfa-stats-9756" style="display: inline-block"></div>'),i.write('<script type="text/javascript" src="//amarfa.ir/stats/9756.js" async><\/script>')}(0,document)</script><script type="text/javascript" src="//amarfa.ir/stats/9756.js" async=""></script><div id="amarfa-stats-9756" style="display: inline-block"></div><script>!function(e){function r(r){for(var n,a,l=r[0],i=r[1],p=r[2],f=0,s=[];f<l.length;f++)a=l[f],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n]);for(c&&c(r);s.length;)s.shift()();return u.push.apply(u,p||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,l=1;l<t.length;l++){var i=t[l];0!==o[i]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="/react-multi-date-picker/";var l=this["webpackJsonpdatepicker-example"]=this["webpackJsonpdatepicker-example"]||[],i=l.push.bind(l);l.push=r,l=l.slice();for(var p=0;p<l.length;p++)r(l[p]);var c=i;t()}([])</script><script src="/react-multi-date-picker/static/js/2.ec23382a.chunk.js"></script><script src="/react-multi-date-picker/static/js/main.ffddad15.chunk.js"></script></body></html>
