@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/react-multi-date-picker/static/css/main.ebe7134c.chunk.css",
-    "main.js": "/react-multi-date-picker/static/js/main.ffddad15.chunk.js",
-    "main.js.map": "/react-multi-date-picker/static/js/main.ffddad15.chunk.js.map",
+    "main.js": "/react-multi-date-picker/static/js/main.04671e8f.chunk.js",
+    "main.js.map": "/react-multi-date-picker/static/js/main.04671e8f.chunk.js.map",
     "runtime-main.js": "/react-multi-date-picker/static/js/runtime-main.108b7ab5.js",
     "runtime-main.js.map": "/react-multi-date-picker/static/js/runtime-main.108b7ab5.js.map",
     "static/css/2.cad039c5.chunk.css": "/react-multi-date-picker/static/css/2.cad039c5.chunk.css",
-    "static/js/2.ec23382a.chunk.js": "/react-multi-date-picker/static/js/2.ec23382a.chunk.js",
-    "static/js/2.ec23382a.chunk.js.map": "/react-multi-date-picker/static/js/2.ec23382a.chunk.js.map",
+    "static/js/2.d7293a76.chunk.js": "/react-multi-date-picker/static/js/2.d7293a76.chunk.js",
+    "static/js/2.d7293a76.chunk.js.map": "/react-multi-date-picker/static/js/2.d7293a76.chunk.js.map",
     "index.html": "/react-multi-date-picker/index.html",
     "static/css/2.cad039c5.chunk.css.map": "/react-multi-date-picker/static/css/2.cad039c5.chunk.css.map",
     "static/css/main.ebe7134c.chunk.css.map": "/react-multi-date-picker/static/css/main.ebe7134c.chunk.css.map",
-    "static/js/2.ec23382a.chunk.js.LICENSE.txt": "/react-multi-date-picker/static/js/2.ec23382a.chunk.js.LICENSE.txt",
+    "static/js/2.d7293a76.chunk.js.LICENSE.txt": "/react-multi-date-picker/static/js/2.d7293a76.chunk.js.LICENSE.txt",
     "static/media/index.css": "/react-multi-date-picker/static/media/Vazir-Thin.f117635d.woff",
     "static/media/github.255db585.svg": "/react-multi-date-picker/static/media/github.255db585.svg",
     "static/media/ir.01c0a08e.svg": "/react-multi-date-picker/static/media/ir.01c0a08e.svg",
@@ -21,8 +21,8 @@
   "entrypoints": [
     "static/js/runtime-main.108b7ab5.js",
     "static/css/2.cad039c5.chunk.css",
-    "static/js/2.ec23382a.chunk.js",
+    "static/js/2.d7293a76.chunk.js",
     "static/css/main.ebe7134c.chunk.css",
-    "static/js/main.ffddad15.chunk.js"
+    "static/js/main.04671e8f.chunk.js"
   ]
 }
