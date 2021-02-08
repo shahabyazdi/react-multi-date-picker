@@ -79,6 +79,25 @@
   background-color: white;
   position: absolute;
   transform: rotate(45deg);
+  box-shadow: 0 0 6px #8798ad;
+}
+
+.ep-arrow[direction="top"] {
+  border-bottom: 1px solid white;
+}
+
+.ep-arrow[direction="left"] {
+  border-right: 1px solid white;
+}
+
+.ep-arrow[direction="right"] {
+  border-left: 1px solid white;
+  margin-left: -1px;
+}
+
+.ep-arrow[direction="bottom"] {
+  border-top: 1px solid white;
+  margin-top: -1.5px;
 }
 
 .ep-arrow[direction="top"]::after {
@@ -99,24 +118,6 @@
 .ep-arrow[direction="right"]::after {
   left: -6px;
   top: 3px;
-}
-
-.ep-arrow[direction="top"] {
-  border-bottom: 1px solid white;
-}
-
-.ep-arrow[direction="left"] {
-  border-right: 1px solid white;
-}
-
-.ep-arrow[direction="right"] {
-  border-left: 1px solid white;
-  margin-left: -1px;
-}
-
-.ep-arrow[direction="bottom"] {
-  border-top: 1px solid white;
-  margin-top: -1.5px;
 }
 
 @media (max-width: 400px), (max-height: 400px) {
