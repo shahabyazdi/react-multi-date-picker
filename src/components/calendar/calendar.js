@@ -34,11 +34,20 @@ function Calendar({
     onlyShowInRangeDates = true,
     zIndex = 100,
     plugins = [],
-    sort
+    sort,
+    numberOfMonths = 1,
+    currentDate,
+    onCurrentDateChanged
 },
     outerRef
 ) {
-    let [state, setState] = useState({}),
+    if (currentDate && (!(currentDate instanceof DateObject))) {
+        console.warn("currentDate must be instance of DateObject")
+
+        currentDate = undefined
+    }
+
+    let [state, setState] = useState({ date: currentDate }),
         listeners = {}
 
     useEffect(() => {
@@ -88,12 +97,14 @@ function Calendar({
                 }
 
                 if (!isValid && !isValueSameAsInitialValue) {
-                    date = new DateObject({
-                        date: Array.isArray($value) ? $value[$value.length - 1] : $value,
-                        calendar,
-                        locale,
-                        format: $format
-                    })
+                    if (!date) {
+                        date = new DateObject({
+                            date: Array.isArray($value) ? $value[$value.length - 1] : $value,
+                            calendar,
+                            locale,
+                            format: $format
+                        })
+                    }
 
                     if (!date.isValid) date = new DateObject({ calendar, locale, format: $format })
 
@@ -109,7 +120,7 @@ function Calendar({
                         date = new DateObject(lastSelectedDate)
                     }
                 } else {
-                    date = new DateObject(selectedDate)
+                    if (!date) date = new DateObject(selectedDate)
                 }
             }
 
@@ -120,7 +131,6 @@ function Calendar({
             } else if (selectedDate) {
                 checkDate(selectedDate)
             }
-
             if ($multiple || range || Array.isArray($value)) {
                 if (!selectedDate) selectedDate = []
                 if (!Array.isArray(selectedDate)) selectedDate = [selectedDate]
@@ -136,6 +146,8 @@ function Calendar({
                 if ($multiple && sort && !mustSortDates) {
                     mustSortDates = true
                     selectedDate.sort((a, b) => a - b)
+                } else if (range) {
+                    selectedDate.sort((a, b) => a - b)
                 }
 
                 $timePicker = false
@@ -148,7 +160,7 @@ function Calendar({
 
             return {
                 ...state,
-                date,
+                date: date,
                 selectedDate,
                 multiple: $multiple,
                 range,
@@ -229,6 +241,7 @@ function Calendar({
                         disableYearPicker={disableYearPicker}
                         disableMonthPicker={disableMonthPicker}
                         customMonths={months}
+                        numberOfMonths={numberOfMonths}
                     />
                     <div style={{ position: "relative" }}>
                         <DayPicker
@@ -241,6 +254,7 @@ function Calendar({
                             onlyShowInRangeDates={onlyShowInRangeDates}
                             customWeekDays={weekDays}
                             sort={sort}
+                            numberOfMonths={numberOfMonths}
                         />
                         <MonthPicker
                             state={state}
@@ -309,10 +323,24 @@ function Calendar({
         })
     }
 
-    function handleChange(selectedDate, state) {
+    function handleChange(selectedDate, $state) {
         //This one must be done before setState
         if ((selectedDate || selectedDate === null) && listeners.change) listeners.change.forEach(callback => callback(selectedDate))
-        if (state) setState(state)
+
+        if ($state) {
+            if (
+                onCurrentDateChanged instanceof Function &&
+                (
+                    !currentDate ||
+                    (currentDate && currentDate.valueOf() !== $state.date.valueOf())
+                )
+            ) {
+                onCurrentDateChanged($state.date)
+            }
+
+            setState($state)
+        }
+
         if ((selectedDate || selectedDate === null) && onChange instanceof Function) onChange(selectedDate)
     }
 
