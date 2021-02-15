@@ -40,7 +40,7 @@ function DatePicker(
     maxDate,
     formattingIgnoreList,
     containerClassName = "",
-    calendarPosition,
+    calendarPosition = "bottom-left",
     editable = true,
     onlyShowInRangeDates = true,
     onOpen,
@@ -49,11 +49,13 @@ function DatePicker(
     zIndex = 100,
     arrow = true,
     fixMainPosition,
+    currentDate,
     ...otherProps
   },
   outerRef
 ) {
   let [date, setDate] = useState(),
+    [current_date, setCurrentDate] = useState(currentDate),
     [stringDate, setStringDate] = useState(""),
     [isVisible, setIsVisible] = useState(false),
     [isCalendarReady, setIsCalendarReady] = useState(false),
@@ -375,6 +377,8 @@ function DatePicker(
         }}
         onlyShowInRangeDates={onlyShowInRangeDates}
         datePickerRef={datePickerRef}
+        currentDate={current_date}
+        onCurrentDateChanged={setCurrentDate}
         {...otherProps}
       >
         {children}
