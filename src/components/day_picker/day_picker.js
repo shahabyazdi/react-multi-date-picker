@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useState, useEffect, useMemo, useRef } from "react"
 import DateObject from "react-date-object"
 import WeekDays from "../week_days/week_days"
 
@@ -11,24 +11,26 @@ export default function DayPicker({
   onlyShowInRangeDates,
   customWeekDays,
   sort,
-  numberOfMonths
+  numberOfMonths,
+  isRTL
 }) {
   const [months, setMonths] = useState([]),
+    ref = useRef({}),
     today = useMemo(() => new DateObject({ calendar: state.date.calendar }), [state.date.calendar]),
     mustShowDayPicker = !state.onlyTimePicker && !state.onlyMonthPicker && !state.onlyYearPicker,
-    { minDate, maxDate, multiple, range, date } = state
+    { minDate, maxDate, multiple, range, date, selectedDate } = state
+
+  ref.current.date = date
 
   useEffect(() => {
     if (!mustShowDayPicker) return
 
     setMonths(getMonths(
-      date.year,
-      date.month.number,
-      date.calendar,
-      date.locale,
+      ref.current.date,
       showOtherDays,
       numberOfMonths
     ))
+
     setState(state => { return { ...state, ready: true } })
   }, [
     date.month.number,
@@ -46,7 +48,7 @@ export default function DayPicker({
       {
         months.map((weeks, monthIndex) => {
           return (
-            <div key={monthIndex} style={{ margin: "0 5px" }}>
+            <div key={monthIndex} style={{ [isRTL ? "marginLeft" : "marginRight"]: monthIndex + 1 < numberOfMonths ? "10px" : "" }}>
               <WeekDays state={state} customWeekDays={customWeekDays} />
               {
                 weeks.map((week, index) => {
@@ -68,7 +70,6 @@ export default function DayPicker({
 
                           delete otherProps.className
                         }
-
                         return (
                           <div
                             key={i}
@@ -187,8 +188,6 @@ export default function DayPicker({
       }
 
       if (range && !disabled && mustDisplaySelectedDate) {
-        let { selectedDate } = state
-
         if (selectedDate.length === 1) {
           if (isSameDate(date, selectedDate[0])) names.push("rmdp-range")
         } else {
@@ -235,16 +234,8 @@ export default function DayPicker({
   }
 }
 
-function getMonths(year, month, calendar, locale, showOtherDays, numberOfMonths) {
-  if (!year || !month || !calendar || !locale) return []
-
-  let date = new DateObject({
-    calendar,
-    locale,
-    year,
-    month,
-    day: 1
-  })
+function getMonths(date, showOtherDays, numberOfMonths) {
+  if (!date) return []
 
   let months = []
 

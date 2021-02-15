@@ -40,7 +40,7 @@ function DatePicker(
     maxDate,
     formattingIgnoreList,
     containerClassName = "",
-    calendarPosition,
+    calendarPosition = "bottom-left",
     editable = true,
     onlyShowInRangeDates = true,
     onOpen,

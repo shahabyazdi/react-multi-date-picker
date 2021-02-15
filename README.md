@@ -118,7 +118,7 @@ export default function Example() {
 | onlyYearPicker       |                                            Boolean                                            |             false              | both                                |
 | format               |                                            String                                             |           YYYY/MM/DD           | both                                |
 | formattingIgnoreList |                                             Array                                             |                                | both                                |
-| local                |                                            String                                             |               en               | both                                |
+| locale               |                                            String                                             |               en               | both                                |
 | calendar             |                                            String                                             |           gregorian            | both                                |
 | mapDays              |                                           Function                                            |                                | both                                |
 | onChange             |                                           Function                                            |                                | both                                |
@@ -133,6 +133,8 @@ export default function Example() {
 | zIndex               |                                            Number                                             |              100               | both                                |
 | plugins              |                                             Array                                             |               []               | both                                |
 | sort                 |                                            Boolean                                            |             false              | both                                |
+| numberOfMonths       |                                            Number                                             |               1                | both                                |
+| currentDate          |                                          DateObject                                           |                                | both                                |
 | className            |                                            String                                             |               ""               | both                                |
 | containerClassName   |                                            String                                             |                                | DatePicker                          |
 | arrowClassName       |                                            String                                             |               0                | DatePicker                          |
@@ -152,7 +154,7 @@ export default function Example() {
 | inputMode            |                                            String                                             |                                | DatePicker                          |
 | scrollSensitive      |                                            Boolean                                            |              true              | DatePicker                          |
 | hideOnScroll         |                                            Boolean                                            |             false              | DatePicker                          |
-| calendarPosition     |                                            String                                             |              auto              | DatePicker                          |
+| calendarPosition     |                                            String                                             |         "bottom-left"          | DatePicker                          |
 | editable             |                                            Boolean                                            |              true              | DatePicker                          |
 | onlyShowInRangeDates |                                            Boolean                                            |              true              | DatePicker                          |
 | onOpen               |                                           Function                                            |                                | DatePicker                          |
@@ -169,7 +171,7 @@ export default function Example() {
 - arabic
 - indian
 
-## Locals
+## locales
 
 - en (default)
 - fa
