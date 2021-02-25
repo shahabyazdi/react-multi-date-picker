@@ -207,7 +207,7 @@ function DatePicker(
         if (outerRef) outerRef.current = element
       }}
       element={renderInput()}
-      popper={isVisible && rendetCalendar()}
+      popper={isVisible && renderCalendar()}
       active={!isMobileMode() && isCalendarReady}
       position={calendarPosition}
       arrow={!isMobileMode() && arrow}
@@ -342,7 +342,7 @@ function DatePicker(
     }
   }
 
-  function rendetCalendar() {
+  function renderCalendar() {
     return (
       <Calendar
         ref={calendarRef}
