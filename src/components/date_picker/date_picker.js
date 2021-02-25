@@ -55,6 +55,7 @@ function DatePicker(
   outerRef
 ) {
   let [date, setDate] = useState(),
+    [temporaryDate, setTemporaryDate] = useState(undefined),
     [current_date, setCurrentDate] = useState(currentDate),
     [stringDate, setStringDate] = useState(""),
     [isVisible, setIsVisible] = useState(false),
@@ -346,7 +347,7 @@ function DatePicker(
     return (
       <Calendar
         ref={calendarRef}
-        value={date}
+        value={temporaryDate || date}
         onChange={handleChange}
         range={range}
         multiple={multiple}
@@ -388,9 +389,9 @@ function DatePicker(
               type="button"
               className="rmdp-button rmdp-action-button"
               onClick={() => {
-                if (ref.current.temporaryDate) {
-                  handleChange(ref.current.temporaryDate, true)
-                  delete ref.current.temporaryDate
+                if (temporaryDate) {
+                  handleChange(temporaryDate, true)
+                  setTemporaryDate(undefined)
                 }
 
                 closeCalendar()
@@ -402,8 +403,8 @@ function DatePicker(
               type="button"
               className="rmdp-button rmdp-action-button"
               onClick={() => {
+                setTemporaryDate(undefined)
                 closeCalendar()
-                delete ref.current.temporaryDate
               }}
             >
               {toLocale("CANCEL")}
@@ -464,7 +465,7 @@ function DatePicker(
   }
 
   function handleChange(date, force) {
-    if (isMobileMode() && !force) return ref.current.temporaryDate = date
+    if (isMobileMode() && !force) return setTemporaryDate(date)
 
     setDate(date)
 
