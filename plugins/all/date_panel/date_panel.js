@@ -27,7 +27,7 @@ export default function DatePanel({
         multiple ||
         (range && !eachDaysInRange)
     ) {
-        dates = (inRangeDates || selectedDate).map((date, index) => {
+        dates = getDates().map((date, index) => {
             return {
                 date,
                 format: date.format(undefined, formattingIgnoreList),
@@ -35,7 +35,7 @@ export default function DatePanel({
             }
         })
     } else if (range && eachDaysInRange) {
-        let allDates = getAllDatesInRange(inRangeDates || selectedDate)
+        let allDates = getAllDatesInRange(getDates())
 
         dates = allDates.map((date, index) => {
             return {
@@ -145,6 +145,12 @@ export default function DatePanel({
                 focused: range || multiple ? dates[dates.length - 1] : undefined
             }
         )
+    }
+
+    function getDates() {
+        if (Array.isArray(inRangeDates) && inRangeDates.length > 0) return inRangeDates
+
+        return selectedDate
     }
 }
 
