@@ -36,8 +36,7 @@ function Calendar({
   plugins = [],
   sort,
   numberOfMonths = 1,
-  currentDate,
-  onCurrentDateChanged
+  currentDate
 },
   outerRef
 ) {
@@ -101,7 +100,7 @@ function Calendar({
         if (!isValid && !isValueSameAsInitialValue) {
           if (!date) {
             date = new DateObject({
-              date: Array.isArray($value) ? $value[$value.length - 1] : $value,
+              date: Array.isArray($value) ? $value[0] : $value,
               calendar,
               locale,
               format: $format
@@ -117,9 +116,7 @@ function Calendar({
 
         if (Array.isArray(selectedDate)) {
           if (!date) {
-            let lastSelectedDate = selectedDate[selectedDate.length - 1]
-
-            date = new DateObject(lastSelectedDate)
+            date = new DateObject(selectedDate[0])
           }
         } else {
           if (!date) date = new DateObject(selectedDate)
@@ -162,7 +159,7 @@ function Calendar({
 
       return {
         ...state,
-        date: date,
+        date,
         selectedDate,
         multiple: $multiple,
         range,
@@ -331,20 +328,7 @@ function Calendar({
     //This one must be done before setState
     if ((selectedDate || selectedDate === null) && listeners.change) listeners.change.forEach(callback => callback(selectedDate))
 
-    if ($state) {
-      if (
-        onCurrentDateChanged instanceof Function &&
-        (
-          !currentDate ||
-          (currentDate && currentDate.valueOf() !== $state.date.valueOf())
-        )
-      ) {
-        onCurrentDateChanged($state.date)
-      }
-
-      setState($state)
-    }
-
+    if ($state) setState($state)
     if ((selectedDate || selectedDate === null) && onChange instanceof Function) onChange(selectedDate)
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "react-multi-date-picker",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "a simple React datepicker component for work with gregorian, persian, arabic and indian calendars",
   "main": "./build/index.js",
   "types": "index.d.ts",
@@ -40,8 +40,8 @@
   },
   "homepage": "https://shahabyazdi.github.io/react-multi-date-picker/",
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/preset-env": "^7.12.16",
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.5",
     "@babel/preset-react": "^7.12.13",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^17.1.0",
@@ -52,14 +52,14 @@
     "postcss": "8.2.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "rollup": "^2.39.0",
+    "rollup": "^2.39.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
-    "react-date-object": "^1.2.2",
-    "react-element-popper": "^1.0.3"
+    "react-date-object": "^1.2.3",
+    "react-element-popper": "^1.0.6"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

@@ -56,7 +56,6 @@ function DatePicker(
 ) {
   let [date, setDate] = useState(),
     [temporaryDate, setTemporaryDate] = useState(undefined),
-    [current_date, setCurrentDate] = useState(currentDate),
     [stringDate, setStringDate] = useState(""),
     [isVisible, setIsVisible] = useState(false),
     [isCalendarReady, setIsCalendarReady] = useState(false),
@@ -378,8 +377,7 @@ function DatePicker(
         }}
         onlyShowInRangeDates={onlyShowInRangeDates}
         datePickerRef={datePickerRef}
-        currentDate={current_date}
-        onCurrentDateChanged={setCurrentDate}
+        currentDate={currentDate}
         {...otherProps}
       >
         {children}
