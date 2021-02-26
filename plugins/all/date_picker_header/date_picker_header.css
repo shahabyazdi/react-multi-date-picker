@@ -1,3 +1,12 @@
+:root {
+  --rmdp-primary-green: #3d9970;
+  --rmdp-primary-purple: #9c27b0;
+  --rmdp-primary-purple: #9c27b0;
+  --rmdp-primary-teal: #009688;
+  --rmdp-primary-yellow: #f7da37;
+  --rmdp-primary-red: #ea0034;
+}
+
 .rmdp-header-plugin {
   background-color: #0074d9;
   display: grid;

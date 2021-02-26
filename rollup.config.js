@@ -3,6 +3,7 @@ import babel from "@rollup/plugin-babel"
 import resolve from "@rollup/plugin-node-resolve"
 import commonjs from "@rollup/plugin-commonjs"
 import postcss from "rollup-plugin-postcss"
+import cssvariables from "postcss-css-variables"
 import svgr from "@svgr/rollup"
 import url from "@rollup/plugin-url"
 import { terser } from "rollup-plugin-terser"
@@ -45,7 +46,7 @@ export default [
                 presets
             }),
             commonjs(),
-            postcss(),
+            postcss({ plugins: [cssvariables()] }),
             svgr(),
             url()
         ]
@@ -71,7 +72,7 @@ export default [
                 presets
             }),
             commonjs(),
-            postcss(),
+            postcss({ plugins: [cssvariables()] }),
             svgr(),
             url()
         ]
@@ -95,7 +96,7 @@ export default [
                 presets
             }),
             commonjs(),
-            postcss(),
+            postcss({ plugins: [cssvariables()] }),
             svgr(),
             url()
         ]
@@ -121,7 +122,7 @@ export default [
                 presets
             }),
             commonjs(),
-            postcss(),
+            postcss({ plugins: [cssvariables()] }),
             svgr(),
             url()
         ]

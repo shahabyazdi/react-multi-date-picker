@@ -9,6 +9,10 @@
   --highlight-yellow-selected: #fad817;
   --highlight-yellow-selected-deactive: #dfdd61;
   --highlight-yellow-hover: #ffeb3b;
+  --highlight-red-selected: #ea0034;
+  --highlight-red-hover: #ff6687;
+  --highlight-green-selected: #009688;
+  --highlight-green-hover: #4db6ac;
 }
 
 .rmdp-colors {
