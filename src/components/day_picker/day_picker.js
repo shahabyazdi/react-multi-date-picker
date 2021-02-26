@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useMemo, useRef } from "react"
+import React, { useMemo, useRef } from "react"
 import DateObject from "react-date-object"
 import WeekDays from "../week_days/week_days"
 
 export default function DayPicker({
   state,
-  setState,
   onChange,
   showOtherDays = false,
   mapDays,
@@ -14,30 +13,26 @@ export default function DayPicker({
   numberOfMonths,
   isRTL
 }) {
-  const [months, setMonths] = useState([]),
-    ref = useRef({}),
+  const ref = useRef({}),
     today = useMemo(() => new DateObject({ calendar: state.date.calendar }), [state.date.calendar]),
     mustShowDayPicker = !state.onlyTimePicker && !state.onlyMonthPicker && !state.onlyYearPicker,
     { minDate, maxDate, multiple, range, date, selectedDate } = state
 
   ref.current.date = date
 
-  useEffect(() => {
-    if (!mustShowDayPicker) return
+  const months = useMemo(() => {
+    if (!mustShowDayPicker) return []
 
-    setMonths(getMonths(
+    return getMonths(
       ref.current.date,
       showOtherDays,
       numberOfMonths
-    ))
-
-    setState(state => { return { ...state, ready: true } })
+    )
   }, [
     date.month.number,
     date.year,
     date.calendar,
     date.locale,
-    setState,
     mustShowDayPicker,
     showOtherDays,
     numberOfMonths
@@ -56,7 +51,7 @@ export default function DayPicker({
                     <div key={index} className="rmdp-week">
                       {week.map((object, i) => {
                         //To clear the properties which are added from the previous render
-                        object = { date: object.date, current: object.current }
+                        object = { date: object.date, day: object.day, current: object.current }
 
                         let otherProps = {},
                           mustAddClassName = mustDisplayDay(object) && !object.disabled,
@@ -85,7 +80,7 @@ export default function DayPicker({
                               className={className}
                               {...otherProps}
                             >
-                              {mustDisplayDay(object) && !object.hidden ? object.date.format("D") : ""}
+                              {mustDisplayDay(object) && !object.hidden ? object.day : ""}
                             </span>
                           </div>
                         )
@@ -253,6 +248,7 @@ function getMonths(date, showOtherDays, numberOfMonths) {
       for (let weekDay = 0; weekDay < 7; weekDay++) {
         week.push({
           date: new DateObject(date),
+          day: date.format("D"),
           current: date.month.number === monthNumber
         })
 

@@ -1,45 +1,34 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useMemo } from "react"
 import DateObject from "react-date-object"
 import Arrow from "../arrow/arrow"
 import Input from "../input/input"
 
-export default function TimePicker({ state, setState, onChange, formattingIgnoreList }) {
-    const [am, setAm] = useState(true),
-        [mustDisplayMeridiem, setMustDisplayMeridiem] = useState(false),
-        { calendar, locale, date, timePicker, onlyTimePicker, selectedDate } = state,
+export default function TimePicker({ state, onChange, formattingIgnoreList }) {
+    const { calendar, locale, date, timePicker, onlyTimePicker, selectedDate } = state,
         meridiems = useMemo(() => new DateObject({ calendar, locale }).meridiems, [calendar, locale]),
-        hour = selectedDate?.hour,
         mustShowTimePicker = (timePicker || onlyTimePicker) && !state.multiple && !state.range
 
-    useEffect(() => {
-        const $mustDisplayMeridiem = () => {
-            let format = date._format
+    const mustDisplayMeridiem = useMemo(() => {
+        let format = date._format
 
-            if (typeof format !== "string") return false
+        if (typeof format !== "string") return false
 
-            if (Array.isArray(formattingIgnoreList)) {
-                formattingIgnoreList.forEach(item => {
-                    if (typeof item === "string") {
-                        format = format.replace(new RegExp(item, "g"), "")
-                    }
-                })
-            }
-
-            return format.toLowerCase().includes("a") || format.includes("hh")
+        if (Array.isArray(formattingIgnoreList)) {
+            formattingIgnoreList.forEach(item => {
+                if (typeof item === "string") {
+                    format = format.replace(new RegExp(item, "g"), "")
+                }
+            })
         }
 
-        setMustDisplayMeridiem($mustDisplayMeridiem)
+        return format.toLowerCase().includes("a") || format.includes("hh")
+    }, [date._format, formattingIgnoreList])
 
-        if ($mustDisplayMeridiem) {
-            let $hour = hour
+    let hour = selectedDate?.hour
 
-            if (typeof $hour === "undefined") $hour = new Date().getHours()
+    if (typeof hour === "undefined") hour = new Date().getHours()
 
-            setAm($hour < 12 ? true : false)
-        }
-
-        if (onlyTimePicker) setState(state => { return { ...state, ready: true } })
-    }, [hour, date._format, onlyTimePicker, setState, formattingIgnoreList])
+    let am = mustDisplayMeridiem ? hour < 12 : false
 
     return (mustShowTimePicker ?
         <div className={`rmdp-time-picker ${onlyTimePicker ? "rmdp-only-time-picker" : ""}`}>
@@ -122,37 +111,27 @@ export default function TimePicker({ state, setState, onChange, formattingIgnore
     }
 
     function toggleMeridiem() {
-        if (am && selectedDate.hour < 12) selectedDate.hour += 12
-        if (!am && selectedDate.hour > 12) selectedDate.hour -= 12
+        selectedDate.hour += (selectedDate.hour < 12 ? 12 : -12)
 
         setDate(selectedDate)
-        setAm(!am)
     }
 
     function getHours() {
-        let hours = ""
+        if (selectedDate && !selectedDate.hour) selectedDate.hour = 0
 
-        if (selectedDate) {
-            if (!selectedDate.hour) selectedDate.hour = 0
-
-            hours = mustDisplayMeridiem ? selectedDate.format("hh") : selectedDate.format("HH")
-        } else {
-            hours = mustDisplayMeridiem ? date.format("hh") : date.format("HH")
-        }
-
-        return hours
+        return (selectedDate || date).format(mustDisplayMeridiem ? "hh" : "HH")
     }
 
     function getMinutes() {
         if (selectedDate && !selectedDate.minute) selectedDate.minute = 0
 
-        return selectedDate ? selectedDate.format("mm") : date.format("mm")
+        return (selectedDate || date).format("mm")
     }
 
     function getSeconds() {
         if (selectedDate && !selectedDate.second) selectedDate.second = 0
 
-        return selectedDate ? selectedDate.format("ss") : date.format("ss")
+        return (selectedDate || date).format("ss")
     }
 
     function getStyle() {

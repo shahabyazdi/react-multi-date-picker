@@ -23,6 +23,7 @@
 .rmdp-button {
   background-color: #0074d9;
   border: none;
+  border-radius: 5px;
   color: white;
   padding: 7px 16px;
   text-align: center;
@@ -47,9 +48,6 @@
 
 .rmdp-input-icon {
   position: absolute;
-  height: 21px;
-  width: 21px;
-  margin-left: -24px;
   background-color: #f9faff;
   cursor: pointer;
 }
@@ -68,12 +66,12 @@
   background-color: transparent;
 }
 
-.ep-arrow {
+.rmdp-container .ep-arrow {
   overflow: hidden;
   will-change: transform;
 }
 
-.ep-arrow::after {
+.rmdp-container .ep-arrow::after {
   content: "";
   width: 12px;
   height: 12px;
@@ -83,40 +81,40 @@
   box-shadow: 0 0 6px #8798ad;
 }
 
-.ep-arrow[direction="top"] {
+.rmdp-container .ep-arrow[direction="top"] {
   border-bottom: 1px solid white;
 }
 
-.ep-arrow[direction="left"] {
+.rmdp-container .ep-arrow[direction="left"] {
   border-right: 1px solid white;
 }
 
-.ep-arrow[direction="right"] {
+.rmdp-container .ep-arrow[direction="right"] {
   border-left: 1px solid white;
   margin-left: -1px;
 }
 
-.ep-arrow[direction="bottom"] {
+.rmdp-container .ep-arrow[direction="bottom"] {
   border-top: 1px solid white;
   margin-top: -1.5px;
 }
 
-.ep-arrow[direction="top"]::after {
+.rmdp-container .ep-arrow[direction="top"]::after {
   left: 4px;
   top: 5px;
 }
 
-.ep-arrow[direction="bottom"]::after {
+.rmdp-container .ep-arrow[direction="bottom"]::after {
   left: 4px;
   top: -6px;
 }
 
-.ep-arrow[direction="left"]::after {
+.rmdp-container .ep-arrow[direction="left"]::after {
   left: 5px;
   top: 3px;
 }
 
-.ep-arrow[direction="right"]::after {
+.rmdp-container .ep-arrow[direction="right"]::after {
   left: -6px;
   top: 3px;
 }
