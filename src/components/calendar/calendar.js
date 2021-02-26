@@ -46,7 +46,7 @@ function Calendar({
     currentDate = undefined
   }
 
-  if (numberOfMonths < 1) numberOfMonths = 1
+  if (typeof numberOfMonths !== "number" || numberOfMonths < 1) numberOfMonths = 1
 
   let [state, setState] = useState({ date: currentDate }),
     listeners = {},
@@ -120,7 +120,16 @@ function Calendar({
             date = new DateObject(selectedDate[0])
           }
         } else {
-          if (!date) date = new DateObject(selectedDate)
+          if (!date || numberOfMonths === 1) {
+            date = new DateObject(selectedDate)
+          } else {
+            let min = new DateObject(date).toFirstOfMonth()
+            let max = new DateObject(date).add(numberOfMonths - 1, "months").toLastOfMonth()
+
+            if (selectedDate < min || selectedDate > max) {
+              date = new DateObject(selectedDate)
+            }
+          }
         }
       }
 
@@ -188,7 +197,8 @@ function Calendar({
     onlyYearPicker,
     range,
     multiple,
-    sort
+    sort,
+    numberOfMonths
   ])
 
   useEffect(() => {

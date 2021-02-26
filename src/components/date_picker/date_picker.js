@@ -55,7 +55,11 @@ function DatePicker(
   },
   outerRef
 ) {
-  let [state, setState] = useState({ stringDate: "", isCalendarReady: false }),
+  let [date, setDate] = useState(),
+    [temporaryDate, setTemporaryDate] = useState(undefined),
+    [stringDate, setStringDate] = useState(""),
+    [isVisible, setIsVisible] = useState(false),
+    [isCalendarReady, setIsCalendarReady] = useState(false),
     datePickerRef = useRef(null),
     inputRef = useRef(null),
     calendarRef = useRef(null),
@@ -75,13 +79,8 @@ function DatePicker(
         popper.style.position = "absolute"
       }
 
-      setState(state => {
-        return {
-          ...state,
-          isVisible: false,
-          isCalendarReady: false
-        }
-      })
+      setIsVisible(false)
+      setIsCalendarReady(false)
     }, [onClose])
 
   let isMobileMode = isMobile()
@@ -91,8 +90,6 @@ function DatePicker(
   if (!Array.isArray(formattingIgnoreList)) formattingIgnoreList = []
 
   formattingIgnoreList = JSON.stringify(formattingIgnoreList)
-
-  let { date, temporaryDate, stringDate, isVisible, isCalendarReady } = state
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -138,8 +135,7 @@ function DatePicker(
 
   useEffect(() => {
     let date = value,
-      getLastDate = () => date[date.length - 1],
-      $stringDate
+      getLastDate = () => date[date.length - 1]
 
     function checkDate(date) {
       if (!date) return
@@ -163,7 +159,7 @@ function DatePicker(
 
       if (range && date.length > 2) date = [date[0], getLastDate()]
 
-      $stringDate = getStringDate(date, type, separator, format, formattingIgnoreList)
+      setStringDate(getStringDate(date, type, separator, format, formattingIgnoreList))
     } else {
       if (Array.isArray(date)) date = getLastDate()
 
@@ -172,19 +168,13 @@ function DatePicker(
       let input = getInput(inputRef)
 
       if (document.activeElement !== input) {
-        $stringDate = date ? date.format(undefined, JSON.parse(formattingIgnoreList)) : ""
+        setStringDate(date ? date.format(undefined, JSON.parse(formattingIgnoreList)) : "")
       }
     }
 
     ref.current = { ...ref.current, date, separator }
 
-    setState(state => {
-      return {
-        ...state,
-        date,
-        stringDate: $stringDate === undefined ? state.stringDate : $stringDate
-      }
-    })
+    setDate(date)
   }, [
     value,
     calendar,
@@ -200,7 +190,8 @@ function DatePicker(
     onlyYearPicker,
     weekDays,
     months,
-    formattingIgnoreList
+    formattingIgnoreList,
+    onPositionChange
   ])
 
   if (multiple || range || Array.isArray(date) || !editable) inputMode = "none"
@@ -228,7 +219,7 @@ function DatePicker(
       arrowClassName={`${className} ${arrowClassName}`}
       fixMainPosition={!scrollSensitive || fixMainPosition}
       zIndex={zIndex}
-      onChange={!isMobileMode && onPositionChange}
+      onPositionChange={!isMobileMode && onPositionChange}
       {...otherProps}
     />
   )
@@ -390,7 +381,7 @@ function DatePicker(
         maxDate={maxDate}
         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
         onReady={() => {
-          updateState("isCalendarReady", true)
+          setIsCalendarReady(true)
 
           if (!isMobileMode) return
 
@@ -415,8 +406,7 @@ function DatePicker(
               onClick={() => {
                 if (temporaryDate) {
                   handleChange(temporaryDate, true)
-
-                  updateState("temporaryDate", undefined)
+                  setTemporaryDate(undefined)
                 }
 
                 closeCalendar()
@@ -428,8 +418,7 @@ function DatePicker(
               type="button"
               className="rmdp-button rmdp-action-button"
               onClick={() => {
-                updateState("temporaryDate", undefined)
-
+                setTemporaryDate(undefined)
                 closeCalendar()
               }}
             >
@@ -437,12 +426,8 @@ function DatePicker(
             </button>
           </div>
         }
-      </Calendar >
+      </Calendar>
     )
-  }
-
-  function updateState(key, value) {
-    setState({ ...state, [key]: value })
   }
 
   function isMobile() {
@@ -487,16 +472,16 @@ function DatePicker(
     if (isMobileMode && input) input.blur()
 
     if (input || (!input && !isVisible)) {
-      updateState("isVisible", true)
+      setIsVisible(true)
     } else if (!input && isVisible) {
       closeCalendar()
     }
   }
 
   function handleChange(date, force) {
-    if (isMobileMode && !force) return updateState("temporaryDate", date)
+    if (isMobileMode && !force) return setTemporaryDate(date)
 
-    updateState("date", date)
+    setDate(date)
 
     ref.current = { ...ref.current, date }
 
@@ -506,25 +491,25 @@ function DatePicker(
       if (Array.isArray(date)) {
         date.map(setCustomNames)
 
-        stringDate = getStringDate(date, type, separator, format, formattingIgnoreList)
+        setStringDate(getStringDate(date, type, separator, format, formattingIgnoreList))
       } else {
         setCustomNames(date)
 
-        stringDate = date.format(
-          getFormat(
-            timePicker,
-            onlyTimePicker,
-            onlyMonthPicker,
-            onlyYearPicker,
-            format,
-            range,
-            multiple
-          ),
-          JSON.parse(formattingIgnoreList)
+        setStringDate(
+          date.format(
+            getFormat(
+              timePicker,
+              onlyTimePicker,
+              onlyMonthPicker,
+              onlyYearPicker,
+              format,
+              range,
+              multiple
+            ),
+            JSON.parse(formattingIgnoreList)
+          )
         )
       }
-
-      updateState("stringDate", stringDate)
     }
   }
 
@@ -541,7 +526,7 @@ function DatePicker(
       digits = date && date.isValid ? date.digits : new DateObject(object).digits
 
     if (!value) {
-      updateState("stringDate", "")
+      setStringDate("")
 
       return handleChange(new DateObject({}))
     }
@@ -556,7 +541,7 @@ function DatePicker(
 
     handleChange(newDate)
 
-    updateState("stringDate", value.replace(/[0-9]/g, w => digits[w]))
+    setStringDate(value.replace(/[0-9]/g, w => digits[w]))
   }
 }
 
