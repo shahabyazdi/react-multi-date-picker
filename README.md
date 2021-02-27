@@ -161,7 +161,7 @@ export default function Example() {
 | fixRelativePosition  |                                            Boolean                                            |             false              | DatePicker                          |
 | offsetY              |                                            Number                                             |               0                | DatePicker                          |
 | offsetX              |                                            Number                                             |               0                | DatePicker                          |
-| onPositionChange     |                                           Function                                            |               0                | DatePicker                          |
+| onPositionChange     |                                           Function                                            |                                | DatePicker                          |
 
 ## Calendars
 

@@ -2,7 +2,7 @@
 .bg-dark .rmdp-month-picker,
 .bg-dark .rmdp-year-picker,
 .bg-dark .rmdp-time-picker div input,
-.bg-dark.ep-arrow::after {
+.rmdp-container .bg-dark.ep-arrow::after {
   background-color: #312f2f;
   color: #c4c7ca;
 }
@@ -22,18 +22,18 @@
   color: #f5f5f5;
 }
 
-.bg-dark.ep-arrow[direction="top"] {
+.rmdp-container .bg-dark.ep-arrow[direction="top"] {
   border-bottom: 1px solid #312f2f;
 }
 
-.bg-dark.ep-arrow[direction="left"] {
+.rmdp-container .bg-dark.ep-arrow[direction="left"] {
   border-right: 1px solid #312f2f;
 }
 
-.bg-dark.ep-arrow[direction="right"] {
+.rmdp-container .bg-dark.ep-arrow[direction="right"] {
   border-left: 1px solid #312f2f;
 }
 
-.bg-dark.ep-arrow[direction="bottom"] {
+.rmdp-container .bg-dark.ep-arrow[direction="bottom"] {
   border-top: 1px solid #312f2f;
 }

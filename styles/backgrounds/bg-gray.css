@@ -1,7 +1,7 @@
 .bg-gray.rmdp-wrapper,
 .bg-gray .rmdp-month-picker,
 .bg-gray .rmdp-year-picker,
-.bg-gray.ep-arrow::after {
+.rmdp-container .bg-gray.ep-arrow::after {
   background-color: #b1abab;
   color: white;
 }
@@ -22,18 +22,18 @@
   color: white;
 }
 
-.bg-gray.ep-arrow[direction="top"] {
+.rmdp-container .bg-gray.ep-arrow[direction="top"] {
   border-bottom: 1px solid #b1abab;
 }
 
-.bg-gray.ep-arrow[direction="left"] {
+.rmdp-container .bg-gray.ep-arrow[direction="left"] {
   border-right: 1px solid #b1abab;
 }
 
-.bg-gray.ep-arrow[direction="right"] {
+.rmdp-container .bg-gray.ep-arrow[direction="right"] {
   border-left: 1px solid #b1abab;
 }
 
-.bg-gray.ep-arrow[direction="bottom"] {
+.rmdp-container .bg-gray.ep-arrow[direction="bottom"] {
   border-top: 1px solid #b1abab;
 }

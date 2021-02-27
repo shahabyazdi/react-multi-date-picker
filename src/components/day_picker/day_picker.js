@@ -185,7 +185,7 @@ export default function DayPicker({
       if (range && !disabled && mustDisplaySelectedDate) {
         if (selectedDate.length === 1) {
           if (isSameDate(date, selectedDate[0])) names.push("rmdp-range")
-        } else {
+        } else if (selectedDate.length === 2) {
           let { year, month, day } = date,
             first = selectedDate[0],
             second = selectedDate[1]
