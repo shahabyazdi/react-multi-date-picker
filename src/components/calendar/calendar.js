@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from "react"
+import React, { useState, useEffect, forwardRef, useRef } from "react"
 import DayPicker from "../day_picker/day_picker"
 import Header from "../header/header"
 import MonthPicker from "../month_picker/month_picker"
@@ -46,10 +46,11 @@ function Calendar({
     currentDate = undefined
   }
 
-  if (numberOfMonths < 1) numberOfMonths = 1
+  if (typeof numberOfMonths !== "number" || numberOfMonths < 1) numberOfMonths = 1
 
   let [state, setState] = useState({ date: currentDate }),
-    listeners = {}
+    listeners = {},
+    ref = useRef({ mustCallOnReady: true })
 
   useEffect(() => {
     setState(state => {
@@ -119,7 +120,16 @@ function Calendar({
             date = new DateObject(selectedDate[0])
           }
         } else {
-          if (!date) date = new DateObject(selectedDate)
+          if (!date || numberOfMonths === 1) {
+            date = new DateObject(selectedDate)
+          } else {
+            let min = new DateObject(date).toFirstOfMonth()
+            let max = new DateObject(date).add(numberOfMonths - 1, "months").toLastOfMonth()
+
+            if (selectedDate < min || selectedDate > max) {
+              date = new DateObject(selectedDate)
+            }
+          }
         }
       }
 
@@ -187,7 +197,8 @@ function Calendar({
     onlyYearPicker,
     range,
     multiple,
-    sort
+    sort,
+    numberOfMonths
   ])
 
   useEffect(() => {
@@ -211,9 +222,15 @@ function Calendar({
     })
   }, [minDate, maxDate, onlyShowInRangeDates, value])
 
+  if (state.date && !ref.current.isReady) ref.current.isReady = true
+
   useEffect(() => {
-    if (state.ready && onReady instanceof Function) onReady()
-  }, [state.ready, onReady])
+    if (ref.current.isReady && ref.current.mustCallOnReady && onReady instanceof Function) {
+      ref.current.mustCallOnReady = false
+
+      onReady()
+    }
+  }, [ref.current.isReady, onReady])
 
   let topClassName = getBorderClassName(["top", "bottom"]),
     clonedPlugins = { top: [], bottom: [], left: [], right: [] },
@@ -224,7 +241,7 @@ function Calendar({
   return (state.date ?
     <div
       ref={outerRef}
-      className={`rmdp-wrapper ${state.ready ? "active" : ""} ${className || ""}`}
+      className={`rmdp-wrapper ${className || ""}`}
       style={{ zIndex, direction: "ltr" }}
     >
       {clonedPlugins.top}
@@ -246,7 +263,6 @@ function Calendar({
           <div style={{ position: "relative" }}>
             <DayPicker
               state={state}
-              setState={setState}
               onChange={handleChange}
               showOtherDays={showOtherDays}
               mapDays={mapDays}
@@ -259,13 +275,11 @@ function Calendar({
             />
             <MonthPicker
               state={state}
-              setState={setState}
               onChange={handleChange}
               customMonths={months}
             />
             <YearPicker
               state={state}
-              setState={setState}
               onChange={handleChange}
             />
           </div>
@@ -286,7 +300,7 @@ function Calendar({
   )
 
   function initPlugins(calendarProps) {
-    if (!state.ready) return
+    if (!ref.current.isReady) return
 
     plugins.forEach((plugin, index) => {
       let nodes = {},
@@ -401,8 +415,6 @@ function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate) {
 }
 
 function toDateObject(date, calendar) {
-  if (typeof date === "number" && date > 9999999999) date = new Date(date)
-
   if (date instanceof DateObject) {
     if (date.calendar !== calendar) date.setCalendar(calendar)
   } else {

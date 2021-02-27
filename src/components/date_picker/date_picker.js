@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } 
 import ElementPopper from "react-element-popper"
 import DateObject from "react-date-object"
 import Calendar from "../calendar/calendar"
-import { getAllDatesInRange } from "../../../plugins/all/date_panel/date_panel"
+import getAllDatesInRange from "../../../plugins/all/date_panel/getAllDatesInRange"
 import { IconCalendarEvent } from '@tabler/icons'
 import "./date_picker.css"
 
@@ -50,6 +50,7 @@ function DatePicker(
     arrow = true,
     fixMainPosition,
     currentDate,
+    onPositionChange,
     ...otherProps
   },
   outerRef
@@ -82,8 +83,10 @@ function DatePicker(
       setIsCalendarReady(false)
     }, [onClose])
 
-  if (isMobileMode() && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
-  if (!isMobileMode() && ref.current.mobile) ref.current = { ...ref.current, mobile: false }
+  let isMobileMode = isMobile()
+
+  if (isMobileMode && !ref.current.mobile) ref.current = { ...ref.current, mobile: true }
+  if (!isMobileMode && ref.current.mobile) ref.current = { ...ref.current, mobile: false }
   if (!Array.isArray(formattingIgnoreList)) formattingIgnoreList = []
 
   formattingIgnoreList = JSON.stringify(formattingIgnoreList)
@@ -187,7 +190,8 @@ function DatePicker(
     onlyYearPicker,
     weekDays,
     months,
-    formattingIgnoreList
+    formattingIgnoreList,
+    onPositionChange
   ])
 
   if (multiple || range || Array.isArray(date) || !editable) inputMode = "none"
@@ -208,13 +212,14 @@ function DatePicker(
       }}
       element={renderInput()}
       popper={isVisible && renderCalendar()}
-      active={!isMobileMode() && isCalendarReady}
+      active={!isMobileMode && isCalendarReady}
       position={calendarPosition}
-      arrow={!isMobileMode() && arrow}
+      arrow={!isMobileMode && arrow}
       containerClassName={`rmdp-container ${containerClassName}`}
       arrowClassName={`${className} ${arrowClassName}`}
       fixMainPosition={!scrollSensitive || fixMainPosition}
       zIndex={zIndex}
+      onPositionChange={!isMobileMode && onPositionChange}
       {...otherProps}
     />
   )
@@ -226,6 +231,11 @@ function DatePicker(
       whiteSpace: "nowrap",
       overflow: "hidden"
     } : {}
+
+    let alternativePlaceholder = {
+      en: "click to select",
+      fa: "انتخاب کنید"
+    }
 
     switch (type) {
       case "button":
@@ -245,7 +255,7 @@ function DatePicker(
             disabled={disabled ? true : false}
             type="button"
           >
-            {stringDate || placeholder || "click to select"}
+            {stringDate || placeholder || (locale === "fa" ? alternativePlaceholder.fa : alternativePlaceholder.en)}
           </button>
         )
       case "icon":
@@ -302,6 +312,8 @@ function DatePicker(
           </div>
         )
       default:
+        let height = inputRef.current?.clientHeight || 22
+
         return (
           <div style={{ position: "relative" }}>
             <input
@@ -319,13 +331,18 @@ function DatePicker(
               style={style}
               autoComplete="off"
               disabled={disabled ? true : false}
-              inputMode={inputMode || (isMobileMode() ? "none" : undefined)}
+              inputMode={inputMode || (isMobileMode ? "none" : undefined)}
             />
             {type === "input-icon" &&
               <IconCalendarEvent
                 className="rmdp-input-icon"
+                height={height - 5}
+                width={height - 5}
                 style={{
-                  marginTop: `${((((inputRef.current?.clientHeight - 21) / 2) | 0) + 2) || 2}px`
+                  [["fa", "ar"].includes(locale) ? "left" : "right"]: "2.5px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  backgroundColor: "inherit"
                 }}
                 onClick={() => {
                   if (isVisible) {
@@ -357,7 +374,7 @@ function DatePicker(
         onlyTimePicker={onlyTimePicker}
         onlyMonthPicker={onlyMonthPicker}
         onlyYearPicker={onlyYearPicker}
-        className={className + (isMobileMode() ? " rmdp-mobile" : "")}
+        className={className + (isMobileMode ? " rmdp-mobile" : "")}
         weekDays={weekDays}
         months={months}
         minDate={minDate}
@@ -366,7 +383,7 @@ function DatePicker(
         onReady={() => {
           setIsCalendarReady(true)
 
-          if (!isMobileMode()) return
+          if (!isMobileMode) return
 
           let popper = calendarRef.current.parentNode.parentNode
 
@@ -381,7 +398,7 @@ function DatePicker(
         {...otherProps}
       >
         {children}
-        {isMobileMode() &&
+        {isMobileMode &&
           <div className={`rmdp-action-buttons ${["fa", "ar"].includes(locale) ? "rmdp-rtl" : ""}`} >
             <button
               type="button"
@@ -413,16 +430,16 @@ function DatePicker(
     )
   }
 
-  function isMobileMode() {
+  function isMobile() {
     return typeof className === "string" && className.includes("rmdp-mobile")
   }
 
   function toLocale(string) {
     let actions = {
-      [DateObject.locales.EN]: { OK: "OK", CANCEL: "CANCEL" },
-      [DateObject.locales.FA]: { OK: "تأیید", CANCEL: "لغو" },
-      [DateObject.locales.AR]: { OK: "تأكيد", CANCEL: "الغاء" },
-      [DateObject.locales.HI]: { OK: "पुष्टि", CANCEL: "रद्द करें" }
+      EN: { OK: "OK", CANCEL: "CANCEL" },
+      FA: { OK: "تأیید", CANCEL: "لغو" },
+      AR: { OK: "تأكيد", CANCEL: "الغاء" },
+      HI: { OK: "पुष्टि", CANCEL: "रद्द करें" }
     }
 
     if (typeof locale === "string" && actions[locale.toUpperCase()]) return actions[locale.toUpperCase()][string]
@@ -437,8 +454,7 @@ function DatePicker(
 
     if (shouldOpenCalendar === false) return
 
-    let isMobile = isMobileMode(),
-      input = getInput(inputRef)
+    let input = getInput(inputRef)
 
     if (!value && !ref.current.date && !range && !multiple) {
       let date = new DateObject({ calendar, locale, format })
@@ -447,13 +463,13 @@ function DatePicker(
         (!minDate || (minDate && date > minDate)) &&
         (!maxDate || (maxDate && date < maxDate))
       ) {
-        handleChange(date, isMobile)
+        handleChange(date, isMobileMode)
 
         ref.current.date = date
       }
     }
 
-    if (isMobile && input) input.blur()
+    if (isMobileMode && input) input.blur()
 
     if (input || (!input && !isVisible)) {
       setIsVisible(true)
@@ -463,7 +479,7 @@ function DatePicker(
   }
 
   function handleChange(date, force) {
-    if (isMobileMode() && !force) return setTemporaryDate(date)
+    if (isMobileMode && !force) return setTemporaryDate(date)
 
     setDate(date)
 

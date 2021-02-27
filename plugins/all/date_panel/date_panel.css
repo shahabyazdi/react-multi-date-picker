@@ -1,3 +1,10 @@
+:root {
+  --rmdp-primary: #0074d9;
+  --rmdp-shadow: #8798ad;
+  --highlight-red-selected: #ea0034;
+  --highlight-green-selected: #009688;
+}
+
 .rmpd-panel {
   min-width: 125px;
 }

@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useMemo } from "react"
 import DateObject from "react-date-object"
 
-export default function MonthPicker({ state, setState, onChange, customMonths }) {
-    const [months, setMonths] = useState([]),
-        mustShowMonthPicker = (state.mustShowMonthPicker || state.onlyMonthPicker) && !state.onlyTimePicker && !state.onlyYearPicker,
-        { minDate, maxDate, calendar, locale } = state
+export default function MonthPicker({ state, onChange, customMonths }) {
+    const { minDate, maxDate, calendar, locale, onlyMonthPicker } = state,
+        mustShowMonthPicker = (state.mustShowMonthPicker || onlyMonthPicker) && !state.onlyTimePicker && !state.onlyYearPicker
 
-    useEffect(() => {
+    const months = useMemo(() => {
         let months = customMonths
 
         if (Array.isArray(months) && months.length >= 12) {
@@ -18,6 +17,7 @@ export default function MonthPicker({ state, setState, onChange, customMonths })
                 year: undefined,
                 calendar,
                 locale,
+
             }).months.map(month => month.name)
         }
 
@@ -35,14 +35,12 @@ export default function MonthPicker({ state, setState, onChange, customMonths })
             monthsArray.push(array)
         }
 
-        setMonths(monthsArray)
-
-        if (state.onlyMonthPicker) setState(state => { return { ...state, ready: true } })
-    }, [calendar, locale, customMonths, state.onlyMonthPicker, setState])
+        return monthsArray
+    }, [calendar, locale, customMonths])
 
     return (
         <div
-            className={`${state.onlyMonthPicker ? "only " : ""}rmdp-month-picker`}
+            className={`${onlyMonthPicker ? "only " : ""}rmdp-month-picker`}
             style={{ display: mustShowMonthPicker ? "block" : "none" }}
         >
             {months.map((array, i) => <div key={i} className="rmdp-ym">
@@ -51,7 +49,7 @@ export default function MonthPicker({ state, setState, onChange, customMonths })
                     className={getClassName(i * 3 + j)}
                     onClick={() => selectMonth(i * 3 + j)}
                 >
-                    <span className={state.onlyMonthPicker ? "sd" : ""}>{name}</span>
+                    <span className={onlyMonthPicker ? "sd" : ""}>{name}</span>
                 </div>
                 )}
             </div>
@@ -67,10 +65,10 @@ export default function MonthPicker({ state, setState, onChange, customMonths })
 
         date = date.setMonth(monthIndex + 1)
 
-        let selectedDate = state.onlyMonthPicker ? new DateObject(date) : state.selectedDate
+        let selectedDate = onlyMonthPicker ? new DateObject(date) : state.selectedDate
 
         onChange(
-            state.onlyMonthPicker ? selectedDate : undefined,
+            onlyMonthPicker ? selectedDate : undefined,
             {
                 ...state,
                 date,

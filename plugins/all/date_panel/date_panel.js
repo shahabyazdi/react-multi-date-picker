@@ -1,5 +1,6 @@
 import React from "react"
 import DateObject from "react-date-object"
+import getAllDatesInRange from "./getAllDatesInRange"
 import "./date_panel.css"
 
 export default function DatePanel({
@@ -27,7 +28,7 @@ export default function DatePanel({
         multiple ||
         (range && !eachDaysInRange)
     ) {
-        dates = getDates().map((date, index) => {
+        dates = (inRangeDates || selectedDate).map((date, index) => {
             return {
                 date,
                 format: date.format(undefined, formattingIgnoreList),
@@ -35,7 +36,7 @@ export default function DatePanel({
             }
         })
     } else if (range && eachDaysInRange) {
-        let allDates = getAllDatesInRange(getDates())
+        let allDates = getAllDatesInRange(inRangeDates || selectedDate)
 
         dates = allDates.map((date, index) => {
             return {
@@ -146,38 +147,4 @@ export default function DatePanel({
             }
         )
     }
-
-    function getDates() {
-        if (Array.isArray(inRangeDates) && inRangeDates.length > 0) return inRangeDates
-
-        return selectedDate
-    }
-}
-
-export function getAllDatesInRange(range = [], toDate) {
-    if (!Array.isArray(range)) return []
-
-    let startDate = range[0],
-        endDate = range[range.length - 1],
-        dates = []
-
-    if (
-        !(startDate instanceof DateObject) ||
-        !(endDate instanceof DateObject) ||
-        !startDate.isValid ||
-        !endDate.isValid ||
-        startDate > endDate
-    ) return []
-
-    startDate = new DateObject(startDate)
-    endDate = new DateObject(endDate)
-
-    for (startDate; startDate <= endDate; startDate.day++) {
-        dates.push(toDate ?
-            startDate.toDate() :
-            new DateObject(startDate)
-        )
-    }
-
-    return dates
 }

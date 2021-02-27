@@ -18,7 +18,6 @@
 }
 
 .rmdp-wrapper {
-  visibility: hidden;
   width: max-content;
   box-shadow: 0 0 5px var(--rmdp-shadow);
   text-align: center;
@@ -28,10 +27,6 @@
 
 .rmdp-calendar {
   padding: 4px;
-}
-
-.rmdp-wrapper.active {
-  visibility: unset;
 }
 
 .rmdp-border-top {

@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useMemo } from "react"
 import DateObject from "react-date-object"
 
 export default function WeekDays({ state, customWeekDays }) {
-    const [weekDays, setWeekDays] = useState([])
-
-    useEffect(() => {
+    let weekDays = useMemo(() => {
         let weekDays = customWeekDays
 
         if (Array.isArray(weekDays) && weekDays.length >= 7) {
@@ -27,7 +25,7 @@ export default function WeekDays({ state, customWeekDays }) {
             }).weekDays.map(weekDay => weekDay.shortName)
         }
 
-        setWeekDays(weekDays)
+        return weekDays
     }, [state.date.calendar, state.date.locale, customWeekDays])
 
     return (
