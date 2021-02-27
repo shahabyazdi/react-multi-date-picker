@@ -23,7 +23,7 @@
 
 .rmdp-colors.left,
 .rmdp-colors.right {
-  display: grid;
+  flex-direction: column;
   padding: 0 8px;
 }
 
