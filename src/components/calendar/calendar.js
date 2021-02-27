@@ -210,7 +210,8 @@ function Calendar({
       let [selectedDate, $minDate, $maxDate] = getDateInRangeOfMinAndMaxDate(
         getSelectedDate(value, calendar, locale, format),
         minDate,
-        maxDate
+        maxDate,
+        calendar
       )
 
       return {
@@ -396,9 +397,7 @@ function isValidDate(date) {
   return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())
 }
 
-function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate) {
-  let { calendar } = date
-
+function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
   if (minDate) minDate = toDateObject(minDate, calendar).set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
   if (maxDate) maxDate = toDateObject(maxDate, calendar).set({ hour: 23, minute: 59, second: 59, millisecond: 999 })
 
@@ -416,7 +415,7 @@ function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate) {
 
 function toDateObject(date, calendar) {
   if (date instanceof DateObject) {
-    if (date.calendar !== calendar) date.setCalendar(calendar)
+    date.setCalendar(calendar)
   } else {
     date = new DateObject({ date, calendar })
   }

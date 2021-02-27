@@ -76,13 +76,11 @@ export default function Example() {
     <script src="https://cdn.jsdelivr.net/npm/react-element-popper@latest/build/browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/browser.min.js"></script>
 
-    <!-- Optional Plugins -->
+    <!-- Optional Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date_picker_header.browser.js"></script>
 
     <script>
       const { DatePicker, Calendar } = ReactMultiDatePicker;
-
-      const { DatePickerHeader } = ReactMultiDatePickerPlugins;
 
       ReactDOM.render(
         React.createElement(Calendar),
