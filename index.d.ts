@@ -339,7 +339,8 @@ declare module "react-multi-date-picker" {
         fixMainPosition?:boolean,
         fixRelativePosition?:boolean,
         offsetY?:number,
-        offsetX?:number
+        offsetX?:number,
+        onPositionChange?():void
     }
 
     export { DateObject }
