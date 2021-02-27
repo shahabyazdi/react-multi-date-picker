@@ -186,7 +186,28 @@ export default function DayPicker({
         if (selectedDate.length === 1) {
           if (isSameDate(date, selectedDate[0])) names.push("rmdp-range")
         } else {
-          if (date >= selectedDate[0] && date <= selectedDate[1]) names.push("rmdp-range")
+          let { year, month, day } = date,
+            first = selectedDate[0],
+            second = selectedDate[1]
+          /**
+           * date >= selectedDate[0] && date <= selectedDate[1] 
+           * doesn't work if user enter currentDate
+           */
+          if (
+            (
+              year > first.year ||
+              (year === first.year && month.number > first.month.number) ||
+              (year === first.year && month.number === first.month.number && day >= first.day)
+            ) &&
+            (
+              year < second.year ||
+              (year === second.year && month.number < second.month.number) ||
+              (year === second.year && month.number === second.month.number && day <= second.day)
+            )
+          ) {
+            names.push("rmdp-range")
+          }
+
           if (isSameDate(date, selectedDate[0])) names.push("start")
           if (isSameDate(date, selectedDate[1])) names.push("end")
         }
