@@ -77,7 +77,7 @@ export default function Example() {
     <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/browser.min.js"></script>
 
     <!-- Optional Plugins -->
-    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/browser_plugins.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date_picker_header.browser.js"></script>
 
     <script>
       const { DatePicker, Calendar } = ReactMultiDatePicker;
@@ -163,6 +163,7 @@ export default function Example() {
 | fixRelativePosition  |                                            Boolean                                            |             false              | DatePicker                          |
 | offsetY              |                                            Number                                             |               0                | DatePicker                          |
 | offsetX              |                                            Number                                             |               0                | DatePicker                          |
+| onPositionChange     |                                           Function                                            |               0                | DatePicker                          |
 
 ## Calendars
 
