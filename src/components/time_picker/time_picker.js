@@ -31,7 +31,7 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
     let am = mustDisplayMeridiem ? hour < 12 : false
 
     return (mustShowTimePicker ?
-        <div className={`rmdp-time-picker ${onlyTimePicker ? "rmdp-only-time-picker" : ""}`}>
+        <div className={`rmdp-time-picker ${onlyTimePicker ? "rmdp-only-time-picker" : ""}`} style={{ direction: "ltr" }}>
             <div>
                 <Arrow direction="rmdp-up" onClick={() => changeValue("hours", 1)} />
                 <Input value={getHours()} onChange={handleChange} digits={date.digits} name="hours" />

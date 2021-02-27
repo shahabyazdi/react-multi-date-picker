@@ -415,8 +415,6 @@ function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate) {
 }
 
 function toDateObject(date, calendar) {
-  if (typeof date === "number" && date > 9999999999) date = new Date(date)
-
   if (date instanceof DateObject) {
     if (date.calendar !== calendar) date.setCalendar(calendar)
   } else {
