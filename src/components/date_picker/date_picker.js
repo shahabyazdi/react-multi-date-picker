@@ -190,8 +190,7 @@ function DatePicker(
     onlyYearPicker,
     weekDays,
     months,
-    formattingIgnoreList,
-    onPositionChange
+    formattingIgnoreList
   ])
 
   if (multiple || range || Array.isArray(date) || !editable) inputMode = "none"
@@ -219,7 +218,7 @@ function DatePicker(
       arrowClassName={`${className} ${arrowClassName}`}
       fixMainPosition={!scrollSensitive || fixMainPosition}
       zIndex={zIndex}
-      onPositionChange={!isMobileMode && onPositionChange}
+      onChange={!isMobileMode && onPositionChange}
       {...otherProps}
     />
   )
