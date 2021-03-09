@@ -11,13 +11,19 @@ export default function Header({
   customMonths,
   numberOfMonths
 }) {
-  let monthNames = []
+  let monthNames = [],
+    years = [],
+    digits = state.date.digits
 
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
-    let monthName
-    let index = state.date.month.index + monthIndex
+    let monthName,
+      year = state.date.year,
+      index = state.date.month.index + monthIndex
 
-    if (index > 11) index -= 12
+    if (index > 11) {
+      index -= 12
+      year++
+    }
 
     if (Array.isArray(customMonths) && customMonths.length >= 12) {
       let month = customMonths[index]
@@ -27,7 +33,10 @@ export default function Header({
       monthName = state.date.months[index].name
     }
 
+    year = year.toString().replace(/[0-9]/g, w => digits[w])
+
     monthNames.push(monthName)
+    years.push(year)
   }
 
   return (
@@ -44,13 +53,13 @@ export default function Header({
                     onClick={() => !disableMonthPicker && toggle("mustShowMonthPicker")}
                   >
                     {monthName},
-                                    </span>
+                  </span>
                 }
                 <span
                   style={{ cursor: disableYearPicker || state.onlyYearPicker ? "default" : "pointer" }}
                   onClick={() => !disableYearPicker && toggle("mustShowYearPicker")}
                 >
-                  {state.date.format("YYYY")}
+                  {years[index]}
                 </span>
               </div>
             )
