@@ -176,7 +176,7 @@ declare module "react-multi-date-picker" {
       selectedDate: DateObject | DateObject[],
       currentMonth: object,
       isSameDate(arg1: DateObject, arg2: DateObject): boolean
-    }): object,
+    }): object | void,
     disableMonthPicker?: boolean,
     disableYearPicker?: boolean,
     /**
@@ -216,9 +216,9 @@ declare module "react-multi-date-picker" {
      * 
      * <DatePicker multiple sort />
      */
-    sort: boolean,
-    numberOfMonths: number,
-    currentDate: DateObject
+    sort?: boolean,
+    numberOfMonths?: number,
+    currentDate?: DateObject
   }
 
   interface DatePickerProps {
