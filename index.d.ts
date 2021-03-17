@@ -122,6 +122,7 @@ declare module "react-multi-date-picker" {
      *    console.log(dateObject.format())
      *  }}
      * />
+     * 
      * <DatePicker
      *  onChange={dateObject=>{
      *    console.log(JSON.stringify(dateObject))
