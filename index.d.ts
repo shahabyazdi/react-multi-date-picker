@@ -93,7 +93,7 @@ declare module "react-multi-date-picker" {
      *   ]}
      * />
      */
-    weekDays?: [string[]],
+    weekDays?: string[] | [string[]],
     /**
      * @see https://shahabyazdi.github.io/react-multi-date-picker/#custom-months-&-weekdays
      * @example
@@ -114,7 +114,7 @@ declare module "react-multi-date-picker" {
      *  ]}
      * />
      */
-    months?: [string[]],
+    months?: string[] | [string[]],
     /**
      * @example
      * <Calendar
@@ -122,6 +122,7 @@ declare module "react-multi-date-picker" {
      *    console.log(dateObject.format())
      *  }}
      * />
+     * 
      * <DatePicker
      *  onChange={dateObject=>{
      *    console.log(JSON.stringify(dateObject))
