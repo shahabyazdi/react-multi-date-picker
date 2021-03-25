@@ -219,7 +219,8 @@ declare module "react-multi-date-picker" {
      */
     sort?: boolean,
     numberOfMonths?: number,
-    currentDate?: DateObject
+    currentDate?: DateObject,
+    children?: React.ReactNode
   }
 
   interface DatePickerProps {
