@@ -78,9 +78,12 @@ export default function Header({
       if (maxDate && date.year >= maxDate.year && maxDate.month.number < date.month.number + value) return
 
       date.toFirstOfMonth()
-      date.month += value
 
-      if (onlyMonthPicker) selectedDate = new DateObject(date)
+      if (onlyMonthPicker) {
+        date.year += value
+      } else {
+        date.month += value
+      }
 
     } else {
       if (minDate && minDate.year > date.year + value) return

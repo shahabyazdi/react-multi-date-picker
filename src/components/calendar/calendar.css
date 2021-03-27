@@ -115,7 +115,6 @@
 
 .rmdp-ym .rmdp-day span {
   border-radius: 12px;
-  height: 98%;
   padding: 2px 0px;
 }
 
@@ -133,6 +132,16 @@
 .rmdp-range.end {
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
+}
+
+.rmdp-ym .rmdp-range.start {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.rmdp-ym .rmdp-range.end {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
