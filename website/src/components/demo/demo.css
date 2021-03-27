@@ -1,0 +1,101 @@
+:root {
+  --blue: #0075db;
+  --gray: #a4b3c5;
+  --base: #eaeeff;
+}
+
+.calendar-demo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  z-index: 2;
+}
+
+.scroll-to-top .rmdp-arrow {
+  padding: 5px;
+  margin-top: 16px;
+}
+
+.scroll-to-top .rmdp-arrow-container {
+  height: 40px;
+  width: 40px;
+  background-color: rgba(236, 236, 250, 0.2);
+}
+
+.scroll-to-top .rmdp-arrow-container:hover .rmdp-arrow {
+  border-width: 0 3px 3px 0;
+}
+
+.scroll-to-top .rmdp-arrow-container:hover {
+  background-color: #0075db;
+}
+
+.rtl .scroll-to-top {
+  right: auto;
+  left: 20px;
+}
+
+.form-group {
+  font-size: 12px;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.form-group label {
+  font-family: monospace;
+  color: var(--blue);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.select {
+  margin: 1px 4px;
+  border: 1px var(--base) solid;
+  padding: 2px 5px;
+  font-size: 14px;
+}
+
+.select:focus {
+  outline: none !important;
+  border: 1px solid var(--gray);
+  box-shadow: 0 0 2px var(--gray);
+}
+
+.full-width {
+  width: 100%;
+}
+
+@media (max-width: 500px) {
+  .display-flex {
+    flex-direction: column;
+  }
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.title::after {
+  content: ":";
+}

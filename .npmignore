@@ -1,5 +1,6 @@
 /src 
 /screenshot
+/website
 /plugins/all
 /plugins/all.js
 rollup.config.js

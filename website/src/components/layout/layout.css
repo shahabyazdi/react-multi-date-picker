@@ -1,0 +1,420 @@
+@font-face {
+  font-family: Vazir;
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Regular.eot");
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Regular.woff2")
+      format("woff2"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Regular.woff")
+      format("woff"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Regular.ttf")
+      format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: Vazir;
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Bold.eot");
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Bold.woff2")
+      format("woff2"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Bold.woff") format("woff"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Bold.ttf")
+      format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: Vazir;
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Black.eot");
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Black.eot?#iefix")
+      format("embedded-opentype"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Black.woff2")
+      format("woff2"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Black.woff") format("woff"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Black.ttf")
+      format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: Vazir;
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Medium.eot");
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Medium.eot?#iefix")
+      format("embedded-opentype"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Medium.woff2")
+      format("woff2"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Medium.woff")
+      format("woff"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Medium.ttf")
+      format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: Vazir;
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Light.eot");
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Light.eot?#iefix")
+      format("embedded-opentype"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Light.woff2")
+      format("woff2"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Light.woff") format("woff"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Light.ttf")
+      format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: Vazir;
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Thin.eot");
+  src: url("../../../node_modules/vazir-font/dist/Vazir-Thin.eot?#iefix")
+      format("embedded-opentype"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Thin.woff2")
+      format("woff2"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Thin.woff") format("woff"),
+    url("../../../node_modules/vazir-font/dist/Vazir-Thin.ttf")
+      format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+.rtl *:not(.token) {
+  font-family: Vazir;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
+}
+
+.navbar {
+  height: 22px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: white;
+  box-shadow: 0 2px 2px -3px rgb(115, 115, 116);
+  padding: 20px 10px;
+}
+
+.icons {
+  display: flex;
+  float: right;
+  position: absolute;
+  right: 20px;
+  top: 22px;
+}
+
+.icon {
+  margin-left: 20px;
+}
+
+.icon .npm svg {
+  width: 40px;
+  height: 15px;
+}
+
+.icon .github svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icon.language svg {
+  width: 30px;
+  margin-top: 2px;
+}
+
+.language {
+  cursor: pointer;
+}
+
+.home a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.home a svg {
+  margin-top: -2px;
+}
+
+.sidebar {
+  width: 270px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 62px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  padding-left: 10px;
+  background-color: white;
+  box-shadow: 2px 2px 2px -2px #ccc;
+  overflow: auto;
+  background-color: white;
+}
+
+.sidebar li {
+  padding: 5px 20px;
+  font-size: 14px;
+}
+
+.sidebar li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sidebar li a.active {
+  font-weight: bold;
+}
+
+.sidebar-sub-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  position: fixed;
+  left: 280px;
+  top: 62px;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  overflow: auto;
+}
+
+.navbar .navbar-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+  position: absolute;
+  left: 10px;
+}
+
+.navbar .navbar-title .name::after {
+  content: ":";
+}
+
+.example {
+  padding: 15px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.example h2{
+  font-size: 20px;
+}
+
+.example p{
+  font-size: 18px;
+}
+
+table {
+  border: 1px solid #ccc;
+}
+
+table th,
+table td {
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 2px 10px;
+}
+
+.open-sidebar {
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.navbar .navbar-title {
+  margin-left: 5px;
+  display: inline-block;
+  font-weight: unset;
+}
+
+.rtl .sidebar {
+  right: 0;
+  left: auto;
+  padding: 10px 0;
+  padding-left: 0;
+  padding-right: 10px;
+  box-shadow: 2px 2px 2px 2px #ccc;
+  direction: rtl;
+}
+
+.rtl .main {
+  left: 0;
+  right: 280px;
+  direction: rtl;
+}
+
+pre {
+  max-height: 510px;
+}
+
+.rtl .main pre,
+.rtl .main pre code,
+.rtl .main pre code span {
+  direction: ltr;
+}
+
+.input,
+.select,
+.textarea {
+  margin: 1px 4px;
+  border-radius: 5px;
+  border: 1px var(--base) solid;
+  padding: 2px 5px;
+  font-size: 14px;
+  background-color: var(--element);
+}
+
+.input:focus,
+.select:focus {
+  outline: none !important;
+  border: 1px solid var(--gray);
+  box-shadow: 0 0 2px var(--gray);
+}
+
+.input.full-width {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.checkbox {
+  margin-left: 5px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+@media (max-width: 710px) {
+  .open-sidebar {
+    visibility: visible;
+    position: absolute;
+    left: 15px;
+    top: 17px;
+  }
+
+  .navbar .navbar-title {
+    left: 50px;
+  }
+
+  .navbar .navbar-title .name {
+    display: none;
+  }
+
+  .sidebar {
+    left: -305px;
+    transition: 0.4s;
+    box-shadow: 3px 2px 6px -2px #ccc;
+    z-index: 200;
+  }
+
+  .sidebar.active {
+    left: 0;
+    transition: 0.4s;
+  }
+
+  .rtl .sidebar {
+    right: -305px;
+    left: auto;
+    box-shadow: 3px 2px 6px 2px #ccc;
+  }
+
+  .rtl .sidebar.active {
+    right: 0;
+    left: auto;
+  }
+
+  .main {
+    left: 0px;
+  }
+
+  .rtl .main {
+    left: 0;
+    right: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar .navbar-title {
+    display: none;
+  }
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #0074d9;
+  border-radius: 6px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #0266be;
+}
+
+pre {
+  background-color: #464545 !important;
+  max-height: 510px;
+  margin: 20px !important;
+  font-size: 14px!important;
+  border-radius: 7px!important;
+  padding: 15px!important;
+}
+
+
+.calendar-border {
+  border: 2px black solid!important;
+}
+
+.custom-input {
+  border-radius: 15px;
+  border: 1px #0c8af8 solid;
+  padding: 4px 12px;
+  background-color: white;
+  height: 22px;
+  box-shadow: 0 0 2px #0074d9;
+}
+
+.custom-input:focus {
+  outline: none;
+  border: 1px solid #0c8af8;
+  box-shadow: 0 0 10px 2px #0074d9;
+}
+
+.custom-calendar.rmdp-wrapper,
+.rmdp-container .custom-calendar.ep-arrow::after {
+  background-color: bisque;
+}
+
+.rmdp-container .custom-calendar.ep-arrow[direction="bottom"] {
+  border-top: 1px solid bisque;
+}
+
+.rmdp-container .custom-calendar.ep-arrow[direction="top"] {
+  border-bottom: 1px solid bisque;
+}
+
+.rmdp-container .ep-arrow.custom-arrow::after {
+  background-color: blue;
+}
+
+.custom-container {
+  width: 100%;
+}
+
+.custom-container .rmdp-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 26px;
+}

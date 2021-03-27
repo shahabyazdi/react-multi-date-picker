@@ -1,0 +1,127 @@
+.rmdp-visible {
+  visibility: visible;
+}
+
+.rmdp-invisible {
+  visibility: hidden;
+}
+
+.rmdp-input {
+  margin: 1px 0;
+  border: 1px #c0c4d6 solid;
+  padding: 2px 5px;
+  height: 22px;
+  border-radius: 5px;
+}
+
+.rmdp-input:focus {
+  outline: none !important;
+  border: 1px solid #a4b3c5;
+  box-shadow: 0 0 2px #a4b3c5;
+}
+
+.rmdp-button {
+  background-color: #0074d9;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 7px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rmdp-button:hover {
+  background-color: #143ac5;
+  transition: 0.4s;
+}
+
+.rmdp-button:disabled {
+  background-color: #8798ad;
+}
+
+.rmdp-icon {
+  cursor: pointer;
+}
+
+.rmdp-input-icon {
+  position: absolute;
+  background-color: #f9faff;
+  cursor: pointer;
+}
+
+.rmdp-action-button {
+  margin: 15px 0;
+  margin-right: 10px;
+  border-radius: unset;
+  background-color: transparent;
+  float: right;
+  font-weight: bold;
+  color: #2682d3;
+}
+
+.rmdp-action-button:hover {
+  background-color: transparent;
+}
+
+.rmdp-container .ep-arrow {
+  overflow: hidden;
+  will-change: transform;
+}
+
+.rmdp-container .ep-arrow::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  position: absolute;
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px #8798ad;
+}
+
+.rmdp-container .ep-arrow[direction="top"] {
+  border-bottom: 1px solid white;
+}
+
+.rmdp-container .ep-arrow[direction="left"] {
+  border-right: 1px solid white;
+}
+
+.rmdp-container .ep-arrow[direction="right"] {
+  border-left: 1px solid white;
+  margin-left: -1px;
+}
+
+.rmdp-container .ep-arrow[direction="bottom"] {
+  border-top: 1px solid white;
+  margin-top: -1.5px;
+}
+
+.rmdp-container .ep-arrow[direction="top"]::after {
+  left: 4px;
+  top: 5px;
+}
+
+.rmdp-container .ep-arrow[direction="bottom"]::after {
+  left: 4px;
+  top: -6px;
+}
+
+.rmdp-container .ep-arrow[direction="left"]::after {
+  left: 5px;
+  top: 3px;
+}
+
+.rmdp-container .ep-arrow[direction="right"]::after {
+  left: -6px;
+  top: 3px;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-input-icon {
+    top: 0px;
+    bottom: 2px;
+  }
+}
