@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     siteUrl: "https://shahabyazdi.github.io/",
+    googleVerification: "eN9hWwtvlYdXL_37ZU2ML8AUY8685Fw3O98T5vidr-4",
     en: {
       title: "React Multi Date Picker",
       description: "a simple React datepicker component for working with gregorian, persian, arabic and indian calendars with the ability to select the date in single, multiple and range modes.",

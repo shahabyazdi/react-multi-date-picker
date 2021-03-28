@@ -9,6 +9,7 @@ export default function Title({ language, section = "default", sidebar, pathname
         site {
           siteMetadata {
             siteUrl,
+            googleVerification,
             en {
               title
               description
@@ -29,6 +30,7 @@ export default function Title({ language, section = "default", sidebar, pathname
 
   const sidebarTitle = sidebar[section].find(object => ("/" + object.path) === pathname.replace("/fa", ""))
 
+  const { siteUrl, googleVerification } = data.site.siteMetadata
   const { title, description, type, keywords } = data.site.siteMetadata[language]
 
   const siteTitle = title + (sidebarTitle ? (" - " + translate(sidebarTitle.name)) : "")
@@ -48,7 +50,7 @@ export default function Title({ language, section = "default", sidebar, pathname
         },
         {
           property: "og:url",
-          content: data.site.siteMetadata.siteUrl
+          content: siteUrl
         },
         {
           property: "og:type",
@@ -57,6 +59,10 @@ export default function Title({ language, section = "default", sidebar, pathname
         {
           name: "keywords",
           content: keywords
+        },
+        {
+          name: "google-site-verification",
+          content: googleVerification
         }
       ]}
     />

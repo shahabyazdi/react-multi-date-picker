@@ -80,23 +80,25 @@ export default function MonthPicker({ state, onChange, customMonths }) {
 
     date = date.setMonth(monthIndex + 1)
 
-    if (multiple) {
-      let dates = selectedDate.filter($date => !isSameMonth(date, $date))
+    if (onlyMonthPicker) {
+      if (multiple) {
+        let dates = selectedDate.filter($date => !isSameMonth(date, $date))
 
-      if (dates.length === selectedDate.length) dates.push(new DateObject(date))
+        if (dates.length === selectedDate.length) dates.push(new DateObject(date))
 
-      selectedDate = dates
-      focused = dates[dates.length - 1]
+        selectedDate = dates
+        focused = dates[dates.length - 1]
 
-      if (sort) selectedDate.sort((a, b) => a - b)
-    } else if (range) {
-      if (selectedDate.length === 2 || selectedDate.length === 0) {
-        console.log("0");
-        selectedDate = [new DateObject(dateObject)]
-      } else if (selectedDate.length === 1) {
-        console.log("1");
-        selectedDate.push(new DateObject(dateObject))
-        selectedDate.sort((a, b) => a - b)
+        if (sort) selectedDate.sort((a, b) => a - b)
+      } else if (range) {
+        if (selectedDate.length === 2 || selectedDate.length === 0) {
+          selectedDate = [new DateObject(dateObject)]
+        } else if (selectedDate.length === 1) {
+          selectedDate.push(new DateObject(dateObject))
+          selectedDate.sort((a, b) => a - b)
+        }
+      } else {
+        selectedDate = new DateObject(date)
       }
     }
 
@@ -119,12 +121,11 @@ export default function MonthPicker({ state, onChange, customMonths }) {
     if (maxDate && dateObject.year >= maxDate.year && monthIndex > maxDate.month.index) names.push("rmdp-disabled")
 
     if (names.includes("rmdp-disabled") && onlyShowInRangeDates) return
+    if (isSameMonth(today, dateObject)) names.push("rmdp-today")
 
     if (!onlyMonthPicker) {
       if (date.month.index === monthIndex) names.push("rmdp-selected")
     } else {
-      if (isSameMonth(today, dateObject)) names.push("rmdp-today")
-
       if (!range) {
         if ([].concat(selectedDate).some(date => isSameMonth(date, dateObject))) names.push("rmdp-selected")
       } else {

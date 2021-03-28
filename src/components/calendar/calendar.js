@@ -189,7 +189,8 @@ function Calendar({
         calendar,
         locale,
         format: $format,
-        mustSortDates
+        mustSortDates,
+        year: state.year || date.year
       }
     })
   }, [

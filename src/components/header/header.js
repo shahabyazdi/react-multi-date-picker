@@ -71,7 +71,7 @@ export default function Header({
   )
 
   function increaseValue(value) {
-    let { date, selectedDate, mustShowYearPicker, onlyYearPicker, onlyMonthPicker, minDate, maxDate } = state
+    let { date, selectedDate, mustShowYearPicker, mustShowMonthPicker, onlyYearPicker, onlyMonthPicker, minDate, maxDate } = state
 
     if (!mustShowYearPicker && !onlyYearPicker) {
       if (minDate && date.year <= minDate.year && minDate.month.number > date.month.number + value) return
@@ -86,15 +86,15 @@ export default function Header({
       }
 
     } else {
-      if (minDate && minDate.year > date.year + value) return
-      if (maxDate && maxDate.year < date.year + value) return
+      if (minDate && minDate.year > state.year + value) return
+      if (maxDate && maxDate.year < state.year + value) return
 
-      let year = date.year + (value * 12)
+      let year = state.year + (value * 12)
 
       if (value < 0 && minDate && year < minDate.year) year = minDate.year
       if (value > 0 && maxDate && year > maxDate.year) year = maxDate.year
 
-      date.year = year
+      state.year = year
     }
 
     onChange(
@@ -102,7 +102,8 @@ export default function Header({
       {
         ...state,
         date,
-        selectedDate
+        selectedDate,
+        year: state.year
       }
     )
   }

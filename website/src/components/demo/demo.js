@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Selectors from "../selectors/selectors"
-import DatePicker, { Calendar } from "../../../../build/index"
+import DatePicker, { Calendar } from "../../../../src/index"
 import DatePanel from "../../../../plugins/date_panel"
 import "./demo.css"
 
@@ -112,14 +112,20 @@ export default function Demo({ language = "en", translate }) {
           },
           {
             title: translate("Other Pickers"),
-            disabled: range || multiple,
+            // disabled: range || multiple,
             options: [
               [translate("Disable"), "disable"],
               [translate("Time Picker"), "timePicker"],
               [translate("Only Time Picker"), "onlyTimePicker"],
               [translate("Only Month Picker"), "onlyMonthPicker"],
               [translate("Only Year Picker"), "onlyYearPicker"],
-            ],
+            ].filter(([text, value]) => {
+              if (!multiple && !range) {
+                return true
+              } else {
+                return !["timePicker", "onlyTimePicker"].includes(value)
+              }
+            }),
             value: !timePicker && !onlyTimePicker && !onlyMonthPicker && !onlyYearPicker ? "disable"
               : timePicker ? "timePicker"
                 : onlyTimePicker ? "onlyTimePicker"
