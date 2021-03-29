@@ -290,10 +290,7 @@ export function selectDate(date, sort, { multiple, range, selectedDate, onlyMont
     let dates = selectedDate.filter($date => !isSameDate(date, $date, onlyMonthPicker, onlyYearPicker))
 
     if (dates.length === selectedDate.length) dates.push(new DateObject(date))
-    if (sort) {
-      console.log("inja umad");
-      dates.sort((a, b) => a - b)
-    }
+    if (sort) dates.sort((a, b) => a - b)
 
     return dates
   }
