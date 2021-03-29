@@ -1,21 +1,19 @@
 import React, { useMemo } from "react"
+import { selectDate } from "../day_picker/day_picker"
 import DateObject from "react-date-object"
 
 export default function YearPicker({ state, onChange }) {
-  const { date, minDate, maxDate, onlyYearPicker, multiple, range, onlyShowInRangeDates } = state,
-    today = useMemo(() => new DateObject({ calendar: state.date.calendar }), [state.date.calendar]),
-    digits = date.digits,
-    mustShowYearPicker = (state.mustShowYearPicker || onlyYearPicker) && !state.onlyTimePicker
+  const { date, today, minDate, maxDate, onlyYearPicker, multiple, range, onlyShowInRangeDates } = state,
+    mustShowYearPicker = (state.mustShowYearPicker || onlyYearPicker) && !state.onlyTimePicker,
+    digits = date.digits
 
   const years = useMemo(() => {
     let yearArray = [],
       year = today.year - 4,
-      minYear = year,
       maxYear = year + 11
 
-    while (state.year < minYear || state.year > maxYear) {
-      year += state.year < minYear ? -12 : 12
-      minYear = year
+    while (state.year < year || state.year > maxYear) {
+      year += state.year < year ? -12 : 12
       maxYear = year + 11
     }
 
@@ -38,22 +36,24 @@ export default function YearPicker({ state, onChange }) {
       className={`${onlyYearPicker ? "only " : ""}rmdp-year-picker`}
       style={{ display: mustShowYearPicker ? "block" : "none" }}
     >
-      {years.map((array, i) => <div
-        key={i}
-        className="rmdp-ym"
-      >
-        {array.map((year, j) => <div
-          key={j}
-          className={getClassName(year)}
-          onClick={() => selectYear(year)}
+      {years.map((array, i) => (
+        <div
+          key={i}
+          className="rmdp-ym"
         >
-          <span className={onlyYearPicker ? "sd" : ""}>
-            {year.toString().replace(/[0-9]/g, w => digits[w])}
-          </span>
+          {array.map((year, j) => (
+            <div
+              key={j}
+              className={getClassName(year)}
+              onClick={() => selectYear(year)}
+            >
+              <span className={onlyYearPicker ? "sd" : ""}>
+                {year.toString().replace(/[0-9]/g, w => digits[w])}
+              </span>
+            </div>
+          ))}
         </div>
-        )}
-      </div>
-      )}
+      ))}
     </div>
   )
 
@@ -61,30 +61,21 @@ export default function YearPicker({ state, onChange }) {
     if (minDate && year < minDate.year) return
     if (maxDate && year > maxDate.year) return
 
-    let date = new DateObject(state.date).setYear(year)
-
-    let { selectedDate, focused, sort } = state
+    let date = new DateObject(state.date).setYear(year),
+      { selectedDate, focused, sort, onlyMonthPicker } = state
 
     if (onlyYearPicker) {
-      if (multiple) {
-        let dates = selectedDate.filter($date => $date.year !== year)
+      [selectedDate, focused] = selectDate(
+        multiple,
+        range,
+        selectedDate,
+        date,
+        sort,
+        onlyMonthPicker,
+        onlyYearPicker
+      )
 
-        if (dates.length === selectedDate.length) dates.push(new DateObject(date))
-
-        selectedDate = dates
-        focused = dates[dates.length - 1]
-
-        if (sort) selectedDate.sort((a, b) => a - b)
-      } else if (range) {
-        if (selectedDate.length === 2 || selectedDate.length === 0) {
-          selectedDate = [new DateObject(date)]
-        } else if (selectedDate.length === 1) {
-          selectedDate.push(new DateObject(date))
-          selectedDate.sort((a, b) => a - b)
-        }
-      } else {
-        selectedDate = new DateObject(date)
-
+      if (!multiple && !range) {
         if (minDate && date.month.number < minDate.month.number) {
           date = date.setMonth(minDate.month.number)
         } else if (maxDate && date.month.number > maxDate.month.number) {
@@ -98,6 +89,7 @@ export default function YearPicker({ state, onChange }) {
       {
         ...state,
         date,
+        focused,
         selectedDate,
         mustShowYearPicker: false,
         year: state.year

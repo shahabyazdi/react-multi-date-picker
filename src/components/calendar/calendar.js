@@ -167,8 +167,6 @@ function Calendar({
 
         $timePicker = false
         $onlyTimePicker = false
-        // $onlyMonthPicker = false
-        // $onlyYearPicker = false
       } else if (Array.isArray(selectedDate)) {
         selectedDate = selectedDate[selectedDate.length - 1]
       }
@@ -190,7 +188,8 @@ function Calendar({
         locale,
         format: $format,
         mustSortDates,
-        year: state.year || date.year
+        year: state.year || date.year,
+        today: state.today || new DateObject({ calendar })
       }
     })
   }, [

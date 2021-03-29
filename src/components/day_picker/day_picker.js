@@ -14,9 +14,8 @@ export default function DayPicker({
   isRTL
 }) {
   const ref = useRef({}),
-    today = useMemo(() => new DateObject({ calendar: state.date.calendar }), [state.date.calendar]),
-    mustShowDayPicker = !state.onlyTimePicker && !state.onlyMonthPicker && !state.onlyYearPicker,
-    { minDate, maxDate, multiple, range, date, selectedDate } = state
+    { today, minDate, maxDate, multiple, range, date, selectedDate, onlyMonthPicker, onlyYearPicker } = state,
+    mustShowDayPicker = !state.onlyTimePicker && !onlyMonthPicker && !onlyYearPicker
 
   ref.current.date = date
 
@@ -39,60 +38,59 @@ export default function DayPicker({
   ])
 
   return (mustShowDayPicker &&
-    <div className="rmdp-day-picker" style={{ display: "flex" }}>
-      {
-        months.map((weeks, monthIndex) => {
-          return (
-            <div key={monthIndex} style={{ [isRTL ? "marginLeft" : "marginRight"]: monthIndex + 1 < numberOfMonths ? "10px" : "" }}>
-              <WeekDays state={state} customWeekDays={customWeekDays} />
-              {
-                weeks.map((week, index) => {
-                  return (
-                    <div key={index} className="rmdp-week">
-                      {week.map((object, i) => {
-                        //To clear the properties which are added from the previous render
-                        object = { date: object.date, day: object.day, current: object.current }
+    <div
+      className="rmdp-day-picker"
+      style={{ display: "flex" }}
+    >
+      {months.map((weeks, monthIndex) => (
+        <div
+          key={monthIndex}
+          style={{ [isRTL ? "marginLeft" : "marginRight"]: monthIndex + 1 < numberOfMonths ? "10px" : "" }}
+        >
+          <WeekDays state={state} customWeekDays={customWeekDays} />
+          {weeks.map((week, index) => (
+            <div key={index} className="rmdp-week">
+              {week.map((object, i) => {
+                //To clear the properties which are added from the previous render
+                object = { date: object.date, day: object.day, current: object.current }
 
-                        let otherProps = {},
-                          mustAddClassName = mustDisplayDay(object) && !object.disabled,
-                          className = `${mustAddClassName ? "sd" : ""}`
+                let otherProps = {},
+                  mustAddClassName = mustDisplayDay(object) && !object.disabled,
+                  className = `${mustAddClassName ? "sd" : ""}`
 
-                        if (mapDays instanceof Function) {
-                          otherProps = getOtherProps(object)
+                if (mapDays instanceof Function) {
+                  otherProps = getOtherProps(object)
 
-                          if (mustAddClassName) className = `${className} ${otherProps.className || ""}`
-                          if (object.hidden) className = className.replace("sd", "")
+                  if (mustAddClassName) className = `${className} ${otherProps.className || ""}`
+                  if (object.hidden) className = className.replace("sd", "")
 
-                          delete otherProps.className
-                        }
-                        return (
-                          <div
-                            key={i}
-                            className={getClassName(object, numberOfMonths)}
-                            onClick={() => {
-                              if (!mustDisplayDay(object)) return
-                              if (object.disabled) return
+                  delete otherProps.className
+                }
 
-                              selectDay(object, monthIndex, numberOfMonths)
-                            }}
-                          >
-                            <span
-                              className={className}
-                              {...otherProps}
-                            >
-                              {mustDisplayDay(object) && !object.hidden ? object.day : ""}
-                            </span>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  )
-                })
-              }
+                return (
+                  <div
+                    key={i}
+                    className={getClassName(object, numberOfMonths)}
+                    onClick={() => {
+                      if (!mustDisplayDay(object)) return
+                      if (object.disabled) return
+
+                      selectDay(object, monthIndex, numberOfMonths)
+                    }}
+                  >
+                    <span
+                      className={className}
+                      {...otherProps}
+                    >
+                      {mustDisplayDay(object) && !object.hidden ? object.day : ""}
+                    </span>
+                  </div>
+                )
+              })}
             </div>
-          )
-        })
-      }
+          ))}
+        </div>
+      ))}
     </div>
   )
 
@@ -108,7 +106,7 @@ export default function DayPicker({
       .setMinute(state.selectedDate?.minute || state.date.minute)
       .setSecond(state.selectedDate?.second || state.date.second)
 
-    let { focused, selectedDate } = state
+    let { selectedDate, focused } = state
 
     if (numberOfMonths === 1 && !current) {
       state.date = new DateObject(date).toFirstOfMonth()
@@ -122,25 +120,15 @@ export default function DayPicker({
       }
     }
 
-    if (multiple) {
-      let dates = selectedDate.filter($date => !isSameDate(date, $date))
-
-      if (dates.length === selectedDate.length) dates.push(new DateObject(date))
-
-      selectedDate = dates
-      focused = dates[dates.length - 1]
-
-      if (sort) selectedDate.sort((a, b) => a - b)
-    } else if (range) {
-      if (selectedDate.length === 2 || selectedDate.length === 0) {
-        selectedDate = [new DateObject(date)]
-      } else if (selectedDate.length === 1) {
-        selectedDate.push(new DateObject(date))
-        selectedDate.sort((a, b) => a - b)
-      }
-    } else {
-      selectedDate = new DateObject(date)
-    }
+    [selectedDate, focused] = selectDate(
+      multiple,
+      range,
+      selectedDate,
+      date,
+      sort,
+      onlyMonthPicker,
+      onlyYearPicker
+    )
 
     onChange(selectedDate, {
       ...state,
@@ -287,10 +275,44 @@ function getMonths(date, showOtherDays, numberOfMonths) {
   return months
 }
 
-export function isSameDate(firstDate, secondDate) {
+export function selectDate(multiple, range, selectedDate, date, sort, onlyMonthPicker, onlyYearPicker) {
+  if (multiple) {
+    selectedDate = selectMultiple()
+  } else if (range) {
+    selectedDate = selectRange()
+  } else {
+    selectedDate = new DateObject(date)
+  }
+
+  return [
+    selectedDate,
+    multiple || range ? selectedDate[selectedDate.length - 1] : undefined
+  ]
+
+  function selectMultiple() {
+    let dates = selectedDate.filter($date => !isSameDate(date, $date, onlyMonthPicker, onlyYearPicker))
+
+    if (dates.length === selectedDate.length) dates.push(new DateObject(date))
+    if (sort) dates.sort((a, b) => a - b)
+
+    return dates
+  }
+
+  function selectRange() {
+    if (selectedDate.length === 2 || selectedDate.length === 0) return [new DateObject(date)]
+    if (selectedDate.length === 1) return [selectedDate[0], new DateObject(date)].sort((a, b) => a - b)
+  }
+}
+
+export function isSameDate(firstDate, secondDate, onlyMonthPicker = false, onlyYearPicker = false) {
   if (!firstDate || !secondDate) return false
 
-  return firstDate.year === secondDate.year &&
-    firstDate.month.number === secondDate.month.number &&
-    firstDate.day === secondDate.day
+  if (firstDate.year === secondDate.year) {
+    if (onlyYearPicker) return true
+
+    if (firstDate.month.number === secondDate.month.number) {
+      if (onlyMonthPicker) return true
+      if (firstDate.day === secondDate.day) return true
+    }
+  }
 }
