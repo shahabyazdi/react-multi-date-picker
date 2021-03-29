@@ -110,9 +110,53 @@ const [dates, setDates] = useState([
     />
   }
 
+  let monthPicker = {
+    title: "Multiple Month Picker",
+    code: `<DatePicker
+  onlyMonthPicker
+  multiple
+  sort
+  plugins={[
+    <DatePanel />
+  ]}
+/>`,
+    jsx: <DatePicker
+      onlyMonthPicker
+      multiple
+      sort
+      plugins={[
+        <DatePanel />
+      ]}
+      {...otherProps}
+    />
+  }
+
+  let yearPicker = {
+    title: "Multiple Year Picker",
+    code: `<DatePicker
+  onlyYearPicker
+  multiple
+  sort
+  plugins={[
+    <DatePanel />
+  ]}
+/>`,
+    jsx: <DatePicker
+      onlyYearPicker
+      multiple
+      sort
+      plugins={[
+        <DatePanel />
+      ]}
+      {...otherProps}
+    />
+  }
+
   return [
     multiple,
     datePanel,
-    sort
+    sort,
+    monthPicker,
+    yearPicker
   ]
 }
