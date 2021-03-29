@@ -13,12 +13,13 @@ export default function Header({
 }) {
   let monthNames = [],
     years = [],
-    digits = state.date.digits
+    { date, onlyMonthPicker, onlyYearPicker } = state,
+    digits = date.digits
 
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     let monthName,
-      year = state.date.year,
-      index = state.date.month.index + monthIndex
+      year = date.year,
+      index = date.month.index + monthIndex
 
     if (index > 11) {
       index -= 12
@@ -30,7 +31,7 @@ export default function Header({
 
       monthName = Array.isArray(month) ? month[0] : month
     } else {
-      monthName = state.date.months[index].name
+      monthName = date.months[index].name
     }
 
     year = year.toString().replace(/[0-9]/g, w => digits[w])
@@ -43,35 +44,31 @@ export default function Header({
     <div className="rmdp-header" style={{ display: state.onlyTimePicker ? "none" : "block" }}>
       <div style={{ position: "relative", display: "flex" }}>
         <Arrow direction="rmdp-left" onClick={() => increaseValue(-1)} />
-        {
-          monthNames.map((monthName, index) => {
-            return (
-              <div key={index} className="rmdp-header-values">
-                {!state.onlyYearPicker &&
-                  <span
-                    style={{ cursor: disableMonthPicker || state.onlyMonthPicker ? "default" : "pointer" }}
-                    onClick={() => !disableMonthPicker && toggle("mustShowMonthPicker")}
-                  >
-                    {monthName},
-                  </span>
-                }
-                <span
-                  style={{ cursor: disableYearPicker || state.onlyYearPicker ? "default" : "pointer" }}
-                  onClick={() => !disableYearPicker && toggle("mustShowYearPicker")}
-                >
-                  {years[index]}
-                </span>
-              </div>
-            )
-          })
-        }
+        {monthNames.map((monthName, index) => (
+          <div key={index} className="rmdp-header-values">
+            {!onlyYearPicker &&
+              <span
+                style={{ cursor: disableMonthPicker || onlyMonthPicker ? "default" : "pointer" }}
+                onClick={() => !disableMonthPicker && toggle("mustShowMonthPicker")}
+              >
+                {monthName},
+              </span>
+            }
+            <span
+              style={{ cursor: disableYearPicker || onlyYearPicker ? "default" : "pointer" }}
+              onClick={() => !disableYearPicker && toggle("mustShowYearPicker")}
+            >
+              {years[index]}
+            </span>
+          </div>
+        ))}
         <Arrow direction="rmdp-right" onClick={() => increaseValue(1)} />
       </div>
     </div>
   )
 
   function increaseValue(value) {
-    let { date, selectedDate, mustShowYearPicker, mustShowMonthPicker, onlyYearPicker, onlyMonthPicker, minDate, maxDate } = state
+    let { selectedDate, mustShowYearPicker, minDate, maxDate, year } = state
 
     if (!mustShowYearPicker && !onlyYearPicker) {
       if (minDate && date.year <= minDate.year && minDate.month.number > date.month.number + value) return
@@ -86,15 +83,13 @@ export default function Header({
       }
 
     } else {
-      if (minDate && minDate.year > state.year + value) return
-      if (maxDate && maxDate.year < state.year + value) return
+      if (minDate && minDate.year > year + value) return
+      if (maxDate && maxDate.year < year + value) return
 
-      let year = state.year + (value * 12)
+      year = year + (value * 12)
 
       if (value < 0 && minDate && year < minDate.year) year = minDate.year
       if (value > 0 && maxDate && year > maxDate.year) year = maxDate.year
-
-      state.year = year
     }
 
     onChange(
@@ -103,7 +98,7 @@ export default function Header({
         ...state,
         date,
         selectedDate,
-        year: state.year
+        year
       }
     )
   }

@@ -62,18 +62,10 @@ export default function YearPicker({ state, onChange }) {
     if (maxDate && year > maxDate.year) return
 
     let date = new DateObject(state.date).setYear(year),
-      { selectedDate, focused, sort, onlyMonthPicker } = state
+      { selectedDate, focused } = state
 
     if (onlyYearPicker) {
-      [selectedDate, focused] = selectDate(
-        multiple,
-        range,
-        selectedDate,
-        date,
-        sort,
-        onlyMonthPicker,
-        onlyYearPicker
-      )
+      [selectedDate, focused] = selectDate(date, state)
 
       if (!multiple && !range) {
         if (minDate && date.month.number < minDate.month.number) {

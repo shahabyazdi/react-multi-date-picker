@@ -75,17 +75,7 @@ export default function MonthPicker({ state, onChange, customMonths }) {
 
     date.setMonth(index + 1)
 
-    if (onlyMonthPicker) {
-      [selectedDate, focused] = selectDate(
-        multiple,
-        range,
-        selectedDate,
-        dateObject,
-        sort,
-        onlyMonthPicker,
-        onlyYearPicker
-      )
-    }
+    if (onlyMonthPicker) [selectedDate, focused] = selectDate(date, state)
 
     onChange(
       onlyMonthPicker ? selectedDate : undefined,

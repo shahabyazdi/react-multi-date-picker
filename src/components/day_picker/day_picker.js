@@ -100,41 +100,38 @@ export default function DayPicker({
     return showOtherDays
   }
 
-  function selectDay({ date, current }, monthIndex, numberOfMonths) {
-    date
-      .setHour(state.selectedDate?.hour || state.date.hour)
-      .setMinute(state.selectedDate?.minute || state.date.minute)
-      .setSecond(state.selectedDate?.second || state.date.second)
+  function selectDay({ date: dateObject, current }, monthIndex, numberOfMonths) {
+    let { selectedDate, focused } = state,
+      { hour, minute, second, month } = date
 
-    let { selectedDate, focused } = state
+    dateObject.set({
+      hour: selectedDate?.hour || hour,
+      minute: selectedDate?.minute || minute,
+      second: selectedDate?.second || second
+    })
 
     if (numberOfMonths === 1 && !current) {
-      state.date = new DateObject(date).toFirstOfMonth()
+      date = new DateObject(date).toFirstOfMonth()
     } else if (numberOfMonths > 1 && !current) {
-      if (monthIndex === 0 && date < state.date) {
-        state.date = new DateObject(date).toFirstOfMonth()
+      if (monthIndex === 0 && dateObject < date) {
+        date = new DateObject(date).toFirstOfMonth()
       }
 
-      if (monthIndex > 0 && date.month.index > state.date.month.index + monthIndex && monthIndex + 1 === numberOfMonths) {
-        state.date = new DateObject(state.date).toFirstOfMonth().add(1, "month")
+      if (monthIndex > 0 && dateObject.month.index > month.index + monthIndex && monthIndex + 1 === numberOfMonths) {
+        date = new DateObject(date).toFirstOfMonth().add(1, "month")
       }
     }
 
-    [selectedDate, focused] = selectDate(
-      multiple,
-      range,
-      selectedDate,
-      date,
-      sort,
-      onlyMonthPicker,
-      onlyYearPicker
-    )
+    [selectedDate, focused] = selectDate(dateObject, state)
 
-    onChange(selectedDate, {
-      ...state,
-      focused,
-      selectedDate
-    })
+    onChange(
+      selectedDate,
+      {
+        ...state,
+        focused,
+        selectedDate
+      }
+    )
   }
 
   function getClassName(object, numberOfMonths) {
@@ -275,7 +272,7 @@ function getMonths(date, showOtherDays, numberOfMonths) {
   return months
 }
 
-export function selectDate(multiple, range, selectedDate, date, sort, onlyMonthPicker, onlyYearPicker) {
+export function selectDate(date, { multiple, range, selectedDate, sort, onlyMonthPicker, onlyYearPicker }) {
   if (multiple) {
     selectedDate = selectMultiple()
   } else if (range) {
