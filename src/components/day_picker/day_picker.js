@@ -122,7 +122,7 @@ export default function DayPicker({
       }
     }
 
-    [selectedDate, focused] = selectDate(dateObject, state)
+    [selectedDate, focused] = selectDate(dateObject, sort, state)
 
     onChange(
       selectedDate,
@@ -272,7 +272,7 @@ function getMonths(date, showOtherDays, numberOfMonths) {
   return months
 }
 
-export function selectDate(date, { multiple, range, selectedDate, sort, onlyMonthPicker, onlyYearPicker }) {
+export function selectDate(date, sort, { multiple, range, selectedDate, onlyMonthPicker, onlyYearPicker }) {
   if (multiple) {
     selectedDate = selectMultiple()
   } else if (range) {
@@ -290,7 +290,10 @@ export function selectDate(date, { multiple, range, selectedDate, sort, onlyMont
     let dates = selectedDate.filter($date => !isSameDate(date, $date, onlyMonthPicker, onlyYearPicker))
 
     if (dates.length === selectedDate.length) dates.push(new DateObject(date))
-    if (sort) dates.sort((a, b) => a - b)
+    if (sort) {
+      console.log("inja umad");
+      dates.sort((a, b) => a - b)
+    }
 
     return dates
   }

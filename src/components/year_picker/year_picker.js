@@ -2,7 +2,7 @@ import React, { useMemo } from "react"
 import { selectDate } from "../day_picker/day_picker"
 import DateObject from "react-date-object"
 
-export default function YearPicker({ state, onChange }) {
+export default function YearPicker({ state, onChange, sort }) {
   const { date, today, minDate, maxDate, onlyYearPicker, multiple, range, onlyShowInRangeDates } = state,
     mustShowYearPicker = (state.mustShowYearPicker || onlyYearPicker) && !state.onlyTimePicker,
     digits = date.digits
@@ -65,7 +65,7 @@ export default function YearPicker({ state, onChange }) {
       { selectedDate, focused } = state
 
     if (onlyYearPicker) {
-      [selectedDate, focused] = selectDate(date, state)
+      [selectedDate, focused] = selectDate(date, sort, state)
 
       if (!multiple && !range) {
         if (minDate && date.month.number < minDate.month.number) {

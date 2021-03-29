@@ -2,8 +2,8 @@ import React, { useMemo } from "react"
 import { selectDate } from "../day_picker/day_picker"
 import DateObject from "react-date-object"
 
-export default function MonthPicker({ state, onChange, customMonths }) {
-  const { date, today, minDate, maxDate, calendar, locale, onlyMonthPicker, onlyYearPicker, multiple, range, sort, onlyShowInRangeDates } = state,
+export default function MonthPicker({ state, onChange, customMonths, sort }) {
+  const { date, today, minDate, maxDate, calendar, locale, onlyMonthPicker, onlyYearPicker, multiple, range, onlyShowInRangeDates } = state,
     mustShowMonthPicker = (state.mustShowMonthPicker || onlyMonthPicker) && !state.onlyTimePicker && !onlyYearPicker
 
   const months = useMemo(() => {
@@ -75,7 +75,7 @@ export default function MonthPicker({ state, onChange, customMonths }) {
 
     date.setMonth(index + 1)
 
-    if (onlyMonthPicker) [selectedDate, focused] = selectDate(date, state)
+    if (onlyMonthPicker) [selectedDate, focused] = selectDate(date, sort, state)
 
     onChange(
       onlyMonthPicker ? selectedDate : undefined,

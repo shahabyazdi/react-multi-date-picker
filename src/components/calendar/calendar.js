@@ -284,10 +284,12 @@ function Calendar({
               state={state}
               onChange={handleChange}
               customMonths={months}
+              sort={sort}
             />
             <YearPicker
               state={state}
               onChange={handleChange}
+              sort={sort}
             />
           </div>
           <TimePicker
