@@ -129,9 +129,49 @@ const [allDates, setAllDates] = useState([])
     </div >
   }
 
+  let monthPicker = {
+    title: "Range Month Picker",
+    code: `<DatePicker
+  onlyMonthPicker
+  range
+  plugins={[
+    <DatePanel />
+  ]}
+/>`,
+    jsx: <DatePicker
+      onlyMonthPicker
+      range
+      plugins={[
+        <DatePanel />
+      ]}
+      {...otherProps}
+    />
+  }
+
+  let yearPicker = {
+    title: "Range Year Picker",
+    code: `<DatePicker
+  onlyYearPicker
+  range
+  plugins={[
+    <DatePanel />
+  ]}
+/>`,
+    jsx: <DatePicker
+      onlyYearPicker
+      range
+      plugins={[
+        <DatePanel />
+      ]}
+      {...otherProps}
+    />
+  }
+
   return [
     range,
     datePanel,
-    eachDaysInRange
+    eachDaysInRange,
+    monthPicker,
+    yearPicker
   ]
 }
