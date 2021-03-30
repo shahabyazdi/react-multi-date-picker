@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Selectors from "../selectors/selectors"
-import DatePicker, { Calendar } from "../../../../src/index"
+import DatePicker, { Calendar } from "../../../../build/index"
 import DatePanel from "../../../../plugins/date_panel"
 import "./demo.css"
 
@@ -10,7 +10,9 @@ export default function Demo({ language = "en", translate }) {
     calendar: language === "fa" ? "persian" : "gregorian",
     locale: language,
     mustShowDates: true,
-    calendarPosition: "bottom-center"
+    calendarPosition: "bottom-center",
+    numberOfMonths: 1,
+    datePanelPosition: ["fa"].includes(language) ? "left" : "right"
   })
 
   const {
@@ -30,7 +32,9 @@ export default function Demo({ language = "en", translate }) {
     showOtherDays,
     mustShowDates,
     calendarPosition,
-    animation
+    animation,
+    numberOfMonths,
+    datePanelPosition
   } = state
 
   const updateState = (key, value) => {
@@ -40,7 +44,7 @@ export default function Demo({ language = "en", translate }) {
       setState({ ...state, [key]: value })
     }
   }
-
+  console.log((!multiple && !range), (multiple || range), !mustShowDates, numberOfMonths > 1);
   const props = {
     ...state,
     className: `${layout} ${color} ${background}`,
@@ -50,8 +54,8 @@ export default function Demo({ language = "en", translate }) {
     plugins: [
       <DatePanel
         sort="date"
-        position={["fa", "ar"].includes(locale) ? "left" : "right"}
-        disabled={(!multiple && !range) || ((multiple || range) && !mustShowDates)}
+        position={datePanelPosition}
+        disabled={(!multiple && !range) || ((multiple || range) && !mustShowDates) || numberOfMonths > 1}
       />
     ]
   }
@@ -112,7 +116,6 @@ export default function Demo({ language = "en", translate }) {
           },
           {
             title: translate("Other Pickers"),
-            // disabled: range || multiple,
             options: [
               [translate("Disable"), "disable"],
               [translate("Time Picker"), "timePicker"],
@@ -142,14 +145,14 @@ export default function Demo({ language = "en", translate }) {
           }
           ,
           {
-            title: translate("Dates panel"),
-            disabled: !range && !multiple,
+            title: translate("Number Of Months"),
             options: [
-              [translate("Enable"), "enable"],
-              [translate("Disable"), "disable"]
+              ["1", 1],
+              ["2", 2],
+              ["3", 3]
             ],
-            value: mustShowDates ? "enable" : "disable",
-            onChange: value => updateState("mustShowDates", value === "enable")
+            value: numberOfMonths,
+            onChange: value => updateState("numberOfMonths", Number(value))
           }
           ,
           {
@@ -163,6 +166,28 @@ export default function Demo({ language = "en", translate }) {
             ],
             value: type,
             onChange: value => updateState("type", value)
+          },
+          {
+            title: translate("Dates panel"),
+            disabled: (!range && !multiple) || numberOfMonths > 1,
+            options: [
+              [translate("Enable"), "enable"],
+              [translate("Disable"), "disable"]
+            ],
+            value: mustShowDates ? "enable" : "disable",
+            onChange: value => updateState("mustShowDates", value === "enable")
+          },
+          {
+            title: translate("DatePanel Position"),
+            disabled: (!range && !multiple) || numberOfMonths > 1,
+            options: [
+              [translate("Left"), "left"],
+              [translate("Right"), "right"],
+              [translate("Top"), "top"],
+              [translate("Bottom"), "bottom"]
+            ],
+            value: datePanelPosition,
+            onChange: value => updateState("datePanelPosition", value)
           },
           {
             title: translate("Layout"),

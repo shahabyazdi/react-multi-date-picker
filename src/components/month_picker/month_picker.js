@@ -94,8 +94,22 @@ export default function MonthPicker({ state, onChange, customMonths, sort }) {
       { year, month: { number, index } } = dateObject,
       { selectedDate } = state
 
-    if (minDate && year <= minDate.year && index < minDate.month.index) names.push("rmdp-disabled")
-    if (maxDate && year >= maxDate.year && index > maxDate.month.index) names.push("rmdp-disabled")
+    if (
+      (
+        minDate &&
+        (
+          year < minDate.year ||
+          year === minDate.year && index < minDate.month.index
+        )
+      ) ||
+      (
+        maxDate &&
+        (
+          year > maxDate.year ||
+          year === maxDate.year && index > maxDate.month.index
+        )
+      )
+    ) names.push("rmdp-disabled")
 
     if (names.includes("rmdp-disabled") && onlyShowInRangeDates) return
     if (isSameDate(today, dateObject, true)) names.push("rmdp-today")

@@ -1,7 +1,8 @@
 {
   "demo_descriptions": [
-    "The DatePanel is disabled by default and is activated when you switch to multiple or range mode (of course, these are the current settings that I applied, you can activate the date panel in any cases).",
-    "In multiple or range mode, 'Other Pickers' are disabled.",
+    "The DatePanel & DatePanel Position is disabled by default and is activated when you switch to multiple or range mode & number of months is 1 (of course, these are the current settings that I applied, you can activate them in any cases).",
+    "In multiple or range mode, 'Time & Only Time Picker' are disabled.",
+    "In this page, the number of months is limited to maximum 3, but you can consider any number for it.",
     "Calendar position and animation are activated when the type is anything other than Calendar (input, button, ...)."
   ],
   "Fa": "Farsi",

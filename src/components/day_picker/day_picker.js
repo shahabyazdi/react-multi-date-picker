@@ -101,7 +101,7 @@ export default function DayPicker({
   }
 
   function selectDay({ date: dateObject, current }, monthIndex, numberOfMonths) {
-    let { selectedDate, focused } = state,
+    let { selectedDate, focused, date } = state,
       { hour, minute, second, month } = date
 
     dateObject.set({
@@ -128,6 +128,7 @@ export default function DayPicker({
       selectedDate,
       {
         ...state,
+        date,
         focused,
         selectedDate
       }
