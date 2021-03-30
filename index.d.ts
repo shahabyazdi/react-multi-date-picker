@@ -21,6 +21,7 @@ declare module "react-multi-date-picker" {
      * 
      * @example
      * <Calendar calendar="persian" />
+     * 
      * <DatePicker calendar="indian" />
      */
     calendar?: string,
@@ -34,15 +35,17 @@ declare module "react-multi-date-picker" {
      * 
      * @example
      * <Calendar locale="fa" />
+     * 
      * <DatePicker locale="ar" />
      */
     locale?: string,
     /**
      * @type string
      * @default "YYYY/MM/DD"
-     * @see https://shahabyazdi.github.io/react-multi-date-picker/#formatting-tokens
+     * @see https://shahabyazdi.github.io/react-multi-date-picker/format-tokens/
      * @example 
      * <Calendar format="MM/DD/YYYY hh:mm:ss a" />
+     * 
      * <DatePicker format="MM-DD-YYYY HH:mm:ss" />
      */
     format?: string,
@@ -50,6 +53,7 @@ declare module "react-multi-date-picker" {
      * Enable it if you want to use time picker.
      * @example
      * <Calendar timePicker />
+     * 
      * <DatePicker timePicker />
      */
     timePicker?: boolean,
@@ -62,6 +66,7 @@ declare module "react-multi-date-picker" {
      *  value={[new Date(2020,10,10), new Date(2020,10,14)]}
      *  range
      * />
+     * 
      * <DatePicker range />
      */
     range?: boolean,
@@ -71,6 +76,7 @@ declare module "react-multi-date-picker" {
      *  value={[new Date(2020,10,10), new Date(2020,10,14)]}
      *  multiple
      * />
+     * 
      * <DatePicker multiple />
      */
     multiple?: boolean,
@@ -79,7 +85,7 @@ declare module "react-multi-date-picker" {
      */
     className?: string,
     /**
-     * @see https://shahabyazdi.github.io/react-multi-date-picker/#custom-months-&-weekdays
+     * @see https://shahabyazdi.github.io/react-multi-date-picker/locales/
      * @example
      * <Calendar
      *   weekDays={[
@@ -95,7 +101,7 @@ declare module "react-multi-date-picker" {
      */
     weekDays?: string[] | [string[]],
     /**
-     * @see https://shahabyazdi.github.io/react-multi-date-picker/#custom-months-&-weekdays
+     * @see https://shahabyazdi.github.io/react-multi-date-picker/locales/
      * @example
      * <Calendar
      *  months={[
@@ -159,7 +165,7 @@ declare module "react-multi-date-picker" {
      * You can customize your calendar days 
      * with the mapDays Prop and create different properties 
      * for each of them by returning the Props you want.
-     * @see https://shahabyazdi.github.io/react-multi-date-picker/#map-days
+     * @see https://shahabyazdi.github.io/react-multi-date-picker/map-days/
      * @example
      * <DatePicker
      *  mapDays={() => {
@@ -309,13 +315,26 @@ declare module "react-multi-date-picker" {
      */
     containerClassName?: string,
     /**
-     * You can use this feature to adjust the calendar position relative to the input.
+     * Availble positions:
+     *
+     *  - top or top-center
+     *  - bottom or bottom-center
+     *  - left or left-center
+     *  - right or right-center
+     *  - top-start or top-left
+     *  - bottom-start or bottom-left
+     *  - left-start or left-top
+     *  - right-start or right-top
+     *  - top-end or top-right
+     *  - bottom-end or bottom-right
+     *  - left-end or left-bottom
+     *  - right-end or right-bottom
      * 
-     * To use this, you must enter the X and Y positions as positionY-positionX.
-     * @see https://shahabyazdi.github.io/react-multi-date-picker/#calendar-position
+     * @see https://shahabyazdi.github.io/react-multi-date-picker/positions/
      * @example
+     * 
      * <DatePicker
-     *   calendarPosition="bottom-left"
+     *   calendarPosition="bottom-start"
      * />
      */
     calendarPosition?: string,

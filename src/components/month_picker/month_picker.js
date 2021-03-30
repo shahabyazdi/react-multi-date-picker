@@ -1,9 +1,9 @@
 import React, { useMemo } from "react"
-import { selectDate } from "../day_picker/day_picker"
+import { selectDate, isSameDate } from "../day_picker/day_picker"
 import DateObject from "react-date-object"
 
 export default function MonthPicker({ state, onChange, customMonths, sort }) {
-  const { date, today, minDate, maxDate, calendar, locale, onlyMonthPicker, onlyYearPicker, multiple, range, onlyShowInRangeDates } = state,
+  const { date, today, minDate, maxDate, calendar, locale, onlyMonthPicker, onlyYearPicker, range, onlyShowInRangeDates } = state,
     mustShowMonthPicker = (state.mustShowMonthPicker || onlyMonthPicker) && !state.onlyTimePicker && !onlyYearPicker
 
   const months = useMemo(() => {
@@ -98,19 +98,19 @@ export default function MonthPicker({ state, onChange, customMonths, sort }) {
     if (maxDate && year >= maxDate.year && index > maxDate.month.index) names.push("rmdp-disabled")
 
     if (names.includes("rmdp-disabled") && onlyShowInRangeDates) return
-    if (isSameMonth(today, dateObject)) names.push("rmdp-today")
+    if (isSameDate(today, dateObject, true)) names.push("rmdp-today")
 
     if (!onlyMonthPicker) {
       if (date.month.index === index) names.push("rmdp-selected")
     } else {
       if (!range) {
-        if ([].concat(selectedDate).some(date => isSameMonth(date, dateObject))) names.push("rmdp-selected")
+        if ([].concat(selectedDate).some(date => isSameDate(date, dateObject, true))) names.push("rmdp-selected")
       } else {
         let first = selectedDate[0],
           second = selectedDate[1]
 
         if (selectedDate.length === 1) {
-          if (isSameMonth(dateObject, first)) names.push("rmdp-range")
+          if (isSameDate(dateObject, first, true)) names.push("rmdp-range")
         } else if (selectedDate.length === 2) {
           /**
            * dateObject >= first && dateObject <= second
@@ -129,19 +129,12 @@ export default function MonthPicker({ state, onChange, customMonths, sort }) {
             names.push("rmdp-range")
           }
 
-          if (isSameMonth(dateObject, first)) names.push("start")
-          if (isSameMonth(dateObject, second)) names.push("end")
+          if (isSameDate(dateObject, first, true)) names.push("start")
+          if (isSameDate(dateObject, second, true)) names.push("end")
         }
       }
     }
 
     return names.join(" ")
-  }
-
-  function isSameMonth(firstDate, secondDate) {
-    if (!firstDate || !secondDate) return false
-
-    return firstDate.year === secondDate.year &&
-      firstDate.month.number === secondDate.month.number
   }
 }

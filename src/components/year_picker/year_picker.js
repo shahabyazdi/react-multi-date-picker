@@ -105,19 +105,15 @@ export default function YearPicker({ state, onChange, sort }) {
       if (!range) {
         if ([].concat(selectedDate).some(date => date.year === year)) names.push("rmdp-selected")
       } else {
-        if (selectedDate.length === 1) {
-          if (year === selectedDate[0].year) names.push("rmdp-range")
-        } else if (selectedDate.length === 2) {
-          let first = selectedDate[0],
-            second = selectedDate[1]
-          /**
-           * date >= selectedDate[0] && date <= selectedDate[1] 
-           * doesn't work if user enter currentDate
-           */
-          if (year >= first.year && year <= second.year) names.push("rmdp-range")
+        let first = selectedDate[0],
+          second = selectedDate[1]
 
-          if (year === selectedDate[0].year) names.push("start")
-          if (year === selectedDate[1].year) names.push("end")
+        if (selectedDate.length === 1) {
+          if (year === first.year) names.push("rmdp-range")
+        } else if (selectedDate.length === 2) {
+          if (year >= first.year && year <= second.year) names.push("rmdp-range")
+          if (year === first.year) names.push("start")
+          if (year === second.year) names.push("end")
         }
       }
     }

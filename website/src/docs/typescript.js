@@ -1,6 +1,4 @@
-import React from "react"
-
-export default function (translate) {
+export default function () {
   const typescript = {
     title: "Usage",
     description: "typescript",

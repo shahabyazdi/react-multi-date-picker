@@ -14,7 +14,7 @@ export default function DayPicker({
   isRTL
 }) {
   const ref = useRef({}),
-    { today, minDate, maxDate, multiple, range, date, selectedDate, onlyMonthPicker, onlyYearPicker } = state,
+    { today, minDate, maxDate, range, date, selectedDate, onlyMonthPicker, onlyYearPicker } = state,
     mustShowDayPicker = !state.onlyTimePicker && !onlyMonthPicker && !onlyYearPicker
 
   ref.current.date = date
@@ -168,14 +168,15 @@ export default function DayPicker({
       }
 
       if (range && !disabled && mustDisplaySelectedDate) {
+        let { year, month, day } = date,
+          first = selectedDate[0],
+          second = selectedDate[1]
+
         if (selectedDate.length === 1) {
-          if (isSameDate(date, selectedDate[0])) names.push("rmdp-range")
+          if (isSameDate(date, first)) names.push("rmdp-range")
         } else if (selectedDate.length === 2) {
-          let { year, month, day } = date,
-            first = selectedDate[0],
-            second = selectedDate[1]
           /**
-           * date >= selectedDate[0] && date <= selectedDate[1] 
+           * date >= selectedDate && date <= second
            * doesn't work if user enter currentDate
            */
           if (
@@ -193,8 +194,8 @@ export default function DayPicker({
             names.push("rmdp-range")
           }
 
-          if (isSameDate(date, selectedDate[0])) names.push("start")
-          if (isSameDate(date, selectedDate[1])) names.push("end")
+          if (isSameDate(date, first)) names.push("start")
+          if (isSameDate(date, second)) names.push("end")
         }
       }
     }
@@ -202,16 +203,8 @@ export default function DayPicker({
     return names.join(" ")
   }
 
-  function isSelected(date) {
-    if (!date || !state.selectedDate) return false
-
-    if (multiple) {
-      for (let selectedDate of state.selectedDate) {
-        if (isSameDate(selectedDate, date)) return true
-      }
-    } else {
-      return isSameDate(state.selectedDate, date)
-    }
+  function isSelected(dateObject) {
+    return [].concat(selectedDate).some(date => isSameDate(date, dateObject))
   }
 
   function getOtherProps(object) {
