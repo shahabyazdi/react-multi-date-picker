@@ -163,7 +163,7 @@ export default function DayPicker({
         (disabled && !onlyShowInRangeDates)
       ) {
         if (isSameDate(date, today)) names.push("rmdp-today")
-        if (isSelected(date) && mustDisplaySelectedDate) {
+        if (isSelected(date) && mustDisplaySelectedDate && !range) {
           names.push("rmdp-selected")
         }
       }
