@@ -1,91 +1,129 @@
 import React, { useMemo } from "react"
+import { selectDate, isSameDate, getRangeClass } from "../day_picker/day_picker"
 import DateObject from "react-date-object"
 
-export default function MonthPicker({ state, onChange, customMonths }) {
-    const { minDate, maxDate, calendar, locale, onlyMonthPicker } = state,
-        mustShowMonthPicker = (state.mustShowMonthPicker || onlyMonthPicker) && !state.onlyTimePicker && !state.onlyYearPicker
+export default function MonthPicker({ state, onChange, customMonths, sort }) {
+  const { date, today, minDate, maxDate, calendar, locale, onlyMonthPicker, onlyYearPicker, range, onlyShowInRangeDates } = state,
+    mustShowMonthPicker = (state.mustShowMonthPicker || onlyMonthPicker) && !state.onlyTimePicker && !onlyYearPicker
 
-    const months = useMemo(() => {
-        let months = customMonths
+  const months = useMemo(() => {
+    let months = customMonths,
+      monthsArray = [],
+      index = 0,
+      date = new DateObject({
+        calendar,
+        locale,
+        year: state.date.year,
+        month: 1,
+        day: 1
+      })
 
-        if (Array.isArray(months) && months.length >= 12) {
-            months.length = 12
+    if (Array.isArray(months) && months.length >= 12) {
+      months.length = 12
 
-            months = months.map(month => Array.isArray(month) ? month[0] : month)
-        } else {
-            months = new DateObject({
-                year: undefined,
-                calendar,
-                locale,
+      months = months.map(month => Array.isArray(month) ? month[0] : month)
+    } else {
+      months = date.months.map(month => month.name)
+    }
 
-            }).months.map(month => month.name)
-        }
+    for (var i = 0; i < 4; i++) {
+      let array = []
 
-        let monthsArray = []
-        let index = 0
+      for (var j = 0; j < 3; j++) {
+        array.push({
+          date: new DateObject(date),
+          name: months[index]
+        })
 
-        for (var i = 0; i < 4; i++) {
-            let array = []
+        index++
+        date.add(1, "month")
+      }
 
-            for (var j = 0; j < 3; j++) {
-                array.push(months[index])
-                index++
-            }
+      monthsArray.push(array)
+    }
 
-            monthsArray.push(array)
-        }
+    return monthsArray
+  }, [calendar, locale, customMonths, state.date.year])
 
-        return monthsArray
-    }, [calendar, locale, customMonths])
-
-    return (
-        <div
-            className={`${onlyMonthPicker ? "only " : ""}rmdp-month-picker`}
-            style={{ display: mustShowMonthPicker ? "block" : "none" }}
-        >
-            {months.map((array, i) => <div key={i} className="rmdp-ym">
-                {array.map((name, j) => <div
-                    key={j}
-                    className={getClassName(i * 3 + j)}
-                    onClick={() => selectMonth(i * 3 + j)}
-                >
-                    <span className={onlyMonthPicker ? "sd" : ""}>{name}</span>
-                </div>
-                )}
+  return (
+    <div
+      className={`${onlyMonthPicker ? "only " : ""}rmdp-month-picker`}
+      style={{ display: mustShowMonthPicker ? "block" : "none" }}
+    >
+      {months.map((array, i) => (
+        <div key={i} className="rmdp-ym">
+          {array.map(({ date, name }, j) => (
+            <div
+              key={j}
+              className={getClassName(date)}
+              onClick={() => selectMonth(date)}
+            >
+              <span className={onlyMonthPicker ? "sd" : ""}>{name}</span>
             </div>
-            )}
+          ))}
         </div>
+      ))}
+    </div>
+  )
+
+  function selectMonth(dateObject) {
+    let { selectedDate, focused } = state,
+      { year, month: { index } } = dateObject
+
+    if (minDate && year <= minDate.year && index < minDate.month.index) return
+    if (maxDate && year >= maxDate.year && index > maxDate.month.index) return
+
+    date.setMonth(index + 1)
+
+    if (onlyMonthPicker) [selectedDate, focused] = selectDate(dateObject, sort, state)
+
+    onChange(
+      onlyMonthPicker ? selectedDate : undefined,
+      {
+        ...state,
+        date,
+        focused,
+        selectedDate,
+        mustShowMonthPicker: false
+      }
     )
+  }
 
-    function selectMonth(monthIndex) {
-        let { date } = state
+  function getClassName(dateObject) {
+    let names = ["rmdp-day"],
+      { year, month: { number, index } } = dateObject,
+      { selectedDate } = state
 
-        if (minDate && date.year <= minDate.year && monthIndex < minDate.month.index) return
-        if (maxDate && date.year >= maxDate.year && monthIndex > maxDate.month.index) return
-
-        date = date.setMonth(monthIndex + 1)
-
-        let selectedDate = onlyMonthPicker ? new DateObject(date) : state.selectedDate
-
-        onChange(
-            onlyMonthPicker ? selectedDate : undefined,
-            {
-                ...state,
-                date,
-                selectedDate,
-                mustShowMonthPicker: false,
-            }
+    if (
+      (
+        minDate &&
+        (
+          year < minDate.year ||
+          year === minDate.year && index < minDate.month.index
         )
+      ) ||
+      (
+        maxDate &&
+        (
+          year > maxDate.year ||
+          year === maxDate.year && index > maxDate.month.index
+        )
+      )
+    ) names.push("rmdp-disabled")
+
+    if (names.includes("rmdp-disabled") && onlyShowInRangeDates) return
+    if (isSameDate(today, dateObject, true)) names.push("rmdp-today")
+
+    if (!onlyMonthPicker) {
+      if (date.month.index === index) names.push("rmdp-selected")
+    } else {
+      if (!range) {
+        if ([].concat(selectedDate).some(date => isSameDate(date, dateObject, true))) names.push("rmdp-selected")
+      } else {
+        names.push(getRangeClass(dateObject, selectedDate, true))
+      }
     }
 
-    function getClassName(monthIndex) {
-        let names = ["rmdp-day"],
-            { date } = state
-
-        if (date.month.index === monthIndex) names.push("rmdp-selected")
-        if (minDate && date.year <= minDate.year && monthIndex < minDate.month.index) names.push("rmdp-disabled")
-        if (maxDate && date.year >= maxDate.year && monthIndex > maxDate.month.index) names.push("rmdp-disabled")
-
-        return names.join(" ")
-    }
+    return names.join(" ")
+  }
 }

@@ -46,7 +46,12 @@ function Calendar({
     currentDate = undefined
   }
 
-  if (typeof numberOfMonths !== "number" || numberOfMonths < 1) numberOfMonths = 1
+  if (
+    typeof numberOfMonths !== "number" ||
+    numberOfMonths < 1 ||
+    onlyMonthPicker ||
+    onlyYearPicker
+  ) numberOfMonths = 1
 
   let [state, setState] = useState({ date: currentDate }),
     listeners = {},
@@ -140,6 +145,7 @@ function Calendar({
       } else if (selectedDate) {
         checkDate(selectedDate)
       }
+
       if ($multiple || range || Array.isArray($value)) {
         if (!selectedDate) selectedDate = []
         if (!Array.isArray(selectedDate)) selectedDate = [selectedDate]
@@ -161,8 +167,6 @@ function Calendar({
 
         $timePicker = false
         $onlyTimePicker = false
-        $onlyMonthPicker = false
-        $onlyYearPicker = false
       } else if (Array.isArray(selectedDate)) {
         selectedDate = selectedDate[selectedDate.length - 1]
       }
@@ -183,7 +187,9 @@ function Calendar({
         calendar,
         locale,
         format: $format,
-        mustSortDates
+        mustSortDates,
+        year: state.year || date.year,
+        today: state.today || new DateObject({ calendar })
       }
     })
   }, [
@@ -278,10 +284,12 @@ function Calendar({
               state={state}
               onChange={handleChange}
               customMonths={months}
+              sort={sort}
             />
             <YearPicker
               state={state}
               onChange={handleChange}
+              sort={sort}
             />
           </div>
           <TimePicker
