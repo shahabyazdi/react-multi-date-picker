@@ -169,35 +169,7 @@ export default function DayPicker({
       }
 
       if (range && !disabled && mustDisplaySelectedDate) {
-        let { year, month, day } = date,
-          first = selectedDate[0],
-          second = selectedDate[1]
-
-        if (selectedDate.length === 1) {
-          if (isSameDate(date, first)) names.push("rmdp-range")
-        } else if (selectedDate.length === 2) {
-          /**
-           * date >= selectedDate && date <= second
-           * doesn't work if user enter currentDate
-           */
-          if (
-            (
-              year > first.year ||
-              (year === first.year && month.number > first.month.number) ||
-              (year === first.year && month.number === first.month.number && day >= first.day)
-            ) &&
-            (
-              year < second.year ||
-              (year === second.year && month.number < second.month.number) ||
-              (year === second.year && month.number === second.month.number && day <= second.day)
-            )
-          ) {
-            names.push("rmdp-range")
-          }
-
-          if (isSameDate(date, first)) names.push("start")
-          if (isSameDate(date, second)) names.push("end")
-        }
+        names.push(getRangeClass(date, selectedDate))
       }
     }
 
@@ -306,4 +278,26 @@ export function isSameDate(firstDate, secondDate, onlyMonthPicker = false, onlyY
       if (firstDate.day === secondDate.day) return true
     }
   }
+}
+
+export function getRangeClass(date, selectedDate, checkMonth) {
+  let first = selectedDate[0],
+    second = selectedDate[1],
+    names = []
+
+  if (selectedDate.length === 1) {
+    if (isSameDate(date, first, checkMonth)) names.push("rmdp-range")
+  } else if (selectedDate.length === 2) {
+    if (
+      date.dayOfBeginning >= first.dayOfBeginning &&
+      date.dayOfBeginning <= second.dayOfBeginning
+    ) {
+      names.push("rmdp-range")
+    }
+
+    if (isSameDate(date, first, checkMonth)) names.push("start")
+    if (isSameDate(date, second, checkMonth)) names.push("end")
+  }
+
+  return names.join(" ")
 }

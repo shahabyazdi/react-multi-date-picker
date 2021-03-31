@@ -349,7 +349,6 @@ function setPosition(
 
       if (distanceX < 0 && distanceX - leftCorner < 0) {
         if (isElementSmaller) {
-          console.log(leftCorner, distanceX);
           arrowX += (leftCorner - distanceX) / 2
         } else if (elementWidth - leftCorner + distanceX < popperWidth) {
           arrowX += (elementWidth - leftCorner + distanceX - popperWidth) / 2

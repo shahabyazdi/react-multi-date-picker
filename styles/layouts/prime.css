@@ -1,5 +1,5 @@
 .rmdp-prime.rmdp-wrapper {
-  border: 1px solid var(--rmdp-shadow);
+  border: 1px solid #8798ad;
 }
 
 .rmdp-prime .rmdp-calendar {
@@ -8,12 +8,12 @@
 
 .rmdp-prime .rmdp-header,
 .rmdp-prime .rmdp-panel-header {
-  border-bottom: 1px solid var(--rmdp-shadow);
+  border-bottom: 1px solid #8798ad;
   margin-top: 0 !important;
 }
 
 .rmdp-prime .rmdp-time-picker {
-  border-top: 1px solid var(--rmdp-shadow);
+  border-top: 1px solid #8798ad;
   margin-bottom: 0 !important;
 }
 
@@ -22,19 +22,19 @@
 }
 
 .rmdp-prime .rmdp-border-top {
-  border-top: 1px solid var(--rmdp-shadow) !important;
+  border-top: 1px solid #8798ad !important;
 }
 
 .rmdp-prime .rmdp-border-bottom {
-  border-bottom: 1px solid var(--rmdp-shadow) !important;
+  border-bottom: 1px solid #8798ad !important;
 }
 
 .rmdp-prime .rmdp-border-left {
-  border-left: 1px solid var(--rmdp-shadow) !important;
+  border-left: 1px solid #8798ad !important;
 }
 
 .rmdp-prime .rmdp-border-right {
-  border-right: 1px solid var(--rmdp-shadow) !important;
+  border-right: 1px solid #8798ad !important;
 }
 
 .rmdp-prime.ep-arrow::after {

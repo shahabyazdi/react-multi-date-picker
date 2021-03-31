@@ -15,7 +15,7 @@
 
 .rmdp-mobile.rmdp-wrapper {
   box-shadow: unset;
-  border: 1px solid var(--rmdp-border);
+  border: 1px solid #cfd8e2;
 }
 
 .rmdp-mobile .rmdp-header,

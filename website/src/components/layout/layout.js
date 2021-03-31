@@ -81,7 +81,7 @@ export default function Layout({ language, doc, section }) {
 
   const translate = string => language === "fa" ? (farsi[string] ?? string) : (english[string] ?? string)
 
-  const pathname = typeof window !== "undefined" ? window.location.pathname : ""
+  const pathname = typeof window !== "undefined" ? window.location.pathname.replace("/react-multi-date-picker", "") : ""
 
   return (
     <main className={language === "fa" ? "rtl" : ""}>

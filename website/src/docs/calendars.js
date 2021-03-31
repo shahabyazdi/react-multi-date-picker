@@ -70,7 +70,7 @@ export default function (translate, language) {
   }
 
   const gregorian = {
-    title: "default_calendar",
+    title: "Default Calendar",
     code: `<Calendar /> `,
     jsx: <Calendar />
   }
@@ -82,7 +82,7 @@ export default function (translate, language) {
   }
 
   const persian = {
-    title: "calendar_example_persian",
+    title: "Persian calendar with Farsi locale",
     code: `<Calendar
   calendar="persian"
   locale="fa"
@@ -113,7 +113,7 @@ export default function (translate, language) {
   }
 
   const arabic = {
-    title: "calendar_example_arabic",
+    title: "Arabic calendar with Arabic locale",
     code: `<Calendar
   calendar="arabic"
   locale="ar"
@@ -125,7 +125,7 @@ export default function (translate, language) {
   }
 
   const indian = {
-    title: "calendar_example_indian",
+    title: "Indian calendar with Indian locale",
     code: `<Calendar
   calendar="indian"
   locale="hi"
@@ -137,7 +137,7 @@ export default function (translate, language) {
   }
 
   const datepicker = {
-    title: "calendar_example_datepicker",
+    title: "Persian datepicker with English locale",
     code: `<DatePicker
   calendar="persian"
   locale="en"

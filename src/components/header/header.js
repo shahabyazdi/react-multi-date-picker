@@ -1,6 +1,5 @@
 import React from "react"
 import Arrow from "../arrow/arrow"
-import DateObject from "react-date-object"
 
 export default function Header({
   state,

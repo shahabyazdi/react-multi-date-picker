@@ -2,7 +2,9 @@ import React, { useState } from "react"
 import Selectors from "../selectors/selectors"
 import DatePicker, { Calendar } from "../../../../build/index"
 import DatePanel from "../../../../plugins/date_panel"
+import { Link } from "gatsby"
 import "./demo.css"
+import list from "./quick_access"
 
 export default function Demo({ language = "en", translate }) {
   const [state, setState] = useState({
@@ -44,7 +46,7 @@ export default function Demo({ language = "en", translate }) {
       setState({ ...state, [key]: value })
     }
   }
-  console.log((!multiple && !range), (multiple || range), !mustShowDates, numberOfMonths > 1);
+
   const props = {
     ...state,
     className: `${layout} ${color} ${background}`,
@@ -272,6 +274,24 @@ export default function Demo({ language = "en", translate }) {
           )
         })}
       </ul>
+
+      <h3>Quick Access</h3>
+      {getList(list)}
     </>
   )
+
+  function getList(list) {
+    return (
+      <ul>
+        {list.map((item, index) => {
+          return (
+            <li key={index}>
+              <Link to={item.path}>{translate(item.name)}</Link>
+              {item.list && getList(item.list)}
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
 }

@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { selectDate, isSameDate } from "../day_picker/day_picker"
+import { selectDate, isSameDate, getRangeClass } from "../day_picker/day_picker"
 import DateObject from "react-date-object"
 
 export default function MonthPicker({ state, onChange, customMonths, sort }) {
@@ -75,7 +75,7 @@ export default function MonthPicker({ state, onChange, customMonths, sort }) {
 
     date.setMonth(index + 1)
 
-    if (onlyMonthPicker) [selectedDate, focused] = selectDate(date, sort, state)
+    if (onlyMonthPicker) [selectedDate, focused] = selectDate(dateObject, sort, state)
 
     onChange(
       onlyMonthPicker ? selectedDate : undefined,
@@ -120,32 +120,7 @@ export default function MonthPicker({ state, onChange, customMonths, sort }) {
       if (!range) {
         if ([].concat(selectedDate).some(date => isSameDate(date, dateObject, true))) names.push("rmdp-selected")
       } else {
-        let first = selectedDate[0],
-          second = selectedDate[1]
-
-        if (selectedDate.length === 1) {
-          if (isSameDate(dateObject, first, true)) names.push("rmdp-range")
-        } else if (selectedDate.length === 2) {
-          /**
-           * dateObject >= first && dateObject <= second
-           * doesn't work if user enter currentDate
-           */
-          if (
-            (
-              year > first.year ||
-              (year === first.year && number >= first.month.number)
-            ) &&
-            (
-              year < second.year ||
-              (year === second.year && number <= second.month.number)
-            )
-          ) {
-            names.push("rmdp-range")
-          }
-
-          if (isSameDate(dateObject, first, true)) names.push("start")
-          if (isSameDate(dateObject, second, true)) names.push("end")
-        }
+        names.push(getRangeClass(dateObject, selectedDate, true))
       }
     }
 
