@@ -275,14 +275,14 @@ export default function Demo({ language = "en", translate }) {
         })}
       </ul>
 
-      <h3>Quick Access</h3>
+      <h3>{translate("Quick Access")} :</h3>
       {getList(list)}
     </>
   )
 
   function getList(list) {
     return (
-      <ul>
+      <ul className="quick-access">
         {list.map((item, index) => {
           return (
             <li key={index}>

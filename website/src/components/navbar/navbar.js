@@ -10,7 +10,7 @@ import { Link } from "gatsby"
 export default function Navbar({ language, toggleSidebar, pathname }) {
   return (
     <nav className="navbar">
-      <IconMenu2 className="open-sidebar" size={30} onClick={toggleSidebar} />
+      <IconMenu2 className="open-sidebar" size={26} onClick={toggleSidebar} />
 
       <div className="navbar-title">
         <span className="name">React Multi Date Picker</span>
