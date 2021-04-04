@@ -91,7 +91,7 @@ export default function MonthPicker({ state, onChange, customMonths, sort }) {
 
   function getClassName(dateObject) {
     let names = ["rmdp-day"],
-      { year, month: { number, index } } = dateObject,
+      { year, month: { index } } = dateObject,
       { selectedDate } = state
 
     if (
@@ -99,14 +99,14 @@ export default function MonthPicker({ state, onChange, customMonths, sort }) {
         minDate &&
         (
           year < minDate.year ||
-          year === minDate.year && index < minDate.month.index
+          (year === minDate.year && index < minDate.month.index)
         )
       ) ||
       (
         maxDate &&
         (
           year > maxDate.year ||
-          year === maxDate.year && index > maxDate.month.index
+          (year === maxDate.year && index > maxDate.month.index)
         )
       )
     ) names.push("rmdp-disabled")

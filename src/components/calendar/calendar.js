@@ -203,7 +203,7 @@ function Calendar({
 
   initPlugins(arguments[0])
 
-  return (state.date ?
+  return (state.today ?
     <div
       ref={outerRef}
       className={`rmdp-wrapper ${className || ""}`}

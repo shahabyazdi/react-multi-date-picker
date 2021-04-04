@@ -3,7 +3,7 @@ import { selectDate } from "../day_picker/day_picker"
 import DateObject from "react-date-object"
 
 export default function YearPicker({ state, onChange, sort }) {
-  const { date, today, minDate, maxDate, onlyYearPicker, multiple, range, onlyShowInRangeDates } = state,
+  const { date, today, minDate, maxDate, onlyYearPicker, range, onlyShowInRangeDates } = state,
     mustShowYearPicker = (state.mustShowYearPicker || onlyYearPicker) && !state.onlyTimePicker,
     digits = date.digits
 
