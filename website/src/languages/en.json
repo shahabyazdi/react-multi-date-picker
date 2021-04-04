@@ -27,7 +27,7 @@
   "important_note_description_part_8": "If the value you enter to datepicker or calendar is String and the format of string is different from the default format (YYYY/MM/DD hh:mm:ss a), the format of that String must match the format you entered into the date picker. otherwise wrong date may be parse.",
   "important_note_description_part_9": "For example, if you consider 05/18/2020 02:20:36 as a value, the format you enter in the datepicker or calendar should also be as follows: MM/DD/YYYY HH:mm:ss",
   "dateobject": [
-    "This library is using DateObject to convert , parse and format date. click <a href='/date-object' target='_blank'>here</a> to see how it works.",
+    "This library is using DateObject to convert , parse and format date. click <a href='/react-multi-date-picker/date-object' target='_blank'>here</a> to see how it works.",
     "<p style='color:red'>*Using DateObject as value is optional. You can ignore it.</p>",
     "to see more information about DateObject please click <a target='__blanck' href='https://github.com/shahabyazdi/react-date-object/'>here.</a>"
   ],
@@ -201,5 +201,9 @@
   "unix_5": "If you want to know the unix value of each date, you must use the toUnix() method. For example, for the above variable, if we use the toUnix method, the same number will be printed for us again:",
   "convert_1": "Use the convert method to convert any calendar to another calendars.",
   "table_1": "The setMonth method in JavaScript accepts the month index, but in DateObject you have to enter the month number.",
-  "table_2": "You can also use the following methods to set the amount of time in DateObject:"
+  "table_2": "You can also use the following methods to set the amount of time in DateObject:",
+  "digits": [
+    "You can use the digits Prop to replace your favorite digits with the default numbers.",
+    "In this example, the default digits are replaced with the Thai numbers."
+  ]
 }

@@ -36,7 +36,8 @@ function Calendar({
   plugins = [],
   sort,
   numberOfMonths = 1,
-  currentDate
+  currentDate,
+  digits
 },
   outerRef
 ) {
@@ -61,69 +62,30 @@ function Calendar({
     setState(state => {
       let { date, selectedDate, initialValue, focused, mustSortDates } = state
 
-      function getFormat() {
-        if (format) return format
-        if (timePicker && !range && !multiple) return "YYYY/MM/DD HH:mm:ss"
-        if (onlyTimePicker) return "HH:mm:ss"
-        if (onlyMonthPicker) return "MM/YYYY"
-        if (onlyYearPicker) return "YYYY"
-        if (range || multiple) return "YYYY/MM/DD"
-      }
-
       function checkDate(date) {
+        if (!date) return
         if (date.calendar !== calendar) date.setCalendar(calendar)
         if (date.locale !== locale) date.setLocale(locale)
         if (date._format !== $format) date.setFormat($format)
+
+        date.digits = digits
 
         return date
       }
 
       let $timePicker = timePicker,
         $onlyTimePicker = onlyTimePicker,
-        $onlyMonthPicker = onlyMonthPicker,
-        $onlyYearPicker = onlyYearPicker,
         $multiple = multiple,
-        $format = getFormat(),
-        $value = value
+        $format = getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple)
 
-      if (!$value) {
-        if (!date) date = new DateObject({ date, calendar, locale, format: $format })
+      if (!value) {
+        if (!date) date = new DateObject({ calendar, locale, format: $format })
         if (initialValue) selectedDate = undefined
-      }
-
-      if ($value) {
-        let values = [].concat($value)
-        let isValid = values.every(val => isValidDateObject(val, calendar, locale, $format))
-
-        let isValueSameAsInitialValue = false
-
-        if (!isValid) {
-          initialValue = initialValue ? [].concat(initialValue) : []
-
-          isValueSameAsInitialValue = values.every((val, index) => isSame(val, initialValue[index]))
-        }
-
-        if (!isValid && !isValueSameAsInitialValue) {
-          if (!date) {
-            date = new DateObject({
-              date: Array.isArray($value) ? $value[0] : $value,
-              calendar,
-              locale,
-              format: $format
-            })
-          }
-
-          if (!date.isValid) date = new DateObject({ calendar, locale, format: $format })
-
-          selectedDate = getSelectedDate($value, calendar, locale, $format)
-        } else {
-          selectedDate = isValid ? $value : getSelectedDate($value, calendar, locale, $format)
-        }
+      } else {
+        selectedDate = getSelectedDate(value, calendar, locale, $format)
 
         if (Array.isArray(selectedDate)) {
-          if (!date) {
-            date = new DateObject(selectedDate[0])
-          }
+          if (!date) date = new DateObject(selectedDate[0])
         } else {
           if (!date || numberOfMonths === 1) {
             date = new DateObject(selectedDate)
@@ -138,15 +100,9 @@ function Calendar({
         }
       }
 
-      checkDate(date)
+      [].concat(selectedDate).forEach(checkDate)
 
-      if (Array.isArray(selectedDate)) {
-        selectedDate = selectedDate.map(checkDate)
-      } else if (selectedDate) {
-        checkDate(selectedDate)
-      }
-
-      if ($multiple || range || Array.isArray($value)) {
+      if ($multiple || range || Array.isArray(value)) {
         if (!selectedDate) selectedDate = []
         if (!Array.isArray(selectedDate)) selectedDate = [selectedDate]
         if (!range && !$multiple) $multiple = true
@@ -179,10 +135,10 @@ function Calendar({
         range,
         timePicker: $timePicker,
         onlyTimePicker: $onlyTimePicker,
-        onlyMonthPicker: $onlyMonthPicker,
-        onlyYearPicker: $onlyYearPicker,
-        initialValue: state.initialValue || $value,
-        value: $value,
+        onlyMonthPicker,
+        onlyYearPicker,
+        initialValue: state.initialValue || value,
+        value,
         focused,
         calendar,
         locale,
@@ -204,7 +160,8 @@ function Calendar({
     range,
     multiple,
     sort,
-    numberOfMonths
+    numberOfMonths,
+    digits
   ])
 
   useEffect(() => {
@@ -241,11 +198,12 @@ function Calendar({
 
   let topClassName = getBorderClassName(["top", "bottom"]),
     clonedPlugins = { top: [], bottom: [], left: [], right: [] },
-    isRTL = ["fa", "ar"].includes(state.date?.locale)
+    isRTL = ["fa", "ar"].includes(state.date?.locale),
+    globalProps = { state, setState, onChange: handleChange, sort }
 
   initPlugins(arguments[0])
 
-  return (state.date ?
+  return (state.today ?
     <div
       ref={outerRef}
       className={`rmdp-wrapper ${className || ""}`}
@@ -259,9 +217,7 @@ function Calendar({
           className={`rmdp-calendar ${isRTL ? "rmdp-rtl" : ""} ${getBorderClassName(["left", "right"])}`}
         >
           <Header
-            state={state}
-            setState={setState}
-            onChange={handleChange}
+            {...globalProps}
             disableYearPicker={disableYearPicker}
             disableMonthPicker={disableMonthPicker}
             customMonths={months}
@@ -269,33 +225,25 @@ function Calendar({
           />
           <div style={{ position: "relative" }}>
             <DayPicker
-              state={state}
-              onChange={handleChange}
+              {...globalProps}
               showOtherDays={showOtherDays}
               mapDays={mapDays}
               listeners={listeners}
               onlyShowInRangeDates={onlyShowInRangeDates}
               customWeekDays={weekDays}
-              sort={sort}
               numberOfMonths={numberOfMonths}
               isRTL={isRTL}
             />
             <MonthPicker
-              state={state}
-              onChange={handleChange}
+              {...globalProps}
               customMonths={months}
-              sort={sort}
             />
             <YearPicker
-              state={state}
-              onChange={handleChange}
-              sort={sort}
+              {...globalProps}
             />
           </div>
           <TimePicker
-            state={state}
-            setState={setState}
-            onChange={handleChange}
+            {...globalProps}
             formattingIgnoreList={formattingIgnoreList}
           />
           {children}
@@ -334,16 +282,21 @@ function Calendar({
         }
       }
 
-      clonedPlugins[position].push(React.cloneElement(plugin, {
-        key: index,
-        state,
-        setState,
-        position,
-        registerListener,
-        calendarProps,
-        handleChange,
-        nodes
-      }))
+      clonedPlugins[position].push(
+        React.cloneElement(
+          plugin,
+          {
+            key: index,
+            state,
+            setState,
+            position,
+            registerListener,
+            calendarProps,
+            handleChange,
+            nodes
+          }
+        )
+      )
     })
   }
 
@@ -381,30 +334,6 @@ function Calendar({
 
 export default forwardRef(Calendar)
 
-function isValidDateObject(date, calendar, locale, format) {
-  return date instanceof DateObject &&
-    date.isValid &&
-    date.calendar === calendar &&
-    date.locale === locale &&
-    date._format === format
-}
-
-function isSame(arg1, arg2) {
-  if ((arg1 instanceof Date) && !(arg2 instanceof Date)) return false
-  if ((arg1 instanceof DateObject) && !(arg2 instanceof DateObject)) return false
-  if ((arg1 instanceof Date) || (arg1 instanceof DateObject)) {
-    if (arg1 instanceof Date && !isValidDate(arg1) && !isValidDate(arg2)) return true
-
-    return arg1 - arg2 === 0
-  }
-
-  return arg1 === arg2
-}
-
-function isValidDate(date) {
-  return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())
-}
-
 function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
   if (minDate) minDate = toDateObject(minDate, calendar).set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
   if (maxDate) maxDate = toDateObject(maxDate, calendar).set({ hour: 23, minute: 59, second: 59, millisecond: 999 })
@@ -432,24 +361,23 @@ function toDateObject(date, calendar) {
 }
 
 function getSelectedDate(value, calendar, locale, format) {
-  let selectedDate = undefined
-  let getObject = date => { return { date, calendar, locale, format } }
+  let selectedDate = []
+    .concat(value)
+    .map(date => {
+      if (date instanceof DateObject) return date
 
-  if (Array.isArray(value)) {
-    selectedDate = value.map(val => {
-      if (val instanceof DateObject) return val
+      return new DateObject({ date, calendar, locale, format })
+    })
+    .filter(date => date.isValid)
 
-      let date = new DateObject(getObject(val))
+  return Array.isArray(value) ? selectedDate : selectedDate[0]
+}
 
-      return date.isValid ? date : undefined
-    }).filter(i => i !== undefined)
-  } else if (value instanceof DateObject) {
-    selectedDate = value.isValid ? value : undefined
-  } else {
-    selectedDate = new DateObject(getObject(value))
-
-    if (!selectedDate.isValid) selectedDate = undefined
-  }
-
-  return selectedDate
+export function getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple) {
+  if (format) return format
+  if (timePicker && !range && !multiple) return "YYYY/MM/DD HH:mm:ss"
+  if (onlyTimePicker) return "HH:mm:ss"
+  if (onlyMonthPicker) return "MM/YYYY"
+  if (onlyYearPicker) return "YYYY"
+  if (range || multiple) return "YYYY/MM/DD"
 }

@@ -275,18 +275,24 @@ export default function Demo({ language = "en", translate }) {
         })}
       </ul>
 
-      <h3>Quick Access</h3>
+      <h3>{translate("Quick Access")} :</h3>
       {getList(list)}
     </>
   )
 
   function getList(list) {
     return (
-      <ul>
+      <ul className="quick-access">
         {list.map((item, index) => {
+          let path = item.path
+
+          if (language === "fa") {
+            path = item.path.replace(/#.*$/, "#" + translate(item.name).replace(/\s/g, "-"))
+          }
+
           return (
             <li key={index}>
-              <Link to={item.path}>{translate(item.name)}</Link>
+              <Link to={path}>{translate(item.name)}</Link>
               {item.list && getList(item.list)}
             </li>
           )

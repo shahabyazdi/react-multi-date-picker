@@ -329,8 +329,8 @@ const {
     title: translate("Another Examples"),
     description: translate("another_examples"),
     jsx: <ol>
-      <li><a href={`${language === "en" ? "" : "/fa"}/events/#onpositionchange`} target="__blank">{translate("another_examples_1")}</a></li>
-      <li><a href={`${language === "en" ? "" : "/fa"}/ref/#${translate("Refresh Position").toLowerCase().replace(/\s/g, "-")}`} target="__blank">{translate("another_examples_2")}</a></li>
+      <li><a href={`/react-multi-date-picker${language === "en" ? "" : "/fa"}/events/#onpositionchange`} target="__blank">{translate("another_examples_1")}</a></li>
+      <li><a href={`/react-multi-date-picker${language === "en" ? "" : "/fa"}/ref/#${translate("Refresh Position").toLowerCase().replace(/\s/g, "-")}`} target="__blank">{translate("another_examples_2")}</a></li>
     </ol>
   }
 

@@ -1,9 +1,12 @@
 <p align="center">
-    <img alt="Gatsby" src="https://github.com/shahabyazdi/react-multi-date-picker/blob/master/website/src/images/icon.png?raw=true" />
+    <img alt="Gatsby" width="100" src="https://github.com/shahabyazdi/react-multi-date-picker/blob/master/website/src/images/icon.png?raw=true" />
 </p>
 <h1 align="center">
-  DatePicker Demo Page
+  Gatsby
 </h1>
+<h2 align="center">
+  DatePicker Demo Page
+</h2>
 
 ## Quick start
 

@@ -170,6 +170,12 @@ export default function (translate, language) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
+            <td>digits</td>
+            <td>Array</td>
+            <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
             <td>ref</td>
             <td>React.RefObject</td>
             <td>true</td>

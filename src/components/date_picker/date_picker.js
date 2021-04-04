@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, forwardRef } from "react"
 import ElementPopper from "react-element-popper"
 import DateObject from "react-date-object"
-import Calendar from "../calendar/calendar"
+import Calendar, { getFormat } from "../calendar/calendar"
 import getAllDatesInRange from "../../../plugins/all/date_panel/getAllDatesInRange"
 import { IconCalendarEvent } from '@tabler/icons'
 import "./date_picker.css"
@@ -42,15 +42,14 @@ function DatePicker(
     containerClassName = "",
     calendarPosition = "bottom-left",
     editable = true,
-    onlyShowInRangeDates = true,
     onOpen,
     onClose,
     arrowClassName = "",
     zIndex = 100,
     arrow = true,
     fixMainPosition,
-    currentDate,
     onPositionChange,
+    digits,
     ...otherProps
   },
   outerRef
@@ -144,10 +143,12 @@ function DatePicker(
       if (date.calendar !== calendar) date.setCalendar(calendar)
       if (date.locale !== locale) date.setLocale(locale)
 
-      date.months = months
-      date.weekDays = weekDays
-
-      date.setFormat(getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple))
+      date.set({
+        weekDays,
+        months,
+        digits,
+        format: getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple)
+      })
 
       return date
     }
@@ -190,6 +191,7 @@ function DatePicker(
     onlyYearPicker,
     weekDays,
     months,
+    digits,
     formattingIgnoreList
   ])
 
@@ -376,6 +378,7 @@ function DatePicker(
         className={className + (isMobileMode ? " rmdp-mobile" : "")}
         weekDays={weekDays}
         months={months}
+        digits={digits}
         minDate={minDate}
         maxDate={maxDate}
         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
@@ -391,9 +394,7 @@ function DatePicker(
           popper.style.visibility = "visible"
           popper.style.transform = ""
         }}
-        onlyShowInRangeDates={onlyShowInRangeDates}
         datePickerRef={datePickerRef}
-        currentDate={currentDate}
         {...otherProps}
       >
         {children}
@@ -456,7 +457,7 @@ function DatePicker(
     let input = getInput(inputRef)
 
     if (!value && !ref.current.date && !range && !multiple) {
-      let date = new DateObject({ calendar, locale, format })
+      let date = new DateObject({ calendar, locale, format }).set({ months, weekDays, digits })
 
       if (
         (!minDate || (minDate && date > minDate)) &&
@@ -486,35 +487,9 @@ function DatePicker(
 
     if (onChange instanceof Function) onChange(date)
 
-    if (date) {
-      if (Array.isArray(date)) {
-        date.map(setCustomNames)
-
-        setStringDate(getStringDate(date, type, separator, format, formattingIgnoreList))
-      } else {
-        setCustomNames(date)
-
-        setStringDate(
-          date.format(
-            getFormat(
-              timePicker,
-              onlyTimePicker,
-              onlyMonthPicker,
-              onlyYearPicker,
-              format,
-              range,
-              multiple
-            ),
-            JSON.parse(formattingIgnoreList)
-          )
-        )
-      }
-    }
-  }
-
-  function setCustomNames(date) {
-    date.months = months
-    date.weekDays = weekDays
+    if (date) setStringDate(
+      getStringDate(date, type, separator, format, formattingIgnoreList)
+    )
   }
 
   function handleValueChange(e) {
@@ -546,24 +521,16 @@ function DatePicker(
 
 export default forwardRef(DatePicker)
 
-function getFormat(timePicker, onlyTimePicker, onlyMonthPicker, onlyYearPicker, format, range, multiple) {
-  if (format) return format
-  if (timePicker && !range && !multiple) return "YYYY/MM/DD HH:mm:ss"
-  if (onlyTimePicker) return "HH:mm:ss"
-  if (onlyMonthPicker) return "MM/YYYY"
-  if (onlyYearPicker) return "YYYY"
-  if (range || multiple) return "YYYY/MM/DD"
-}
-
 function getStringDate(date, type, separator, format, formattingIgnoreList) {
   if (!date) return ""
 
   let toString = date => date.format(format, JSON.parse(formattingIgnoreList))
 
-  return type === "button" && date.length > 1 ?
-    [date[0], date[1]].map(toString).join(separator)
-    :
-    date.map(toString).join(separator)
+  return !Array.isArray(date) ?
+    toString(date) :
+    type === "button" && date.length > 1 ?
+      [date[0], date[1]].map(toString).join(separator) :
+      date.map(toString).join(separator)
 }
 
 function getInput(inputRef) {

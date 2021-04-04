@@ -344,6 +344,14 @@ pre {
 }
 
 @media (max-width: 400px) {
+  body {
+    font-size: 14px;
+  }
+
+  ul{
+    padding: 5px 30px;
+  }
+
   .navbar .navbar-title {
     display: none;
   }

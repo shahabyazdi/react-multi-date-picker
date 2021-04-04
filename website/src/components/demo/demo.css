@@ -99,3 +99,7 @@
 .title::after {
   content: ":";
 }
+
+.quick-access a{
+  text-decoration: none;
+}

@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function (translate) {
+export default function (translate, language) {
   const npm = {
     title: "npm",
     description: translate("npm_description"),
@@ -103,6 +103,18 @@ function handleSubmit(){
         <li>
           <p>{translate("important_note_description_part_8")}</p>
           <p>{translate("important_note_description_part_9")}</p>
+          <pre>
+            <code className="language-jsx">
+              {
+                `<DatePicker
+  value="${language === "en" ? "05/18/2020 02:20:36" : "۰۵/۱۸/۲۰۲۰ ۰۲:۲۰:۳۶"}"
+  format="MM/DD/YYYY HH:mm:ss"
+${language === "en" ? "/>" : `  calendar="persian"
+  locale="fa"
+/>`}`
+              }
+            </code>
+          </pre>
         </li>
       </ul>
     </>

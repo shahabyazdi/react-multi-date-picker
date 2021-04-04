@@ -2,6 +2,40 @@ import React from "react"
 import DatePicker, { DateObject } from "../../../build/index"
 
 export default function (translate, language, otherProps) {
+  const digits = {
+    title: "Digits",
+    description: "digits",
+    code: `<DatePicker
+  digits={[
+    "๐",
+    "๑",
+    "๒",
+    "๓",
+    "๔",
+    "๕",
+    "๖",
+    "๗",
+    "๘",
+    "๙"
+  ]}
+/>`,
+    jsx: <DatePicker
+      digits={[
+        "๐",
+        "๑",
+        "๒",
+        "๓",
+        "๔",
+        "๕",
+        "๖",
+        "๗",
+        "๘",
+        "๙"
+      ]}
+      {...otherProps}
+    />
+  }
+
   const weekDay = {
     title: "Week Days #1",
     description: "weekday",
@@ -250,6 +284,7 @@ export default function (translate, language, otherProps) {
   }
 
   return [
+    digits,
     weekDay,
     weekDay2,
     month,
