@@ -457,7 +457,7 @@ function DatePicker(
     let input = getInput(inputRef)
 
     if (!value && !ref.current.date && !range && !multiple) {
-      let date = new DateObject({ calendar, locale, format })
+      let date = new DateObject({ calendar, locale, format }).set({ months, weekDays, digits })
 
       if (
         (!minDate || (minDate && date > minDate)) &&
@@ -487,19 +487,9 @@ function DatePicker(
 
     if (onChange instanceof Function) onChange(date)
 
-    if (date) {
-      [].concat(date).forEach(setCustomNames)
-
-      setStringDate(getStringDate(date, type, separator, format, formattingIgnoreList))
-    }
-  }
-
-  function setCustomNames(date) {
-    date.set({
-      months,
-      weekDays,
-      digits
-    })
+    if (date) setStringDate(
+      getStringDate(date, type, separator, format, formattingIgnoreList)
+    )
   }
 
   function handleValueChange(e) {
