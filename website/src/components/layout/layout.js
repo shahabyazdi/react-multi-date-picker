@@ -44,7 +44,7 @@ const sidebar = {
     { name: "Multiple Months", path: "multiple-months/" },
     { name: "Min & Max Date", path: "min-&-max-date/" },
     { name: "Events", path: "events/" },
-    { name: "Custom Months & WeekDays", path: "locales/" },
+    { name: "Custom Digits, Months & WeekDays", path: "locales/" },
     { name: "Types & Custom Input", path: "types/" },
     { name: "Customizing Calendar Days", path: "map-days/" },
     { name: "Calendar Position", path: "positions/" },

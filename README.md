@@ -133,6 +133,7 @@ export default function Example() {
 | sort                 |                                            Boolean                                            |             false              | both                                |
 | numberOfMonths       |                                            Number                                             |               1                | both                                |
 | currentDate          |                                          DateObject                                           |                                | both                                |
+| digits               |                                            Array                                              |                                | both                                |
 | className            |                                            String                                             |               ""               | both                                |
 | containerClassName   |                                            String                                             |                                | DatePicker                          |
 | arrowClassName       |                                            String                                             |               0                | DatePicker                          |
