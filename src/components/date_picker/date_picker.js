@@ -98,6 +98,15 @@ function DatePicker(
   if (!Array.isArray(formattingIgnoreList)) formattingIgnoreList = [];
 
   formattingIgnoreList = JSON.stringify(formattingIgnoreList);
+  format = getFormat(
+    timePicker,
+    onlyTimePicker,
+    onlyMonthPicker,
+    onlyYearPicker,
+    format,
+    range,
+    multiple
+  );
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -158,15 +167,7 @@ function DatePicker(
         weekDays,
         months,
         digits,
-        format: getFormat(
-          timePicker,
-          onlyTimePicker,
-          onlyMonthPicker,
-          onlyYearPicker,
-          format,
-          range,
-          multiple
-        ),
+        format,
       });
 
       return date;
