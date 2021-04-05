@@ -1,30 +1,27 @@
-import peerDepsExternal from "rollup-plugin-peer-deps-external"
-import babel from "@rollup/plugin-babel"
-import resolve from "@rollup/plugin-node-resolve"
-import commonjs from "@rollup/plugin-commonjs"
-import postcss from "rollup-plugin-postcss"
-import cssvariables from "postcss-css-variables"
-import svgr from "@svgr/rollup"
-import url from "@rollup/plugin-url"
-import { terser } from "rollup-plugin-terser"
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import babel from "@rollup/plugin-babel";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import postcss from "rollup-plugin-postcss";
+import cssvariables from "postcss-css-variables";
+import svgr from "@svgr/rollup";
+import url from "@rollup/plugin-url";
+import { terser } from "rollup-plugin-terser";
 
 const external = [
   "react",
   "react-dom",
   "react-date-object",
-  "react-element-popper"
-]
+  "react-element-popper",
+];
 
-const presets = [
-  "@babel/preset-react",
-  "@babel/preset-env"
-]
+const presets = ["@babel/preset-react", "@babel/preset-env"];
 
 const globals = {
   react: "React",
   "react-date-object": "DateObject",
-  "react-element-popper": "ElementPopper"
-}
+  "react-element-popper": "ElementPopper",
+};
 
 export default [
   {
@@ -34,8 +31,8 @@ export default [
         file: "build/index.js",
         format: "cjs",
         plugins: [terser()],
-        exports: "named"
-      }
+        exports: "named",
+      },
     ],
     external,
     plugins: [
@@ -43,13 +40,13 @@ export default [
       peerDepsExternal(),
       babel({
         exclude: /node_modules/,
-        presets
+        presets,
       }),
       commonjs(),
       postcss({ plugins: [cssvariables()] }),
       svgr(),
-      url()
-    ]
+      url(),
+    ],
   },
   {
     input: "src/index_browser.js",
@@ -60,8 +57,8 @@ export default [
         plugins: [terser()],
         name: "ReactMultiDatePicker",
         exports: "named",
-        globals
-      }
+        globals,
+      },
     ],
     external,
     plugins: [
@@ -69,13 +66,13 @@ export default [
       peerDepsExternal(),
       babel({
         exclude: /node_modules/,
-        presets
+        presets,
       }),
       commonjs(),
       postcss({ plugins: [cssvariables()] }),
       svgr(),
-      url()
-    ]
+      url(),
+    ],
   },
   {
     input: "plugins/all.js",
@@ -84,8 +81,8 @@ export default [
         file: "plugins/index.js",
         format: "cjs",
         plugins: [terser()],
-        exports: "named"
-      }
+        exports: "named",
+      },
     ],
     external,
     plugins: [
@@ -93,13 +90,13 @@ export default [
       peerDepsExternal(),
       babel({
         exclude: /node_modules/,
-        presets
+        presets,
       }),
       commonjs(),
       postcss({ plugins: [cssvariables()] }),
       svgr(),
-      url()
-    ]
+      url(),
+    ],
   },
   ...[
     { path: "date_panel", name: "DatePanel" },
@@ -107,7 +104,7 @@ export default [
     { path: "multi_colors", name: "MultiColors" },
     { path: "settings", name: "Settings" },
     { path: "toolbar", name: "Toolbar" },
-    { path: "weekends", name: "Weekends" }
+    { path: "weekends", name: "Weekends" },
   ].map(({ path, name }) => {
     return {
       input: `plugins/all/${path}/${path}.js`,
@@ -116,7 +113,7 @@ export default [
           file: `plugins/${path}.js`,
           format: "cjs",
           plugins: [terser()],
-          exports: "named"
+          exports: "named",
         },
         {
           file: `build/${path}.browser.js`,
@@ -124,8 +121,8 @@ export default [
           plugins: [terser()],
           name,
           exports: "default",
-          globals
-        }
+          globals,
+        },
       ],
       external,
       plugins: [
@@ -133,13 +130,13 @@ export default [
         peerDepsExternal(),
         babel({
           exclude: /node_modules/,
-          presets
+          presets,
         }),
         commonjs(),
         postcss({ plugins: [cssvariables()] }),
         svgr(),
-        url()
-      ]
-    }
-  })
-]
+        url(),
+      ],
+    };
+  }),
+];
