@@ -56,6 +56,23 @@ function Calendar(
   )
     numberOfMonths = 1;
 
+  if (multiple || range || Array.isArray(value)) {
+    if (!range && !multiple) multiple = true;
+
+    timePicker = false;
+    onlyTimePicker = false;
+  }
+
+  format = getFormat(
+    timePicker,
+    onlyTimePicker,
+    onlyMonthPicker,
+    onlyYearPicker,
+    format,
+    range,
+    multiple
+  );
+
   let [state, setState] = useState({ date: currentDate }),
     listeners = {},
     ref = useRef({ mustCallOnReady: true });
@@ -68,31 +85,19 @@ function Calendar(
         if (!date) return;
         if (date.calendar !== calendar) date.setCalendar(calendar);
         if (date.locale !== locale) date.setLocale(locale);
-        if (date._format !== $format) date.setFormat($format);
+        if (date._format !== format) date.setFormat(format);
 
         date.digits = digits;
 
         return date;
       }
 
-      let $timePicker = timePicker,
-        $onlyTimePicker = onlyTimePicker,
-        $multiple = multiple,
-        $format = getFormat(
-          timePicker,
-          onlyTimePicker,
-          onlyMonthPicker,
-          onlyYearPicker,
-          format,
-          range,
-          multiple
-        );
-
       if (!value) {
-        if (!date) date = new DateObject({ calendar, locale, format: $format });
+        if (!date)
+          date = new DateObject({ calendar, locale, format }).set({ digits });
         if (initialValue) selectedDate = undefined;
       } else {
-        selectedDate = getSelectedDate(value, calendar, locale, $format);
+        selectedDate = getSelectedDate(value, calendar, locale, format);
 
         if (Array.isArray(selectedDate)) {
           if (!date) date = checkDate(new DateObject(selectedDate[0]));
@@ -114,10 +119,9 @@ function Calendar(
 
       [].concat(selectedDate).forEach(checkDate);
 
-      if ($multiple || range || Array.isArray(value)) {
+      if (multiple || range || Array.isArray(value)) {
         if (!selectedDate) selectedDate = [];
         if (!Array.isArray(selectedDate)) selectedDate = [selectedDate];
-        if (!range && !$multiple) $multiple = true;
 
         if (range && selectedDate.length > 2) {
           let lastItem = selectedDate[selectedDate.length - 1];
@@ -126,15 +130,12 @@ function Calendar(
           focused = lastItem;
         }
 
-        if ($multiple && sort && !mustSortDates) {
+        if (multiple && sort && !mustSortDates) {
           mustSortDates = true;
           selectedDate.sort((a, b) => a - b);
         } else if (range) {
           selectedDate.sort((a, b) => a - b);
         }
-
-        $timePicker = false;
-        $onlyTimePicker = false;
       } else if (Array.isArray(selectedDate)) {
         selectedDate = selectedDate[selectedDate.length - 1];
       }
@@ -143,10 +144,10 @@ function Calendar(
         ...state,
         date,
         selectedDate,
-        multiple: $multiple,
+        multiple,
         range,
-        timePicker: $timePicker,
-        onlyTimePicker: $onlyTimePicker,
+        timePicker,
+        onlyTimePicker,
         onlyMonthPicker,
         onlyYearPicker,
         initialValue: state.initialValue || value,
@@ -154,7 +155,7 @@ function Calendar(
         focused,
         calendar,
         locale,
-        format: $format,
+        format,
         mustSortDates,
         year: state.year || date.year,
         today: state.today || new DateObject({ calendar }),
