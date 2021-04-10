@@ -1,4 +1,4 @@
-import React from "react";
+import React, { isValidElement, cloneElement } from "react";
 import Arrow from "../arrow/arrow";
 
 export default function Header({
@@ -9,6 +9,8 @@ export default function Header({
   disableMonthPicker,
   customMonths,
   numberOfMonths,
+  buttons,
+  renderButton,
 }) {
   let monthNames = [],
     years = [],
@@ -45,7 +47,7 @@ export default function Header({
       style={{ display: state.onlyTimePicker ? "none" : "block" }}
     >
       <div style={{ position: "relative", display: "flex" }}>
-        <Arrow direction="rmdp-left" onClick={() => increaseValue(-1)} />
+        {buttons && getButton("left")}
         {monthNames.map((monthName, index) => (
           <div key={index} className="rmdp-header-values">
             {!onlyYearPicker && (
@@ -74,10 +76,22 @@ export default function Header({
             </span>
           </div>
         ))}
-        <Arrow direction="rmdp-right" onClick={() => increaseValue(1)} />
+        {buttons && getButton("right")}
       </div>
     </div>
   );
+
+  function getButton(direction) {
+    let handleClick = () => increaseValue(direction === "right" ? 1 : -1);
+
+    return renderButton instanceof Function ? (
+      renderButton(direction, handleClick)
+    ) : isValidElement(renderButton) ? (
+      cloneElement(renderButton, { direction, handleClick })
+    ) : (
+      <Arrow direction={`rmdp-${direction}`} onClick={handleClick} />
+    );
+  }
 
   function increaseValue(value) {
     let { selectedDate, mustShowYearPicker, minDate, maxDate, year } = state;

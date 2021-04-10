@@ -1,10 +1,10 @@
-import React, { useState } from "react"
-import Selectors from "../selectors/selectors"
-import DatePicker, { Calendar } from "../../../../build/index"
-import DatePanel from "../../../../plugins/date_panel"
-import { Link } from "gatsby"
-import "./demo.css"
-import list from "./quick_access"
+import React, { useState } from "react";
+import Selectors from "../selectors/selectors";
+import DatePicker, { Calendar } from "../../../../build/index";
+import DatePanel from "../../../../plugins/date_panel";
+import { Link } from "gatsby";
+import "./demo.css";
+import list from "./quick_access";
 
 export default function Demo({ language = "en", translate }) {
   const [state, setState] = useState({
@@ -14,8 +14,8 @@ export default function Demo({ language = "en", translate }) {
     mustShowDates: true,
     calendarPosition: "bottom-center",
     numberOfMonths: 1,
-    datePanelPosition: ["fa"].includes(language) ? "left" : "right"
-  })
+    datePanelPosition: ["fa"].includes(language) ? "left" : "right",
+  });
 
   const {
     type = "calendar",
@@ -36,40 +36,44 @@ export default function Demo({ language = "en", translate }) {
     calendarPosition,
     animation,
     numberOfMonths,
-    datePanelPosition
-  } = state
+    datePanelPosition,
+  } = state;
 
   const updateState = (key, value) => {
     if (typeof key === "object") {
-      setState({ ...state, ...key })
+      setState({ ...state, ...key });
     } else {
-      setState({ ...state, [key]: value })
+      setState({ ...state, [key]: value });
     }
-  }
+  };
 
   const props = {
     ...state,
     className: `${layout} ${color} ${background}`,
-    onChange: dateObject => updateState("value", dateObject),
+    onChange: (dateObject) => updateState("value", dateObject),
     fixRelativePosition: true,
     fixMainPosition: true,
     plugins: [
       <DatePanel
         sort="date"
         position={datePanelPosition}
-        disabled={(!multiple && !range) || ((multiple || range) && !mustShowDates) || numberOfMonths > 1}
-      />
-    ]
-  }
+        disabled={
+          (!multiple && !range) ||
+          ((multiple || range) && !mustShowDates) ||
+          numberOfMonths > 1
+        }
+      />,
+    ],
+  };
 
   return (
     <>
       <div className="calendar-demo">
-        {type === "calendar" ?
+        {type === "calendar" ? (
           <Calendar {...props} />
-          :
+        ) : (
           <DatePicker {...props} />
-        }
+        )}
       </div>
 
       <Selectors
@@ -83,7 +87,7 @@ export default function Demo({ language = "en", translate }) {
               [translate("Indian"), "indian"],
             ],
             value: calendar,
-            onChange: value => updateState("calendar", value)
+            onChange: (value) => updateState("calendar", value),
           },
           {
             title: translate("Locale"),
@@ -94,7 +98,7 @@ export default function Demo({ language = "en", translate }) {
               [translate("Hindi"), "hi"],
             ],
             value: locale,
-            onChange: value => updateState("locale", value)
+            onChange: (value) => updateState("locale", value),
           },
           {
             title: translate("Mode"),
@@ -103,18 +107,18 @@ export default function Demo({ language = "en", translate }) {
               [translate("Multiple"), "multiple"],
               [translate("Range"), "range"],
             ],
-            value: !multiple && !range
-              ? "single"
-              : multiple
-                ? "multiple"
-                : "range"
-            ,
-            onChange: mode => updateState({
-              multiple: false,
-              range: false,
-              [mode]: true,
-              value: Array.isArray(value) && mode === "single" ? value[value.length - 1] : value
-            })
+            value:
+              !multiple && !range ? "single" : multiple ? "multiple" : "range",
+            onChange: (mode) =>
+              updateState({
+                multiple: false,
+                range: false,
+                [mode]: true,
+                value:
+                  Array.isArray(value) && mode === "single"
+                    ? value[value.length - 1]
+                    : value,
+              }),
           },
           {
             title: translate("Other Pickers"),
@@ -126,37 +130,43 @@ export default function Demo({ language = "en", translate }) {
               [translate("Only Year Picker"), "onlyYearPicker"],
             ].filter(([text, value]) => {
               if (!multiple && !range) {
-                return true
+                return true;
               } else {
-                return !["timePicker", "onlyTimePicker"].includes(value)
+                return !["timePicker", "onlyTimePicker"].includes(value);
               }
             }),
-            value: !timePicker && !onlyTimePicker && !onlyMonthPicker && !onlyYearPicker ? "disable"
-              : timePicker ? "timePicker"
-                : onlyTimePicker ? "onlyTimePicker"
-                  : onlyMonthPicker ? "onlyMonthPicker"
-                    : "onlyYearPicker"
-            ,
-            onChange: picker => updateState({
-              timePicker: false,
-              onlyTimePicker: false,
-              onlyMonthPicker: false,
-              onlyYearPicker: false,
-              [picker]: true
-            })
-          }
-          ,
+            value:
+              !timePicker &&
+              !onlyTimePicker &&
+              !onlyMonthPicker &&
+              !onlyYearPicker
+                ? "disable"
+                : timePicker
+                ? "timePicker"
+                : onlyTimePicker
+                ? "onlyTimePicker"
+                : onlyMonthPicker
+                ? "onlyMonthPicker"
+                : "onlyYearPicker",
+            onChange: (picker) =>
+              updateState({
+                timePicker: false,
+                onlyTimePicker: false,
+                onlyMonthPicker: false,
+                onlyYearPicker: false,
+                [picker]: true,
+              }),
+          },
           {
             title: translate("Number Of Months"),
             options: [
               ["1", 1],
               ["2", 2],
-              ["3", 3]
+              ["3", 3],
             ],
             value: numberOfMonths,
-            onChange: value => updateState("numberOfMonths", Number(value))
-          }
-          ,
+            onChange: (value) => updateState("numberOfMonths", Number(value)),
+          },
           {
             title: translate("Type"),
             options: [
@@ -167,17 +177,18 @@ export default function Demo({ language = "en", translate }) {
               [translate("Button"), "button"],
             ],
             value: type,
-            onChange: value => updateState("type", value)
+            onChange: (value) => updateState("type", value),
           },
           {
             title: translate("Dates panel"),
             disabled: (!range && !multiple) || numberOfMonths > 1,
             options: [
               [translate("Enable"), "enable"],
-              [translate("Disable"), "disable"]
+              [translate("Disable"), "disable"],
             ],
             value: mustShowDates ? "enable" : "disable",
-            onChange: value => updateState("mustShowDates", value === "enable")
+            onChange: (value) =>
+              updateState("mustShowDates", value === "enable"),
           },
           {
             title: translate("DatePanel Position"),
@@ -186,29 +197,30 @@ export default function Demo({ language = "en", translate }) {
               [translate("Left"), "left"],
               [translate("Right"), "right"],
               [translate("Top"), "top"],
-              [translate("Bottom"), "bottom"]
+              [translate("Bottom"), "bottom"],
             ],
             value: datePanelPosition,
-            onChange: value => updateState("datePanelPosition", value)
+            onChange: (value) => updateState("datePanelPosition", value),
           },
           {
             title: translate("Layout"),
             options: [
               [translate("Default"), ""],
               [translate("Prime"), "rmdp-prime"],
-              [translate("Mobile"), "rmdp-mobile"]
+              [translate("Mobile"), "rmdp-mobile"],
             ],
             value: layout,
-            onChange: value => updateState("layout", value)
+            onChange: (value) => updateState("layout", value),
           },
           {
             title: translate("Other Days"),
             options: [
               [translate("Enable"), "enable"],
-              [translate("Disable"), "disable"]
+              [translate("Disable"), "disable"],
             ],
             value: showOtherDays ? "enable" : "disable",
-            onChange: value => updateState("showOtherDays", value === "enable")
+            onChange: (value) =>
+              updateState("showOtherDays", value === "enable"),
           },
           {
             title: translate("Colors"),
@@ -221,7 +233,7 @@ export default function Demo({ language = "en", translate }) {
               [translate("Teal"), "teal"],
             ],
             value: color,
-            onChange: value => updateState("color", value)
+            onChange: (value) => updateState("color", value),
           },
           {
             title: translate("BackGrounds"),
@@ -229,10 +241,10 @@ export default function Demo({ language = "en", translate }) {
               [translate("Default"), ""],
               [translate("Dark"), "bg-dark"],
               [translate("Gray"), "bg-gray"],
-              [translate("Brown"), "bg-brown"]
+              [translate("Brown"), "bg-brown"],
             ],
             value: background,
-            onChange: value => updateState("background", value)
+            onChange: (value) => updateState("background", value),
           },
           {
             title: translate("Calendar Position"),
@@ -247,47 +259,48 @@ export default function Demo({ language = "en", translate }) {
               [translate("Right Bottom"), "right-bottom"],
               [translate("Left Top"), "left-top"],
               [translate("Left Center"), "left-center"],
-              [translate("Left Bottom"), "left-bottom"]
+              [translate("Left Bottom"), "left-bottom"],
             ],
             value: calendarPosition,
-            onChange: value => updateState("calendarPosition", value),
-            disabled: type === "calendar" || layout === "rmdp-mobile"
+            onChange: (value) => updateState("calendarPosition", value),
+            disabled: type === "calendar" || layout === "rmdp-mobile",
           },
           {
             title: translate("Animation"),
             options: [
               [translate("OFF"), "off"],
-              [translate("ON"), "on"]
+              [translate("ON"), "on"],
             ],
             value: animation ? "on" : "off",
-            onChange: value => updateState("animation", value === "on"),
-            disabled: type === "calendar" || layout === "rmdp-mobile"
-          }
+            onChange: (value) => updateState("animation", value === "on"),
+            disabled: type === "calendar" || layout === "rmdp-mobile",
+          },
         ]}
       />
 
       <h3>{translate("Descriptions")}:</h3>
       <ul>
         {translate("demo_descriptions").map((description, index) => {
-          return (
-            <li key={index}>{description}</li>
-          )
+          return <li key={index}>{description}</li>;
         })}
       </ul>
 
       <h3>{translate("Quick Access")} :</h3>
       {getList(list)}
     </>
-  )
+  );
 
   function getList(list) {
     return (
       <ul className="quick-access">
         {list.map((item, index) => {
-          let path = item.path
+          let path = item.path;
 
           if (language === "fa") {
-            path = item.path.replace(/#.*$/, "#" + translate(item.name).replace(/\s/g, "-"))
+            path = item.path.replace(
+              /#.*$/,
+              "#" + translate(item.name).replace(/\s/g, "-")
+            );
           }
 
           return (
@@ -295,9 +308,9 @@ export default function Demo({ language = "en", translate }) {
               <Link to={path}>{translate(item.name)}</Link>
               {item.list && getList(item.list)}
             </li>
-          )
+          );
         })}
       </ul>
-    )
+    );
   }
 }

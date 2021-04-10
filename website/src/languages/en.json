@@ -205,5 +205,10 @@
   "digits": [
     "You can use the digits Prop to replace your favorite digits with the default numbers.",
     "In this example, the default digits are replaced with the Thai numbers."
+  ],
+  "disable_buttons": "You can set the buttons prop to false to disable the navigate buttons.",
+  "custom_buttons": [
+    "You can render your favorite element instead of the default buttons.",
+    "For this purpose, you can do one of the following methods:"
   ]
 }

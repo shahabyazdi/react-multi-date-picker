@@ -1,22 +1,68 @@
-import React from "react"
-import DatePicker from "../../../build/index"
+import React from "react";
+import DatePicker, { DateObject } from "../../../build/index";
 
 export default function (translate, language, otherProps) {
+  const currentDate = {
+    title: "Current Date",
+    description: (
+      <>
+        <p>
+          {language === "en"
+            ? "The currentDate prop forces the datepicker & calendar to open in specific date."
+            : "پراپرتی currentDate تقویم را مجبور به باز شدن در زمان تعیین شده میکند."}
+        </p>
+        <p>
+          {language === "en"
+            ? "For example if you want the datepicker opens in February 2021 , you can set the currentDate prop to new DateObject ({ year:2021,month:2,day:1})"
+            : "به عنوان نمونه برای باز شدن تقویم در اسفند 1399 مانند مثال زیر عمل کنید:"}
+        </p>
+      </>
+    ),
+    code: `<DatePicker
+  currentDate={
+    new DateObject({${
+      language === "en"
+        ? ""
+        : `
+      calendar: "persian", `
+    } 
+      year: ${language === "en" ? 2021 : 1399},
+      month: ${language === "en" ? "2" : "12"},
+      day: 1
+    })
+}
+/>`,
+    jsx: (
+      <DatePicker
+        currentDate={
+          new DateObject({
+            calendar: language === "en" ? "gregorian" : "persian",
+            year: language === "en" ? 2021 : 1399,
+            month: language === "en" ? 2 : 12,
+            day: 1,
+            locale: language,
+          })
+        }
+        {...otherProps}
+      />
+    ),
+  };
+
   const animation = {
     title: "Animation",
     code: `<DatePicker 
   animation 
 />`,
-    jsx: <DatePicker animation {...otherProps} />
-  }
+    jsx: <DatePicker animation {...otherProps} />,
+  };
 
   const otherDays = {
     title: "Other Days",
     code: `<DatePicker 
   showOtherDays 
 />`,
-    jsx: <DatePicker showOtherDays {...otherProps} />
-  }
+    jsx: <DatePicker showOtherDays {...otherProps} />,
+  };
 
   const scroll = {
     title: "Disabling Scroll Sensitivity",
@@ -24,16 +70,16 @@ export default function (translate, language, otherProps) {
     code: `<DatePicker 
   scrollSensitive={false} 
 />`,
-    jsx: <DatePicker scrollSensitive={false} {...otherProps} />
-  }
+    jsx: <DatePicker scrollSensitive={false} {...otherProps} />,
+  };
 
   const hide = {
     title: "Hide On Scroll",
     code: `<DatePicker 
   hideOnScroll 
 />`,
-    jsx: <DatePicker hideOnScroll {...otherProps} />
-  }
+    jsx: <DatePicker hideOnScroll {...otherProps} />,
+  };
 
   const format = {
     title: "Ignore Formatting",
@@ -42,21 +88,23 @@ export default function (translate, language, otherProps) {
   format="Date:YYYY/MM/DD, Time:HH:mm:ss"
   formattingIgnoreList={["Date", "Time"]}
 />`,
-    jsx: <DatePicker
-      timePicker
-      format="Date:YYYY/MM/DD, Time:HH:mm:ss"
-      formattingIgnoreList={["Date", "Time"]}
-      {...otherProps}
-    />
-  }
+    jsx: (
+      <DatePicker
+        timePicker
+        format="Date:YYYY/MM/DD, Time:HH:mm:ss"
+        formattingIgnoreList={["Date", "Time"]}
+        {...otherProps}
+      />
+    ),
+  };
 
   const virtualKeyboard = {
     title: "Disable Virtual Keyboard",
     code: `<DatePicker
   inputMode="none"
 />`,
-    jsx: <DatePicker inputMode="none" {...otherProps} />
-  }
+    jsx: <DatePicker inputMode="none" {...otherProps} />,
+  };
 
   const editing = {
     title: "Disable Editing",
@@ -64,40 +112,40 @@ export default function (translate, language, otherProps) {
     code: `<DatePicker
   editable={false}
 />`,
-    jsx: <DatePicker editable={false} {...otherProps} />
-  }
+    jsx: <DatePicker editable={false} {...otherProps} />,
+  };
 
   const placeholder = {
     title: "Placeholder",
     code: `<DatePicker
   placeholder="click to open"
 />`,
-    jsx: <DatePicker placeholder="click to open" {...otherProps} />
-  }
+    jsx: <DatePicker placeholder="click to open" {...otherProps} />,
+  };
 
   const yearPicker = {
     title: "Disable Year Picker",
     code: `<DatePicker 
   disableYearPicker 
 />`,
-    jsx: <DatePicker disableYearPicker {...otherProps} />
-  }
+    jsx: <DatePicker disableYearPicker {...otherProps} />,
+  };
 
   const monthPicker = {
     title: "Disable Month Picker",
     code: `<DatePicker 
   disableMonthPicker 
 />`,
-    jsx: <DatePicker disableMonthPicker mind {...otherProps} />
-  }
+    jsx: <DatePicker disableMonthPicker mind {...otherProps} />,
+  };
 
   const disabledInput = {
     title: "Disabled Input",
     code: `<DatePicker 
   disabled 
 />`,
-    jsx: <DatePicker disabled {...otherProps} />
-  }
+    jsx: <DatePicker disabled {...otherProps} />,
+  };
 
   const disabledButton = {
     title: "Disabled Button",
@@ -106,15 +154,18 @@ export default function (translate, language, otherProps) {
   placeholder="this button is disabled"
   disabled
 />`,
-    jsx: <DatePicker
-      type="button"
-      placeholder="this button is disabled"
-      disabled
-      {...otherProps}
-    />
-  }
+    jsx: (
+      <DatePicker
+        type="button"
+        placeholder="this button is disabled"
+        disabled
+        {...otherProps}
+      />
+    ),
+  };
 
   return [
+    currentDate,
     animation,
     otherDays,
     scroll,
@@ -126,6 +177,6 @@ export default function (translate, language, otherProps) {
     yearPicker,
     monthPicker,
     disabledInput,
-    disabledButton
-  ]
+    disabledButton,
+  ];
 }

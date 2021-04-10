@@ -1,32 +1,32 @@
-import React, { useState, useEffect, useRef } from "react"
-import Title from "../title/title"
-import Navbar from "../navbar/navbar"
-import Sidebar from "../sidebar/sidebar"
-import Demo from "../demo/demo"
-import Example from "../example/example"
-import Prism from 'prismjs'
-import Arrow from "../arrow/arrow"
-import english from "../../languages/en.json"
-import farsi from "../../languages/fa.json"
-import useClickOutSide from "./useClickOutside"
+import React, { useState, useEffect, useRef } from "react";
+import Title from "../title/title";
+import Navbar from "../navbar/navbar";
+import Sidebar from "../sidebar/sidebar";
+import Demo from "../demo/demo";
+import Example from "../example/example";
+import Prism from "prismjs";
+import Arrow from "../arrow/arrow";
+import english from "../../languages/en.json";
+import farsi from "../../languages/fa.json";
+import useClickOutSide from "./useClickOutside";
 
-import "./layout.css"
+import "./layout.css";
 
-import "../../../../styles/backgrounds/bg-dark.css"
-import "../../../../styles/backgrounds/bg-gray.css"
-import "../../../../styles/backgrounds/bg-brown.css"
+import "../../../../styles/backgrounds/bg-dark.css";
+import "../../../../styles/backgrounds/bg-gray.css";
+import "../../../../styles/backgrounds/bg-brown.css";
 
-import "../../../../styles/colors/red.css"
-import "../../../../styles/colors/green.css"
-import "../../../../styles/colors/yellow.css"
-import "../../../../styles/colors/purple.css"
-import "../../../../styles/colors/teal.css"
+import "../../../../styles/colors/red.css";
+import "../../../../styles/colors/green.css";
+import "../../../../styles/colors/yellow.css";
+import "../../../../styles/colors/purple.css";
+import "../../../../styles/colors/teal.css";
 
-import "../../../../styles/layouts/mobile.css"
-import "../../../../styles/layouts/prime.css"
+import "../../../../styles/layouts/mobile.css";
+import "../../../../styles/layouts/prime.css";
 
-import 'prismjs/components/prism-jsx.min'
-import "prismjs/themes/prism-okaidia.css"
+import "prismjs/components/prism-jsx.min";
+import "prismjs/themes/prism-okaidia.css";
 
 const sidebar = {
   default: [
@@ -47,6 +47,7 @@ const sidebar = {
     { name: "Custom Digits, Months & WeekDays", path: "locales/" },
     { name: "Types & Custom Input", path: "types/" },
     { name: "Customizing Calendar Days", path: "map-days/" },
+    { name: "Customizing Navigate Buttons", path: "buttons/" },
     { name: "Calendar Position", path: "positions/" },
     { name: "DatePicker & Calendar Ref", path: "ref/" },
     { name: "Appearance", path: "appearance/" },
@@ -54,7 +55,7 @@ const sidebar = {
     { name: "ClassNames & Styles", path: "classes-&-styles/" },
     { name: "Custom Arrow", path: "arrow/" },
     { name: "Other Examples", path: "other-examples/" },
-    { name: "Plugins", path: "plugins/" }
+    { name: "Plugins", path: "plugins/" },
   ],
   plugins: [
     { name: "Home", path: "" },
@@ -65,23 +66,27 @@ const sidebar = {
     { name: "Multi Colors", path: "plugins/colors/" },
     { name: "Settings", path: "plugins/settings/" },
     { name: "Weekends", path: "plugins/weekends/" },
-    { name: "Toolbar", path: "plugins/toolbar/" }
-  ]
-}
+    { name: "Toolbar", path: "plugins/toolbar/" },
+  ],
+};
 
 export default function Layout({ language, doc, section }) {
-  const [active, setActive] = useState(false)
-  const sidebarRef = useRef()
+  const [active, setActive] = useState(false);
+  const sidebarRef = useRef();
 
-  useEffect(() => Prism.highlightAll(), [doc])
+  useEffect(() => Prism.highlightAll(), [doc]);
 
-  useClickOutSide(sidebarRef, setActive)
+  useClickOutSide(sidebarRef, setActive);
 
-  const toggleSidebar = () => setActive(!active)
+  const toggleSidebar = () => setActive(!active);
 
-  const translate = string => language === "fa" ? (farsi[string] ?? string) : (english[string] ?? string)
+  const translate = (string) =>
+    language === "fa" ? farsi[string] ?? string : english[string] ?? string;
 
-  const pathname = typeof window !== "undefined" ? window.location.pathname.replace("/react-multi-date-picker", "") : ""
+  const pathname =
+    typeof window !== "undefined"
+      ? window.location.pathname.replace("/react-multi-date-picker", "")
+      : "";
 
   return (
     <main className={language === "fa" ? "rtl" : ""}>
@@ -110,66 +115,82 @@ export default function Layout({ language, doc, section }) {
       />
 
       <div className="main">
-        <div className="scroll-to-top"><Arrow direction="rmdp-up" /></div>
+        <div className="scroll-to-top">
+          <Arrow direction="rmdp-up" />
+        </div>
         {getDoc()}
       </div>
     </main>
-  )
+  );
 
   function getDoc() {
-    if (!doc) return <Demo language={language} translate={translate} />
+    if (!doc) return <Demo language={language} translate={translate} />;
 
-    const codeEnd = language === "en" ? "/>" : `  calendar="persian"
+    const codeEnd =
+      language === "en"
+        ? "/>"
+        : `  calendar="persian"
   locale="fa"
   calendarPosition="auto-right"
-/>`
+/>`;
 
     const otherProps = {
       calendar: language === "fa" ? "persian" : "gregorian",
       locale: language === "fa" ? "fa" : "en",
-      calendarPosition: language === "fa" ? "bottom-right" : undefined
-    }
+      calendarPosition: language === "fa" ? "bottom-right" : undefined,
+    };
 
-    doc = doc(translate, language, otherProps, codeEnd, Code)
+    doc = doc(translate, language, otherProps, codeEnd, Code);
 
-    return doc.map(({ title = "", description = "", code = "", jsx }, index) => {
-      title = translate(title)
-      description = translate(description)
+    return doc.map(
+      ({ title = "", description = "", code = "", jsx }, index) => {
+        title = translate(title);
+        description = translate(description);
 
-      if (language === "fa") code = code.replace(/\/>$/, codeEnd)
+        if (language === "fa") code = code.replace(/\/>$/, codeEnd);
 
-      if (Array.isArray(description)) {
-        description = description.map((desc, index) => {
-          return (
-            <div key={index} dangerouslySetInnerHTML={{ __html: `<p>${desc}</p>` }}  ></div>
-          )
-        })
-      } else if (typeof description === "string") {
-        description = <div dangerouslySetInnerHTML={{ __html: `<p>${description}</p>` }}  ></div>
+        if (Array.isArray(description)) {
+          description = description.map((desc, index) => {
+            return (
+              <div
+                key={index}
+                dangerouslySetInnerHTML={{ __html: `<p>${desc}</p>` }}
+              ></div>
+            );
+          });
+        } else if (typeof description === "string") {
+          description = (
+            <div
+              dangerouslySetInnerHTML={{ __html: `<p>${description}</p>` }}
+            ></div>
+          );
+        }
+
+        return (
+          <div key={index}>
+            <Example
+              id={title.replace(/\s/g, "-").toLowerCase()}
+              title={title}
+              description={description}
+              code={code}
+              jsx={jsx}
+            />
+          </div>
+        );
       }
-
-      return (
-        <div key={index}>
-          <Example
-            id={title.replace(/\s/g, "-").toLowerCase()}
-            title={title}
-            description={description}
-            code={code}
-            jsx={jsx}
-          />
-        </div>
-      )
-    })
+    );
   }
 
   function Code({ title, children }) {
-    useEffect(() => Prism.highlightAll(), [children])
+    useEffect(() => Prism.highlightAll(), [children]);
 
     return (
       <>
         {title && <p>{translate(title)}</p>}
-        <pre><code className="language-jsx">{children}</code></pre>
+        <pre>
+          <code className="language-jsx">{children}</code>
+        </pre>
       </>
-    )
+    );
   }
 }

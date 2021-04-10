@@ -39,6 +39,8 @@ function Calendar(
     numberOfMonths = 1,
     currentDate,
     digits,
+    buttons = true,
+    renderButton,
   },
   outerRef
 ) {
@@ -73,7 +75,9 @@ function Calendar(
     multiple
   );
 
-  let [state, setState] = useState({ date: currentDate }),
+  let [state, setState] = useState({
+      date: currentDate ? new DateObject(currentDate) : undefined,
+    }),
     listeners = {},
     ref = useRef({ mustCallOnReady: true });
 
@@ -93,17 +97,16 @@ function Calendar(
       }
 
       if (!value) {
-        if (!date)
-          date = new DateObject({ calendar, locale, format }).set({ digits });
+        if (!date) date = new DateObject({ calendar, locale, format });
         if (initialValue) selectedDate = undefined;
       } else {
         selectedDate = getSelectedDate(value, calendar, locale, format);
 
         if (Array.isArray(selectedDate)) {
-          if (!date) date = checkDate(new DateObject(selectedDate[0]));
+          if (!date) date = new DateObject(selectedDate[0]);
         } else {
           if (!date || numberOfMonths === 1) {
-            date = checkDate(new DateObject(selectedDate));
+            if (!date) date = new DateObject(selectedDate);
           } else {
             let min = new DateObject(date).toFirstOfMonth();
             let max = new DateObject(date)
@@ -111,13 +114,15 @@ function Calendar(
               .toLastOfMonth();
 
             if (selectedDate < min || selectedDate > max) {
-              date = checkDate(new DateObject(selectedDate));
+              date = new DateObject(selectedDate);
             }
           }
         }
       }
 
       [].concat(selectedDate).forEach(checkDate);
+
+      checkDate(date);
 
       if (multiple || range || Array.isArray(value)) {
         if (!selectedDate) selectedDate = [];
@@ -241,6 +246,8 @@ function Calendar(
             disableMonthPicker={disableMonthPicker}
             customMonths={months}
             numberOfMonths={numberOfMonths}
+            buttons={buttons}
+            renderButton={renderButton}
           />
           <div style={{ position: "relative" }}>
             <DayPicker
