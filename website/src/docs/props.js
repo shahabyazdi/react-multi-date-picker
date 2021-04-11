@@ -176,6 +176,18 @@ export default function (translate, language) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
+            <td>buttons</td>
+            <td>Boolean</td>
+            <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>renderButton</td>
+            <td>Function {translate("or")} React.ReactElement</td>
+            <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
             <td>ref</td>
             <td>React.RefObject</td>
             <td>true</td>
@@ -351,8 +363,8 @@ export default function (translate, language) {
           </tr>
         </tbody>
       </table>
-    )
-  }
+    ),
+  };
 
   return [
     table

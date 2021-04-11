@@ -257,6 +257,21 @@
   border-width: 0 2px 2px 0;
 }
 
+.rmdp-arrow-container.disabled {
+  cursor: default;
+}
+
+.rmdp-arrow-container.disabled:hover {
+  background-color: inherit;
+  box-shadow: inherit;
+}
+
+.rmdp-arrow-container.disabled .rmdp-arrow,
+.rmdp-arrow-container.disabled:hover .rmdp-arrow {
+  border: solid gray;
+  border-width: 0 2px 2px 0;
+}
+
 .rmdp-time-picker {
   display: flex;
   padding: 3px 0;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { isValidElement, cloneElement } from "react";
 import Arrow from "../arrow/arrow";
 
 export default function Header({
@@ -9,11 +9,21 @@ export default function Header({
   disableMonthPicker,
   customMonths,
   numberOfMonths,
+  buttons,
+  renderButton,
 }) {
   let monthNames = [],
     years = [],
-    { date, onlyMonthPicker, onlyYearPicker } = state,
-    digits = date.digits;
+    { date, onlyMonthPicker, onlyYearPicker, minDate, maxDate } = state,
+    digits = date.digits,
+    isPreviousDisable =
+      minDate &&
+      date.year <= minDate.year &&
+      minDate.month.number > date.month.number - 1,
+    isNextDisable =
+      maxDate &&
+      date.year >= maxDate.year &&
+      maxDate.month.number < date.month.number + 1;
 
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     let monthName,
@@ -45,7 +55,7 @@ export default function Header({
       style={{ display: state.onlyTimePicker ? "none" : "block" }}
     >
       <div style={{ position: "relative", display: "flex" }}>
-        <Arrow direction="rmdp-left" onClick={() => increaseValue(-1)} />
+        {buttons && getButton("left")}
         {monthNames.map((monthName, index) => (
           <div key={index} className="rmdp-header-values">
             {!onlyYearPicker && (
@@ -74,26 +84,35 @@ export default function Header({
             </span>
           </div>
         ))}
-        <Arrow direction="rmdp-right" onClick={() => increaseValue(1)} />
+        {buttons && getButton("right")}
       </div>
     </div>
   );
 
+  function getButton(direction) {
+    let handleClick = () => increaseValue(direction === "right" ? 1 : -1),
+      disabled =
+        (direction === "left" && isPreviousDisable) ||
+        (direction === "right" && isNextDisable);
+
+    return renderButton instanceof Function ? (
+      renderButton(direction, handleClick, disabled)
+    ) : isValidElement(renderButton) ? (
+      cloneElement(renderButton, { direction, handleClick, disabled })
+    ) : (
+      <Arrow
+        direction={`rmdp-${direction}`}
+        onClick={handleClick}
+        disabled={disabled}
+      />
+    );
+  }
+
   function increaseValue(value) {
-    let { selectedDate, mustShowYearPicker, minDate, maxDate, year } = state;
+    let { selectedDate, mustShowYearPicker, year } = state;
 
     if (!mustShowYearPicker && !onlyYearPicker) {
-      if (
-        minDate &&
-        date.year <= minDate.year &&
-        minDate.month.number > date.month.number + value
-      )
-        return;
-      if (
-        maxDate &&
-        date.year >= maxDate.year &&
-        maxDate.month.number < date.month.number + value
-      )
+      if ((value < 0 && isPreviousDisable) || (value > 0 && isNextDisable))
         return;
 
       date.toFirstOfMonth();

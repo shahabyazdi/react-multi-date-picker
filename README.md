@@ -134,6 +134,8 @@ export default function Example() {
 | numberOfMonths       |                                            Number                                             |               1                | both                                |
 | currentDate          |                                          DateObject                                           |                                | both                                |
 | digits               |                                             Array                                             |                                | both                                |
+| buttons              |                                            Boolean                                            |                                | both                                |
+| renderButton         |                                React.ReactElement or Function                                 |                                | both                                |
 | className            |                                            String                                             |               ""               | both                                |
 | containerClassName   |                                            String                                             |                                | DatePicker                          |
 | arrowClassName       |                                            String                                             |               0                | DatePicker                          |

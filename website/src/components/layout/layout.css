@@ -206,11 +206,11 @@ body {
   border-bottom: 1px solid #ccc;
 }
 
-.example h2{
+.example h2 {
   font-size: 20px;
 }
 
-.example p{
+.example p {
   font-size: 18px;
 }
 
@@ -348,7 +348,7 @@ pre {
     font-size: 14px;
   }
 
-  ul{
+  ul {
     padding: 5px 30px;
   }
 
@@ -375,14 +375,13 @@ pre {
   background-color: #464545 !important;
   max-height: 510px;
   margin: 20px !important;
-  font-size: 14px!important;
-  border-radius: 7px!important;
-  padding: 15px!important;
+  font-size: 14px !important;
+  border-radius: 7px !important;
+  padding: 15px !important;
 }
 
-
 .calendar-border {
-  border: 2px black solid!important;
+  border: 2px black solid !important;
 }
 
 .custom-input {
@@ -425,4 +424,12 @@ pre {
   width: 100%;
   box-sizing: border-box;
   height: 26px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
 }
