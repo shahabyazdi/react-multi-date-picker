@@ -210,5 +210,6 @@
   "custom_buttons": [
     "You can render your favorite element instead of the default buttons.",
     "For this purpose, you can do one of the following methods:"
-  ]
+  ],
+  "disabled_buttons": "You can also get disabled value from the props ,if you have set a min or max date to limit the calendar or date picker."
 }

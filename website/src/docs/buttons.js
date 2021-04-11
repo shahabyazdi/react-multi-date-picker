@@ -37,10 +37,7 @@ export default function (translate, language, otherProps) {
     title: "Custom (component)",
     description: (
       <div>
-        <p>
-          You can also get disabled value from the props ,if you have set a min
-          or max date to limit the calendar or date picker.
-        </p>
+        <p>{translate("disabled_buttons")}</p>
         <p>{translate("style.css")}:</p>
         <pre>
           <code className="language-css">
