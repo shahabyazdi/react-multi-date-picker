@@ -14,8 +14,16 @@ export default function Header({
 }) {
   let monthNames = [],
     years = [],
-    { date, onlyMonthPicker, onlyYearPicker } = state,
-    digits = date.digits;
+    { date, onlyMonthPicker, onlyYearPicker, minDate, maxDate } = state,
+    digits = date.digits,
+    isPreviousDisable =
+      minDate &&
+      date.year <= minDate.year &&
+      minDate.month.number > date.month.number - 1,
+    isNextDisable =
+      maxDate &&
+      date.year >= maxDate.year &&
+      maxDate.month.number < date.month.number + 1;
 
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     let monthName,
@@ -82,32 +90,29 @@ export default function Header({
   );
 
   function getButton(direction) {
-    let handleClick = () => increaseValue(direction === "right" ? 1 : -1);
+    let handleClick = () => increaseValue(direction === "right" ? 1 : -1),
+      disabled =
+        (direction === "left" && isPreviousDisable) ||
+        (direction === "right" && isNextDisable);
 
     return renderButton instanceof Function ? (
-      renderButton(direction, handleClick)
+      renderButton(direction, handleClick, disabled)
     ) : isValidElement(renderButton) ? (
-      cloneElement(renderButton, { direction, handleClick })
+      cloneElement(renderButton, { direction, handleClick, disabled })
     ) : (
-      <Arrow direction={`rmdp-${direction}`} onClick={handleClick} />
+      <Arrow
+        direction={`rmdp-${direction}`}
+        onClick={handleClick}
+        disabled={disabled}
+      />
     );
   }
 
   function increaseValue(value) {
-    let { selectedDate, mustShowYearPicker, minDate, maxDate, year } = state;
+    let { selectedDate, mustShowYearPicker, year } = state;
 
     if (!mustShowYearPicker && !onlyYearPicker) {
-      if (
-        minDate &&
-        date.year <= minDate.year &&
-        minDate.month.number > date.month.number + value
-      )
-        return;
-      if (
-        maxDate &&
-        date.year >= maxDate.year &&
-        maxDate.month.number < date.month.number + value
-      )
+      if ((value < 0 && isPreviousDisable) || (value > 0 && isNextDisable))
         return;
 
       date.toFirstOfMonth();

@@ -3,7 +3,7 @@ import DatePicker, { DateObject } from "../../../build/index";
 
 export default function (translate, language, otherProps) {
   const currentDate = {
-    title: "Current Date",
+    title: "Opening Calendar On The Specified Date",
     description: (
       <>
         <p>
@@ -30,7 +30,7 @@ export default function (translate, language, otherProps) {
       month: ${language === "en" ? "2" : "12"},
       day: 1
     })
-}
+  }
 />`,
     jsx: (
       <DatePicker

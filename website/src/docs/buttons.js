@@ -37,11 +37,19 @@ export default function (translate, language, otherProps) {
     title: "Custom (component)",
     description: (
       <div>
+        <p>
+          You can also get disabled value from the props ,if you have set a min
+          or max date to limit the calendar or date picker.
+        </p>
         <p>{translate("style.css")}:</p>
         <pre>
           <code className="language-css">
             {`.cursor-pointer {
   cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
 }`}
           </code>
         </pre>
@@ -50,12 +58,16 @@ export default function (translate, language, otherProps) {
     ),
     code: `import { Calendar } from "react-multi-date-picker";
 
-function CustomButton({ direction, handleClick }) {
+function CustomButton({ direction, handleClick, disabled }) {
   return (
     <i
       onClick={handleClick}
-      style={{ padding: "0 10px" }}
-      className="cursor-pointer"
+      style={{
+        padding: "0 10px",
+        fontWeight: "bold",
+        color: disabled ? "gray" : "blue"
+      }}
+      className={disabled ? "cursor-default" : "cursor-pointer"}
     >
       {direction === "right" ? ">" : "<"}
     </i>
@@ -64,21 +76,28 @@ function CustomButton({ direction, handleClick }) {
 
 export default function Example(){
   return (
-    <Calendar renderButton={<CustomButton />} />
+    <Calendar
+      minDate={new Date()} 
+      renderButton={<CustomButton />} 
+    />
   )
 }`,
-    jsx: <Calendar renderButton={<CustomButton />} />,
+    jsx: <Calendar minDate={new Date()} renderButton={<CustomButton />} />,
   };
 
   return [disable, customFunction, customElement];
 }
 
-function CustomButton({ direction, handleClick }) {
+function CustomButton({ direction, handleClick, disabled }) {
   return (
     <i
       onClick={handleClick}
-      style={{ padding: "0 10px" }}
-      className="cursor-pointer"
+      style={{
+        padding: "0 10px",
+        fontWeight: "bold",
+        color: disabled ? "gray" : "blue",
+      }}
+      className={disabled ? "cursor-default" : "cursor-pointer"}
     >
       {direction === "right" ? ">" : "<"}
     </i>
