@@ -9,17 +9,27 @@ export default function (translate, language, otherProps) {
   const [visible2, setVisible2] = useState(false);
   const [shouldCloseCalendar, setShouldCloseCalendar] = useState(false);
   const [shouldCloseCalendar2, setShouldCloseCalendar2] = useState(false);
-  const [state, setState] = useState({
-    month: new DateObject({
+  const [date, setDate] = useState(
+    new DateObject({
       calendar: language === "en" ? "gregorian" : "persian",
       locale: language,
-    }).month,
-    year: new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
-    }).year,
-  });
+    })
+  );
   const calendarRef = useRef();
+
+  function update(key, value) {
+    let date = calendarRef.current.date;
+
+    calendarRef.current.set(key, date[key] + value);
+
+    setDate(new DateObject(date));
+  }
+
+  const style = {
+    display: "inline-block",
+    width: "90px",
+    fontSize: "16px",
+  };
 
   const description = {
     title: "Descriptions",
@@ -249,71 +259,40 @@ const [shouldCloseCalendar2, setShouldCloseCalendar2] = useState(false)
 import { Calendar, DateObject } from "react-multi-date-picker";
 
 export default function Example() {
-  const [state, setState] = useState({
-    month: new DateObject(${
-      language === "en" ? "" : `{ calendar: "persian", locale: "fa" }`
-    }).month,
-    year: new DateObject(${
-      language === "en" ? "" : `{ calendar: "persian", locale: "fa" }`
-    }).year,
-  });
+  const [date, setDate] = useState(new DateObject(${
+    language === "en" ? "" : `{ calendar: "persian", locale: "fa" }`
+  }));
 
   const calendarRef = useRef();
 
+  function update(key, value) {
+    let date = calendarRef.current.date;
+
+    calendarRef.current.set(key, date[key] + value);
+
+    setDate(new DateObject(date));
+  }
+
+  const style = {
+    display: "inline-block",
+    width: "90px",
+    fontSize: "16px",
+  };
+
   return (
-    <>
+    <div style={{ textAlign: "center" }}>
       <div>
-        <button
-          onClick={() => {
-            let date = calendarRef.current.date;
-
-            calendarRef.current.set("month", date.month.number + 1);
-
-            setState({ ...state, month: date.month });
-          }}
-        >
-          +
-        </button>
-        <span>{state.month?.name}</span>
-        <button
-          onClick={() => {
-            let date = calendarRef.current.date;
-
-            calendarRef.current.set("month", date.month.number - 1);
-
-            setState({ ...state, month: date.month });
-          }}
-        >
-          -
-        </button>
+        <button onClick={() => update("month", 1)}>+</button>
+        <span style={style}>{date.month.name}</span>
+        <button onClick={() => update("month", -1)}>-</button>
       </div>
       <div>
-        <button
-          onClick={() => {
-            let date = calendarRef.current.date;
-
-            calendarRef.current.set("year", date.year + 1);
-
-            setState({ ...state, year: date.year });
-          }}
-        >
-          +
-        </button>
-        <span>{state.year}</span>
-        <button
-          onClick={() => {
-            let date = calendarRef.current.date;
-
-            calendarRef.current.set("year", date.year - 1);
-
-            setState({ ...state, year: date.year });
-          }}
-        >
-          -
-        </button>
+        <button onClick={() => update("year", 1)}>+</button>
+        <span style={style}>{date.year}</span>
+        <button onClick={() => update("year", -1)}>-</button>
       </div>
       <Calendar 
-        ref={calendarRef} 
+        ref={calendarRef}
       ${
         language === "en"
           ? "/>"
@@ -321,63 +300,23 @@ export default function Example() {
         locale="fa" 
       />`
       }
-    </>
+    </div>
   )
 }  `,
     jsx: (
-      <>
+      <div style={{ textAlign: "center" }}>
         <div>
-          <button
-            onClick={() => {
-              let date = calendarRef.current.date;
-
-              calendarRef.current.set("month", date.month.number + 1);
-
-              setState({ ...state, month: date.month });
-            }}
-          >
-            +
-          </button>
-          <span>{state.month?.name}</span>
-          <button
-            onClick={() => {
-              let date = calendarRef.current.date;
-
-              calendarRef.current.set("month", date.month.number - 1);
-
-              setState({ ...state, month: date.month });
-            }}
-          >
-            -
-          </button>
+          <button onClick={() => update("month", 1)}>+</button>
+          <span style={style}>{date.month.name}</span>
+          <button onClick={() => update("month", -1)}>-</button>
         </div>
         <div>
-          <button
-            onClick={() => {
-              let date = calendarRef.current.date;
-
-              calendarRef.current.set("year", date.year + 1);
-
-              setState({ ...state, year: date.year });
-            }}
-          >
-            +
-          </button>
-          <span>{state.year}</span>
-          <button
-            onClick={() => {
-              let date = calendarRef.current.date;
-
-              calendarRef.current.set("year", date.year - 1);
-
-              setState({ ...state, year: date.year });
-            }}
-          >
-            -
-          </button>
+          <button onClick={() => update("year", 1)}>+</button>
+          <span style={style}>{date.year}</span>
+          <button onClick={() => update("year", -1)}>-</button>
         </div>
-        <Calendar ref={calendarRef} {...otherProps} />
-      </>
+        <Calendar ref={calendarRef} {...otherProps} className="inline-block" />
+      </div>
     ),
   };
 

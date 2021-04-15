@@ -9,6 +9,18 @@ export default function (translate, language, otherProps) {
     })
   );
 
+  function update(key, value) {
+    date[key] += value;
+
+    setDate(new DateObject(date));
+  }
+
+  const style = {
+    display: "inline-block",
+    width: "90px",
+    fontSize: "16px",
+  };
+
   const currentDate = {
     title: "Opening Calendar On The Specified Date",
     description: (
@@ -61,58 +73,39 @@ export default function (translate, language, otherProps) {
 import DatePicker, { DateObject } from "react-multi-date-picker";
 
 export default function Example() {
-  const [date, setDate] = useState({
-    date:new DateObject(${
+  const [date, setDate] = useState(
+    new DateObject(${
       language === "en" ? "" : `{ calendar: "persian", locale: "fa" }`
     }),
-  });
+  );
+
+  function update(key, value) {
+    date[key] += value;
+
+    setDate(new DateObject(date));
+  }
+
+  const style = {
+    display: "inline-block",
+    width: "90px",
+    fontSize: "16px",
+  };
 
   return (
-    <>
+    <div style={{ textAlign: "center" }}>
       <div>
-        <button
-          onClick={() => {
-            date.month += 1;
-
-            setDate(new DateObject(date));
-          }}
-        >
-          +
-        </button>
-        <span>{date.month.name}</span>
-        <button
-          onClick={() => {
-            date.month -= 1;
-
-            setDate(new DateObject(date));
-          }}
-        >
-          -
-        </button>
+        <button onClick={() => update("month", 1)}>+</button>
+        <span style={style}>{date.month.name}</span>
+        <button onClick={() => update("month", -1)}>-</button>
       </div>
       <div>
-        <button
-          onClick={() => {
-            date.year += 1;
-
-            setDate(new DateObject(date));
-          }}
-        >
-          +
-        </button>
-        <span>{date.year}</span>
-        <button
-          onClick={() => {
-            date.year -= 1;
-
-            setDate(new DateObject(date));
-          }}
-        >
-          -
-        </button>
+        <button onClick={() => update("year", 1)}>+</button>
+        <span style={style}>{date.year}</span>
+        <button onClick={() => update("year", -1)}>-</button>
       </div>
       <DatePicker 
-        currentDate={date} 
+        currentDate={date}
+        calendarPosition="bottom-center"
       ${
         language === "en"
           ? "/>"
@@ -120,55 +113,26 @@ export default function Example() {
         locale="fa" 
       />`
       }
-    </>
+    </div>
   )
 }  `,
     jsx: (
-      <>
+      <div style={{ textAlign: "center" }}>
         <div>
-          <button
-            onClick={() => {
-              date.month += 1;
-
-              setDate(new DateObject(date));
-            }}
-          >
-            +
-          </button>
-          <span>{date.month?.name}</span>
-          <button
-            onClick={() => {
-              date.month -= 1;
-
-              setDate(new DateObject(date));
-            }}
-          >
-            -
-          </button>
+          <button onClick={() => update("month", 1)}>+</button>
+          <span style={style}>{date.month.name}</span>
+          <button onClick={() => update("month", -1)}>-</button>
         </div>
         <div>
-          <button
-            onClick={() => {
-              date.year += 1;
-
-              setDate(new DateObject(date));
-            }}
-          >
-            +
-          </button>
-          <span>{date.year}</span>
-          <button
-            onClick={() => {
-              date.year -= 1;
-
-              setDate(new DateObject(date));
-            }}
-          >
-            -
-          </button>
+          <button onClick={() => update("year", 1)}>+</button>
+          <span style={style}>{date.year}</span>
+          <button onClick={() => update("year", -1)}>-</button>
         </div>
-        <DatePicker currentDate={date} {...otherProps} />
-      </>
+        <DatePicker
+          currentDate={date}
+          {...{ ...otherProps, calendarPosition: "bottom-center" }}
+        />
+      </div>
     ),
   };
 

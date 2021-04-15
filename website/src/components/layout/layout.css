@@ -433,3 +433,7 @@ pre {
 .cursor-default {
   cursor: default;
 }
+
+.inline-block {
+  display: inline-block;
+}
