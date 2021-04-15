@@ -211,5 +211,10 @@
     "You can render your favorite element instead of the default buttons.",
     "For this purpose, you can do one of the following methods:"
   ],
-  "disabled_buttons": "You can also get disabled value from the props ,if you have set a min or max date to limit the calendar or date picker."
+  "disabled_buttons": "You can also get disabled value from the props ,if you have set a min or max date to limit the calendar or date picker.",
+  "year_month_ref": [
+    "There is a way to manually set the month and year in the Calendar which is shown in the example below.",
+    "Just note that this feature only works on Calendar.",
+    "Click <a href='/other-examples/#opening-calendar-on-the-specified-date' target='_blank'>here</a> to manually set the month and year in DatePicker"
+  ]
 }

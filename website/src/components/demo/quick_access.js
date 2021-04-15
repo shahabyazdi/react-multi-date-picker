@@ -489,6 +489,10 @@ const list = [
         name: "Refresh Position",
         path: "ref/#refresh-position",
       },
+      {
+        name: "Manually Set Year And Month In Calendar",
+        path: "ref/#manually-set-year-and-month-in-calendar",
+      },
     ],
   },
   {
@@ -602,6 +606,10 @@ const list = [
       {
         name: "Opening Calendar On The Specified Date",
         path: "other-examples/#current-date",
+      },
+      {
+        name: "Manually Set Year And Month In DatePicker",
+        path: "other-examples/#manually-set-year-and-month-in-datepicker",
       },
       {
         name: "Animation",
