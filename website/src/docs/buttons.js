@@ -7,7 +7,13 @@ export default function (translate, language, otherProps) {
     description: "disable_buttons",
     code: `<Calendar 
   buttons={false} 
-/>`,
+${
+  language === "en"
+    ? "/>"
+    : `  calendar="persian"
+  locale="fa"
+/>`
+} `,
 
     jsx: <Calendar buttons={false} {...otherProps} />,
   };
@@ -21,7 +27,13 @@ export default function (translate, language, otherProps) {
       {direction === "right" ? ">" : "<"}
     </button>
   )}
-/>`,
+${
+  language === "en"
+    ? "/>"
+    : `  calendar="persian"
+  locale="fa"
+/>`
+} `,
     jsx: (
       <Calendar
         renderButton={(direction, handleClick) => (
@@ -29,6 +41,7 @@ export default function (translate, language, otherProps) {
             {direction === "right" ? ">" : "<"}
           </button>
         )}
+        {...otherProps}
       />
     ),
   };
@@ -37,10 +50,7 @@ export default function (translate, language, otherProps) {
     title: "Custom (component)",
     description: (
       <div>
-        <p>
-          You can also get disabled value from the props ,if you have set a min
-          or max date to limit the calendar or date picker.
-        </p>
+        <p>{translate("disabled_buttons")}</p>
         <p>{translate("style.css")}:</p>
         <pre>
           <code className="language-css">
@@ -79,10 +89,22 @@ export default function Example(){
     <Calendar
       minDate={new Date()} 
       renderButton={<CustomButton />} 
-    />
+    ${
+      language === "en"
+        ? "/>"
+        : `  calendar="persian"
+      locale="fa"
+    />`
+    }
   )
 }`,
-    jsx: <Calendar minDate={new Date()} renderButton={<CustomButton />} />,
+    jsx: (
+      <Calendar
+        minDate={new Date()}
+        renderButton={<CustomButton />}
+        {...otherProps}
+      />
+    ),
   };
 
   return [disable, customFunction, customElement];

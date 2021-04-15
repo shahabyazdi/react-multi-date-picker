@@ -227,7 +227,21 @@ function Calendar(
 
   return state.today ? (
     <div
-      ref={outerRef}
+      ref={(element) => {
+        if (element) {
+          element.date = state.date;
+
+          element.set = function (key, value) {
+            setState({
+              ...state,
+              date: new DateObject(state.date.set(key, value)),
+            });
+          };
+        }
+
+        if (outerRef instanceof Function) return outerRef(element);
+        if (outerRef) outerRef.current = element;
+      }}
       className={`rmdp-wrapper ${className || ""}`}
       style={{ zIndex, direction: "ltr" }}
     >

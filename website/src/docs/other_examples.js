@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../build/index";
 
 export default function (translate, language, otherProps) {
+  const [date, setDate] = useState(
+    new DateObject({
+      calendar: language === "en" ? "gregorian" : "persian",
+      locale: language,
+    })
+  );
+
   const currentDate = {
     title: "Opening Calendar On The Specified Date",
     description: (
@@ -45,6 +52,123 @@ export default function (translate, language, otherProps) {
         }
         {...otherProps}
       />
+    ),
+  };
+
+  const customMonthYear = {
+    title: "Manually Set Year And Month In DatePicker",
+    code: `import React, { useState } from "react";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+
+export default function Example() {
+  const [date, setDate] = useState({
+    date:new DateObject(${
+      language === "en" ? "" : `{ calendar: "persian", locale: "fa" }`
+    }),
+  });
+
+  return (
+    <>
+      <div>
+        <button
+          onClick={() => {
+            date.month += 1;
+
+            setDate(new DateObject(date));
+          }}
+        >
+          +
+        </button>
+        <span>{date.month.name}</span>
+        <button
+          onClick={() => {
+            date.month -= 1;
+
+            setDate(new DateObject(date));
+          }}
+        >
+          -
+        </button>
+      </div>
+      <div>
+        <button
+          onClick={() => {
+            date.year += 1;
+
+            setDate(new DateObject(date));
+          }}
+        >
+          +
+        </button>
+        <span>{date.year}</span>
+        <button
+          onClick={() => {
+            date.year -= 1;
+
+            setDate(new DateObject(date));
+          }}
+        >
+          -
+        </button>
+      </div>
+      <DatePicker 
+        currentDate={date} 
+      ${
+        language === "en"
+          ? "/>"
+          : `  calendar="persian" 
+        locale="fa" 
+      />`
+      }
+    </>
+  )
+}  `,
+    jsx: (
+      <>
+        <div>
+          <button
+            onClick={() => {
+              date.month += 1;
+
+              setDate(new DateObject(date));
+            }}
+          >
+            +
+          </button>
+          <span>{date.month?.name}</span>
+          <button
+            onClick={() => {
+              date.month -= 1;
+
+              setDate(new DateObject(date));
+            }}
+          >
+            -
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={() => {
+              date.year += 1;
+
+              setDate(new DateObject(date));
+            }}
+          >
+            +
+          </button>
+          <span>{date.year}</span>
+          <button
+            onClick={() => {
+              date.year -= 1;
+
+              setDate(new DateObject(date));
+            }}
+          >
+            -
+          </button>
+        </div>
+        <DatePicker currentDate={date} {...otherProps} />
+      </>
     ),
   };
 
@@ -166,6 +290,7 @@ export default function (translate, language, otherProps) {
 
   return [
     currentDate,
+    customMonthYear,
     animation,
     otherDays,
     scroll,
