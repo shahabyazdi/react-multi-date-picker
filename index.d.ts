@@ -3,6 +3,7 @@ declare module "react-multi-date-picker" {
   import DateObject from "react-date-object";
 
   interface CalendarProps {
+    ref?: React.RefObject<any>;
     /**
      * @types Date | string | number | DateObject
      * @types Date[] | string[] | number[] | DateObject[]
@@ -253,7 +254,6 @@ declare module "react-multi-date-picker" {
   }
 
   interface DatePickerProps {
-    ref?: React.RefObject<any>;
     arrow?: boolean | React.ReactElement;
     /**
      * Input name.
