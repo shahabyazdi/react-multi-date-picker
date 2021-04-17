@@ -1,5 +1,4 @@
 import React, { isValidElement, cloneElement } from "react";
-import DateObject from "react-date-object";
 import Arrow from "../arrow/arrow";
 
 export default function Header({
@@ -36,16 +35,8 @@ export default function Header({
       maxDate.month.number < date.month.number + 1;
 
   if (onlyMonthPicker) {
-    let getDayOfBeginning = (date) =>
-      new DateObject(date).toFirstOfYear().dayOfBeginning;
-
-    let dayOfBeginning = getDayOfBeginning(date);
-
-    if (minDate && getDayOfBeginning(minDate) >= dayOfBeginning)
-      isPreviousDisable = true;
-
-    if (maxDate && getDayOfBeginning(maxDate) <= dayOfBeginning)
-      isNextDisable = true;
+    if (minDate && minDate.year >= date.year) isPreviousDisable = true;
+    if (maxDate && maxDate.year <= date.year) isNextDisable = true;
   }
 
   if (mustShowYearPicker || onlyYearPicker) {

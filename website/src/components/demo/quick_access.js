@@ -36,6 +36,16 @@ const list = [
   {
     name: "TypeScript",
     path: "typescript/",
+    list: [
+      {
+        name: "Usage",
+        path: "typescript/#usage",
+      },
+      {
+        name: "Adding Ref to Calendar & DatePicker",
+        path: "typescript/#adding-ref-to-calendar-&-datepicker",
+      },
+    ],
   },
   {
     name: "Props",
@@ -610,6 +620,10 @@ const list = [
       {
         name: "Manually Set Year And Month In DatePicker",
         path: "other-examples/#manually-set-year-and-month-in-datepicker",
+      },
+      {
+        name: "Changing Start Day Of The Week",
+        path: "other-examples/#changing-start-day-of-the-week",
       },
       {
         name: "Animation",

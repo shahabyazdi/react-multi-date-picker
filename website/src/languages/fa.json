@@ -526,5 +526,6 @@
     "برای نمونه اگر میخواهید روز شروع هفته یکشنبه باشد، میبایست مقدار weekStartDayIndex را برابر با ۱ قرار دهید.",
     "مقدار weekStartDayIndex حتما باید عددی بین ۰ تا ۶ باشد."
   ],
-  "First Day Of Week": "اولین روز هفته"
+  "First Day Of Week": "اولین روز هفته",
+  "Adding Ref to Calendar & DatePicker": "اضافه کردن ref به تقویم و دیت پیکر"
 }
