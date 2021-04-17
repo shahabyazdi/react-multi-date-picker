@@ -1,42 +1,41 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
 
 export default function Weekends({ state, setMapDays, weekends }) {
-  const ref = useRef({})
+  const ref = useRef({});
 
   useEffect(() => {
     let $weekends = {
       gregorian: [0, 6],
       persian: [6],
       arabic: [0, 6],
-      indian: [0]
-    }
+      indian: [0],
+    };
 
-    let stringWeekends = JSON.stringify(weekends)
+    let stringWeekends = JSON.stringify(weekends);
 
     if (
       !(setMapDays instanceof Function) ||
-      (
-        ref.current.stringWeekends === stringWeekends &&
-        ref.current.calendar === state.calendar
-      )
-    ) return
+      (ref.current.stringWeekends === stringWeekends &&
+        ref.current.calendar === state.calendar)
+    )
+      return;
 
-    ref.current = { stringWeekends, calendar: state.calendar }
+    ref.current = { stringWeekends, calendar: state.calendar };
 
-    setMapDays(getMapDays)
+    setMapDays(getMapDays);
 
     function getMapDays() {
       return function mapDays({ date }) {
         let props = { className: "highlight highlight-red" },
-          isWeekend = (Array.isArray(weekends) ?
-            weekends :
-            $weekends[state.calendar]
-          ).includes(date.weekDay.index)
+          isWeekend = (Array.isArray(weekends)
+            ? weekends
+            : $weekends[state.calendar]
+          ).includes(date.weekDay.index);
 
-        if (isWeekend) return props
-      }
+        if (isWeekend) return props;
+      };
     }
-  }, [state.calendar, setMapDays, weekends])
+  }, [state.calendar, setMapDays, weekends]);
 
-  return null
+  return null;
 }

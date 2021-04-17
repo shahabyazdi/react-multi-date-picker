@@ -12,6 +12,7 @@ export default function DayPicker({
   sort,
   numberOfMonths,
   isRTL,
+  weekStartDayIndex,
 }) {
   const ref = useRef({}),
     {
@@ -32,7 +33,12 @@ export default function DayPicker({
   const months = useMemo(() => {
     if (!mustShowDayPicker) return [];
 
-    return getMonths(ref.current.date, showOtherDays, numberOfMonths);
+    return getMonths(
+      ref.current.date,
+      showOtherDays,
+      numberOfMonths,
+      weekStartDayIndex
+    );
   }, [
     date.month.number,
     date.year,
@@ -41,6 +47,7 @@ export default function DayPicker({
     mustShowDayPicker,
     showOtherDays,
     numberOfMonths,
+    weekStartDayIndex,
   ]);
 
   return (
@@ -54,7 +61,11 @@ export default function DayPicker({
                 monthIndex + 1 < numberOfMonths ? "10px" : "",
             }}
           >
-            <WeekDays state={state} customWeekDays={customWeekDays} />
+            <WeekDays
+              state={state}
+              customWeekDays={customWeekDays}
+              weekStartDayIndex={weekStartDayIndex}
+            />
             {weeks.map((week, index) => (
               <div key={index} className="rmdp-week">
                 {week.map((object, i) => {
@@ -216,7 +227,7 @@ export default function DayPicker({
   }
 }
 
-function getMonths(date, showOtherDays, numberOfMonths) {
+function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
   if (!date) return [];
 
   let months = [];
@@ -224,10 +235,13 @@ function getMonths(date, showOtherDays, numberOfMonths) {
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     date = new DateObject(date).toFirstOfMonth();
 
-    let monthNumber = date.month.number;
-    let weeks = [];
+    let monthNumber = date.month.number,
+      weeks = [];
 
-    date.day -= date.weekDay.index;
+    date.toFirstOfWeek().add(weekStartDayIndex, "day");
+
+    if (date.month.number === monthNumber && date.day > 1)
+      date.subtract(7, "days");
 
     for (let weekIndex = 0; weekIndex < 6; weekIndex++) {
       let week = [];

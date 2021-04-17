@@ -251,6 +251,16 @@ declare module "react-multi-date-picker" {
      * <Calendar renderButton={<CustomButton />} />
      */
     renderButton?: React.ReactElement | Function;
+    /**
+     * Use this property to change the start day of the week.
+     *
+     * Only numbers between 0 and 6 are valid
+     *
+     * @example
+     *
+     * <Calendar weekStartDayIndex={2} />
+     */
+    weekStartDayIndex?: number;
   }
 
   interface DatePickerProps {
@@ -427,4 +437,100 @@ declare module "react-multi-date-picker" {
   export default function DatePicker(
     props: CalendarProps & DatePickerProps
   ): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/date_panel" {
+  import React from "react";
+  import DateObject from "react-date-object";
+
+  interface DatePanelProps {
+    position?: string;
+    eachDaysInRange?: boolean;
+    sort?: "string";
+    style?: React.CSSProperties;
+    className?: string;
+    onDateClicked?(date: DateObject): void;
+    removeButton?: boolean;
+  }
+
+  export default function DatePanel(props: DatePanelProps): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/date_picker_header" {
+  import React from "react";
+
+  interface DatePickerHeaderProps {
+    position?: string;
+    size?: string;
+    calendar?: string;
+    locale?: string;
+    className?: string;
+  }
+
+  export default function DatePickerHeader(
+    props: DatePickerHeaderProps
+  ): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/multi_colors" {
+  import React from "react";
+
+  interface MultiColorsProps {
+    setProps(props: object): void;
+    position?: string;
+    colors?: string[];
+    defaultColor?: string;
+    className?: string;
+  }
+
+  export default function MultiColors(
+    props: MultiColorsProps
+  ): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/settings" {
+  import React from "react";
+
+  interface SettingsProps {
+    position?: string;
+    setProps(props: object): void;
+    calendars?: string[];
+    locales?: string[];
+    modes?: string[];
+    others?: string[];
+    defaultActive?: string;
+    disabledList?: string[];
+    defaultFormat?: {
+      single?: string;
+      timePicker?: string;
+      onlyTimePicker?: string;
+      onlyYearPicker?: string;
+      onlyMonthPicker?: string;
+    };
+    className?: string;
+  }
+
+  export default function Settings(props: SettingsProps): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/toolbar" {
+  import React from "react";
+
+  interface ToolbarProps {
+    position?: string;
+    className?: string;
+  }
+
+  export default function Toolbar(props: ToolbarProps): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/weekends" {
+  import React from "react";
+
+  interface WeekendsProps {
+    setMapDays(props: object): void;
+    weekends?: number[];
+  }
+
+  export default function Weekends(props: WeekendsProps): React.ReactElement;
 }

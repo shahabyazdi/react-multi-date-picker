@@ -1,7 +1,11 @@
 import React, { useMemo } from "react";
 import DateObject from "react-date-object";
 
-export default function WeekDays({ state, customWeekDays }) {
+export default function WeekDays({ state, customWeekDays, weekStartDayIndex }) {
+  const {
+    date: { calendar, locale },
+  } = state;
+
   let weekDays = useMemo(() => {
     let weekDays = customWeekDays;
 
@@ -20,13 +24,17 @@ export default function WeekDays({ state, customWeekDays }) {
     } else {
       weekDays = new DateObject({
         year: undefined,
-        calendar: state.date.calendar,
-        locale: state.date.locale,
+        calendar,
+        locale,
       }).weekDays.map((weekDay) => weekDay.shortName);
     }
 
     return weekDays;
-  }, [state.date.calendar, state.date.locale, customWeekDays]);
+  }, [calendar, locale, customWeekDays]);
+
+  weekDays = [...weekDays]
+    .slice(weekStartDayIndex)
+    .concat([...weekDays].splice(0, weekStartDayIndex));
 
   return (
     <div className="rmdp-week">

@@ -3,6 +3,7 @@
     "The DatePanel & DatePanel Position is disabled by default and is activated when you switch to multiple or range mode & number of months is 1 (of course, these are the current settings that I applied, you can activate them in any cases).",
     "In multiple or range mode, 'Time & Only Time Picker' are disabled.",
     "In this page, the number of months is limited to maximum 3, but you can consider any number for it.",
+    "First Day Of Week is disabled in Only Time Picker & Only Year Picker & Only Month Picker ",
     "Calendar position and animation are activated when the type is anything other than Calendar (input, button, ...)."
   ],
   "Fa": "Farsi",
@@ -216,5 +217,10 @@
     "There is a way to manually set the month and year in the Calendar which is shown in the example below.",
     "Just note that this feature only works on Calendar.",
     "Click <a href='/other-examples/#opening-calendar-on-the-specified-date' target='_blank'>here</a> to manually set the month and year in DatePicker"
+  ],
+  "start_day": [
+    "You can use the weekStartDayIndex property to change the start day of the week.",
+    "For example, if you want the start day of the week to be Monday, you should set the weekStartDayIndex value to 1.",
+    "The value of weekStartDayIndex must be a number between 0 and 6."
   ]
 }

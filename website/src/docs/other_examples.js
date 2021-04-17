@@ -136,6 +136,15 @@ export default function Example() {
     ),
   };
 
+  const weekStartDayIndex = {
+    title: "Changing Start Day Of The Week",
+    description: "start_day",
+    code: `<DatePicker 
+  weekStartDayIndex={1} 
+/>`,
+    jsx: <DatePicker weekStartDayIndex={1} {...otherProps} />,
+  };
+
   const animation = {
     title: "Animation",
     code: `<DatePicker 
@@ -255,6 +264,7 @@ export default function Example() {
   return [
     currentDate,
     customMonthYear,
+    weekStartDayIndex,
     animation,
     otherDays,
     scroll,

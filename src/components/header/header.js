@@ -4,7 +4,6 @@ import Arrow from "../arrow/arrow";
 export default function Header({
   state,
   setState,
-  onChange,
   disableYearPicker,
   disableMonthPicker,
   customMonths,
@@ -14,7 +13,17 @@ export default function Header({
 }) {
   let monthNames = [],
     years = [],
-    { date, onlyMonthPicker, onlyYearPicker, minDate, maxDate } = state,
+    {
+      date,
+      onlyMonthPicker,
+      onlyYearPicker,
+      onlyTimePicker,
+      mustShowYearPicker,
+      minDate,
+      maxDate,
+      year,
+      maxYear,
+    } = state,
     digits = date.digits,
     isPreviousDisable =
       minDate &&
@@ -24,6 +33,18 @@ export default function Header({
       maxDate &&
       date.year >= maxDate.year &&
       maxDate.month.number < date.month.number + 1;
+
+  if (onlyMonthPicker) {
+    if (minDate && minDate.year >= date.year) isPreviousDisable = true;
+    if (maxDate && maxDate.year <= date.year) isNextDisable = true;
+  }
+
+  if (mustShowYearPicker || onlyYearPicker) {
+    let minYear = maxYear - 11;
+
+    isPreviousDisable = minDate && minDate.year > minYear;
+    isNextDisable = maxDate && maxDate.year < maxYear;
+  }
 
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     let monthName,
@@ -52,7 +73,7 @@ export default function Header({
   return (
     <div
       className="rmdp-header"
-      style={{ display: state.onlyTimePicker ? "none" : "block" }}
+      style={{ display: onlyTimePicker ? "none" : "block" }}
     >
       <div style={{ position: "relative", display: "flex" }}>
         {buttons && getButton("left")}
@@ -109,12 +130,10 @@ export default function Header({
   }
 
   function increaseValue(value) {
-    let { selectedDate, mustShowYearPicker, year } = state;
+    if ((value < 0 && isPreviousDisable) || (value > 0 && isNextDisable))
+      return;
 
     if (!mustShowYearPicker && !onlyYearPicker) {
-      if ((value < 0 && isPreviousDisable) || (value > 0 && isNextDisable))
-        return;
-
       date.toFirstOfMonth();
 
       if (onlyMonthPicker) {
@@ -123,19 +142,15 @@ export default function Header({
         date.month += value;
       }
     } else {
-      if (minDate && minDate.year > year + value) return;
-      if (maxDate && maxDate.year < year + value) return;
-
       year = year + value * 12;
 
       if (value < 0 && minDate && year < minDate.year) year = minDate.year;
       if (value > 0 && maxDate && year > maxDate.year) year = maxDate.year;
     }
 
-    onChange(onlyMonthPicker ? selectedDate : undefined, {
+    setState({
       ...state,
       date,
-      selectedDate,
       year,
     });
   }

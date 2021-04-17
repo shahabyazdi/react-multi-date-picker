@@ -108,6 +108,7 @@ export default function Example() {
 | Name                 |                                             Type                                              |            Default             | Availability (DatePicker/ Calendar) |
 | -------------------- | :-------------------------------------------------------------------------------------------: | :----------------------------: | ----------------------------------- |
 | value                | Date, [DateObject](https://github.com/shahabyazdi/react-date-object), String, Number or Array |           new Date()           | both                                |
+| ref                  |                                        React.RefObject                                        |                                | both                                |
 | multiple             |                                            Boolean                                            | false (true if value is Array) | both                                |
 | range                |                                            Boolean                                            |             false              | both                                |
 | timePicker           |                                            Boolean                                            |             false              | both                                |
@@ -136,6 +137,7 @@ export default function Example() {
 | digits               |                                             Array                                             |                                | both                                |
 | buttons              |                                            Boolean                                            |                                | both                                |
 | renderButton         |                                React.ReactElement or Function                                 |                                | both                                |
+| weekStartDayIndex    |                                            Number                                             |                                | both                                |
 | className            |                                            String                                             |               ""               | both                                |
 | containerClassName   |                                            String                                             |                                | DatePicker                          |
 | arrowClassName       |                                            String                                             |               0                | DatePicker                          |
