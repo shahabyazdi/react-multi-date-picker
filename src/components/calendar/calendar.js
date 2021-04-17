@@ -41,6 +41,7 @@ function Calendar(
     digits,
     buttons = true,
     renderButton,
+    startDayIndex = 0,
   },
   outerRef
 ) {
@@ -49,6 +50,9 @@ function Calendar(
 
     currentDate = undefined;
   }
+
+  if (startDayIndex && (startDayIndex < 0 || startDayIndex > 6))
+    startDayIndex = 0;
 
   if (
     typeof numberOfMonths !== "number" ||
@@ -273,6 +277,7 @@ function Calendar(
               customWeekDays={weekDays}
               numberOfMonths={numberOfMonths}
               isRTL={isRTL}
+              startDayIndex={startDayIndex}
             />
             <MonthPicker {...globalProps} customMonths={months} />
             <YearPicker {...globalProps} />

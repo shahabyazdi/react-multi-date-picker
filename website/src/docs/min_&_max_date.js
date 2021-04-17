@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DatePicker, { DateObject } from "../../../src/index";
+import DatePicker, { DateObject, getAllDatesInRange } from "../../../src/index";
 
 export default function (translate, language, otherProps) {
   const [value, setValue] = useState(
@@ -11,9 +11,11 @@ export default function (translate, language, otherProps) {
     language === "en" ? "2020/12/04" : "1399/10/12"
   );
 
+  let [s, ss] = useState();
+
   const multipleMonths = {
     title: "multiple months",
-    jsx: <DatePicker multiple minDate={new Date()} />,
+    jsx: <DatePicker showOtherDays multiple minDate={new Date()} />,
   };
 
   const [values, setValues] = useState([

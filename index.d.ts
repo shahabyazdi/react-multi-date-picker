@@ -251,6 +251,12 @@ declare module "react-multi-date-picker" {
      * <Calendar renderButton={<CustomButton />} />
      */
     renderButton?: React.ReactElement | Function;
+    /**
+     * Use this property to change the start day of the week.
+     *
+     * Only numbers between 0 and 6 are valid
+     */
+    startDayIndex?: number;
   }
 
   interface DatePickerProps {

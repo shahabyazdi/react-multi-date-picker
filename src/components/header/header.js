@@ -5,7 +5,6 @@ import Arrow from "../arrow/arrow";
 export default function Header({
   state,
   setState,
-  onChange,
   disableYearPicker,
   disableMonthPicker,
   customMonths,
@@ -45,7 +44,7 @@ export default function Header({
       isPreviousDisable = true;
 
     if (maxDate && getDayOfBeginning(maxDate) <= dayOfBeginning)
-      isPreviousDisable = true;
+      isNextDisable = true;
   }
 
   if (mustShowYearPicker || onlyYearPicker) {
@@ -139,12 +138,10 @@ export default function Header({
   }
 
   function increaseValue(value) {
-    let { selectedDate } = state;
+    if ((value < 0 && isPreviousDisable) || (value > 0 && isNextDisable))
+      return;
 
     if (!mustShowYearPicker && !onlyYearPicker) {
-      if ((value < 0 && isPreviousDisable) || (value > 0 && isNextDisable))
-        return;
-
       date.toFirstOfMonth();
 
       if (onlyMonthPicker) {
@@ -159,10 +156,9 @@ export default function Header({
       if (value > 0 && maxDate && year > maxDate.year) year = maxDate.year;
     }
 
-    onChange(onlyMonthPicker ? selectedDate : undefined, {
+    setState({
       ...state,
       date,
-      selectedDate,
       year,
     });
   }
