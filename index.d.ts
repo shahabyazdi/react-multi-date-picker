@@ -428,3 +428,20 @@ declare module "react-multi-date-picker" {
     props: CalendarProps & DatePickerProps
   ): React.ReactElement;
 }
+
+declare module "react-multi-date-picker/plugins/date_panel" {
+  import React from "react";
+  import DateObject from "react-date-object";
+
+  interface DatePanelProps {
+    position?: string;
+    eachDaysInRange?: boolean;
+    sort?: "string";
+    style?: React.CSSProperties;
+    className?: string;
+    onDateClicked?(date: DateObject): void;
+    removeButton?: boolean;
+  }
+
+  export default function DatePanel(props: DatePanelProps): React.ReactElement;
+}
