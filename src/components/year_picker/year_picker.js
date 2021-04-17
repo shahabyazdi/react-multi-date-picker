@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { selectDate } from "../day_picker/day_picker";
 import DateObject from "react-date-object";
 
-export default function YearPicker({ state, onChange, sort }) {
+export default function YearPicker({ state, setState, onChange, sort }) {
   const {
       date,
       today,
@@ -16,7 +16,7 @@ export default function YearPicker({ state, onChange, sort }) {
       (state.mustShowYearPicker || onlyYearPicker) && !state.onlyTimePicker,
     digits = date.digits;
 
-  const years = useMemo(() => {
+  const [years, maxYear] = useMemo(() => {
     let yearArray = [],
       year = today.year - 4,
       maxYear = year + 11;
@@ -37,8 +37,14 @@ export default function YearPicker({ state, onChange, sort }) {
       yearArray.push(array);
     }
 
-    return yearArray;
+    return [yearArray, maxYear];
   }, [state.year, today.year]);
+
+  useEffect(() => {
+    if (!mustShowYearPicker) return;
+
+    setState((state) => ({ ...state, maxYear }));
+  }, [maxYear, mustShowYearPicker]);
 
   return (
     <div

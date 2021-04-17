@@ -1,4 +1,5 @@
 import React, { isValidElement, cloneElement } from "react";
+import DateObject from "react-date-object";
 import Arrow from "../arrow/arrow";
 
 export default function Header({
@@ -14,7 +15,16 @@ export default function Header({
 }) {
   let monthNames = [],
     years = [],
-    { date, onlyMonthPicker, onlyYearPicker, minDate, maxDate } = state,
+    {
+      date,
+      onlyMonthPicker,
+      onlyYearPicker,
+      mustShowYearPicker,
+      minDate,
+      maxDate,
+      year,
+      maxYear,
+    } = state,
     digits = date.digits,
     isPreviousDisable =
       minDate &&
@@ -24,6 +34,26 @@ export default function Header({
       maxDate &&
       date.year >= maxDate.year &&
       maxDate.month.number < date.month.number + 1;
+
+  if (onlyMonthPicker) {
+    let getDayOfBeginning = (date) =>
+      new DateObject(date).toFirstOfYear().dayOfBeginning;
+
+    let dayOfBeginning = getDayOfBeginning(date);
+
+    if (minDate && getDayOfBeginning(minDate) >= dayOfBeginning)
+      isPreviousDisable = true;
+
+    if (maxDate && getDayOfBeginning(maxDate) <= dayOfBeginning)
+      isPreviousDisable = true;
+  }
+
+  if (mustShowYearPicker || onlyYearPicker) {
+    let minYear = maxYear - 11;
+
+    isPreviousDisable = minDate && minDate.year > minYear;
+    isNextDisable = maxDate && maxDate.year < maxYear;
+  }
 
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     let monthName,
@@ -109,7 +139,7 @@ export default function Header({
   }
 
   function increaseValue(value) {
-    let { selectedDate, mustShowYearPicker, year } = state;
+    let { selectedDate } = state;
 
     if (!mustShowYearPicker && !onlyYearPicker) {
       if ((value < 0 && isPreviousDisable) || (value > 0 && isNextDisable))
@@ -123,9 +153,6 @@ export default function Header({
         date.month += value;
       }
     } else {
-      if (minDate && minDate.year > year + value) return;
-      if (maxDate && maxDate.year < year + value) return;
-
       year = year + value * 12;
 
       if (value < 0 && minDate && year < minDate.year) year = minDate.year;
