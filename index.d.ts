@@ -446,7 +446,7 @@ declare module "react-multi-date-picker/plugins/date_panel" {
   interface DatePanelProps {
     position?: string;
     eachDaysInRange?: boolean;
-    sort?: "string";
+    sort?: string;
     style?: React.CSSProperties;
     className?: string;
     onDateClicked?(date: DateObject): void;
