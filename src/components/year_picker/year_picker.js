@@ -44,7 +44,7 @@ export default function YearPicker({ state, setState, onChange, sort }) {
     if (!mustShowYearPicker) return;
 
     setState((state) => ({ ...state, maxYear }));
-  }, [maxYear, mustShowYearPicker]);
+  }, [maxYear, mustShowYearPicker, setState]);
 
   return (
     <div

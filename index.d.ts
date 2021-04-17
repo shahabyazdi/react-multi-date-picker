@@ -255,8 +255,12 @@ declare module "react-multi-date-picker" {
      * Use this property to change the start day of the week.
      *
      * Only numbers between 0 and 6 are valid
+     *
+     * @example
+     *
+     * <Calendar weekStartDayIndex={2} />
      */
-    startDayIndex?: number;
+    weekStartDayIndex?: number;
   }
 
   interface DatePickerProps {

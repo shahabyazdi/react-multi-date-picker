@@ -12,7 +12,7 @@ export default function DayPicker({
   sort,
   numberOfMonths,
   isRTL,
-  startDayIndex,
+  weekStartDayIndex,
 }) {
   const ref = useRef({}),
     {
@@ -37,7 +37,7 @@ export default function DayPicker({
       ref.current.date,
       showOtherDays,
       numberOfMonths,
-      startDayIndex
+      weekStartDayIndex
     );
   }, [
     date.month.number,
@@ -47,7 +47,7 @@ export default function DayPicker({
     mustShowDayPicker,
     showOtherDays,
     numberOfMonths,
-    startDayIndex,
+    weekStartDayIndex,
   ]);
 
   return (
@@ -64,7 +64,7 @@ export default function DayPicker({
             <WeekDays
               state={state}
               customWeekDays={customWeekDays}
-              startDayIndex={startDayIndex}
+              weekStartDayIndex={weekStartDayIndex}
             />
             {weeks.map((week, index) => (
               <div key={index} className="rmdp-week">
@@ -227,7 +227,7 @@ export default function DayPicker({
   }
 }
 
-function getMonths(date, showOtherDays, numberOfMonths, startDayIndex) {
+function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
   if (!date) return [];
 
   let months = [];
@@ -235,10 +235,10 @@ function getMonths(date, showOtherDays, numberOfMonths, startDayIndex) {
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     date = new DateObject(date).toFirstOfMonth();
 
-    let monthNumber = date.month.number;
-    let weeks = [];
+    let monthNumber = date.month.number,
+      weeks = [];
 
-    date.toFirstOfWeek().add(startDayIndex, "day");
+    date.toFirstOfWeek().add(weekStartDayIndex, "day");
 
     if (date.month.number === monthNumber && date.day > 1)
       date.subtract(7, "days");

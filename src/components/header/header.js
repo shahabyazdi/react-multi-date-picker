@@ -11,6 +11,7 @@ export default function Header({
   numberOfMonths,
   buttons,
   renderButton,
+  onlyTimePicker,
 }) {
   let monthNames = [],
     years = [],
@@ -81,7 +82,7 @@ export default function Header({
   return (
     <div
       className="rmdp-header"
-      style={{ display: state.onlyTimePicker ? "none" : "block" }}
+      style={{ display: onlyTimePicker ? "none" : "block" }}
     >
       <div style={{ position: "relative", display: "flex" }}>
         {buttons && getButton("left")}

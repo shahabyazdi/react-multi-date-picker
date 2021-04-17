@@ -216,5 +216,10 @@
     "There is a way to manually set the month and year in the Calendar which is shown in the example below.",
     "Just note that this feature only works on Calendar.",
     "Click <a href='/other-examples/#opening-calendar-on-the-specified-date' target='_blank'>here</a> to manually set the month and year in DatePicker"
+  ],
+  "start_day": [
+    "You can use the weekStartDayIndex property to change the start day of the week.",
+    "For example, if you want the start day of the week to be Monday, you should set the weekStartDayIndex value to 1.",
+    "The value of weekStartDayIndex must be a number between 0 and 6."
   ]
 }

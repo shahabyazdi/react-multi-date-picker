@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export default function (translate, language) {
   const table = {
@@ -13,6 +13,12 @@ export default function (translate, language) {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>ref</td>
+            <td>React.RefObject</td>
+            <td>true</td>
+            <td>{translate("both")}</td>
+          </tr>
           <tr>
             <td>value</td>
             <td>Date, DateObject, String, Number {translate("or")} Array</td>
@@ -188,10 +194,10 @@ export default function (translate, language) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
-            <td>ref</td>
-            <td>React.RefObject</td>
-            <td>true</td>
-            <td>{translate("DatePicker")}</td>
+            <td>weekStartDayIndex</td>
+            <td>Number</td>
+            <td></td>
+            <td>{translate("both")}</td>
           </tr>
           <tr>
             <td>arrow</td>
@@ -366,7 +372,5 @@ export default function (translate, language) {
     ),
   };
 
-  return [
-    table
-  ]
+  return [table];
 }
