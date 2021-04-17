@@ -11,7 +11,6 @@ export default function Header({
   numberOfMonths,
   buttons,
   renderButton,
-  onlyTimePicker,
 }) {
   let monthNames = [],
     years = [],
@@ -19,6 +18,7 @@ export default function Header({
       date,
       onlyMonthPicker,
       onlyYearPicker,
+      onlyTimePicker,
       mustShowYearPicker,
       minDate,
       maxDate,

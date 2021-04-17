@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Selectors from "../selectors/selectors";
-import DatePicker, { Calendar } from "../../../../build/index";
+import DatePicker, { Calendar, DateObject } from "../../../../build/index";
 import DatePanel from "../../../../plugins/date_panel";
 import { Link } from "gatsby";
 import "./demo.css";
@@ -15,6 +15,7 @@ export default function Demo({ language = "en", translate }) {
     calendarPosition: "bottom-center",
     numberOfMonths: 1,
     datePanelPosition: ["fa"].includes(language) ? "left" : "right",
+    weekStartDayIndex: 0,
   });
 
   const {
@@ -37,6 +38,7 @@ export default function Demo({ language = "en", translate }) {
     animation,
     numberOfMonths,
     datePanelPosition,
+    weekStartDayIndex,
   } = state;
 
   const updateState = (key, value) => {
@@ -53,6 +55,7 @@ export default function Demo({ language = "en", translate }) {
     onChange: (dateObject) => updateState("value", dateObject),
     fixRelativePosition: true,
     fixMainPosition: true,
+    weekStartDayIndex,
     plugins: [
       <DatePanel
         sort="date"
@@ -77,35 +80,36 @@ export default function Demo({ language = "en", translate }) {
       </div>
 
       <Selectors
+        translate={translate}
         selectors={[
           {
-            title: translate("Calendar"),
+            title: "Calendar",
             options: [
-              [translate("Gregorian"), "gregorian"],
-              [translate("Persian"), "persian"],
-              [translate("Arabic"), "arabic"],
-              [translate("Indian"), "indian"],
+              ["Gregorian", "gregorian"],
+              ["Persian", "persian"],
+              ["Arabic", "arabic"],
+              ["Indian", "indian"],
             ],
             value: calendar,
             onChange: (value) => updateState("calendar", value),
           },
           {
-            title: translate("Locale"),
+            title: "Locale",
             options: [
-              [translate("English"), "en"],
-              [translate("Fa"), "fa"],
-              [translate("Ar"), "ar"],
-              [translate("Hindi"), "hi"],
+              ["English", "en"],
+              ["Fa", "fa"],
+              ["Ar", "ar"],
+              ["Hindi", "hi"],
             ],
             value: locale,
             onChange: (value) => updateState("locale", value),
           },
           {
-            title: translate("Mode"),
+            title: "Mode",
             options: [
-              [translate("Single"), "single"],
-              [translate("Multiple"), "multiple"],
-              [translate("Range"), "range"],
+              ["Single", "single"],
+              ["Multiple", "multiple"],
+              ["Range", "range"],
             ],
             value:
               !multiple && !range ? "single" : multiple ? "multiple" : "range",
@@ -121,13 +125,13 @@ export default function Demo({ language = "en", translate }) {
               }),
           },
           {
-            title: translate("Other Pickers"),
+            title: "Other Pickers",
             options: [
-              [translate("Disable"), "disable"],
-              [translate("Time Picker"), "timePicker"],
-              [translate("Only Time Picker"), "onlyTimePicker"],
-              [translate("Only Month Picker"), "onlyMonthPicker"],
-              [translate("Only Year Picker"), "onlyYearPicker"],
+              ["Disable", "disable"],
+              ["Time Picker", "timePicker"],
+              ["Only Time Picker", "onlyTimePicker"],
+              ["Only Month Picker", "onlyMonthPicker"],
+              ["Only Year Picker", "onlyYearPicker"],
             ].filter(([text, value]) => {
               if (!multiple && !range) {
                 return true;
@@ -158,7 +162,7 @@ export default function Demo({ language = "en", translate }) {
               }),
           },
           {
-            title: translate("Number Of Months"),
+            title: "Number Of Months",
             options: [
               ["1", 1],
               ["2", 2],
@@ -168,108 +172,119 @@ export default function Demo({ language = "en", translate }) {
             onChange: (value) => updateState("numberOfMonths", Number(value)),
           },
           {
-            title: translate("Type"),
+            title: "Type",
             options: [
-              [translate("Calendar"), "calendar"],
-              [translate("Input"), "input"],
-              [translate("Input-Icon"), "input-icon"],
-              [translate("Icon"), "icon"],
-              [translate("Button"), "button"],
+              ["Calendar", "calendar"],
+              ["Input", "input"],
+              ["Input-Icon", "input-icon"],
+              ["Icon", "icon"],
+              ["Button", "button"],
             ],
             value: type,
             onChange: (value) => updateState("type", value),
           },
           {
-            title: translate("Dates panel"),
+            title: "Dates panel",
             disabled: (!range && !multiple) || numberOfMonths > 1,
             options: [
-              [translate("Enable"), "enable"],
-              [translate("Disable"), "disable"],
+              ["Enable", "enable"],
+              ["Disable", "disable"],
             ],
             value: mustShowDates ? "enable" : "disable",
             onChange: (value) =>
               updateState("mustShowDates", value === "enable"),
           },
           {
-            title: translate("DatePanel Position"),
+            title: "DatePanel Position",
             disabled: (!range && !multiple) || numberOfMonths > 1,
             options: [
-              [translate("Left"), "left"],
-              [translate("Right"), "right"],
-              [translate("Top"), "top"],
-              [translate("Bottom"), "bottom"],
+              ["Left", "left"],
+              ["Right", "right"],
+              ["Top", "top"],
+              ["Bottom", "bottom"],
             ],
             value: datePanelPosition,
             onChange: (value) => updateState("datePanelPosition", value),
           },
           {
-            title: translate("Layout"),
+            title: "Layout",
             options: [
-              [translate("Default"), ""],
-              [translate("Prime"), "rmdp-prime"],
-              [translate("Mobile"), "rmdp-mobile"],
+              ["Default", ""],
+              ["Prime", "rmdp-prime"],
+              ["Mobile", "rmdp-mobile"],
             ],
             value: layout,
             onChange: (value) => updateState("layout", value),
           },
           {
-            title: translate("Other Days"),
+            title: "Other Days",
             options: [
-              [translate("Enable"), "enable"],
-              [translate("Disable"), "disable"],
+              ["Enable", "enable"],
+              ["Disable", "disable"],
             ],
             value: showOtherDays ? "enable" : "disable",
             onChange: (value) =>
               updateState("showOtherDays", value === "enable"),
           },
           {
-            title: translate("Colors"),
+            title: "First Day Of Week",
+            options: new DateObject({
+              calendar,
+              locale: language,
+            }).weekDays.map((weekDay, index) => [weekDay.name, index]),
+            value: weekStartDayIndex,
+            disabled: onlyTimePicker || onlyMonthPicker || onlyYearPicker,
+            onChange: (value) =>
+              updateState("weekStartDayIndex", Number(value)),
+          },
+          {
+            title: "Colors",
             options: [
-              [translate("Default"), ""],
-              [translate("Green"), "green"],
-              [translate("Red"), "red"],
-              [translate("Yellow"), "yellow"],
-              [translate("Purple"), "purple"],
-              [translate("Teal"), "teal"],
+              ["Default", ""],
+              ["Green", "green"],
+              ["Red", "red"],
+              ["Yellow", "yellow"],
+              ["Purple", "purple"],
+              ["Teal", "teal"],
             ],
             value: color,
             onChange: (value) => updateState("color", value),
           },
           {
-            title: translate("BackGrounds"),
+            title: "BackGrounds",
             options: [
-              [translate("Default"), ""],
-              [translate("Dark"), "bg-dark"],
-              [translate("Gray"), "bg-gray"],
-              [translate("Brown"), "bg-brown"],
+              ["Default", ""],
+              ["Dark", "bg-dark"],
+              ["Gray", "bg-gray"],
+              ["Brown", "bg-brown"],
             ],
             value: background,
             onChange: (value) => updateState("background", value),
           },
           {
-            title: translate("Calendar Position"),
+            title: "Calendar Position",
             options: [
-              [translate("Bottom Left"), "bottom-left"],
-              [translate("Bottom Center"), "bottom-center"],
-              [translate("Bottom Right"), "bottom-right"],
-              [translate("Top Left"), "top-left"],
-              [translate("Top Center"), "top-center"],
-              [translate("Right Top"), "right-top"],
-              [translate("Right Center"), "right-center"],
-              [translate("Right Bottom"), "right-bottom"],
-              [translate("Left Top"), "left-top"],
-              [translate("Left Center"), "left-center"],
-              [translate("Left Bottom"), "left-bottom"],
+              ["Bottom Left", "bottom-left"],
+              ["Bottom Center", "bottom-center"],
+              ["Bottom Right", "bottom-right"],
+              ["Top Left", "top-left"],
+              ["Top Center", "top-center"],
+              ["Right Top", "right-top"],
+              ["Right Center", "right-center"],
+              ["Right Bottom", "right-bottom"],
+              ["Left Top", "left-top"],
+              ["Left Center", "left-center"],
+              ["Left Bottom", "left-bottom"],
             ],
             value: calendarPosition,
             onChange: (value) => updateState("calendarPosition", value),
             disabled: type === "calendar" || layout === "rmdp-mobile",
           },
           {
-            title: translate("Animation"),
+            title: "Animation",
             options: [
-              [translate("OFF"), "off"],
-              [translate("ON"), "on"],
+              ["OFF", "off"],
+              ["ON", "on"],
             ],
             value: animation ? "on" : "off",
             onChange: (value) => updateState("animation", value === "on"),
