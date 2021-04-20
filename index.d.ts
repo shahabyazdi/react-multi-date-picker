@@ -519,6 +519,7 @@ declare module "react-multi-date-picker/plugins/toolbar" {
   interface ToolbarProps {
     position?: string;
     className?: string;
+    names?: { today: string; deselect: string; close: string };
   }
 
   export default function Toolbar(props: ToolbarProps): React.ReactElement;

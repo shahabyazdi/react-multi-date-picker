@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import DatePicker from "../../../../build/index"
-import Toolbar from "../../../../plugins/toolbar"
+import React, { useState } from "react";
+import DatePicker from "../../../../build/index";
+import Toolbar from "../../../../plugins/toolbar";
 
 export default function (trasnlate, language, otherProps) {
-  const [value, setValue] = useState()
+  const [value, setValue] = useState();
 
   const toolbar = {
     title: "Toolbar",
@@ -23,17 +23,15 @@ const [value, setValue] = useState()
     <Toolbar position="bottom" />
   ]}
 />`,
-    jsx: <DatePicker
-      value={value}
-      onChange={setValue}
-      plugins={[
-        <Toolbar position="bottom" />
-      ]}
-      {...otherProps}
-    />
-  }
+    jsx: (
+      <DatePicker
+        value={value}
+        onChange={setValue}
+        plugins={[<Toolbar position="bottom" />]}
+        {...otherProps}
+      />
+    ),
+  };
 
-  return [
-    toolbar
-  ]
+  return [toolbar];
 }
