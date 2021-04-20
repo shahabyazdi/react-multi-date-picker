@@ -9,11 +9,14 @@ export default function Toolbar({
   calendarProps,
   nodes,
   className,
-  names = { today: "TODAY", deselect: "DESELECT", close: "CLOSE" },
+  names,
   ...props
 }) {
-  let name = { fa: { today: "امروز", deselect: "لغو", close: "بستن" } },
-    localeName = name[state.locale] || names,
+  let name = {
+      fa: { today: "امروز", deselect: "لغو", close: "بستن" },
+      en: { today: "TODAY", deselect: "DESELECT", close: "CLOSE" },
+    },
+    localeName = names || name[state.locale] || name.en,
     classNames = ["rmdp-toolbar", position];
 
   if (["left", "right"].includes(position)) {
