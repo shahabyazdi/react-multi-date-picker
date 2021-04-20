@@ -451,6 +451,7 @@ declare module "react-multi-date-picker/plugins/date_panel" {
     className?: string;
     onDateClicked?(date: DateObject): void;
     removeButton?: boolean;
+    header?: string;
   }
 
   export default function DatePanel(props: DatePanelProps): React.ReactElement;

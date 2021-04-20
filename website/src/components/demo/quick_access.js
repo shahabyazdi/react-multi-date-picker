@@ -751,6 +751,10 @@ const list = [
             name: "Date Click Listener",
             path: "plugins/panel/#date-click-listener",
           },
+          {
+            name: "Custom Header Name",
+            path: "plugins/panel/#custom-header-name",
+          },
         ],
       },
       {
