@@ -16,9 +16,10 @@ export default function DatePanel({
   className = "",
   onDateClicked,
   removeButton = true,
+  header,
   ...props
 }) {
-  let header = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
+  let headers = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
     dates = [],
     {
       multiple,
@@ -100,7 +101,7 @@ export default function DatePanel({
       }}
       {...props}
     >
-      <div className="rmdp-panel-header">{header[locale]}</div>
+      <div className="rmdp-panel-header">{header || headers[locale]}</div>
       <div
         style={{
           position: "relative",
