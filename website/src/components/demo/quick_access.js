@@ -822,6 +822,16 @@ const list = [
       {
         name: "Toolbar",
         path: "plugins/toolbar/",
+        list: [
+          {
+            name: "Default Toolbar",
+            path: "plugins/toolbar/#default-toolbar",
+          },
+          {
+            name: "Custom Names",
+            path: "plugins/toolbar/#custom-names",
+          },
+        ],
       },
     ],
   },

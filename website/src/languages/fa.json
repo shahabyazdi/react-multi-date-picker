@@ -527,5 +527,7 @@
     "مقدار weekStartDayIndex حتما باید عددی بین ۰ تا ۶ باشد."
   ],
   "First Day Of Week": "اولین روز هفته",
-  "Adding Ref to Calendar & DatePicker": "اضافه کردن ref به تقویم و دیت پیکر"
+  "Adding Ref to Calendar & DatePicker": "اضافه کردن ref به تقویم و دیت پیکر",
+  "Default Toolbar": "نوار ابزار پیشفرض",
+  "Custom Names": "شخصی سازی نام ها"
 }

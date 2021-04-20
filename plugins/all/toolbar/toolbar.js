@@ -9,14 +9,14 @@ export default function Toolbar({
   calendarProps,
   nodes,
   className,
+  names,
   ...props
 }) {
-  let name = { fa: { TODAY: "امروز", DESELECT: "لغو", CLOSE: "بستن" } },
-    localeName = name[state.locale] || {
-      TODAY: "TODAY",
-      DESELECT: "DESELECT",
-      CLOSE: "CLOSE",
+  let name = {
+      fa: { today: "امروز", deselect: "لغو", close: "بستن" },
+      en: { today: "TODAY", deselect: "DESELECT", close: "CLOSE" },
     },
+    localeName = names || name[state.locale] || name.en,
     classNames = ["rmdp-toolbar", position];
 
   if (["left", "right"].includes(position)) {
@@ -32,10 +32,10 @@ export default function Toolbar({
 
   return (
     <div className={`${classNames.join(" ")} ${className}`} {...props}>
-      <div onClick={selectToday}>{localeName["TODAY"]}</div>
-      <div onClick={deselect}>{localeName["DESELECT"]}</div>
+      <div onClick={selectToday}>{localeName.today}</div>
+      <div onClick={deselect}>{localeName.deselect}</div>
       {calendarProps.datePickerRef && (
-        <div onClick={close}>{localeName["CLOSE"]}</div>
+        <div onClick={close}>{localeName.close}</div>
       )}
     </div>
   );
