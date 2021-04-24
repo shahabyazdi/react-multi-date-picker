@@ -1,30 +1,61 @@
 import React from "react";
 import DatePicker from "../../../build/index";
+import TimePicker from "../../../plugins/time_picker";
 
 export default function (translate, language, otherProps) {
   const timePicker = {
     title: "Time Picker",
     code: `<DatePicker 
-  timePicker 
+  format="MM/DD/YYYY HH:mm:ss"
+  plugins={[
+    <TimePicker position="bottom" />
+  ]} 
 />`,
-    jsx: <DatePicker timePicker {...otherProps} />,
+    jsx: (
+      <DatePicker
+        format="MM/DD/YYYY HH:mm:ss"
+        plugins={[<TimePicker position="bottom" />]}
+        {...otherProps}
+      />
+    ),
   };
 
   const onlyTimePicker = {
     title: "Only Time Picker",
     code: `<DatePicker 
-  onlyTimePicker 
+  disableDayPicker
+  format="HH:mm:ss"
+  plugins={[
+    <TimePicker />
+  ]} 
 />`,
-    jsx: <DatePicker onlyTimePicker {...otherProps} />,
+    jsx: (
+      <DatePicker
+        disableDayPicker
+        format="HH:mm:ss"
+        plugins={[<TimePicker />]}
+        {...otherProps}
+      />
+    ),
   };
 
   const meridiem = {
     title: "Only Time Picker Meridiem",
     code: `<DatePicker
+  disableDayPicker
   format="hh:mm:ss A"
-  onlyTimePicker
+  plugins={[
+    <TimePicker />
+  ]} 
 />`,
-    jsx: <DatePicker format="hh:mm:ss A" onlyTimePicker {...otherProps} />,
+    jsx: (
+      <DatePicker
+        disableDayPicker
+        format="hh:mm:ss A"
+        plugins={[<TimePicker />]}
+        {...otherProps}
+      />
+    ),
   };
 
   const onlyMonthPicker = {

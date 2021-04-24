@@ -2,12 +2,13 @@ import React, { useMemo, useEffect } from "react";
 import DateObject from "react-date-object";
 import Arrow from "../../../src/components/arrow/arrow";
 import Input from "../../../src/components/input/input";
+import "./time_picker.css";
 
 export default function TimePicker({
   state,
   handleChange,
   position,
-  calendarProps: { formattingIgnoreList },
+  calendarProps: { formattingIgnoreList, disableDayPicker },
   nodes,
   calendar,
 }) {
@@ -55,10 +56,18 @@ export default function TimePicker({
     availbleDate = selectedDate || date;
   }
 
+  if (disableDayPicker) position = "bottom";
+
+  let padding = { top: "Top", bottom: "Bottom" }[position] || "";
+
   return (
     <div
       className={`rmdp-time-picker ${position}`}
-      style={{ direction: "ltr", minWidth: "220px" }}
+      style={{
+        direction: "ltr",
+        minWidth: "220px",
+        ["padding" + padding]: padding ? "5px" : "0",
+      }}
     >
       <div>
         <Arrow direction="rmdp-up" onClick={() => changeValue("hour", 1)} />

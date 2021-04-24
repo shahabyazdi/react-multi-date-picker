@@ -37,14 +37,14 @@ export default function (translate, language) {
             <td>false</td>
             <td>{translate("both")}</td>
           </tr>
-          <tr>
-            <td>timePicker</td>
+          <tr style={{ color: "red" }}>
+            <td>timePicker (deprecated)</td>
             <td>Boolean</td>
             <td>false</td>
             <td>{translate("both")}</td>
           </tr>
-          <tr>
-            <td>onlyTimePicker</td>
+          <tr style={{ color: "red" }}>
+            <td>onlyTimePicker (deprecated)</td>
             <td>Boolean</td>
             <td>false</td>
             <td>{translate("both")}</td>
@@ -196,6 +196,12 @@ export default function (translate, language) {
           <tr>
             <td>weekStartDayIndex</td>
             <td>Number</td>
+            <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>disableDayPicker</td>
+            <td>Boolean</td>
             <td></td>
             <td>{translate("both")}</td>
           </tr>

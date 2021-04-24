@@ -312,7 +312,9 @@ function Calendar(
 
     plugins.forEach((plugin, index) => {
       let nodes = {},
-        position = plugin.props.position || "right";
+        position = disableDayPicker
+          ? "bottom"
+          : plugin.props.position || "right";
 
       if (!clonedPlugins[position] || plugin.props.disabled) return;
 
@@ -320,7 +322,9 @@ function Calendar(
         if (plugins[i].props.disabled) continue;
         if (Object.keys(nodes).length === 4) break;
 
-        let pluginPosition = plugins[i].props.position || "right";
+        let pluginPosition = disableDayPicker
+          ? "bottom"
+          : plugins[i].props.position || "right";
 
         if (["top", "bottom"].includes(position)) {
           if (pluginPosition === position && i > index) nodes.bottom = true;
@@ -445,7 +449,7 @@ export function getFormat(
   format
 ) {
   if (format) return format;
-  if (timePicker && !range && !multiple) return "YYYY/MM/DD HH:mm:ss";
+  if (timePicker) return "YYYY/MM/DD HH:mm:ss";
   if (onlyTimePicker) return "HH:mm:ss";
   if (onlyMonthPicker) return "MM/YYYY";
   if (onlyYearPicker) return "YYYY";

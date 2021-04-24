@@ -15,6 +15,14 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
     meridiems = date.meridiems,
     mustShowTimePicker = (timePicker || onlyTimePicker) && !multiple && !range;
 
+  if ("_self" in React.createElement("div") && (timePicker || onlyTimePicker)) {
+    let name = onlyTimePicker ? "onlyTimePicker" : "timePicker";
+
+    console.warn(
+      name + " is deprecated and no longer available in the next versions."
+    );
+  }
+
   const mustDisplayMeridiem = useMemo(() => {
     let format = date._format;
 
