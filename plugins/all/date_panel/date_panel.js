@@ -1,6 +1,7 @@
 import React from "react";
 import DateObject from "react-date-object";
 import getAllDatesInRange from "./getAllDatesInRange";
+import { getBorderClass, getValidProps } from "../utils";
 import "./date_panel.css";
 
 export default function DatePanel({
@@ -17,6 +18,8 @@ export default function DatePanel({
   onDateClicked,
   removeButton = true,
   header,
+  markFocused,
+  focusedClassName = "",
   ...props
 }) {
   let headers = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
@@ -28,14 +31,13 @@ export default function DatePanel({
       selectedDate,
       date: { locale },
     } = state,
-    { formattingIgnoreList } = calendarProps,
-    classNames = ["rmpd-panel", position];
+    classNames = ["rmpd-panel", position, getBorderClass(position, nodes)];
 
   if (multiple || (range && !eachDaysInRange)) {
     dates = (inRangeDates || selectedDate).map((date, index) => {
       return {
         date,
-        format: date.format(undefined, formattingIgnoreList),
+        format: date.format(),
         index,
       };
     });
@@ -48,7 +50,7 @@ export default function DatePanel({
         //To find out which date is between the start and end date
         //We change its value to undefined
         date: index === 0 || index === allDates.length - 1 ? date : undefined,
-        format: date.format(undefined, formattingIgnoreList),
+        format: date.format(),
         index,
       };
     });
@@ -56,7 +58,7 @@ export default function DatePanel({
     dates = [
       {
         date: selectedDate,
-        format: selectedDate.format(undefined, formattingIgnoreList),
+        format: selectedDate.format(),
         index: 0,
       },
     ];
@@ -77,19 +79,9 @@ export default function DatePanel({
     });
   }
 
-  if (["left", "right"].includes(position)) {
-    if (nodes.left) classNames.push("rmdp-border-left");
-    if (nodes.right) classNames.push("rmdp-border-right");
-  } else {
-    if (nodes.top) classNames.push("rmdp-border-top");
-    if (nodes.bottom) classNames.push("rmdp-border-bottom");
-  }
-
   if (["fa", "ar"].includes(state.locale)) {
     classNames.push("rmdp-rtl");
   }
-
-  delete props.registerListener;
 
   return (
     <div
@@ -99,7 +91,7 @@ export default function DatePanel({
         gridTemplateRows: "auto 1fr",
         ...style,
       }}
-      {...props}
+      {...getValidProps(props)}
     >
       <div className="rmdp-panel-header">{header || headers[locale]}</div>
       <div
@@ -115,9 +107,14 @@ export default function DatePanel({
               return (
                 <li
                   key={index}
-                  className={
+                  className={`${
                     object.date?.color ? `bg-${object.date.color}` : ""
-                  }
+                  } ${
+                    markFocused &&
+                    object.date?.valueOf?.() === state.focused?.valueOf?.()
+                      ? focusedClassName || "rmdp-focused"
+                      : ""
+                  }`}
                   onClick={() =>
                     !removeButton && selectDate(object.date, object.index)
                   }

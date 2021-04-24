@@ -452,6 +452,7 @@ declare module "react-multi-date-picker/plugins/date_panel" {
     onDateClicked?(date: DateObject): void;
     removeButton?: boolean;
     header?: string;
+    markFocused?: boolean;
   }
 
   export default function DatePanel(props: DatePanelProps): React.ReactElement;
@@ -520,6 +521,7 @@ declare module "react-multi-date-picker/plugins/toolbar" {
   interface ToolbarProps {
     position?: string;
     className?: string;
+    sort?: string[];
     names?: { today: string; deselect: string; close: string };
   }
 

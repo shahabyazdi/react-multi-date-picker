@@ -5,6 +5,7 @@ import Toolbar from "../../../../plugins/toolbar";
 export default function (trasnlate, language, otherProps) {
   const [value, setValue] = useState();
   const [value1, setValue1] = useState();
+  const [value2, setValue2] = useState();
 
   const props = {
     title: "Props",
@@ -22,6 +23,11 @@ export default function (trasnlate, language, otherProps) {
             <td>className</td>
             <td>String</td>
             <td></td>
+          </tr>
+          <tr>
+            <td>sort</td>
+            <td>Array</td>
+            <td>["today", "deselect", "close"]</td>
           </tr>
           <tr>
             <td>names</td>
@@ -65,6 +71,39 @@ const [value, setValue] = useState()
     ),
   };
 
+  const sort = {
+    title: "Sorting The Buttons",
+    code: `import React, { useState } from "react"
+import Toolbar from "react-multi-date-picker/plugins/toolbar"
+.
+.
+.
+const [value, setValue] = useState()
+.
+.
+.
+<DatePicker
+  value={value}
+  onChange={setValue}
+  plugins={[
+    <Toolbar 
+      position="bottom" 
+      sort={["deselect", "close", "today"]} 
+    />,
+  ]}
+/>`,
+    jsx: (
+      <DatePicker
+        value={value1}
+        onChange={setValue1}
+        plugins={[
+          <Toolbar position="bottom" sort={["deselect", "close", "today"]} />,
+        ]}
+        {...otherProps}
+      />
+    ),
+  };
+
   const lable = {
     title: "Custom Names",
     code: `import React, { useState } from "react"
@@ -92,8 +131,8 @@ const [value, setValue] = useState()
 />`,
     jsx: (
       <DatePicker
-        value={value1}
-        onChange={setValue1}
+        value={value2}
+        onChange={setValue2}
         plugins={[
           <Toolbar
             position="bottom"
@@ -109,5 +148,5 @@ const [value, setValue] = useState()
     ),
   };
 
-  return [props, toolbar, lable];
+  return [props, toolbar, sort, lable];
 }

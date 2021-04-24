@@ -16,18 +16,18 @@
     "deploy": "gatsby build --prefix-paths && gh-pages -d public"
   },
   "dependencies": {
-    "@tabler/icons": "^1.39.1",
-    "gatsby": "^3.2.1",
-    "gatsby-plugin-manifest": "^3.2.0",
-    "gatsby-plugin-offline": "^4.2.0",
-    "gatsby-plugin-react-helmet": "^4.2.0",
-    "gatsby-plugin-react-svg": "^3.0.0",
-    "gatsby-plugin-sitemap": "^3.2.0",
-    "gatsby-source-filesystem": "^3.2.0",
+    "@tabler/icons": "^1.40.2",
+    "gatsby": "^3.3.1",
+    "gatsby-plugin-manifest": "^3.3.0",
+    "gatsby-plugin-offline": "^4.3.0",
+    "gatsby-plugin-react-helmet": "^4.3.0",
+    "gatsby-plugin-react-svg": "^3.0.1",
+    "gatsby-plugin-sitemap": "^3.3.0",
+    "gatsby-source-filesystem": "^3.3.0",
     "install": "^0.13.0",
     "prismjs": "^1.23.0",
     "react-helmet": "^6.1.0",
-    "vazir-font": "^27.2.2"
+    "vazir-font": "^28.0.0"
   },
   "devDependencies": {
     "gh-pages": "^3.1.0"

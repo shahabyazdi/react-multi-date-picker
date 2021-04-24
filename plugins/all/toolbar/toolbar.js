@@ -1,5 +1,6 @@
 import React from "react";
 import DateObject from "react-date-object";
+import { getBorderClass, getValidProps } from "../utils";
 import "./toolbar.css";
 
 export default function Toolbar({
@@ -10,50 +11,47 @@ export default function Toolbar({
   nodes,
   className,
   names,
+  sort = ["today", "deselect", "close"],
   ...props
 }) {
-  let name = {
+  let { locale, range, multiple } = state,
+    name = {
       fa: { today: "امروز", deselect: "لغو", close: "بستن" },
-      en: { today: "TODAY", deselect: "DESELECT", close: "CLOSE" },
+      en: { today: "Today", deselect: "Deselect", close: "Close" },
     },
-    localeName = names || name[state.locale] || name.en,
-    classNames = ["rmdp-toolbar", position];
-
-  if (["left", "right"].includes(position)) {
-    if (nodes.left) classNames.push("rmdp-border-left");
-    if (nodes.right) classNames.push("rmdp-border-right");
-  } else {
-    if (nodes.top) classNames.push("rmdp-border-top");
-    if (nodes.bottom) classNames.push("rmdp-border-bottom");
-  }
-
-  delete props.setState;
-  delete props.registerListener;
+    localeName = names || name[locale] || name.en,
+    classNames = ["rmdp-toolbar", position, getBorderClass(position, nodes)],
+    getButton = (name, index) =>
+      ({
+        today: (
+          <div key={index} onClick={selectToday}>
+            {localeName.today}
+          </div>
+        ),
+        deselect: (
+          <div key={index} onClick={deselect}>
+            {localeName.deselect}
+          </div>
+        ),
+        close: calendarProps.datePickerRef && (
+          <div key={index} onClick={close}>
+            {localeName.close}
+          </div>
+        ),
+      }[name]);
 
   return (
-    <div className={`${classNames.join(" ")} ${className}`} {...props}>
-      <div onClick={selectToday}>{localeName.today}</div>
-      <div onClick={deselect}>{localeName.deselect}</div>
-      {calendarProps.datePickerRef && (
-        <div onClick={close}>{localeName.close}</div>
-      )}
+    <div
+      className={`${classNames.join(" ")} ${className}`}
+      {...getValidProps(props)}
+    >
+      {sort.map(getButton)}
     </div>
   );
 
   function selectToday() {
-    let {
-        calendar,
-        locale,
-        format,
-        range,
-        multiple,
-        selectedDate,
-        date,
-      } = state,
-      { hour, minute, second, millisecond } = date,
+    let { calendar, format, selectedDate } = state,
       today = new DateObject({ calendar, locale, format });
-
-    today.set({ hour, minute, second, millisecond });
 
     if (range) {
       if (!selectedDate) selectedDate = [];
@@ -76,8 +74,7 @@ export default function Toolbar({
   }
 
   function deselect() {
-    let { range, multiple } = state,
-      selectedDate = range || multiple ? [] : null;
+    let selectedDate = range || multiple ? [] : null;
 
     handleChange(selectedDate, { ...state, selectedDate });
   }

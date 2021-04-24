@@ -1,6 +1,12 @@
-import React, { useState } from "react"
-import { IconLanguage, IconCalendarEvent, IconLetterM, IconClock } from '@tabler/icons';
-import "./settings.css"
+import React, { useState } from "react";
+import { getValidProps } from "../utils";
+import {
+  IconLanguage,
+  IconCalendarEvent,
+  IconLetterM,
+  IconClock,
+} from "@tabler/icons";
+import "./settings.css";
 
 export default function Settings({
   state,
@@ -10,30 +16,36 @@ export default function Settings({
   calendars = ["gregorian", "persian", "arabic", "indian"],
   locales = ["en", "fa", "ar", "hi"],
   modes = ["single", "multiple", "range"],
-  others = ["time picker", "only time picker", "only month picker", "only year picker"],
+  others = [
+    "time picker",
+    "only time picker",
+    "only month picker",
+    "only year picker",
+  ],
   defaultActive = "",
   disabledList = [],
   defaultFormat = {},
   className = "",
   ...props
 }) {
-  const [section, setSection] = useState(defaultActive)
+  const [section, setSection] = useState(defaultActive);
   const shortName = {
     "time picker": "TP",
     "only time picker": "OT",
     "only month picker": "OM",
-    "only year picker": "OY"
-  }
-
-  delete props.nodes
-  delete props.registerListener
-  delete props.calendarProps
-  delete props.handleChange
+    "only year picker": "OY",
+  };
 
   return (
-    <div className={`settings ${position} ${className}`} {...props}>
-      {!disabledList.includes("calendar") &&
-        <div title="Calendar" className={`setting ${section === "calendar" ? "active" : ""}`}>
+    <div
+      className={`settings ${position} ${className}`}
+      {...getValidProps(props)}
+    >
+      {!disabledList.includes("calendar") && (
+        <div
+          title="Calendar"
+          className={`setting ${section === "calendar" ? "active" : ""}`}
+        >
           <IconCalendarEvent
             size={19}
             stroke={1.5}
@@ -45,19 +57,24 @@ export default function Settings({
               return (
                 <span
                   key={index}
-                  className={`item ${state.date.calendar === calendar ? "active" : ""}`}
+                  className={`item ${
+                    state.date.calendar === calendar ? "active" : ""
+                  }`}
                   title={calendar}
-                  onClick={e => setKeyValue(e, "calendar")}
+                  onClick={(e) => setKeyValue(e, "calendar")}
                 >
                   {calendar.substring(0, 2).toUpperCase()}
                 </span>
-              )
+              );
             })}
           </div>
         </div>
-      }
-      {!disabledList.includes("locale") &&
-        <div title="Locale" className={`setting ${section === "locale" ? "active" : ""}`}>
+      )}
+      {!disabledList.includes("locale") && (
+        <div
+          title="Locale"
+          className={`setting ${section === "locale" ? "active" : ""}`}
+        >
           <IconLanguage
             size={19}
             stroke={1.5}
@@ -69,19 +86,24 @@ export default function Settings({
               return (
                 <span
                   key={index}
-                  className={`item ${state.date.locale === locale ? "active" : ""}`}
+                  className={`item ${
+                    state.date.locale === locale ? "active" : ""
+                  }`}
                   title={locale}
-                  onClick={e => setKeyValue(e, "locale")}
+                  onClick={(e) => setKeyValue(e, "locale")}
                 >
                   {locale.toUpperCase()}
                 </span>
-              )
+              );
             })}
           </div>
         </div>
-      }
-      {!disabledList.includes("mode") &&
-        <div title="Mode" className={`setting ${section === "mode" ? "active" : ""}`}>
+      )}
+      {!disabledList.includes("mode") && (
+        <div
+          title="Mode"
+          className={`setting ${section === "mode" ? "active" : ""}`}
+        >
           <IconLetterM
             size={19}
             stroke={1.5}
@@ -93,20 +115,28 @@ export default function Settings({
               return (
                 <span
                   key={index}
-                  className={`item ${state[mode] ? "active" : (!state.range && !state.multiple && mode === "single" ? "active" : "")}`}
+                  className={`item ${
+                    state[mode]
+                      ? "active"
+                      : !state.range && !state.multiple && mode === "single"
+                      ? "active"
+                      : ""
+                  }`}
                   title={mode}
                   onClick={setMode}
                 >
                   {mode.substring(0, 2).toUpperCase()}
                 </span>
-              )
+              );
             })}
-
           </div>
         </div>
-      }
-      {!disabledList.includes("other") &&
-        <div title="Time Picker" className={`setting ${section === "others" ? "active" : ""}`}>
+      )}
+      {!disabledList.includes("other") && (
+        <div
+          title="Time Picker"
+          className={`setting ${section === "others" ? "active" : ""}`}
+        >
           <IconClock
             size={19}
             stroke={1.5}
@@ -115,96 +145,113 @@ export default function Settings({
           />
           <div className="items">
             <span
-              className={`item ${(
-                !state.timePicker && !state.onlyTimePicker &&
-                  !state.onlyMonthPicker && !state.onlyYearPicker ?
-                  "active" : ""
-              )}`}
+              className={`item ${
+                !state.timePicker &&
+                !state.onlyTimePicker &&
+                !state.onlyMonthPicker &&
+                !state.onlyYearPicker
+                  ? "active"
+                  : ""
+              }`}
               title="disable"
               onClick={setTimePicker}
             >
               DI
-                </span>
-            {!state.multiple && !state.range && !Array.isArray(state.selectedDate) &&
-              <>
-                {others.map((title, index) => {
-                  return (
-                    <span
-                      key={index}
-                      className={`item ${state[title.replace(/\s\w/g, w => w[1].toUpperCase())] ? "active" : ""}`}
-                      title={title}
-                      onClick={setTimePicker}
-                    >
-                      {shortName[title]}
-                    </span>
-                  )
-                })}
-              </>
-            }
+            </span>
+            {!state.multiple &&
+              !state.range &&
+              !Array.isArray(state.selectedDate) && (
+                <>
+                  {others.map((title, index) => {
+                    return (
+                      <span
+                        key={index}
+                        className={`item ${
+                          state[
+                            title.replace(/\s\w/g, (w) => w[1].toUpperCase())
+                          ]
+                            ? "active"
+                            : ""
+                        }`}
+                        title={title}
+                        onClick={setTimePicker}
+                      >
+                        {shortName[title]}
+                      </span>
+                    );
+                  })}
+                </>
+              )}
           </div>
         </div>
-      }
+      )}
     </div>
-  )
+  );
 
   function setKeyValue(e, key) {
-    let value = e.target.title
+    let value = e.target.title;
 
-    if (state[key] === value) return
+    if (state[key] === value) return;
 
-    let $state = { ...state, date: state.date.set(key, value), [key]: value }
+    let $state = { ...state, date: state.date.set(key, value), [key]: value };
 
-    notifyChange($state)
+    notifyChange($state);
   }
 
   function setMode(e) {
     let mode = e.target.title,
-      $state
+      $state;
 
     switch (mode) {
       case "multiple":
         $state = {
           ...state,
-          selectedDate: Array.isArray(state.selectedDate) ? state.selectedDate : [state.selectedDate],
+          selectedDate: Array.isArray(state.selectedDate)
+            ? state.selectedDate
+            : [state.selectedDate],
           multiple: true,
-          range: false
-        }
-        break
+          range: false,
+        };
+        break;
       case "range":
         $state = {
           ...state,
-          selectedDate: Array.isArray(state.selectedDate) ? state.selectedDate : [state.selectedDate],
+          selectedDate: Array.isArray(state.selectedDate)
+            ? state.selectedDate
+            : [state.selectedDate],
           multiple: false,
-          range: true
-        }
+          range: true,
+        };
 
         if ($state.selectedDate.length > 2) {
           $state.selectedDate = [
             $state.selectedDate[0],
-            getLastItem($state.selectedDate)
-          ]
+            getLastItem($state.selectedDate),
+          ];
         }
-        break
+        break;
       default:
         //single
         $state = {
           ...state,
-          selectedDate: Array.isArray(state.selectedDate) ? getLastItem(state.selectedDate) : state.selectedDate,
+          selectedDate: Array.isArray(state.selectedDate)
+            ? getLastItem(state.selectedDate)
+            : state.selectedDate,
           multiple: false,
-          range: false
-        }
+          range: false,
+        };
     }
 
-    notifyChange($state)
+    notifyChange($state);
   }
 
   function getLastItem(array) {
-    return array[array.length - 1]
+    return array[array.length - 1];
   }
 
   function setTimePicker(e) {
     let title = e.target.title,
-      $state
+      $state;
 
     switch (title) {
       case "time picker":
@@ -214,9 +261,9 @@ export default function Settings({
           onlyTimePicker: false,
           onlyMonthPicker: false,
           onlyYearPicker: false,
-          format: defaultFormat?.timePicker || "YYYY/MM/DD HH:mm:ss"
-        }
-        break
+          format: defaultFormat?.timePicker || "YYYY/MM/DD HH:mm:ss",
+        };
+        break;
       case "only time picker":
         $state = {
           ...state,
@@ -224,9 +271,9 @@ export default function Settings({
           onlyTimePicker: true,
           onlyMonthPicker: false,
           onlyYearPicker: false,
-          format: defaultFormat?.onlyTimePicker || "HH:mm:ss"
-        }
-        break
+          format: defaultFormat?.onlyTimePicker || "HH:mm:ss",
+        };
+        break;
       case "only month picker":
         $state = {
           ...state,
@@ -234,9 +281,9 @@ export default function Settings({
           onlyTimePicker: false,
           onlyMonthPicker: true,
           onlyYearPicker: false,
-          format: defaultFormat?.onlyMonthPicker || "MM/YYYY"
-        }
-        break
+          format: defaultFormat?.onlyMonthPicker || "MM/YYYY",
+        };
+        break;
       case "only year picker":
         $state = {
           ...state,
@@ -244,9 +291,9 @@ export default function Settings({
           onlyTimePicker: false,
           onlyMonthPicker: false,
           onlyYearPicker: true,
-          format: defaultFormat?.onlyYearPicker || "YYYY"
-        }
-        break
+          format: defaultFormat?.onlyYearPicker || "YYYY",
+        };
+        break;
       default:
         //disable
         $state = {
@@ -255,22 +302,22 @@ export default function Settings({
           onlyTimePicker: false,
           onlyMonthPicker: false,
           onlyYearPicker: false,
-          format: defaultFormat?.single || "YYYY/MM/DD"
-        }
+          format: defaultFormat?.single || "YYYY/MM/DD",
+        };
     }
 
-    notifyChange($state)
+    notifyChange($state);
   }
 
   function notifyChange($state) {
     if (setProps instanceof Function) {
-      setProps(props => {
+      setProps((props) => {
         return {
           ...props,
           ...$state,
-          value: $state.selectedDate
-        }
-      })
+          value: $state.selectedDate,
+        };
+      });
     }
   }
 }

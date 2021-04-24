@@ -99,13 +99,18 @@ export default [
     ],
   },
   ...[
-    { path: "date_panel", name: "DatePanel" },
-    { path: "date_picker_header", name: "DatePickerHeader" },
-    { path: "multi_colors", name: "MultiColors" },
-    { path: "settings", name: "Settings" },
-    { path: "toolbar", name: "Toolbar" },
-    { path: "weekends", name: "Weekends" },
-  ].map(({ path, name }) => {
+    { path: "date_panel" },
+    { path: "date_picker_header" },
+    { path: "multi_colors" },
+    { path: "settings" },
+    { path: "toolbar" },
+    { path: "weekends" },
+    { path: "time_picker" },
+  ].map(({ path }) => {
+    let name = path
+      .replace(/^./, (w) => w.toUpperCase())
+      .replace(/_./g, (w) => w.replace("_", "").toUpperCase());
+
     return {
       input: `plugins/all/${path}/${path}.js`,
       output: [

@@ -1,19 +1,30 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import DateObject from "react-date-object";
-import Arrow from "../arrow/arrow";
-import Input from "../input/input";
+import Arrow from "../../../src/components/arrow/arrow";
+import Input from "../../../src/components/input/input";
 
-export default function TimePicker({ state, onChange, formattingIgnoreList }) {
-  let {
-      date,
-      timePicker,
-      onlyTimePicker,
-      selectedDate,
-      multiple,
-      range,
-    } = state,
-    meridiems = date.meridiems,
-    mustShowTimePicker = (timePicker || onlyTimePicker) && !multiple && !range;
+export default function TimePicker({
+  state,
+  handleChange,
+  position,
+  calendarProps: { formattingIgnoreList },
+  nodes,
+  calendar,
+}) {
+  let { date, selectedDate, multiple, range, focused } = state,
+    meridiems = date.meridiems;
+
+  useEffect(() => {
+    if (position === "bottom" && !nodes.top && !range && !multiple) {
+      calendar
+        ?.querySelector?.(".rmdp-top-class")
+        .classList?.remove?.("rmdp-border-bottom");
+    } else {
+      calendar
+        ?.querySelector?.(".rmdp-top-class")
+        .classList?.add?.("rmdp-border-bottom");
+    }
+  }, [position, nodes.top, calendar, range, multiple]);
 
   const mustDisplayMeridiem = useMemo(() => {
     let format = date._format;
@@ -36,20 +47,24 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
   if (typeof hour === "undefined") hour = new Date().getHours();
 
   let am = mustDisplayMeridiem ? hour < 12 : false,
-    availbleDate = selectedDate || date;
+    availbleDate;
 
-  return mustShowTimePicker ? (
+  if (multiple || range) {
+    availbleDate = focused || date;
+  } else {
+    availbleDate = selectedDate || date;
+  }
+
+  return (
     <div
-      className={`rmdp-time-picker ${
-        onlyTimePicker ? "rmdp-only-time-picker" : ""
-      }`}
-      style={{ direction: "ltr" }}
+      className={`rmdp-time-picker ${position}`}
+      style={{ direction: "ltr", minWidth: "220px" }}
     >
       <div>
         <Arrow direction="rmdp-up" onClick={() => changeValue("hour", 1)} />
         <Input
           value={getHours()}
-          onChange={handleChange}
+          onChange={update}
           digits={date.digits}
           name="hour"
         />
@@ -60,7 +75,7 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
         <Arrow direction="rmdp-up" onClick={() => changeValue("minute", 1)} />
         <Input
           value={getMinutes()}
-          onChange={handleChange}
+          onChange={update}
           digits={date.digits}
           name="minute"
         />
@@ -74,7 +89,7 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
         <Arrow direction="rmdp-up" onClick={() => changeValue("second", 1)} />
         <Input
           value={getSeconds()}
-          onChange={handleChange}
+          onChange={update}
           digits={date.digits}
           name="second"
         />
@@ -93,27 +108,37 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
         <Arrow direction="rmdp-down" onClick={toggleMeridiem} />
       </div>
     </div>
-  ) : null;
+  );
 
-  function handleChange(key, value) {
-    selectedDate[key] = value;
+  function update(key, value) {
+    if (multiple || range) {
+      if (focused) focused[key] = value;
+    } else {
+      selectedDate[key] = value;
+    }
 
-    setDate(selectedDate);
+    setDate();
   }
 
   function changeValue(key, value) {
-    if (!selectedDate) selectedDate = new DateObject(date);
+    value = Number(value);
 
-    selectedDate[key] += Number(value);
+    if (multiple || range) {
+      if (focused) focused[key] += value;
+    } else {
+      if (!selectedDate) selectedDate = new DateObject(date);
 
-    setDate(selectedDate);
+      selectedDate[key] += value;
+    }
+
+    setDate();
   }
 
-  function setDate(selectedDate) {
-    onChange(selectedDate, {
+  function setDate() {
+    handleChange(selectedDate, {
       ...state,
       selectedDate,
-      date: new DateObject(selectedDate),
+      focused,
     });
   }
 

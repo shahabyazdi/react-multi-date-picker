@@ -42,6 +42,7 @@ function Calendar(
     buttons = true,
     renderButton,
     weekStartDayIndex = 0,
+    disableDayPicker,
   },
   outerRef
 ) {
@@ -78,9 +79,7 @@ function Calendar(
     onlyTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
-    format,
-    range,
-    multiple
+    format
   );
 
   let [state, setState] = useState({
@@ -88,6 +87,8 @@ function Calendar(
     }),
     listeners = {},
     ref = useRef({ mustCallOnReady: true });
+
+  formattingIgnoreList = getIgnoreList(formattingIgnoreList);
 
   useEffect(() => {
     setState((state) => {
@@ -100,6 +101,7 @@ function Calendar(
         if (date._format !== format) date.setFormat(format);
 
         date.digits = digits;
+        date.ignoreList = JSON.parse(formattingIgnoreList);
 
         return date;
       }
@@ -170,7 +172,7 @@ function Calendar(
         locale,
         format,
         mustSortDates,
-        year: state.year || date.year,
+        year: date.year,
         today: state.today || new DateObject({ calendar }),
       };
     });
@@ -188,6 +190,7 @@ function Calendar(
     sort,
     numberOfMonths,
     digits,
+    formattingIgnoreList,
   ]);
 
   useEffect(() => {
@@ -226,7 +229,7 @@ function Calendar(
     }
   }, [ref.current.isReady, onReady]);
 
-  let topClassName = getBorderClassName(["top", "bottom"]),
+  let topClassName = "rmdp-top-class " + getBorderClassName(["top", "bottom"]),
     clonedPlugins = { top: [], bottom: [], left: [], right: [] },
     isRTL = ["fa", "ar"].includes(state.date?.locale),
     globalProps = { state, setState, onChange: handleChange, sort };
@@ -247,6 +250,8 @@ function Calendar(
           };
         }
 
+        ref.current.element = element;
+
         if (outerRef instanceof Function) return outerRef(element);
         if (outerRef) outerRef.current = element;
       }}
@@ -262,33 +267,37 @@ function Calendar(
             isRTL ? "rmdp-rtl" : ""
           } ${getBorderClassName(["left", "right"])}`}
         >
-          <Header
-            {...globalProps}
-            disableYearPicker={disableYearPicker}
-            disableMonthPicker={disableMonthPicker}
-            customMonths={months}
-            numberOfMonths={numberOfMonths}
-            buttons={buttons}
-            renderButton={renderButton}
-          />
-          <div style={{ position: "relative" }}>
-            <DayPicker
-              {...globalProps}
-              showOtherDays={showOtherDays}
-              mapDays={mapDays}
-              listeners={listeners}
-              onlyShowInRangeDates={onlyShowInRangeDates}
-              customWeekDays={weekDays}
-              numberOfMonths={numberOfMonths}
-              isRTL={isRTL}
-              weekStartDayIndex={weekStartDayIndex}
-            />
-            <MonthPicker {...globalProps} customMonths={months} />
-            <YearPicker {...globalProps} />
-          </div>
+          {!disableDayPicker && (
+            <>
+              <Header
+                {...globalProps}
+                disableYearPicker={disableYearPicker}
+                disableMonthPicker={disableMonthPicker}
+                customMonths={months}
+                numberOfMonths={numberOfMonths}
+                buttons={buttons}
+                renderButton={renderButton}
+              />
+              <div style={{ position: "relative" }}>
+                <DayPicker
+                  {...globalProps}
+                  showOtherDays={showOtherDays}
+                  mapDays={mapDays}
+                  listeners={listeners}
+                  onlyShowInRangeDates={onlyShowInRangeDates}
+                  customWeekDays={weekDays}
+                  numberOfMonths={numberOfMonths}
+                  isRTL={isRTL}
+                  weekStartDayIndex={weekStartDayIndex}
+                />
+                <MonthPicker {...globalProps} customMonths={months} />
+                <YearPicker {...globalProps} />
+              </div>
+            </>
+          )}
           <TimePicker
             {...globalProps}
-            formattingIgnoreList={formattingIgnoreList}
+            formattingIgnoreList={JSON.parse(formattingIgnoreList)}
           />
           {children}
         </div>
@@ -334,6 +343,7 @@ function Calendar(
           calendarProps,
           handleChange,
           nodes,
+          calendar: ref.current.element,
         })
       );
     });
@@ -350,6 +360,8 @@ function Calendar(
   }
 
   function getBorderClassName(positions) {
+    if (disableDayPicker) return "";
+
     return Array.from(
       new Set(
         plugins.map((plugin) => {
@@ -430,14 +442,19 @@ export function getFormat(
   onlyTimePicker,
   onlyMonthPicker,
   onlyYearPicker,
-  format,
-  range,
-  multiple
+  format
 ) {
   if (format) return format;
   if (timePicker && !range && !multiple) return "YYYY/MM/DD HH:mm:ss";
   if (onlyTimePicker) return "HH:mm:ss";
   if (onlyMonthPicker) return "MM/YYYY";
   if (onlyYearPicker) return "YYYY";
-  if (range || multiple) return "YYYY/MM/DD";
+
+  return "YYYY/MM/DD";
+}
+
+export function getIgnoreList(formattingIgnoreList) {
+  if (!Array.isArray(formattingIgnoreList)) formattingIgnoreList = [];
+
+  return JSON.stringify(formattingIgnoreList);
 }
