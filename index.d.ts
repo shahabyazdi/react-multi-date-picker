@@ -261,6 +261,7 @@ declare module "react-multi-date-picker" {
      * <Calendar weekStartDayIndex={2} />
      */
     weekStartDayIndex?: number;
+    disableDayPicker?: boolean;
   }
 
   interface DatePickerProps {
@@ -445,6 +446,7 @@ declare module "react-multi-date-picker/plugins/date_panel" {
 
   interface DatePanelProps {
     position?: string;
+    disabled?: boolean;
     eachDaysInRange?: boolean;
     sort?: "string";
     style?: React.CSSProperties;
@@ -453,6 +455,7 @@ declare module "react-multi-date-picker/plugins/date_panel" {
     removeButton?: boolean;
     header?: string;
     markFocused?: boolean;
+    focusedClassName: string;
   }
 
   export default function DatePanel(props: DatePanelProps): React.ReactElement;
@@ -463,6 +466,7 @@ declare module "react-multi-date-picker/plugins/date_picker_header" {
 
   interface DatePickerHeaderProps {
     position?: string;
+    disabled?: boolean;
     size?: string;
     calendar?: string;
     locale?: string;
@@ -478,8 +482,9 @@ declare module "react-multi-date-picker/plugins/multi_colors" {
   import React from "react";
 
   interface MultiColorsProps {
-    setProps(props: object): void;
     position?: string;
+    disabled?: boolean;
+    setProps(props: object): void;
     colors?: string[];
     defaultColor?: string;
     className?: string;
@@ -495,6 +500,7 @@ declare module "react-multi-date-picker/plugins/settings" {
 
   interface SettingsProps {
     position?: string;
+    disabled?: boolean;
     setProps(props: object): void;
     calendars?: string[];
     locales?: string[];
@@ -520,6 +526,7 @@ declare module "react-multi-date-picker/plugins/toolbar" {
 
   interface ToolbarProps {
     position?: string;
+    disabled?: boolean;
     className?: string;
     sort?: string[];
     names?: { today: string; deselect: string; close: string };
@@ -532,9 +539,22 @@ declare module "react-multi-date-picker/plugins/weekends" {
   import React from "react";
 
   interface WeekendsProps {
+    position?: string;
+    disabled?: boolean;
     setMapDays(props: object): void;
     weekends?: number[];
   }
 
   export default function Weekends(props: WeekendsProps): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/time_picker" {
+  import React from "react";
+
+  interface TimePickerProps {
+    position?: string;
+    disabled?: boolean;
+  }
+
+  export default function Weekends(props: TimePickerProps): React.ReactElement;
 }

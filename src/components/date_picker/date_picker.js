@@ -493,8 +493,6 @@ function DatePicker(
         ignoreList: formattingIgnoreList,
       });
 
-      console.log(date);
-
       if (
         (!minDate || (minDate && date > minDate)) &&
         (!maxDate || (maxDate && date < maxDate))
