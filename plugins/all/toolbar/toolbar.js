@@ -44,14 +44,14 @@ export default function Toolbar({
     let {
         calendar,
         locale,
-        formar,
+        format,
         range,
         multiple,
         selectedDate,
         date,
       } = state,
       { hour, minute, second, millisecond } = date,
-      today = new DateObject({ calendar, locale, formar });
+      today = new DateObject({ calendar, locale, format });
 
     today.set({ hour, minute, second, millisecond });
 
