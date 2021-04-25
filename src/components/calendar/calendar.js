@@ -44,6 +44,7 @@ function Calendar(
     weekStartDayIndex = 0,
     disableDayPicker,
     onPropsChange,
+    onMonthChange,
   },
   outerRef
 ) {
@@ -240,23 +241,7 @@ function Calendar(
 
   return state.today ? (
     <div
-      ref={(element) => {
-        if (element) {
-          element.date = state.date;
-
-          element.set = function (key, value) {
-            setState({
-              ...state,
-              date: new DateObject(state.date.set(key, value)),
-            });
-          };
-        }
-
-        ref.current.element = element;
-
-        if (outerRef instanceof Function) return outerRef(element);
-        if (outerRef) outerRef.current = element;
-      }}
+      ref={setRef}
       className={`rmdp-wrapper ${className || ""}`}
       style={{ zIndex, direction: "ltr" }}
     >
@@ -279,6 +264,7 @@ function Calendar(
                 numberOfMonths={numberOfMonths}
                 buttons={buttons}
                 renderButton={renderButton}
+                handleMonthChange={handleMonthChange}
               />
               <div style={{ position: "relative" }}>
                 <DayPicker
@@ -292,7 +278,11 @@ function Calendar(
                   isRTL={isRTL}
                   weekStartDayIndex={weekStartDayIndex}
                 />
-                <MonthPicker {...globalProps} customMonths={months} />
+                <MonthPicker
+                  {...globalProps}
+                  customMonths={months}
+                  handleMonthChange={handleMonthChange}
+                />
                 <YearPicker {...globalProps} />
               </div>
             </>
@@ -392,6 +382,10 @@ function Calendar(
     }
   }
 
+  function handleMonthChange(date) {
+    if (onMonthChange instanceof Function) onMonthChange(date);
+  }
+
   function getBorderClassName(positions) {
     if (disableDayPicker) return "";
 
@@ -413,6 +407,24 @@ function Calendar(
     if (!listeners[event]) listeners[event] = [];
 
     listeners[event].push(callback);
+  }
+
+  function setRef(element) {
+    if (element) {
+      element.date = state.date;
+
+      element.set = function (key, value) {
+        setState({
+          ...state,
+          date: new DateObject(state.date.set(key, value)),
+        });
+      };
+    }
+
+    ref.current.element = element;
+
+    if (outerRef instanceof Function) return outerRef(element);
+    if (outerRef) outerRef.current = element;
   }
 }
 
