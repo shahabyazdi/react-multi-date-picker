@@ -16,19 +16,51 @@ export default function Settings({
   calendars = ["gregorian", "persian", "arabic", "indian"],
   locales = ["en", "fa", "ar", "hi"],
   modes = ["single", "multiple", "range"],
-  others = ["only month picker", "only year picker"],
+  others = ["onlyMonthPicker", "onlyYearPicker"],
   defaultActive = "",
   disabledList = [],
   defaultFormat = {},
   className = "",
   handlePropsChange,
+  names = {
+    gregorian: "GE",
+    persian: "PE",
+    arabic: "AR",
+    indian: "IN",
+    en: "EN",
+    fa: "FA",
+    ar: "AR",
+    hi: "HI",
+    single: "SI",
+    multiple: "MU",
+    range: "RA",
+    disable: "DI",
+    onlyMonthPicker: "OM",
+    onlyYearPicker: "OY",
+  },
+  titles = {
+    calendar: "Calendar",
+    locale: "Locale",
+    mode: "Mode",
+    otherPickers: "Other Pickers",
+    gregorian: "Gregorian",
+    persian: "Persian",
+    arabic: "Arabic",
+    indian: "Indian",
+    en: "English",
+    fa: "Farsi",
+    ar: "Arabic",
+    hi: "Hindi",
+    single: "Single",
+    multiple: "Multiple",
+    range: "Range",
+    disable: "Disable",
+    onlyMonthPicker: "Only Month Picker",
+    onlyYearPicker: "Only Year Picker",
+  },
   ...props
 }) {
   const [section, setSection] = useState(defaultActive);
-  const shortName = {
-    "only month picker": "OM",
-    "only year picker": "OY",
-  };
 
   return (
     <div
@@ -37,7 +69,7 @@ export default function Settings({
     >
       {!disabledList.includes("calendar") && (
         <div
-          title="Calendar"
+          title={titles.calendar}
           className={`setting ${section === "calendar" ? "active" : ""}`}
         >
           <IconCalendarEvent
@@ -54,10 +86,10 @@ export default function Settings({
                   className={`item ${
                     state.date.calendar === calendar ? "active" : ""
                   }`}
-                  title={calendar}
-                  onClick={(e) => setKeyValue(e, "calendar")}
+                  title={titles[calendar]}
+                  onClick={() => setKeyValue("calendar", calendar)}
                 >
-                  {calendar.substring(0, 2).toUpperCase()}
+                  {names[calendar]}
                 </span>
               );
             })}
@@ -66,7 +98,7 @@ export default function Settings({
       )}
       {!disabledList.includes("locale") && (
         <div
-          title="Locale"
+          title={titles.locale}
           className={`setting ${section === "locale" ? "active" : ""}`}
         >
           <IconLanguage
@@ -83,10 +115,10 @@ export default function Settings({
                   className={`item ${
                     state.date.locale === locale ? "active" : ""
                   }`}
-                  title={locale}
-                  onClick={(e) => setKeyValue(e, "locale")}
+                  title={titles[locale]}
+                  onClick={() => setKeyValue("locale", locale)}
                 >
-                  {locale.toUpperCase()}
+                  {names[locale]}
                 </span>
               );
             })}
@@ -95,7 +127,7 @@ export default function Settings({
       )}
       {!disabledList.includes("mode") && (
         <div
-          title="Mode"
+          title={titles.mode}
           className={`setting ${section === "mode" ? "active" : ""}`}
         >
           <IconCircles
@@ -116,10 +148,10 @@ export default function Settings({
                       ? "active"
                       : ""
                   }`}
-                  title={mode}
+                  title={titles[mode]}
                   onClick={setMode}
                 >
-                  {mode.substring(0, 2).toUpperCase()}
+                  {names[mode]}
                 </span>
               );
             })}
@@ -128,7 +160,7 @@ export default function Settings({
       )}
       {!disabledList.includes("other") && (
         <div
-          title="Other Pickers"
+          title={titles.otherPickers}
           className={`setting ${section === "others" ? "active" : ""}`}
         >
           <IconClock
@@ -142,26 +174,28 @@ export default function Settings({
               className={`item ${
                 !state.onlyMonthPicker && !state.onlyYearPicker ? "active" : ""
               }`}
-              title="disable"
+              title={titles.disable}
               onClick={setOtherPickers}
             >
-              DI
+              {names.disable}
             </span>
             {
               <>
-                {others.map((title, index) => {
+                {others.map((picker, index) => {
                   return (
                     <span
                       key={index}
                       className={`item ${
-                        state[title.replace(/\s\w/g, (w) => w[1].toUpperCase())]
+                        state[
+                          picker.replace(/\s\w/g, (w) => w[1].toUpperCase())
+                        ]
                           ? "active"
                           : ""
                       }`}
-                      title={title}
-                      onClick={setOtherPickers}
+                      title={titles[picker]}
+                      onClick={() => setOtherPickers(picker)}
                     >
-                      {shortName[title]}
+                      {names[picker]}
                     </span>
                   );
                 })}
@@ -173,9 +207,7 @@ export default function Settings({
     </div>
   );
 
-  function setKeyValue(e, key) {
-    let value = e.target.title;
-
+  function setKeyValue(key, value) {
     if (state[key] === value) return;
 
     let $state = { ...state, date: state.date.set(key, value), [key]: value };
@@ -184,7 +216,7 @@ export default function Settings({
   }
 
   function setMode(e) {
-    let mode = e.target.title,
+    let mode = e.target.title.toLowerCase(),
       $state;
 
     switch (mode) {
@@ -234,12 +266,11 @@ export default function Settings({
     return array[array.length - 1];
   }
 
-  function setOtherPickers(e) {
-    let title = e.target.title,
-      $state;
+  function setOtherPickers(picker) {
+    let $state;
 
-    switch (title) {
-      case "only month picker":
+    switch (picker) {
+      case "onlyMonthPicker":
         $state = {
           ...state,
           onlyMonthPicker: true,
@@ -247,7 +278,7 @@ export default function Settings({
           format: defaultFormat?.onlyMonthPicker || "MM/YYYY",
         };
         break;
-      case "only year picker":
+      case "onlyYearPicker":
         $state = {
           ...state,
           onlyMonthPicker: false,

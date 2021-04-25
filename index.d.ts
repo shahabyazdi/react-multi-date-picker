@@ -514,6 +514,42 @@ declare module "react-multi-date-picker/plugins/settings" {
       onlyMonthPicker?: string;
     };
     className?: string;
+    names?: {
+      gregorian: string;
+      persian: string;
+      arabic: string;
+      indian: string;
+      en: string;
+      fa: string;
+      ar: string;
+      hi: string;
+      single: string;
+      multiple: string;
+      range: string;
+      disable: string;
+      onlyMonthPicker: string;
+      onlyYearPicker: string;
+    };
+    titles?: {
+      calendar: string;
+      locale: string;
+      mode: string;
+      otherPickers: string;
+      gregorian: string;
+      persian: string;
+      arabic: string;
+      indian: string;
+      en: string;
+      fa: string;
+      ar: string;
+      hi: string;
+      single: string;
+      multiple: string;
+      range: string;
+      disable: string;
+      onlyMonthPicker: string;
+      onlyYearPicker: string;
+    };
   }
 
   export default function Settings(props: SettingsProps): React.ReactElement;

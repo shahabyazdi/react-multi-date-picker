@@ -59,6 +59,50 @@ export default function Setting(translate, language, otherProps) {
             <td>Object</td>
             <td>{"{}"}</td>
           </tr>
+          <tr>
+            <td>names</td>
+            <td>Object</td>
+            <td>{`{
+  gregorian: "GE",
+  persian: "PE",
+  arabic: "AR",
+  indian: "IN",
+  en: "EN",
+  fa: "FA",
+  ar: "AR",
+  hi: "HI",
+  single: "SI",
+  multiple: "MU",
+  range: "RA",
+  disable: "DI",
+  onlyMonthPicker: "OM",
+  onlyYearPicker: "OY",
+}`}</td>
+          </tr>
+          <tr>
+            <td>titles</td>
+            <td>Object</td>
+            <td>{`{
+  calendar: "Calendar",
+  locale: "Locale",
+  mode: "Mode",
+  otherPickers: "Other Pickers",
+  gregorian: "Gregorian",
+  persian: "Persian",
+  arabic: "Arabic",
+  indian: "Indian",
+  en: "English",
+  fa: "Farsi",
+  ar: "Arabic",
+  hi: "Hindi",
+  single: "Single",
+  multiple: "Multiple",
+  range: "Range",
+  disable: "Disable",
+  onlyMonthPicker: "Only Month Picker",
+  onlyYearPicker: "Only Year Picker",
+}`}</td>
+          </tr>
         </tbody>
       </table>
     ),
