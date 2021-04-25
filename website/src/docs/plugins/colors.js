@@ -43,11 +43,6 @@ export default function Colors(translate, language, otherProps) {
             <td>String</td>
             <td>first item of colors</td>
           </tr>
-          <tr>
-            <td>setProps</td>
-            <td>Function</td>
-            <td>undefined</td>
-          </tr>
         </tbody>
       </table>
     ),

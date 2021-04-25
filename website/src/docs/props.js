@@ -206,6 +206,12 @@ export default function Props(translate, language) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
+            <td>onPropsChange</td>
+            <td>Function</td>
+            <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
             <td>arrow</td>
             <td>Boolean {translate("or")} React.ReactElement</td>
             <td>true</td>

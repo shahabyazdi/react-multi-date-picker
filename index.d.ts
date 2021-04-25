@@ -262,7 +262,7 @@ declare module "react-multi-date-picker" {
      */
     weekStartDayIndex?: number;
     disableDayPicker?: boolean;
-    onPropsChange?: object;
+    onPropsChange?(props: object): void;
   }
 
   interface DatePickerProps {

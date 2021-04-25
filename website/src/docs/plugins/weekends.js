@@ -5,13 +5,20 @@ import Weekends from "../../../../plugins/weekends";
 export default function WeekendsComponent(trasnlate, language, otherProps) {
   const [props, setProps] = useState({
     value: new DateObject().toLastOfWeek(),
+    plugins: [<Weekends />],
+    calendarPosition: language === "en" ? "bottom-left" : "auto-right",
   });
+
   const [props2, setProps2] = useState({
     calendar: "persian",
     locale: "fa",
     calendarPosition: language === "en" ? "bottom-left" : "auto-right",
+    plugins: [<Weekends />],
   });
-  const [props3, setProps3] = useState({});
+
+  const [props3, setProps3] = useState({
+    plugins: [<Weekends weekends={[5, 6]} />],
+  });
 
   const allProps = {
     title: "Props",
@@ -76,7 +83,10 @@ import Weekends from "react-multi-date-picker/plugins/weekends"
 .
 .
 const [props, setProps] = useState({
-  value: new DateObject().toLastOfWeek()
+  value: new DateObject().toLastOfWeek(),
+  plugins: [
+    <Weekends />
+  ]
 });
 .
 .
@@ -84,18 +94,8 @@ const [props, setProps] = useState({
 <DatePicker
   {...props}
   onPropsChange={setProps}
-  plugins={[
-    <Weekends />
-  ]}
 /> `,
-    jsx: (
-      <DatePicker
-        {...props}
-        onPropsChange={setProps}
-        plugins={[<Weekends />]}
-        calendarPosition={language === "en" ? "bottom-left" : "auto-right"}
-      />
-    ),
+    jsx: <DatePicker {...props} onPropsChange={setProps} />,
   };
 
   const persian = {
@@ -109,7 +109,10 @@ import Weekends from "react-multi-date-picker/plugins/weekends"
 const [props, setProps] = useState({
   calendar: "persian",
   locale: "fa",
-  calendarPosition: "${language === "en" ? "bottom-left" : "auto-right"}"
+  calendarPosition: "${language === "en" ? "bottom-left" : "auto-right"}",
+  plugins: [
+    <Weekends />
+  ]
 });
 .
 .
@@ -117,15 +120,8 @@ const [props, setProps] = useState({
 <DatePicker
   {...props}
   onPropsChange={setProps}
-  plugins={[<Weekends />]}
 /> `,
-    jsx: (
-      <DatePicker
-        {...props2}
-        onPropsChange={setProps2}
-        plugins={[<Weekends />]}
-      />
-    ),
+    jsx: <DatePicker {...props2} onPropsChange={setProps2} />,
   };
 
   const custom = {
@@ -138,11 +134,22 @@ import Weekends from "react-multi-date-picker/plugins/weekends"
 .
 const [props, setProps] = useState(${
       language === "en"
-        ? "{}"
+        ? `{
+  plugins:[
+    <Weekends
+      weekends:[5, 6]
+    />
+  ]
+}`
         : `{
   calendar: "persian",
   locale: "fa",
-  calendarPosition: "bottom-right"
+  calendarPosition: "bottom-right",
+  plugins={[
+    <Weekends
+      weekends:[5, 6]
+    />
+  ]}
 }`
     });
 .
@@ -151,20 +158,8 @@ const [props, setProps] = useState(${
 <DatePicker
   {...props}
   onPropsChange={setProps}
-  plugins={[
-    <Weekends
-      weekends={[5, 6]}
-    />
-  ]}
 /> `,
-    jsx: (
-      <DatePicker
-        {...props3}
-        onPropsChange={setProps3}
-        plugins={[<Weekends weekends={[5, 6]} />]}
-        {...otherProps}
-      />
-    ),
+    jsx: <DatePicker {...props3} onPropsChange={setProps3} {...otherProps} />,
   };
   return [allProps, defaultWeekends, gregorian, persian, custom];
 }

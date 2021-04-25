@@ -5,7 +5,12 @@ import TimePicker from "../../../plugins/time_picker";
 export default function OtherPickers(translate, language, otherProps) {
   const timePicker = {
     title: "Time Picker",
-    code: `<DatePicker 
+    code: `import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+.
+.
+.
+<DatePicker 
   format="MM/DD/YYYY HH:mm:ss"
   plugins={[
     <TimePicker position="bottom" />
@@ -22,7 +27,12 @@ export default function OtherPickers(translate, language, otherProps) {
 
   const onlyTimePicker = {
     title: "Only Time Picker",
-    code: `<DatePicker 
+    code: `import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+.
+.
+.
+<DatePicker 
   disableDayPicker
   format="HH:mm:ss"
   plugins={[
@@ -41,7 +51,12 @@ export default function OtherPickers(translate, language, otherProps) {
 
   const meridiem = {
     title: "Only Time Picker Meridiem",
-    code: `<DatePicker
+    code: `import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+.
+.
+.
+<DatePicker
   disableDayPicker
   format="hh:mm:ss A"
   plugins={[
