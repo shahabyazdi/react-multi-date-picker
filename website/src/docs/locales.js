@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker, { DateObject } from "../../../build/index";
 
-export default function (translate, language, otherProps) {
+export default function Locales(translate, language, otherProps) {
   const digits = {
     title: "Digits",
     description: "digits",

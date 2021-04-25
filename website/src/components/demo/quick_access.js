@@ -792,8 +792,8 @@ const list = [
             path: "plugins/settings/#custom-settings",
           },
           {
-            name: "Time Picker",
-            path: "plugins/settings/#time-picker",
+            name: "Other Pickers",
+            path: "plugins/settings/#other-pickers",
           },
         ],
       },
@@ -828,8 +828,16 @@ const list = [
         path: "plugins/toolbar/",
         list: [
           {
+            name: "Props",
+            path: "plugins/toolbar/#props",
+          },
+          {
             name: "Default Toolbar",
             path: "plugins/toolbar/#default-toolbar",
+          },
+          {
+            name: "Sorting Buttons",
+            path: "plugins/toolbar/#sorting-buttons",
           },
           {
             name: "Custom Names",

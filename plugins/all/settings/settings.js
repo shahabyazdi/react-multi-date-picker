@@ -3,7 +3,7 @@ import { getValidProps } from "../utils";
 import {
   IconLanguage,
   IconCalendarEvent,
-  IconLetterM,
+  IconCircles,
   IconClock,
 } from "@tabler/icons";
 import "./settings.css";
@@ -16,22 +16,16 @@ export default function Settings({
   calendars = ["gregorian", "persian", "arabic", "indian"],
   locales = ["en", "fa", "ar", "hi"],
   modes = ["single", "multiple", "range"],
-  others = [
-    "time picker",
-    "only time picker",
-    "only month picker",
-    "only year picker",
-  ],
+  others = ["only month picker", "only year picker"],
   defaultActive = "",
   disabledList = [],
   defaultFormat = {},
   className = "",
+  handlePropsChange,
   ...props
 }) {
   const [section, setSection] = useState(defaultActive);
   const shortName = {
-    "time picker": "TP",
-    "only time picker": "OT",
     "only month picker": "OM",
     "only year picker": "OY",
   };
@@ -104,7 +98,7 @@ export default function Settings({
           title="Mode"
           className={`setting ${section === "mode" ? "active" : ""}`}
         >
-          <IconLetterM
+          <IconCircles
             size={19}
             stroke={1.5}
             className="icon"
@@ -134,7 +128,7 @@ export default function Settings({
       )}
       {!disabledList.includes("other") && (
         <div
-          title="Time Picker"
+          title="Other Pickers"
           className={`setting ${section === "others" ? "active" : ""}`}
         >
           <IconClock
@@ -146,42 +140,33 @@ export default function Settings({
           <div className="items">
             <span
               className={`item ${
-                !state.timePicker &&
-                !state.onlyTimePicker &&
-                !state.onlyMonthPicker &&
-                !state.onlyYearPicker
-                  ? "active"
-                  : ""
+                !state.onlyMonthPicker && !state.onlyYearPicker ? "active" : ""
               }`}
               title="disable"
-              onClick={setTimePicker}
+              onClick={setOtherPickers}
             >
               DI
             </span>
-            {!state.multiple &&
-              !state.range &&
-              !Array.isArray(state.selectedDate) && (
-                <>
-                  {others.map((title, index) => {
-                    return (
-                      <span
-                        key={index}
-                        className={`item ${
-                          state[
-                            title.replace(/\s\w/g, (w) => w[1].toUpperCase())
-                          ]
-                            ? "active"
-                            : ""
-                        }`}
-                        title={title}
-                        onClick={setTimePicker}
-                      >
-                        {shortName[title]}
-                      </span>
-                    );
-                  })}
-                </>
-              )}
+            {
+              <>
+                {others.map((title, index) => {
+                  return (
+                    <span
+                      key={index}
+                      className={`item ${
+                        state[title.replace(/\s\w/g, (w) => w[1].toUpperCase())]
+                          ? "active"
+                          : ""
+                      }`}
+                      title={title}
+                      onClick={setOtherPickers}
+                    >
+                      {shortName[title]}
+                    </span>
+                  );
+                })}
+              </>
+            }
           </div>
         </div>
       )}
@@ -249,36 +234,14 @@ export default function Settings({
     return array[array.length - 1];
   }
 
-  function setTimePicker(e) {
+  function setOtherPickers(e) {
     let title = e.target.title,
       $state;
 
     switch (title) {
-      case "time picker":
-        $state = {
-          ...state,
-          timePicker: true,
-          onlyTimePicker: false,
-          onlyMonthPicker: false,
-          onlyYearPicker: false,
-          format: defaultFormat?.timePicker || "YYYY/MM/DD HH:mm:ss",
-        };
-        break;
-      case "only time picker":
-        $state = {
-          ...state,
-          timePicker: false,
-          onlyTimePicker: true,
-          onlyMonthPicker: false,
-          onlyYearPicker: false,
-          format: defaultFormat?.onlyTimePicker || "HH:mm:ss",
-        };
-        break;
       case "only month picker":
         $state = {
           ...state,
-          timePicker: false,
-          onlyTimePicker: false,
           onlyMonthPicker: true,
           onlyYearPicker: false,
           format: defaultFormat?.onlyMonthPicker || "MM/YYYY",
@@ -287,8 +250,6 @@ export default function Settings({
       case "only year picker":
         $state = {
           ...state,
-          timePicker: false,
-          onlyTimePicker: false,
           onlyMonthPicker: false,
           onlyYearPicker: true,
           format: defaultFormat?.onlyYearPicker || "YYYY",
@@ -298,8 +259,6 @@ export default function Settings({
         //disable
         $state = {
           ...state,
-          timePicker: false,
-          onlyTimePicker: false,
           onlyMonthPicker: false,
           onlyYearPicker: false,
           format: defaultFormat?.single || "YYYY/MM/DD",
@@ -311,6 +270,15 @@ export default function Settings({
 
   function notifyChange($state) {
     if (setProps instanceof Function) {
+      if ("_self" in React.createElement("div")) {
+        console.warn(
+          [
+            "setProps is deprecated and will not available in the next versions.",
+            "https://shahabyazdi.github.io/react-multi-date-picker/plugins/settings/",
+          ].join("\n")
+        );
+      }
+
       setProps((props) => {
         return {
           ...props,
@@ -319,5 +287,7 @@ export default function Settings({
         };
       });
     }
+
+    handlePropsChange($state);
   }
 }

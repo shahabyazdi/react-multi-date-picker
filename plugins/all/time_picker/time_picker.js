@@ -10,22 +10,22 @@ export default function TimePicker({
   position,
   calendarProps: { formattingIgnoreList, disableDayPicker },
   nodes,
-  calendar,
+  Calendar,
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
     meridiems = date.meridiems;
 
   useEffect(() => {
     if (position === "bottom" && !nodes.top && !range && !multiple) {
-      calendar
-        ?.querySelector?.(".rmdp-top-class")
-        .classList?.remove?.("rmdp-border-bottom");
+      Calendar?.querySelector?.(".rmdp-top-class").classList?.remove?.(
+        "rmdp-border-bottom"
+      );
     } else {
-      calendar
-        ?.querySelector?.(".rmdp-top-class")
-        .classList?.add?.("rmdp-border-bottom");
+      Calendar?.querySelector?.(".rmdp-top-class").classList?.add?.(
+        "rmdp-border-bottom"
+      );
     }
-  }, [position, nodes.top, calendar, range, multiple]);
+  }, [position, nodes.top, Calendar, range, multiple]);
 
   const mustDisplayMeridiem = useMemo(() => {
     let format = date._format;

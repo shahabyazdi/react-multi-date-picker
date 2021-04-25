@@ -1,61 +1,51 @@
-import React from "react"
-import DatePicker from "../../../build/index"
+import React from "react";
+import DatePicker from "../../../build/index";
 
-export default function (translate, language, otherProps) {
+export default function Types(translate, language, otherProps) {
   const singleDescription = {
     title: "Types",
-    jsx: <ul>
-      <li>input (default)</li>
-      <li>input-icon</li>
-      <li>button</li>
-      <li>icon</li>
-      <li>custom</li>
-    </ul>
-  }
+    jsx: (
+      <ul>
+        <li>input (default)</li>
+        <li>input-icon</li>
+        <li>button</li>
+        <li>icon</li>
+        <li>custom</li>
+      </ul>
+    ),
+  };
 
   const input = {
     title: "Input",
     code: `<DatePicker 
   type="input"
 />`,
-    jsx: <DatePicker
-      type="input"
-      {...otherProps}
-    />
-  }
+    jsx: <DatePicker type="input" {...otherProps} />,
+  };
 
   const inputIcon = {
     title: "Input-Icon",
     code: `<DatePicker 
   type="input-icon" 
 />`,
-    jsx: <DatePicker
-      type="input-icon"
-      {...otherProps}
-    />
-  }
+    jsx: <DatePicker type="input-icon" {...otherProps} />,
+  };
 
   const button = {
     title: "Button",
     code: `<DatePicker 
   type="button"
 />`,
-    jsx: <DatePicker
-      type="button"
-      {...otherProps}
-    />
-  }
+    jsx: <DatePicker type="button" {...otherProps} />,
+  };
 
   const icon = {
     title: "Icon",
     code: `<DatePicker 
   type="icon" 
 />`,
-    jsx: <DatePicker
-      type="icon"
-      {...otherProps}
-    />
-  }
+    jsx: <DatePicker type="icon" {...otherProps} />,
+  };
 
   const customFunction = {
     title: "Custom (function)",
@@ -70,19 +60,17 @@ export default function (translate, language, otherProps) {
     )
   }}
 />`,
-    jsx: <DatePicker
-      value="2020/10/19"
-      type="custom"
-      render={(stringDate, openCalendar) => {
-        return (
-          <button onClick={openCalendar}>
-            {stringDate}
-          </button>
-        )
-      }}
-      {...otherProps}
-    />
-  }
+    jsx: (
+      <DatePicker
+        value="2020/10/19"
+        type="custom"
+        render={(stringDate, openCalendar) => {
+          return <button onClick={openCalendar}>{stringDate}</button>;
+        }}
+        {...otherProps}
+      />
+    ),
+  };
 
   const customComponent = {
     title: "Custom (component)",
@@ -107,13 +95,15 @@ class CustomComponent extends React.Component {
   type="custom"
   render={<CustomComponent />}
 />`,
-    jsx: <DatePicker
-      value="2020/10/19"
-      type="custom"
-      render={<CustomComponent />}
-      {...otherProps}
-    />
-  }
+    jsx: (
+      <DatePicker
+        value="2020/10/19"
+        type="custom"
+        render={<CustomComponent />}
+        {...otherProps}
+      />
+    ),
+  };
 
   const customComponentInput = {
     title: "Custom (input)",
@@ -134,16 +124,12 @@ function CustomInput({ openCalendar, stringDate, handleValueChange }) {
   type="custom"
   render={<CustomInput />}
 />`,
-    jsx: <DatePicker
-      type="custom"
-      render={<CustomInput />}
-      {...otherProps}
-    />
-  }
+    jsx: <DatePicker type="custom" render={<CustomInput />} {...otherProps} />,
+  };
   const multipleDescription = {
     title: "Multiple & Range",
-    description: "multiple_range"
-  }
+    description: "multiple_range",
+  };
   const multiple = {
     title: "Custom (multiple mode)",
     code: `import React from "react"
@@ -163,13 +149,15 @@ function CustomMultipleInput({openCalendar, stringDates}) {
   type="custom"
   render={<CustomMultipleInput />}
 />`,
-    jsx: <DatePicker
-      multiple
-      type="custom"
-      render={<CustomMultipleInput />}
-      {...otherProps}
-    />
-  }
+    jsx: (
+      <DatePicker
+        multiple
+        type="custom"
+        render={<CustomMultipleInput />}
+        {...otherProps}
+      />
+    ),
+  };
 
   const range = {
     title: "Custom (range mode)",
@@ -178,7 +166,9 @@ function CustomMultipleInput({openCalendar, stringDates}) {
 function CustomRangeInput({openCalendar, stringDates}) {
   let from = stringDates[0] || ""
   let to = stringDates[1] || ""
-  let value = from && to ? ${language === "en" ? "`from ${from}, to ${to}`" : "`از ${from}، تا ${to}`"} : from
+  let value = from && to ? ${
+    language === "en" ? "`from ${from}, to ${to}`" : "`از ${from}، تا ${to}`"
+  } : from
   
   return (
     <input
@@ -195,14 +185,16 @@ function CustomRangeInput({openCalendar, stringDates}) {
   type="custom"
   render={<CustomRangeInput />}
 />`,
-    jsx: <DatePicker
-      range
-      eachDaysInRange
-      type="custom"
-      render={<CustomRangeInput />}
-      {...otherProps}
-    />
-  }
+    jsx: (
+      <DatePicker
+        range
+        eachDaysInRange
+        type="custom"
+        render={<CustomRangeInput />}
+        {...otherProps}
+      />
+    ),
+  };
 
   return [
     singleDescription,
@@ -215,44 +207,34 @@ function CustomRangeInput({openCalendar, stringDates}) {
     customComponentInput,
     multipleDescription,
     multiple,
-    range
-  ]
+    range,
+  ];
 
   function CustomRangeInput({ openCalendar, stringDates }) {
-    let from = stringDates[0] || ""
-    let to = stringDates[1] || ""
-    let value = from && to ? (language === "en" ?
-      `from ${from}, to ${to}` :
-      `از ${from}، تا ${to}`
-    ) : from
+    let from = stringDates[0] || "";
+    let to = stringDates[1] || "";
+    let value =
+      from && to
+        ? language === "en"
+          ? `from ${from}, to ${to}`
+          : `از ${from}، تا ${to}`
+        : from;
 
-    return (
-      <input
-        onFocus={openCalendar}
-        value={value}
-        readOnly
-      />
-    )
+    return <input onFocus={openCalendar} value={value} readOnly />;
   }
 }
 
 function CustomMultipleInput({ openCalendar, stringDates }) {
   return (
-    <input
-      onFocus={openCalendar}
-      value={stringDates.join(", ")}
-      readOnly
-    />
-  )
+    <input onFocus={openCalendar} value={stringDates.join(", ")} readOnly />
+  );
 }
 
 class CustomComponent extends React.Component {
   render() {
     return (
-      <button onClick={this.props.openCalendar}>
-        {this.props.stringDate}
-      </button >
-    )
+      <button onClick={this.props.openCalendar}>{this.props.stringDate}</button>
+    );
   }
 }
 
@@ -263,5 +245,5 @@ function CustomInput({ openCalendar, stringDate, handleValueChange }) {
       value={stringDate}
       onChange={handleValueChange}
     />
-  )
+  );
 }

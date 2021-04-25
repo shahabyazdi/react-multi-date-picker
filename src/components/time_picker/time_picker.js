@@ -16,10 +16,10 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
     mustShowTimePicker = (timePicker || onlyTimePicker) && !multiple && !range;
 
   if ("_self" in React.createElement("div") && (timePicker || onlyTimePicker)) {
-    let name = onlyTimePicker ? "onlyTimePicker" : "timePicker";
+    let picker = onlyTimePicker ? "onlyTimePicker" : "timePicker";
 
     console.warn(
-      name + " is deprecated and no longer available in the next versions."
+      picker + " is deprecated and no longer available in the next versions."
     );
   }
 

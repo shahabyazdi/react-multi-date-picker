@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "../../../../build/index";
 import Toolbar from "../../../../plugins/toolbar";
 
-export default function (trasnlate, language, otherProps) {
+export default function ToolbarComponent(trasnlate, language, otherProps) {
   const [value, setValue] = useState();
   const [value1, setValue1] = useState();
   const [value2, setValue2] = useState();
@@ -72,7 +72,7 @@ const [value, setValue] = useState()
   };
 
   const sort = {
-    title: "Sorting The Buttons",
+    title: "Sorting Buttons",
     code: `import React, { useState } from "react"
 import Toolbar from "react-multi-date-picker/plugins/toolbar"
 .

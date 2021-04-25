@@ -71,6 +71,7 @@ function DatePicker(
     calendarRef = useRef(null),
     ref = useRef({}),
     separator = useMemo(() => (range ? " ~ " : ", "), [range]),
+    datePickerProps = arguments[0],
     closeCalendar = useCallback(() => {
       if (onClose instanceof Function && onClose() === false) return;
 
@@ -231,7 +232,7 @@ function DatePicker(
         if (outerRef) outerRef.current = element;
       }}
       element={renderInput()}
-      popper={isVisible && renderCalendar()}
+      popper={isVisible && renderCalendar(datePickerProps)}
       active={!isMobileMode && isCalendarReady}
       position={calendarPosition}
       arrow={!isMobileMode && arrow}
@@ -381,7 +382,7 @@ function DatePicker(
     }
   }
 
-  function renderCalendar() {
+  function renderCalendar(datePickerProps) {
     return (
       <Calendar
         ref={calendarRef}
@@ -416,6 +417,7 @@ function DatePicker(
           popper.style.transform = "";
         }}
         datePickerRef={datePickerRef}
+        datePickerProps={datePickerProps}
         {...otherProps}
       >
         {children}

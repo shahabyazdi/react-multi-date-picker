@@ -1,7 +1,7 @@
 import React from "react";
 import { Calendar } from "../../../build/index";
 
-export default function (translate, language, otherProps) {
+export default function Buttons(translate, language, otherProps) {
   const disable = {
     title: "Disabling Navigate Buttons",
     description: "disable_buttons",
@@ -120,6 +120,7 @@ function CustomButton({ direction, handleClick, disabled }) {
         color: disabled ? "gray" : "blue",
       }}
       className={disabled ? "cursor-default" : "cursor-pointer"}
+      aria-hidden="true"
     >
       {direction === "right" ? ">" : "<"}
     </i>

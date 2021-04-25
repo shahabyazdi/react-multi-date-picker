@@ -1,11 +1,11 @@
-import React from "react"
-import DatePicker from "../../../build/index"
+import React from "react";
+import DatePicker from "../../../build/index";
 
-export default function (translate, language, otherProps) {
+export default function Arrow(translate, language, otherProps) {
   const description = {
     title: "Descriptions",
-    description: "arrow_description"
-  }
+    description: "arrow_description",
+  };
 
   const disable = {
     title: "Disable Arrow",
@@ -13,11 +13,8 @@ export default function (translate, language, otherProps) {
     code: `<DatePicker
   arrow={false}
 />`,
-    jsx: <DatePicker
-      arrow={false}
-      {...otherProps}
-    />
-  }
+    jsx: <DatePicker arrow={false} {...otherProps} />,
+  };
 
   const custom = {
     title: "Custom Arrow",
@@ -25,15 +22,15 @@ export default function (translate, language, otherProps) {
     code: `<DatePicker
   arrow={<div style={{ backgroundColor: "white" }}>arrow</div>}
 />`,
-    jsx: <DatePicker
-      arrow={<div style={{ backgroundColor: "white", padding: "3px" }}>arrow</div>}
-      {...otherProps}
-    />
-  }
+    jsx: (
+      <DatePicker
+        arrow={
+          <div style={{ backgroundColor: "white", padding: "3px" }}>arrow</div>
+        }
+        {...otherProps}
+      />
+    ),
+  };
 
-  return [
-    description,
-    disable,
-    custom
-  ]
+  return [description, disable, custom];
 }

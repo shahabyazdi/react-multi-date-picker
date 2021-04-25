@@ -43,6 +43,7 @@ function Calendar(
     renderButton,
     weekStartDayIndex = 0,
     disableDayPicker,
+    onPropsChange,
   },
   outerRef
 ) {
@@ -232,9 +233,10 @@ function Calendar(
   let topClassName = "rmdp-top-class " + getBorderClassName(["top", "bottom"]),
     clonedPlugins = { top: [], bottom: [], left: [], right: [] },
     isRTL = ["fa", "ar"].includes(state.date?.locale),
-    globalProps = { state, setState, onChange: handleChange, sort };
+    globalProps = { state, setState, onChange: handleChange, sort },
+    calendarProps = arguments[0];
 
-  initPlugins(arguments[0]);
+  initPlugins();
 
   return state.today ? (
     <div
@@ -307,7 +309,7 @@ function Calendar(
     </div>
   ) : null;
 
-  function initPlugins(calendarProps) {
+  function initPlugins() {
     if (!ref.current.isReady) return;
 
     plugins.forEach((plugin, index) => {
@@ -347,7 +349,8 @@ function Calendar(
           calendarProps,
           handleChange,
           nodes,
-          calendar: ref.current.element,
+          Calendar: ref.current.element,
+          handlePropsChange,
         })
       );
     });
@@ -361,6 +364,32 @@ function Calendar(
     if ($state) setState($state);
     if ((selectedDate || selectedDate === null) && onChange instanceof Function)
       onChange(selectedDate);
+
+    handlePropsChange({ value: selectedDate });
+  }
+
+  function handlePropsChange(props = {}) {
+    const { datePickerProps = {}, ...otherProps } = calendarProps;
+
+    if (onPropsChange instanceof Function) {
+      let allProps = {
+        ...datePickerProps,
+        ...otherProps,
+        ...state,
+        ...props,
+        value: props.value ?? state.selectedDate,
+      };
+
+      delete allProps.onChange;
+      delete allProps.onPropsChange;
+      delete allProps.focused;
+      delete allProps.today;
+      delete allProps.initialValue;
+      delete allProps.selectedDate;
+      delete allProps.year;
+
+      onPropsChange(allProps);
+    }
   }
 
   function getBorderClassName(positions) {

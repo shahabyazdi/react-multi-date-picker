@@ -3,7 +3,7 @@ declare module "react-multi-date-picker" {
   import DateObject from "react-date-object";
 
   interface CalendarProps {
-    ref?: React.RefObject<any>;
+    ref?: React.MutableRefObject<any>;
     /**
      * @types Date | string | number | DateObject
      * @types Date[] | string[] | number[] | DateObject[]
@@ -262,6 +262,7 @@ declare module "react-multi-date-picker" {
      */
     weekStartDayIndex?: number;
     disableDayPicker?: boolean;
+    onPropsChange?: object;
   }
 
   interface DatePickerProps {
@@ -501,7 +502,6 @@ declare module "react-multi-date-picker/plugins/settings" {
   interface SettingsProps {
     position?: string;
     disabled?: boolean;
-    setProps(props: object): void;
     calendars?: string[];
     locales?: string[];
     modes?: string[];
@@ -510,8 +510,6 @@ declare module "react-multi-date-picker/plugins/settings" {
     disabledList?: string[];
     defaultFormat?: {
       single?: string;
-      timePicker?: string;
-      onlyTimePicker?: string;
       onlyYearPicker?: string;
       onlyMonthPicker?: string;
     };
