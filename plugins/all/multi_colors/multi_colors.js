@@ -13,6 +13,7 @@ export default function MultiColors({
   calendarProps,
   registerListener,
   className = "",
+  handlePropsChange,
   ...props
 }) {
   let [activeColor, setActiveColor] = useState(
@@ -46,21 +47,29 @@ export default function MultiColors({
       ref.current.colors = colors;
     }
 
-    if (setProps instanceof Function)
-      setProps((props) => {
-        return {
-          ...props,
-          mapDays: getMapDays(
-            state.selectedDate,
-            state.range,
-            ref,
-            activeColor
-          ),
-          value: state.selectedDate,
-          activeColor,
-        };
-      });
-  }, [state.selectedDate, state.range, activeColor, setProps]);
+    let $state = {
+      mapDays: getMapDays(state.selectedDate, state.range, ref, activeColor),
+      value: state.selectedDate,
+      activeColor,
+    };
+
+    if (setProps instanceof Function) {
+      warn();
+
+      setProps((props) => ({
+        ...props,
+        ...$state,
+      }));
+    }
+
+    handlePropsChange($state);
+  }, [
+    state.selectedDate,
+    state.range,
+    activeColor,
+    setProps,
+    handlePropsChange,
+  ]);
 
   registerListener("change", handleChange);
 
@@ -103,15 +112,24 @@ export default function MultiColors({
     if (selectedDate && !Array.isArray(selectedDate))
       selectedDate.color = color;
 
-    if (setProps instanceof Function)
+    let $state = {
+      activeColor: color,
+      value: selectedDate,
+      mapDays: getMapDays(selectedDate, range, ref, color),
+    };
+
+    if (setProps instanceof Function) {
+      warn();
+
       setProps((props) => {
         return {
           ...props,
-          activeColor: color,
-          value: selectedDate,
-          mapDays: getMapDays(selectedDate, range, ref, color),
+          ...$state,
         };
       });
+    }
+
+    handlePropsChange($state);
   }
 }
 
@@ -146,4 +164,14 @@ function getMapDays(selectedDate, range, ref, activeColor) {
 
     return { className };
   };
+}
+
+function warn() {
+  if ("_self" in React.createElement("div"))
+    console.warn(
+      [
+        "setProps is deprecated and will not available in the next versions.",
+        "https://shahabyazdi.github.io/react-multi-date-picker/plugins/settings/",
+      ].join("\n")
+    );
 }

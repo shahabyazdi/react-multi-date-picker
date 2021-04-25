@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import DatePicker from "../../../../build/index";
+import DatePicker, { DateObject } from "../../../../build/index";
 import Weekends from "../../../../plugins/weekends";
 
 export default function WeekendsComponent(trasnlate, language, otherProps) {
-  const [mapDays, setMapDays] = useState();
-  const [mapDays2, setMapDays2] = useState();
-  const [mapDays3, setMapDays3] = useState();
+  const [props, setProps] = useState({
+    value: new DateObject().toLastOfWeek(),
+  });
+  const [props2, setProps2] = useState({
+    calendar: "persian",
+    locale: "fa",
+    calendarPosition: language === "en" ? "bottom-left" : "auto-right",
+  });
+  const [props3, setProps3] = useState({});
 
-  const props = {
+  const allProps = {
     title: "Props",
     description: (
       <table>
@@ -24,15 +30,11 @@ export default function WeekendsComponent(trasnlate, language, otherProps) {
             <td>Array</td>
             <td>*see default weekends</td>
           </tr>
-          <tr>
-            <td>setMapDays</td>
-            <td>Function</td>
-            <td>undefined</td>
-          </tr>
         </tbody>
       </table>
     ),
   };
+
   const defaultWeekends = {
     title: "Default Weekends",
     description: (
@@ -73,23 +75,24 @@ import Weekends from "react-multi-date-picker/plugins/weekends"
 .
 .
 .
-const [value, setValue] = useState()
-const [mapDays, setMapDays] = useState()
+const [props, setProps] = useState({
+  value: new DateObject().toLastOfWeek()
+});
 .
 .
 .
 <DatePicker
-  value={value}
-  onChange={setValue}
-  mapDays={mapDays}
+  {...props}
+  onPropsChange={setProps}
   plugins={[
-    <Weekends setMapDays={setMapDays} />
+    <Weekends />
   ]}
 /> `,
     jsx: (
       <DatePicker
-        mapDays={mapDays}
-        plugins={[<Weekends setMapDays={setMapDays} />]}
+        {...props}
+        onPropsChange={setProps}
+        plugins={[<Weekends />]}
         calendarPosition={language === "en" ? "bottom-left" : "auto-right"}
       />
     ),
@@ -103,26 +106,24 @@ import Weekends from "react-multi-date-picker/plugins/weekends"
 .
 .
 .
-const [value, setValue] = useState()
-const [mapDays, setMapDays] = useState()
+const [props, setProps] = useState({
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition: "${language === "en" ? "bottom-left" : "auto-right"}"
+});
 .
 .
 .
 <DatePicker
-  value={value}
-  onChange={setValue}
-  mapDays={mapDays}
-  plugins={[
-    <Weekends setMapDays={setMapDays} />
-  ]}
-/>`,
+  {...props}
+  onPropsChange={setProps}
+  plugins={[<Weekends />]}
+/> `,
     jsx: (
       <DatePicker
-        calendar="persian"
-        locale="fa"
-        calendarPosition={language === "en" ? "bottom-left" : "auto-right"}
-        mapDays={mapDays2}
-        plugins={[<Weekends setMapDays={setMapDays2} />]}
+        {...props2}
+        onPropsChange={setProps2}
+        plugins={[<Weekends />]}
       />
     ),
   };
@@ -135,29 +136,35 @@ import Weekends from "react-multi-date-picker/plugins/weekends"
 .
 .
 .
-const [value, setValue] = useState()
-const [mapDays, setMapDays] = useState()
+const [props, setProps] = useState(${
+      language === "en"
+        ? "{}"
+        : `{
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition: "bottom-right"
+}`
+    });
 .
 .
 .
 <DatePicker
-  value={value}
-  onChange={setValue}
-  mapDays={mapDays}
+  {...props}
+  onPropsChange={setProps}
   plugins={[
     <Weekends
       weekends={[5, 6]}
-      setMapDays={setMapDays}
     />
   ]}
-/>`,
+/> `,
     jsx: (
       <DatePicker
-        mapDays={mapDays3}
-        plugins={[<Weekends weekends={[5, 6]} setMapDays={setMapDays3} />]}
+        {...props3}
+        onPropsChange={setProps3}
+        plugins={[<Weekends weekends={[5, 6]} />]}
         {...otherProps}
       />
     ),
   };
-  return [props, defaultWeekends, gregorian, persian, custom];
+  return [allProps, defaultWeekends, gregorian, persian, custom];
 }

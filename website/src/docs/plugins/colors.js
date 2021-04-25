@@ -59,30 +59,33 @@ import MultiColors from "react-multi-date-picker/plugins/multi_colors"
 .
 .
 . 
-const [props, setProps] = useState({ multiple: true })
+const [props, setProps] = useState(${
+      language === "en"
+        ? "{ multiple: true }"
+        : `{
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition: "bottom-right"
+}`
+    })
 .
 .
 .
 <DatePicker
   {...props}
+  onPropsChange={setProps}
   plugins={[
     <MultiColors 
       position="bottom" 
       defaultColor="green"
-      setProps={setProps} 
     />
   ]}
-/>`,
+/> `,
     jsx: (
       <DatePicker
         {...props2}
-        plugins={[
-          <MultiColors
-            position="bottom"
-            defaultColor="green"
-            setProps={setProps2}
-          />,
-        ]}
+        onPropsChange={setProps2}
+        plugins={[<MultiColors position="bottom" defaultColor="green" />]}
       />
     ),
   };
@@ -103,10 +106,20 @@ yesterday.color = "red"
 today.color = "blue"
 tomorrow.color = "red"
         
-const initialProps = { 
+const initialProps = ${
+      language === "en"
+        ? `{ 
   multiple: true, 
   value: [yesterday, today, tomorrow] 
-}
+}`
+        : `{ 
+  multiple: true, 
+  value: [yesterday, today, tomorrow],
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition: "bottom-right" 
+}`
+    }
 
 const [props, setProps] = useState(initialProps) 
 .
@@ -114,24 +127,21 @@ const [props, setProps] = useState(initialProps)
 .
 <DatePicker
   {...props}
+  onPropsChange={setProps}
   plugins={[
     <MultiColors
       position="bottom"
       colors={["blue", "red"]}
-      setProps={setProps}
     />,
     <DatePanel sort="color" />
   ]}
-/>`,
+/> `,
     jsx: (
       <DatePicker
         {...props3}
+        onPropsChange={setProps3}
         plugins={[
-          <MultiColors
-            position="bottom"
-            colors={["blue", "red"]}
-            setProps={setProps3}
-          />,
+          <MultiColors position="bottom" colors={["blue", "red"]} />,
           <DatePanel sort="color" />,
         ]}
       />

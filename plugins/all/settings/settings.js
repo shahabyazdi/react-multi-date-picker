@@ -60,7 +60,12 @@ export default function Settings({
   },
   ...props
 }) {
-  const [section, setSection] = useState(defaultActive);
+  const [section, setSection] = useState(defaultActive),
+    globalIconProps = {
+      size: 19,
+      stroke: 1.5,
+      className: "icon",
+    };
 
   return (
     <div
@@ -73,26 +78,22 @@ export default function Settings({
           className={`setting ${section === "calendar" ? "active" : ""}`}
         >
           <IconCalendarEvent
-            size={19}
-            stroke={1.5}
-            className="icon"
+            {...globalIconProps}
             onClick={() => setSection(section === "calendar" ? "" : "calendar")}
           />
           <div className="items">
-            {calendars.map((calendar, index) => {
-              return (
-                <span
-                  key={index}
-                  className={`item ${
-                    state.date.calendar === calendar ? "active" : ""
-                  }`}
-                  title={titles[calendar]}
-                  onClick={() => setKeyValue("calendar", calendar)}
-                >
-                  {names[calendar]}
-                </span>
-              );
-            })}
+            {calendars.map((calendar, index) => (
+              <span
+                key={index}
+                className={`item ${
+                  state.date.calendar === calendar ? "active" : ""
+                }`}
+                title={titles[calendar]}
+                onClick={() => setKeyValue("calendar", calendar)}
+              >
+                {names[calendar]}
+              </span>
+            ))}
           </div>
         </div>
       )}
@@ -102,26 +103,22 @@ export default function Settings({
           className={`setting ${section === "locale" ? "active" : ""}`}
         >
           <IconLanguage
-            size={19}
-            stroke={1.5}
-            className="icon"
+            {...globalIconProps}
             onClick={() => setSection(section === "locale" ? "" : "locale")}
           />
           <div className="items">
-            {locales.map((locale, index) => {
-              return (
-                <span
-                  key={index}
-                  className={`item ${
-                    state.date.locale === locale ? "active" : ""
-                  }`}
-                  title={titles[locale]}
-                  onClick={() => setKeyValue("locale", locale)}
-                >
-                  {names[locale]}
-                </span>
-              );
-            })}
+            {locales.map((locale, index) => (
+              <span
+                key={index}
+                className={`item ${
+                  state.date.locale === locale ? "active" : ""
+                }`}
+                title={titles[locale]}
+                onClick={() => setKeyValue("locale", locale)}
+              >
+                {names[locale]}
+              </span>
+            ))}
           </div>
         </div>
       )}
@@ -131,30 +128,26 @@ export default function Settings({
           className={`setting ${section === "mode" ? "active" : ""}`}
         >
           <IconCircles
-            size={19}
-            stroke={1.5}
-            className="icon"
+            {...globalIconProps}
             onClick={() => setSection(section === "mode" ? "" : "mode")}
           />
           <div className="items">
-            {modes.map((mode, index) => {
-              return (
-                <span
-                  key={index}
-                  className={`item ${
-                    state[mode]
-                      ? "active"
-                      : !state.range && !state.multiple && mode === "single"
-                      ? "active"
-                      : ""
-                  }`}
-                  title={titles[mode]}
-                  onClick={setMode}
-                >
-                  {names[mode]}
-                </span>
-              );
-            })}
+            {modes.map((mode, index) => (
+              <span
+                key={index}
+                className={`item ${
+                  state[mode]
+                    ? "active"
+                    : !state.range && !state.multiple && mode === "single"
+                    ? "active"
+                    : ""
+                }`}
+                title={titles[mode]}
+                onClick={setMode}
+              >
+                {names[mode]}
+              </span>
+            ))}
           </div>
         </div>
       )}
@@ -164,9 +157,7 @@ export default function Settings({
           className={`setting ${section === "others" ? "active" : ""}`}
         >
           <IconClock
-            size={19}
-            stroke={1.5}
-            className="icon"
+            {...globalIconProps}
             onClick={() => setSection(section === "others" ? "" : "others")}
           />
           <div className="items">
@@ -179,28 +170,20 @@ export default function Settings({
             >
               {names.disable}
             </span>
-            {
-              <>
-                {others.map((picker, index) => {
-                  return (
-                    <span
-                      key={index}
-                      className={`item ${
-                        state[
-                          picker.replace(/\s\w/g, (w) => w[1].toUpperCase())
-                        ]
-                          ? "active"
-                          : ""
-                      }`}
-                      title={titles[picker]}
-                      onClick={() => setOtherPickers(picker)}
-                    >
-                      {names[picker]}
-                    </span>
-                  );
-                })}
-              </>
-            }
+            {others.map((picker, index) => (
+              <span
+                key={index}
+                className={`item ${
+                  state[picker.replace(/\s\w/g, (w) => w[1].toUpperCase())]
+                    ? "active"
+                    : ""
+                }`}
+                title={titles[picker]}
+                onClick={() => setOtherPickers(picker)}
+              >
+                {names[picker]}
+              </span>
+            ))}
           </div>
         </div>
       )}
@@ -301,14 +284,13 @@ export default function Settings({
 
   function notifyChange($state) {
     if (setProps instanceof Function) {
-      if ("_self" in React.createElement("div")) {
+      if ("_self" in React.createElement("div"))
         console.warn(
           [
             "setProps is deprecated and will not available in the next versions.",
             "https://shahabyazdi.github.io/react-multi-date-picker/plugins/settings/",
           ].join("\n")
         );
-      }
 
       setProps((props) => {
         return {

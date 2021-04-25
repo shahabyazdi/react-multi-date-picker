@@ -485,7 +485,6 @@ declare module "react-multi-date-picker/plugins/multi_colors" {
   interface MultiColorsProps {
     position?: string;
     disabled?: boolean;
-    setProps(props: object): void;
     colors?: string[];
     defaultColor?: string;
     className?: string;
@@ -575,7 +574,6 @@ declare module "react-multi-date-picker/plugins/weekends" {
   interface WeekendsProps {
     position?: string;
     disabled?: boolean;
-    setMapDays(props: object): void;
     weekends?: number[];
   }
 

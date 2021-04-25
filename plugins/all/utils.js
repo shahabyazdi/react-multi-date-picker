@@ -20,7 +20,8 @@ export function getValidProps({
   calendarProps,
   handleChange,
   nodes,
-  calendar,
+  Calendar,
+  handlePropsChange,
   ...otherProps
 }) {
   return otherProps;

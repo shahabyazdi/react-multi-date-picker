@@ -42,7 +42,7 @@ export default function Setting(translate, language, otherProps) {
           <tr>
             <td>others</td>
             <td>Array</td>
-            <td>["only month picker", "only year picker"]</td>
+            <td>["onlyMonthPicker", "onlyYearPicker"]</td>
           </tr>
           <tr>
             <td>defaultActive</td>
@@ -118,7 +118,15 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel"
 .
 .
 .
-const [props, setProps] = useState({})
+const [props, setProps] = useState(${
+      language === "en"
+        ? "{}"
+        : `{
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition: "bottom-right"
+}`
+    })
 .
 .
 .
@@ -135,7 +143,7 @@ const [props, setProps] = useState({})
       position={["fa", "ar"].includes(props.locale) ? "left" : "right"}
     />
   ]}
-/>`,
+/> `,
     jsx: (
       <DatePicker
         {...settings1}
@@ -161,7 +169,16 @@ import Settings from "react-multi-date-picker/plugins/settings"
 .
 .
 .
-const [props, setProps] = useState({ multiple: true })
+const [props, setProps] = useState(${
+      language === "en"
+        ? "{ multiple: true }"
+        : `{
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition: "bottom-right",
+  multiple: true
+}`
+    })
 .
 .
 .
@@ -177,7 +194,7 @@ const [props, setProps] = useState({ multiple: true })
       disabledList={["other"]}
     />
   ]}
-/>`,
+/> `,
     jsx: (
       <DatePicker
         {...settings2}
@@ -202,11 +219,21 @@ import DatePicker from "react-multi-date-picker"
 import Settings from "react-multi-date-picker/plugins/settings"
 .
 .
-.RefObject
-const initialProps = { 
+.
+const initialProps = ${
+      language === "en"
+        ? `{ 
   value: new Date(), 
   format: "MM-DD-YYYY", 
-}
+}`
+        : `{ 
+  value: new Date(), 
+  format: "MM-DD-YYYY", 
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition:"bottom-right"
+}`
+    }
 
 const [props, setProps] = useState(initialProps)
 .
@@ -227,7 +254,7 @@ const [props, setProps] = useState(initialProps)
       }}
     />
   ]}
-/>`,
+/> `,
     jsx: (
       <DatePicker
         {...settings3}
