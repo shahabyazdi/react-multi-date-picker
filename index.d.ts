@@ -3,7 +3,7 @@ declare module "react-multi-date-picker" {
   import DateObject from "react-date-object";
 
   interface CalendarProps {
-    ref?: React.RefObject<any>;
+    ref?: React.MutableRefObject<any>;
     /**
      * @types Date | string | number | DateObject
      * @types Date[] | string[] | number[] | DateObject[]
@@ -261,6 +261,9 @@ declare module "react-multi-date-picker" {
      * <Calendar weekStartDayIndex={2} />
      */
     weekStartDayIndex?: number;
+    disableDayPicker?: boolean;
+    onPropsChange?(props: object): void;
+    onMonthChange?(date: DateObject): void;
   }
 
   interface DatePickerProps {
@@ -445,6 +448,7 @@ declare module "react-multi-date-picker/plugins/date_panel" {
 
   interface DatePanelProps {
     position?: string;
+    disabled?: boolean;
     eachDaysInRange?: boolean;
     sort?: string;
     style?: React.CSSProperties;
@@ -452,6 +456,8 @@ declare module "react-multi-date-picker/plugins/date_panel" {
     onDateClicked?(date: DateObject): void;
     removeButton?: boolean;
     header?: string;
+    markFocused?: boolean;
+    focusedClassName: string;
   }
 
   export default function DatePanel(props: DatePanelProps): React.ReactElement;
@@ -462,6 +468,7 @@ declare module "react-multi-date-picker/plugins/date_picker_header" {
 
   interface DatePickerHeaderProps {
     position?: string;
+    disabled?: boolean;
     size?: string;
     calendar?: string;
     locale?: string;
@@ -477,8 +484,8 @@ declare module "react-multi-date-picker/plugins/multi_colors" {
   import React from "react";
 
   interface MultiColorsProps {
-    setProps(props: object): void;
     position?: string;
+    disabled?: boolean;
     colors?: string[];
     defaultColor?: string;
     className?: string;
@@ -494,7 +501,7 @@ declare module "react-multi-date-picker/plugins/settings" {
 
   interface SettingsProps {
     position?: string;
-    setProps(props: object): void;
+    disabled?: boolean;
     calendars?: string[];
     locales?: string[];
     modes?: string[];
@@ -503,12 +510,46 @@ declare module "react-multi-date-picker/plugins/settings" {
     disabledList?: string[];
     defaultFormat?: {
       single?: string;
-      timePicker?: string;
-      onlyTimePicker?: string;
       onlyYearPicker?: string;
       onlyMonthPicker?: string;
     };
     className?: string;
+    names?: {
+      gregorian: string;
+      persian: string;
+      arabic: string;
+      indian: string;
+      en: string;
+      fa: string;
+      ar: string;
+      hi: string;
+      single: string;
+      multiple: string;
+      range: string;
+      disable: string;
+      onlyMonthPicker: string;
+      onlyYearPicker: string;
+    };
+    titles?: {
+      calendar: string;
+      locale: string;
+      mode: string;
+      otherPickers: string;
+      gregorian: string;
+      persian: string;
+      arabic: string;
+      indian: string;
+      en: string;
+      fa: string;
+      ar: string;
+      hi: string;
+      single: string;
+      multiple: string;
+      range: string;
+      disable: string;
+      onlyMonthPicker: string;
+      onlyYearPicker: string;
+    };
   }
 
   export default function Settings(props: SettingsProps): React.ReactElement;
@@ -519,7 +560,9 @@ declare module "react-multi-date-picker/plugins/toolbar" {
 
   interface ToolbarProps {
     position?: string;
+    disabled?: boolean;
     className?: string;
+    sort?: string[];
     names?: { today: string; deselect: string; close: string };
   }
 
@@ -530,9 +573,23 @@ declare module "react-multi-date-picker/plugins/weekends" {
   import React from "react";
 
   interface WeekendsProps {
-    setMapDays(props: object): void;
+    position?: string;
+    disabled?: boolean;
     weekends?: number[];
   }
 
   export default function Weekends(props: WeekendsProps): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/time_picker" {
+  import React from "react";
+
+  interface TimePickerProps {
+    position?: string;
+    disabled?: boolean;
+  }
+
+  export default function TimePicker(
+    props: TimePickerProps
+  ): React.ReactElement;
 }

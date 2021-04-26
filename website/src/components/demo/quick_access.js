@@ -56,7 +56,7 @@ const list = [
     path: "format-tokens/",
   },
   {
-    name: "Calendars & Locals",
+    name: "Calendars & Locales",
     path: "calendars/",
     list: [
       {
@@ -304,11 +304,11 @@ const list = [
     path: "events/",
     list: [
       {
-        name: "On Change (single mode)",
+        name: "onChange (single mode)",
         path: "events/#on-change-(single-mode)",
       },
       {
-        name: "On Change (multiple mode)",
+        name: "onChange (multiple mode)",
         path: "events/#on-change-(multiple-mode)",
       },
       {
@@ -322,6 +322,14 @@ const list = [
       {
         name: "onPositionChange",
         path: "events/#onpositionchange",
+      },
+      {
+        name: "onPropsChange",
+        path: "events/#onpropschange",
+      },
+      {
+        name: "onMonthChange",
+        path: "events/#onmonthchange",
       },
     ],
   },
@@ -792,8 +800,8 @@ const list = [
             path: "plugins/settings/#custom-settings",
           },
           {
-            name: "Time Picker",
-            path: "plugins/settings/#time-picker",
+            name: "Other Pickers",
+            path: "plugins/settings/#other-pickers",
           },
         ],
       },
@@ -828,8 +836,16 @@ const list = [
         path: "plugins/toolbar/",
         list: [
           {
+            name: "Props",
+            path: "plugins/toolbar/#props",
+          },
+          {
             name: "Default Toolbar",
             path: "plugins/toolbar/#default-toolbar",
+          },
+          {
+            name: "Sorting Buttons",
+            path: "plugins/toolbar/#sorting-buttons",
           },
           {
             name: "Custom Names",

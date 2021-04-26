@@ -271,8 +271,10 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
 export function selectDate(
   date,
   sort,
-  { multiple, range, selectedDate, onlyMonthPicker, onlyYearPicker }
+  { multiple, range, selectedDate, onlyMonthPicker, onlyYearPicker, format }
 ) {
+  date.setFormat(format);
+
   if (multiple) {
     selectedDate = selectMultiple();
   } else if (range) {

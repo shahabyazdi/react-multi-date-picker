@@ -105,68 +105,396 @@ export default function Example() {
 
 ## Availble props
 
-| Name                 |                                             Type                                              |            Default             | Availability (DatePicker/ Calendar) |
-| -------------------- | :-------------------------------------------------------------------------------------------: | :----------------------------: | ----------------------------------- |
-| value                | Date, [DateObject](https://github.com/shahabyazdi/react-date-object), String, Number or Array |           new Date()           | both                                |
-| ref                  |                                        React.RefObject                                        |                                | both                                |
-| multiple             |                                            Boolean                                            | false (true if value is Array) | both                                |
-| range                |                                            Boolean                                            |             false              | both                                |
-| timePicker           |                                            Boolean                                            |             false              | both                                |
-| onlyTimePicker       |                                            Boolean                                            |             false              | both                                |
-| onlyMonthPicker      |                                            Boolean                                            |             false              | both                                |
-| onlyYearPicker       |                                            Boolean                                            |             false              | both                                |
-| format               |                                            String                                             |           YYYY/MM/DD           | both                                |
-| formattingIgnoreList |                                             Array                                             |                                | both                                |
-| locale               |                                            String                                             |               en               | both                                |
-| calendar             |                                            String                                             |           gregorian            | both                                |
-| mapDays              |                                           Function                                            |                                | both                                |
-| onChange             |                                           Function                                            |                                | both                                |
-| className            |                                            String                                             |               ""               | both                                |
-| weekDays             |                                             Array                                             |                                | both                                |
-| months               |                                             Array                                             |                                | both                                |
-| showOtherDays        |                                            Boolean                                            |             false              | both                                |
-| minDate              |                              Date, DateObject, String or Number                               |                                | both                                |
-| maxDate              |                              Date, DateObject, String or Number                               |                                | both                                |
-| disableYearPicker    |                                            Boolean                                            |             false              | both                                |
-| disableMonthPicker   |                                            Boolean                                            |             false              | both                                |
-| zIndex               |                                            Number                                             |              100               | both                                |
-| plugins              |                                             Array                                             |               []               | both                                |
-| sort                 |                                            Boolean                                            |             false              | both                                |
-| numberOfMonths       |                                            Number                                             |               1                | both                                |
-| currentDate          |                                          DateObject                                           |                                | both                                |
-| digits               |                                             Array                                             |                                | both                                |
-| buttons              |                                            Boolean                                            |                                | both                                |
-| renderButton         |                                React.ReactElement or Function                                 |                                | both                                |
-| weekStartDayIndex    |                                            Number                                             |                                | both                                |
-| className            |                                            String                                             |               ""               | both                                |
-| containerClassName   |                                            String                                             |                                | DatePicker                          |
-| arrowClassName       |                                            String                                             |               0                | DatePicker                          |
-| style                |                                      React.CSSProperties                                      |               {}               | DatePicker                          |
-| containerStyle       |                                      React.CSSProperties                                      |                                | DatePicker                          |
-| arrowStyle           |                                      React.CSSProperties                                      |               0                | DatePicker                          |
-| arrow                |                                 Boolean or React.ReactElement                                 |              true              | DatePicker                          |
-| animation            |                                            Boolean                                            |             false              | DatePicker                          |
-| inputClass           |                                            String                                             |               ""               | DatePicker                          |
-| name                 |                                            String                                             |                                | DatePicker                          |
-| id                   |                                            String                                             |                                | DatePicker                          |
-| title                |                                            String                                             |                                | DatePicker                          |
-| placeholder          |                                            String                                             |                                | DatePicker                          |
-| type                 |                                            String                                             |             input              | DatePicker                          |
-| render               |                                React.ReactElement or Function                                 |                                | DatePicker                          |
-| disabled             |                                            Boolean                                            |             false              | DatePicker                          |
-| inputMode            |                                            String                                             |                                | DatePicker                          |
-| scrollSensitive      |                                            Boolean                                            |              true              | DatePicker                          |
-| hideOnScroll         |                                            Boolean                                            |             false              | DatePicker                          |
-| calendarPosition     |                                            String                                             |         "bottom-left"          | DatePicker                          |
-| editable             |                                            Boolean                                            |              true              | DatePicker                          |
-| onlyShowInRangeDates |                                            Boolean                                            |              true              | DatePicker                          |
-| onOpen               |                                           Function                                            |                                | DatePicker                          |
-| onClose              |                                           Function                                            |                                | DatePicker                          |
-| fixMainPosition      |                                            Boolean                                            |             false              | DatePicker                          |
-| fixRelativePosition  |                                            Boolean                                            |             false              | DatePicker                          |
-| offsetY              |                                            Number                                             |               0                | DatePicker                          |
-| offsetX              |                                            Number                                             |               0                | DatePicker                          |
-| onPositionChange     |                                           Function                                            |                                | DatePicker                          |
+<table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th style="text-align:center">Type</th>
+          <th style="text-align:center">Default</th>
+          <th>Availability (DatePicker/ Calendar)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>value</td>
+          <td style="text-align:center">
+            Date,
+            <a href="https://github.com/shahabyazdi/react-date-object">
+              DateObject
+            </a>
+            , String, Number or Array
+          </td>
+          <td style="text-align:center">new Date()</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>ref</td>
+          <td style="text-align:center">React.RefObject</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>multiple</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false (true if value is Array)</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>range</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr style="color:red">
+          <td>timePicker (deprecated)</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr style="color:red">
+          <td>onlyTimePicker (deprecated)</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onlyMonthPicker</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onlyYearPicker</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>format</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">YYYY/MM/DD</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>formattingIgnoreList</td>
+          <td style="text-align:center">Array</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>locale</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">en</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>calendar</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">gregorian</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>mapDays</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>weekDays</td>
+          <td style="text-align:center">Array</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>months</td>
+          <td style="text-align:center">Array</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>showOtherDays</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>minDate</td>
+          <td style="text-align:center">Date, DateObject, String or Number</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>maxDate</td>
+          <td style="text-align:center">Date, DateObject, String or Number</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>disableYearPicker</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>disableMonthPicker</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>zIndex</td>
+          <td style="text-align:center">Number</td>
+          <td style="text-align:center">100</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>plugins</td>
+          <td style="text-align:center">Array</td>
+          <td style="text-align:center">[]</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>sort</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>numberOfMonths</td>
+          <td style="text-align:center">Number</td>
+          <td style="text-align:center">1</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>currentDate</td>
+          <td style="text-align:center">DateObject</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>digits</td>
+          <td style="text-align:center">Array</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>buttons</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>renderButton</td>
+          <td style="text-align:center">React.ReactElement or Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>weekStartDayIndex</td>
+          <td style="text-align:center">Number</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>disableDayPicker</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onPropsChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onMonthChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>className</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">&quot;&quot;</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>containerClassName</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>arrowClassName</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">0</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>style</td>
+          <td style="text-align:center">React.CSSProperties</td>
+          <td style="text-align:center">{}</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>containerStyle</td>
+          <td style="text-align:center">React.CSSProperties</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>arrowStyle</td>
+          <td style="text-align:center">React.CSSProperties</td>
+          <td style="text-align:center">0</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>arrow</td>
+          <td style="text-align:center">Boolean or React.ReactElement</td>
+          <td style="text-align:center">true</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>animation</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>inputClass</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">&quot;&quot;</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>title</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>placeholder</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">input</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>render</td>
+          <td style="text-align:center">React.ReactElement or Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>disabled</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>inputMode</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>scrollSensitive</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">true</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>hideOnScroll</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>calendarPosition</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">&quot;bottom-left&quot;</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>editable</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">true</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onlyShowInRangeDates</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">true</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onOpen</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onClose</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>fixMainPosition</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>fixRelativePosition</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>offsetY</td>
+          <td style="text-align:center">Number</td>
+          <td style="text-align:center">0</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>offsetX</td>
+          <td style="text-align:center">Number</td>
+          <td style="text-align:center">0</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onPositionChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+      </tbody>
+    </table>
 
 ## Calendars
 

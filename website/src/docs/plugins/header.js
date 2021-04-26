@@ -2,7 +2,7 @@ import React from "react";
 import DatePicker from "../../../../build/index";
 import DatePickerHeader from "../../../../plugins/date_picker_header";
 
-export default function (translate, language, otherProps) {
+export default function Header(translate, language, otherProps) {
   const props = {
     title: "Props",
     description: (

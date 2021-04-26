@@ -1,4 +1,4 @@
-export default function () {
+export default function TypeScript() {
   const typescript = {
     title: "Usage",
     description: "typescript",

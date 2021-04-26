@@ -222,5 +222,13 @@
     "You can use the weekStartDayIndex property to change the start day of the week.",
     "For example, if you want the start day of the week to be Monday, you should set the weekStartDayIndex value to 1.",
     "The value of weekStartDayIndex must be a number between 0 and 6."
+  ],
+  "on_props_change": [
+    "This feature is suitable for plugins.",
+    "Because for some of them, setting the DatePicker props (parent component) from the plugins (child component) is inevitable."
+  ],
+  "on_month_change": [
+    "In this example, setting the currentDate property is optional.",
+    "The currentDate property is set to open the calendar in the same selected month."
   ]
 }

@@ -10,6 +10,7 @@ export default function Header({
   numberOfMonths,
   buttons,
   renderButton,
+  handleMonthChange,
 }) {
   let monthNames = [],
     years = [],
@@ -140,6 +141,8 @@ export default function Header({
         date.year += value;
       } else {
         date.month += value;
+
+        handleMonthChange(date);
       }
     } else {
       year = year + value * 12;

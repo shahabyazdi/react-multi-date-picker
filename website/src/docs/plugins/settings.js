@@ -1,72 +1,116 @@
-import React, { useState } from "react"
-import DatePicker from "../../../../build/index"
-import Settings from "../../../../plugins/settings"
-import DatePanel from "../../../../plugins/date_panel"
+import React, { useState } from "react";
+import DatePicker from "../../../../build/index";
+import Settings from "../../../../plugins/all/settings/settings";
+import DatePanel from "../../../../plugins/date_panel";
 
-export default function (translate, language, otherProps) {
-  const [settings1, setSettings1] = useState({ ...otherProps })
-  const [settings2, setSettings2] = useState({ multiple: true, ...otherProps })
-  const [settings3, setSettings3] = useState({ value: new Date(), format: "MM-DD-YYYY HH:mm:ss", timePicker: true, ...otherProps })
+export default function Setting(translate, language, otherProps) {
+  const [settings1, setSettings1] = useState({ ...otherProps });
+  const [settings2, setSettings2] = useState({ multiple: true, ...otherProps });
+  const [settings3, setSettings3] = useState({
+    value: new Date(),
+    format: "MM-DD-YYYY",
+    ...otherProps,
+  });
 
   const props = {
     title: "Props",
-    description: <table>
-      <thead>
-        <tr>
-          <th>{translate("Prop")}</th>
-          <th>{translate("Type")}</th>
-          <th>{translate("Default")}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>calendars</td>
-          <td>Array</td>
-          <td>["gregorian", "persian", "arabic", "indian"]</td>
-        </tr>
-        <tr>
-          <td>locales</td>
-          <td>Array</td>
-          <td>["en", "fa", "ar", "hi"]</td>
-        </tr>
-        <tr>
-          <td>modes</td>
-          <td>Array</td>
-          <td>["single", "multiple", "range"]</td>
-        </tr>
-        <tr>
-          <td>others</td>
-          <td>Array</td>
-          <td>["time picker", "only time picker", "only month picker", "only year picker"]</td>
-        </tr>
-        <tr>
-          <td>defaultActive</td>
-          <td>string</td>
-          <td>""</td>
-        </tr>
-        <tr>
-          <td>disabledList</td>
-          <td>Array</td>
-          <td>[]</td>
-        </tr>
-        <tr>
-          <td>defaultFormat</td>
-          <td>Object</td>
-          <td>{"{}"}</td>
-        </tr>
-        <tr>
-          <td>setProps</td>
-          <td>Function</td>
-          <td>undefined</td>
-        </tr>
-      </tbody>
-    </table>
-  }
+    description: (
+      <table>
+        <thead>
+          <tr>
+            <th>{translate("Prop")}</th>
+            <th>{translate("Type")}</th>
+            <th>{translate("Default")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>calendars</td>
+            <td>Array</td>
+            <td>["gregorian", "persian", "arabic", "indian"]</td>
+          </tr>
+          <tr>
+            <td>locales</td>
+            <td>Array</td>
+            <td>["en", "fa", "ar", "hi"]</td>
+          </tr>
+          <tr>
+            <td>modes</td>
+            <td>Array</td>
+            <td>["single", "multiple", "range"]</td>
+          </tr>
+          <tr>
+            <td>others</td>
+            <td>Array</td>
+            <td>["onlyMonthPicker", "onlyYearPicker"]</td>
+          </tr>
+          <tr>
+            <td>defaultActive</td>
+            <td>string</td>
+            <td>""</td>
+          </tr>
+          <tr>
+            <td>disabledList</td>
+            <td>Array</td>
+            <td>[]</td>
+          </tr>
+          <tr>
+            <td>defaultFormat</td>
+            <td>Object</td>
+            <td>{"{}"}</td>
+          </tr>
+          <tr>
+            <td>names</td>
+            <td>Object</td>
+            <td>{`{
+  gregorian: "GE",
+  persian: "PE",
+  arabic: "AR",
+  indian: "IN",
+  en: "EN",
+  fa: "FA",
+  ar: "AR",
+  hi: "HI",
+  single: "SI",
+  multiple: "MU",
+  range: "RA",
+  disable: "DI",
+  onlyMonthPicker: "OM",
+  onlyYearPicker: "OY",
+}`}</td>
+          </tr>
+          <tr>
+            <td>titles</td>
+            <td>Object</td>
+            <td>{`{
+  calendar: "Calendar",
+  locale: "Locale",
+  mode: "Mode",
+  otherPickers: "Other Pickers",
+  gregorian: "Gregorian",
+  persian: "Persian",
+  arabic: "Arabic",
+  indian: "Indian",
+  en: "English",
+  fa: "Farsi",
+  ar: "Arabic",
+  hi: "Hindi",
+  single: "Single",
+  multiple: "Multiple",
+  range: "Range",
+  disable: "Disable",
+  onlyMonthPicker: "Only Month Picker",
+  onlyYearPicker: "Only Year Picker",
+}`}</td>
+          </tr>
+        </tbody>
+      </table>
+    ),
+  };
 
   const bottom = {
     title: "Settings Bottom",
-    description: <div>
-    </div>,
+    description: <div></div>,
     code: `import React, { useState } from "react"
 import DatePicker from "react-multi-date-picker"
 import Settings from "react-multi-date-picker/plugins/settings"
@@ -74,39 +118,48 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel"
 .
 .
 .
-const [props, setProps] = useState({})
+const [props, setProps] = useState(${
+      language === "en"
+        ? "{}"
+        : `{
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition: "bottom-right"
+}`
+    })
 .
 .
 .
 <DatePicker
   {...props}
+  onPropsChange={setProps}
   plugins={[
     <Settings
       position="bottom"
       defaultActive="mode"
-      setProps={setProps}
     />,
     <DatePanel 
       disabled={!props.multiple && !props.range} 
       position={["fa", "ar"].includes(props.locale) ? "left" : "right"}
     />
   ]}
-/>`,
-    jsx: <DatePicker
-      {...settings1}
-      plugins={[
-        <Settings
-          position="bottom"
-          defaultActive="mode"
-          setProps={setSettings1}
-        />,
-        <DatePanel
-          disabled={!settings1.multiple && !settings1.range}
-          position={["fa", "ar"].includes(settings1.locale) ? "left" : "right"}
-        />
-      ]}
-    />
-  }
+/> `,
+    jsx: (
+      <DatePicker
+        {...settings1}
+        onPropsChange={setSettings1}
+        plugins={[
+          <Settings position="bottom" defaultActive="mode" />,
+          <DatePanel
+            disabled={!settings1.multiple && !settings1.range}
+            position={
+              ["fa", "ar"].includes(settings1.locale) ? "left" : "right"
+            }
+          />,
+        ]}
+      />
+    ),
+  };
 
   const custom = {
     title: "Custom Settings",
@@ -116,12 +169,22 @@ import Settings from "react-multi-date-picker/plugins/settings"
 .
 .
 .
-const [props, setProps] = useState({ multiple: true })
+const [props, setProps] = useState(${
+      language === "en"
+        ? "{ multiple: true }"
+        : `{
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition: "bottom-right",
+  multiple: true
+}`
+    })
 .
 .
 .
 <DatePicker
   {...props}
+  onPropsChange={setProps}
   plugins={[
     <Settings
       position="left"
@@ -129,38 +192,48 @@ const [props, setProps] = useState({ multiple: true })
       locales={["en", "fa"]}
       modes={["multiple", "range"]}
       disabledList={["other"]}
-      setProps={setProps}
     />
   ]}
-/>`,
-    jsx: <DatePicker
-      {...settings2}
-      plugins={[
-        <Settings
-          position="left"
-          calendars={["gregorian", "persian"]}
-          locales={["en", "fa"]}
-          modes={["multiple", "range"]}
-          disabledList={["others"]}
-          setProps={setSettings2}
-        />
-      ]}
-    />
-  }
+/> `,
+    jsx: (
+      <DatePicker
+        {...settings2}
+        onPropsChange={setSettings2}
+        plugins={[
+          <Settings
+            position="left"
+            calendars={["gregorian", "persian"]}
+            locales={["en", "fa"]}
+            modes={["multiple", "range"]}
+            disabledList={["other"]}
+          />,
+        ]}
+      />
+    ),
+  };
 
-  const timePicker = {
-    title: "Time Picker",
+  const otherPickers = {
+    title: "Other Pickers",
     code: `import React, { useState } from "react"
 import DatePicker from "react-multi-date-picker"
 import Settings from "react-multi-date-picker/plugins/settings"
 .
 .
 .
-const initialProps = { 
+const initialProps = ${
+      language === "en"
+        ? `{ 
   value: new Date(), 
-  format: "MM-DD-YYYY HH:mm:ss", 
-  timePicker: true 
-}
+  format: "MM-DD-YYYY", 
+}`
+        : `{ 
+  value: new Date(), 
+  format: "MM-DD-YYYY", 
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition:"bottom-right"
+}`
+    }
 
 const [props, setProps] = useState(initialProps)
 .
@@ -168,44 +241,39 @@ const [props, setProps] = useState(initialProps)
 .
 <DatePicker
   {...props}
+  onPropsChange={setProps}
   plugins={[
     <Settings
       position="bottom"
       disabledList={["calendar", "locale", "mode"]}
-      others={["time picker", "only time picker"]}
       defaultActive="others"
       defaultFormat={{
-        single: "MMM DD YYYY",
-        timePicker: "MM-DD-YYYY HH:mm:ss",
-        onlyTimePicker: "hh, mm, ss, a"
+        single: "MM-DD-YYYY",
+        onlyMonthPicker: "MMMM YYYY",
+        onlyYearPicker: "YYYY",
       }}
-      setProps={setProps}
     />
   ]}
-/>`,
-    jsx: <DatePicker
-      {...settings3}
-      plugins={[
-        <Settings
-          position="bottom"
-          disabledList={["calendar", "locale", "mode"]}
-          others={["time picker", "only time picker"]}
-          defaultActive="others"
-          defaultFormat={{
-            single: "MMM DD YYYY",
-            timePicker: "MM-DD-YYYY HH:mm:ss",
-            onlyTimePicker: "hh, mm, ss, a"
-          }}
-          setProps={setSettings3}
-        />
-      ]}
-    />
-  }
+/> `,
+    jsx: (
+      <DatePicker
+        {...settings3}
+        onPropsChange={setSettings3}
+        plugins={[
+          <Settings
+            position="bottom"
+            disabledList={["calendar", "locale", "mode"]}
+            defaultActive="others"
+            defaultFormat={{
+              single: "MM-DD-YYYY",
+              onlyMonthPicker: "MMMM YYYY",
+              onlyYearPicker: "YYYY",
+            }}
+          />,
+        ]}
+      />
+    ),
+  };
 
-  return [
-    props,
-    bottom,
-    custom,
-    timePicker
-  ]
+  return [props, bottom, custom, otherPickers];
 }

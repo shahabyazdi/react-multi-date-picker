@@ -11,7 +11,7 @@ export default function Input({ name, value, onChange, digits }) {
       name={name}
       value={changedValue}
       onChange={handleChange}
-      onBlur={() => onChange(Number(changedValue), name)}
+      onBlur={() => onChange(name, Number(changedValue))}
     />
   );
 

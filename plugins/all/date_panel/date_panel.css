@@ -46,6 +46,10 @@
   background-color: #fad817;
 }
 
+.rmdp-panel-body li.rmdp-focused {
+  box-shadow: 0 0 2px 1px var(--rmdp-shadow);
+}
+
 .rmdp-panel-body span {
   margin: 0 5px;
   line-height: 23px;

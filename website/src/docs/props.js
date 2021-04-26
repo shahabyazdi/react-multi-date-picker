@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function (translate, language) {
+export default function Props(translate, language) {
   const table = {
     description: (
       <table>
@@ -37,14 +37,14 @@ export default function (translate, language) {
             <td>false</td>
             <td>{translate("both")}</td>
           </tr>
-          <tr>
-            <td>timePicker</td>
+          <tr style={{ color: "red" }}>
+            <td>timePicker (deprecated)</td>
             <td>Boolean</td>
             <td>false</td>
             <td>{translate("both")}</td>
           </tr>
-          <tr>
-            <td>onlyTimePicker</td>
+          <tr style={{ color: "red" }}>
+            <td>onlyTimePicker (deprecated)</td>
             <td>Boolean</td>
             <td>false</td>
             <td>{translate("both")}</td>
@@ -196,6 +196,24 @@ export default function (translate, language) {
           <tr>
             <td>weekStartDayIndex</td>
             <td>Number</td>
+            <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>disableDayPicker</td>
+            <td>Boolean</td>
+            <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>onPropsChange</td>
+            <td>Function</td>
+            <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>onMonthChange</td>
+            <td>Function</td>
             <td></td>
             <td>{translate("both")}</td>
           </tr>

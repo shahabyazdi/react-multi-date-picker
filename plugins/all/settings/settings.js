@@ -1,6 +1,12 @@
-import React, { useState } from "react"
-import { IconLanguage, IconCalendarEvent, IconLetterM, IconClock } from '@tabler/icons';
-import "./settings.css"
+import React, { useState } from "react";
+import { getValidProps } from "../utils";
+import {
+  IconLanguage,
+  IconCalendarEvent,
+  IconCircles,
+  IconClock,
+} from "@tabler/icons";
+import "./settings.css";
 
 export default function Settings({
   state,
@@ -10,267 +16,293 @@ export default function Settings({
   calendars = ["gregorian", "persian", "arabic", "indian"],
   locales = ["en", "fa", "ar", "hi"],
   modes = ["single", "multiple", "range"],
-  others = ["time picker", "only time picker", "only month picker", "only year picker"],
+  others = ["onlyMonthPicker", "onlyYearPicker"],
   defaultActive = "",
   disabledList = [],
   defaultFormat = {},
   className = "",
+  handlePropsChange,
+  names = {
+    gregorian: "GE",
+    persian: "PE",
+    arabic: "AR",
+    indian: "IN",
+    en: "EN",
+    fa: "FA",
+    ar: "AR",
+    hi: "HI",
+    single: "SI",
+    multiple: "MU",
+    range: "RA",
+    disable: "DI",
+    onlyMonthPicker: "OM",
+    onlyYearPicker: "OY",
+  },
+  titles = {
+    calendar: "Calendar",
+    locale: "Locale",
+    mode: "Mode",
+    otherPickers: "Other Pickers",
+    gregorian: "Gregorian",
+    persian: "Persian",
+    arabic: "Arabic",
+    indian: "Indian",
+    en: "English",
+    fa: "Farsi",
+    ar: "Arabic",
+    hi: "Hindi",
+    single: "Single",
+    multiple: "Multiple",
+    range: "Range",
+    disable: "Disable",
+    onlyMonthPicker: "Only Month Picker",
+    onlyYearPicker: "Only Year Picker",
+  },
   ...props
 }) {
-  const [section, setSection] = useState(defaultActive)
-  const shortName = {
-    "time picker": "TP",
-    "only time picker": "OT",
-    "only month picker": "OM",
-    "only year picker": "OY"
-  }
-
-  delete props.nodes
-  delete props.registerListener
-  delete props.calendarProps
-  delete props.handleChange
+  const [section, setSection] = useState(defaultActive),
+    globalIconProps = {
+      size: 19,
+      stroke: 1.5,
+      className: "icon",
+    };
 
   return (
-    <div className={`settings ${position} ${className}`} {...props}>
-      {!disabledList.includes("calendar") &&
-        <div title="Calendar" className={`setting ${section === "calendar" ? "active" : ""}`}>
+    <div
+      className={`settings ${position} ${className}`}
+      {...getValidProps(props)}
+    >
+      {!disabledList.includes("calendar") && (
+        <div
+          title={titles.calendar}
+          className={`setting ${section === "calendar" ? "active" : ""}`}
+        >
           <IconCalendarEvent
-            size={19}
-            stroke={1.5}
-            className="icon"
+            {...globalIconProps}
             onClick={() => setSection(section === "calendar" ? "" : "calendar")}
           />
           <div className="items">
-            {calendars.map((calendar, index) => {
-              return (
-                <span
-                  key={index}
-                  className={`item ${state.date.calendar === calendar ? "active" : ""}`}
-                  title={calendar}
-                  onClick={e => setKeyValue(e, "calendar")}
-                >
-                  {calendar.substring(0, 2).toUpperCase()}
-                </span>
-              )
-            })}
+            {calendars.map((calendar, index) => (
+              <span
+                key={index}
+                className={`item ${
+                  state.date.calendar === calendar ? "active" : ""
+                }`}
+                title={titles[calendar]}
+                onClick={() => setKeyValue("calendar", calendar)}
+              >
+                {names[calendar]}
+              </span>
+            ))}
           </div>
         </div>
-      }
-      {!disabledList.includes("locale") &&
-        <div title="Locale" className={`setting ${section === "locale" ? "active" : ""}`}>
+      )}
+      {!disabledList.includes("locale") && (
+        <div
+          title={titles.locale}
+          className={`setting ${section === "locale" ? "active" : ""}`}
+        >
           <IconLanguage
-            size={19}
-            stroke={1.5}
-            className="icon"
+            {...globalIconProps}
             onClick={() => setSection(section === "locale" ? "" : "locale")}
           />
           <div className="items">
-            {locales.map((locale, index) => {
-              return (
-                <span
-                  key={index}
-                  className={`item ${state.date.locale === locale ? "active" : ""}`}
-                  title={locale}
-                  onClick={e => setKeyValue(e, "locale")}
-                >
-                  {locale.toUpperCase()}
-                </span>
-              )
-            })}
+            {locales.map((locale, index) => (
+              <span
+                key={index}
+                className={`item ${
+                  state.date.locale === locale ? "active" : ""
+                }`}
+                title={titles[locale]}
+                onClick={() => setKeyValue("locale", locale)}
+              >
+                {names[locale]}
+              </span>
+            ))}
           </div>
         </div>
-      }
-      {!disabledList.includes("mode") &&
-        <div title="Mode" className={`setting ${section === "mode" ? "active" : ""}`}>
-          <IconLetterM
-            size={19}
-            stroke={1.5}
-            className="icon"
+      )}
+      {!disabledList.includes("mode") && (
+        <div
+          title={titles.mode}
+          className={`setting ${section === "mode" ? "active" : ""}`}
+        >
+          <IconCircles
+            {...globalIconProps}
             onClick={() => setSection(section === "mode" ? "" : "mode")}
           />
           <div className="items">
-            {modes.map((mode, index) => {
-              return (
-                <span
-                  key={index}
-                  className={`item ${state[mode] ? "active" : (!state.range && !state.multiple && mode === "single" ? "active" : "")}`}
-                  title={mode}
-                  onClick={setMode}
-                >
-                  {mode.substring(0, 2).toUpperCase()}
-                </span>
-              )
-            })}
-
+            {modes.map((mode, index) => (
+              <span
+                key={index}
+                className={`item ${
+                  state[mode]
+                    ? "active"
+                    : !state.range && !state.multiple && mode === "single"
+                    ? "active"
+                    : ""
+                }`}
+                title={titles[mode]}
+                onClick={setMode}
+              >
+                {names[mode]}
+              </span>
+            ))}
           </div>
         </div>
-      }
-      {!disabledList.includes("other") &&
-        <div title="Time Picker" className={`setting ${section === "others" ? "active" : ""}`}>
+      )}
+      {!disabledList.includes("other") && (
+        <div
+          title={titles.otherPickers}
+          className={`setting ${section === "others" ? "active" : ""}`}
+        >
           <IconClock
-            size={19}
-            stroke={1.5}
-            className="icon"
+            {...globalIconProps}
             onClick={() => setSection(section === "others" ? "" : "others")}
           />
           <div className="items">
             <span
-              className={`item ${(
-                !state.timePicker && !state.onlyTimePicker &&
-                  !state.onlyMonthPicker && !state.onlyYearPicker ?
-                  "active" : ""
-              )}`}
-              title="disable"
-              onClick={setTimePicker}
+              className={`item ${
+                !state.onlyMonthPicker && !state.onlyYearPicker ? "active" : ""
+              }`}
+              title={titles.disable}
+              onClick={setOtherPickers}
             >
-              DI
-                </span>
-            {!state.multiple && !state.range && !Array.isArray(state.selectedDate) &&
-              <>
-                {others.map((title, index) => {
-                  return (
-                    <span
-                      key={index}
-                      className={`item ${state[title.replace(/\s\w/g, w => w[1].toUpperCase())] ? "active" : ""}`}
-                      title={title}
-                      onClick={setTimePicker}
-                    >
-                      {shortName[title]}
-                    </span>
-                  )
-                })}
-              </>
-            }
+              {names.disable}
+            </span>
+            {others.map((picker, index) => (
+              <span
+                key={index}
+                className={`item ${
+                  state[picker.replace(/\s\w/g, (w) => w[1].toUpperCase())]
+                    ? "active"
+                    : ""
+                }`}
+                title={titles[picker]}
+                onClick={() => setOtherPickers(picker)}
+              >
+                {names[picker]}
+              </span>
+            ))}
           </div>
         </div>
-      }
+      )}
     </div>
-  )
+  );
 
-  function setKeyValue(e, key) {
-    let value = e.target.title
+  function setKeyValue(key, value) {
+    if (state[key] === value) return;
 
-    if (state[key] === value) return
+    let $state = { ...state, date: state.date.set(key, value), [key]: value };
 
-    let $state = { ...state, date: state.date.set(key, value), [key]: value }
-
-    notifyChange($state)
+    notifyChange($state);
   }
 
   function setMode(e) {
-    let mode = e.target.title,
-      $state
+    let mode = e.target.title.toLowerCase(),
+      $state;
 
     switch (mode) {
       case "multiple":
         $state = {
           ...state,
-          selectedDate: Array.isArray(state.selectedDate) ? state.selectedDate : [state.selectedDate],
+          selectedDate: Array.isArray(state.selectedDate)
+            ? state.selectedDate
+            : [state.selectedDate],
           multiple: true,
-          range: false
-        }
-        break
+          range: false,
+        };
+        break;
       case "range":
         $state = {
           ...state,
-          selectedDate: Array.isArray(state.selectedDate) ? state.selectedDate : [state.selectedDate],
+          selectedDate: Array.isArray(state.selectedDate)
+            ? state.selectedDate
+            : [state.selectedDate],
           multiple: false,
-          range: true
-        }
+          range: true,
+        };
 
         if ($state.selectedDate.length > 2) {
           $state.selectedDate = [
             $state.selectedDate[0],
-            getLastItem($state.selectedDate)
-          ]
+            getLastItem($state.selectedDate),
+          ];
         }
-        break
+        break;
       default:
         //single
         $state = {
           ...state,
-          selectedDate: Array.isArray(state.selectedDate) ? getLastItem(state.selectedDate) : state.selectedDate,
+          selectedDate: Array.isArray(state.selectedDate)
+            ? getLastItem(state.selectedDate)
+            : state.selectedDate,
           multiple: false,
-          range: false
-        }
+          range: false,
+        };
     }
 
-    notifyChange($state)
+    notifyChange($state);
   }
 
   function getLastItem(array) {
-    return array[array.length - 1]
+    return array[array.length - 1];
   }
 
-  function setTimePicker(e) {
-    let title = e.target.title,
-      $state
+  function setOtherPickers(picker) {
+    let $state;
 
-    switch (title) {
-      case "time picker":
+    switch (picker) {
+      case "onlyMonthPicker":
         $state = {
           ...state,
-          timePicker: true,
-          onlyTimePicker: false,
-          onlyMonthPicker: false,
-          onlyYearPicker: false,
-          format: defaultFormat?.timePicker || "YYYY/MM/DD HH:mm:ss"
-        }
-        break
-      case "only time picker":
-        $state = {
-          ...state,
-          timePicker: false,
-          onlyTimePicker: true,
-          onlyMonthPicker: false,
-          onlyYearPicker: false,
-          format: defaultFormat?.onlyTimePicker || "HH:mm:ss"
-        }
-        break
-      case "only month picker":
-        $state = {
-          ...state,
-          timePicker: false,
-          onlyTimePicker: false,
           onlyMonthPicker: true,
           onlyYearPicker: false,
-          format: defaultFormat?.onlyMonthPicker || "MM/YYYY"
-        }
-        break
-      case "only year picker":
+          format: defaultFormat?.onlyMonthPicker || "MM/YYYY",
+        };
+        break;
+      case "onlyYearPicker":
         $state = {
           ...state,
-          timePicker: false,
-          onlyTimePicker: false,
           onlyMonthPicker: false,
           onlyYearPicker: true,
-          format: defaultFormat?.onlyYearPicker || "YYYY"
-        }
-        break
+          format: defaultFormat?.onlyYearPicker || "YYYY",
+        };
+        break;
       default:
         //disable
         $state = {
           ...state,
-          timePicker: false,
-          onlyTimePicker: false,
           onlyMonthPicker: false,
           onlyYearPicker: false,
-          format: defaultFormat?.single || "YYYY/MM/DD"
-        }
+          format: defaultFormat?.single || "YYYY/MM/DD",
+        };
     }
 
-    notifyChange($state)
+    notifyChange($state);
   }
 
   function notifyChange($state) {
+    $state.value = $state.selectedDate;
+
     if (setProps instanceof Function) {
-      setProps(props => {
+      if ("_self" in React.createElement("div"))
+        console.warn(
+          [
+            "setProps is deprecated and will not available in the next versions.",
+            "Use onPropsChange instead",
+            "https://shahabyazdi.github.io/react-multi-date-picker/events/#onpropschange",
+          ].join("\n")
+        );
+
+      setProps((props) => {
         return {
           ...props,
           ...$state,
-          value: $state.selectedDate
-        }
-      })
+        };
+      });
     }
+
+    handlePropsChange($state);
   }
 }

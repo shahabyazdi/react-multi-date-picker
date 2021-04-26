@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker, { Calendar } from "../../../build/index";
 
-export default function (translate, language, otherProps) {
+export default function MapDays(translate, language, otherProps) {
   const description = {
     title: "Descriptions",
     jsx: (

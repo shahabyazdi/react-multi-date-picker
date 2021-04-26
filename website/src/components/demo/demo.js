@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Selectors from "../selectors/selectors";
 import DatePicker, { Calendar, DateObject } from "../../../../build/index";
 import DatePanel from "../../../../plugins/date_panel";
+import TimePicker from "../../../../plugins/time_picker";
 import { Link } from "gatsby";
 import "./demo.css";
 import list from "./quick_access";
@@ -25,8 +26,8 @@ export default function Demo({ language = "en", translate }) {
     locale,
     multiple,
     range,
-    timePicker,
-    onlyTimePicker,
+    $timePicker,
+    $onlyTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
     layout,
@@ -56,6 +57,14 @@ export default function Demo({ language = "en", translate }) {
     fixRelativePosition: true,
     fixMainPosition: true,
     weekStartDayIndex,
+    format:
+      (multiple || range) && !$timePicker
+        ? undefined
+        : $timePicker
+        ? "YYYY/MM/DD HH:mm:ss"
+        : $onlyTimePicker
+        ? "HH:mm:ss"
+        : undefined,
     plugins: [
       <DatePanel
         sort="date"
@@ -65,6 +74,11 @@ export default function Demo({ language = "en", translate }) {
           ((multiple || range) && !mustShowDates) ||
           numberOfMonths > 1
         }
+        markFocused={(multiple || range) && $timePicker}
+      />,
+      <TimePicker
+        position="bottom"
+        disabled={!$timePicker && !$onlyTimePicker}
       />,
     ],
   };
@@ -118,6 +132,9 @@ export default function Demo({ language = "en", translate }) {
                 multiple: false,
                 range: false,
                 [mode]: true,
+                disableDayPicker: false,
+                $onlyTimePicker: false,
+                // $timePicker: false,
                 value:
                   Array.isArray(value) && mode === "single"
                     ? value[value.length - 1]
@@ -128,36 +145,37 @@ export default function Demo({ language = "en", translate }) {
             title: "Other Pickers",
             options: [
               ["Disable", "disable"],
-              ["Time Picker", "timePicker"],
-              ["Only Time Picker", "onlyTimePicker"],
+              ["Time Picker", "$timePicker"],
+              ["Only Time Picker", "$onlyTimePicker"],
               ["Only Month Picker", "onlyMonthPicker"],
               ["Only Year Picker", "onlyYearPicker"],
             ].filter(([text, value]) => {
               if (!multiple && !range) {
                 return true;
               } else {
-                return !["timePicker", "onlyTimePicker"].includes(value);
+                return value !== "$onlyTimePicker";
               }
             }),
             value:
-              !timePicker &&
-              !onlyTimePicker &&
+              !$timePicker &&
+              !$onlyTimePicker &&
               !onlyMonthPicker &&
               !onlyYearPicker
                 ? "disable"
-                : timePicker
-                ? "timePicker"
-                : onlyTimePicker
-                ? "onlyTimePicker"
+                : $timePicker
+                ? "$timePicker"
+                : $onlyTimePicker
+                ? "$onlyTimePicker"
                 : onlyMonthPicker
                 ? "onlyMonthPicker"
                 : "onlyYearPicker",
             onChange: (picker) =>
               updateState({
-                timePicker: false,
-                onlyTimePicker: false,
+                $timePicker: false,
+                $onlyTimePicker: false,
                 onlyMonthPicker: false,
                 onlyYearPicker: false,
+                disableDayPicker: picker === "$onlyTimePicker",
                 [picker]: true,
               }),
           },
@@ -233,7 +251,7 @@ export default function Demo({ language = "en", translate }) {
               locale: language,
             }).weekDays.map((weekDay, index) => [weekDay.name, index]),
             value: weekStartDayIndex,
-            disabled: onlyTimePicker || onlyMonthPicker || onlyYearPicker,
+            disabled: $onlyTimePicker || onlyMonthPicker || onlyYearPicker,
             onChange: (value) =>
               updateState("weekStartDayIndex", Number(value)),
           },

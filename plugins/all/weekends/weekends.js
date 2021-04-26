@@ -1,6 +1,11 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
-export default function Weekends({ state, setMapDays, weekends }) {
+export default function Weekends({
+  state,
+  setMapDays,
+  weekends,
+  handlePropsChange,
+}) {
   const ref = useRef({});
 
   useEffect(() => {
@@ -14,15 +19,21 @@ export default function Weekends({ state, setMapDays, weekends }) {
     let stringWeekends = JSON.stringify(weekends);
 
     if (
-      !(setMapDays instanceof Function) ||
-      (ref.current.stringWeekends === stringWeekends &&
-        ref.current.calendar === state.calendar)
+      ref.current.stringWeekends === stringWeekends &&
+      ref.current.calendar === state.calendar
     )
       return;
 
     ref.current = { stringWeekends, calendar: state.calendar };
 
-    setMapDays(getMapDays);
+    let $state = { mapDays: getMapDays() };
+
+    if (setMapDays instanceof Function) {
+      warn();
+      setMapDays($state.mapDays);
+    }
+
+    handlePropsChange($state);
 
     function getMapDays() {
       return function mapDays({ date }) {
@@ -35,7 +46,18 @@ export default function Weekends({ state, setMapDays, weekends }) {
         if (isWeekend) return props;
       };
     }
-  }, [state.calendar, setMapDays, weekends]);
+  }, [state.calendar, setMapDays, weekends, handlePropsChange]);
 
   return null;
+}
+
+function warn() {
+  if ("_self" in React.createElement("div"))
+    console.warn(
+      [
+        "setProps is deprecated and will not available in the next versions.",
+        "Use onPropsChange instead",
+        "https://shahabyazdi.github.io/react-multi-date-picker/events/#onpropschange",
+      ].join("\n")
+    );
 }

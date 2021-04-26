@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import ElementPopper from "react-element-popper";
 import DateObject from "react-date-object";
-import Calendar, { getFormat } from "../calendar/calendar";
+import Calendar, { getFormat, getIgnoreList } from "../calendar/calendar";
 import getAllDatesInRange from "../../../plugins/all/date_panel/getAllDatesInRange";
 import { IconCalendarEvent } from "@tabler/icons";
 import "./date_picker.css";
@@ -71,6 +71,7 @@ function DatePicker(
     calendarRef = useRef(null),
     ref = useRef({}),
     separator = useMemo(() => (range ? " ~ " : ", "), [range]),
+    datePickerProps = arguments[0],
     closeCalendar = useCallback(() => {
       if (onClose instanceof Function && onClose() === false) return;
 
@@ -95,17 +96,15 @@ function DatePicker(
     ref.current = { ...ref.current, mobile: true };
   if (!isMobileMode && ref.current.mobile)
     ref.current = { ...ref.current, mobile: false };
-  if (!Array.isArray(formattingIgnoreList)) formattingIgnoreList = [];
 
-  formattingIgnoreList = JSON.stringify(formattingIgnoreList);
+  formattingIgnoreList = getIgnoreList(formattingIgnoreList);
+
   format = getFormat(
     timePicker,
     onlyTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
-    format,
-    range,
-    multiple
+    format
   );
 
   useEffect(() => {
@@ -161,13 +160,14 @@ function DatePicker(
         date = new DateObject({ date, calendar, locale, format });
 
       if (date.calendar !== calendar) date.setCalendar(calendar);
-      if (date.locale !== locale) date.setLocale(locale);
 
       date.set({
         weekDays,
         months,
         digits,
+        locale,
         format,
+        ignoreList: JSON.parse(formattingIgnoreList),
       });
 
       return date;
@@ -180,9 +180,7 @@ function DatePicker(
 
       if (range && date.length > 2) date = [date[0], getLastDate()];
 
-      setStringDate(
-        getStringDate(date, type, separator, format, formattingIgnoreList)
-      );
+      setStringDate(getStringDate(date, type, separator));
     } else {
       if (Array.isArray(date)) date = getLastDate();
 
@@ -191,9 +189,7 @@ function DatePicker(
       let input = getInput(inputRef);
 
       if (document.activeElement !== input) {
-        setStringDate(
-          date ? date.format(undefined, JSON.parse(formattingIgnoreList)) : ""
-        );
+        setStringDate(date ? date.format() : "");
       }
     }
 
@@ -236,7 +232,7 @@ function DatePicker(
         if (outerRef) outerRef.current = element;
       }}
       element={renderInput()}
-      popper={isVisible && renderCalendar()}
+      popper={isVisible && renderCalendar(datePickerProps)}
       active={!isMobileMode && isCalendarReady}
       position={calendarPosition}
       arrow={!isMobileMode && arrow}
@@ -309,8 +305,7 @@ function DatePicker(
         );
       case "custom":
         let strDate = stringDate || "";
-        let toString = (date) =>
-          date.format(format, JSON.parse(formattingIgnoreList));
+        let toString = (date) => date.format();
 
         if (multiple || (range && !otherProps.eachDaysInRange)) {
           if (!Array.isArray(date)) {
@@ -387,7 +382,7 @@ function DatePicker(
     }
   }
 
-  function renderCalendar() {
+  function renderCalendar(datePickerProps) {
     return (
       <Calendar
         ref={calendarRef}
@@ -422,6 +417,7 @@ function DatePicker(
           popper.style.transform = "";
         }}
         datePickerRef={datePickerRef}
+        datePickerProps={datePickerProps}
         {...otherProps}
       >
         {children}
@@ -489,10 +485,14 @@ function DatePicker(
     let input = getInput(inputRef);
 
     if (!value && !ref.current.date && !range && !multiple) {
-      let date = new DateObject({ calendar, locale, format }).set({
+      let date = new DateObject({
+        calendar,
+        locale,
+        format,
         months,
         weekDays,
         digits,
+        ignoreList: JSON.parse(formattingIgnoreList),
       });
 
       if (
@@ -523,10 +523,7 @@ function DatePicker(
 
     if (onChange instanceof Function) onChange(date);
 
-    if (date)
-      setStringDate(
-        getStringDate(date, type, separator, format, formattingIgnoreList)
-      );
+    if (date) setStringDate(getStringDate(date, type, separator));
   }
 
   function handleValueChange(e) {
@@ -559,11 +556,10 @@ function DatePicker(
 
 export default forwardRef(DatePicker);
 
-function getStringDate(date, type, separator, format, formattingIgnoreList) {
+function getStringDate(date, type, separator) {
   if (!date) return "";
 
-  let toString = (date) =>
-    date.format(format, JSON.parse(formattingIgnoreList));
+  let toString = (date) => date.format();
 
   return !Array.isArray(date)
     ? toString(date)

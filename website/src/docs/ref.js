@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
 
-export default function (translate, language, otherProps) {
+export default function Ref(translate, language, otherProps) {
   const datePickerRef = useRef();
   const ref = useRef();
   const ref2 = useRef();

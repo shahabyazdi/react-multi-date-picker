@@ -136,7 +136,7 @@
   "1 digit millisecond": "شماره تک رقمی میلی ثانیه",
   "meridiem": "قبل از ظهر یا بعد از ظهر",
   "meridiem lowercase": "ق.ظ یا ب.ظ",
-  "Calendars & Locals": "تقویم ها و زبان ها",
+  "Calendars & Locales": "تقویم ها و زبان ها",
   "Calendars": "تقویم ها",
   "Locales": "زبان ها",
   "calendars": [
@@ -240,7 +240,7 @@
   "String": "استرینگ",
   "Only MinDate": "فقط مقدار حداقل زمان",
   "Only MaxDate": "فقط مقدار حداکثر زمان",
-  "On Change (single mode)": "On Change (انتخابگر تکی)",
+  "onChange (single mode)": "onChange (انتخابگر تکی)",
   "on_change": [
     "تفاوت onChange در این کتابخانه با کتابخانه های دیگر در اینه که آرگومان آن به جای Date به عنوان DateObject ارسال میشه.",
     "همانطور که در قسمت های قبلی هم گفتم، میتونید دیت آبجکت ارسال شده رو با استفاده از متد ()toDate به Date جاوااسکریپت  تبدیل کنید."
@@ -248,7 +248,7 @@
   "click to select": "کلیک کنید",
   "format": "فرمت",
   "javascript date": "تاریخ جاوااسکریپت",
-  "On Change (multiple mode)": "On Change (انتخابگر چند تایی)",
+  "onChange (multiple mode)": "onChange (انتخابگر چند تایی)",
   "Array of Dateobjecs": "آرایه ای از دیت آبجکت ها",
   "selected dates": "تاریخ های انتخاب شده",
   "Should open calendar": "باید تقویم باز شود",
@@ -517,7 +517,7 @@
   "year_month_ref": [
     "روشی برای تغییر دستی ماه و سال در تقویم وجود دارد که در مثال زیر آورده شده است.",
     "فقط توجه داشته باشید که این ویژگی فقط در تقویم کار می کند.",
-    "برای تنظیم دستی ماه و سال در دیتپیکر، روی <a href='/fa/other-examples/#%D8%A8%D8%A7%D8%B2-%D8%B4%D8%AF%D9%86-%D8%AA%D9%82%D9%88%DB%8C%D9%85-%D8%AF%D8%B1-%D8%AA%D8%A7%D8%B1%DB%8C%D8%AE-%D8%AF%D9%84%D8%AE%D9%88%D8%A7%D9%87' target='_blank'>این لینک</a> کلیک کنید."
+    "برای تنظیم دستی ماه و سال در دیتپیکر، روی <a href='fa/other-examples/#%D8%A8%D8%A7%D8%B2-%D8%B4%D8%AF%D9%86-%D8%AA%D9%82%D9%88%DB%8C%D9%85-%D8%AF%D8%B1-%D8%AA%D8%A7%D8%B1%DB%8C%D8%AE-%D8%AF%D9%84%D8%AE%D9%88%D8%A7%D9%87' target='_blank'>این لینک</a> کلیک کنید."
   ],
   "Manually Set Year And Month In DatePicker": "تنظیم دستی ماه و سال در دیت پیکر",
   "Changing Start Day Of The Week": "تغییر دادن روز شروع هفته",
@@ -530,5 +530,15 @@
   "Adding Ref to Calendar & DatePicker": "اضافه کردن ref به تقویم و دیت پیکر",
   "Default Toolbar": "نوار ابزار پیشفرض",
   "Custom Names": "شخصی سازی نام ها",
-  "Custom Header Name": "تغییر نام سرتیتر"
+  "Custom Header Name": "تغییر نام سرتیتر",
+  "Sorting The Buttons": "مرتب سازی دکمه ها",
+  "on_props_change": [
+    "این قابلیت برای پلاگین ها مناسب میباشد.",
+    "زیرا برای بعضی از آنها تنظیم پراپرتی های دیتپیکر (کامپوننت والد) از پلاگین (کامپونند فرزند) اجتناب ناپذیر است."
+  ],
+  "on_month_change": [
+    "در این مثال مقدار دهی به پراپرتی currentDate اختیاری است .",
+    "پراپرتی currentDate به این منظور مقدار دهی شده است تا تقویم در همان ماه انتخاب شده قبلی باز شود."
+  ],
+  "Sorting Buttons": "تغییر چینش دکمه ها"
 }

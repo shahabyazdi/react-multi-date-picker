@@ -1,7 +1,7 @@
-import React from "react"
-import DatePicker from "../../../build/index"
+import React from "react";
+import DatePicker from "../../../build/index";
 
-export default function (translate, language, otherProps) {
+export default function Appearance(translate, language, otherProps) {
   const prime = {
     title: "Prime",
     code: `import "react-multi-date-picker/styles/layouts/prime.css"
@@ -12,12 +12,8 @@ export default function (translate, language, otherProps) {
   className="rmdp-prime"
   showOtherDays
 />`,
-    jsx: <DatePicker
-      className="rmdp-prime"
-      showOtherDays
-      {...otherProps}
-    />
-  }
+    jsx: <DatePicker className="rmdp-prime" showOtherDays {...otherProps} />,
+  };
 
   const mobile = {
     title: "Mobile",
@@ -28,14 +24,8 @@ export default function (translate, language, otherProps) {
 <DatePicker
   className="rmdp-mobile"
 />`,
-    jsx: <DatePicker
-      className="rmdp-mobile"
-      {...otherProps}
-    />
-  }
+    jsx: <DatePicker className="rmdp-mobile" {...otherProps} />,
+  };
 
-  return [
-    prime,
-    mobile
-  ]
+  return [prime, mobile];
 }
