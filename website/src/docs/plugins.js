@@ -39,6 +39,7 @@ export default function Plugins(translate, language, otherProps) {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Calendar
           {...props}
+          onPropsChange={setProps}
           plugins={[
             <DatePickerHeader position="top" size="medium" />,
             <DatePanel
@@ -46,15 +47,8 @@ export default function Plugins(translate, language, otherProps) {
               sort="date"
               eachDaysInRange={!props.onlyMonthPicker && !props.onlyYearPicker}
             />,
-            <MultiColors
-              position={isRTL ? "right" : "left"}
-              setProps={setProps}
-            />,
-            <Settings
-              position="bottom"
-              setProps={setProps}
-              defaultActive="locale"
-            />,
+            <MultiColors position={isRTL ? "right" : "left"} />,
+            <Settings position="bottom" defaultActive="locale" />,
             <Toolbar position="bottom" />,
           ]}
         />
@@ -125,11 +119,9 @@ export default function DatePickerPlugins() {
           />
           <MultiColors
             position={isRTL ? "right" : "left"}
-            setProps={setProps}
           />,
           <Settings 
             position="bottom" 
-            setProps={setProps} 
             defaultActive="locale" 
           />,
           <Toolbar 

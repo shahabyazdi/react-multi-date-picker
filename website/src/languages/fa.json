@@ -136,7 +136,7 @@
   "1 digit millisecond": "شماره تک رقمی میلی ثانیه",
   "meridiem": "قبل از ظهر یا بعد از ظهر",
   "meridiem lowercase": "ق.ظ یا ب.ظ",
-  "Calendars & Locals": "تقویم ها و زبان ها",
+  "Calendars & Locales": "تقویم ها و زبان ها",
   "Calendars": "تقویم ها",
   "Locales": "زبان ها",
   "calendars": [
@@ -240,7 +240,7 @@
   "String": "استرینگ",
   "Only MinDate": "فقط مقدار حداقل زمان",
   "Only MaxDate": "فقط مقدار حداکثر زمان",
-  "On Change (single mode)": "On Change (انتخابگر تکی)",
+  "onChange (single mode)": "onChange (انتخابگر تکی)",
   "on_change": [
     "تفاوت onChange در این کتابخانه با کتابخانه های دیگر در اینه که آرگومان آن به جای Date به عنوان DateObject ارسال میشه.",
     "همانطور که در قسمت های قبلی هم گفتم، میتونید دیت آبجکت ارسال شده رو با استفاده از متد ()toDate به Date جاوااسکریپت  تبدیل کنید."
@@ -248,7 +248,7 @@
   "click to select": "کلیک کنید",
   "format": "فرمت",
   "javascript date": "تاریخ جاوااسکریپت",
-  "On Change (multiple mode)": "On Change (انتخابگر چند تایی)",
+  "onChange (multiple mode)": "onChange (انتخابگر چند تایی)",
   "Array of Dateobjecs": "آرایه ای از دیت آبجکت ها",
   "selected dates": "تاریخ های انتخاب شده",
   "Should open calendar": "باید تقویم باز شود",
@@ -531,5 +531,14 @@
   "Default Toolbar": "نوار ابزار پیشفرض",
   "Custom Names": "شخصی سازی نام ها",
   "Custom Header Name": "تغییر نام سرتیتر",
-  "Sorting The Buttons": "مرتب سازی دکمه ها"
+  "Sorting The Buttons": "مرتب سازی دکمه ها",
+  "on_props_change": [
+    "این قابلیت برای پلاگین ها مناسب میباشد.",
+    "زیرا برای بعضی از آنها تنظیم پراپرتی های دیتپیکر (کامپوننت والد) از پلاگین (کامپونند فرزند) اجتناب ناپذیر است."
+  ],
+  "on_month_change": [
+    "در این مثال مقدار دهی به پراپرتی currentDate اختیاری است .",
+    "پراپرتی currentDate به این منظور مقدار دهی شده است تا تقویم در همان ماه انتخاب شده قبلی باز شود."
+  ],
+  "Sorting Buttons": "تغییر چینش دکمه ها"
 }

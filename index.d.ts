@@ -263,6 +263,7 @@ declare module "react-multi-date-picker" {
     weekStartDayIndex?: number;
     disableDayPicker?: boolean;
     onPropsChange?(props: object): void;
+    onMonthChange?(date: DateObject): void;
   }
 
   interface DatePickerProps {
@@ -588,5 +589,7 @@ declare module "react-multi-date-picker/plugins/time_picker" {
     disabled?: boolean;
   }
 
-  export default function Weekends(props: TimePickerProps): React.ReactElement;
+  export default function TimePicker(
+    props: TimePickerProps
+  ): React.ReactElement;
 }

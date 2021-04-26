@@ -157,7 +157,7 @@ function DatePicker(
     function checkDate(date) {
       if (!date) return;
       if (!(date instanceof DateObject))
-        date = new DateObject({ date, calendar });
+        date = new DateObject({ date, calendar, locale, format });
 
       if (date.calendar !== calendar) date.setCalendar(calendar);
 
@@ -492,7 +492,7 @@ function DatePicker(
         months,
         weekDays,
         digits,
-        ignoreList: formattingIgnoreList,
+        ignoreList: JSON.parse(formattingIgnoreList),
       });
 
       if (

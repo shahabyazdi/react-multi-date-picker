@@ -23,6 +23,8 @@ export default function MultiColors({
 
   let ref = useRef({});
 
+  ref.current.handlePropsChange = handlePropsChange;
+
   useEffect(() => {
     if (Array.isArray(state.selectedDate)) {
       let values = [];
@@ -62,14 +64,8 @@ export default function MultiColors({
       }));
     }
 
-    handlePropsChange($state);
-  }, [
-    state.selectedDate,
-    state.range,
-    activeColor,
-    setProps,
-    handlePropsChange,
-  ]);
+    ref.current.handlePropsChange($state);
+  }, [state.selectedDate, state.range, activeColor, setProps]);
 
   registerListener("change", handleChange);
 
@@ -171,7 +167,8 @@ function warn() {
     console.warn(
       [
         "setProps is deprecated and will not available in the next versions.",
-        "https://shahabyazdi.github.io/react-multi-date-picker/plugins/settings/",
+        "Use onPropsChange instead",
+        "https://shahabyazdi.github.io/react-multi-date-picker/events/#onpropschange",
       ].join("\n")
     );
 }

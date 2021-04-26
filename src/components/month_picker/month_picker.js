@@ -24,10 +24,11 @@ export default function MonthPicker({
       onlyYearPicker,
       range,
       onlyShowInRangeDates,
+      onlyTimePicker,
     } = state,
     mustShowMonthPicker =
       (state.mustShowMonthPicker || onlyMonthPicker) &&
-      !state.onlyTimePicker &&
+      !onlyTimePicker &&
       !onlyYearPicker;
 
   const months = useMemo(() => {

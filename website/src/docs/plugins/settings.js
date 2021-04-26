@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "../../../../build/index";
-import Settings from "../../../../plugins/settings";
+import Settings from "../../../../plugins/all/settings/settings";
 import DatePanel from "../../../../plugins/date_panel";
 
 export default function Setting(translate, language, otherProps) {
@@ -248,7 +248,7 @@ const [props, setProps] = useState(initialProps)
       disabledList={["calendar", "locale", "mode"]}
       defaultActive="others"
       defaultFormat={{
-        single: "MMM-DD-YYYY",
+        single: "MM-DD-YYYY",
         onlyMonthPicker: "MMMM YYYY",
         onlyYearPicker: "YYYY",
       }}
@@ -265,7 +265,7 @@ const [props, setProps] = useState(initialProps)
             disabledList={["calendar", "locale", "mode"]}
             defaultActive="others"
             defaultFormat={{
-              single: "MMM-DD-YYYY",
+              single: "MM-DD-YYYY",
               onlyMonthPicker: "MMMM YYYY",
               onlyYearPicker: "YYYY",
             }}

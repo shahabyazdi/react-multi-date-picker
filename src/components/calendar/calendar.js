@@ -339,7 +339,7 @@ function Calendar(
           calendarProps,
           handleChange,
           nodes,
-          Calendar: ref.current.element,
+          Calendar: ref.current.Calendar,
           handlePropsChange,
         })
       );
@@ -370,13 +370,16 @@ function Calendar(
         value: props.value ?? state.selectedDate,
       };
 
-      delete allProps.onChange;
-      delete allProps.onPropsChange;
-      delete allProps.focused;
-      delete allProps.today;
-      delete allProps.initialValue;
-      delete allProps.selectedDate;
-      delete allProps.year;
+      [
+        "onChange",
+        "onPropsChange",
+        "focused",
+        "today",
+        "initialValue",
+        "selectedDate",
+        "year",
+        "onMonthChange",
+      ].forEach((key) => delete allProps[key]);
 
       onPropsChange(allProps);
     }
@@ -421,7 +424,7 @@ function Calendar(
       };
     }
 
-    ref.current.element = element;
+    ref.current.Calendar = element;
 
     if (outerRef instanceof Function) return outerRef(element);
     if (outerRef) outerRef.current = element;

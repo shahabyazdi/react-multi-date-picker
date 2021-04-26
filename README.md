@@ -314,6 +314,12 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
+          <td>onMonthChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
           <td>className</td>
           <td style="text-align:center">String</td>
           <td style="text-align:center">&quot;&quot;</td>

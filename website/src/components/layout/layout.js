@@ -35,7 +35,7 @@ const sidebar = {
     { name: "TypeScript", path: "typescript/" },
     { name: "Props", path: "props/" },
     { name: "Formatting Tokens", path: "format-tokens/" },
-    { name: "Calendars & Locals", path: "calendars/" },
+    { name: "Calendars & Locales", path: "calendars/" },
     { name: "DateObject", path: "date-object/" },
     { name: "Component with Children", path: "children/" },
     { name: "Multiple Mode", path: "multiple/" },

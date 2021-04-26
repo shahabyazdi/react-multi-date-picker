@@ -56,7 +56,7 @@ const list = [
     path: "format-tokens/",
   },
   {
-    name: "Calendars & Locals",
+    name: "Calendars & Locales",
     path: "calendars/",
     list: [
       {
@@ -304,11 +304,11 @@ const list = [
     path: "events/",
     list: [
       {
-        name: "On Change (single mode)",
+        name: "onChange (single mode)",
         path: "events/#on-change-(single-mode)",
       },
       {
-        name: "On Change (multiple mode)",
+        name: "onChange (multiple mode)",
         path: "events/#on-change-(multiple-mode)",
       },
       {
@@ -322,6 +322,14 @@ const list = [
       {
         name: "onPositionChange",
         path: "events/#onpositionchange",
+      },
+      {
+        name: "onPropsChange",
+        path: "events/#onpropschange",
+      },
+      {
+        name: "onMonthChange",
+        path: "events/#onmonthchange",
       },
     ],
   },

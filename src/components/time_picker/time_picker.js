@@ -19,7 +19,10 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
     let picker = onlyTimePicker ? "onlyTimePicker" : "timePicker";
 
     console.warn(
-      picker + " is deprecated and no longer available in the next versions."
+      [
+        picker + " is deprecated and will not available in the next versions.",
+        "Use TimePicker plugin instead",
+      ].join("\b")
     );
   }
 

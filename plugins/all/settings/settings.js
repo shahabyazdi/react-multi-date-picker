@@ -283,12 +283,15 @@ export default function Settings({
   }
 
   function notifyChange($state) {
+    $state.value = $state.selectedDate;
+
     if (setProps instanceof Function) {
       if ("_self" in React.createElement("div"))
         console.warn(
           [
             "setProps is deprecated and will not available in the next versions.",
-            "https://shahabyazdi.github.io/react-multi-date-picker/plugins/settings/",
+            "Use onPropsChange instead",
+            "https://shahabyazdi.github.io/react-multi-date-picker/events/#onpropschange",
           ].join("\n")
         );
 
@@ -296,7 +299,6 @@ export default function Settings({
         return {
           ...props,
           ...$state,
-          value: $state.selectedDate,
         };
       });
     }

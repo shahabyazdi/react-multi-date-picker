@@ -90,6 +90,11 @@ export default function Example() {
             <td>plugins/toolbar</td>
             <td>build/toolbar.browser</td>
           </tr>
+          <tr>
+            <td>TimePicker</td>
+            <td>plugins/time_picker</td>
+            <td>build/time_picker.browser</td>
+          </tr>
         </tbody>
       </table>
     ),

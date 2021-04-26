@@ -3,6 +3,13 @@ import DatePicker, { DateObject } from "../../../build/index";
 
 export default function Events(translate, language, otherProps) {
   const [state, setState] = useState({ format: "MM/DD/YYYY" });
+  const [props, setProps] = useState({ value: new Date(), ...otherProps });
+  const [dateObject, setDateObject] = useState(
+    new DateObject({
+      calendar: language === "en" ? "gregorian" : "persian",
+      locale: language,
+    })
+  );
 
   const {
     date,
@@ -35,7 +42,7 @@ export default function Events(translate, language, otherProps) {
   const [shouldOpenCalendar, setShouldOpenCalendar] = useState(false);
 
   const onChangeSingle = {
-    title: "On Change (single mode)",
+    title: "onChange (single mode)",
     description: "on_change",
     code: `const [state, setState] = useState({ format: "MM/DD/YYYY" })
 
@@ -175,7 +182,7 @@ return(
   };
 
   const onChangeMultiple = {
-    title: "On Change (multiple mode)",
+    title: "onChange (multiple mode)",
     code: `<DatePicker
   multiple
   onChange={array => { //${translate("Array of Dateobjecs")}
@@ -290,5 +297,83 @@ return(
     ),
   };
 
-  return [onChangeSingle, onChangeMultiple, onOpen, onClose, onPositionChange];
+  const onPropsChange = {
+    title: "onPropsChange",
+    description: "on_props_change",
+    code: `const [props, setProps] = useState({ 
+  value: new Date(),${
+    language === "en"
+      ? ""
+      : `
+  calendar: "persian",
+  locale: "fa",
+  calendarPosition: "bottom-right"`
+  }
+});
+.
+.
+.
+<DatePicker 
+  {...props} 
+  onPropsChange={setProps} 
+/> `,
+    jsx: <DatePicker {...props} onPropsChange={setProps} />,
+  };
+
+  const onMonthChange = {
+    title: "onMonthChange",
+    description: "on_month_change",
+    code: `import React, { useState } from "react";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+
+export default function Example() {
+  const [dateObject, setDateObject] = useState(
+    new DateObject(${
+      language === "en"
+        ? ""
+        : `{
+      calendar: "persian",
+      locale: "fa"
+    }`
+    })
+  );
+
+  return (
+    <>
+      <DatePicker
+        onMonthChange={(date) => setDateObject(new DateObject(date))}
+        onChange={(date) => setDateObject(new DateObject(date))}
+        currentDate={dateObject}
+      />
+      <p>${
+        language === "en" ? "Selected Month" : "نام ماه انتخاب شده"
+      }: {dateObject.month.name}</p>
+    </>
+  )
+}`,
+    jsx: (
+      <>
+        <DatePicker
+          onMonthChange={(date) => setDateObject(new DateObject(date))}
+          onChange={(date) => setDateObject(new DateObject(date))}
+          currentDate={dateObject}
+          {...otherProps}
+        />
+        <p>
+          {language === "en" ? "Selected Month" : "نام ماه انتخاب شده"}:{" "}
+          {dateObject.month.name}
+        </p>
+      </>
+    ),
+  };
+
+  return [
+    onChangeSingle,
+    onChangeMultiple,
+    onOpen,
+    onClose,
+    onPositionChange,
+    onPropsChange,
+    onMonthChange,
+  ];
 }
