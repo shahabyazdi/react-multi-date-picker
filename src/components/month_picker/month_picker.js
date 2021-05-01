@@ -12,6 +12,7 @@ export default function MonthPicker({
   customMonths,
   sort,
   handleMonthChange,
+  handleFocusDate,
 }) {
   const {
       date,
@@ -116,8 +117,9 @@ export default function MonthPicker({
       focused,
       selectedDate,
       mustShowMonthPicker: false,
-      dateClicked: onlyMonthPicker ? dateObject : state.dateClicked,
     });
+
+    if (onlyMonthPicker) handleFocusDate(focused, dateObject);
   }
 
   function getClassName(dateObject) {

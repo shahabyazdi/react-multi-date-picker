@@ -13,6 +13,7 @@ export default function DayPicker({
   numberOfMonths,
   isRTL,
   weekStartDayIndex,
+  handleFocusDate,
 }) {
   const ref = useRef({}),
     {
@@ -161,8 +162,9 @@ export default function DayPicker({
       date,
       focused,
       selectedDate,
-      dateClicked: dateObject,
     });
+
+    handleFocusDate(focused, dateObject);
   }
 
   function getClassName(object, numberOfMonths) {
@@ -272,7 +274,15 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
 export function selectDate(
   date,
   sort,
-  { multiple, range, selectedDate, onlyMonthPicker, onlyYearPicker, format }
+  {
+    multiple,
+    range,
+    selectedDate,
+    onlyMonthPicker,
+    onlyYearPicker,
+    format,
+    focused: previousFocused,
+  }
 ) {
   date.setFormat(format);
 
@@ -296,7 +306,7 @@ export function selectDate(
     if (dates.length === selectedDate.length) {
       dates.push(focused);
     } else {
-      focused = undefined;
+      focused = dates.find((d) => d.valueOf() === previousFocused?.valueOf?.());
     }
 
     if (sort) dates.sort((a, b) => a - b);

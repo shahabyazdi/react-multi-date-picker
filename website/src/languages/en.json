@@ -1,7 +1,7 @@
 {
   "demo_descriptions": [
     "The DatePanel & DatePanel Position is disabled by default and is activated when you switch to multiple or range mode & number of months is 1 (of course, these are the current settings that I applied, you can activate them in any cases).",
-    "In multiple or range mode, 'Time & Only Time Picker' are disabled.",
+    "In multiple or range mode, 'Only Time Picker' is disabled.",
     "In this page, the number of months is limited to maximum 3, but you can consider any number for it.",
     "First Day Of Week is disabled in Only Time Picker & Only Year Picker & Only Month Picker ",
     "Calendar position and animation are activated when the type is anything other than Calendar (input, button, ...)."
@@ -246,5 +246,43 @@
     "Clicking on any date in the DatePanel will focus that date.",
     "You can use the <b>markFocused</b> prop to better determine which date is focused. Also you can set a className for the focused date to further customize it."
   ],
-  "date_panel_note": "The important thing about the onClickDate property is that if a date is clicked, the value of that date will be sent as an argument in onClickDate, but if the delete button is clicked, onClickDate will still be called but with an <b>undefined</b> argument."
+  "date_panel_note": "The important thing about the onClickDate property is that if a date is clicked, the value of that date will be sent as an argument in onClickDate, but if the delete button is clicked, onClickDate will still be called but with an <b>undefined</b> argument.",
+  "focus_event_1": [
+    "The onFocusDateChange property receives a function and calls it with two arguments (the first argument is dateFocused, and the second argument is dateClicked), which can be called by the Calendar itself or any of the plugins.",
+    "The difference between when onFocusDateChange is called by the Calendar itself and when it is called by one of the plugins is that in the first case the second argument (ie dateClicked) is always present, and in the second case the second argument is always undefined.",
+    "The onFocusDateChange property actually specifies two things."
+  ],
+  "focus_event_2": [
+    "Which date is currently focused.",
+    "Which date is currently clicked."
+  ],
+  "focus_event_3": [
+    "The nature of the two is different from each other and are sent as two arguments to the listener you have specified.",
+    "There are a few things to keep in mind about this property."
+  ],
+  "focus_event_4": [
+    "Both of these arguments may have the same type (either DateObject or undefined)",
+    "One of them may be DateObject and the other may be undefined."
+  ],
+  "focus_event_5": "Here I will describe the different conditions:",
+  "focus_event_6": "Single & Range Modes:",
+  "focus_event_7": [
+    "Both arguments have the same type (DateObject).",
+    "This means that the date focused is same as the date clicked."
+  ],
+  "focus_event_8": "Multiple Mode:",
+  "focus_event_9": "As long as the user is selecting new dates, both arguments have the same type (DateObject).",
+  "focus_event_10": "This means that the date focused is same as the date clicked.",
+  "focus_event_11": "But as soon as the user clicks on the date that already selected, The selected date is deleted and one of the following cases may occur:",
+  "focus_event_12": [
+    "the date that is deleted is same as the focused date, in which case the first argument (ie dateFocused) is undefined and the second argument (ie dateClicked) is the clicked date.",
+    "the deleted date is not the same as the focused date, in which case the first argument is the previous focused date, and the second argument is the current deleted date."
+  ],
+  "focus_event_13": "DatePanel:",
+  "focus_event_14": [
+    "As plugin, the second argument is always undefined.",
+    "Clicking on any dates displayed on the DatePanel, will focus that date, so if you click on any date of DatePanel, the first argument (ie dateFocused) will be same as the clicked date.",
+    "If user delete an unfocused date through the dates panel, the first argument is the same as the previous focused date.",
+    "If user delete an focused date through the dates panel, the first argument is also undefined."
+  ]
 }

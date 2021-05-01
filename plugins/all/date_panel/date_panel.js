@@ -162,13 +162,15 @@ export default function DatePanel({
   }
 
   function deSelect(index) {
-    let dates =
-      range || multiple ? selectedDate.filter((d, i) => i !== index) : null;
+    let dates, focused;
 
-    let focused =
-      range || multiple
-        ? dates.find((d) => d.valueOf() === state.focused?.valueOf?.())
-        : undefined;
+    if (range || multiple) {
+      dates = selectedDate.filter((d, i) => i !== index);
+      focused = dates.find((d) => d.valueOf() === state.focused?.valueOf?.());
+    } else {
+      dates = null;
+      focused = undefined;
+    }
 
     handleChange(dates, {
       ...state,

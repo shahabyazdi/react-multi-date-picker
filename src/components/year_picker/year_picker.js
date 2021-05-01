@@ -93,8 +93,9 @@ export default function YearPicker({ state, setState, onChange, sort }) {
       selectedDate,
       mustShowYearPicker: false,
       year: state.year,
-      dateClicked: onlyYearPicker ? date : state.dateClicked,
     });
+
+    if (onlyYearPicker) handleFocusDate(focused, date);
   }
 
   function getClassName(year) {

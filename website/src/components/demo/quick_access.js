@@ -331,6 +331,10 @@ const list = [
         name: "onMonthChange",
         path: "events/#onmonthchange",
       },
+      {
+        name: "onFocusDateChange",
+        path: "events/#onfocusdatechange",
+      },
     ],
   },
   {

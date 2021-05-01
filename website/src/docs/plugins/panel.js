@@ -363,6 +363,7 @@ const [focusedDate, setFocusedDate] = useState();
               style: { backgroundColor: "red" },
             };
         }}
+        {...otherProps}
       />
     ),
   };

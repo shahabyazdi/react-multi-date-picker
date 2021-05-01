@@ -235,7 +235,13 @@ function Calendar(
   let topClassName = "rmdp-top-class " + getBorderClassName(["top", "bottom"]),
     clonedPlugins = { top: [], bottom: [], left: [], right: [] },
     isRTL = ["fa", "ar"].includes(state.date?.locale),
-    globalProps = { state, setState, onChange: handleChange, sort },
+    globalProps = {
+      state,
+      setState,
+      onChange: handleChange,
+      sort,
+      handleFocusDate,
+    },
     { datePickerProps, ...calendarProps } = arguments[0];
 
   initPlugins();
@@ -342,7 +348,7 @@ function Calendar(
           nodes,
           Calendar: ref.current.Calendar,
           handlePropsChange,
-          //removing second argument if exist
+          //removing other arguments if exist.
           handleFocusDate: (date) => handleFocusDate(date),
         })
       );
@@ -351,13 +357,8 @@ function Calendar(
 
   function handleChange(selectedDate, state) {
     //This one must be done before setState
-    if (selectedDate || selectedDate === null) {
-      if (onFocusDateChange instanceof Function)
-        onFocusDateChange(state.focused, state.dateClicked);
-
-      if (listeners.change)
-        listeners.change.forEach((callback) => callback(selectedDate));
-    }
+    if ((selectedDate || selectedDate === null) && listeners.change)
+      listeners.change.forEach((callback) => callback(selectedDate));
 
     if (state) setState(state);
     if ((selectedDate || selectedDate === null) && onChange instanceof Function)
@@ -369,16 +370,13 @@ function Calendar(
   function handlePropsChange(props = {}) {
     if (onPropsChange instanceof Function) {
       let allProps = {
-        ...datePickerProps,
         ...calendarProps,
+        ...datePickerProps,
         ...props,
         value: props.value ?? state.selectedDate,
       };
 
-      delete allProps.onChange;
       delete allProps.onPropsChange;
-      delete allProps.onMonthChange;
-      delete allProps.onFocusDateChange;
 
       onPropsChange(allProps);
     }
