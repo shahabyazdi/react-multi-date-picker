@@ -70,3 +70,11 @@
 .purple .rmdp-action-button {
   color: var(--rmdp-primary-purple);
 }
+
+.purple .rmdp-button {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.purple .rmdp-button:hover {
+  background-color: var(--rmdp-deselect-purple);
+}

@@ -93,6 +93,7 @@ export default function YearPicker({ state, setState, onChange, sort }) {
       selectedDate,
       mustShowYearPicker: false,
       year: state.year,
+      dateClicked: onlyYearPicker ? date : state.dateClicked,
     });
   }
 

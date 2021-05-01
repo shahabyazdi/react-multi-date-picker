@@ -57,6 +57,7 @@
 }
 
 .rmdp-panel-body li .b-deselect {
+  font-family: Arial !important;
   align-items: center;
   display: inline-flex;
   border: none;
@@ -65,7 +66,7 @@
   width: 12px;
   justify-content: center;
   border-radius: 50%;
-  font-size: 12px;
+  font-size: 16px;
   position: absolute;
   right: 5px;
   top: 52%;

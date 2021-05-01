@@ -161,6 +161,7 @@ export default function DayPicker({
       date,
       focused,
       selectedDate,
+      dateClicked: dateObject,
     });
   }
 
@@ -275,25 +276,29 @@ export function selectDate(
 ) {
   date.setFormat(format);
 
+  let focused = new DateObject(date);
+
   if (multiple) {
     selectedDate = selectMultiple();
   } else if (range) {
     selectedDate = selectRange();
   } else {
-    selectedDate = new DateObject(date);
+    selectedDate = focused;
   }
 
-  return [
-    selectedDate,
-    multiple || range ? selectedDate[selectedDate.length - 1] : undefined,
-  ];
+  return [selectedDate, focused];
 
   function selectMultiple() {
     let dates = selectedDate.filter(
       ($date) => !isSameDate(date, $date, onlyMonthPicker, onlyYearPicker)
     );
 
-    if (dates.length === selectedDate.length) dates.push(new DateObject(date));
+    if (dates.length === selectedDate.length) {
+      dates.push(focused);
+    } else {
+      focused = undefined;
+    }
+
     if (sort) dates.sort((a, b) => a - b);
 
     return dates;
@@ -301,9 +306,9 @@ export function selectDate(
 
   function selectRange() {
     if (selectedDate.length === 2 || selectedDate.length === 0)
-      return [new DateObject(date)];
+      return [focused];
     if (selectedDate.length === 1)
-      return [selectedDate[0], new DateObject(date)].sort((a, b) => a - b);
+      return [selectedDate[0], focused].sort((a, b) => a - b);
   }
 }
 

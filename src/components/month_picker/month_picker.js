@@ -116,6 +116,7 @@ export default function MonthPicker({
       focused,
       selectedDate,
       mustShowMonthPicker: false,
+      dateClicked: onlyMonthPicker ? dateObject : state.dateClicked,
     });
   }
 

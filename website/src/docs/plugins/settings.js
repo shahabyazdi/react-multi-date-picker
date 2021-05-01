@@ -62,7 +62,9 @@ export default function Setting(translate, language, otherProps) {
           <tr>
             <td>names</td>
             <td>Object</td>
-            <td>{`{
+            <td>
+              <pre className="language-jsx">
+                <code>{`{
   gregorian: "GE",
   persian: "PE",
   arabic: "AR",
@@ -77,12 +79,16 @@ export default function Setting(translate, language, otherProps) {
   disable: "DI",
   onlyMonthPicker: "OM",
   onlyYearPicker: "OY",
-}`}</td>
+}`}</code>
+              </pre>
+            </td>
           </tr>
           <tr>
             <td>titles</td>
             <td>Object</td>
-            <td>{`{
+            <td>
+              <pre className="language-jsx">
+                <code>{`{
   calendar: "Calendar",
   locale: "Locale",
   mode: "Mode",
@@ -101,7 +107,9 @@ export default function Setting(translate, language, otherProps) {
   disable: "Disable",
   onlyMonthPicker: "Only Month Picker",
   onlyYearPicker: "Only Year Picker",
-}`}</td>
+}`}</code>
+              </pre>
+            </td>
           </tr>
         </tbody>
       </table>

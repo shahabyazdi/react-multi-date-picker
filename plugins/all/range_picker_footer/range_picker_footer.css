@@ -1,0 +1,49 @@
+.rmdp-range-picker-footer {
+  text-align: left;
+  padding: 10px;
+}
+
+.rtl.rmdp-range-picker-footer {
+  direction: rtl;
+  text-align: right;
+}
+
+.rmdp-range-picker-footer h6 {
+  margin: 0;
+  white-space: nowrap;
+  font-size: 16px;
+}
+
+.right.rmdp-range-picker-footer h6,
+.left.rmdp-range-picker-footer h6 {
+  width: 100%;
+  flex-direction: row;
+  padding-top: 5px;
+}
+
+.rmdp-cancel {
+  display: inline-block;
+  background-color: #bdbcbc;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  line-height: 19px;
+  text-align: center;
+  transform: rotate(45deg);
+  color: white;
+  cursor: pointer;
+  margin: auto 0;
+  margin-right: 7px;
+  font-size: 16px;
+  font-family: Arial !important;
+}
+
+.rtl .rmdp-cancel {
+  margin-right: unset;
+  margin-left: 7px;
+}
+
+.rmdp-range-picker-footer span {
+  margin-top: auto;
+  font-size: 16px;
+}

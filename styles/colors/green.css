@@ -70,3 +70,11 @@
 .green .rmdp-action-button {
   color: var(--rmdp-primary-green);
 }
+
+.green .rmdp-button {
+  background-color: var(--rmdp-primary-green);
+}
+
+.green .rmdp-button:hover {
+  background-color: var(--rmdp-deselect-green);
+}

@@ -437,3 +437,7 @@ pre {
 .inline-block {
   display: inline-block;
 }
+
+.bg-red {
+  background-color: red;
+}

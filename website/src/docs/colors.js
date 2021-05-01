@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "../../../build/index";
 
-export default function Colors(trasnlate, language, otherProps) {
+export default function Colors(translate, language, otherProps) {
   const green = {
     title: "Green",
     code: `import "react-multi-date-picker/styles/colors/green.css"

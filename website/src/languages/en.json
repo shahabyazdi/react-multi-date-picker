@@ -230,5 +230,21 @@
   "on_month_change": [
     "In this example, setting the currentDate property is optional.",
     "The currentDate property is set to open the calendar in the same selected month."
-  ]
+  ],
+  "range_picker_footer": "This plugin is developed specifically for the Range Picker and does not work properly in other modes.",
+  "time_picker": [
+    "If you have upgraded from previous versions to version 2.6.0, you must have noticed the warning displayed on the console when using the internal time picker.",
+    "Internal TimePicker is going to removed from version 3.0.0 and above, because TimePicker is not used by everyone and removing it reduces the size of the main file by about 20%.",
+    "Also, with the changes I made in this plugin, you can now use the time picker in multiple and range modes, which the main time picker did not have this feature.",
+    "<a href='/other-pickers'>Here</a> are a few examples of how to use the TimePicker plugin, so instead of rewriting them here, I will add two examples of adding time picker in multiple and range modes."
+  ],
+  "multiple_time_picker": [
+    "To use the TimePicker in multiple and range modes, it is better to use the DatePanel. This is because by clicking on any dates in the DatePanel, that date will be focused, and by clicking on each date, the time of that selected date can be changed sequentially.",
+    "To determine which date is focused, you can use the <b>markFocused</b> property in the DatePanel."
+  ],
+  "focused": [
+    "Clicking on any date in the DatePanel will focus that date.",
+    "You can use the <b>markFocused</b> prop to better determine which date is focused. Also you can set a className for the focused date to further customize it."
+  ],
+  "date_panel_note": "The important thing about the onClickDate property is that if a date is clicked, the value of that date will be sent as an argument in onClickDate, but if the delete button is clicked, onClickDate will still be called but with an <b>undefined</b> argument."
 }

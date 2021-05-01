@@ -95,6 +95,11 @@ export default function Example() {
             <td>plugins/time_picker</td>
             <td>build/time_picker.browser</td>
           </tr>
+          <tr>
+            <td>RangePickerFooter</td>
+            <td>plugins/range_picker_footer</td>
+            <td>build/range_picker_footer.browser</td>
+          </tr>
         </tbody>
       </table>
     ),

@@ -99,14 +99,15 @@ export default [
     ],
   },
   ...[
-    { path: "date_panel" },
-    { path: "date_picker_header" },
-    { path: "multi_colors" },
-    { path: "settings" },
-    { path: "toolbar" },
-    { path: "weekends" },
-    { path: "time_picker" },
-  ].map(({ path }) => {
+    "date_panel",
+    "date_picker_header",
+    "multi_colors",
+    "settings",
+    "toolbar",
+    "weekends",
+    "time_picker",
+    "range_picker_footer",
+  ].map((path) => {
     let name = path
       .replace(/^./, (w) => w.toUpperCase())
       .replace(/_./g, (w) => w.replace("_", "").toUpperCase());

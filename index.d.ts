@@ -264,6 +264,10 @@ declare module "react-multi-date-picker" {
     disableDayPicker?: boolean;
     onPropsChange?(props: object): void;
     onMonthChange?(date: DateObject): void;
+    onFocusDateChange?(
+      focusedDate: DateObject | undefined,
+      clickedDate: DateObject | undefined
+    );
   }
 
   interface DatePickerProps {
@@ -453,11 +457,11 @@ declare module "react-multi-date-picker/plugins/date_panel" {
     sort?: "string";
     style?: React.CSSProperties;
     className?: string;
-    onDateClicked?(date: DateObject): void;
+    onClickDate?(date: DateObject | undefined): void;
     removeButton?: boolean;
     header?: string;
     markFocused?: boolean;
-    focusedClassName: string;
+    focusedClassName?: string;
   }
 
   export default function DatePanel(props: DatePanelProps): React.ReactElement;
