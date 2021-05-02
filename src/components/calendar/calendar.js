@@ -45,6 +45,7 @@ function Calendar(
     disableDayPicker,
     onPropsChange,
     onMonthChange,
+    onFocusedDateChange,
   },
   outerRef
 ) {
@@ -234,8 +235,14 @@ function Calendar(
   let topClassName = "rmdp-top-class " + getBorderClassName(["top", "bottom"]),
     clonedPlugins = { top: [], bottom: [], left: [], right: [] },
     isRTL = ["fa", "ar"].includes(state.date?.locale),
-    globalProps = { state, setState, onChange: handleChange, sort },
-    calendarProps = arguments[0];
+    globalProps = {
+      state,
+      setState,
+      onChange: handleChange,
+      sort,
+      handleFocusDate,
+    },
+    { datePickerProps, ...calendarProps } = arguments[0];
 
   initPlugins();
 
@@ -302,11 +309,12 @@ function Calendar(
   function initPlugins() {
     if (!ref.current.isReady) return;
 
+    let getPosition = (plugin) =>
+      disableDayPicker ? "bottom" : plugin.props.position || "right";
+
     plugins.forEach((plugin, index) => {
       let nodes = {},
-        position = disableDayPicker
-          ? "bottom"
-          : plugin.props.position || "right";
+        position = getPosition(plugin);
 
       if (!clonedPlugins[position] || plugin.props.disabled) return;
 
@@ -314,9 +322,7 @@ function Calendar(
         if (plugins[i].props.disabled) continue;
         if (Object.keys(nodes).length === 4) break;
 
-        let pluginPosition = disableDayPicker
-          ? "bottom"
-          : plugins[i].props.position || "right";
+        let pluginPosition = getPosition(plugins[i]);
 
         if (["top", "bottom"].includes(position)) {
           if (pluginPosition === position && i > index) nodes.bottom = true;
@@ -337,21 +343,24 @@ function Calendar(
           position,
           registerListener,
           calendarProps,
+          datePickerProps,
           handleChange,
           nodes,
           Calendar: ref.current.Calendar,
           handlePropsChange,
+          //removing other arguments if exist.
+          handleFocusDate: (date) => handleFocusDate(date),
         })
       );
     });
   }
 
-  function handleChange(selectedDate, $state) {
+  function handleChange(selectedDate, state) {
     //This one must be done before setState
     if ((selectedDate || selectedDate === null) && listeners.change)
       listeners.change.forEach((callback) => callback(selectedDate));
 
-    if ($state) setState($state);
+    if (state) setState(state);
     if ((selectedDate || selectedDate === null) && onChange instanceof Function)
       onChange(selectedDate);
 
@@ -359,29 +368,23 @@ function Calendar(
   }
 
   function handlePropsChange(props = {}) {
-    const { datePickerProps = {}, ...otherProps } = calendarProps;
-
     if (onPropsChange instanceof Function) {
       let allProps = {
+        ...calendarProps,
         ...datePickerProps,
-        ...otherProps,
-        ...state,
         ...props,
         value: props.value ?? state.selectedDate,
       };
 
-      [
-        "onChange",
-        "onPropsChange",
-        "focused",
-        "today",
-        "initialValue",
-        "selectedDate",
-        "year",
-        "onMonthChange",
-      ].forEach((key) => delete allProps[key]);
+      delete allProps.onPropsChange;
 
       onPropsChange(allProps);
+    }
+  }
+
+  function handleFocusDate(focused, clicked) {
+    if (onFocusedDateChange instanceof Function) {
+      onFocusedDateChange(focused, clicked);
     }
   }
 

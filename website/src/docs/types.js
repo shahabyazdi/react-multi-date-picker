@@ -167,7 +167,9 @@ function CustomRangeInput({openCalendar, stringDates}) {
   let from = stringDates[0] || ""
   let to = stringDates[1] || ""
   let value = from && to ? ${
-    language === "en" ? "`from ${from}, to ${to}`" : "`از ${from}، تا ${to}`"
+    language === "en"
+      ? `"from " + from + ", to " + to`
+      : `"از " + from + "، تا " + to"`
   } : from
   
   return (

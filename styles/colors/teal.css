@@ -70,3 +70,11 @@
 .teal .rmdp-action-button {
   color: var(--rmdp-primary-teal);
 }
+
+.teal .rmdp-button:not(.rmdp-action-button) {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.teal .rmdp-button:not(.rmdp-action-button):hover {
+  background-color: var(--rmdp-deselect-teal);
+}

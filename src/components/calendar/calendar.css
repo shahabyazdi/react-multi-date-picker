@@ -65,7 +65,7 @@
 }
 
 .rmdp-week-day {
-  cursor: unset;
+  cursor: default;
   color: var(--rmdp-primary);
   font-weight: 500;
   display: flex;
@@ -385,7 +385,7 @@
 
 .rmdp-day-hidden,
 .rmdp-day.rmdp-disabled {
-  cursor: unset;
+  cursor: default;
 }
 
 .rmdp-selected .highlight {

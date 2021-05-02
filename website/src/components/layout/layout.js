@@ -67,6 +67,8 @@ const sidebar = {
     { name: "Settings", path: "plugins/settings/" },
     { name: "Weekends", path: "plugins/weekends/" },
     { name: "Toolbar", path: "plugins/toolbar/" },
+    { name: "Time Picker", path: "plugins/time-picker/" },
+    { name: "Range Picker Footer", path: "plugins/range-picker-footer/" },
   ],
 };
 

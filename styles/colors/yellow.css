@@ -41,7 +41,7 @@
 }
 
 .yellow .rmdp-panel-body::-webkit-scrollbar-thumb {
-  background: var(--rmdp-primary-yellow);
+  background: var(--rmdp-primary-yellow) !important;
 }
 
 .yellow .rmdp-day.rmdp-today span {
@@ -69,4 +69,12 @@
 
 .yellow .rmdp-action-button {
   color: var(--rmdp-primary-yellow);
+}
+
+.yellow .rmdp-button:not(.rmdp-action-button) {
+  background-color: var(--rmdp-primary-yellow);
+}
+
+.yellow .rmdp-button:not(.rmdp-action-button):hover {
+  background-color: var(--rmdp-deselect-yellow);
 }

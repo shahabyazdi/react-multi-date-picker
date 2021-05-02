@@ -18,10 +18,12 @@ export function getValidProps({
   position,
   registerListener,
   calendarProps,
+  datePickerProps,
   handleChange,
   nodes,
   Calendar,
   handlePropsChange,
+  handleFocusDate,
   ...otherProps
 }) {
   return otherProps;

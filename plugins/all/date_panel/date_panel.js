@@ -10,16 +10,17 @@ export default function DatePanel({
   position,
   nodes,
   handleChange,
-  calendarProps,
   eachDaysInRange,
   sort,
   style = {},
   className = "",
+  onClickDate,
   onDateClicked,
   removeButton = true,
   header,
   markFocused,
   focusedClassName = "",
+  handleFocusDate,
   ...props
 }) {
   let headers = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
@@ -83,6 +84,8 @@ export default function DatePanel({
     classNames.push("rmdp-rtl");
   }
 
+  warn();
+
   return (
     <div
       className={`${classNames.join(" ")} ${className}`}
@@ -145,25 +148,49 @@ export default function DatePanel({
   );
 
   function selectDate(date, index) {
-    if (onDateClicked instanceof Function)
-      onDateClicked(date ? state.selectedDate[index] : undefined);
+    handleClick(date ? state.selectedDate[index] : undefined);
+
     if (!date) return;
 
     setState({
       ...state,
       date: new DateObject(date),
-      focused: range || multiple ? state.selectedDate[index] : undefined,
+      focused: state.selectedDate[index],
     });
+
+    handleFocusDate(state.selectedDate[index]);
   }
 
   function deSelect(index) {
-    let dates =
-      range || multiple ? selectedDate.filter((d, i) => i !== index) : null;
+    let dates, focused;
+
+    if (range || multiple) {
+      dates = selectedDate.filter((d, i) => i !== index);
+      focused = dates.find((d) => d.valueOf() === state.focused?.valueOf?.());
+    } else {
+      dates = null;
+      focused = undefined;
+    }
 
     handleChange(dates, {
       ...state,
       selectedDate: dates,
-      focused: range || multiple ? dates[dates.length - 1] : undefined,
+      focused,
     });
+
+    handleClick();
+    handleFocusDate(focused);
+  }
+
+  function handleClick(date) {
+    if (onClickDate instanceof Function) onClickDate(date);
+  }
+
+  function warn() {
+    if (
+      onDateClicked instanceof Function &&
+      "_self" in React.createElement("div")
+    )
+      console.warn("onDateClicked is deprecated, Use onClickDate instead");
   }
 }

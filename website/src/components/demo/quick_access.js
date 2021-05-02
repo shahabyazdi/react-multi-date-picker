@@ -331,6 +331,10 @@ const list = [
         name: "onMonthChange",
         path: "events/#onmonthchange",
       },
+      {
+        name: "onFocusedDateChange",
+        path: "events/#onFocusedDateChange",
+      },
     ],
   },
   {
@@ -763,6 +767,10 @@ const list = [
             name: "Custom Header Name",
             path: "plugins/panel/#custom-header-name",
           },
+          {
+            name: "Customizing Focused Date",
+            path: "plugins/panel/#customizing-focused-date",
+          },
         ],
       },
       {
@@ -850,6 +858,46 @@ const list = [
           {
             name: "Custom Names",
             path: "plugins/toolbar/#custom-names",
+          },
+        ],
+      },
+      {
+        name: "Time Picker",
+        path: "plugins/time-picker/",
+        list: [
+          {
+            name: "Descriptions",
+            path: "plugins/time-picker/#descriptions",
+          },
+          {
+            name: "Using TimePicker in Multiple Mode",
+            path: "plugins/time-picker/#using-timepicker-in-multiple-mode",
+          },
+          {
+            name: "Using TimePicker in Range Mode",
+            path: "plugins/time-picker/#using-timepicker-in-multiple-mode",
+          },
+        ],
+      },
+      {
+        name: "Range Picker Footer",
+        path: "plugins/range-picker-footer/",
+        list: [
+          {
+            name: "Descriptions",
+            path: "plugins/range-picker-footer/#descriptions",
+          },
+          {
+            name: "Props",
+            path: "plugins/range-picker-footer/#props",
+          },
+          {
+            name: "Default Range Picker Footer",
+            path: "plugins/range-picker-footer/#default-range-picker-footer",
+          },
+          {
+            name: "Custom Names",
+            path: "plugins/range-picker-footer/#custom-names",
           },
         ],
       },

@@ -2,7 +2,13 @@ import React, { useEffect, useMemo } from "react";
 import { selectDate } from "../day_picker/day_picker";
 import DateObject from "react-date-object";
 
-export default function YearPicker({ state, setState, onChange, sort }) {
+export default function YearPicker({
+  state,
+  setState,
+  onChange,
+  sort,
+  handleFocusDate,
+}) {
   const {
       date,
       today,
@@ -94,6 +100,8 @@ export default function YearPicker({ state, setState, onChange, sort }) {
       mustShowYearPicker: false,
       year: state.year,
     });
+
+    if (onlyYearPicker) handleFocusDate(focused, date);
   }
 
   function getClassName(year) {

@@ -12,6 +12,7 @@ export default function Toolbar({
   className,
   names,
   sort = ["today", "deselect", "close"],
+  handleFocusDate,
   ...props
 }) {
   let { locale, range, multiple } = state,
@@ -71,12 +72,14 @@ export default function Toolbar({
     }
 
     handleChange(selectedDate, { ...state, selectedDate });
+    handleFocusDate(today);
   }
 
   function deselect() {
     let selectedDate = range || multiple ? [] : null;
 
     handleChange(selectedDate, { ...state, selectedDate });
+    handleFocusDate();
   }
 
   function close() {

@@ -31,9 +31,19 @@ npm install --save react-multi-date-picker
 
 ## Demo
 
-- [DatePicker & Calendar](https://shahabyazdi.github.io/react-multi-date-picker/)
-- [Plugins](https://shahabyazdi.github.io/react-multi-date-picker/plugins)
-- [آموزش نصب و راه اندازی دیت پیکر به فارسی](https://shahabyazdi.github.io/react-multi-date-picker/fa)
+- **[DatePicker & Calendar](https://shahabyazdi.github.io/react-multi-date-picker/)**
+  - [Multiple Date Picker](https://shahabyazdi.github.io/react-multi-date-picker/multiple/)
+  - [Range Picker](https://shahabyazdi.github.io/react-multi-date-picker/range/)
+  - [Time Picker & Other Pickers](https://shahabyazdi.github.io/react-multi-date-picker/other-pickers/)
+  - [Locales](https://shahabyazdi.github.io/react-multi-date-picker/locales/)
+- **[Plugins](https://shahabyazdi.github.io/react-multi-date-picker/plugins)**
+
+  - [Date Panel](https://shahabyazdi.github.io/react-multi-date-picker/plugins/panel/)
+  - [Multiple Time Picker](https://shahabyazdi.github.io/react-multi-date-picker/plugins/time-picker/)
+  - [Toolbar](https://shahabyazdi.github.io/react-multi-date-picker/plugins/toolbar/)
+  - [Range Picker Footer](https://shahabyazdi.github.io/react-multi-date-picker/plugins/range-picker-footer/)
+
+- **[آموزش نصب و راه اندازی دیت پیکر به فارسی](https://shahabyazdi.github.io/react-multi-date-picker/fa)**
 
 ## Usage
 
@@ -315,6 +325,12 @@ export default function Example() {
         </tr>
         <tr>
           <td>onMonthChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onFocusedDateChange</td>
           <td style="text-align:center">Function</td>
           <td style="text-align:center"></td>
           <td>both</td>

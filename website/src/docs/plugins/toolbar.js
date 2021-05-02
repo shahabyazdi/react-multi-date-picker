@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "../../../../build/index";
 import Toolbar from "../../../../plugins/toolbar";
 
-export default function ToolbarComponent(trasnlate, language, otherProps) {
+export default function ToolbarComponent(translate, language, otherProps) {
   const [value, setValue] = useState();
   const [value1, setValue1] = useState();
   const [value2, setValue2] = useState();
@@ -13,9 +13,9 @@ export default function ToolbarComponent(trasnlate, language, otherProps) {
       <table>
         <thead>
           <tr>
-            <th>{trasnlate("Prop")}</th>
-            <th>{trasnlate("Type")}</th>
-            <th>{trasnlate("Default")}</th>
+            <th>{translate("Prop")}</th>
+            <th>{translate("Type")}</th>
+            <th>{translate("Default")}</th>
           </tr>
         </thead>
         <tbody>
@@ -33,9 +33,23 @@ export default function ToolbarComponent(trasnlate, language, otherProps) {
             <td>names</td>
             <td>Object</td>
             <td>
-              fa: {`{ today: "امروز", deselect: "لغو", close: "بستن" }`}
+              en:
+              <pre className="language-jsx">
+                <code>{`{ 
+  today: "Today", 
+  deselect: "Deselect", 
+  close: "Close" 
+}`}</code>
+              </pre>
               <br />
-              en: {`{ today: "TODAY", deselect: "DESELECT", close: "CLOSE" }`}
+              fa:
+              <pre className="language-jsx">
+                <code>{`{ 
+  today: "امروز", 
+  deselect: "لغو", 
+  close: "بستن" 
+}`}</code>
+              </pre>
             </td>
           </tr>
         </tbody>

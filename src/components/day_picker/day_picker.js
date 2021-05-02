@@ -13,6 +13,7 @@ export default function DayPicker({
   numberOfMonths,
   isRTL,
   weekStartDayIndex,
+  handleFocusDate,
 }) {
   const ref = useRef({}),
     {
@@ -162,6 +163,8 @@ export default function DayPicker({
       focused,
       selectedDate,
     });
+
+    handleFocusDate(focused, dateObject);
   }
 
   function getClassName(object, numberOfMonths) {
@@ -271,29 +274,41 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
 export function selectDate(
   date,
   sort,
-  { multiple, range, selectedDate, onlyMonthPicker, onlyYearPicker, format }
+  {
+    multiple,
+    range,
+    selectedDate,
+    onlyMonthPicker,
+    onlyYearPicker,
+    format,
+    focused: previousFocused,
+  }
 ) {
   date.setFormat(format);
+
+  let focused = new DateObject(date);
 
   if (multiple) {
     selectedDate = selectMultiple();
   } else if (range) {
     selectedDate = selectRange();
   } else {
-    selectedDate = new DateObject(date);
+    selectedDate = focused;
   }
 
-  return [
-    selectedDate,
-    multiple || range ? selectedDate[selectedDate.length - 1] : undefined,
-  ];
+  return [selectedDate, focused];
 
   function selectMultiple() {
     let dates = selectedDate.filter(
       ($date) => !isSameDate(date, $date, onlyMonthPicker, onlyYearPicker)
     );
 
-    if (dates.length === selectedDate.length) dates.push(new DateObject(date));
+    if (dates.length === selectedDate.length) {
+      dates.push(focused);
+    } else {
+      focused = dates.find((d) => d.valueOf() === previousFocused?.valueOf?.());
+    }
+
     if (sort) dates.sort((a, b) => a - b);
 
     return dates;
@@ -301,9 +316,9 @@ export function selectDate(
 
   function selectRange() {
     if (selectedDate.length === 2 || selectedDate.length === 0)
-      return [new DateObject(date)];
+      return [focused];
     if (selectedDate.length === 1)
-      return [selectedDate[0], new DateObject(date)].sort((a, b) => a - b);
+      return [selectedDate[0], focused].sort((a, b) => a - b);
   }
 }
 

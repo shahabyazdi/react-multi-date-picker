@@ -13,6 +13,8 @@ export default function Panel(translate, language, otherProps) {
     }).add(10, "days"),
   ]);
 
+  const [focusedDate, setFocusedDate] = useState();
+
   const [value1, setValue1] = useState([
     new DateObject({ calendar: language === "en" ? "gregorian" : "persian" }),
     new DateObject({
@@ -48,7 +50,7 @@ export default function Panel(translate, language, otherProps) {
           <tr>
             <td>sort</td>
             <td>String</td>
-            <td>""</td>
+            <td></td>
           </tr>
           <tr>
             <td>eachDaysInRange</td>
@@ -56,9 +58,9 @@ export default function Panel(translate, language, otherProps) {
             <td>false</td>
           </tr>
           <tr>
-            <td>onDateClicked</td>
+            <td>onClickDate</td>
             <td>Function</td>
-            <td>undefined</td>
+            <td></td>
           </tr>
           <tr>
             <td>removeButton</td>
@@ -67,6 +69,16 @@ export default function Panel(translate, language, otherProps) {
           </tr>
           <tr>
             <td>header</td>
+            <td>String</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>markFocused</td>
+            <td>Boolean</td>
+            <td>false</td>
+          </tr>
+          <tr>
+            <td>focusedClassName</td>
             <td>String</td>
             <td></td>
           </tr>
@@ -83,6 +95,11 @@ export default function Panel(translate, language, otherProps) {
         <li>color</li>
       </ul>
     ),
+  };
+
+  const note = {
+    title: "Important Note About onClickDate",
+    description: "date_panel_note",
   };
 
   const sortByDate = {
@@ -238,7 +255,7 @@ const [value, setValue] = useState([
   plugins={[
     <DatePanel
       removeButton={false}
-      onDateClicked={dateObject => {
+      onClickDate={dateObject => {
         let mustDelete = window.confirm("${translate(
           "are you sure you want to delete this date ?"
         )}")
@@ -262,7 +279,7 @@ const [value, setValue] = useState([
         plugins={[
           <DatePanel
             removeButton={false}
-            onDateClicked={(dateObject) => {
+            onClickDate={(dateObject) => {
               let mustDelete = window.confirm(
                 translate("are you sure you want to delete this date ?")
               );
@@ -303,13 +320,63 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel"
     ),
   };
 
+  const focused = {
+    title: "Customizing Focused Date",
+    description: "focused",
+    code: `import DatePicker from "react-multi-date-picker"
+import DatePanel from "react-multi-date-picker/plugins/date_panel"
+.
+.
+.
+const [focusedDate, setFocusedDate] = useState();
+.
+.
+.
+<DatePicker
+  multiple
+  sort
+  onFocusedDateChange={setFocusedDate}
+  onClose={() => setFocusedDate(undefined)}
+  plugins={[
+    <DatePanel markFocused focusedClassName="bg-red" />
+  ]}
+  mapDays={({ date, isSameDate }) => {
+    let props = {}
+    
+    if (!isSameDate(date, focusedDate)) return
+
+    props.style = { backgroundColor: "red" }
+    
+    return props
+  }}
+/>`,
+    jsx: (
+      <DatePicker
+        multiple
+        sort
+        onFocusedDateChange={setFocusedDate}
+        onClose={() => setFocusedDate(undefined)}
+        plugins={[<DatePanel markFocused focusedClassName="bg-red" />]}
+        mapDays={({ date, isSameDate }) => {
+          if (isSameDate(date, focusedDate))
+            return {
+              style: { backgroundColor: "red" },
+            };
+        }}
+        {...otherProps}
+      />
+    ),
+  };
+
   return [
     props,
     sort,
+    note,
     sortByDate,
     bottom,
     withoutButton,
     clickListener,
     header,
+    focused,
   ];
 }

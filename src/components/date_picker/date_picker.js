@@ -232,7 +232,7 @@ function DatePicker(
         if (outerRef) outerRef.current = element;
       }}
       element={renderInput()}
-      popper={isVisible && renderCalendar(datePickerProps)}
+      popper={isVisible && renderCalendar()}
       active={!isMobileMode && isCalendarReady}
       position={calendarPosition}
       arrow={!isMobileMode && arrow}
@@ -382,7 +382,7 @@ function DatePicker(
     }
   }
 
-  function renderCalendar(datePickerProps) {
+  function renderCalendar() {
     return (
       <Calendar
         ref={calendarRef}
@@ -476,11 +476,7 @@ function DatePicker(
   }
 
   function openCalendar() {
-    if (disabled) return;
-
-    let shouldOpenCalendar = onOpen instanceof Function ? onOpen() : true;
-
-    if (shouldOpenCalendar === false) return;
+    if (disabled || (onOpen instanceof Function && onOpen() === false)) return;
 
     let input = getInput(inputRef);
 

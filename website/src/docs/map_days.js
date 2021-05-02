@@ -1,5 +1,6 @@
 import React from "react";
 import DatePicker, { Calendar } from "../../../build/index";
+import { Link } from "gatsby";
 
 export default function MapDays(translate, language, otherProps) {
   const description = {
@@ -165,19 +166,33 @@ ${
   }}
 />`,
     jsx: (
-      <DatePicker
-        mapDays={({ date }) => {
-          let props = {};
-          let isWeekend = (language === "en" ? [0, 6] : [6]).includes(
-            date.weekDay.index
-          );
+      <>
+        <DatePicker
+          mapDays={({ date }) => {
+            let props = {};
+            let isWeekend = (language === "en" ? [0, 6] : [6]).includes(
+              date.weekDay.index
+            );
 
-          if (isWeekend) props.className = "highlight highlight-red";
+            if (isWeekend) props.className = "highlight highlight-red";
 
-          return props;
-        }}
-        {...otherProps}
-      />
+            return props;
+          }}
+          {...otherProps}
+        />
+        <h4>{translate("See Also")}:</h4>
+        <Link
+          to={
+            language === "en"
+              ? "/plugins/weekends/#weekends:-gregorian"
+              : "../plugins/weekends/#%D8%A2%D8%AE%D8%B1-%D9%87%D9%81%D8%AA%D9%87-%D8%B4%D9%85%D8%B3%DB%8C"
+          }
+        >
+          {language === "en"
+            ? "plugins #weekends:-gregorian"
+            : "پلاگین ها #آخر هفته شمسی"}
+        </Link>
+      </>
     ),
   };
 

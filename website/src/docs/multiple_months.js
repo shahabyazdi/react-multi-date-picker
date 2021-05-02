@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
+import { Link } from "gatsby";
 
 export default function MultipleMonths(translate, language, otherProps) {
   const [dates, setDates] = useState([
@@ -114,14 +115,26 @@ ${
 /> `
 }`,
     jsx: (
-      <Calendar
-        value={values}
-        onChange={setValues}
-        range
-        numberOfMonths={3}
-        showOtherDays
-        {...otherProps}
-      />
+      <>
+        <Calendar
+          value={values}
+          onChange={setValues}
+          range
+          numberOfMonths={3}
+          showOtherDays
+          {...otherProps}
+        />
+        {<h4>{translate("See Also")}:</h4>}
+        <Link
+          to={
+            language === "en"
+              ? "../plugins/range-picker-footer/#default-range-picker-footer"
+              : "../plugins/range-picker-footer/#%D9%81%D9%88%D8%AA%D8%B1-%D8%A7%D9%86%D8%AA%D8%AE%D8%A7%D8%A8%DA%AF%D8%B1-%D8%AF%D8%A7%D9%85%D9%86%D9%87"
+          }
+        >
+          {translate("Plugins")} #{translate("Range Picker Footer")}
+        </Link>
+      </>
     ),
   };
 

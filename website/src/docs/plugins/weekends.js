@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../../build/index";
 import Weekends from "../../../../plugins/weekends";
 
-export default function WeekendsComponent(trasnlate, language, otherProps) {
+export default function WeekendsComponent(translate, language, otherProps) {
   const [props, setProps] = useState({
     value: new DateObject().toLastOfWeek(),
     plugins: [<Weekends />],
@@ -26,9 +26,9 @@ export default function WeekendsComponent(trasnlate, language, otherProps) {
       <table>
         <thead>
           <tr>
-            <th>{trasnlate("Prop")}</th>
-            <th>{trasnlate("Type")}</th>
-            <th>{trasnlate("Default")}</th>
+            <th>{translate("Prop")}</th>
+            <th>{translate("Type")}</th>
+            <th>{translate("Default")}</th>
           </tr>
         </thead>
         <tbody>
@@ -48,8 +48,8 @@ export default function WeekendsComponent(trasnlate, language, otherProps) {
       <table>
         <thead>
           <tr>
-            <th>{trasnlate("Calendar")}</th>
-            <th>{trasnlate("Default Weekends")}</th>
+            <th>{translate("Calendar")}</th>
+            <th>{translate("Default Weekends")}</th>
           </tr>
         </thead>
         <tbody>
