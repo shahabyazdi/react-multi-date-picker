@@ -335,7 +335,7 @@ const [focusedDate, setFocusedDate] = useState();
 <DatePicker
   multiple
   sort
-  onFocusDateChange={setFocusedDate}
+  onFocusedDateChange={setFocusedDate}
   onClose={() => setFocusedDate(undefined)}
   plugins={[
     <DatePanel markFocused focusedClassName="bg-red" />
@@ -354,7 +354,7 @@ const [focusedDate, setFocusedDate] = useState();
       <DatePicker
         multiple
         sort
-        onFocusDateChange={setFocusedDate}
+        onFocusedDateChange={setFocusedDate}
         onClose={() => setFocusedDate(undefined)}
         plugins={[<DatePanel markFocused focusedClassName="bg-red" />]}
         mapDays={({ date, isSameDate }) => {

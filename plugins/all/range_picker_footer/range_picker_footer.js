@@ -17,7 +17,7 @@ export default function Footer({
     horizontal = ["bottom", "top"].includes(position),
     allNames = {
       en: {
-        chosenDates: "Chosen Dates" + (horizontal ? ":" : ""),
+        selectedDates: "Selected Dates" + (horizontal ? ":" : ""),
         from: "From:",
         to: "To:",
         selectDate: "Select Date",
@@ -25,7 +25,7 @@ export default function Footer({
         separator: "-",
       },
       fa: {
-        chosenDates: "تاریخ انتخابی شما" + (horizontal ? ":" : ""),
+        selectedDates: "تاریخ انتخابی شما" + (horizontal ? ":" : ""),
         from: "از:",
         to: "تا:",
         selectDate: "انتخاب کنید",
@@ -50,7 +50,7 @@ export default function Footer({
         gridTemplateRows: "auto 1fr",
       }}
     >
-      <h6 className="rmdp-week-day">{localeNames.chosenDates}</h6>
+      <h6 className="rmdp-week-day">{localeNames.selectedDates}</h6>
       <div
         style={{
           display: horizontal ? "flex" : "grid",

@@ -377,8 +377,8 @@ export default function Example() {
     ),
   };
 
-  const onFocusDateChange = {
-    title: "onFocusDateChange",
+  const onFocusedDateChange = {
+    title: "onFocusedDateChange",
     description: (
       <>
         {translate("focus_event_1").map((text, index) => (
@@ -460,7 +460,7 @@ const [state, setState] = useState({});
 <>
   <DatePicker
     multiple
-    onFocusDateChange={(dateFocused, dateClicked) => {
+    onFocusedDateChange={(dateFocused, dateClicked) => {
       setState({ dateFocused, dateClicked });
     }}
     onClose={() => setState({})}
@@ -486,7 +486,7 @@ const [state, setState] = useState({});
       <>
         <DatePicker
           multiple
-          onFocusDateChange={(dateFocused, dateClicked) => {
+          onFocusedDateChange={(dateFocused, dateClicked) => {
             setDates({ dateFocused, dateClicked });
           }}
           onClose={() => setDates({})}
@@ -525,6 +525,6 @@ const [state, setState] = useState({});
     onPositionChange,
     onPropsChange,
     onMonthChange,
-    onFocusDateChange,
+    onFocusedDateChange,
   ];
 }

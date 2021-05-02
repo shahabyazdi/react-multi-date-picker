@@ -322,6 +322,8 @@ const {
             position: "relative",
             borderRadius: "5px",
             boxShadow: "inset 0 0 6px 0 #888",
+            maxWidth: "800px",
+            margin: "0 auto",
           }}
         >
           <div

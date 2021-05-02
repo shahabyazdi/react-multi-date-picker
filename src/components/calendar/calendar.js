@@ -45,7 +45,7 @@ function Calendar(
     disableDayPicker,
     onPropsChange,
     onMonthChange,
-    onFocusDateChange,
+    onFocusedDateChange,
   },
   outerRef
 ) {
@@ -383,8 +383,8 @@ function Calendar(
   }
 
   function handleFocusDate(focused, clicked) {
-    if (onFocusDateChange instanceof Function) {
-      onFocusDateChange(focused, clicked);
+    if (onFocusedDateChange instanceof Function) {
+      onFocusedDateChange(focused, clicked);
     }
   }
 

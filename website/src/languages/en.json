@@ -245,9 +245,9 @@
   ],
   "date_panel_note": "The important thing about the onClickDate property is that if a date is clicked, the value of that date will be sent as an argument in onClickDate, but if the delete button is clicked, onClickDate will still be called but with an <b>undefined</b> argument.",
   "focus_event_1": [
-    "The onFocusDateChange property receives a function and calls it with two arguments (the first argument is dateFocused, and the second argument is dateClicked), which can be called by the Calendar itself or any of the plugins.",
-    "The difference between when onFocusDateChange is called by the Calendar itself and when it is called by one of the plugins is that in the first case the second argument (ie dateClicked) is always present, and in the second case the second argument is always undefined.",
-    "The onFocusDateChange property actually specifies two things."
+    "The onFocusedDateChange property receives a function and calls it with two arguments (the first argument is dateFocused, and the second argument is dateClicked), which can be called by the Calendar itself or any of the plugins.",
+    "The difference between when onFocusedDateChange is called by the Calendar itself and when it is called by one of the plugins is that in the first case the second argument (ie dateClicked) is always present, and in the second case the second argument is always undefined.",
+    "The onFocusedDateChange property actually specifies two things."
   ],
   "focus_event_2": [
     "Which date is currently focused.",

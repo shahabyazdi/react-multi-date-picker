@@ -218,7 +218,7 @@ export default function Props(translate, language) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
-            <td>onFocusDateChange</td>
+            <td>onFocusedDateChange</td>
             <td>Function</td>
             <td></td>
             <td>{translate("both")}</td>

@@ -216,6 +216,7 @@ body {
 
 table {
   border: 1px solid #ccc;
+  max-width: 1100px;
 }
 
 table th,
@@ -253,7 +254,12 @@ table td {
 }
 
 pre {
+  background-color: #464545 !important;
   max-height: 510px;
+  max-width: 1000px;
+  font-size: 14px !important;
+  border-radius: 7px !important;
+  padding: 15px !important;
 }
 
 .rtl .main pre,
@@ -369,15 +375,6 @@ pre {
 
 *::-webkit-scrollbar-thumb:hover {
   background: #0266be;
-}
-
-pre {
-  background-color: #464545 !important;
-  max-height: 510px;
-  margin: 20px !important;
-  font-size: 14px !important;
-  border-radius: 7px !important;
-  padding: 15px !important;
 }
 
 .calendar-border {

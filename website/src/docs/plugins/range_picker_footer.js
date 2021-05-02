@@ -50,7 +50,7 @@ export default function RangePickerFooter(translate, language, otherProps) {
                 <code>
                   {`
 {
-  chosenDates: "Chosen Dates:",
+  selectedDates: "Selected Dates:",
   from: "From:",
   to: "To:",
   selectDate: "Select Date",
@@ -66,7 +66,7 @@ export default function RangePickerFooter(translate, language, otherProps) {
                   {" "}
                   {`
 {
-  chosenDates: "تاریخ انتخابی شما:",
+  selectedDates: "تاریخ انتخابی شما:",
   from: "از:",
   to: "تا:",
   selectDate: "انتخاب کنید",
@@ -148,7 +148,7 @@ import Footer from "react-multi-date-picker/plugins/range_picker_footer";
       position="bottom"
       format="${language === "en" ? "MMM DD" : "dddd DD MMMM"}"
       names={{
-        chosenDates: "${
+        selectedDates: "${
           language === "en" ? "Flight information:" : "اطلاعات پرواز"
         }",
         from: "${language === "en" ? "Departure date:" : "تاریخ رفت"}",
@@ -169,7 +169,7 @@ import Footer from "react-multi-date-picker/plugins/range_picker_footer";
             position="bottom"
             format={language === "en" ? "MMM DD" : "dddd DD MMMM"}
             names={{
-              chosenDates:
+              selectedDates:
                 language === "en" ? "Flight information:" : "اطلاعات پرواز",
               from: language === "en" ? "Departure date:" : "تاریخ رفت",
               to: language === "en" ? "Return date:" : "تاریخ برگشت",
