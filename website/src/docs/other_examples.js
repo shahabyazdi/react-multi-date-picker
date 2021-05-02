@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../build/index";
+import TimePicker from "../../../plugins/time_picker";
 
 export default function OtherExamples(translate, language, otherProps) {
   const [date, setDate] = useState(
@@ -180,16 +181,18 @@ export default function Example() {
 
   const format = {
     title: "Ignore Formatting",
-    code: `<DatePicker
-  timePicker
+    code: `<DatePickers
   format="Date:YYYY/MM/DD, Time:HH:mm:ss"
   formattingIgnoreList={["Date", "Time"]}
+  plugins={[
+    <TimePicker position="bottom" />
+  ]}
 />`,
     jsx: (
       <DatePicker
-        timePicker
         format="Date:YYYY/MM/DD, Time:HH:mm:ss"
         formattingIgnoreList={["Date", "Time"]}
+        plugins={[<TimePicker position="bottom" />]}
         {...otherProps}
       />
     ),

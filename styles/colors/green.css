@@ -71,10 +71,10 @@
   color: var(--rmdp-primary-green);
 }
 
-.green .rmdp-button {
+.green .rmdp-button:not(.rmdp-action-button) {
   background-color: var(--rmdp-primary-green);
 }
 
-.green .rmdp-button:hover {
+.green .rmdp-button:not(.rmdp-action-button):hover {
   background-color: var(--rmdp-deselect-green);
 }

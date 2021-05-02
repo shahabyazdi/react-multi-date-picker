@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import DatePicker from "../../../build/index";
+import { Link } from "gatsby";
 
 export default function Positions(translate, language) {
   const containerRef = useRef(),
@@ -357,26 +358,20 @@ const {
     jsx: (
       <ol>
         <li>
-          <a
-            href={`/react-multi-date-picker${
-              language === "en" ? "" : "/fa"
-            }/events/#onpositionchange`}
-            target="__blank"
-          >
+          <Link to="../events/#onpositionchange">
             {translate("another_examples_1")}
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href={`/react-multi-date-picker${
-              language === "en" ? "" : "/fa"
-            }/ref/#${translate("Refresh Position")
-              .toLowerCase()
-              .replace(/\s/g, "-")}`}
-            target="__blank"
+          <Link
+            to={
+              language === "en"
+                ? "/ref/#refresh-position"
+                : "../ref/#رفرش-کردن-موقعیت-تقویم"
+            }
           >
             {translate("another_examples_2")}
-          </a>
+          </Link>
         </li>
       </ol>
     ),

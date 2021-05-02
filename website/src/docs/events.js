@@ -7,6 +7,7 @@ export default function Events(translate, language, otherProps) {
   const [state, setState] = useState({ format: "MM/DD/YYYY" });
   const [props, setProps] = useState({
     value: new Date(),
+    format: "MM-DD-YYYY",
     onChange: (date) => console.log(date.format()),
     ...otherProps,
   });
@@ -309,6 +310,7 @@ return(
     description: "on_props_change",
     code: `const [props, setProps] = useState({ 
   value: new Date(),
+  format: "MM-DD-YYYY",
   onChange: (date) => console.log(date.format()),${
     language === "en"
       ? ""

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "../../../../build/index";
-import Settings from "../../../../plugins/all/settings/settings";
+import Settings from "../../../../plugins/settings";
 import DatePanel from "../../../../plugins/date_panel";
 
 export default function Setting(translate, language, otherProps) {

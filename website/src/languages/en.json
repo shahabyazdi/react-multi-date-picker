@@ -1,9 +1,9 @@
 {
   "demo_descriptions": [
     "The DatePanel & DatePanel Position is disabled by default and is activated when you switch to multiple or range mode & number of months is 1 (of course, these are the current settings that I applied, you can activate them in any cases).",
-    "In multiple or range mode, 'Only Time Picker' is disabled.",
+    "In Multiple or Range Picker modes, 'Only Time Picker' is disabled.",
     "In this page, the number of months is limited to maximum 3, but you can consider any number for it.",
-    "First Day Of Week is disabled in Only Time Picker & Only Year Picker & Only Month Picker ",
+    "First Day Of Week is disabled in Only Time Picker, Only Year Picker & Only Month Picker ",
     "Calendar position and animation are activated when the type is anything other than Calendar (input, button, ...)."
   ],
   "Fa": "Farsi",
@@ -114,10 +114,7 @@
   "map_days_description_10": "For example, if we change the day of all the rendering dates to today, it will result in an unpleasant outcome.",
   "map_days_description_11": "The Props you return can contains all the Props that a span element accepts, plus two other properties that I have added to them, which are:",
   "map_days_description_12": "Here are some examples of things that can be performed using mapDays:",
-  "map_days_weekends": [
-    "For convenience, the 'highlight highlight-red' class is included in css files, so you do not need to import it.",
-    "Here is an alternative in the plugins section, #weekends:-gregorian."
-  ],
+  "map_days_weekends": "For convenience, the 'highlight highlight-red' class is included in css files, so you do not need to import it.",
   "map_days_title": "In the example below the title has been added to today, yesterday and tomorrow.",
   "calendar_position_description": [
     "I have to say that adjusting the position of the calendar in the datepicker involved me so much that I had to write a <a href='https://github.com/shahabyazdi/react-element-popper' target='_blank'>separate library</a> for it! But I still can not claim that it works 100%, if you have a problem with the calendar position, you can open an issue <a href='https://github.com/shahabyazdi/react-element-popper/issues' target='_blank'>here</a>.",
