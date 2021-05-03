@@ -602,5 +602,10 @@
   ],
   "Date focused": "تاریخ متمرکز شده",
   "Date clicked": "تاریخ کلیک شده",
-  "See Also": "مثال دیگر"
+  "See Also": "مثال دیگر",
+  "Only Analog Time Picker": "فقط انتخابگر زمان آنالوگ",
+  "Analog Time Picker": "انتخابگر زمان آنالوگ",
+  "Default Time Picker": "تایم پیکر پیش فرض",
+  "Color & Background": "تغییر رنگ و پس زمینه",
+  "Position Bottom": "تغییر موقعیت به پایین"
 }

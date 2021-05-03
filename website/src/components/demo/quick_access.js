@@ -880,6 +880,24 @@ const list = [
         ],
       },
       {
+        name: "Analog Time Picker",
+        path: "plugins/analog-time-picker/",
+        list: [
+          {
+            name: "Default Time Picker",
+            path: "plugins/analog-time-picker/#default-time-picker",
+          },
+          {
+            name: "Color & Background",
+            path: "plugins/analog-time-picker/#color-&-background",
+          },
+          {
+            name: "Position Bottom",
+            path: "plugins/analog-time-picker/#position-bottom",
+          },
+        ],
+      },
+      {
         name: "Range Picker Footer",
         path: "plugins/range-picker-footer/",
         list: [

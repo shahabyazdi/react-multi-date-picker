@@ -21,6 +21,11 @@ import "../../../../styles/colors/green.css";
 import "../../../../styles/colors/yellow.css";
 import "../../../../styles/colors/purple.css";
 import "../../../../styles/colors/teal.css";
+import "../../../../styles/colors/analog_time_picker_red.css";
+import "../../../../styles/colors/analog_time_picker_green.css";
+import "../../../../styles/colors/analog_time_picker_yellow.css";
+import "../../../../styles/colors/analog_time_picker_purple.css";
+import "../../../../styles/colors/analog_time_picker_teal.css";
 
 import "../../../../styles/layouts/mobile.css";
 import "../../../../styles/layouts/prime.css";
@@ -68,6 +73,7 @@ const sidebar = {
     { name: "Weekends", path: "plugins/weekends/" },
     { name: "Toolbar", path: "plugins/toolbar/" },
     { name: "Time Picker", path: "plugins/time-picker/" },
+    { name: "Analog Time Picker", path: "plugins/analog-time-picker/" },
     { name: "Range Picker Footer", path: "plugins/range-picker-footer/" },
   ],
 };
