@@ -9,9 +9,9 @@ export default function Footer({
   direction = ["fa", "ar"].includes(state.locale) ? "rtl" : "ltr",
   format = direction === "rtl" ? "DD MMMM" : "MMMM DD",
   names,
+  DatePicker,
 }) {
   let { selectedDate, locale } = state,
-    datePicker = calendarProps?.datePickerRef?.current,
     from = selectedDate[0]?.format?.(format),
     to = selectedDate[1]?.format?.(format),
     horizontal = ["bottom", "top"].includes(position),
@@ -84,8 +84,11 @@ export default function Footer({
             </span>
           </div>
         </div>
-        {datePicker && (
-          <button className="rmdp-button" onClick={closeCalendar}>
+        {DatePicker && (
+          <button
+            className="rmdp-button"
+            onClick={() => DatePicker.closeCalendar()}
+          >
             {localeNames.close}
           </button>
         )}
@@ -99,9 +102,5 @@ export default function Footer({
     selectedDate.splice(index, 1);
 
     handleChange(selectedDate, { ...state, selectedDate });
-  }
-
-  function closeCalendar() {
-    datePicker.closeCalendar();
   }
 }

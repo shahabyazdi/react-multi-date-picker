@@ -9,7 +9,8 @@ export default function AnalogTime(translate, language, otherProps) {
   const [value2, setValue2] = useState(new Date());
 
   const timePicker = {
-    title: "Default Time Picker",
+    title: "Default Analog Time Picker",
+    description: "default_analog_time_picker",
     code: `import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
@@ -21,23 +22,27 @@ const [value, setValue] = useState(new Date());
 .
 .
 <DatePicker
-  format="MM/DD/YYYY HH:mm:ss"
   value={value} 
   onChange={setValue}
-  plugins={[<TimePicker />]} 
+  format="MM/DD/YYYY HH:mm:ss"
+  plugins={[<TimePicker ${language === "en" ? "" : `position="left"`}/>]} 
 />`,
     jsx: (
       <DatePicker
         format="MM/DD/YYYY HH:mm:ss"
         value={value}
         onChange={setValue}
-        plugins={[<TimePicker />]}
+        plugins={[
+          <TimePicker position={language === "en" ? "right" : "left"} />,
+        ]}
+        {...otherProps}
       />
     ),
   };
 
   const darkRed = {
     title: "Color & Background",
+    description: "red_clock",
     code: `import React, { useState } from "react";
 import { Calendar } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
@@ -56,14 +61,17 @@ const [value, setValue] = useState(new Date());
   value={value} 
   onChange={setValue}
   className="bg-dark red"
-  plugins={[<TimePicker />]} 
+  plugins={[<TimePicker ${language === "en" ? "" : `position="left"`}/>]} 
 />`,
     jsx: (
       <Calendar
         value={value1}
         onChange={setValue1}
-        plugins={[<TimePicker />]}
+        plugins={[
+          <TimePicker position={language === "en" ? "right" : "left"} />,
+        ]}
         className="bg-dark red"
+        {...otherProps}
       />
     ),
   };
@@ -90,9 +98,26 @@ const [value, setValue] = useState(new Date());
         value={value2}
         onChange={setValue2}
         plugins={[<TimePicker position="bottom" />]}
+        {...otherProps}
       />
     ),
   };
 
-  return [timePicker, darkRed, bottom];
+  const onlyTimePicker = {
+    title: "Only Analog Time Picker",
+    code: `import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
+.
+.
+.
+<DatePicker 
+  disableDayPicker 
+  plugins={[<TimePicker />]} 
+/>`,
+    jsx: (
+      <DatePicker disableDayPicker plugins={[<TimePicker />]} {...otherProps} />
+    ),
+  };
+
+  return [timePicker, darkRed, bottom, onlyTimePicker];
 }

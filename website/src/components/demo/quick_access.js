@@ -884,7 +884,7 @@ const list = [
         path: "plugins/analog-time-picker/",
         list: [
           {
-            name: "Default Time Picker",
+            name: "Default Analog Time Picker",
             path: "plugins/analog-time-picker/#default-time-picker",
           },
           {
@@ -894,6 +894,10 @@ const list = [
           {
             name: "Position Bottom",
             path: "plugins/analog-time-picker/#position-bottom",
+          },
+          {
+            name: "Only Analog Time Picker",
+            path: "plugins/analog-time-picker/#only-analog-time-picker",
           },
         ],
       },

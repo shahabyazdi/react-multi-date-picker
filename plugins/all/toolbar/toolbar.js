@@ -12,7 +12,8 @@ export default function Toolbar({
   className,
   names,
   sort = ["today", "deselect", "close"],
-  handleFocusDate,
+  handleFocusedDate,
+  DatePicker,
   ...props
 }) {
   let { locale, range, multiple } = state,
@@ -34,8 +35,8 @@ export default function Toolbar({
             {localeName.deselect}
           </div>
         ),
-        close: calendarProps.datePickerRef && (
-          <div key={index} onClick={close}>
+        close: DatePicker && (
+          <div key={index} onClick={() => DatePicker.closeCalendar()}>
             {localeName.close}
           </div>
         ),
@@ -72,17 +73,13 @@ export default function Toolbar({
     }
 
     handleChange(selectedDate, { ...state, selectedDate });
-    handleFocusDate(today);
+    handleFocusedDate(today);
   }
 
   function deselect() {
     let selectedDate = range || multiple ? [] : null;
 
     handleChange(selectedDate, { ...state, selectedDate });
-    handleFocusDate();
-  }
-
-  function close() {
-    calendarProps.datePickerRef.current.closeCalendar();
+    handleFocusedDate();
   }
 }

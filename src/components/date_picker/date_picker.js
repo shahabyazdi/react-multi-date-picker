@@ -416,7 +416,7 @@ function DatePicker(
           popper.style.visibility = "visible";
           popper.style.transform = "";
         }}
-        datePickerRef={datePickerRef}
+        DatePicker={datePickerRef.current}
         datePickerProps={datePickerProps}
         {...otherProps}
       >

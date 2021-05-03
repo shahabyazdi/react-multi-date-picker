@@ -22,8 +22,9 @@ export function getValidProps({
   handleChange,
   nodes,
   Calendar,
+  DatePicker,
   handlePropsChange,
-  handleFocusDate,
+  handleFocusedDate,
   ...otherProps
 }) {
   return otherProps;

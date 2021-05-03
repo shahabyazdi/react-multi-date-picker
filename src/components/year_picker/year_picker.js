@@ -7,7 +7,7 @@ export default function YearPicker({
   setState,
   onChange,
   sort,
-  handleFocusDate,
+  handleFocusedDate,
 }) {
   const {
       date,
@@ -101,7 +101,7 @@ export default function YearPicker({
       year: state.year,
     });
 
-    if (onlyYearPicker) handleFocusDate(focused, date);
+    if (onlyYearPicker) handleFocusedDate(focused, date);
   }
 
   function getClassName(year) {

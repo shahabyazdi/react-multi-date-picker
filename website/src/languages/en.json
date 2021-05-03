@@ -281,5 +281,13 @@
     "Clicking on any dates displayed on the DatePanel, will focus that date, so if you click on any date of DatePanel, the first argument (ie dateFocused) will be same as the clicked date.",
     "If user delete an unfocused date through the dates panel, the first argument is the same as the previous focused date.",
     "If user delete an focused date through the dates panel, the first argument is also undefined."
+  ],
+  "default_analog_time_picker": [
+    "Like the TimePicker plugin, the AnalogTimePicker can be used in single, multiple, and range modes.",
+    "Here is an example of how to use analog time picker in single mode."
+  ],
+  "red_clock": [
+    "To reduce the size of this plugin, I put each color in a separate CSS file.",
+    "Therefore, to change the color of the analog clock in red, green, purple, etc., you must import the analog clock CSS file next to the original CSS color files, as in the example below."
   ]
 }

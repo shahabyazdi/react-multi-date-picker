@@ -13,7 +13,7 @@ export default function DayPicker({
   numberOfMonths,
   isRTL,
   weekStartDayIndex,
-  handleFocusDate,
+  handleFocusedDate,
 }) {
   const ref = useRef({}),
     {
@@ -164,7 +164,7 @@ export default function DayPicker({
       selectedDate,
     });
 
-    handleFocusDate(focused, dateObject);
+    handleFocusedDate(focused, dateObject);
   }
 
   function getClassName(object, numberOfMonths) {

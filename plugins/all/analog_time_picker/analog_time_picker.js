@@ -19,7 +19,7 @@ export default function AnalogTimePicker({
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
     availbleDate;
-  console.log(disableDayPicker);
+
   if (multiple || range) {
     availbleDate = focused || date;
   } else {
