@@ -114,6 +114,10 @@ const list = [
         path: "date-object/#current-moment",
       },
       {
+        name: "Adding / Subtracting Time From Original Moment",
+        path: "date-object/#adding-/-subtracting-time-from-original-moment",
+      },
+      {
         name: "Persian Calendar (Solar Hijri)",
         path: "date-object/#persian-calendar-(solar-hijri)",
       },
@@ -208,7 +212,7 @@ const list = [
     path: "range/",
     list: [
       {
-        name: "Range Mode",
+        name: "Range Picker",
         path: "range/#range-mode",
       },
       {
@@ -876,6 +880,28 @@ const list = [
           {
             name: "Using TimePicker in Range Mode",
             path: "plugins/time-picker/#using-timepicker-in-multiple-mode",
+          },
+        ],
+      },
+      {
+        name: "Analog Time Picker",
+        path: "plugins/analog-time-picker/",
+        list: [
+          {
+            name: "Default Analog Time Picker",
+            path: "plugins/analog-time-picker/#default-time-picker",
+          },
+          {
+            name: "Color & Background",
+            path: "plugins/analog-time-picker/#color-&-background",
+          },
+          {
+            name: "Position Bottom",
+            path: "plugins/analog-time-picker/#position-bottom",
+          },
+          {
+            name: "Only Analog Time Picker",
+            path: "plugins/analog-time-picker/#only-analog-time-picker",
           },
         ],
       },

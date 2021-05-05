@@ -1,0 +1,18 @@
+.teal .rmdp-analog-clock {
+  background-color: #1de9b6;
+  border: 5px solid #00695c;
+}
+
+.teal .rmdp-analog-clock .dial-lines {
+  background-color: #4db6ac;
+}
+
+.teal .rmdp-analog-clock .dial-lines:nth-of-type(5n) {
+  width: 3px;
+  height: 8px;
+  background-color: #00796b;
+}
+
+.teal .rmdp-analog-clock .rmdp-second {
+  background-color: #00695c;
+}

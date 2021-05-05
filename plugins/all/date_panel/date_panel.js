@@ -20,7 +20,7 @@ export default function DatePanel({
   header,
   markFocused,
   focusedClassName = "",
-  handleFocusDate,
+  handleFocusedDate,
   ...props
 }) {
   let headers = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
@@ -158,7 +158,7 @@ export default function DatePanel({
       focused: state.selectedDate[index],
     });
 
-    handleFocusDate(state.selectedDate[index]);
+    handleFocusedDate(state.selectedDate[index]);
   }
 
   function deSelect(index) {
@@ -179,7 +179,7 @@ export default function DatePanel({
     });
 
     handleClick();
-    handleFocusDate(focused);
+    handleFocusedDate(focused);
   }
 
   function handleClick(date) {

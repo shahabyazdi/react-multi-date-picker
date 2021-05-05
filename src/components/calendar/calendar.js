@@ -240,9 +240,9 @@ function Calendar(
       setState,
       onChange: handleChange,
       sort,
-      handleFocusDate,
+      handleFocusedDate,
     },
-    { datePickerProps, ...calendarProps } = arguments[0];
+    { datePickerProps, DatePicker, ...calendarProps } = arguments[0];
 
   initPlugins();
 
@@ -347,9 +347,10 @@ function Calendar(
           handleChange,
           nodes,
           Calendar: ref.current.Calendar,
+          DatePicker,
           handlePropsChange,
           //removing other arguments if exist.
-          handleFocusDate: (date) => handleFocusDate(date),
+          handleFocusedDate: (date) => handleFocusedDate(date),
         })
       );
     });
@@ -382,7 +383,7 @@ function Calendar(
     }
   }
 
-  function handleFocusDate(focused, clicked) {
+  function handleFocusedDate(focused, clicked) {
     if (onFocusedDateChange instanceof Function) {
       onFocusedDateChange(focused, clicked);
     }

@@ -3,6 +3,7 @@ import Selectors from "../selectors/selectors";
 import DatePicker, { Calendar, DateObject } from "../../../../build/index";
 import DatePanel from "../../../../plugins/date_panel";
 import TimePicker from "../../../../plugins/time_picker";
+import AnalogTimePicker from "../../../../plugins/analog_time_picker";
 import { Link } from "gatsby";
 import "./demo.css";
 import list from "./quick_access";
@@ -28,6 +29,8 @@ export default function Demo({ language = "en", translate }) {
     range,
     $timePicker,
     $onlyTimePicker,
+    $analogTimePicker,
+    $onlyAnalogTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
     layout,
@@ -58,11 +61,11 @@ export default function Demo({ language = "en", translate }) {
     fixMainPosition: true,
     weekStartDayIndex,
     format:
-      (multiple || range) && !$timePicker
+      (multiple || range) && !$timePicker && !$analogTimePicker
         ? undefined
-        : $timePicker
+        : $timePicker || $analogTimePicker
         ? "YYYY/MM/DD HH:mm:ss"
-        : $onlyTimePicker
+        : $onlyTimePicker || $onlyAnalogTimePicker
         ? "HH:mm:ss"
         : undefined,
     plugins: [
@@ -74,7 +77,7 @@ export default function Demo({ language = "en", translate }) {
           ((multiple || range) && !mustShowDates) ||
           numberOfMonths > 1
         }
-        markFocused={(multiple || range) && $timePicker}
+        markFocused={(multiple || range) && ($timePicker || $analogTimePicker)}
       />,
       <TimePicker
         position="bottom"
@@ -82,6 +85,19 @@ export default function Demo({ language = "en", translate }) {
       />,
     ],
   };
+
+  const analogTimePicker = (
+    <AnalogTimePicker
+      position={language === "en" ? "right" : "left"}
+      disabled={!$analogTimePicker && !$onlyAnalogTimePicker}
+    />
+  );
+
+  if (language === "fa") {
+    props.plugins.push(analogTimePicker);
+  } else {
+    props.plugins.unshift(analogTimePicker);
+  }
 
   return (
     <>
@@ -152,18 +168,25 @@ export default function Demo({ language = "en", translate }) {
                 ["Disable", "disable"],
                 ["Time Picker", "$timePicker"],
                 ["Only Time Picker", "$onlyTimePicker"],
+                ["Analog Time Picker", "$analogTimePicker"],
+                ["Only Analog Time Picker", "$onlyAnalogTimePicker"],
                 ["Only Month Picker", "onlyMonthPicker"],
                 ["Only Year Picker", "onlyYearPicker"],
               ].filter(([text, value]) => {
                 if (!multiple && !range) {
                   return true;
                 } else {
-                  return value !== "$onlyTimePicker";
+                  return (
+                    value !== "$onlyTimePicker" &&
+                    value !== "$onlyAnalogTimePicker"
+                  );
                 }
               }),
               value:
                 !$timePicker &&
                 !$onlyTimePicker &&
+                !$analogTimePicker &&
+                !$onlyAnalogTimePicker &&
                 !onlyMonthPicker &&
                 !onlyYearPicker
                   ? "disable"
@@ -171,6 +194,10 @@ export default function Demo({ language = "en", translate }) {
                   ? "$timePicker"
                   : $onlyTimePicker
                   ? "$onlyTimePicker"
+                  : $analogTimePicker
+                  ? "$analogTimePicker"
+                  : $onlyAnalogTimePicker
+                  ? "$onlyAnalogTimePicker"
                   : onlyMonthPicker
                   ? "onlyMonthPicker"
                   : "onlyYearPicker",
@@ -178,14 +205,23 @@ export default function Demo({ language = "en", translate }) {
                 updateState({
                   $timePicker: false,
                   $onlyTimePicker: false,
+                  $analogTimePicker: false,
+                  $onlyAnalogTimePicker: false,
                   onlyMonthPicker: false,
                   onlyYearPicker: false,
-                  disableDayPicker: picker === "$onlyTimePicker",
+                  disableDayPicker:
+                    picker === "$onlyTimePicker" ||
+                    picker === "$onlyAnalogTimePicker",
                   [picker]: true,
                 }),
             },
             {
               title: "Number Of Months",
+              disabled:
+                $onlyTimePicker ||
+                $onlyAnalogTimePicker ||
+                onlyMonthPicker ||
+                onlyYearPicker,
               options: [
                 ["1", 1],
                 ["2", 2],
@@ -219,7 +255,8 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "DatePanel Position",
-              disabled: (!range && !multiple) || numberOfMonths > 1,
+              disabled:
+                (!range && !multiple) || numberOfMonths > 1 || !mustShowDates,
               options: [
                 ["Left", "left"],
                 ["Right", "right"],

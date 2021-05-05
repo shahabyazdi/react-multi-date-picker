@@ -13,7 +13,7 @@ export default function DayPicker({
   numberOfMonths,
   isRTL,
   weekStartDayIndex,
-  handleFocusDate,
+  handleFocusedDate,
 }) {
   const ref = useRef({}),
     {
@@ -164,12 +164,12 @@ export default function DayPicker({
       selectedDate,
     });
 
-    handleFocusDate(focused, dateObject);
+    handleFocusedDate(focused, dateObject);
   }
 
   function getClassName(object, numberOfMonths) {
     let names = ["rmdp-day"],
-      { date, hidden, current, disabled } = object;
+      { date, hidden, current } = object;
 
     if (!mustDisplayDay(object) || hidden) {
       names.push("rmdp-day-hidden");
@@ -177,11 +177,11 @@ export default function DayPicker({
       if (
         (minDate && date < minDate) ||
         (maxDate && date > maxDate) ||
-        disabled
+        object.disabled
       ) {
         names.push("rmdp-disabled");
 
-        if (!disabled) object.disabled = true;
+        if (!object.disabled) object.disabled = true;
       }
 
       if (!current) names.push("rmdp-deactive");
@@ -189,14 +189,14 @@ export default function DayPicker({
       let mustDisplaySelectedDate =
         (numberOfMonths > 1 && current) || numberOfMonths === 1;
 
-      if (!disabled || (disabled && !onlyShowInRangeDates)) {
+      if (!object.disabled || !onlyShowInRangeDates) {
         if (isSameDate(date, today)) names.push("rmdp-today");
         if (isSelected(date) && mustDisplaySelectedDate && !range) {
           names.push("rmdp-selected");
         }
       }
 
-      if (range && !disabled && mustDisplaySelectedDate) {
+      if (range && !object.disabled && mustDisplaySelectedDate) {
         names.push(getRangeClass(date, selectedDate));
       }
     }
@@ -217,8 +217,7 @@ export default function DayPicker({
       isSameDate,
     });
 
-    if (!otherProps || (otherProps && otherProps.constructor !== Object))
-      otherProps = {};
+    if (!otherProps || otherProps.constructor !== Object) otherProps = {};
 
     if (otherProps.disabled || otherProps.hidden) object.disabled = true;
     if (otherProps.hidden) object.hidden = true;

@@ -20,7 +20,7 @@ You can change the appearance of the datepicker to `prime` or `mobile` by import
 Ability to further customize the calendar and datepicker by adding one or more plugins.
 
 <div align="center">
-  <img src="https://github.com/shahabyazdi/react-multi-date-picker/blob/master/screenshot/plugins.jpg?raw=true" height="350" alt="date picker plugins all in one"/>
+  <img src="https://github.com/shahabyazdi/react-multi-date-picker/blob/master/screenshot/plugins.jpg?raw=true" alt="date picker plugins all in one"/>
 </div>
 
 ## Installation
@@ -40,6 +40,7 @@ npm install --save react-multi-date-picker
 
   - [Date Panel](https://shahabyazdi.github.io/react-multi-date-picker/plugins/panel/)
   - [Multiple Time Picker](https://shahabyazdi.github.io/react-multi-date-picker/plugins/time-picker/)
+  - [Analog Time Picker](https://shahabyazdi.github.io/react-multi-date-picker/plugins/analog-time-picker/)
   - [Toolbar](https://shahabyazdi.github.io/react-multi-date-picker/plugins/toolbar/)
   - [Range Picker Footer](https://shahabyazdi.github.io/react-multi-date-picker/plugins/range-picker-footer/)
 

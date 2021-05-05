@@ -106,6 +106,7 @@ export default [
     "toolbar",
     "weekends",
     "time_picker",
+    "analog_time_picker",
     "range_picker_footer",
   ].map((path) => {
     let name = path

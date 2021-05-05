@@ -21,8 +21,8 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
     console.warn(
       [
         picker + " is deprecated and will not available in the next versions.",
-        "Use TimePicker plugin instead",
-      ].join("\b")
+        "Use TimePicker plugin instead.",
+      ].join("\n")
     );
   }
 
@@ -56,44 +56,15 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
       }`}
       style={{ direction: "ltr" }}
     >
-      <div>
-        <Arrow direction="rmdp-up" onClick={() => changeValue("hour", 1)} />
-        <Input
-          value={getHours()}
-          onChange={handleChange}
+      {["hour", "minute", "second"].map((name, index) => (
+        <Button
+          key={index}
+          name={name}
+          value={getValue(name)}
+          update={update}
           digits={date.digits}
-          name="hour"
         />
-        <Arrow direction="rmdp-down" onClick={() => changeValue("hour", -1)} />
-      </div>
-      <span className="dvdr">:</span>
-      <div>
-        <Arrow direction="rmdp-up" onClick={() => changeValue("minute", 1)} />
-        <Input
-          value={getMinutes()}
-          onChange={handleChange}
-          digits={date.digits}
-          name="minute"
-        />
-        <Arrow
-          direction="rmdp-down"
-          onClick={() => changeValue("minute", -1)}
-        />
-      </div>
-      <span className="dvdr">:</span>
-      <div>
-        <Arrow direction="rmdp-up" onClick={() => changeValue("second", 1)} />
-        <Input
-          value={getSeconds()}
-          onChange={handleChange}
-          digits={date.digits}
-          name="second"
-        />
-        <Arrow
-          direction="rmdp-down"
-          onClick={() => changeValue("second", -1)}
-        />
-      </div>
+      ))}
       <div style={getStyle()}>
         <Arrow direction="rmdp-up" onClick={toggleMeridiem} />
         <div className="rmdp-am">
@@ -106,21 +77,19 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
     </div>
   ) : null;
 
-  function handleChange(key, value) {
-    selectedDate[key] = value;
+  function update(key, value) {
+    if (selectedDate) selectedDate[key] = value;
 
-    setDate(selectedDate);
+    setDate();
   }
 
-  function changeValue(key, value) {
-    if (!selectedDate) selectedDate = new DateObject(date);
+  function toggleMeridiem() {
+    selectedDate.hour += selectedDate.hour < 12 ? 12 : -12;
 
-    selectedDate[key] += Number(value);
-
-    setDate(selectedDate);
+    setDate();
   }
 
-  function setDate(selectedDate) {
+  function setDate() {
     onChange(selectedDate, {
       ...state,
       selectedDate,
@@ -128,28 +97,10 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
     });
   }
 
-  function toggleMeridiem() {
-    selectedDate.hour += selectedDate.hour < 12 ? 12 : -12;
+  function getValue(key) {
+    if (!availbleDate[key]) availbleDate[key] = 0;
 
-    setDate(selectedDate);
-  }
-
-  function getHours() {
-    if (!availbleDate.hour) availbleDate.hour = 0;
-
-    return availbleDate.format(mustDisplayMeridiem ? "hh" : "HH");
-  }
-
-  function getMinutes() {
-    if (!availbleDate.minute) availbleDate.minute = 0;
-
-    return availbleDate.format("mm");
-  }
-
-  function getSeconds() {
-    if (!availbleDate.second) availbleDate.second = 0;
-
-    return availbleDate.format("ss");
+    return availbleDate[key];
   }
 
   function getStyle() {
@@ -157,4 +108,17 @@ export default function TimePicker({ state, onChange, formattingIgnoreList }) {
       display: mustDisplayMeridiem ? "flex" : "none",
     };
   }
+}
+
+function Button({ name, value, update, digits }) {
+  return (
+    <>
+      <div>
+        <Arrow direction="rmdp-up" onClick={() => update(name, value + 1)} />
+        <Input value={value} onChange={update} digits={digits} name={name} />
+        <Arrow direction="rmdp-down" onClick={() => update(name, value - 1)} />
+      </div>
+      {name !== "second" && <span className="dvdr">:</span>}
+    </>
+  );
 }
