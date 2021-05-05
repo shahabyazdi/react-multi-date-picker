@@ -77,7 +77,7 @@ export default function Demo({ language = "en", translate }) {
           ((multiple || range) && !mustShowDates) ||
           numberOfMonths > 1
         }
-        markFocused={(multiple || range) && $timePicker}
+        markFocused={(multiple || range) && ($timePicker || $analogTimePicker)}
       />,
       <TimePicker
         position="bottom"
@@ -217,6 +217,11 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Number Of Months",
+              disabled:
+                $onlyTimePicker ||
+                $onlyAnalogTimePicker ||
+                onlyMonthPicker ||
+                onlyYearPicker,
               options: [
                 ["1", 1],
                 ["2", 2],
@@ -250,7 +255,8 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "DatePanel Position",
-              disabled: (!range && !multiple) || numberOfMonths > 1,
+              disabled:
+                (!range && !multiple) || numberOfMonths > 1 || !mustShowDates,
               options: [
                 ["Left", "left"],
                 ["Right", "right"],

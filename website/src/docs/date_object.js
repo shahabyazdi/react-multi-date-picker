@@ -69,6 +69,82 @@ console.log(date.format()); //2021/03/31`}
     ),
   };
 
+  const addSubtract = {
+    title: "Adding / Subtracting Time From Original Moment",
+    description: (
+      <>
+        {translate("add_subtract").map((text, index) => (
+          <p key={index}>{text}</p>
+        ))}
+
+        <table>
+          <thead>
+            <tr>
+              <th colSpan="3">{translate("Keys")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>years</td>
+              <td>year</td>
+              <td>y</td>
+            </tr>
+            <tr>
+              <td>months</td>
+              <td>month</td>
+              <td>M</td>
+            </tr>
+            <tr>
+              <td>days</td>
+              <td>day</td>
+              <td>d</td>
+            </tr>
+            <tr>
+              <td>hours</td>
+              <td>hour</td>
+              <td>h</td>
+            </tr>
+            <tr>
+              <td>minutes</td>
+              <td>minute</td>
+              <td>m</td>
+            </tr>
+            <tr>
+              <td>seconds</td>
+              <td>second</td>
+              <td>s</td>
+            </tr>
+            <tr>
+              <td>milliseconds</td>
+              <td>millisecond</td>
+              <td>ms</td>
+            </tr>
+          </tbody>
+        </table>
+        <Code title="add_subtract_1">
+          {`const date = new DateObject() //2021/03/02
+
+date.add(5, "days");
+
+console.log(date.format()); //2021/03/07`}
+        </Code>
+        <Code title="add_subtract_2">
+          {`date.subtract(1, "month"); 
+
+console.log(date.format()); //2021/02/07`}
+        </Code>
+        <Code title="add_subtract_3">
+          {`console.log(
+  new DateObject()
+    .add(5, "days")
+    .subtract(1, "month")
+    .format()
+); //2021/02/07`}
+        </Code>
+      </>
+    ),
+  };
+
   const persian = {
     title: "Persian Calendar (Solar Hijri)",
     description: translate("persian_1"),
@@ -396,6 +472,7 @@ console.log(date.format()) //1399/10/05`,
   return [
     description,
     current,
+    addSubtract,
     persian,
     arabic,
     indian,

@@ -19,7 +19,7 @@ export default function RangeMode(translate, language, otherProps) {
   const [allDates, setAllDates] = useState([]);
 
   const range = {
-    title: "Range Mode",
+    title: "Range Picker",
     description: "range_mode",
     code: `const [values, setValues] = useState([
   new DateObject(${

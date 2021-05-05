@@ -72,7 +72,7 @@ function handleChange(value){
             <p>{translate("important_note_description_part_7")}</p>
             <pre>
               <code className="language-jsx">
-                {`const [value, setValue] = useState(new Date())
+                {`let [value, setValue] = useState(new Date())
 .
 .
 .

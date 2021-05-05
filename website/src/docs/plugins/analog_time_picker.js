@@ -112,10 +112,16 @@ import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
 .
 <DatePicker 
   disableDayPicker 
+  format="HH:mm:ss"
   plugins={[<TimePicker />]} 
 />`,
     jsx: (
-      <DatePicker disableDayPicker plugins={[<TimePicker />]} {...otherProps} />
+      <DatePicker
+        disableDayPicker
+        format="HH:mm:ss"
+        plugins={[<TimePicker />]}
+        {...otherProps}
+      />
     ),
   };
 

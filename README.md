@@ -40,6 +40,7 @@ npm install --save react-multi-date-picker
 
   - [Date Panel](https://shahabyazdi.github.io/react-multi-date-picker/plugins/panel/)
   - [Multiple Time Picker](https://shahabyazdi.github.io/react-multi-date-picker/plugins/time-picker/)
+  - [Analog Time Picker](https://shahabyazdi.github.io/react-multi-date-picker/plugins/analog-time-picker/)
   - [Toolbar](https://shahabyazdi.github.io/react-multi-date-picker/plugins/toolbar/)
   - [Range Picker Footer](https://shahabyazdi.github.io/react-multi-date-picker/plugins/range-picker-footer/)
 

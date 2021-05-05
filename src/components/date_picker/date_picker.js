@@ -196,6 +196,17 @@ function DatePicker(
     ref.current = { ...ref.current, date, separator };
 
     setDate(date);
+
+    if (type === "input-icon") {
+      let input = inputRef.current,
+        icon = input?.parentNode?.querySelector?.(".rmdp-input-icon"),
+        height = input?.clientHeight - 5 + "px";
+
+      if (icon) {
+        icon.style.height = height;
+        icon.style.width = height;
+      }
+    }
   }, [
     value,
     calendar,
@@ -335,8 +346,6 @@ function DatePicker(
           </div>
         );
       default:
-        let height = inputRef.current?.clientHeight || 22;
-
         return (
           <div style={{ position: "relative" }}>
             <input
@@ -359,8 +368,8 @@ function DatePicker(
             {type === "input-icon" && (
               <IconCalendarEvent
                 className="rmdp-input-icon"
-                height={height - 5}
-                width={height - 5}
+                height={20}
+                width={20}
                 style={{
                   [["fa", "ar"].includes(locale) ? "left" : "right"]: "2.5px",
                   top: "50%",
@@ -491,10 +500,7 @@ function DatePicker(
         ignoreList: JSON.parse(formattingIgnoreList),
       });
 
-      if (
-        (!minDate || (minDate && date > minDate)) &&
-        (!maxDate || (maxDate && date < maxDate))
-      ) {
+      if ((!minDate || date > minDate) && (!maxDate || date < maxDate)) {
         handleChange(date, isMobileMode);
 
         ref.current.date = date;
@@ -503,9 +509,9 @@ function DatePicker(
 
     if (isMobileMode && input) input.blur();
 
-    if (input || (!input && !isVisible)) {
+    if (input || !isVisible) {
       setIsVisible(true);
-    } else if (!input && isVisible) {
+    } else if (isVisible) {
       closeCalendar();
     }
   }

@@ -114,6 +114,10 @@ const list = [
         path: "date-object/#current-moment",
       },
       {
+        name: "Adding / Subtracting Time From Original Moment",
+        path: "date-object/#adding-/-subtracting-time-from-original-moment",
+      },
+      {
         name: "Persian Calendar (Solar Hijri)",
         path: "date-object/#persian-calendar-(solar-hijri)",
       },
@@ -208,7 +212,7 @@ const list = [
     path: "range/",
     list: [
       {
-        name: "Range Mode",
+        name: "Range Picker",
         path: "range/#range-mode",
       },
       {

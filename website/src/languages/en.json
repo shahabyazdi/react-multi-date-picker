@@ -4,6 +4,7 @@
     "In Multiple or Range Picker modes, 'Only Time Picker' is disabled.",
     "In this page, the number of months is limited to maximum 3, but you can consider any number for it.",
     "First Day Of Week is disabled in Only Time Picker, Only Year Picker & Only Month Picker ",
+    "Number Of Months is disabled in Only Time Picker, Only Analog Time Picker, Only Month Picker & Only Year Picker",
     "Calendar position and animation are activated when the type is anything other than Calendar (input, button, ...)."
   ],
   "Fa": "Farsi",
@@ -289,5 +290,14 @@
   "red_clock": [
     "To reduce the size of this plugin, I put each color in a separate CSS file.",
     "Therefore, to change the color of the analog clock in red, green, purple, etc., you must import the analog clock CSS file next to the original CSS color files, as in the example below."
-  ]
+  ],
+  "add_subtract": [
+    "Depending on the increase or decrease of time from the original moment, add or subtract methods can be used.",
+    "So you have to pass two parameters of value and key to these methods.",
+    "Type of value can be a number or string and type of key must be a string.",
+    "All the keys that can be passed as the second parameter are listed in the table below."
+  ],
+  "add_subtract_1": "For example, to add 5 days to the present moment, you can do the following:",
+  "add_subtract_2": "Subtracting 1 month from the above date",
+  "add_subtract_3": "You can also do all these operations continuously:"
 }
