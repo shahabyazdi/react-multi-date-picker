@@ -70,7 +70,6 @@ module.exports = {
   flags: {
     DEV_SSR: false,
     FAST_DEV: false,
-    PRESERVE_WEBPACK_CACHE: false,
     PRESERVE_FILE_DOWNLOAD_CACHE: false,
     PARALLEL_SOURCING: false,
     FUNCTIONS: false,
