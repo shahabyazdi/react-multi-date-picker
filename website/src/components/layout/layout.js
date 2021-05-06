@@ -75,6 +75,13 @@ const sidebar = {
     { name: "Time Picker", path: "plugins/time-picker/" },
     { name: "Analog Time Picker", path: "plugins/analog-time-picker/" },
     { name: "Range Picker Footer", path: "plugins/range-picker-footer/" },
+    { name: "Build Your Own Plugin", path: "plugins/docs/" },
+  ],
+  "plugins/docs": [
+    { name: "Home", path: "" },
+    { name: "Plugins", path: "plugins/" },
+    { name: "Build Your Own Plugin", path: "plugins/docs/" },
+    { name: "Default props table", path: "plugins/docs/props-table" },
   ],
 };
 

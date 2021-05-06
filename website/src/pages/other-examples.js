@@ -1,11 +1,9 @@
-import React from "react"
-import Layout from "../components/layout/layout"
-import otherExamples from "../docs/other_examples"
+import React from "react";
+import Layout from "../components/layout/layout";
+import doc from "../docs/other_examples";
 
 export default function OtherExamples({ pageContext }) {
-  const language = pageContext.language || "en"
+  const language = pageContext.language || "en";
 
-  return (
-    <Layout language={language} doc={otherExamples} />
-  )
+  return <Layout language={language} doc={doc} />;
 }

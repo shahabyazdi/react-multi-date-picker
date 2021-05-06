@@ -1,11 +1,9 @@
-import React from "react"
-import Layout from "../components/layout/layout"
-import minMax from "../docs/min_&_max_date.js"
+import React from "react";
+import Layout from "../components/layout/layout";
+import doc from "../docs/min_&_max_date.js";
 
 export default function MinMax({ pageContext }) {
-  const language = pageContext.language || "en"
+  const language = pageContext.language || "en";
 
-  return (
-    <Layout language={language} doc={minMax} />
-  )
+  return <Layout language={language} doc={doc} />;
 }

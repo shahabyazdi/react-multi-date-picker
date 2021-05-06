@@ -299,5 +299,19 @@
   ],
   "add_subtract_1": "For example, to add 5 days to the present moment, you can do the following:",
   "add_subtract_2": "Subtracting 1 month from the above date",
-  "add_subtract_3": "You can also do all these operations continuously:"
+  "add_subtract_3": "You can also do all these operations continuously:",
+  "plugins_doc": [
+    "Here I want to write a brief description of how to build a plugin.",
+    "Examples of plugins that I thought I needed are currently available on the site, but they certainly will not meet the needs of the majority, because it is possible that everyone in different working conditions will need a plugin that I did not put by default. So it is necessary to give a brief tutorial on this so that you do not need to read the source code of previous plugins.",
+    "Plugins are actually the usual React component that are placed in the position specified by the user, except that a series of properties are sent to them by default.",
+    "A description of these properties will be provided in a table in the future.",
+    "For now we want to write a simple React component and introduce it as a plugin to the Calendar:"
+  ],
+  "plugins_step_1": "As you can see, your plugin is displayed on the right side of the calendar like any other plugins.",
+  "plugins_step_2": "For further testing you can change the position of your plugin to bottom.",
+  "clone_steps": [
+    "git clone https://github.com/shahabyazdi/react-multi-date-picker.git",
+    "cd react-multi-date-picker",
+    "git checkout develop"
+  ]
 }

@@ -32,7 +32,7 @@ export default function DatePanel({
       selectedDate,
       date: { locale },
     } = state,
-    classNames = ["rmpd-panel", position, getBorderClass(position, nodes)];
+    classNames = ["rmdp-panel", position, getBorderClass(position, nodes)];
 
   if (multiple || (range && !eachDaysInRange)) {
     dates = (inRangeDates || selectedDate).map((date, index) => {
