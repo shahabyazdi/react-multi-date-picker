@@ -508,7 +508,7 @@ const list = [
         path: "ref/#descriptions",
       },
       {
-        name: "Opene & Close Calendar By DatePicker Ref",
+        name: "Open & Close Calendar By DatePicker Ref",
         path: "ref/#opene-&-close-calendar-by-datepicker-ref",
       },
       {

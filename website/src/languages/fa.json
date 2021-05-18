@@ -264,7 +264,7 @@
   "Months #2": "مشخص کردن نام ماه های دلخواه #2",
   "months_2": "به جای تایپ نام کوتاه ماه ها ، می توانید آنها را از DateObject استخراج کنید:",
   "Format Months & WeekDays": "فرمت کردن نام ماه ها و روز های هفته دلخواه",
-  "Opene & Close Calendar By DatePicker Ref": "باز و بسته کردن تقویم با استفاده از ref دیتپیکر",
+  "Open & Close Calendar By DatePicker Ref": "باز و بسته کردن تقویم با استفاده از ref دیتپیکر",
   "locale": [
     "برای دیدن نامهای سفارشی  خودتان در input دیت پیکر ، مانند مثال زیر عمل کنید. (این روش فقط برای DatePicker قابل استفاده است).",
     "* استایل ، formattingIgnoreList و فرمت اختیاری هستند."
