@@ -328,8 +328,8 @@ function Calendar(
           if (pluginPosition === position && i > index) nodes.bottom = true;
           if (pluginPosition === position && i < index) nodes.top = true;
         } else {
-          if (topClassName.includes("top")) nodes.top = true;
-          if (topClassName.includes("bottom")) nodes.bottom = true;
+          if (topClassName.includes("border-top")) nodes.top = true;
+          if (topClassName.includes("border-bottom")) nodes.bottom = true;
           if (pluginPosition === position && i > index) nodes.right = true;
           if (pluginPosition === position && i < index) nodes.left = true;
         }

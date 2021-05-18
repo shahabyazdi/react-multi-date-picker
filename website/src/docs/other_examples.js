@@ -28,7 +28,7 @@ export default function OtherExamples(translate, language, otherProps) {
       <>
         <p>
           {language === "en"
-            ? "The currentDate prop forces the datepicker & calendar to open in specific date."
+            ? "The currentDate prop forces the datepicker & calendar to open on a specific date."
             : "پراپرتی currentDate تقویم را مجبور به باز شدن در زمان تعیین شده میکند."}
         </p>
         <p>
