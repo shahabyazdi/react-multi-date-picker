@@ -47,7 +47,7 @@ export default function Example() {
   };
 
   const datePicker = {
-    title: "Opene & Close Calendar By DatePicker Ref",
+    title: "Open & Close Calendar By DatePicker Ref",
     description: "date_picker_ref",
     code: `const datePickerRef = useRef()
 .

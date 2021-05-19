@@ -1,9 +1,9 @@
 {
   "demo_descriptions": [
-    "The DatePanel & DatePanel Position is disabled by default and is activated when you switch to multiple or range mode & number of months is 1 (of course, these are the current settings that I applied, you can activate them in any cases).",
+    "The DatePanel & DatePanel Position is disabled by default and is activated when you switch to multiple or range mode & the number of months is 1 (of course, these are the current settings that I applied, you can activate them in any cases).",
     "In Multiple or Range Picker modes, 'Only Time Picker' is disabled.",
-    "In this page, the number of months is limited to maximum 3, but you can consider any number for it.",
-    "First Day Of Week is disabled in Only Time Picker, Only Year Picker & Only Month Picker ",
+    "On this page, the number of months is limited to a maximum of 3, but you can consider any number for it.",
+    "First Day Of Week is disabled in Only Time Picker, Only Year Picker & Only Month Picker",
     "Number Of Months is disabled in Only Time Picker, Only Analog Time Picker, Only Month Picker & Only Year Picker",
     "Calendar position and animation are activated when the type is anything other than Calendar (input, button, ...)."
   ],
@@ -18,38 +18,38 @@
   "yarn_description": "",
   "import_datepicker": "DatePicker",
   "import_calendar": "Calendar",
-  "important_note_description_part_1": "I wrote this component in the way the user could be able to use it with or without state .",
-  "important_note_description_part_2": "If you want to submit the user selected dates directly without modification or you don't want to define an initial value, you can use this component without storing dates in state.",
-  "important_note_description_part_3": "Example of using DatePicker without state :",
-  "important_note_description_part_4": "But If you want to modify the selected dates or you have an initial value, you need to use external state and store the user selected dates after modifying it in onChange function using setState.",
+  "important_note_description_part_1": "I wrote this component in a way the user could be able to use it with or without the state.",
+  "important_note_description_part_2": "If you want to submit the user-selected dates directly without modification or you don't want to define an initial value, you can use this component without storing dates in the state.",
+  "important_note_description_part_3": "Example of using DatePicker without the state :",
+  "important_note_description_part_4": "But If you want to modify the selected dates or you have an initial value, you need to use an external state and store the user-selected dates after modifying them in onChange function using setState.",
   "important_note_code_comment_1": "your modification on passed value ....",
-  "important_note_description_part_5": "The initial value can be Date, DateObject, Number or String, but as soon as the user selects a new date, its Type changes to DateObject.",
-  "important_note_description_part_6": "So in your submition form, if you want to convert the user selected date to JavaScript Date, you can easily use the toDate() method.",
-  "important_note_description_part_7": "The point needs to be mentioned about the toDate method is that if you defined an initial value with type of something other than DateObject and the form submission is done before the user selects a new date, then it means that your initial value still has not been converted to DateObject. so it is better to add a condition like the following in your submission event:",
-  "important_note_description_part_8": "If the value you enter to datepicker or calendar is String and the format of string is different from the default format (YYYY/MM/DD hh:mm:ss a), the format of that String must match the format you entered into the date picker. otherwise wrong date may be parse.",
+  "important_note_description_part_5": "The initial value can be Date, DateObject, Number, or String, but as soon as the user selects a new date, its Type changes to DateObject.",
+  "important_note_description_part_6": "So in your submission form, if you want to convert the user-selected date to JavaScript Date, you can easily use the toDate() method.",
+  "important_note_description_part_7": "The point that needs to be mentioned about the toDate method is that if you defined an initial value with a type of something other than DateObject and the form submission is done before the user selects a new date, then it means that your initial value still has not been converted to DateObject. so it is better to add a condition like the following in your submission event:",
+  "important_note_description_part_8": "If the value you enter to date picker or calendar is String and the format of the string is different from the default format (YYYY/MM/DD hh:mm:ss a), the format of that String must match the format you entered into the date picker. otherwise, the wrong date may be parse.",
   "important_note_description_part_9": "For example, if you consider 05/18/2020 02:20:36 as a value, the format you enter in the datepicker or calendar should also be as follows: MM/DD/YYYY HH:mm:ss",
   "dateobject": [
-    "This library is using DateObject to convert , parse and format date. click <a href='/react-multi-date-picker/date-object' target='_blank'>here</a> to see how it works.",
+    "This library is using DateObject to convert, parse, and format date. click <a href='/react-multi-date-picker/date-object' target='_blank'>here</a> to see how it works.",
     "<p style='color:red'>*Using DateObject as value is optional. You can ignore it.</p>",
     "to see more information about DateObject please click <a target='__blanck' href='https://github.com/shahabyazdi/react-date-object/'>here.</a>"
   ],
   "typescript": [
-    "As mentioned in the previous section, the initial value can be Date, DateObject, Number or String, but as soon as the user selects a new date, its type changes to DateObject.",
-    "So if you want to store the selected dates in state, depending on type of the initial value; You must add the initial value type plus Dateobject and Dateobject[] type, to useState:"
+    "As mentioned in the previous section, the initial value can be Date, DateObject, Number, or String, but as soon as the user selects a new date, its type changes to DateObject.",
+    "So, if you want to store the selected dates in the state, depending on the type of the initial value; You must add the initial value type plus DateObject and Dateobject[] type, to useState:"
   ],
   "calendars": "",
   "locales": "",
   "calendar_descriptions": "As you can see in the examples below, you can use any of these properties, either in DatePicker or Calendar:",
   "default_calendar": "Default Calendar",
   "calendar_example_persian": "Persian calendar with Farsi locale",
-  "persian_datepicker_description": "The defaut calendarPosition is bottom-left, so on pages with right to left direction, you can set the calendarPosition to bottom-right, for getting better results.",
+  "persian_datepicker_description": "The default calendarPosition is bottom-left, so on pages with a right to left direction, you can set the calendarPosition to bottom-right, for getting better results.",
   "calendar_example_arabic": "Arabic calendar with Arabic locale",
   "calendar_example_indian": "Indian calendar with Indian locale",
   "calendar_example_datepicker": "Persian datepicker with English locale",
   "multiple_mode": [
     "To enable multiple mode, you must set the multiple prop to true.",
-    "Just remember that in multiple mode and in the onChange method, instead of a specific date, you get an array of dates. if you have an initial values, put them in the array.",
-    "In this example, I put today and tomorrow in the array as an initial values."
+    "Just remember that in multiple mode and in the onChange method, instead of a specific date, you get an array of dates. if you have initial values, put them in the array.",
+    "In this example, I put today and tomorrow in the array as an initial value."
   ],
   "multiple_sort_example": "In this example, dates with different types are considered as an initial value and sorted using the sort prop.",
   "multiple_sort_comment": "unix time in milliseconds (August 21 2020)",
@@ -61,14 +61,14 @@
   "date_panel_range": "",
   "each_days_in_range": [
     "As you can see in the example above, in range mode, only the start and end dates are displayed in the date panel.",
-    "But if you want to see every single dates between the start and end date in the date panel, you can use the <b>eachDaysInRange</b> Prop.",
+    "But if you want to see every single date between the start and end date in the date panel, you can use the <b>eachDaysInRange</b> Prop.",
     "Similarly, in onChange, only the start and end dates are given, and if you want to have separate dates between the start and end dates, you can use the getAllDatesInRange function.",
     "Just keep in mind that enabling eachDaysInRange property in large ranges of dates may cause <b style='color:red'>slow rendering</b>, so it's a good idea to limit your DatePicker with minDate and maxDate.",
     "In the example below, the DatePicker is limited to the beginning and end of the current month."
   ],
   "multiple_months": [
     "Use numberOfMonths prop to set the number of months you want to display in the calendar.",
-    "This feature can be applied to datapiker or calendar in all single, multiple and range modes.",
+    "This feature can be applied to datepicker or calendar in all single, multiple, and range modes.",
     "Using disableMonthPicker and disableYearPicker is optional."
   ],
   "multiple_mode_description": "",
@@ -84,19 +84,19 @@
     "In this example, the mentioned object is logged in the console and you can view it by opening your browser console (Ctrl + Shift + i, in Chrome browser). "
   ],
   "min_max": [
-    "Type of min & max dates can be Date, DateObject, String or Number.",
-    "Here are some examples"
+    "Type of min & max dates can be Date, DateObject, String, or Number.",
+    "Here are some examples:"
   ],
   "on_change": [
     "The difference between onChange in this library and others is that type of its argument is sent as DateObject instead of Date.",
-    "You can easily convert it to Date with toDate() method."
+    "You can easily convert it to Date with the toDate() method."
   ],
-  "weekday": "The following 4 examples are used in case you want the names of months or week days be displayed only in the calendar.",
+  "weekday": "The following 4 examples are used in case you want the names of months or weekdays to be displayed only in the calendar.",
   "months": "Like the two examples above, you can enter your own values to display as the names of the months:",
   "months_2": "Instead of typing short names of months, you can extract them from the DateObject:",
   "locale": [
-    "Follow the example below to see the custom names in Datepicker input. (this option is only availble for DatePicker)",
-    "*format, formattingIgnoreList and style are optional"
+    "Follow the example below to see the custom names in Datepicker input. (this option is only available for DatePicker).",
+    "*format, formattingIgnoreList, and style are optional."
   ],
   "custom_input": "Use <b>handleValueChange</b> if you want to see changes in the calendar as the input value changes.",
   "multiple_range": [
@@ -107,31 +107,31 @@
   "map_days_description_2": "In general, this is how it works :",
   "map_days_description_3": "The object which is received as an argument, contains following properties :",
   "map_days_description_4": "The Date is being rendered",
-  "map_days_description_5": "according to the calendar mode (single, multiple or range) , type of selected date can be a DateObject or Array of DateObjects",
-  "map_days_description_6": "the month that the user has selected and is displayed in the calendars header. <span style='color:red'>(it can be diffrent from the month of selected date)</span>",
-  "map_days_description_7": "it returns the comparison between the day, month and year of two DateObjects.",
-  "map_days_description_8": "as you know you can destructure received object and pick each property that you want as follows :",
+  "map_days_description_5": "according to the calendar mode (single, multiple, or range), the type of selected date can be a DateObject or Array of DateObjects",
+  "map_days_description_6": "the month that the user has selected and is displayed in the calendars header. <span style='color:red'>(it can be different from the month of selected date)</span>",
+  "map_days_description_7": "it returns the comparison between the day, month, and year of two DateObjects.",
+  "map_days_description_8": "as you know you can destructure the received object and pick each property that you want as follows :",
   "map_days_description_9": "*Please note that none of the properties inside the object should be changed, as this will cause the calendar to malfunction.",
   "map_days_description_10": "For example, if we change the day of all the rendering dates to today, it will result in an unpleasant outcome.",
-  "map_days_description_11": "The Props you return can contains all the Props that a span element accepts, plus two other properties that I have added to them, which are:",
+  "map_days_description_11": "The Props you return can contain all the Props that a span element accepts, plus two other properties that I have added to them, which are:",
   "map_days_description_12": "Here are some examples of things that can be performed using mapDays:",
-  "map_days_weekends": "For convenience, the 'highlight highlight-red' class is included in css files, so you do not need to import it.",
+  "map_days_weekends": "For convenience, the 'highlight highlight-red' class is included in CSS files, so you do not need to import it.",
   "map_days_title": "In the example below the title has been added to today, yesterday and tomorrow.",
   "calendar_position_description": [
     "I have to say that adjusting the position of the calendar in the datepicker involved me so much that I had to write a <a href='https://github.com/shahabyazdi/react-element-popper' target='_blank'>separate library</a> for it! But I still can not claim that it works 100%, if you have a problem with the calendar position, you can open an issue <a href='https://github.com/shahabyazdi/react-element-popper/issues' target='_blank'>here</a>.",
-    "In the early versions, I used the relative position for the datepicker container, which is easy and does not require calculations, but gradually it became clear that the relative position dosen't work, it may be suitable for some layouts, but it dosen't work for complex layouts.",
+    "In the early versions, I used the relative position for the datepicker container, which is easy and does not require calculations, but gradually it became clear that the relative position doesn't work, it may be suitable for some layouts, but it doesn't work for complex layouts.",
     "For this reason, in later versions, I changed the position of the container to static, trying to determine the position of the calendar with JavaScript calculations. Computations became more and more complicated and I finally decided to transfer them all to Element Popper Library so that it could be used in other projects as well."
   ],
   "calendar_position": [
-    "The way of specifying the position of the calendar is that you have to define the two main and relative positions as 'main position-relative position' for the datepicker, the main position has been defined to specify where the calendar should be placed, which You can consider four up, down, left and right values. The relative position is also used to determine where the calendar should be in the main position. Which itself consists of three parts: start, center and end.",
+    "The way of specifying the position of the calendar is that you have to define the two main and relative positions as 'main position-relative position' for the datepicker, the main position has been defined to specify where the calendar should be placed, which You can consider four up, down, left and right values. The relative position is also used to determine where the calendar should be in the main position. Which itself consists of three parts: start, center, and end.",
     "there are all the values you can define for a datepicker as position below:"
   ],
   "important_points": [
     "The most important thing is that this library only tries to be in the position you specified! This is because the arrangement of the elements containing the date picker may be such that the calendar does not fit in that position, or the user may start scrolling or resizing the page, in which case the calendar position will change. Of course, you can force the date picker to show the calendar position exactly where you want it, in which case you should use the fixMainPosition and fixRelativePosition properties.",
     "Do not use margins and padding to create a space between the calendar and the input, and instead use the offsetY and offsetX properties.",
-    "As I said in the descriptions, the relative position dosen't work, so do not try to change the datepicker container position to relative with CSS or Style, because it will disrupt the calculations.",
+    "As I said in the descriptions, the relative position doesn't work, so do not try to change the datepicker container position to a relative with CSS or Style, because it will disrupt the calculations.",
     "Set the fixMainPosition to true to fix the main position and the fixRelativePosition to true to fix the relative position.",
-    "The default position of the calendar is optimized for left-to-right direction and its value is bottom-left, so for right-to-left directions that are used in Persian and Arabic languages, you need to use the bottom-right position.",
+    "The default position of the calendar is optimized for the left-to-right direction and its value is bottom-left, so for right-to-left directions that are used in Persian and Arabic languages, you need to use the bottom-right position.",
     "If you want to change the size of the input, please set the box-sizing of the input to border-box.",
     "If the date picker is inside the container with flex position, and flex-direction is column (like the example below), it is better to define the width for datepicker container.",
     "The offsetY value is applied when the main position is top or bottom, and the offsetX value is applied when the main position is left or right."
@@ -143,7 +143,7 @@
   "input_class_note": "Note that when you enter a new className, the default className is automatically removed.",
   "calendar_class": [
     "Remember that any value you enter as className, will be entered in the arrow at the same time.",
-    "since the calendar class is .rmdp-wrapper, use the .rmdp-wrapper.YOUR_CLASSNAME selector in css file so that the class you apply to the calendar does not interfere with the arrow."
+    "since the calendar class is .rmdp-wrapper, use the .rmdp-wrapper.YOUR_CLASSNAME selector in CSS file so that the class you apply to the calendar does not interfere with the arrow."
   ],
   "rmdp_meaning": "<b>rmdp</b> stands for react multi date picker. ",
   "ep_meaning": "<b>ep</b> stands for element popper. ",
@@ -153,9 +153,9 @@
   "custom_arrow": "Instead of using the default arrow, you can render your custom arrow in the date picker.",
   "forward_ref_description": "This library as a functional component, uses forwardRef for passing a ref through a component.",
   "date_picker_ref": [
-    "The openCalendar and closeCalendar functions are added to ref by datepicker, and the refreshPosition is added to ref by element popper.",
-    "The isOpen property is also added to ref by the datepicker.",
-    "If you want to manually open and close the calender, you can use the openCalendar and closeCalendar functions as follows."
+    "The openCalendar and closeCalendar functions are added to the ref by date picker, and the refreshPosition is added to the ref by element popper.",
+    "The isOpen property is also added to the ref by the datepicker.",
+    "If you want to manually open and close the calendar, you can use the openCalendar and closeCalendar functions as follows."
   ],
   "refresh_position": [
     "When the calendar may be open and the input position changes, the calendar position remains constant because the element-popper does not listen to the click events.",
@@ -168,44 +168,44 @@
   "disable_edit": "This feature only affects input in single mode.",
   "plugins": [
     "There are a few other features that I do not put them in the original datepicker file by default.",
-    "This is because maybe all users don't want to use them. So there is no reason to put them in the original file and increase the production bounde.",
-    "Another good thing about plugins is that you may want to add a feature to your datepicker that does not exist by default, so you can use this feature to add your own plugin to the datepicker.",
+    "This is because maybe all users don't want to use them. So there is no reason to put them in the original file and increase the main file.",
+    "Another good thing about plugins is that you may want to add a feature to your datepicker that does not exist by default, so you can use this feature to add your own plugin to the date picker.",
     "<b>Above Example Code :</b>"
   ],
   "plugins_usage_description": "Plugins Prop accepts an array of plugins, which the following two properties can be entered on each of them.",
   "plugins_usage": "This is the general way to add an imported plugin to Datepicker:",
   "date_object": [
-    "The DateObject is actually an ES6 class that I wrote to make it easier to work with a variety of calendars, so there is no need to import a separate library into the DatePicker for each calendar.",
+    "The DateObject is an ES6 class that I wrote to make it easier to work with a variety of calendars, so there is no need to import a separate library into the DatePicker for each calendar.",
     "This library can be used in the backend and frontend as well.",
-    "DateObject has a number of other options that make it much easier to work with date and time, and in this section I want to write about some of that most useful options."
+    "DateObject has several other options that make it much easier to work with date and time, and in this section, I want to write about some of the most useful options."
   ],
-  "gregorian_1": "You need to enter new DateObject() to generate an instance of DateObject. If you enter the above code without any constructor, you will get an object containing the current moment with Gregorian calendar and English locale, for example for today, which is 03/02/2021, if I define a new DateObject(), An object of this moment will be produced for me: ",
+  "gregorian_1": "You need to enter 'new DateObject()' to generate an instance of DateObject. If you enter the above code without any constructor, you will get an object containing the current moment with the Gregorian calendar and English locale, for example for today, which is 03/02/2021, if I define a new DateObject(), An object of this moment will be produced for me:",
   "gregorian_2": "Now you can format your date with the format method:",
   "gregorian_3": "Also, if you have a specific token, you can enter that token as a parameter in the format method:",
   "gregorian_4": "And if you use a value inside your tokens that you want to ignore, define those values as an array in the second parameter:",
-  "gregorian_5": "As you know, you can descructure this object and get the values you need from it:",
-  "gregorian_6": "In the same way you can destructure the name, shortName, number and index, from the value of the month & weekDay.",
+  "gregorian_5": "As you know, you can destructure this object and get the values you need from it:",
+  "gregorian_6": "In the same way, you can destructure the name, shortName, number, and index, from the value of the month & weekDay.",
   "gregorian_7": "If you want to move to the beginning or end of the month, use the toFirstOfMonth() and toLastOfMonth() methods.",
-  "persian_1": "If you want to generate current moment in calendars other than Gregorian, just insert an object with a calendar property equal to calendar you want, into the DateObject constructor:",
+  "persian_1": "If you want to generate current moment in calendars other than Gregorian, just insert an object with a calendar property equal to the calendar you want, into the DateObject constructor:",
   "string_1": "There are several ways to generate a date from a string:",
   "string_2": "You can insert that string directly into the DateObject constructor. For this purpose, you should pay attention to the following two items.",
-  "string_3": "If you enter the string directly, the date will be parse as the Gregorian calendar.",
-  "string_4": "The string must be enter with the following format: <b>year month day hour minute second millisecond meridiem</b> and you can replace the spaces with any character you want.",
-  "string_5": "If you want to parse a string with a specific format, you must insert that string and format into an object and passed it to the DateObject constructor.",
+  "string_3": "If you enter the string directly, the date will be parsed as the Gregorian calendar.",
+  "string_4": "The string must be entered with the following format: <b>year month day hour minute second millisecond meridiem</b> and you can replace the spaces with any character you want.",
+  "string_5": "If you want to parse a string with a specific format, you must insert that string and format, to an object, and passed it to the DateObject constructor.",
   "string_6": "If you want to parse your string on a calendar & locale other than Gregorian & English, you must add the value of that calendar & locale to your object.",
-  "unix_1": "If you visit <a href='https://www.unixtimestamp.com/' target='_blank'>here</a>, you can get the Unix timestamp of current moment.",
-  "unix_2": "The unix timestamp At the moment I am writing this, is 1614678083.",
+  "unix_1": "If you visit <a href='https://www.unixtimestamp.com/' target='_blank'>here</a>, you can get the Unix timestamp of the current moment.",
+  "unix_2": "The Unix timestamp At the moment I am writing this, is 1614678083.",
   "unix_3": "Just note that this value is in seconds and we have to multiply it by 1000 to convert it to milliseconds:",
   "unix_4": "You can also enter the value for the Gregorian calendar in this way:",
-  "unix_5": "If you want to know the unix value of each date, you must use the toUnix() method. For example, for the above variable, if we use the toUnix method, the same number will be printed for us again:",
-  "convert_1": "Use the convert method to convert any calendar to another calendars.",
+  "unix_5": "If you want to know the Unix value of each date, you must use the 'toUnix()' method. For example, for the above variable, if we use the toUnix() method, the same number will be printed for us again:",
+  "convert_1": "Use the convert method to convert any calendar to other calendars.",
   "table_1": "The setMonth method in JavaScript accepts the month index, but in DateObject you have to enter the month number.",
   "table_2": "You can also use the following methods to set the amount of time in DateObject:",
   "digits": [
     "You can use the digits Prop to replace your favorite digits with the default numbers.",
-    "In this example, the default digits are replaced with the Thai numbers."
+    "In this example, the default digits are replaced with Thai numbers."
   ],
-  "disable_buttons": "You can set the buttons prop to false to disable the navigate buttons.",
+  "disable_buttons": "You can set the buttons prop to false, to disable the navigation buttons.",
   "custom_buttons": [
     "You can render your favorite element instead of the default buttons.",
     "For this purpose, you can do one of the following methods:"
@@ -232,7 +232,7 @@
   "range_picker_footer": "This plugin is developed specifically for the Range Picker and does not work properly in other modes.",
   "time_picker": [
     "If you have upgraded from previous versions to version 2.6.0, you must have noticed the warning displayed on the console when using the internal time picker.",
-    "Internal TimePicker is going to removed from version 3.0.0 and above, because TimePicker is not used by everyone and removing it reduces the size of the main file by about 20%.",
+    "Internal TimePicker is going to be removed from version 3.0.0 and above, because TimePicker is not used by everyone and removing it reduces the size of the main file by about 20%.",
     "Also, with the changes I made in this plugin, you can now use the time picker in multiple and range modes, which the main time picker did not have this feature.",
     "<a href='/other-pickers'>Here</a> are a few examples of how to use the TimePicker plugin, so instead of rewriting them here, I will add two examples of adding time picker in multiple and range modes."
   ],
@@ -241,8 +241,8 @@
     "To determine which date is focused, you can use the <b>markFocused</b> property in the DatePanel."
   ],
   "focused": [
-    "Clicking on any date in the DatePanel will focus that date.",
-    "You can use the <b>markFocused</b> prop to better determine which date is focused. Also you can set a className for the focused date to further customize it."
+    "Clicking on any date in the DatePanel will focus on that date.",
+    "You can use the <b>markFocused</b> prop to better determine which date is focused. Also, you can set a className for the focused date to further customize it."
   ],
   "date_panel_note": "The important thing about the onClickDate property is that if a date is clicked, the value of that date will be sent as an argument in onClickDate, but if the delete button is clicked, onClickDate will still be called but with an <b>undefined</b> argument.",
   "focus_event_1": [
@@ -255,7 +255,7 @@
     "Which date is currently clicked."
   ],
   "focus_event_3": [
-    "The nature of the two is different from each other and are sent as two arguments to the listener you have specified.",
+    "The nature of the two is different from each other and is sent as two arguments to the listener you have specified.",
     "There are a few things to keep in mind about this property."
   ],
   "focus_event_4": [
@@ -266,26 +266,26 @@
   "focus_event_6": "Single & Range Modes:",
   "focus_event_7": [
     "Both arguments have the same type (DateObject).",
-    "This means that the date focused is same as the date clicked."
+    "This means that the date focused is the same as the date clicked."
   ],
   "focus_event_8": "Multiple Mode:",
   "focus_event_9": "As long as the user is selecting new dates, both arguments have the same type (DateObject).",
-  "focus_event_10": "This means that the date focused is same as the date clicked.",
+  "focus_event_10": "This means that the date focused is the same as the date clicked.",
   "focus_event_11": "But as soon as the user clicks on the date that already selected, The selected date is deleted and one of the following cases may occur:",
   "focus_event_12": [
-    "the date that is deleted is same as the focused date, in which case the first argument (ie dateFocused) is undefined and the second argument (ie dateClicked) is the clicked date.",
+    "the date that is deleted is the same as the focused date, in which case the first argument (ie dateFocused) is undefined and the second argument (ie dateClicked) is the clicked date.",
     "the deleted date is not the same as the focused date, in which case the first argument is the previous focused date, and the second argument is the current deleted date."
   ],
   "focus_event_13": "DatePanel:",
   "focus_event_14": [
-    "As plugin, the second argument is always undefined.",
-    "Clicking on any dates displayed on the DatePanel, will focus that date, so if you click on any date of DatePanel, the first argument (ie dateFocused) will be same as the clicked date.",
-    "If user delete an unfocused date through the dates panel, the first argument is the same as the previous focused date.",
-    "If user delete an focused date through the dates panel, the first argument is also undefined."
+    "As a plugin, the second argument is always undefined.",
+    "Clicking on any dates displayed on the DatePanel, will focus that date, so if you click on any date of DatePanel, the first argument (ie dateFocused) will be the same as the clicked date.",
+    "If the user deletes an unfocused date through the dates panel, the first argument is the same as the previous focused date.",
+    "If the user deletes a focused date through the dates panel, the first argument is also undefined."
   ],
   "default_analog_time_picker": [
     "Like the TimePicker plugin, the AnalogTimePicker can be used in single, multiple, and range modes.",
-    "Here is an example of how to use analog time picker in single mode."
+    "Here is an example of how to use an analog time picker in a single mode."
   ],
   "red_clock": [
     "To reduce the size of this plugin, I put each color in a separate CSS file.",
@@ -294,10 +294,40 @@
   "add_subtract": [
     "Depending on the increase or decrease of time from the original moment, add or subtract methods can be used.",
     "So you have to pass two parameters of value and key to these methods.",
-    "Type of value can be a number or string and type of key must be a string.",
+    "The type of value can be a number or string, and the type of key must be a string.",
     "All the keys that can be passed as the second parameter are listed in the table below."
   ],
   "add_subtract_1": "For example, to add 5 days to the present moment, you can do the following:",
   "add_subtract_2": "Subtracting 1 month from the above date",
-  "add_subtract_3": "You can also do all these operations continuously:"
+  "add_subtract_3": "You can also do all these operations continuously:",
+  "plugin_info": "The contents of this section are not yet complete and will be updated over time.",
+  "plugins_doc": [
+    "Here I want to write a brief description of how to build a plugin.",
+    "Examples of plugins that I thought I needed are currently available on the site, but they certainly will not meet the needs of the majority, because everyone in different working conditions may need a plugin that I did not put by default. So it is necessary to give a brief tutorial on this, so that you do not need to read the source code of previous plugins.",
+    "Plugins are actually the usual React component that are placed in the position specified by the user, except that a series of properties are sent to them by default.",
+    "A description of these properties will be provided in a table in the future.",
+    "For now, we want to write a simple React component and introduce it as a plugin to the Calendar:"
+  ],
+  "plugins_step_1": "As you can see, your plugin is displayed on the right side of the calendar like any other plugins.",
+  "plugins_step_2": "For further testing, you can change the position of your plugin to the bottom.",
+  "step_two": [
+    "The position of the plugin varies depending on whether the day picker is enabled or not.",
+    "For example, if plugins with different positions are entered into the calendar but the user activates the disableDayPicker property, the position of all plugins changes to the bottom.",
+    "In this example we modify the above component to write its position and test it in both default and disableDayPicker modes:"
+  ],
+  "calendar_datepicker_props": [
+    "Contain the HTML elements of the calendar and date picker, each of them is stored separately in its own ref.",
+    "For example, because the closeCalendar function is in the DatePicker ref. it can be used to closing the calendar from your plugin.",
+    "Just note that if the user uses your plugin in the Calendar instead of DatePicker, the DatePicker and datePickerProps will be undefined."
+  ],
+  "calendar_props_datepicker_props": [
+    "The point about these two properties is that the value of datePickerProps always takes precedence over the value of calendarProps. Because DatePicker changes some props of Calendar.",
+    "To determine whether you should use calendarProps or datePickerProps, it is better to follow the example below:"
+  ],
+  "state_prop": [
+    "An object that contains the data that is required by the calendar.",
+    "The properties of this object are written in the table below.",
+    "Note that the <b>type</b> of any of these properties should not be changed."
+  ],
+  "read_only_calendar": "Both readOnly and disabled props prevent the user from selecting a new date, except that in readOnly mode, the calendar header remains active, but in disabled mode, the calendar header is also disabled."
 }

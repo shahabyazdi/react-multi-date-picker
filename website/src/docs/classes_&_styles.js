@@ -21,10 +21,11 @@ export default function Classes(translate, language, otherProps) {
 />`,
     jsx: (
       <>
-        <p>style.css :</p>
-        <pre>
-          <code className="language-css">
-            {`.custom-input {
+        <p>{translate("style.css")} :</p>
+        <div style={{ direction: "ltr" }}>
+          <pre>
+            <code className="language-css">
+              {`.custom-input {
   border-radius: 15px;
   border: 1px #0c8af8 solid;
   padding: 4px 12px;
@@ -38,8 +39,9 @@ export default function Classes(translate, language, otherProps) {
   border: 1px solid #0c8af8;
   box-shadow: 0 0 10px 2px #0074d9;
 }`}
-          </code>
-        </pre>
+            </code>
+          </pre>
+        </div>
         <DatePicker inputClass="custom-input" {...otherProps} />
       </>
     ),
@@ -78,7 +80,7 @@ export default function Classes(translate, language, otherProps) {
 />`,
     jsx: (
       <>
-        <p>style.css :</p>
+        <p>{translate("style.css")} :</p>
         <div
           dangerouslySetInnerHTML={{
             __html: `<p>${translate("rmdp_meaning")}</p>`,
@@ -89,9 +91,10 @@ export default function Classes(translate, language, otherProps) {
             __html: `<p>${translate("ep_meaning")}</p>`,
           }}
         />
-        <pre>
-          <code className="language-css">
-            {`.custom-calendar.rmdp-wrapper,
+        <div style={{ direction: "ltr" }}>
+          <pre>
+            <code className="language-css">
+              {`.custom-calendar.rmdp-wrapper,
 .rmdp-container .custom-calendar.ep-arrow::after {
   background-color: bisque;
 }
@@ -103,8 +106,9 @@ export default function Classes(translate, language, otherProps) {
 .rmdp-container .custom-calendar.ep-arrow[direction="top"] {
   border-bottom: 1px solid bisque;
 }`}
-          </code>
-        </pre>
+            </code>
+          </pre>
+        </div>
         <DatePicker className="custom-calendar" {...otherProps} />
       </>
     ),
@@ -134,14 +138,16 @@ export default function Classes(translate, language, otherProps) {
 />`,
     jsx: (
       <>
-        <p>style.css :</p>
-        <pre>
-          <code className="language-css">
-            {`.rmdp-container .ep-arrow.custom-arrow::after {
+        <p>{translate("style.css")} :</p>
+        <div style={{ direction: "ltr" }}>
+          <pre>
+            <code className="language-css">
+              {`.rmdp-container .ep-arrow.custom-arrow::after {
   background-color: blue;
 }`}
-          </code>
-        </pre>
+            </code>
+          </pre>
+        </div>
         <DatePicker arrowClassName="custom-arrow" {...otherProps} />
       </>
     ),
@@ -198,10 +204,11 @@ ${
 }`,
     jsx: (
       <>
-        <p>style.css :</p>
-        <pre>
-          <code className="language-css">
-            {`.custom-container {
+        <p>{translate("style.css")} :</p>
+        <div style={{ direction: "ltr" }}>
+          <pre>
+            <code className="language-css">
+              {`.custom-container {
   width: 100%;
 }
 
@@ -210,8 +217,9 @@ ${
   box-sizing: border-box;
   height: 26px;
 }`}
-          </code>
-        </pre>
+            </code>
+          </pre>
+        </div>
         <DatePicker
           containerClassName="custom-container"
           calendar={language === "fa" ? "persian" : "gregorian"}

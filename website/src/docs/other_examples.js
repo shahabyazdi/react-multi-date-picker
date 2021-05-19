@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DatePicker, { DateObject } from "../../../build/index";
+import DatePicker, { Calendar, DateObject } from "../../../build/index";
 import TimePicker from "../../../plugins/time_picker";
 
 export default function OtherExamples(translate, language, otherProps) {
@@ -28,7 +28,7 @@ export default function OtherExamples(translate, language, otherProps) {
       <>
         <p>
           {language === "en"
-            ? "The currentDate prop forces the datepicker & calendar to open in specific date."
+            ? "The currentDate prop forces the datepicker & calendar to open on a specific date."
             : "پراپرتی currentDate تقویم را مجبور به باز شدن در زمان تعیین شده میکند."}
         </p>
         <p>
@@ -239,6 +239,72 @@ export default function Example() {
     jsx: <DatePicker disableMonthPicker mind {...otherProps} />,
   };
 
+  const hideMonth = {
+    title: "Hiding Month From Header",
+    code: `<DatePicker 
+  hideMonth 
+/>`,
+    jsx: <DatePicker hideMonth {...otherProps} />,
+  };
+
+  const hideYear = {
+    title: "Hiding Year From Header",
+    code: `<DatePicker 
+  hideYear 
+/>`,
+    jsx: <DatePicker hideYear {...otherProps} />,
+  };
+
+  const readOnly = {
+    title: "Read Only Calendar",
+    description: "read_only_calendar",
+    code: `<Calendar
+  value={[
+    new DateObject(${
+      language === "en" ? "" : `{ calendar: "persian" }`
+    }).toFirstOfWeek(),
+    new DateObject(${
+      language === "en" ? "" : `{ calendar: "persian" }`
+    }).toLastOfWeek(),
+  ]}
+  range
+  readOnly
+/>`,
+    jsx: (
+      <Calendar
+        value={[
+          new DateObject({
+            calendar: language === "en" ? "gregorian" : "persian",
+          }).toFirstOfWeek(),
+          new DateObject({
+            calendar: language === "en" ? "gregorian" : "persian",
+          }).toLastOfWeek(),
+        ]}
+        range
+        readOnly
+        {...otherProps}
+      />
+    ),
+  };
+
+  const readOnlyDatePicker = {
+    title: "Read Only DatePicker",
+    code: `<DatePicker 
+  value={new Date()} 
+  readOnly
+/>`,
+    jsx: <DatePicker value={new Date()} readOnly {...otherProps} />,
+  };
+
+  const disabled = {
+    title: "Disabled Calendar",
+    code: `<Calendar 
+  value={new DateObject()} 
+  disabled 
+/>`,
+    jsx: <Calendar value={new DateObject()} disabled {...otherProps} />,
+  };
+
   const disabledInput = {
     title: "Disabled Input",
     code: `<DatePicker 
@@ -278,6 +344,11 @@ export default function Example() {
     placeholder,
     yearPicker,
     monthPicker,
+    hideYear,
+    hideMonth,
+    readOnlyDatePicker,
+    readOnly,
+    disabled,
     disabledInput,
     disabledButton,
   ];

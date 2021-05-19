@@ -5,7 +5,7 @@
   --highlight-green-selected: #009688;
 }
 
-.rmpd-panel {
+.rmdp-panel {
   min-width: 125px;
 }
 
@@ -117,7 +117,7 @@
 }
 
 @media (max-width: 400px), (max-height: 400px) {
-  .rmpd-panel {
+  .rmdp-panel {
     min-width: 103px;
   }
 

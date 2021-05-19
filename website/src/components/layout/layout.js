@@ -75,6 +75,13 @@ const sidebar = {
     { name: "Time Picker", path: "plugins/time-picker/" },
     { name: "Analog Time Picker", path: "plugins/analog-time-picker/" },
     { name: "Range Picker Footer", path: "plugins/range-picker-footer/" },
+    { name: "Build Your Own Plugin", path: "plugins/docs/" },
+  ],
+  "plugins/docs": [
+    { name: "Home", path: "" },
+    { name: "Plugins", path: "plugins/" },
+    { name: "Build Your Own Plugin", path: "plugins/docs/" },
+    { name: "Default Props", path: "plugins/docs/default-props" },
   ],
 };
 
@@ -195,9 +202,11 @@ export default function Layout({ language, doc, section }) {
     return (
       <>
         {title && <p>{translate(title)}</p>}
-        <pre>
-          <code className="language-jsx">{children}</code>
-        </pre>
+        <div style={{ direction: "ltr" }}>
+          <pre>
+            <code className="language-jsx">{children}</code>
+          </pre>
+        </div>
       </>
     );
   }

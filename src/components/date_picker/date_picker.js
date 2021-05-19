@@ -57,6 +57,7 @@ function DatePicker(
     fixMainPosition,
     onPositionChange,
     digits,
+    readOnly,
     ...otherProps
   },
   outerRef
@@ -364,6 +365,7 @@ function DatePicker(
               autoComplete="off"
               disabled={disabled ? true : false}
               inputMode={inputMode || (isMobileMode ? "none" : undefined)}
+              readOnly={readOnly}
             />
             {type === "input-icon" && (
               <IconCalendarEvent
@@ -485,7 +487,12 @@ function DatePicker(
   }
 
   function openCalendar() {
-    if (disabled || (onOpen instanceof Function && onOpen() === false)) return;
+    if (
+      disabled ||
+      readOnly ||
+      (onOpen instanceof Function && onOpen() === false)
+    )
+      return;
 
     let input = getInput(inputRef);
 

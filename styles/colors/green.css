@@ -48,7 +48,7 @@
   background-color: var(--rmdp-today-green);
 }
 
-.green .rmdp-rtl .rmpd-panel {
+.green .rmdp-rtl .rmdp-panel {
   border-left: unset;
   border-right: 1px solid var(--rmdp-secondary-green);
 }

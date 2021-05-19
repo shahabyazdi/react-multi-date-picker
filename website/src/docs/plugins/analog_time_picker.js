@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import DatePicker, { Calendar } from "../../../../src/index";
-import TimePicker from "../../../../plugins/all/analog_time_picker/analog_time_picker";
+import DatePicker, { Calendar } from "../../../../build/index";
+import TimePicker from "../../../../plugins/analog_time_picker";
 import "../../../../styles/colors/analog_time_picker_red.css";
 
 export default function AnalogTime(translate, language, otherProps) {

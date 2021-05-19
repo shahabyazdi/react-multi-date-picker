@@ -100,7 +100,7 @@ export default function Props(translate, language) {
           <tr>
             <td>className</td>
             <td>String</td>
-            <td>""</td>
+            <td></td>
             <td>{translate("both")}</td>
           </tr>
           <tr>
@@ -184,7 +184,7 @@ export default function Props(translate, language) {
           <tr>
             <td>buttons</td>
             <td>Boolean</td>
-            <td></td>
+            <td>true</td>
             <td>{translate("both")}</td>
           </tr>
           <tr>
@@ -202,7 +202,7 @@ export default function Props(translate, language) {
           <tr>
             <td>disableDayPicker</td>
             <td>Boolean</td>
-            <td></td>
+            <td>false</td>
             <td>{translate("both")}</td>
           </tr>
           <tr>
@@ -221,6 +221,30 @@ export default function Props(translate, language) {
             <td>onFocusedDateChange</td>
             <td>Function</td>
             <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>readOnly</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>hideMonth</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>hideYear</td>
+            <td>Boolean</td>
+            <td>false</td>
             <td>{translate("both")}</td>
           </tr>
           <tr>
@@ -334,7 +358,7 @@ export default function Props(translate, language) {
           <tr>
             <td>containerClassNamey</td>
             <td>String</td>
-            <td>""</td>
+            <td></td>
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>

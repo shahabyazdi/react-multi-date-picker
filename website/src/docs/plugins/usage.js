@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Usage(translate, language) {
+export default function Usage(translate, language, otherProps, codeEnd, Code) {
   const usage = {
     title: "Usage",
     description: (
@@ -24,10 +24,8 @@ export default function Usage(translate, language) {
             </tr>
           </tbody>
         </table>
-        <p>{translate("plugins_usage")}</p>
-        <pre>
-          <code className="language-jsx">
-            {`import React from "react"
+        <Code title="plugins_usage">
+          {`import React from "react"
 import DatePicker from "react-multi-date-picker"
 import MyFavoritePlugin from "react-multi-date-picker/plugins/my_favorite_plugin"
 
@@ -42,8 +40,7 @@ export default function Example() {
 }
 
 `}
-          </code>
-        </pre>
+        </Code>
       </div>
     ),
   };
