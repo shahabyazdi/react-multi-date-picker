@@ -682,6 +682,26 @@ const list = [
         path: "other-examples/#disable-month-picker",
       },
       {
+        name: "Hiding Year From Header",
+        path: "other-examples/#hiding-year-from-header",
+      },
+      {
+        name: "Hiding Month From Header",
+        path: "other-examples/#hiding-month-from-header",
+      },
+      {
+        name: "Read Only DatePicker",
+        path: "other-examples/#read-only-datepicker",
+      },
+      {
+        name: "Read Only Calendar",
+        path: "other-examples/#read-only-calendar",
+      },
+      {
+        name: "Disabled Calendar",
+        path: "other-examples/#disabled-calendar",
+      },
+      {
         name: "Disabled Input",
         path: "other-examples/#disabled-input",
       },

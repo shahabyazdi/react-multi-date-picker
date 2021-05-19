@@ -46,6 +46,10 @@ function Calendar(
     onPropsChange,
     onMonthChange,
     onFocusedDateChange,
+    readOnly,
+    disabled,
+    hideMonth,
+    hideYear,
   },
   outerRef
 ) {
@@ -241,6 +245,7 @@ function Calendar(
       onChange: handleChange,
       sort,
       handleFocusedDate,
+      isRTL,
     },
     { datePickerProps, DatePicker, ...calendarProps } = arguments[0];
 
@@ -272,6 +277,9 @@ function Calendar(
                 buttons={buttons}
                 renderButton={renderButton}
                 handleMonthChange={handleMonthChange}
+                disabled={disabled}
+                hideMonth={hideMonth}
+                hideYear={hideYear}
               />
               <div style={{ position: "relative" }}>
                 <DayPicker
@@ -282,7 +290,6 @@ function Calendar(
                   onlyShowInRangeDates={onlyShowInRangeDates}
                   customWeekDays={weekDays}
                   numberOfMonths={numberOfMonths}
-                  isRTL={isRTL}
                   weekStartDayIndex={weekStartDayIndex}
                 />
                 <MonthPicker
@@ -357,9 +364,13 @@ function Calendar(
   }
 
   function handleChange(selectedDate, state) {
+    if (disabled) return;
     //This one must be done before setState
-    if ((selectedDate || selectedDate === null) && listeners.change)
-      listeners.change.forEach((callback) => callback(selectedDate));
+    if (selectedDate || selectedDate === null) {
+      if (readOnly) return;
+      if (listeners.change)
+        listeners.change.forEach((callback) => callback(selectedDate));
+    }
 
     if (state) setState(state);
     if ((selectedDate || selectedDate === null) && onChange instanceof Function)
@@ -369,6 +380,8 @@ function Calendar(
   }
 
   function handlePropsChange(props = {}) {
+    if (readOnly || disabled) return;
+
     if (onPropsChange instanceof Function) {
       let allProps = {
         ...calendarProps,
@@ -384,6 +397,7 @@ function Calendar(
   }
 
   function handleFocusedDate(focused, clicked) {
+    if (readOnly || disabled) return;
     if (onFocusedDateChange instanceof Function) {
       onFocusedDateChange(focused, clicked);
     }
@@ -421,6 +435,8 @@ function Calendar(
       element.date = state.date;
 
       element.set = function (key, value) {
+        if (disabled) return;
+
         setState({
           ...state,
           date: new DateObject(state.date.set(key, value)),

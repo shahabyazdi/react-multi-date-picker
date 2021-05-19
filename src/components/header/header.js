@@ -11,6 +11,10 @@ export default function Header({
   buttons,
   renderButton,
   handleMonthChange,
+  disabled,
+  hideMonth,
+  hideYear,
+  isRTL,
 }) {
   let monthNames = [],
     years = [],
@@ -47,6 +51,11 @@ export default function Header({
     isNextDisable = maxDate && maxDate.year < maxYear;
   }
 
+  if (disabled) {
+    isPreviousDisable = true;
+    isNextDisable = true;
+  }
+
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     let monthName,
       year = date.year,
@@ -80,11 +89,11 @@ export default function Header({
         {buttons && getButton("left")}
         {monthNames.map((monthName, index) => (
           <div key={index} className="rmdp-header-values">
-            {!onlyYearPicker && (
+            {!onlyYearPicker && !hideMonth && (
               <span
                 style={{
                   cursor:
-                    disableMonthPicker || onlyMonthPicker
+                    disabled || disableMonthPicker || onlyMonthPicker
                       ? "default"
                       : "pointer",
                 }}
@@ -92,18 +101,25 @@ export default function Header({
                   !disableMonthPicker && toggle("mustShowMonthPicker")
                 }
               >
-                {monthName},
+                {monthName}
+                {!hideYear && (isRTL ? "،" : ",")}
               </span>
             )}
-            <span
-              style={{
-                cursor:
-                  disableYearPicker || onlyYearPicker ? "default" : "pointer",
-              }}
-              onClick={() => !disableYearPicker && toggle("mustShowYearPicker")}
-            >
-              {years[index]}
-            </span>
+            {!hideYear && (
+              <span
+                style={{
+                  cursor:
+                    disabled || disableYearPicker || onlyYearPicker
+                      ? "default"
+                      : "pointer",
+                }}
+                onClick={() =>
+                  !disableYearPicker && toggle("mustShowYearPicker")
+                }
+              >
+                {years[index]}
+              </span>
+            )}
           </div>
         ))}
         {buttons && getButton("right")}
@@ -131,7 +147,11 @@ export default function Header({
   }
 
   function increaseValue(value) {
-    if ((value < 0 && isPreviousDisable) || (value > 0 && isNextDisable))
+    if (
+      disabled ||
+      (value < 0 && isPreviousDisable) ||
+      (value > 0 && isNextDisable)
+    )
       return;
 
     if (!mustShowYearPicker && !onlyYearPicker) {
@@ -159,6 +179,8 @@ export default function Header({
   }
 
   function toggle(picker) {
+    if (disabled) return;
+
     let object = {
       mustShowMonthPicker: false,
       mustShowYearPicker: false,

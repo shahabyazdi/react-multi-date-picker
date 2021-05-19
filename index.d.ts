@@ -268,6 +268,10 @@ declare module "react-multi-date-picker" {
       focusedDate: DateObject | undefined,
       clickedDate: DateObject | undefined
     );
+    readOnly?: boolean;
+    disabled?: boolean;
+    hideMonth?: boolean;
+    hideYear?: boolean;
   }
 
   interface DatePickerProps {

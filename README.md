@@ -297,7 +297,7 @@ export default function Example() {
         <tr>
           <td>buttons</td>
           <td style="text-align:center">Boolean</td>
-          <td style="text-align:center"></td>
+          <td style="text-align:center">true</td>
           <td>both</td>
         </tr>
         <tr>
@@ -315,7 +315,7 @@ export default function Example() {
         <tr>
           <td>disableDayPicker</td>
           <td style="text-align:center">Boolean</td>
-          <td style="text-align:center"></td>
+          <td style="text-align:center">false</td>
           <td>both</td>
         </tr>
         <tr>
@@ -339,7 +339,31 @@ export default function Example() {
         <tr>
           <td>className</td>
           <td style="text-align:center">String</td>
-          <td style="text-align:center">&quot;&quot;</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>readOnly</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>disabled</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>hideMonth</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>hideYear</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
           <td>both</td>
         </tr>
         <tr>
@@ -387,7 +411,7 @@ export default function Example() {
         <tr>
           <td>inputClass</td>
           <td style="text-align:center">String</td>
-          <td style="text-align:center">&quot;&quot;</td>
+          <td style="text-align:center"></td>
           <td>DatePicker</td>
         </tr>
         <tr>
