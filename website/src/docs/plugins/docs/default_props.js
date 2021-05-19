@@ -3,6 +3,7 @@ import DatePicker from "../../../../../build/index";
 
 export default function Doc(translate) {
   const table = {
+    title: "Default Props Table",
     jsx: (
       <table>
         <thead>

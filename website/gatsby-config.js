@@ -73,6 +73,7 @@ module.exports = {
     PRESERVE_FILE_DOWNLOAD_CACHE: false,
     PARALLEL_SOURCING: false,
     FUNCTIONS: false,
+    PRESERVE_WEBPACK_CACHE: true,
   },
   plugins: [
     "gatsby-plugin-react-helmet",

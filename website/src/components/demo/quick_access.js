@@ -927,6 +927,53 @@ const list = [
           },
         ],
       },
+      {
+        name: "Build Your Own Plugin",
+        path: "plugins/docs/",
+        list: [
+          {
+            name: "Descriptions",
+            path: "plugins/docs/#descriptions",
+          },
+          {
+            name: "Step 1: Write Your First Plugin",
+            path: "plugins/docs/#step-1:-write-your-first-plugin",
+          },
+          {
+            name: "Step 2: Detecting The Position Of The Plugin",
+            path: "plugins/docs/#step-2:-detecting-the-position-of-the-plugin",
+          },
+          {
+            name:
+              "Step 3: Detecting If Another Plugin Is Before Or After The Current Plugin",
+            path:
+              "plugins/docs/#step-3:-detecting-if-another-plugin-is-before-or-after-the-current-plugin",
+          },
+          {
+            name: "Default Props",
+            path: "plugins/docs/default-props",
+            list: [
+              {
+                name: "Default Props Table",
+                path: "plugins/docs/default-props#default-props-table",
+              },
+              {
+                name: "Calendar & DatePicker",
+                path: "plugins/docs/default-props#calendar-&-datepicker",
+              },
+              {
+                name: "calendarProps & datePickerProps",
+                path:
+                  "plugins/docs/default-props#calendarprops-&-datepickerprops",
+              },
+              {
+                name: "State Prop",
+                path: "plugins/docs/default-props#state-prop",
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 ];

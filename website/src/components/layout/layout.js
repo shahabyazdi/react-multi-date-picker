@@ -81,7 +81,7 @@ const sidebar = {
     { name: "Home", path: "" },
     { name: "Plugins", path: "plugins/" },
     { name: "Build Your Own Plugin", path: "plugins/docs/" },
-    { name: "Default props table", path: "plugins/docs/props-table" },
+    { name: "Default Props", path: "plugins/docs/default-props" },
   ],
 };
 

@@ -648,7 +648,8 @@
     "در این مثال ما component بالا را اصلاح می کنیم تا موقعیت خود را بنویسد، سپس آن را در دو حالت پیش فرض و disableDayPicker آزمایش کنیم:"
   ],
   "Step 3: Detecting If Another Plugin Is Before Or After The Current Plugin": "مرحله 3: تشخیص اینکه پلاگین دیگری قبل یا بعد از پلاگین فعلی است یا خیر",
-  "Default props table": "جدول پراپ های پیشفرض",
+  "Default Props": "پراپ های پیشفرض",
+  "Default Props Table": "جدول پراپ های پیشفرض",
   "calendar_datepicker_props": [
     "حاوی عناصر HTML تقویم و datepicker است ، هر یک از آنها به طور جداگانه در ref خود ذخیره می شوند.",
     "به عنوان مثال ، باتوجه به اینکه فانکشن closeCalendar در ref دیت پیکر قرار دارد. می توانید در پلاگین خود، از آن برای بستن تقویم استفاده کنید.",
