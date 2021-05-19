@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function installation(translate, language) {
+export default function installation(
+  translate,
+  language,
+  otherProps,
+  codeEnd,
+  Code
+) {
   const npm = {
     title: "npm",
     description: translate("npm_description"),
@@ -17,18 +23,12 @@ export default function installation(translate, language) {
     title: "Basic Import",
     description: (
       <>
-        <p>{translate("import_datepicker")} :</p>
-        <pre>
-          <code className="language-jsx">
-            {`import DatePicker from "react-multi-date-picker"`}
-          </code>
-        </pre>
-        <p>{translate("import_calendar")} :</p>
-        <pre>
-          <code className="language-jsx">
-            {`import { Calendar } from "react-multi-date-picker"`}
-          </code>
-        </pre>
+        <Code title={translate("import_datepicker")}>
+          {`import DatePicker from "react-multi-date-picker"`}
+        </Code>
+        <Code title={translate("import_calendar")}>
+          {`import { Calendar } from "react-multi-date-picker"`}
+        </Code>
       </>
     ),
   };
@@ -42,13 +42,9 @@ export default function installation(translate, language) {
             <p>{translate("important_note_description_part_1")}</p>
             <p>{translate("important_note_description_part_2")}</p>
             <p>{translate("important_note_description_part_3")}</p>
-            <pre>
-              <code className="language-jsx">{`<DatePicker />`}</code>
-            </pre>
+            <Code>{`<DatePicker />`}</Code>
             <p>{translate("important_note_description_part_4")}</p>
-            <pre>
-              <code className="language-jsx">
-                {`const [value, setValue] = useState(initialValue)
+            <Code>{`const [value, setValue] = useState(initialValue)
 .
 .
 .
@@ -62,17 +58,13 @@ function handleChange(value){
   setValue(value)
 }
 
-`}
-              </code>
-            </pre>
+`}</Code>
           </li>
           <li>
             <p>{translate("important_note_description_part_5")}</p>
             <p>{translate("important_note_description_part_6")}</p>
             <p>{translate("important_note_description_part_7")}</p>
-            <pre>
-              <code className="language-jsx">
-                {`let [value, setValue] = useState(new Date())
+            <Code>{`let [value, setValue] = useState(new Date())
 .
 .
 .
@@ -93,16 +85,13 @@ function handleSubmit(){
   submitDate(value)
 }
 
-`}
-              </code>
-            </pre>
+`}</Code>
           </li>
           <li>
             <p>{translate("important_note_description_part_8")}</p>
             <p>{translate("important_note_description_part_9")}</p>
-            <pre>
-              <code className="language-jsx">
-                {`<DatePicker
+            <Code>
+              {`<DatePicker
   value="${language === "en" ? "05/18/2020 02:20:36" : "۰۵/۱۸/۲۰۲۰ ۰۲:۲۰:۳۶"}"
   format="MM/DD/YYYY HH:mm:ss"
 ${
@@ -112,8 +101,7 @@ ${
   locale="fa"
 />`
 }`}
-              </code>
-            </pre>
+            </Code>
           </li>
         </ul>
       </>

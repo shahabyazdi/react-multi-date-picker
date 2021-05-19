@@ -1,7 +1,13 @@
 import React from "react";
 import { Calendar } from "../../../build/index";
 
-export default function Buttons(translate, language, otherProps) {
+export default function Buttons(
+  translate,
+  language,
+  otherProps,
+  codeEnd,
+  Code
+) {
   const disable = {
     title: "Disabling Navigate Buttons",
     description: "disable_buttons",
@@ -52,17 +58,19 @@ ${
       <div>
         <p>{translate("disabled_buttons")}</p>
         <p>{translate("style.css")}:</p>
-        <pre>
-          <code className="language-css">
-            {`.cursor-pointer {
+        <div style={{ direction: "ltr" }}>
+          <pre>
+            <code className="language-css">
+              {`.cursor-pointer {
   cursor: pointer;
 }
 
 .cursor-default {
   cursor: default;
 }`}
-          </code>
-        </pre>
+            </code>
+          </pre>
+        </div>
         <p>{translate("code")}:</p>
       </div>
     ),

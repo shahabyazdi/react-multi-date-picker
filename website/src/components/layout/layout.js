@@ -202,9 +202,11 @@ export default function Layout({ language, doc, section }) {
     return (
       <>
         {title && <p>{translate(title)}</p>}
-        <pre>
-          <code className="language-jsx">{children}</code>
-        </pre>
+        <div style={{ direction: "ltr" }}>
+          <pre>
+            <code className="language-jsx">{children}</code>
+          </pre>
+        </div>
       </>
     );
   }

@@ -2,22 +2,26 @@ import React from "react";
 import DatePicker, { Calendar } from "../../../build/index";
 import { Link } from "gatsby";
 
-export default function MapDays(translate, language, otherProps) {
+export default function MapDays(
+  translate,
+  language,
+  otherProps,
+  codeEnd,
+  Code
+) {
   const description = {
     title: "Descriptions",
     jsx: (
       <div>
         <p>{translate("map_days_description_1")}</p>
         <p>{translate("map_days_description_2")}</p>
-        <pre>
-          <code className="language-jsx">
-            {`<DatePicker
+        <Code>
+          {`<DatePicker
   mapDays={object => {
     return { props }
   }}
 />`}
-          </code>
-        </pre>
+        </Code>
         <p>{translate("map_days_description_3")}</p>
         <table>
           <thead>
@@ -31,7 +35,9 @@ export default function MapDays(translate, language, otherProps) {
             <tr>
               <td>date</td>
               <td>DateObject</td>
-              <td>{translate("map_days_description_4")}</td>
+              <td>
+                <p>{translate("map_days_description_4")}</p>
+              </td>
             </tr>
             <tr>
               <td>today</td>
@@ -41,7 +47,9 @@ export default function MapDays(translate, language, otherProps) {
             <tr>
               <td>selectedDate</td>
               <td>{translate("DateObject or Array")}</td>
-              <td>{translate("map_days_description_5")}</td>
+              <td>
+                <p>{translate("map_days_description_5")}</p>
+              </td>
             </tr>
             <tr>
               <td>currentMonth</td>
@@ -49,27 +57,26 @@ export default function MapDays(translate, language, otherProps) {
               <td>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: translate("map_days_description_6"),
+                    __html: `<p>${translate("map_days_description_6")}</p>`,
                   }}
-                ></div>
+                />
               </td>
             </tr>
             <tr>
               <td>isSameDate</td>
               <td>Function</td>
-              <td>{translate("map_days_description_7")}</td>
+              <td>
+                <p>{translate("map_days_description_7")}</p>
+              </td>
             </tr>
           </tbody>
         </table>
-        <p>{translate("map_days_description_8")}</p>
-        <pre>
-          <code className="language-jsx">{`{ date, today, selectedDate, currentMonth, isSameDate }`}</code>
-        </pre>
+        <Code title="map_days_description_8">
+          {`{ date, today, selectedDate, currentMonth, isSameDate }`}
+        </Code>
         <p style={{ color: "red" }}>{translate("map_days_description_9")}</p>
-        <p>{translate("map_days_description_10")}</p>
-        <pre>
-          <code className="language-jsx">
-            {`<Calendar
+        <Code title="map_days_description_10">
+          {`<Calendar
   mapDays={({ date, today }) => {
     date.day = today.day
   }}
@@ -80,8 +87,7 @@ ${
   locale="fa"
 />`
 }`}
-          </code>
-        </pre>
+        </Code>
         <Calendar
           mapDays={({ date, today }) => {
             date.day = today.day;
