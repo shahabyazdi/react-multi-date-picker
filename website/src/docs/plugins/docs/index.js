@@ -2,6 +2,14 @@ import React from "react";
 import { Calendar } from "../../../../../build/index";
 
 export default function Index(translate, language, otherProps, codeEnd, Code) {
+  const info = {
+    description: (
+      <div style={{ textAlign: "center" }}>
+        <p style={{ color: "red" }}>{translate("plugin_info")}</p>
+      </div>
+    ),
+  };
+
   const descriptions = {
     title: "Descriptions",
     description: "plugins_doc",
@@ -113,7 +121,7 @@ export default function Example() {
     jsx: <Calendar plugins={[<MyPlugin3 />, <MyPlugin3 />, <MyPlugin3 />]} />,
   };
 
-  return [descriptions, stepOne, stepTwo, stepThree];
+  return [info, descriptions, stepOne, stepTwo, stepThree];
 }
 
 function MyPlugin() {

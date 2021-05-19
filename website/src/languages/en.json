@@ -300,6 +300,7 @@
   "add_subtract_1": "For example, to add 5 days to the present moment, you can do the following:",
   "add_subtract_2": "Subtracting 1 month from the above date",
   "add_subtract_3": "You can also do all these operations continuously:",
+  "plugin_info": "The contents of this section are not yet complete and will be updated over time.",
   "plugins_doc": [
     "Here I want to write a brief description of how to build a plugin.",
     "Examples of plugins that I thought I needed are currently available on the site, but they certainly will not meet the needs of the majority, because everyone in different working conditions may need a plugin that I did not put by default. So it is necessary to give a brief tutorial on this, so that you do not need to read the source code of previous plugins.",
@@ -309,14 +310,23 @@
   ],
   "plugins_step_1": "As you can see, your plugin is displayed on the right side of the calendar like any other plugins.",
   "plugins_step_2": "For further testing, you can change the position of your plugin to the bottom.",
-  "clone_steps": [
-    "git clone https://github.com/shahabyazdi/react-multi-date-picker.git",
-    "cd react-multi-date-picker",
-    "git checkout develop"
-  ],
   "step_two": [
     "The position of the plugin varies depending on whether the day picker is enabled or not.",
     "For example, if plugins with different positions are entered into the calendar but the user activates the disableDayPicker property, the position of all plugins changes to the bottom.",
     "In this example we modify the above component to write its position and test it in both default and disableDayPicker modes:"
+  ],
+  "calendar_datepicker_props": [
+    "Contain the HTML elements of the calendar and date picker, each of them is stored separately in its own ref.",
+    "For example, because the closeCalendar function is in the DatePicker ref. it can be used to closing the calendar from your plugin.",
+    "Just note that if the user uses your plugin in the Calendar instead of DatePicker, the DatePicker and datePickerProps will be undefined."
+  ],
+  "calendar_props_datepicker_props": [
+    "The point about these two properties is that the value of datePickerProps always takes precedence over the value of calendarProps. Because DatePicker changes some props of Calendar.",
+    "To determine whether you should use calendarProps or datePickerProps, it is better to follow the example below:"
+  ],
+  "state_prop": [
+    "An object that contains the data that is required by the calendar.",
+    "The properties of this object are written in the table below.",
+    "Note that the <b>type</b> of any of these properties should not be changed."
   ]
 }
