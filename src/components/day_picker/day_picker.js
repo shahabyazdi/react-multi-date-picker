@@ -209,6 +209,8 @@ export default function DayPicker({
   }
 
   function getOtherProps(object) {
+    if (!object.current && !showOtherDays) return {};
+
     let otherProps = mapDays({
       date: object.date,
       today,
