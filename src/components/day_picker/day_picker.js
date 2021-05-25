@@ -219,8 +219,7 @@ export default function DayPicker({
       isSameDate,
     });
 
-    if (!otherProps || otherProps.constructor !== Object) otherProps = {};
-
+    if (otherProps?.constructor !== Object) otherProps = {};
     if (otherProps.disabled || otherProps.hidden) object.disabled = true;
     if (otherProps.hidden) object.hidden = true;
 

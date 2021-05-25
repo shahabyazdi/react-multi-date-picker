@@ -518,7 +518,7 @@ function DatePicker(
 
     if (input || !isVisible) {
       setIsVisible(true);
-    } else if (isVisible) {
+    } else {
       closeCalendar();
     }
   }

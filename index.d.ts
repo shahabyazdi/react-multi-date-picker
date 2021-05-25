@@ -595,6 +595,7 @@ declare module "react-multi-date-picker/plugins/time_picker" {
   interface TimePickerProps {
     position?: string;
     disabled?: boolean;
+    hideSeconds?: boolean;
   }
 
   export default function TimePicker(

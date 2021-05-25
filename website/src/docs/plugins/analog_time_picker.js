@@ -8,6 +8,28 @@ export default function AnalogTime(translate, language, otherProps) {
   const [value1, setValue1] = useState(new Date());
   const [value2, setValue2] = useState(new Date());
 
+  const props = {
+    title: "Props",
+    description: (
+      <table>
+        <thead>
+          <tr>
+            <th>{translate("Prop")}</th>
+            <th>{translate("Type")}</th>
+            <th>{translate("Default")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>hideSeconds</td>
+            <td>Boolean</td>
+            <td>false</td>
+          </tr>
+        </tbody>
+      </table>
+    ),
+  };
+
   const timePicker = {
     title: "Default Analog Time Picker",
     description: "default_analog_time_picker",
@@ -152,5 +174,5 @@ import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
     ),
   };
 
-  return [timePicker, darkRed, hideSeconds, bottom, onlyTimePicker];
+  return [props, timePicker, darkRed, hideSeconds, bottom, onlyTimePicker];
 }
