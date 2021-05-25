@@ -81,7 +81,7 @@ export default function AnalogTimePicker({
       </div>
       <div className="rmdp-time-picker" style={{ marginBottom: "10px" }}>
         {array.map((name, index) => {
-          if (name === "second") return null;
+          if (name === "second" && hideSeconds) return null;
 
           return (
             <Button
