@@ -76,6 +76,33 @@ const [value, setValue] = useState(new Date());
     ),
   };
 
+  const hideSeconds = {
+    title: "Hiding Seconds",
+    code: `import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
+.
+.
+.
+<DatePicker
+  format="MM/DD/YYYY HH:mm"
+  plugins={[
+    <TimePicker hideSeconds ${language === "en" ? "" : `position="left"`}/>
+  ]} 
+/>`,
+    jsx: (
+      <DatePicker
+        format="MM/DD/YYYY HH:mm"
+        plugins={[
+          <TimePicker
+            hideSeconds
+            position={language === "en" ? "right" : "left"}
+          />,
+        ]}
+        {...otherProps}
+      />
+    ),
+  };
+
   const bottom = {
     title: "Position Bottom",
     code: `import React, { useState } from "react";
@@ -125,5 +152,5 @@ import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
     ),
   };
 
-  return [timePicker, darkRed, bottom, onlyTimePicker];
+  return [timePicker, darkRed, hideSeconds, bottom, onlyTimePicker];
 }

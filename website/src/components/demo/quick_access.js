@@ -250,6 +250,10 @@ const list = [
         path: "other-pickers/#only-time-picker-meridiem",
       },
       {
+        name: "Hiding Seconds",
+        path: "other-pickers/#hiding-seconds",
+      },
+      {
         name: "Only Month Picker",
         path: "other-pickers/#only-month-picker",
       },
@@ -914,6 +918,10 @@ const list = [
           {
             name: "Color & Background",
             path: "plugins/analog-time-picker/#color-&-background",
+          },
+          {
+            name: "Hiding Seconds",
+            path: "plugins/analog-time-picker/#hiding-seconds",
           },
           {
             name: "Position Bottom",
