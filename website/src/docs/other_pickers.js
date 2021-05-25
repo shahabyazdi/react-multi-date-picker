@@ -73,6 +73,30 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
     ),
   };
 
+  const hideSeconds = {
+    title: "Hiding Seconds",
+    code: `import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+.
+.
+.
+<DatePicker
+  disableDayPicker
+  format="HH:mm"
+  plugins={[
+    <TimePicker hideSeconds />
+  ]} 
+/>`,
+    jsx: (
+      <DatePicker
+        disableDayPicker
+        format="HH:mm"
+        plugins={[<TimePicker hideSeconds />]}
+        {...otherProps}
+      />
+    ),
+  };
+
   const onlyMonthPicker = {
     title: "Only Month Picker",
     code: `<DatePicker 
@@ -102,6 +126,7 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
     timePicker,
     onlyTimePicker,
     meridiem,
+    hideSeconds,
     onlyMonthPicker,
     differentFormat,
     onlyYearPicker,

@@ -25,7 +25,7 @@ export default function DatePickerHeader({
     selectedDate = state.selectedDate;
   } else if (Array.isArray(state.selectedDate)) {
     selectedDate = state.focused || getLastItem(state.selectedDate);
-  } else if (!selectedDate) {
+  } else {
     selectedDate = new DateObject();
   }
 

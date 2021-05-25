@@ -110,7 +110,7 @@
   "map_days_description_5": "according to the calendar mode (single, multiple, or range), the type of selected date can be a DateObject or Array of DateObjects",
   "map_days_description_6": "the month that the user has selected and is displayed in the calendars header. <span style='color:red'>(it can be different from the month of selected date)</span>",
   "map_days_description_7": "it returns the comparison between the day, month, and year of two DateObjects.",
-  "map_days_description_8": "as you know you can destructure the received object and pick each property that you want as follows :",
+  "map_days_description_8": "As you know you can destructure the received object and pick each property that you want as follows :",
   "map_days_description_9": "*Please note that none of the properties inside the object should be changed, as this will cause the calendar to malfunction.",
   "map_days_description_10": "For example, if we change the day of all the rendering dates to today, it will result in an unpleasant outcome.",
   "map_days_description_11": "The Props you return can contain all the Props that a span element accepts, plus two other properties that I have added to them, which are:",

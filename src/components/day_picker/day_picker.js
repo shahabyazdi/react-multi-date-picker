@@ -209,6 +209,8 @@ export default function DayPicker({
   }
 
   function getOtherProps(object) {
+    if (!object.current && !showOtherDays) return {};
+
     let otherProps = mapDays({
       date: object.date,
       today,
@@ -217,8 +219,7 @@ export default function DayPicker({
       isSameDate,
     });
 
-    if (!otherProps || otherProps.constructor !== Object) otherProps = {};
-
+    if (otherProps?.constructor !== Object) otherProps = {};
     if (otherProps.disabled || otherProps.hidden) object.disabled = true;
     if (otherProps.hidden) object.hidden = true;
 

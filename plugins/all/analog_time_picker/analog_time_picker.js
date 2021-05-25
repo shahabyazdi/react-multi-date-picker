@@ -16,6 +16,7 @@ export default function AnalogTimePicker({
   handleChange,
   position,
   calendarProps: { disableDayPicker },
+  hideSeconds,
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
     availbleDate;
@@ -63,27 +64,38 @@ export default function AnalogTimePicker({
       <div className="rmdp-analog-clock">
         <div className="dot" />
         <div>
-          {array.map((name, index) => (
-            <div
-              key={index}
-              style={{ transform: getTransform(degree[name]) }}
-              className={`rmdp-${name}`}
-            />
-          ))}
+          {array.map((name, index) => {
+            if (name === "second" && hideSeconds) return null;
+
+            return (
+              <div
+                key={index}
+                style={{ transform: getTransform(degree[name]) }}
+                className={`rmdp-${name}`}
+              />
+            );
+          })}
         </div>
         <div>{numbers}</div>
         <div>{lines}</div>
       </div>
       <div className="rmdp-time-picker" style={{ marginBottom: "10px" }}>
-        {array.map((name, index) => (
-          <Button
-            key={index}
-            name={name}
-            value={getValue(name)}
-            update={update}
-            digits={date.digits}
-          />
-        ))}
+        {array.map((name, index) => {
+          if (name === "second") return null;
+
+          return (
+            <Button
+              key={index}
+              name={name}
+              value={getValue(name)}
+              update={update}
+              digits={date.digits}
+              hideDivider={
+                name === "second" || (name === "minute" && hideSeconds)
+              }
+            />
+          );
+        })}
       </div>
     </div>
   );
@@ -109,7 +121,7 @@ export default function AnalogTimePicker({
   }
 }
 
-function Button({ name, value, update, digits }) {
+function Button({ name, value, update, digits, hideDivider }) {
   return (
     <>
       <div>
@@ -117,7 +129,7 @@ function Button({ name, value, update, digits }) {
         <Input value={value} onChange={update} digits={digits} name={name} />
         <Arrow direction="rmdp-down" onClick={() => update(name, value - 1)} />
       </div>
-      {name !== "second" && <span className="dvdr">:</span>}
+      {!hideDivider && <span className="dvdr">:</span>}
     </>
   );
 }

@@ -10,6 +10,7 @@ export default function TimePicker({
   calendarProps: { formattingIgnoreList, disableDayPicker },
   nodes,
   Calendar,
+  hideSeconds,
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
     meridiems = date.meridiems;
@@ -68,15 +69,22 @@ export default function TimePicker({
         ["padding" + padding]: padding ? "5px" : "0",
       }}
     >
-      {["hour", "minute", "second"].map((name, index) => (
-        <Button
-          key={index}
-          name={name}
-          value={getValue(name)}
-          update={update}
-          digits={date.digits}
-        />
-      ))}
+      {["hour", "minute", "second"].map((name, index) => {
+        if (name === "second" && hideSeconds) return null;
+
+        return (
+          <Button
+            key={index}
+            name={name}
+            value={getValue(name)}
+            update={update}
+            digits={date.digits}
+            hideDivider={
+              name === "second" || (name === "minute" && hideSeconds)
+            }
+          />
+        );
+      })}
       <div style={getStyle()}>
         <Arrow direction="rmdp-up" onClick={toggleMeridiem} />
         <div className="rmdp-am">
@@ -126,7 +134,7 @@ export default function TimePicker({
   }
 }
 
-function Button({ name, value, update, digits }) {
+function Button({ name, value, update, digits, hideDivider }) {
   return (
     <>
       <div>
@@ -134,7 +142,7 @@ function Button({ name, value, update, digits }) {
         <Input value={value} onChange={update} digits={digits} name={name} />
         <Arrow direction="rmdp-down" onClick={() => update(name, value - 1)} />
       </div>
-      {name !== "second" && <span className="dvdr">:</span>}
+      {!hideDivider && <span className="dvdr">:</span>}
     </>
   );
 }
