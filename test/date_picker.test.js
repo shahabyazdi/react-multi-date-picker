@@ -319,8 +319,6 @@ describe("events", () => {
     expect(onPropsChange).toHaveBeenCalledTimes(1);
     expect(input.value).toEqual(new DateObject().format());
 
-    openCalendar();
-
     const tomorrow = new DateObject().add(1, "day");
     const day = getByText(tomorrow.day);
 
@@ -339,12 +337,12 @@ describe("events", () => {
 
     openCalendar();
 
+    //opening month picker
     const month = queryByText(date.month.shortName + ",");
-
     fireEvent.click(month);
 
+    //selecting next month
     const nextMonth = queryByText(date.add(1, "month").month.name);
-
     fireEvent.click(nextMonth);
 
     expect(onMonthChange).toHaveBeenCalledTimes(1);
@@ -464,7 +462,7 @@ describe("initial value", () => {
     const calendar = getCalendar();
     const header = calendar.querySelector(".rmdp-header-values");
 
-    expect(header.textContent).toEqual(
+    expect(header).toHaveTextContent(
       new DateObject(value[0]).format("MMMM,YYYY")
     );
 
