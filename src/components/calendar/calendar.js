@@ -373,8 +373,7 @@ function Calendar(
     }
 
     if (state) setState(state);
-    if ((selectedDate || selectedDate === null) && onChange instanceof Function)
-      onChange(selectedDate);
+    if (selectedDate || selectedDate === null) onChange?.(selectedDate);
 
     handlePropsChange({ value: selectedDate });
   }
@@ -382,29 +381,26 @@ function Calendar(
   function handlePropsChange(props = {}) {
     if (readOnly || disabled) return;
 
-    if (onPropsChange instanceof Function) {
-      let allProps = {
-        ...calendarProps,
-        ...datePickerProps,
-        ...props,
-        value: props.value ?? state.selectedDate,
-      };
+    let allProps = {
+      ...calendarProps,
+      ...datePickerProps,
+      ...props,
+      value: props.value ?? state.selectedDate,
+    };
 
-      delete allProps.onPropsChange;
+    delete allProps.onPropsChange;
 
-      onPropsChange(allProps);
-    }
+    onPropsChange?.(allProps);
   }
 
   function handleFocusedDate(focused, clicked) {
     if (readOnly || disabled) return;
-    if (onFocusedDateChange instanceof Function) {
-      onFocusedDateChange(focused, clicked);
-    }
+
+    onFocusedDateChange?.(focused, clicked);
   }
 
   function handleMonthChange(date) {
-    if (onMonthChange instanceof Function) onMonthChange(date);
+    onMonthChange?.(date);
   }
 
   function getBorderClassName(positions) {

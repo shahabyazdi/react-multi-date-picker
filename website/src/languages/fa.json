@@ -666,8 +666,8 @@
   ],
   "Hiding Year From Header": "مخفی کردن سال",
   "Hiding Month From Header": "مخفی کردن ماه",
-  "Read Only Calendar": "فقظ خواندنی کردن تقویم",
-  "Read Only DatePicker": "فقظ خواندنی کردن دیت پیکر",
+  "Read Only Calendar": "فقط خواندنی کردن تقویم",
+  "Read Only DatePicker": "فقط خواندنی کردن دیت پیکر",
   "Disabled Calendar": "غیر فعال کردن تقویم",
   "read_only_calendar": "پراپ  های readOnly و disabled هر دو باعث میشوند که کاربر دیگر نتواند تاریخ جدیدی را انتخاب کند، با این تفاوت  که در حالت readOnly، هدر تقویم همچنان فعال میماند ولی در حالت disabled هدر calendar نیز غیر فعال میشود.",
   "Hiding Seconds": "پنهان کردن ثانیه"
