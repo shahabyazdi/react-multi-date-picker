@@ -905,6 +905,10 @@ const list = [
             name: "Using TimePicker in Range Mode",
             path: "plugins/time-picker/#using-timepicker-in-multiple-mode",
           },
+          {
+            name: "Styling TimePicker",
+            path: "plugins/time-picker/#styling-timepicker",
+          },
         ],
       },
       {

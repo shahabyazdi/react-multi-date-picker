@@ -329,5 +329,6 @@
     "The properties of this object are written in the table below.",
     "Note that the <b>type</b> of any of these properties should not be changed."
   ],
-  "read_only_calendar": "Both readOnly and disabled props prevent the user from selecting a new date, except that in readOnly mode, the calendar header remains active, but in disabled mode, the calendar header is also disabled."
+  "read_only_calendar": "Both readOnly and disabled props prevent the user from selecting a new date, except that in readOnly mode, the calendar header remains active, but in disabled mode, the calendar header is also disabled.",
+  "time_picker_style": "If you prefer to use the time picker on the right or left side of the calendar, you can use the style property to change its width."
 }
