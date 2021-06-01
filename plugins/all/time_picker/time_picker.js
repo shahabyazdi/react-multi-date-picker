@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect } from "react";
 import Arrow from "../../../src/components/arrow/arrow";
 import Input from "../../../src/components/input/input";
+import { getValidProps } from "../utils"
 import "./time_picker.css";
 
 export default function TimePicker({
@@ -11,6 +12,7 @@ export default function TimePicker({
   nodes,
   Calendar,
   hideSeconds,
+  ...props
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
     meridiems = date.meridiems;
@@ -60,15 +62,17 @@ export default function TimePicker({
 
   let padding = { top: "Top", bottom: "Bottom" }[position] || "";
 
+  props.style = {
+    direction: "ltr",
+    minWidth: "220px",
+    ["padding" + padding]: padding ? "5px" : "0",
+    ...(props.style || {})
+  }
+
+  props.className = `rmdp-time-picker ${position} ${props.className || ""}`
+
   return (
-    <div
-      className={`rmdp-time-picker ${position}`}
-      style={{
-        direction: "ltr",
-        minWidth: "220px",
-        ["padding" + padding]: padding ? "5px" : "0",
-      }}
-    >
+    <div {...getValidProps(props)}>
       {["hour", "minute", "second"].map((name, index) => {
         if (name === "second" && hideSeconds) return null;
 
