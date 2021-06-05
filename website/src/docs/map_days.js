@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import DatePicker, { Calendar } from "../../../build/index";
 import { Link } from "gatsby";
 
@@ -154,6 +154,7 @@ ${
       />
     ),
   };
+
   const weekends = {
     title: "Styling Weekends",
     description: "map_days_weekends",
@@ -316,5 +317,166 @@ ${
     ),
   };
 
-  return [description, style, weekends, highlight, disable, hide, title];
+  const tooltip = {
+    title: "Custom Tooltip",
+    description: "tooltip",
+    code: `import React, { useState, useRef } from "react";
+import DatePicker from "react-multi-date-picker";
+
+export default function Example(){
+  return <DatePickerWithTooltip />
+}
+
+function DatePickerWithTooltip() {
+  const [data, setData] = useState({});
+  const ref = useRef();
+
+  return (
+    <>
+      <DatePicker
+        ref={ref}
+        containerStyle={{ position: "relative" }}
+        mapDays={({ date, today }) => {
+          let result = date.dayOfBeginning - today.dayOfBeginning;
+          let title;
+
+          if (result === -1) title = "Yesterday";
+          if (result === 0) title = "Today";
+          if (result === 1) title = "Tomorrow";
+
+          return {
+            onMouseOver: (e) => {
+              let spanRect = e.target.getBoundingClientRect();
+              let calendarRect = ref.current
+                .querySelector(".rmdp-wrapper")
+                .getBoundingClientRect();
+
+              setData({
+                ...data,
+                visible: true,
+                left: spanRect.left - calendarRect.left,
+                top: spanRect.top - calendarRect.top,
+                visible: title ? true : false,
+                title,
+              });
+            },
+            onMouseLeave: () => {
+              setData({
+                ...data,
+                visible: false,
+                title,
+              });
+            },
+          };
+        }}
+      ${
+        language === "en"
+          ? ">"
+          : `  calendar="persian"
+        locale="fa"
+        calendarPosition="bottom-right"
+      >`
+      }
+        <span
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            backgroundColor: "white",
+            border: "1px solid #ccc",
+            boxShadow: "0 0 5px #ccc",
+            borderRadius: "5px",
+            padding: "3px 5px",
+            fontSize: "14px",
+            transform: "translate(${"${" + "data.left"}}px, ${
+      "${" + "data.top + 30"
+    }}px)",
+            visibility: data.visible ? "visible" : "hidden",
+          }}
+        >
+          {data.title}
+        </span>
+      </DatePicker>
+    </>
+  );
+}`,
+    jsx: <DatePickerWithTooltip {...otherProps} />,
+  };
+
+  return [
+    description,
+    style,
+    weekends,
+    highlight,
+    disable,
+    hide,
+    title,
+    tooltip,
+  ];
+}
+
+function DatePickerWithTooltip(props) {
+  const [data, setData] = useState({});
+  const ref = useRef();
+
+  return (
+    <>
+      <DatePicker
+        ref={ref}
+        containerStyle={{ position: "relative" }}
+        mapDays={({ date, today }) => {
+          let result = date.dayOfBeginning - today.dayOfBeginning;
+          let title;
+
+          if (result === -1) title = "Yesterday";
+          if (result === 0) title = "Today";
+          if (result === 1) title = "Tomorrow";
+
+          return {
+            onMouseOver: (e) => {
+              let spanRect = e.target.getBoundingClientRect();
+              let calendarRect = ref.current
+                .querySelector(".rmdp-wrapper")
+                .getBoundingClientRect();
+
+              setData({
+                ...data,
+                visible: true,
+                left: spanRect.left - calendarRect.left,
+                top: spanRect.top - calendarRect.top,
+                visible: title ? true : false,
+                title,
+              });
+            },
+            onMouseLeave: () => {
+              setData({
+                ...data,
+                visible: false,
+                title,
+              });
+            },
+          };
+        }}
+        {...props}
+      >
+        <span
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            backgroundColor: "white",
+            border: "1px solid #ccc",
+            boxShadow: "0 0 5px #ccc",
+            borderRadius: "5px",
+            padding: "3px 5px",
+            fontSize: "14px",
+            transform: `translate(${data.left}px, ${data.top + 30}px)`,
+            visibility: data.visible ? "visible" : "hidden",
+          }}
+        >
+          {data.title}
+        </span>
+      </DatePicker>
+    </>
+  );
 }

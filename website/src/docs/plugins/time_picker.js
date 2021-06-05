@@ -101,5 +101,26 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
     ),
   };
 
-  return [descriptions, multiple, range];
+  const style = {
+    title: "Styling TimePicker",
+    description: "time_picker_style",
+    code: `<DatePicker
+  format="MM/DD/YYYY HH:mm"
+  plugins={[
+    <TimePicker
+      hideSeconds
+      style={{ minWidth: "100px" }}
+    />
+  ]}
+/>`,
+    jsx: (
+      <DatePicker
+        format="MM/DD/YYYY HH:mm"
+        plugins={[<TimePicker hideSeconds style={{ minWidth: "100px" }} />]}
+        {...otherProps}
+      />
+    ),
+  };
+
+  return [descriptions, multiple, range, style];
 }

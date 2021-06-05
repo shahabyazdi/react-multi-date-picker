@@ -80,7 +80,8 @@ export default function DayPicker({
                   let otherProps = {},
                     mustAddClassName =
                       mustDisplayDay(object) && !object.disabled,
-                    className = `${mustAddClassName ? "sd" : ""}`;
+                    className = `${mustAddClassName ? "sd" : ""}`,
+                    children;
 
                   if (mapDays instanceof Function) {
                     otherProps = getOtherProps(object);
@@ -89,7 +90,10 @@ export default function DayPicker({
                       className = `${className} ${otherProps.className || ""}`;
                     if (object.hidden) className = className.replace("sd", "");
 
+                    children = otherProps.children;
+
                     delete otherProps.className;
+                    delete otherProps.children;
                   }
 
                   return (
@@ -105,7 +109,7 @@ export default function DayPicker({
                     >
                       <span className={className} {...otherProps}>
                         {mustDisplayDay(object) && !object.hidden
-                          ? object.day
+                          ? children ?? object.day
                           : ""}
                       </span>
                     </div>

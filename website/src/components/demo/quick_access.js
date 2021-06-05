@@ -457,6 +457,10 @@ const list = [
         name: "Adding Tiltle to Days",
         path: "map-days/#adding-tiltle-to-days",
       },
+      {
+        name: "Custom Tooltip",
+        path: "map-days/#custom-tooltip",
+      },
     ],
   },
   {
@@ -905,6 +909,10 @@ const list = [
             name: "Using TimePicker in Range Mode",
             path: "plugins/time-picker/#using-timepicker-in-multiple-mode",
           },
+          {
+            name: "Styling TimePicker",
+            path: "plugins/time-picker/#styling-timepicker",
+          },
         ],
       },
       {
@@ -972,10 +980,8 @@ const list = [
             path: "plugins/docs/#step-2:-detecting-the-position-of-the-plugin",
           },
           {
-            name:
-              "Step 3: Detecting If Another Plugin Is Before Or After The Current Plugin",
-            path:
-              "plugins/docs/#step-3:-detecting-if-another-plugin-is-before-or-after-the-current-plugin",
+            name: "Step 3: Detecting If Another Plugin Is Before Or After The Current Plugin",
+            path: "plugins/docs/#step-3:-detecting-if-another-plugin-is-before-or-after-the-current-plugin",
           },
           {
             name: "Default Props",
@@ -991,8 +997,7 @@ const list = [
               },
               {
                 name: "calendarProps & datePickerProps",
-                path:
-                  "plugins/docs/default-props#calendarprops-&-datepickerprops",
+                path: "plugins/docs/default-props#calendarprops-&-datepickerprops",
               },
               {
                 name: "State Prop",

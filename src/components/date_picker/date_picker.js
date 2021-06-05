@@ -56,6 +56,7 @@ function DatePicker(
     arrow = true,
     fixMainPosition,
     onPositionChange,
+    onPropsChange,
     digits,
     readOnly,
     ...otherProps
@@ -74,7 +75,7 @@ function DatePicker(
     separator = useMemo(() => (range ? " ~ " : ", "), [range]),
     datePickerProps = arguments[0],
     closeCalendar = useCallback(() => {
-      if (onClose instanceof Function && onClose() === false) return;
+      if (onClose?.() === false) return;
 
       let input = getInput(inputRef);
 
@@ -415,6 +416,7 @@ function DatePicker(
         minDate={minDate}
         maxDate={maxDate}
         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
+        onPropsChange={onPropsChange}
         onReady={() => {
           setIsCalendarReady(true);
 
@@ -487,12 +489,7 @@ function DatePicker(
   }
 
   function openCalendar() {
-    if (
-      disabled ||
-      readOnly ||
-      (onOpen instanceof Function && onOpen() === false)
-    )
-      return;
+    if (disabled || readOnly || onOpen?.() === false) return;
 
     let input = getInput(inputRef);
 
@@ -508,7 +505,8 @@ function DatePicker(
       });
 
       if ((!minDate || date > minDate) && (!maxDate || date < maxDate)) {
-        handleChange(date, isMobileMode);
+        handleChange(date);
+        onPropsChange?.({ ...datePickerProps, value: date });
 
         ref.current.date = date;
       }
@@ -530,7 +528,7 @@ function DatePicker(
 
     ref.current = { ...ref.current, date };
 
-    if (onChange instanceof Function) onChange(date);
+    onChange?.(date);
 
     if (date) setStringDate(getStringDate(date, type, separator));
   }
