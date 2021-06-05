@@ -438,3 +438,8 @@ pre {
 .bg-red {
   background-color: red;
 }
+
+.multi-locale-days .rmdp-day {
+  width: 40px;
+  height: 40px;
+}

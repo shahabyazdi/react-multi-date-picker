@@ -375,7 +375,7 @@ export default function Demo({ language = "en", translate }) {
           if (language === "fa") {
             path = item.path.replace(
               /#.*$/,
-              "#" + translate(item.name).replace(/\s/g, "-")
+              "#" + translate(item.name).toLowerCase().replace(/\s/g, "-")
             );
           }
 

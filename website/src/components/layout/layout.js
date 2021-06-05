@@ -196,7 +196,7 @@ export default function Layout({ language, doc, section }) {
     );
   }
 
-  function Code({ title, children }) {
+  function Code({ title, children, className = "language-jsx" }) {
     useEffect(() => Prism.highlightAll(), [children]);
 
     return (
@@ -204,7 +204,7 @@ export default function Layout({ language, doc, section }) {
         {title && <p>{translate(title)}</p>}
         <div style={{ direction: "ltr" }}>
           <pre>
-            <code className="language-jsx">{children}</code>
+            <code className={className}>{children}</code>
           </pre>
         </div>
       </>

@@ -288,7 +288,7 @@ function DatePicker(
               ...multipleStyle,
               ...style,
             }}
-            disabled={disabled ? true : false}
+            disabled={disabled}
             type="button"
           >
             {stringDate ||
@@ -493,7 +493,7 @@ function DatePicker(
 
     let input = getInput(inputRef);
 
-    if (!value && !ref.current.date && !range && !multiple) {
+    if (!value && !ref.current.date && !range && !multiple && !isMobileMode) {
       let date = new DateObject({
         calendar,
         locale,

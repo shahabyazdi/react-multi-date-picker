@@ -48,7 +48,7 @@
 .rmdp-week,
 .rmdp-ym {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .rmdp-ym {
