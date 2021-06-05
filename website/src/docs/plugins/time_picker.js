@@ -35,8 +35,9 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 .
 const [values, setValues] = useState(
   [1, 2, 3].map((number) =>
-    new DateObject(${language === "en" ? "" : `{ calendar: "persian", locale: "fa"}`
-      }).set({
+    new DateObject(${
+      language === "en" ? "" : `{ calendar: "persian", locale: "fa"}`
+    }).set({
       day: number,
       hour: number,
       minute: number,
@@ -112,19 +113,14 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
     />
   ]}
 />`,
-    jsx: <DatePicker
-      format="MM/DD/YYYY HH:mm"
-      plugins={[
-
-        < TimePicker
-          hideSeconds
-          style={{ minWidth: "100px" }}
-        />
-      ]
-      }
-      {...otherProps}
-    />
-  }
+    jsx: (
+      <DatePicker
+        format="MM/DD/YYYY HH:mm"
+        plugins={[<TimePicker hideSeconds style={{ minWidth: "100px" }} />]}
+        {...otherProps}
+      />
+    ),
+  };
 
   return [descriptions, multiple, range, style];
 }

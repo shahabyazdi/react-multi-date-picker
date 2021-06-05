@@ -338,7 +338,7 @@ describe("events", () => {
     openCalendar();
 
     //opening month picker
-    const month = queryByText(date.month.shortName + ",");
+    const month = queryByText(date.month.name + ",");
     fireEvent.click(month);
 
     //selecting next month
