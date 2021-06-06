@@ -78,7 +78,14 @@
   background-color: white;
   position: absolute;
   transform: rotate(45deg);
+}
+
+.rmdp-container .ep-shadow::after {
   box-shadow: 0 0 6px #8798ad;
+}
+
+.rmdp-container .ep-border::after {
+  border: 1px solid #cfd8e2;
 }
 
 .rmdp-container .ep-arrow[direction="top"] {

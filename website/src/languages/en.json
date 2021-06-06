@@ -331,5 +331,6 @@
   ],
   "read_only_calendar": "Both readOnly and disabled props prevent the user from selecting a new date, except that in readOnly mode, the calendar header remains active, but in disabled mode, the calendar header is also disabled.",
   "time_picker_style": "If you prefer to use the time picker on the right or left side of the calendar, you can use the style property to change its width.",
-  "tooltip": "A little trick to add a custom tooltip."
+  "tooltip": "A little trick to add a custom tooltip.",
+  "children": "By using the children property, you can replace the desired 'value' or 'component' with the default value (day number)."
 }

@@ -50,6 +50,7 @@ function Calendar(
     disabled,
     hideMonth,
     hideYear,
+    shadow,
   },
   outerRef
 ) {
@@ -254,7 +255,9 @@ function Calendar(
   return state.today ? (
     <div
       ref={setRef}
-      className={`rmdp-wrapper ${className || ""}`}
+      className={`rmdp-wrapper rmdp-${shadow ? "shadow" : "border"} ${
+        className || ""
+      }`}
       style={{ zIndex, direction: "ltr" }}
     >
       {clonedPlugins.top}

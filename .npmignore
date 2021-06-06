@@ -1,9 +1,12 @@
 /src 
 /screenshot
 /coverage
+/test
 /website
 /plugins/all
 /plugins/all.js
 rollup.config.js
 .github
 .gitignore
+.babelrc
+.jest.config.json

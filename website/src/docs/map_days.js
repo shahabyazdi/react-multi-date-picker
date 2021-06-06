@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import DatePicker, { Calendar } from "../../../build/index";
+import DatePicker, { Calendar, DateObject } from "../../../build/index";
 import { Link } from "gatsby";
 
 export default function MapDays(
@@ -285,6 +285,82 @@ ${
     ),
   };
 
+  const children = {
+    title: "Multiple Day-Numbers With Different Calendars & Locales",
+    description: (
+      <>
+        <p>{translate("children")}</p>
+        <Code>
+          {`<Calendar
+  className="multi-locale-days"
+  mapDays={({ date }) => {
+    const newDate = new DateObject(date).set({
+      calendar: "${language === "en" ? "persian" : "gregorian"}",
+      locale: "${language === "en" ? "fa" : "en"}",
+    });
+
+    return {
+      children: (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "0 10px",
+            fontSize: "11px",
+          }}
+        >
+          <div style={{ textAlign: "start" }}>{date.format("D")}</div>
+          <div style={{ textAlign: "end" }}>{newDate.format("D")}</div>
+        </div>
+      ),
+    };
+  }}
+${
+  language === "en"
+    ? "/>"
+    : `  calendar="persian"
+  locale="fa"
+/>`
+}`}
+        </Code>
+        <Code title="style.css" className="language-css">
+          {`.multi-locale-days .rmdp-day {
+  width: 40px;
+  height: 40px;
+}`}
+        </Code>
+      </>
+    ),
+    jsx: (
+      <Calendar
+        className="multi-locale-days"
+        mapDays={({ date }) => {
+          const newDate = new DateObject(date).set({
+            calendar: language === "en" ? "persian" : "gregorian",
+            locale: language === "en" ? "fa" : "en",
+          });
+
+          return {
+            children: (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "0 10px",
+                  fontSize: "11px",
+                }}
+              >
+                <div style={{ textAlign: "start" }}>{date.format("D")}</div>
+                <div style={{ textAlign: "end" }}>{newDate.format("D")}</div>
+              </div>
+            ),
+          };
+        }}
+        {...otherProps}
+      />
+    ),
+  };
+
   const title = {
     title: "Adding Tiltle to Days",
     description: "map_days_title",
@@ -353,7 +429,6 @@ function DatePickerWithTooltip() {
 
               setData({
                 ...data,
-                visible: true,
                 left: spanRect.left - calendarRect.left,
                 top: spanRect.top - calendarRect.top,
                 visible: title ? true : false,
@@ -388,9 +463,7 @@ function DatePickerWithTooltip() {
             borderRadius: "5px",
             padding: "3px 5px",
             fontSize: "14px",
-            transform: "translate(${"${" + "data.left"}}px, ${
-      "${" + "data.top + 30"
-    }}px)",
+            transform: ${"`"}translate($${"{data.left"}}px, $${"{data.top + 30"}}px)${"`"},
             visibility: data.visible ? "visible" : "hidden",
           }}
         >
@@ -410,6 +483,7 @@ function DatePickerWithTooltip() {
     highlight,
     disable,
     hide,
+    children,
     title,
     tooltip,
   ];
@@ -441,7 +515,6 @@ function DatePickerWithTooltip(props) {
 
               setData({
                 ...data,
-                visible: true,
                 left: spanRect.left - calendarRect.left,
                 top: spanRect.top - calendarRect.top,
                 visible: title ? true : false,

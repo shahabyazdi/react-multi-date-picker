@@ -18,6 +18,7 @@ export default function Header({
 }) {
   let monthNames = [],
     years = [],
+    style = {},
     {
       date,
       onlyMonthPicker,
@@ -38,6 +39,9 @@ export default function Header({
       maxDate &&
       date.year >= maxDate.year &&
       maxDate.month.number < date.month.number + 1;
+
+  if (hideMonth && hideYear && !buttons) return null;
+  if (hideMonth && hideYear) style.minHeight = "36px";
 
   if (onlyMonthPicker) {
     if (minDate && minDate.year >= date.year) isPreviousDisable = true;
@@ -88,7 +92,7 @@ export default function Header({
       <div style={{ position: "relative", display: "flex" }}>
         {buttons && getButton("left")}
         {monthNames.map((monthName, index) => (
-          <div key={index} className="rmdp-header-values">
+          <div key={index} className="rmdp-header-values" style={style}>
             {!onlyYearPicker && !hideMonth && (
               <span
                 style={{

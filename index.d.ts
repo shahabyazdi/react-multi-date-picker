@@ -1,5 +1,5 @@
 declare module "react-multi-date-picker" {
-  import React from "react";
+  import React, { HTMLAttributes } from "react";
   import DateObject from "react-date-object";
 
   interface CalendarProps {
@@ -58,15 +58,6 @@ declare module "react-multi-date-picker" {
      * <DatePicker format="MM-DD-YYYY HH:mm:ss" />
      */
     format?: string;
-    /**
-     * Enable it if you want to use time picker.
-     * @example
-     * <Calendar timePicker />
-     *
-     * <DatePicker timePicker />
-     */
-    timePicker?: boolean;
-    onlyTimePicker?: boolean;
     onlyMonthPicker?: boolean;
     onlyYearPicker?: boolean;
     /**
@@ -192,13 +183,12 @@ declare module "react-multi-date-picker" {
       selectedDate: DateObject | DateObject[];
       currentMonth: object;
       isSameDate(arg1: DateObject, arg2: DateObject): boolean;
-    }): object | void;
+    }): HTMLAttributes<HTMLSpanElement> | void;
     disableMonthPicker?: boolean;
     disableYearPicker?: boolean;
     /**
      * @example
      * <DatePicker
-     *   timePicker
      *   format="Date:YYYY/MM/DD, Time:HH:mm:ss"
      *   formattingIgnoreList={["Date", "Time"]}
      * />
@@ -272,6 +262,7 @@ declare module "react-multi-date-picker" {
     disabled?: boolean;
     hideMonth?: boolean;
     hideYear?: boolean;
+    shadow?: boolean;
   }
 
   interface DatePickerProps {
@@ -454,7 +445,8 @@ declare module "react-multi-date-picker/plugins/date_panel" {
   import React, { HTMLAttributes } from "react";
   import DateObject from "react-date-object";
 
-  interface DatePanelProps extends HTMLAttributes<HTMLDivElement> {
+  interface DatePanelProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     position?: string;
     disabled?: boolean;
     eachDaysInRange?: boolean;
@@ -474,7 +466,8 @@ declare module "react-multi-date-picker/plugins/date_panel" {
 declare module "react-multi-date-picker/plugins/date_picker_header" {
   import React, { HTMLAttributes } from "react";
 
-  interface DatePickerHeaderProps extends HTMLAttributes<HTMLDivElement> {
+  interface DatePickerHeaderProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     position?: string;
     disabled?: boolean;
     size?: string;
@@ -491,7 +484,8 @@ declare module "react-multi-date-picker/plugins/date_picker_header" {
 declare module "react-multi-date-picker/plugins/multi_colors" {
   import React, { HTMLAttributes } from "react";
 
-  interface MultiColorsProps extends HTMLAttributes<HTMLDivElement> {
+  interface MultiColorsProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     position?: string;
     disabled?: boolean;
     colors?: string[];
@@ -507,7 +501,8 @@ declare module "react-multi-date-picker/plugins/multi_colors" {
 declare module "react-multi-date-picker/plugins/settings" {
   import React, { HTMLAttributes } from "react";
 
-  interface SettingsProps extends HTMLAttributes<HTMLDivElement> {
+  interface SettingsProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     position?: string;
     disabled?: boolean;
     calendars?: string[];
@@ -566,7 +561,8 @@ declare module "react-multi-date-picker/plugins/settings" {
 declare module "react-multi-date-picker/plugins/toolbar" {
   import React, { HTMLAttributes } from "react";
 
-  interface ToolbarProps extends HTMLAttributes<HTMLDivElement> {
+  interface ToolbarProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     position?: string;
     disabled?: boolean;
     className?: string;
@@ -592,7 +588,8 @@ declare module "react-multi-date-picker/plugins/weekends" {
 declare module "react-multi-date-picker/plugins/time_picker" {
   import React, { HTMLAttributes } from "react";
 
-  interface TimePickerProps extends HTMLAttributes<HTMLDivElement> {
+  interface TimePickerProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     position?: string;
     disabled?: boolean;
     hideSeconds?: boolean;

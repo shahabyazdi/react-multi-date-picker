@@ -18,6 +18,9 @@ export default function Demo({ language = "en", translate }) {
     numberOfMonths: 1,
     datePanelPosition: ["fa"].includes(language) ? "left" : "right",
     weekStartDayIndex: 0,
+    buttons: true,
+    arrow: true,
+    shadow: true,
   });
 
   const {
@@ -34,6 +37,11 @@ export default function Demo({ language = "en", translate }) {
     onlyMonthPicker,
     onlyYearPicker,
     layout,
+    arrow,
+    buttons,
+    hideMonth,
+    hideYear,
+    shadow,
     color,
     background,
     showOtherDays,
@@ -109,7 +117,7 @@ export default function Demo({ language = "en", translate }) {
         )}
       </div>
 
-      <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Selectors
           translate={translate}
           selectors={[
@@ -134,33 +142,6 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: locale,
               onChange: (value) => updateState("locale", value),
-            },
-            {
-              title: "Mode",
-              options: [
-                ["Single", "single"],
-                ["Multiple", "multiple"],
-                ["Range", "range"],
-              ],
-              value:
-                !multiple && !range
-                  ? "single"
-                  : multiple
-                  ? "multiple"
-                  : "range",
-              onChange: (mode) =>
-                updateState({
-                  multiple: false,
-                  range: false,
-                  [mode]: true,
-                  disableDayPicker: false,
-                  $onlyTimePicker: false,
-                  // $timePicker: false,
-                  value:
-                    Array.isArray(value) && mode === "single"
-                      ? value[value.length - 1]
-                      : value,
-                }),
             },
             {
               title: "Other Pickers",
@@ -216,6 +197,57 @@ export default function Demo({ language = "en", translate }) {
                 }),
             },
             {
+              title: "Mode",
+              options: [
+                ["Single", "single"],
+                ["Multiple", "multiple"],
+                ["Range", "range"],
+              ],
+              value:
+                !multiple && !range
+                  ? "single"
+                  : multiple
+                  ? "multiple"
+                  : "range",
+              onChange: (mode) =>
+                updateState({
+                  multiple: false,
+                  range: false,
+                  [mode]: true,
+                  disableDayPicker: false,
+                  $onlyTimePicker: false,
+                  // $timePicker: false,
+                  value:
+                    Array.isArray(value) && mode === "single"
+                      ? value[value.length - 1]
+                      : value,
+                }),
+            },
+            {
+              title: "Dates panel",
+              disabled: (!range && !multiple) || numberOfMonths > 1,
+              options: [
+                ["Enable", "enable"],
+                ["Disable", "disable"],
+              ],
+              value: mustShowDates ? "enable" : "disable",
+              onChange: (value) =>
+                updateState("mustShowDates", value === "enable"),
+            },
+            {
+              title: "DatePanel Position",
+              disabled:
+                (!range && !multiple) || numberOfMonths > 1 || !mustShowDates,
+              options: [
+                ["Left", "left"],
+                ["Right", "right"],
+                ["Top", "top"],
+                ["Bottom", "bottom"],
+              ],
+              value: datePanelPosition,
+              onChange: (value) => updateState("datePanelPosition", value),
+            },
+            {
               title: "Number Of Months",
               disabled:
                 $onlyTimePicker ||
@@ -241,30 +273,6 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: type,
               onChange: (value) => updateState("type", value),
-            },
-            {
-              title: "Dates panel",
-              disabled: (!range && !multiple) || numberOfMonths > 1,
-              options: [
-                ["Enable", "enable"],
-                ["Disable", "disable"],
-              ],
-              value: mustShowDates ? "enable" : "disable",
-              onChange: (value) =>
-                updateState("mustShowDates", value === "enable"),
-            },
-            {
-              title: "DatePanel Position",
-              disabled:
-                (!range && !multiple) || numberOfMonths > 1 || !mustShowDates,
-              options: [
-                ["Left", "left"],
-                ["Right", "right"],
-                ["Top", "top"],
-                ["Bottom", "bottom"],
-              ],
-              value: datePanelPosition,
-              onChange: (value) => updateState("datePanelPosition", value),
             },
             {
               title: "Layout",
@@ -296,6 +304,52 @@ export default function Demo({ language = "en", translate }) {
               disabled: $onlyTimePicker || onlyMonthPicker || onlyYearPicker,
               onChange: (value) =>
                 updateState("weekStartDayIndex", Number(value)),
+            },
+            {
+              title: "Arrow",
+              disabled: type === "calendar" || layout === "rmdp-mobile",
+              options: [
+                ["Enable", "enable"],
+                ["Disable", "disable"],
+              ],
+              value: arrow ? "enable" : "disable",
+              onChange: (value) => updateState("arrow", value === "enable"),
+            },
+            {
+              title: "Navigate Buttons",
+              options: [
+                ["Enable", "enable"],
+                ["Disable", "disable"],
+              ],
+              value: buttons ? "enable" : "disable",
+              onChange: (value) => updateState("buttons", value === "enable"),
+            },
+            {
+              title: "Month",
+              options: [
+                ["Show", "show"],
+                ["Hide", "hide"],
+              ],
+              value: hideMonth ? "hide" : "show",
+              onChange: (value) => updateState("hideMonth", value === "hide"),
+            },
+            {
+              title: "Year",
+              options: [
+                ["Show", "show"],
+                ["Hide", "hide"],
+              ],
+              value: hideYear ? "hide" : "show",
+              onChange: (value) => updateState("hideYear", value === "hide"),
+            },
+            {
+              title: "Shadow",
+              options: [
+                ["Enable", "enable"],
+                ["Disable", "disable"],
+              ],
+              value: shadow ? "enable" : "disable",
+              onChange: (value) => updateState("shadow", value === "enable"),
             },
             {
               title: "Colors",
@@ -375,7 +429,7 @@ export default function Demo({ language = "en", translate }) {
           if (language === "fa") {
             path = item.path.replace(
               /#.*$/,
-              "#" + translate(item.name).replace(/\s/g, "-")
+              "#" + translate(item.name).toLowerCase().replace(/\s/g, "-")
             );
           }
 

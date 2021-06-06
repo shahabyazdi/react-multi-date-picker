@@ -506,6 +506,13 @@
   ],
   "Opening Calendar On The Specified Date": "باز شدن تقویم در تاریخ دلخواه",
   "Customizing Navigate Buttons": "سفارشی کردن دکمه های پیمایش",
+  "Navigate Buttons": "دکمه های پیمایش",
+  "Month": "نمایش ماه",
+  "Year": "نمایش سال",
+  "Shadow": "سایه",
+  "Arrow": "فلش (پیکان)",
+  "Show": "نمایش",
+  "Hide": "عدم نمایش",
   "Disabling Navigate Buttons": "غیر فعال کردن دکمه های پیمایش",
   "disable_buttons": "برای غیرفعال کردن دکمه های پیمایش، می توانید مقدار پراپرتی buttons را روی false تنظیم کنید.",
   "custom_buttons": [
@@ -674,5 +681,7 @@
   "time_picker_style": "اگر ترجیح می دهید از انتخابگر زمان در سمت راست یا چپ تقویم استفاده کنید، می توانید از پراپرتی style برای تغییر عرض آن استفاده کنید.",
   "Styling TimePicker": "استایل دادن به انتخابگر زمان",
   "Custom Tooltip": "Tooltip دستی",
-  "tooltip": "یک ترفند کوچک برای اضافه کردن tooltip دستی."
+  "tooltip": "یک ترفند کوچک برای اضافه کردن tooltip دستی.",
+  "Multiple Day-Numbers With Different Calendars & Locales": "چند شماره روز با تقویم یا زبان های مختلف",
+  "children": "با استفاده از پراپرتی children ، می توانید 'مقدار' یا 'کامپوننت' مورد نظر را با مقدار پیش فرض (شماره روز) جایگزین کنید."
 }

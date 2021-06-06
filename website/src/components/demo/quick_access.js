@@ -454,6 +454,10 @@ const list = [
         path: "map-days/#hiding-days",
       },
       {
+        name: "Multiple Day-Numbers With Different Calendars & Locales",
+        path: "map-days/#multiple-day-numbers-with-different-calendars-&-locales",
+      },
+      {
         name: "Adding Tiltle to Days",
         path: "map-days/#adding-tiltle-to-days",
       },

@@ -59,6 +59,7 @@ function DatePicker(
     onPropsChange,
     digits,
     readOnly,
+    shadow,
     ...otherProps
   },
   outerRef
@@ -250,7 +251,9 @@ function DatePicker(
       position={calendarPosition}
       arrow={!isMobileMode && arrow}
       containerClassName={`rmdp-container ${containerClassName}`}
-      arrowClassName={`${className} ${arrowClassName}`}
+      arrowClassName={`${className} ${arrowClassName} ep-${
+        shadow ? "shadow" : "border"
+      }`}
       fixMainPosition={!scrollSensitive || fixMainPosition}
       zIndex={zIndex}
       onChange={!isMobileMode && onPositionChange}
@@ -288,7 +291,7 @@ function DatePicker(
               ...multipleStyle,
               ...style,
             }}
-            disabled={disabled ? true : false}
+            disabled={disabled}
             type="button"
           >
             {stringDate ||
@@ -417,6 +420,7 @@ function DatePicker(
         maxDate={maxDate}
         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
         onPropsChange={onPropsChange}
+        shadow={shadow}
         onReady={() => {
           setIsCalendarReady(true);
 
@@ -493,7 +497,7 @@ function DatePicker(
 
     let input = getInput(inputRef);
 
-    if (!value && !ref.current.date && !range && !multiple) {
+    if (!value && !ref.current.date && !range && !multiple && !isMobileMode) {
       let date = new DateObject({
         calendar,
         locale,
