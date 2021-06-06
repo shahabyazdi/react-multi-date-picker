@@ -50,7 +50,7 @@ function Calendar(
     disabled,
     hideMonth,
     hideYear,
-    shadow,
+    shadow = true,
   },
   outerRef
 ) {

@@ -59,7 +59,7 @@ function DatePicker(
     onPropsChange,
     digits,
     readOnly,
-    shadow,
+    shadow = true,
     ...otherProps
   },
   outerRef
