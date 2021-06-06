@@ -367,6 +367,12 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
+          <td>shadow</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">true</td>
+          <td>both</td>
+        </tr>
+        <tr>
           <td>containerClassName</td>
           <td style="text-align:center">String</td>
           <td style="text-align:center"></td>

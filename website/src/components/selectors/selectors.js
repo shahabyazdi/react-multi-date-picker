@@ -29,17 +29,24 @@ export function Selector({
 
 export default function Selectors({ selectors, translate }) {
   let result = [];
+  let i = 0;
 
-  for (let i = 0; i < selectors.length; i += 2) {
-    let first = selectors[i];
-    let second = selectors[i + 1];
-
-    if (!first) break;
-
+  while (i < selectors.length) {
     result.push(
-      <div key={i} className="display-flex">
-        <Selector {...getProps(first)} />
-        {second && <Selector {...getProps(second)} />}
+      <div key={i} style={{ display: "flex" }}>
+        {[0, 1].map((number) => {
+          let first = selectors[i++];
+          let second = selectors[i++];
+
+          if (!first) return null;
+
+          return (
+            <div key={number} className="display-flex flex-1">
+              <Selector {...getProps(first)} />
+              {second && <Selector {...getProps(second)} />}
+            </div>
+          );
+        })}
       </div>
     );
   }

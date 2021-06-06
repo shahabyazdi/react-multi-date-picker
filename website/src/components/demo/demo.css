@@ -80,7 +80,7 @@
   width: 100%;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 950px) {
   .display-flex {
     flex-direction: column;
   }
@@ -100,6 +100,6 @@
   content: ":";
 }
 
-.quick-access a{
+.quick-access a {
   text-decoration: none;
 }

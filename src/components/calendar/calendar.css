@@ -19,10 +19,17 @@
 
 .rmdp-wrapper {
   width: max-content;
-  box-shadow: 0 0 5px var(--rmdp-shadow);
   text-align: center;
   background-color: white;
   border-radius: 5px;
+}
+
+.rmdp-shadow {
+  box-shadow: 0 0 5px var(--rmdp-shadow);
+}
+
+.rmdp-border {
+  border: 1px solid var(--rmdp-border);
 }
 
 .rmdp-calendar {

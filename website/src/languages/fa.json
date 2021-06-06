@@ -506,6 +506,13 @@
   ],
   "Opening Calendar On The Specified Date": "باز شدن تقویم در تاریخ دلخواه",
   "Customizing Navigate Buttons": "سفارشی کردن دکمه های پیمایش",
+  "Navigate Buttons": "دکمه های پیمایش",
+  "Month": "نمایش ماه",
+  "Year": "نمایش سال",
+  "Shadow": "سایه",
+  "Arrow": "فلش (پیکان)",
+  "Show": "نمایش",
+  "Hide": "عدم نمایش",
   "Disabling Navigate Buttons": "غیر فعال کردن دکمه های پیمایش",
   "disable_buttons": "برای غیرفعال کردن دکمه های پیمایش، می توانید مقدار پراپرتی buttons را روی false تنظیم کنید.",
   "custom_buttons": [

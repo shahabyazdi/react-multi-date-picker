@@ -58,15 +58,6 @@ declare module "react-multi-date-picker" {
      * <DatePicker format="MM-DD-YYYY HH:mm:ss" />
      */
     format?: string;
-    /**
-     * Enable it if you want to use time picker.
-     * @example
-     * <Calendar timePicker />
-     *
-     * <DatePicker timePicker />
-     */
-    timePicker?: boolean;
-    onlyTimePicker?: boolean;
     onlyMonthPicker?: boolean;
     onlyYearPicker?: boolean;
     /**
@@ -198,7 +189,6 @@ declare module "react-multi-date-picker" {
     /**
      * @example
      * <DatePicker
-     *   timePicker
      *   format="Date:YYYY/MM/DD, Time:HH:mm:ss"
      *   formattingIgnoreList={["Date", "Time"]}
      * />
@@ -272,6 +262,7 @@ declare module "react-multi-date-picker" {
     disabled?: boolean;
     hideMonth?: boolean;
     hideYear?: boolean;
+    shadow?: boolean;
   }
 
   interface DatePickerProps {
