@@ -330,7 +330,7 @@ export default function Demo({ language = "en", translate }) {
                 ["Show", "show"],
                 ["Hide", "hide"],
               ],
-              value: hideMonth ? "hide" : "show",
+              value: hideMonth || onlyYearPicker ? "hide" : "show",
               onChange: (value) => updateState("hideMonth", value === "hide"),
             },
             {
