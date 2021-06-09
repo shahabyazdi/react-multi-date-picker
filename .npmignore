@@ -6,7 +6,7 @@
 /plugins/all
 /plugins/all.js
 rollup.config.js
+jest.config.json
 .github
 .gitignore
 .babelrc
-.jest.config.json

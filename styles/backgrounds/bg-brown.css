@@ -22,6 +22,11 @@
   color: #f5f5f5;
 }
 
+.bg-brown .rmdp-day.rmdp-deactive,
+.bg-brown .rmdp-day.rmdp-disabled {
+  color: #998580;
+}
+
 .rmdp-container .bg-brown.ep-arrow[direction="top"] {
   border-bottom: 1px solid #5d4037;
 }

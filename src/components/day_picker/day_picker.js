@@ -88,7 +88,6 @@ export default function DayPicker({
 
                     if (mustAddClassName)
                       className = `${className} ${otherProps.className || ""}`;
-                    if (object.hidden) className = className.replace("sd", "");
 
                     children = otherProps.children;
 
@@ -96,10 +95,15 @@ export default function DayPicker({
                     delete otherProps.children;
                   }
 
+                  let parentClassName = getClassName(object, numberOfMonths);
+
+                  if (object.hidden || object.disabled)
+                    className = className.replace("sd", "");
+
                   return (
                     <div
                       key={i}
-                      className={getClassName(object, numberOfMonths)}
+                      className={parentClassName}
                       onClick={() => {
                         if (!mustDisplayDay(object)) return;
                         if (object.disabled) return;

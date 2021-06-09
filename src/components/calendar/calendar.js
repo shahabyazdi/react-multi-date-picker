@@ -82,6 +82,8 @@ function Calendar(
     onlyTimePicker = false;
   }
 
+  if (onlyYearPicker && !hideMonth) hideMonth = true;
+
   format = getFormat(
     timePicker,
     onlyTimePicker,

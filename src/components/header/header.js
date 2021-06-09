@@ -41,7 +41,10 @@ export default function Header({
       maxDate.month.number < date.month.number + 1;
 
   if (hideMonth && hideYear && !buttons) return null;
-  if (hideMonth && hideYear) style.minHeight = "36px";
+
+  if ((hideMonth && hideYear) || (onlyYearPicker && hideYear)) {
+    style.minHeight = "36px";
+  }
 
   if (onlyMonthPicker) {
     if (minDate && minDate.year >= date.year) isPreviousDisable = true;
@@ -93,7 +96,7 @@ export default function Header({
         {buttons && getButton("left")}
         {monthNames.map((monthName, index) => (
           <div key={index} className="rmdp-header-values" style={style}>
-            {!onlyYearPicker && !hideMonth && (
+            {!hideMonth && (
               <span
                 style={{
                   cursor:

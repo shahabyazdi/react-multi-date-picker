@@ -21,6 +21,8 @@ export default function Demo({ language = "en", translate }) {
     buttons: true,
     arrow: true,
     shadow: true,
+    weekDays: "3",
+    months: "2",
   });
 
   const {
@@ -51,6 +53,8 @@ export default function Demo({ language = "en", translate }) {
     numberOfMonths,
     datePanelPosition,
     weekStartDayIndex,
+    weekDays,
+    months,
   } = state;
 
   const updateState = (key, value) => {
@@ -61,6 +65,18 @@ export default function Demo({ language = "en", translate }) {
     }
   };
 
+  let gregorianWeekDays = {
+    2: ["SU", "MO", "TU", "WE", "TH", "FR", "SA"],
+    1: ["S", "M", "T", "W", "T", "F", "S"],
+  };
+
+  let persianWeekDays = {
+    2: ["شن", "یک", "دو", "سه", "چه", "پن", "جم"],
+    1: ["ش", "ی", "د", "س", "چ", "پ", "ج"],
+  };
+
+  let $weekDays = language === "en" ? gregorianWeekDays : persianWeekDays;
+
   const props = {
     ...state,
     className: `${layout} ${color} ${background}`,
@@ -68,6 +84,14 @@ export default function Demo({ language = "en", translate }) {
     fixRelativePosition: true,
     fixMainPosition: true,
     weekStartDayIndex,
+    weekDays: $weekDays[weekDays] || undefined,
+    months:
+      months === "1"
+        ? new DateObject({
+            calendar: language === "en" ? "gregorian" : "persian",
+            locale: language,
+          }).months.map(({ shortName }) => shortName)
+        : undefined,
     format:
       (multiple || range) && !$timePicker && !$analogTimePicker
         ? undefined
@@ -330,7 +354,7 @@ export default function Demo({ language = "en", translate }) {
                 ["Show", "show"],
                 ["Hide", "hide"],
               ],
-              value: hideMonth ? "hide" : "show",
+              value: hideMonth || onlyYearPicker ? "hide" : "show",
               onChange: (value) => updateState("hideMonth", value === "hide"),
             },
             {
@@ -350,6 +374,25 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: shadow ? "enable" : "disable",
               onChange: (value) => updateState("shadow", value === "enable"),
+            },
+            {
+              title: "Days Of Week",
+              options: [
+                ["SUN, MON, ...", "3"],
+                ["SU, MO, ...", "2"],
+                ["S, M, ...", "1"],
+              ],
+              value: weekDays,
+              onChange: (value) => updateState("weekDays", value),
+            },
+            {
+              title: "Months",
+              options: [
+                ["January, February, ...", "2"],
+                ["Jan, Feb, ...", "1"],
+              ],
+              value: months,
+              onChange: (value) => updateState("months", value),
             },
             {
               title: "Colors",
