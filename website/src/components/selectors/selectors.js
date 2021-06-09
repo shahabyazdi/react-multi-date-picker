@@ -33,7 +33,7 @@ export default function Selectors({ selectors, translate }) {
 
   while (i < selectors.length) {
     result.push(
-      <div key={i} style={{ display: "flex" }}>
+      <div key={i} className="display-flex">
         {[0, 1].map((number) => {
           let first = selectors[i++];
           let second = selectors[i++];
@@ -41,7 +41,7 @@ export default function Selectors({ selectors, translate }) {
           if (!first) return null;
 
           return (
-            <div key={number} className="display-flex flex-1">
+            <div key={number} style={{ display: "flex" }} className="df flex-1">
               <Selector {...getProps(first)} />
               {second && <Selector {...getProps(second)} />}
             </div>

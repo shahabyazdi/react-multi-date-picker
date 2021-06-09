@@ -362,7 +362,7 @@ export default function Props(translate, language) {
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
-            <td>containerClassNamey</td>
+            <td>containerClassName</td>
             <td>String</td>
             <td></td>
             <td>{translate("DatePicker")}</td>

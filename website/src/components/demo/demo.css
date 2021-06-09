@@ -86,6 +86,12 @@
   }
 }
 
+@media (max-width: 450px) {
+  .df {
+    flex-direction: column;
+  }
+}
+
 .title {
   font-weight: bold;
   margin-bottom: 10px;
