@@ -50,6 +50,7 @@ function Calendar(
     disabled,
     hideMonth,
     hideYear,
+    hideWeekDays,
     shadow = true,
   },
   outerRef
@@ -296,6 +297,7 @@ function Calendar(
                   customWeekDays={weekDays}
                   numberOfMonths={numberOfMonths}
                   weekStartDayIndex={weekStartDayIndex}
+                  hideWeekDays={hideWeekDays}
                 />
                 <MonthPicker
                   {...globalProps}

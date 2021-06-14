@@ -4,9 +4,10 @@ export default function TypeScript() {
     description: "typescript",
     code: `import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker"
+import type{Value} from "react-multi-date-picker"
 
 export default function Example() {
-  const [value, setValue] = useState<Date | DateObject | DateObject[]>(new Date());
+  const [value, setValue] = useState<Value>(new Date());
 
   return <DatePicker value={value} onChange={setValue} />;
 }`,

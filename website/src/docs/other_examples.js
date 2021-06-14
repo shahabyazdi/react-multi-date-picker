@@ -255,6 +255,14 @@ export default function Example() {
     jsx: <DatePicker hideYear {...otherProps} />,
   };
 
+  const hideWeekDays = {
+    title: "Hiding Week Days",
+    code: `<DatePicker 
+  hideWeekDays 
+/>`,
+    jsx: <DatePicker hideWeekDays {...otherProps} />,
+  };
+
   const readOnly = {
     title: "Read Only Calendar",
     description: "read_only_calendar",
@@ -346,6 +354,7 @@ export default function Example() {
     monthPicker,
     hideYear,
     hideMonth,
+    hideWeekDays,
     readOnlyDatePicker,
     readOnly,
     disabled,

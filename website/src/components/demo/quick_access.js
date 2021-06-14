@@ -702,6 +702,10 @@ const list = [
         path: "other-examples/#hiding-month-from-header",
       },
       {
+        name: "Hiding Week Days",
+        path: "other-examples/#hiding-week-days",
+      },
+      {
         name: "Read Only DatePicker",
         path: "other-examples/#read-only-datepicker",
       },

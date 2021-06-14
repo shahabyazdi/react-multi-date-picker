@@ -55,6 +55,7 @@ export default function Demo({ language = "en", translate }) {
     weekStartDayIndex,
     weekDays,
     months,
+    hideWeekDays,
   } = state;
 
   const updateState = (key, value) => {
@@ -347,6 +348,16 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: buttons ? "enable" : "disable",
               onChange: (value) => updateState("buttons", value === "enable"),
+            },
+            {
+              title: "Week Days",
+              options: [
+                ["Show", "show"],
+                ["Hide", "hide"],
+              ],
+              value: hideWeekDays ? "hide" : "show",
+              onChange: (value) =>
+                updateState("hideWeekDays", value === "hide"),
             },
             {
               title: "Month",
