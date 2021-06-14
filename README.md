@@ -366,6 +366,12 @@ export default function Example() {
           <td style="text-align:center">false</td>
           <td>both</td>
         </tr>
+         <tr>
+          <td>hideWeekDays</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
         <tr>
           <td>shadow</td>
           <td style="text-align:center">Boolean</td>
@@ -435,6 +441,12 @@ export default function Example() {
         <tr>
           <td>title</td>
           <td style="text-align:center">String</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>required</td>
+          <td style="text-align:center">Boolean</td>
           <td style="text-align:center"></td>
           <td>DatePicker</td>
         </tr>

@@ -14,6 +14,7 @@ export default function DayPicker({
   isRTL,
   weekStartDayIndex,
   handleFocusedDate,
+  hideWeekDays,
 }) {
   const ref = useRef({}),
     {
@@ -62,11 +63,13 @@ export default function DayPicker({
                 monthIndex + 1 < numberOfMonths ? "10px" : "",
             }}
           >
-            <WeekDays
-              state={state}
-              customWeekDays={customWeekDays}
-              weekStartDayIndex={weekStartDayIndex}
-            />
+            {!hideWeekDays && (
+              <WeekDays
+                state={state}
+                customWeekDays={customWeekDays}
+                weekStartDayIndex={weekStartDayIndex}
+              />
+            )}
             {weeks.map((week, index) => (
               <div key={index} className="rmdp-week">
                 {week.map((object, i) => {

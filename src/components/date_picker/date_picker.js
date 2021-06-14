@@ -87,6 +87,7 @@ function DatePicker(
 
         popper.classList.remove("rmdp-calendar-container-mobile");
         popper.style.position = "absolute";
+        popper.style.visibility = "hidden";
       }
 
       setIsVisible(false);
@@ -430,8 +431,11 @@ function DatePicker(
 
           popper.className = "rmdp-calendar-container-mobile";
           popper.style.position = "fixed";
-          popper.style.visibility = "visible";
           popper.style.transform = "";
+
+          setTimeout(() => {
+            popper.style.visibility = "visible";
+          }, 50);
         }}
         DatePicker={datePickerRef.current}
         datePickerProps={datePickerProps}
@@ -548,7 +552,7 @@ function DatePicker(
     if (!value) {
       setStringDate("");
 
-      return handleChange(new DateObject({}));
+      return handleChange(null);
     }
 
     if (!digits) return;
@@ -557,9 +561,17 @@ function DatePicker(
       value = value.replace(new RegExp(digit, "g"), digits.indexOf(digit));
     }
 
-    let newDate = new DateObject(date?.isValid ? date : object).parse(value);
+    // let newDate = new DateObject(date?.isValid ? date : object).parse(value);
 
-    handleChange(newDate);
+    let newDate = new DateObject({
+      date: value,
+      format,
+      calendar,
+      locale,
+    });
+
+    // handleChange(newDate);
+    handleChange(newDate.isValid ? newDate : null);
 
     setStringDate(value.replace(/[0-9]/g, (w) => digits[w]));
   }

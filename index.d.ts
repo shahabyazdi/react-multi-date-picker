@@ -2,6 +2,17 @@ declare module "react-multi-date-picker" {
   import React, { HTMLAttributes } from "react";
   import DateObject from "react-date-object";
 
+  export type Value =
+    | Date
+    | string
+    | number
+    | DateObject
+    | Date[]
+    | string[]
+    | number[]
+    | DateObject[]
+    | null;
+
   interface CalendarProps {
     ref?: React.MutableRefObject<any>;
     /**
@@ -11,15 +22,7 @@ declare module "react-multi-date-picker" {
      * <Calendar value={new Date()} />
      * <DatePicker value={[new Date(), new Date(2020, 2, 12)]} />
      */
-    value?:
-      | Date
-      | string
-      | number
-      | DateObject
-      | Date[]
-      | string[]
-      | number[]
-      | DateObject[];
+    value?: Value;
     /**
      * Availble calendars:
      *
@@ -135,7 +138,7 @@ declare module "react-multi-date-picker" {
      *  }}
      * />
      */
-    onChange?(selectedDates: DateObject | DateObject[]): void;
+    onChange?(selectedDates: DateObject | DateObject[] | null): void;
     showOtherDays?: boolean;
     /**
      * the date you set in datepicker as value must be equal or bigger than min date.
@@ -262,6 +265,7 @@ declare module "react-multi-date-picker" {
     disabled?: boolean;
     hideMonth?: boolean;
     hideYear?: boolean;
+    hideWeekDays?: boolean;
     shadow?: boolean;
   }
 
