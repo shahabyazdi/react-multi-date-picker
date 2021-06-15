@@ -3,7 +3,7 @@ import DatePicker from "../../../build/index";
 import { useForm, Controller } from "react-hook-form";
 
 export default function Doc({ translate, language }) {
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -35,8 +35,8 @@ export default function Doc({ translate, language }) {
                   onChange(date?.isValid ? date : "");
                 }}
               />
-              // if you want to show an error message
               {errors && errors[name] && errors[name].type === "required" && (
+                // if you want to show an error message
                 <span> your error message </span>
               )}
             </>
