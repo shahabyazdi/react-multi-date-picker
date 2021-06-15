@@ -37,6 +37,7 @@ const sidebar = {
   default: [
     { name: "Home", path: "" },
     { name: "Installation & Usage", path: "installation/" },
+    { name: "React Hook Form", path: "react-hook-form/" },
     { name: "TypeScript", path: "typescript/" },
     { name: "Props", path: "props/" },
     { name: "Formatting Tokens", path: "format-tokens/" },
