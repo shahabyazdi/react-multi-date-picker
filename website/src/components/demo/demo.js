@@ -4,9 +4,9 @@ import DatePicker, { Calendar, DateObject } from "../../../../build/index";
 import DatePanel from "../../../../plugins/date_panel";
 import TimePicker from "../../../../plugins/time_picker";
 import AnalogTimePicker from "../../../../plugins/analog_time_picker";
+import list from "./quick_access";
 import { Link } from "gatsby";
 import "./demo.css";
-import list from "./quick_access";
 
 export default function Demo({ language = "en", translate }) {
   const [state, setState] = useState({
@@ -56,6 +56,7 @@ export default function Demo({ language = "en", translate }) {
     weekDays,
     months,
     hideWeekDays,
+    weekend,
   } = state;
 
   const updateState = (key, value) => {
@@ -77,6 +78,13 @@ export default function Demo({ language = "en", translate }) {
   };
 
   let $weekDays = language === "en" ? gregorianWeekDays : persianWeekDays;
+
+  let $weekend = {
+    gregorian: [0, 6],
+    persian: [6],
+    arabic: [0, 6],
+    indian: [0],
+  };
 
   const props = {
     ...state,
@@ -101,6 +109,21 @@ export default function Demo({ language = "en", translate }) {
         : $onlyTimePicker || $onlyAnalogTimePicker
         ? "HH:mm:ss"
         : undefined,
+    mapDays: ({ date }) => {
+      if ($weekend[calendar].includes(date.weekDay.index)) {
+        if (weekend === "highlight") {
+          return {
+            className: "highlight highlight-red",
+          };
+        }
+
+        if (weekend === "disable") {
+          return {
+            disabled: true,
+          };
+        }
+      }
+    },
     plugins: [
       <DatePanel
         sort="date"
@@ -388,6 +411,7 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Days Of Week",
+              disabled: hideWeekDays,
               options: [
                 ["SUN, MON, ...", "3"],
                 ["SU, MO, ...", "2"],
@@ -398,12 +422,32 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Months",
+              disabled: hideMonth,
               options: [
                 ["January, February, ...", "2"],
                 ["Jan, Feb, ...", "1"],
               ],
               value: months,
               onChange: (value) => updateState("months", value),
+            },
+            {
+              title: "Weekend",
+              options: [
+                ["Default", "default"],
+                ["Highlight", "highlight"],
+                ["Disable", "disable"],
+              ],
+              value: weekend,
+              onChange: (val) => {
+                updateState({
+                  weekend: val,
+                  value:
+                    $weekend[calendar].includes(value?.weekDay?.index) &&
+                    val === "disable"
+                      ? null
+                      : value,
+                });
+              },
             },
             {
               title: "Colors",
@@ -464,9 +508,9 @@ export default function Demo({ language = "en", translate }) {
 
       <h3>{translate("Descriptions")}:</h3>
       <ul>
-        {translate("demo_descriptions").map((description, index) => {
-          return <li key={index}>{description}</li>;
-        })}
+        {translate("demo_descriptions").map((description, index) => (
+          <li key={index}>{description}</li>
+        ))}
       </ul>
 
       <h3>{translate("Quick Access")} :</h3>

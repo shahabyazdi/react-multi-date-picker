@@ -226,7 +226,7 @@ function Calendar(
     });
   }, [minDate, maxDate, onlyShowInRangeDates, value]);
 
-  if (state.date && !ref.current.isReady) ref.current.isReady = true;
+  if (state.today && !ref.current.isReady) ref.current.isReady = true;
 
   useEffect(() => {
     if (
