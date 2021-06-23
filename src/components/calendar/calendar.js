@@ -484,7 +484,7 @@ function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
   return [date, minDate, maxDate];
 }
 
-function toDateObject(date, calendar) {
+export function toDateObject(date, calendar) {
   if (date instanceof DateObject) {
     date.setCalendar(calendar);
   } else {
