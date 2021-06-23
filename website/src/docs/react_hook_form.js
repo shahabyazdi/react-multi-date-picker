@@ -11,6 +11,11 @@ export default function Doc({ translate, language }) {
 
   const example = {
     title: "Example Of Using React Hook Form",
+    code: `import React from "react";
+import DatePicker from "react-multi-date-picker";
+import { useForm, Controller } from "react-hook-form";
+
+export default function Example`,
     jsx: (
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
