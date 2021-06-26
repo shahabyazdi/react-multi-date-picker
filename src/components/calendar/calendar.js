@@ -45,6 +45,7 @@ function Calendar(
     disableDayPicker,
     onPropsChange,
     onMonthChange,
+    onYearChange,
     onFocusedDateChange,
     readOnly,
     disabled,
@@ -304,7 +305,7 @@ function Calendar(
                   customMonths={months}
                   handleMonthChange={handleMonthChange}
                 />
-                <YearPicker {...globalProps} />
+                <YearPicker {...globalProps} onYearChange={onYearChange} />
               </div>
             </>
           )}

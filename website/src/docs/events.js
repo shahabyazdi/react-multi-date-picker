@@ -48,6 +48,17 @@ export default function Events(translate, language, otherProps) {
   const [shouldCloseCalendar, setShouldCloseCalendar] = useState(false);
   const [shouldOpenCalendar, setShouldOpenCalendar] = useState(false);
   const [dates, setDates] = useState({});
+  const [value, setValue] = useState();
+
+  function updateValue({ year, month }) {
+    setValue(
+      new DateObject(value).set({
+        day: value.day > month.length ? month.length : value.day,
+        month,
+        year,
+      })
+    );
+  }
 
   const onChangeSingle = {
     title: "onChange (single mode)",
@@ -377,6 +388,45 @@ export default function Example() {
     ),
   };
 
+  const onYearChange = {
+    title: "onYearChange",
+    description: "on_year_change",
+    code: `import React, { useState } from "react";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+
+export default function Example() {
+  const [value, setValue] = useState();
+
+  return (
+    <DatePicker
+      value={value}
+      onChange={setValue}
+      onYearChange={updateValue}
+      onMonthChange={updateValue}
+    />
+  )
+
+  function updateValue({ year, month }) {
+    setValue(
+      new DateObject(value).set({
+        day: value.day > month.length ? month.length : value.day,
+        month,
+        year,
+      })
+    );
+  }
+}`,
+    jsx: (
+      <DatePicker
+        value={value}
+        onChange={setValue}
+        onYearChange={updateValue}
+        onMonthChange={updateValue}
+        {...otherProps}
+      />
+    ),
+  };
+
   const onFocusedDateChange = {
     title: "onFocusedDateChange",
     description: (
@@ -525,6 +575,7 @@ const [state, setState] = useState({});
     onPositionChange,
     onPropsChange,
     onMonthChange,
+    onYearChange,
     onFocusedDateChange,
   ];
 }

@@ -8,6 +8,7 @@ export default function YearPicker({
   onChange,
   sort,
   handleFocusedDate,
+  onYearChange,
 }) {
   const {
       date,
@@ -90,6 +91,8 @@ export default function YearPicker({
       } else if (maxDate && date.month.number > maxDate.month.number) {
         date = date.setMonth(maxDate.month.number);
       }
+
+      onYearChange?.(date);
     }
 
     onChange(onlyYearPicker ? selectedDate : undefined, {
