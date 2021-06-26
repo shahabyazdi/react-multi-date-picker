@@ -331,6 +331,12 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
+          <td>onYearChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
           <td>onFocusedDateChange</td>
           <td style="text-align:center">Function</td>
           <td style="text-align:center"></td>

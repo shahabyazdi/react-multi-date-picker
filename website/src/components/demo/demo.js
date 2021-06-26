@@ -347,6 +347,11 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Other Days",
+              disabled:
+                onlyYearPicker ||
+                onlyMonthPicker ||
+                $onlyAnalogTimePicker ||
+                $onlyTimePicker,
               options: [
                 ["Enable", "enable"],
                 ["Disable", "disable"],
@@ -387,6 +392,11 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Week Days",
+              disabled:
+                onlyYearPicker ||
+                onlyMonthPicker ||
+                $onlyAnalogTimePicker ||
+                $onlyTimePicker,
               options: [
                 ["Show", "show"],
                 ["Hide", "hide"],
@@ -397,6 +407,8 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Month",
+              disabled:
+                onlyYearPicker || $onlyAnalogTimePicker || $onlyTimePicker,
               options: [
                 ["Show", "show"],
                 ["Hide", "hide"],
@@ -406,6 +418,7 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Year",
+              disabled: $onlyAnalogTimePicker || $onlyTimePicker,
               options: [
                 ["Show", "show"],
                 ["Hide", "hide"],
@@ -424,7 +437,12 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Days Of Week",
-              disabled: hideWeekDays,
+              disabled:
+                hideWeekDays ||
+                onlyYearPicker ||
+                onlyMonthPicker ||
+                $onlyAnalogTimePicker ||
+                $onlyTimePicker,
               options: [
                 ["SUN, MON, ...", "3"],
                 ["SU, MO, ...", "2"],
@@ -435,7 +453,11 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Months",
-              disabled: hideMonth,
+              disabled:
+                hideMonth ||
+                onlyYearPicker ||
+                $onlyAnalogTimePicker ||
+                $onlyTimePicker,
               options: [
                 ["January, February, ...", "2"],
                 ["Jan, Feb, ...", "1"],
@@ -445,6 +467,11 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Weekend",
+              disabled:
+                onlyMonthPicker ||
+                onlyYearPicker ||
+                $onlyAnalogTimePicker ||
+                $onlyTimePicker,
               options: [
                 ["Default", "default"],
                 ["Highlight", "highlight"],

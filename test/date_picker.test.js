@@ -356,6 +356,27 @@ describe("events", () => {
     expect(onMonthChange).toHaveBeenCalledTimes(3);
   });
 
+  test("onYearChange", () => {
+    const date = new DateObject();
+    const onYearChange = jest.fn();
+    const { openCalendar, queryByText, getCalendar } = renderDatePicker({
+      onYearChange,
+    });
+
+    openCalendar();
+
+    //opening year picker
+    const calendar = getCalendar();
+    const year = calendar.querySelector(".rmdp-header-values").children[1];
+    fireEvent.click(year);
+
+    //selecting next year
+    const nextyear = queryByText(date.year + 1);
+    fireEvent.click(nextyear);
+
+    expect(onYearChange).toHaveBeenCalledTimes(1);
+  });
+
   test("onFocusedDateChange", () => {
     const onFocusedDateChange = jest.fn();
     const { openCalendar, getByText } = renderDatePicker({

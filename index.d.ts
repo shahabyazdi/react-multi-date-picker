@@ -257,10 +257,11 @@ declare module "react-multi-date-picker" {
     disableDayPicker?: boolean;
     onPropsChange?(props: object): void;
     onMonthChange?(date: DateObject): void;
+    onYearChange?(date: DateObject): void;
     onFocusedDateChange?(
       focusedDate: DateObject | undefined,
       clickedDate: DateObject | undefined
-    );
+    ): void;
     readOnly?: boolean;
     disabled?: boolean;
     hideMonth?: boolean;
