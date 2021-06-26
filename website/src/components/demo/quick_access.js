@@ -34,6 +34,16 @@ const list = [
     ],
   },
   {
+    name: "React Hook Form",
+    path: "react-hook-form/",
+    list: [
+      {
+        name: "Example Of Using React Hook Form",
+        path: "react-hook-form/#example-of-using-react-hook-form",
+      },
+    ],
+  },
+  {
     name: "TypeScript",
     path: "typescript/",
     list: [
@@ -338,6 +348,10 @@ const list = [
       {
         name: "onMonthChange",
         path: "events/#onmonthchange",
+      },
+      {
+        name: "onYearChange",
+        path: "events/#onyearchange",
       },
       {
         name: "onFocusedDateChange",

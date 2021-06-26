@@ -37,8 +37,8 @@ const sidebar = {
   default: [
     { name: "Home", path: "" },
     { name: "Installation & Usage", path: "installation/" },
-    { name: "React Hook Form", path: "react-hook-form/" },
     { name: "TypeScript", path: "typescript/" },
+    { name: "React Hook Form", path: "react-hook-form/" },
     { name: "Props", path: "props/" },
     { name: "Formatting Tokens", path: "format-tokens/" },
     { name: "Calendars & Locales", path: "calendars/" },

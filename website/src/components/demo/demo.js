@@ -10,7 +10,7 @@ import "./demo.css";
 
 export default function Demo({ language = "en", translate }) {
   const [state, setState] = useState({
-    value: new Date(),
+    value: new DateObject(),
     calendar: language === "fa" ? "persian" : "gregorian",
     locale: language,
     mustShowDates: true,
@@ -153,6 +153,19 @@ export default function Demo({ language = "en", translate }) {
     props.plugins.push(analogTimePicker);
   } else {
     props.plugins.unshift(analogTimePicker);
+  }
+
+  if (Array.isArray(value)) {
+    value.forEach((date) => {
+      if (
+        $weekend[calendar].includes(date?.weekDay?.index) &&
+        weekend === "highlight"
+      ) {
+        date.color = "red";
+      } else {
+        delete date.color;
+      }
+    });
   }
 
   return (
@@ -439,13 +452,25 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: weekend,
               onChange: (val) => {
-                updateState({
-                  weekend: val,
-                  value:
+                let date = value;
+                if (multiple || range || Array.isArray(value)) {
+                  date = value.filter((date) =>
+                    $weekend[calendar].includes(date?.weekDay?.index) &&
+                    val === "disable"
+                      ? false
+                      : true
+                  );
+                } else {
+                  date =
                     $weekend[calendar].includes(value?.weekDay?.index) &&
                     val === "disable"
                       ? null
-                      : value,
+                      : value;
+                }
+
+                updateState({
+                  weekend: val,
+                  value: date,
                 });
               },
             },

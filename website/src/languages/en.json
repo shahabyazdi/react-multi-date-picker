@@ -231,7 +231,7 @@
   ],
   "on_year_change": [
     "like the onMonthChange, a date with the type of DateObject is sent as an argument in onYearChange function.",
-    "For example you can use the onYearChange and onMonthChange Props, if you want to implement a DatePicker in which the month and year of the user-selected date is changes by changing the month and year of the calendar."
+    "For example you can use the onYearChange and onMonthChange Props, if you want to implement a DatePicker in which the month and year of the user-selected date changes by changing the month and year of the calendar."
   ],
   "range_picker_footer": "This plugin is developed specifically for the Range Picker and does not work properly in other modes.",
   "time_picker": [

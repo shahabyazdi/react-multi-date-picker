@@ -698,5 +698,8 @@
   "Custom Tooltip": "Tooltip دستی",
   "tooltip": "یک ترفند کوچک برای اضافه کردن tooltip دستی.",
   "Multiple Day-Numbers With Different Calendars & Locales": "چند شماره روز با تقویم یا زبان های مختلف",
-  "children": "با استفاده از پراپرتی children ، می توانید 'مقدار' یا 'کامپوننت' مورد نظر را با مقدار پیش فرض (شماره روز) جایگزین کنید."
+  "children": "با استفاده از پراپرتی children ، می توانید 'مقدار' یا 'کامپوننت' مورد نظر را با مقدار پیش فرض (شماره روز) جایگزین کنید.",
+  "React Hook Form": "ری اکت هوک فرم",
+  "Example Of Using React Hook Form": "مثالی از استفاده از React Hook Form",
+  "Submitted Date: ": "تاریخ ارسال شده: "
 }

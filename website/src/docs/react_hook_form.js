@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import DatePicker from "../../../build/index";
 import { useForm, Controller } from "react-hook-form";
 
-export default function Doc({ translate, language }) {
+export default function Doc(translate, language, otherProps, codeEnd) {
   const { control, handleSubmit } = useForm();
+  const [submittedDate, setSubmittedDate] = useState();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = ({ date }) => {
+    setSubmittedDate(date);
   };
 
   const example = {
@@ -15,40 +16,94 @@ export default function Doc({ translate, language }) {
 import DatePicker from "react-multi-date-picker";
 import { useForm, Controller } from "react-hook-form";
 
-export default function Example`,
-    jsx: (
+export default function Example() {
+  const { control, handleSubmit } = useForm();
+  const [submittedDate, setSubmittedDate] = useState();
+
+  const onSubmit = ({ date }) => {
+    setSubmittedDate(date);
+  };
+
+  return (
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
-          name="some-name"
+          name="date"
           rules={{ required: true }} //optional
           render={({
             field: { onChange, name, value },
-            fieldState: { invalid, isDirty }, // optional
-            formState: { errors }, // optional, but neccessary if you want to show an error message
+            fieldState: { invalid, isDirty }, //optional
+            formState: { errors }, //optional, but necessary if you want to show an error message
           }) => (
             <>
               <DatePicker
-                // calendar options
-                calendarPosition="bottom-center"
-                type="input-icon"
-                calendar="persian"
-                locale="fa"
-                // react hook form needs this
                 value={value || ""}
                 onChange={(date) => {
                   onChange(date?.isValid ? date : "");
                 }}
-              />
+                format={language === "en" ? "MM/DD/YYYY" : "YYYY/MM/DD"}
+              ${
+                language === "en"
+                  ? "/>"
+                  : `  calendar="persian"
+                locale="fa"
+                calendarPosition="auto-right"
+              />`
+              }
               {errors && errors[name] && errors[name].type === "required" && (
-                // if you want to show an error message
-                <span> your error message </span>
+                //if you want to show an error message
+                <span>your error message !</span>
               )}
             </>
           )}
         />
         <input type="submit" />
       </form>
+      <p>${translate("Submitted Date: ")} {submittedDate?.format?.("${
+      language === "en" ? "MMMM D YYYY" : "D MMMM YYYY"
+    }")}</p>
+    </>
+  )
+}`,
+    jsx: (
+      <>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            control={control}
+            name="date"
+            rules={{ required: true }} //optional
+            render={({
+              field: { onChange, name, value },
+              fieldState: { invalid, isDirty }, // optional
+              formState: { errors }, //optional, but necessary if you want to show an error message
+            }) => (
+              <>
+                <DatePicker
+                  //react hook form needs this
+                  value={value || ""}
+                  onChange={(date) => {
+                    onChange(date?.isValid ? date : "");
+                  }}
+                  format={language === "en" ? "MM/DD/YYYY" : "YYYY/MM/DD"}
+                  {...otherProps}
+                />
+                {errors && errors[name] && errors[name].type === "required" && (
+                  //if you want to show an error message
+                  <span>your error message !</span>
+                )}
+              </>
+            )}
+          />
+          <input type="submit" />
+        </form>
+        <p>
+          {translate("Submitted Date: ")}
+          {submittedDate?.format?.(
+            language === "en" ? "MMMM D YYYY" : "D MMMM YYYY"
+          )}
+        </p>
+      </>
     ),
   };
 
