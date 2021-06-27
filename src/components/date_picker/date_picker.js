@@ -33,7 +33,6 @@ function DatePicker(
     className = "",
     inputClass,
     disabled,
-    type = "input",
     render,
     weekDays,
     months,
@@ -67,16 +66,18 @@ function DatePicker(
     [stringDate, setStringDate] = useState(""),
     [isVisible, setIsVisible] = useState(false),
     [isCalendarReady, setIsCalendarReady] = useState(false),
-    datePickerRef = useRef(null),
-    inputRef = useRef(null),
-    calendarRef = useRef(null),
+    datePickerRef = useRef(),
+    inputRef = useRef(),
+    calendarRef = useRef(),
     ref = useRef({}),
     separator = range ? " ~ " : ", ",
     datePickerProps = arguments[0],
     closeCalendar = useCallback(() => {
       if (onClose?.() === false) return;
 
-      getInput(inputRef)?.blur?.();
+      let input = getInput(inputRef);
+
+      if (input) input.blur();
 
       if (ref.current.mobile) {
         let popper = calendarRef.current.parentNode.parentNode;
@@ -174,7 +175,7 @@ function DatePicker(
 
       if (range && date.length > 2) date = [date[0], getLastDate()];
 
-      setStringDate(getStringDate(date, type, separator));
+      setStringDate(getStringDate(date, separator));
     } else {
       if (Array.isArray(date)) date = getLastDate();
 
@@ -196,7 +197,6 @@ function DatePicker(
     range,
     multiple,
     separator,
-    type,
     onlyMonthPicker,
     onlyYearPicker,
     weekDays,
@@ -386,17 +386,16 @@ function DatePicker(
   }
 
   function toLocale(string) {
+    if (!locale || typeof locale.name !== "string") return string;
+
     let actions = {
-      EN: { OK: "OK", CANCEL: "CANCEL" },
-      FA: { OK: "تأیید", CANCEL: "لغو" },
-      AR: { OK: "تأكيد", CANCEL: "الغاء" },
-      HI: { OK: "पुष्टि", CANCEL: "रद्द करें" },
+      en: { OK: "OK", CANCEL: "CANCEL" },
+      fa: { OK: "تأیید", CANCEL: "لغو" },
+      ar: { OK: "تأكيد", CANCEL: "الغاء" },
+      hi: { OK: "पुष्टि", CANCEL: "रद्द करें" },
     };
 
-    if (typeof locale === "string" && actions[locale.toUpperCase()])
-      return actions[locale.toUpperCase()][string];
-
-    return string;
+    return actions[locale.name.split("_")[1]]?.[string] || string;
   }
 
   function openCalendar() {
@@ -441,7 +440,7 @@ function DatePicker(
 
     onChange?.(date);
 
-    if (date) setStringDate(getStringDate(date, type, separator));
+    if (date) setStringDate(getStringDate(date, separator));
   }
 
   function handleValueChange(e) {
@@ -478,15 +477,13 @@ function DatePicker(
 
 export default forwardRef(DatePicker);
 
-function getStringDate(date, type, separator) {
+function getStringDate(date, separator) {
   if (!date) return "";
 
   let toString = (date) => date.format();
 
   return !Array.isArray(date)
     ? toString(date)
-    : type === "button" && date.length > 1
-    ? [date[0], date[1]].map(toString).join(separator)
     : date.map(toString).join(separator);
 }
 
