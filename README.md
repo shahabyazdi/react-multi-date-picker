@@ -83,12 +83,12 @@ export default function Example() {
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 
     <!-- DatePicker and dependencies-->
-    <script src="https://cdn.jsdelivr.net/npm/date-object@latest/dist/date-object.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-element-popper@latest/build/browser.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-object@1.3.9/dist/date-object.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-element-popper@1.0.10/build/browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@2.10.0/build/browser.min.js"></script>
 
     <!-- Optional Plugin -->
-    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@latest/build/date_picker_header.browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-multi-date-picker@2.10.0/build/date_picker_header.browser.js"></script>
 
     <script>
       const { DatePicker, Calendar } = ReactMultiDatePicker;
