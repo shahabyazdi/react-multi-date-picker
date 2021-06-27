@@ -1,6 +1,9 @@
 import React, { useMemo, useRef } from "react";
 import DateObject from "react-date-object";
 import WeekDays from "../week_days/week_days";
+import selectDate from "../../shared/selectDate";
+import isSameDate from "../../shared/isSameDate";
+import getRangeClass from "../../shared/getRangeClass";
 
 export default function DayPicker({
   state,
@@ -27,8 +30,7 @@ export default function DayPicker({
       onlyMonthPicker,
       onlyYearPicker,
     } = state,
-    mustShowDayPicker =
-      !state.onlyTimePicker && !onlyMonthPicker && !onlyYearPicker;
+    mustShowDayPicker = !onlyMonthPicker && !onlyYearPicker;
 
   ref.current.date = date;
 
@@ -280,95 +282,4 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
   }
 
   return months;
-}
-
-export function selectDate(
-  date,
-  sort,
-  {
-    multiple,
-    range,
-    selectedDate,
-    onlyMonthPicker,
-    onlyYearPicker,
-    format,
-    focused: previousFocused,
-  }
-) {
-  date.setFormat(format);
-
-  let focused = new DateObject(date);
-
-  if (multiple) {
-    selectedDate = selectMultiple();
-  } else if (range) {
-    selectedDate = selectRange();
-  } else {
-    selectedDate = focused;
-  }
-
-  return [selectedDate, focused];
-
-  function selectMultiple() {
-    let dates = selectedDate.filter(
-      ($date) => !isSameDate(date, $date, onlyMonthPicker, onlyYearPicker)
-    );
-
-    if (dates.length === selectedDate.length) {
-      dates.push(focused);
-    } else {
-      focused = dates.find((d) => d.valueOf() === previousFocused?.valueOf?.());
-    }
-
-    if (sort) dates.sort((a, b) => a - b);
-
-    return dates;
-  }
-
-  function selectRange() {
-    if (selectedDate.length === 2 || selectedDate.length === 0)
-      return [focused];
-    if (selectedDate.length === 1)
-      return [selectedDate[0], focused].sort((a, b) => a - b);
-  }
-}
-
-export function isSameDate(
-  firstDate,
-  secondDate,
-  onlyMonthPicker = false,
-  onlyYearPicker = false
-) {
-  if (!firstDate || !secondDate) return false;
-
-  if (firstDate.year === secondDate.year) {
-    if (onlyYearPicker) return true;
-
-    if (firstDate.month.number === secondDate.month.number) {
-      if (onlyMonthPicker) return true;
-      if (firstDate.day === secondDate.day) return true;
-    }
-  }
-}
-
-export function getRangeClass(date, selectedDate, checkMonth) {
-  let first = selectedDate[0],
-    second = selectedDate[1],
-    names = [];
-
-  if (selectedDate.length === 1) {
-    if (isSameDate(date, first, checkMonth)) names.push("rmdp-range");
-  } else if (selectedDate.length === 2) {
-    if (
-      date.dayOfBeginning >= first.dayOfBeginning &&
-      date.dayOfBeginning <= second.dayOfBeginning
-    ) {
-      names.push("rmdp-range");
-    }
-
-    if (isSameDate(date, first, checkMonth)) names.push("start");
-    if (isSameDate(date, second, checkMonth)) names.push("end");
-  }
-
-  return names.join(" ");
 }

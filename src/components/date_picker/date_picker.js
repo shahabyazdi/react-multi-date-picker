@@ -2,15 +2,15 @@ import React, {
   useState,
   useEffect,
   useRef,
-  useMemo,
   useCallback,
   forwardRef,
 } from "react";
 import ElementPopper from "react-element-popper";
 import DateObject from "react-date-object";
-import Calendar, { getFormat, getIgnoreList } from "../calendar/calendar";
-import getAllDatesInRange from "../../../plugins/all/date_panel/getAllDatesInRange";
-import { IconCalendarEvent } from "@tabler/icons";
+import Calendar from "../calendar/calendar";
+import getAllDatesInRange from "../../shared/getAllDatesInRange";
+import getFormat from "../../shared/getFormat";
+import getIgnoreList from "../../shared/getIgnoreList";
 import "./date_picker.css";
 
 function DatePicker(
@@ -19,8 +19,6 @@ function DatePicker(
     calendar = "gregorian",
     locale = "en",
     format,
-    timePicker,
-    onlyTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
     onChange,
@@ -73,14 +71,12 @@ function DatePicker(
     inputRef = useRef(null),
     calendarRef = useRef(null),
     ref = useRef({}),
-    separator = useMemo(() => (range ? " ~ " : ", "), [range]),
+    separator = range ? " ~ " : ", ",
     datePickerProps = arguments[0],
     closeCalendar = useCallback(() => {
       if (onClose?.() === false) return;
 
-      let input = getInput(inputRef);
-
-      if (input) input.blur();
+      getInput(inputRef)?.blur?.();
 
       if (ref.current.mobile) {
         let popper = calendarRef.current.parentNode.parentNode;
@@ -103,13 +99,7 @@ function DatePicker(
 
   formattingIgnoreList = getIgnoreList(formattingIgnoreList);
 
-  format = getFormat(
-    timePicker,
-    onlyTimePicker,
-    onlyMonthPicker,
-    onlyYearPicker,
-    format
-  );
+  format = getFormat(onlyMonthPicker, onlyYearPicker, format);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -190,9 +180,7 @@ function DatePicker(
 
       date = checkDate(date);
 
-      let input = getInput(inputRef);
-
-      if (document.activeElement !== input) {
+      if (document.activeElement !== getInput(inputRef)) {
         setStringDate(date ? date.format() : "");
       }
     }
@@ -200,17 +188,6 @@ function DatePicker(
     ref.current = { ...ref.current, date, separator };
 
     setDate(date);
-
-    if (type === "input-icon") {
-      let input = inputRef.current,
-        icon = input?.parentNode?.querySelector?.(".rmdp-input-icon"),
-        height = input?.clientHeight - 5 + "px";
-
-      if (icon) {
-        icon.style.height = height;
-        icon.style.width = height;
-      }
-    }
   }, [
     value,
     calendar,
@@ -220,8 +197,6 @@ function DatePicker(
     multiple,
     separator,
     type,
-    timePicker,
-    onlyTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
     weekDays,
@@ -234,18 +209,7 @@ function DatePicker(
 
   return (
     <ElementPopper
-      ref={(element) => {
-        if (element) {
-          element.openCalendar = () => setTimeout(() => openCalendar(), 10);
-          element.closeCalendar = closeCalendar;
-          element.isOpen = isVisible && isCalendarReady;
-        }
-
-        datePickerRef.current = element;
-
-        if (outerRef instanceof Function) return outerRef(element);
-        if (outerRef) outerRef.current = element;
-      }}
+      ref={setRef}
       element={renderInput()}
       popper={isVisible && renderCalendar()}
       active={!isMobileMode && isCalendarReady}
@@ -262,139 +226,80 @@ function DatePicker(
     />
   );
 
+  function setRef(element) {
+    if (element) {
+      element.openCalendar = () => setTimeout(() => openCalendar(), 10);
+      element.closeCalendar = closeCalendar;
+      element.isOpen = isVisible && isCalendarReady;
+    }
+
+    datePickerRef.current = element;
+
+    if (outerRef instanceof Function) return outerRef(element);
+    if (outerRef) outerRef.current = element;
+  }
+
   function renderInput() {
-    let isMultiple = (!range && Array.isArray(date)) || multiple;
+    if (render) {
+      let strDate = stringDate || "";
+      let toString = (date) => date.format();
 
-    let multipleStyle = isMultiple
-      ? {
-          whiteSpace: "nowrap",
-          overflow: "hidden",
+      if (multiple || (range && !otherProps.eachDaysInRange)) {
+        if (!Array.isArray(date)) {
+          strDate = [];
+        } else {
+          strDate = date.map(toString);
         }
-      : {};
-
-    let alternativePlaceholder = {
-      en: "click to select",
-      fa: "انتخاب کنید",
-    };
-
-    switch (type) {
-      case "button":
-        return (
-          <button
-            ref={inputRef}
-            onClick={openCalendar}
-            name={name || ""}
-            id={id}
-            title={title}
-            className={inputClass || "rmdp-button"}
-            style={{
-              minWidth: Array.isArray(date) ? "185px" : "unset",
-              ...multipleStyle,
-              ...style,
-            }}
-            disabled={disabled}
-            type="button"
-          >
-            {stringDate ||
-              placeholder ||
-              (locale === "fa"
-                ? alternativePlaceholder.fa
-                : alternativePlaceholder.en)}
-          </button>
-        );
-      case "icon":
-        return (
-          <div
-            ref={inputRef}
-            style={{ display: "inline-block" }}
-            id={id}
-            title={title}
-          >
-            <IconCalendarEvent
-              onClick={openCalendar}
-              name={name || ""}
-              className={`rmdp-icon ${inputClass || ""}`}
-              style={style}
-              size={30}
-              stroke={1.5}
-            />
-          </div>
-        );
-      case "custom":
-        let strDate = stringDate || "";
-        let toString = (date) => date.format();
-
-        if (multiple || (range && !otherProps.eachDaysInRange)) {
-          if (!Array.isArray(date)) {
-            strDate = [];
-          } else {
-            strDate = date.map(toString);
-          }
-        } else if (range && otherProps.eachDaysInRange) {
-          if (!Array.isArray(date)) {
-            strDate = [];
-          } else {
-            strDate = getAllDatesInRange(date).map(toString);
-          }
+      } else if (range && otherProps.eachDaysInRange) {
+        if (!Array.isArray(date)) {
+          strDate = [];
+        } else {
+          strDate = getAllDatesInRange(date).map(toString);
         }
+      }
 
-        return (
-          <div ref={inputRef}>
-            {React.isValidElement(render)
-              ? React.cloneElement(render, {
-                  [multiple || range ? "stringDates" : "stringDate"]: strDate,
-                  openCalendar,
-                  handleValueChange,
-                })
-              : render instanceof Function
-              ? render(strDate, openCalendar, handleValueChange)
-              : null}
-          </div>
-        );
-      default:
-        return (
-          <div style={{ position: "relative" }}>
-            <input
-              ref={inputRef}
-              type="text"
-              name={name}
-              id={id}
-              title={title}
-              required={required}
-              onFocus={openCalendar}
-              className={inputClass || "rmdp-input"}
-              placeholder={placeholder}
-              value={stringDate}
-              onChange={handleValueChange}
-              style={style}
-              autoComplete="off"
-              disabled={disabled ? true : false}
-              inputMode={inputMode || (isMobileMode ? "none" : undefined)}
-              readOnly={readOnly}
-            />
-            {type === "input-icon" && (
-              <IconCalendarEvent
-                className="rmdp-input-icon"
-                height={20}
-                width={20}
-                style={{
-                  [["fa", "ar"].includes(locale) ? "left" : "right"]: "2.5px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  backgroundColor: "inherit",
-                }}
-                onClick={() => {
-                  if (isVisible) {
-                    closeCalendar();
-                  } else {
-                    inputRef.current.focus();
-                  }
-                }}
-                stroke={1.5}
-              />
-            )}
-          </div>
-        );
+      return (
+        <div ref={inputRef}>
+          {React.isValidElement(render)
+            ? React.cloneElement(render, {
+                [multiple || range ? "stringDates" : "stringDate"]: strDate,
+                openCalendar,
+                handleValueChange,
+                locale,
+                separator,
+              })
+            : render instanceof Function
+            ? render(
+                strDate,
+                openCalendar,
+                handleValueChange,
+                locale,
+                separator
+              )
+            : null}
+        </div>
+      );
+    } else {
+      return (
+        <input
+          ref={inputRef}
+          type="text"
+          name={name}
+          id={id}
+          title={title}
+          required={required}
+          onFocus={openCalendar}
+          className={inputClass || "rmdp-input"}
+          placeholder={placeholder}
+          value={stringDate}
+          onChange={handleValueChange}
+          style={style}
+          autoComplete="off"
+          disabled={disabled ? true : false}
+          inputMode={inputMode || (isMobileMode ? "none" : undefined)}
+          readOnly={readOnly}
+        />
+      );
     }
   }
 
@@ -409,8 +314,6 @@ function DatePicker(
         calendar={calendar}
         locale={locale}
         format={format}
-        timePicker={timePicker}
-        onlyTimePicker={onlyTimePicker}
         onlyMonthPicker={onlyMonthPicker}
         onlyYearPicker={onlyYearPicker}
         className={className + (isMobileMode ? " rmdp-mobile" : "")}
@@ -561,8 +464,6 @@ function DatePicker(
       value = value.replace(new RegExp(digit, "g"), digits.indexOf(digit));
     }
 
-    // let newDate = new DateObject(date?.isValid ? date : object).parse(value);
-
     let newDate = new DateObject({
       date: value,
       format,
@@ -570,9 +471,7 @@ function DatePicker(
       locale,
     });
 
-    // handleChange(newDate);
     handleChange(newDate.isValid ? newDate : null);
-
     setStringDate(value.replace(/[0-9]/g, (w) => digits[w]));
   }
 }

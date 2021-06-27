@@ -3,8 +3,6 @@
 /coverage
 /test
 /website
-/plugins/all
-/plugins/all.js
 rollup.config.js
 jest.config.json
 .github

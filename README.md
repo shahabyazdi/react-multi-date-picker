@@ -156,18 +156,6 @@ export default function Example() {
           <td style="text-align:center">false</td>
           <td>both</td>
         </tr>
-        <tr style="color:red">
-          <td>timePicker (deprecated)</td>
-          <td style="text-align:center">Boolean</td>
-          <td style="text-align:center">false</td>
-          <td>both</td>
-        </tr>
-        <tr style="color:red">
-          <td>onlyTimePicker (deprecated)</td>
-          <td style="text-align:center">Boolean</td>
-          <td style="text-align:center">false</td>
-          <td>both</td>
-        </tr>
         <tr>
           <td>onlyMonthPicker</td>
           <td style="text-align:center">Boolean</td>

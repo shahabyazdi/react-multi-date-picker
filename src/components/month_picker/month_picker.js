@@ -1,9 +1,7 @@
 import React, { useMemo } from "react";
-import {
-  selectDate,
-  isSameDate,
-  getRangeClass,
-} from "../day_picker/day_picker";
+import selectDate from "../../shared/selectDate";
+import isSameDate from "../../shared/isSameDate";
+import getRangeClass from "../../shared/getRangeClass";
 import DateObject from "react-date-object";
 
 export default function MonthPicker({
@@ -25,12 +23,9 @@ export default function MonthPicker({
       onlyYearPicker,
       range,
       onlyShowInRangeDates,
-      onlyTimePicker,
     } = state,
     mustShowMonthPicker =
-      (state.mustShowMonthPicker || onlyMonthPicker) &&
-      !onlyTimePicker &&
-      !onlyYearPicker;
+      (state.mustShowMonthPicker || onlyMonthPicker) && !onlyYearPicker;
 
   const months = useMemo(() => {
     let months = customMonths,

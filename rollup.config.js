@@ -74,30 +74,6 @@ export default [
       url(),
     ],
   },
-  {
-    input: "plugins/all.js",
-    output: [
-      {
-        file: "plugins/index.js",
-        format: "cjs",
-        plugins: [terser()],
-        exports: "named",
-      },
-    ],
-    external,
-    plugins: [
-      resolve(),
-      peerDepsExternal(),
-      babel({
-        exclude: /node_modules/,
-        presets,
-      }),
-      commonjs(),
-      postcss({ plugins: [cssvariables()] }),
-      svgr(),
-      url(),
-    ],
-  },
   ...[
     "date_panel",
     "date_picker_header",
@@ -114,7 +90,7 @@ export default [
       .replace(/_./g, (w) => w.replace("_", "").toUpperCase());
 
     return {
-      input: `plugins/all/${path}/${path}.js`,
+      input: `src/plugins/${path}/${path}.js`,
       output: [
         {
           file: `plugins/${path}.js`,

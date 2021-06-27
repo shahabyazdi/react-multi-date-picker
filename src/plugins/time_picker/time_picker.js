@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from "react";
 import Arrow from "../../../src/components/arrow/arrow";
-import Input from "../../../src/components/input/input";
+import Input from "./input/input";
 import { getValidProps } from "../utils";
 import "./time_picker.css";
 

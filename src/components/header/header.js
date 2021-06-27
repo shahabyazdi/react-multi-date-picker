@@ -23,7 +23,6 @@ export default function Header({
       date,
       onlyMonthPicker,
       onlyYearPicker,
-      onlyTimePicker,
       mustShowYearPicker,
       minDate,
       maxDate,
@@ -88,10 +87,7 @@ export default function Header({
   }
 
   return (
-    <div
-      className="rmdp-header"
-      style={{ display: onlyTimePicker ? "none" : "block" }}
-    >
+    <div className="rmdp-header">
       <div style={{ position: "relative", display: "flex" }}>
         {buttons && getButton("left")}
         {monthNames.map((monthName, index) => (

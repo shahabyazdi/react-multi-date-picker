@@ -3,8 +3,10 @@ import DayPicker from "../day_picker/day_picker";
 import Header from "../header/header";
 import MonthPicker from "../month_picker/month_picker";
 import YearPicker from "../year_picker/year_picker";
-import TimePicker from "../time_picker/time_picker";
 import DateObject from "react-date-object";
+import getFormat from "../../shared/getFormat";
+import getIgnoreList from "../../shared/getIgnoreList";
+import toDateObject from "../../shared/toDateObject";
 import "./calendar.css";
 
 function Calendar(
@@ -13,8 +15,6 @@ function Calendar(
     calendar = "gregorian",
     locale = "en",
     format,
-    timePicker,
-    onlyTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
     range = false,
@@ -79,20 +79,11 @@ function Calendar(
 
   if (multiple || range || Array.isArray(value)) {
     if (!range && !multiple) multiple = true;
-
-    timePicker = false;
-    onlyTimePicker = false;
   }
 
   if (onlyYearPicker && !hideMonth) hideMonth = true;
 
-  format = getFormat(
-    timePicker,
-    onlyTimePicker,
-    onlyMonthPicker,
-    onlyYearPicker,
-    format
-  );
+  format = getFormat(onlyMonthPicker, onlyYearPicker, format);
 
   let [state, setState] = useState({
       date: currentDate ? new DateObject(currentDate) : undefined,
@@ -173,8 +164,6 @@ function Calendar(
         selectedDate,
         multiple,
         range,
-        timePicker,
-        onlyTimePicker,
         onlyMonthPicker,
         onlyYearPicker,
         initialValue: state.initialValue || value,
@@ -193,8 +182,6 @@ function Calendar(
     calendar,
     locale,
     format,
-    timePicker,
-    onlyTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
     range,
@@ -309,10 +296,6 @@ function Calendar(
               </div>
             </>
           )}
-          <TimePicker
-            {...globalProps}
-            formattingIgnoreList={JSON.parse(formattingIgnoreList)}
-          />
           {children}
         </div>
         {clonedPlugins.right}
@@ -485,16 +468,6 @@ function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
   return [date, minDate, maxDate];
 }
 
-export function toDateObject(date, calendar) {
-  if (date instanceof DateObject) {
-    date.setCalendar(calendar);
-  } else {
-    date = new DateObject({ date, calendar });
-  }
-
-  return date;
-}
-
 function getSelectedDate(value, calendar, locale, format) {
   let selectedDate = []
     .concat(value)
@@ -507,26 +480,4 @@ function getSelectedDate(value, calendar, locale, format) {
     .filter((date) => date.isValid);
 
   return Array.isArray(value) ? selectedDate : selectedDate[0];
-}
-
-export function getFormat(
-  timePicker,
-  onlyTimePicker,
-  onlyMonthPicker,
-  onlyYearPicker,
-  format
-) {
-  if (format) return format;
-  if (timePicker) return "YYYY/MM/DD HH:mm:ss";
-  if (onlyTimePicker) return "HH:mm:ss";
-  if (onlyMonthPicker) return "MM/YYYY";
-  if (onlyYearPicker) return "YYYY";
-
-  return "YYYY/MM/DD";
-}
-
-export function getIgnoreList(formattingIgnoreList) {
-  if (!Array.isArray(formattingIgnoreList)) formattingIgnoreList = [];
-
-  return JSON.stringify(formattingIgnoreList);
 }

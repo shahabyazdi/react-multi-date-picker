@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { selectDate } from "../day_picker/day_picker";
+import selectDate from "../../shared/selectDate";
 import DateObject from "react-date-object";
 
 export default function YearPicker({
@@ -19,8 +19,7 @@ export default function YearPicker({
       range,
       onlyShowInRangeDates,
     } = state,
-    mustShowYearPicker =
-      (state.mustShowYearPicker || onlyYearPicker) && !state.onlyTimePicker,
+    mustShowYearPicker = state.mustShowYearPicker || onlyYearPicker,
     digits = date.digits;
 
   const [years, maxYear] = useMemo(() => {

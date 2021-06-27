@@ -1,6 +1,6 @@
 import React from "react";
 import DateObject from "react-date-object";
-import getAllDatesInRange from "./getAllDatesInRange";
+import getAllDatesInRange from "../../shared/getAllDatesInRange";
 import { getBorderClass, getValidProps } from "../utils";
 import "./date_panel.css";
 
