@@ -1,5 +1,6 @@
 import React, { isValidElement, cloneElement } from "react";
 import Arrow from "../arrow/arrow";
+import isArray from "../../shared/isArray";
 
 export default function Header({
   state,
@@ -72,10 +73,10 @@ export default function Header({
       year++;
     }
 
-    if (Array.isArray(customMonths) && customMonths.length >= 12) {
+    if (isArray(customMonths) && customMonths.length >= 12) {
       let month = customMonths[index];
 
-      monthName = Array.isArray(month) ? month[0] : month;
+      monthName = isArray(month) ? month[0] : month;
     } else {
       monthName = date.months[index].name;
     }

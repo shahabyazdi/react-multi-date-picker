@@ -8,9 +8,9 @@ import React, {
 import ElementPopper from "react-element-popper";
 import DateObject from "react-date-object";
 import Calendar from "../calendar/calendar";
-import getAllDatesInRange from "../../shared/getAllDatesInRange";
 import getFormat from "../../shared/getFormat";
 import getIgnoreList from "../../shared/getIgnoreList";
+import isArray from "../../shared/isArray";
 import "./date_picker.css";
 
 function DatePicker(
@@ -57,6 +57,7 @@ function DatePicker(
     digits,
     readOnly,
     shadow = true,
+    onFocusedDateChange,
     ...otherProps
   },
   outerRef
@@ -114,15 +115,6 @@ function DatePicker(
       ) {
         closeCalendar();
       } else if (
-        inputRef.current &&
-        calendarRef.current &&
-        calendarRef.current.contains(event.target) &&
-        !Array.isArray(ref.current.date) &&
-        event.target.classList.contains("sd") &&
-        !ref.current.mobile
-      ) {
-        closeCalendar();
-      } else if (
         calendarRef.current &&
         calendarRef.current.contains(event.target) &&
         !ref.current.mobile
@@ -168,8 +160,8 @@ function DatePicker(
       return date;
     }
 
-    if (range || multiple || Array.isArray(date)) {
-      if (!Array.isArray(date)) date = [date];
+    if (range || multiple || isArray(date)) {
+      if (!isArray(date)) date = [date];
 
       date = date.map(checkDate).filter((value) => value !== undefined);
 
@@ -177,7 +169,7 @@ function DatePicker(
 
       setStringDate(getStringDate(date, separator));
     } else {
-      if (Array.isArray(date)) date = getLastDate();
+      if (isArray(date)) date = getLastDate();
 
       date = checkDate(date);
 
@@ -205,7 +197,7 @@ function DatePicker(
     formattingIgnoreList,
   ]);
 
-  if (multiple || range || Array.isArray(date) || !editable) inputMode = "none";
+  if (multiple || range || isArray(date) || !editable) inputMode = "none";
 
   return (
     <ElementPopper
@@ -241,22 +233,7 @@ function DatePicker(
 
   function renderInput() {
     if (render) {
-      let strDate = stringDate || "";
-      let toString = (date) => date.format();
-
-      if (multiple || (range && !otherProps.eachDaysInRange)) {
-        if (!Array.isArray(date)) {
-          strDate = [];
-        } else {
-          strDate = date.map(toString);
-        }
-      } else if (range && otherProps.eachDaysInRange) {
-        if (!Array.isArray(date)) {
-          strDate = [];
-        } else {
-          strDate = getAllDatesInRange(date).map(toString);
-        }
-      }
+      let strDate = isArray(date) ? getStringDate(date, separator) : stringDate;
 
       return (
         <div ref={inputRef}>
@@ -325,64 +302,55 @@ function DatePicker(
         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
         onPropsChange={onPropsChange}
         shadow={shadow}
-        onReady={() => {
-          setIsCalendarReady(true);
-
-          if (!isMobileMode) return;
-
-          let popper = calendarRef.current.parentNode.parentNode;
-
-          popper.className = "rmdp-calendar-container-mobile";
-          popper.style.position = "fixed";
-          popper.style.transform = "";
-
-          setTimeout(() => {
-            popper.style.visibility = "visible";
-          }, 50);
-        }}
+        onReady={setCalendarReady}
         DatePicker={datePickerRef.current}
         datePickerProps={datePickerProps}
+        onFocusedDateChange={handleFocusedDate}
         {...otherProps}
       >
         {children}
-        {isMobileMode && (
-          <div
-            className={`rmdp-action-buttons ${
-              ["fa", "ar"].includes(locale) ? "rmdp-rtl" : ""
-            }`}
-          >
-            <button
-              type="button"
-              className="rmdp-button rmdp-action-button"
-              onClick={() => {
-                if (temporaryDate) {
-                  handleChange(temporaryDate, true);
-                  setTemporaryDate(undefined);
-                }
-
-                closeCalendar();
-              }}
-            >
-              {toLocale("OK")}
-            </button>
-            <button
-              type="button"
-              className="rmdp-button rmdp-action-button"
-              onClick={() => {
-                setTemporaryDate(undefined);
-                closeCalendar();
-              }}
-            >
-              {toLocale("CANCEL")}
-            </button>
-          </div>
-        )}
+        {isMobileMode && renderButtons()}
       </Calendar>
     );
   }
 
   function isMobile() {
     return typeof className === "string" && className.includes("rmdp-mobile");
+  }
+
+  function renderButtons() {
+    return (
+      <div
+        className={`rmdp-action-buttons ${
+          ["fa", "ar"].includes(locale) ? "rmdp-rtl" : ""
+        }`}
+      >
+        <button
+          type="button"
+          className="rmdp-button rmdp-action-button"
+          onClick={() => {
+            if (temporaryDate) {
+              handleChange(temporaryDate, true);
+              setTemporaryDate(undefined);
+            }
+
+            closeCalendar();
+          }}
+        >
+          {toLocale("OK")}
+        </button>
+        <button
+          type="button"
+          className="rmdp-button rmdp-action-button"
+          onClick={() => {
+            setTemporaryDate(undefined);
+            closeCalendar();
+          }}
+        >
+          {toLocale("CANCEL")}
+        </button>
+      </div>
+    );
   }
 
   function toLocale(string) {
@@ -444,7 +412,7 @@ function DatePicker(
   }
 
   function handleValueChange(e) {
-    if (Array.isArray(date) || !editable) return;
+    if (isArray(date) || !editable) return;
 
     let value = e.target.value,
       object = { year: 1, calendar, locale, format },
@@ -473,18 +441,44 @@ function DatePicker(
     handleChange(newDate.isValid ? newDate : null);
     setStringDate(value.replace(/[0-9]/g, (w) => digits[w]));
   }
+
+  function setCalendarReady() {
+    setIsCalendarReady(true);
+
+    if (!isMobileMode) return;
+
+    let popper = calendarRef.current.parentNode.parentNode;
+
+    popper.className = "rmdp-calendar-container-mobile";
+    popper.style.position = "fixed";
+    popper.style.transform = "";
+
+    setTimeout(() => {
+      popper.style.visibility = "visible";
+    }, 50);
+  }
+
+  function handleFocusedDate(focusedDate, clickedDate) {
+    if (clickedDate && !isArray(date) && !isMobileMode) closeCalendar();
+
+    onFocusedDateChange?.(focusedDate, clickedDate);
+  }
 }
 
 export default forwardRef(DatePicker);
 
 function getStringDate(date, separator) {
-  if (!date) return "";
+  let dates = [].concat(date).map(toString);
 
-  let toString = (date) => date.format();
+  dates.toString = function () {
+    return this.filter(Boolean).join(separator);
+  };
 
-  return !Array.isArray(date)
-    ? toString(date)
-    : date.map(toString).join(separator);
+  return dates;
+
+  function toString(date) {
+    return date?.isValid ? date.format() : "";
+  }
 }
 
 function getInput(inputRef) {

@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import isArray from "../../shared/isArray";
 import DateObject from "react-date-object";
 
 export default function WeekDays({ state, customWeekDays, weekStartDayIndex }) {
@@ -9,13 +10,13 @@ export default function WeekDays({ state, customWeekDays, weekStartDayIndex }) {
   let weekDays = useMemo(() => {
     let weekDays = customWeekDays;
 
-    if (Array.isArray(weekDays) && weekDays.length >= 7) {
+    if (isArray(weekDays) && weekDays.length >= 7) {
       weekDays.length = 7;
 
       weekDays = weekDays.map((weekDay) => {
-        if (Array.isArray(weekDay) & (weekDay.length > 1)) {
+        if (isArray(weekDay) & (weekDay.length > 1)) {
           weekDay = weekDay[1];
-        } else if (Array.isArray(weekDay)) {
+        } else if (isArray(weekDay)) {
           weekDay = weekDay[0];
         }
 

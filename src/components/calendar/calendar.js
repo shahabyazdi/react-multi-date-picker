@@ -7,6 +7,7 @@ import DateObject from "react-date-object";
 import getFormat from "../../shared/getFormat";
 import getIgnoreList from "../../shared/getIgnoreList";
 import toDateObject from "../../shared/toDateObject";
+import isArray from "../../shared/isArray";
 import "./calendar.css";
 
 function Calendar(
@@ -77,7 +78,7 @@ function Calendar(
   )
     numberOfMonths = 1;
 
-  if (multiple || range || Array.isArray(value)) {
+  if (multiple || range || isArray(value)) {
     if (!range && !multiple) multiple = true;
   }
 
@@ -115,7 +116,7 @@ function Calendar(
       } else {
         selectedDate = getSelectedDate(value, calendar, locale, format);
 
-        if (Array.isArray(selectedDate)) {
+        if (isArray(selectedDate)) {
           if (!date) date = new DateObject(selectedDate[0]);
         } else {
           if (!date || numberOfMonths === 1) {
@@ -137,9 +138,9 @@ function Calendar(
 
       checkDate(date);
 
-      if (multiple || range || Array.isArray(value)) {
+      if (multiple || range || isArray(value)) {
         if (!selectedDate) selectedDate = [];
-        if (!Array.isArray(selectedDate)) selectedDate = [selectedDate];
+        if (!isArray(selectedDate)) selectedDate = [selectedDate];
 
         if (range && selectedDate.length > 2) {
           let lastItem = selectedDate[selectedDate.length - 1];
@@ -154,7 +155,7 @@ function Calendar(
         } else if (range) {
           selectedDate.sort((a, b) => a - b);
         }
-      } else if (Array.isArray(selectedDate)) {
+      } else if (isArray(selectedDate)) {
         selectedDate = selectedDate[selectedDate.length - 1];
       }
 
@@ -456,7 +457,7 @@ function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
       millisecond: 999,
     });
 
-  if (Array.isArray(date)) {
+  if (isArray(date)) {
     date = date.filter((dateObject) => {
       if (minDate && dateObject < minDate) return false;
       if (maxDate && dateObject > maxDate) return false;
@@ -479,5 +480,5 @@ function getSelectedDate(value, calendar, locale, format) {
     })
     .filter((date) => date.isValid);
 
-  return Array.isArray(value) ? selectedDate : selectedDate[0];
+  return isArray(value) ? selectedDate : selectedDate[0];
 }

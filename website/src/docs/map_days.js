@@ -367,7 +367,7 @@ ${
     code: `<DatePicker
   mapDays={({ date, today }) => {
     let props = {}
-    let result = date.dayOfBeginning - today.dayOfBeginning
+    let result = date.toDays() - today.toDays()
     
     if (result === -1) props.title = "${translate("Yesterday")}"
     if (result === 0) props.title = "${translate("Today")}"
@@ -380,7 +380,7 @@ ${
       <DatePicker
         mapDays={({ date, today }) => {
           let props = {};
-          let result = date.dayOfBeginning - today.dayOfBeginning;
+          let result = date.toDays() - today.toDays();
 
           if (result === -1) props.title = translate("Yesterday");
           if (result === 0) props.title = translate("Today");
@@ -413,7 +413,7 @@ function DatePickerWithTooltip() {
         ref={ref}
         containerStyle={{ position: "relative" }}
         mapDays={({ date, today }) => {
-          let result = date.dayOfBeginning - today.dayOfBeginning;
+          let result = date.toDays() - today.toDays();
           let title;
 
           if (result === -1) title = "Yesterday";
@@ -499,7 +499,7 @@ function DatePickerWithTooltip(props) {
         ref={ref}
         containerStyle={{ position: "relative" }}
         mapDays={({ date, today }) => {
-          let result = date.dayOfBeginning - today.dayOfBeginning;
+          let result = date.toDays() - today.toDays();
           let title;
 
           if (result === -1) title = "Yesterday";

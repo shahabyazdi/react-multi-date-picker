@@ -8,10 +8,7 @@ export default function getRangeClass(date, selectedDate, checkMonth) {
   if (selectedDate.length === 1) {
     if (isSameDate(date, first, checkMonth)) names.push("rmdp-range");
   } else if (selectedDate.length === 2) {
-    if (
-      date.dayOfBeginning >= first.dayOfBeginning &&
-      date.dayOfBeginning <= second.dayOfBeginning
-    ) {
+    if (date.toDays() >= first.toDays() && date.toDays() <= second.toDays()) {
       names.push("rmdp-range");
     }
 

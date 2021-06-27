@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import selectDate from "../../shared/selectDate";
 import isSameDate from "../../shared/isSameDate";
 import getRangeClass from "../../shared/getRangeClass";
+import isArray from "../../shared/isArray";
 import DateObject from "react-date-object";
 
 export default function MonthPicker({
@@ -40,10 +41,10 @@ export default function MonthPicker({
         day: 1,
       });
 
-    if (Array.isArray(months) && months.length >= 12) {
+    if (isArray(months) && months.length >= 12) {
       months.length = 12;
 
-      months = months.map((month) => (Array.isArray(month) ? month[0] : month));
+      months = months.map((month) => (isArray(month) ? month[0] : month));
     } else {
       months = date.months.map((month) => month.name);
     }

@@ -74,52 +74,52 @@ export default [
       url(),
     ],
   },
-  ...[
-    "date_panel",
-    "date_picker_header",
-    "multi_colors",
-    "settings",
-    "toolbar",
-    "weekends",
-    "time_picker",
-    "analog_time_picker",
-    "range_picker_footer",
-  ].map((path) => {
-    let name = path
-      .replace(/^./, (w) => w.toUpperCase())
-      .replace(/_./g, (w) => w.replace("_", "").toUpperCase());
+  // ...[
+  //   "date_panel",
+  //   "date_picker_header",
+  //   "multi_colors",
+  //   "settings",
+  //   "toolbar",
+  //   "weekends",
+  //   "time_picker",
+  //   "analog_time_picker",
+  //   "range_picker_footer",
+  // ].map((path) => {
+  //   let name = path
+  //     .replace(/^./, (w) => w.toUpperCase())
+  //     .replace(/_./g, (w) => w.replace("_", "").toUpperCase());
 
-    return {
-      input: `src/plugins/${path}/${path}.js`,
-      output: [
-        {
-          file: `plugins/${path}.js`,
-          format: "cjs",
-          plugins: [terser()],
-          exports: "named",
-        },
-        {
-          file: `build/${path}.browser.js`,
-          format: "umd",
-          plugins: [terser()],
-          name,
-          exports: "default",
-          globals,
-        },
-      ],
-      external,
-      plugins: [
-        resolve(),
-        peerDepsExternal(),
-        babel({
-          exclude: /node_modules/,
-          presets,
-        }),
-        commonjs(),
-        postcss({ plugins: [cssvariables()] }),
-        svgr(),
-        url(),
-      ],
-    };
-  }),
+  //   return {
+  //     input: `src/plugins/${path}/${path}.js`,
+  //     output: [
+  //       {
+  //         file: `plugins/${path}.js`,
+  //         format: "cjs",
+  //         plugins: [terser()],
+  //         exports: "named",
+  //       },
+  //       {
+  //         file: `build/${path}.browser.js`,
+  //         format: "umd",
+  //         plugins: [terser()],
+  //         name,
+  //         exports: "default",
+  //         globals,
+  //       },
+  //     ],
+  //     external,
+  //     plugins: [
+  //       resolve(),
+  //       peerDepsExternal(),
+  //       babel({
+  //         exclude: /node_modules/,
+  //         presets,
+  //       }),
+  //       commonjs(),
+  //       postcss({ plugins: [cssvariables()] }),
+  //       svgr(),
+  //       url(),
+  //     ],
+  //   };
+  // }),
 ];
