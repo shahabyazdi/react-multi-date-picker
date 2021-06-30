@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from "react";
 import Arrow from "../../../src/components/arrow/arrow";
 import Input from "./input/input";
-import { getValidProps } from "../utils";
+import getValidProps from "../../shared/getValidProps";
 import "./time_picker.css";
 
 export default function TimePicker({

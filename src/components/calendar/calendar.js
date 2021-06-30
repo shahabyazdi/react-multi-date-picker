@@ -1,4 +1,10 @@
-import React, { useState, useEffect, forwardRef, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useRef,
+  cloneElement,
+} from "react";
 import DayPicker from "../day_picker/day_picker";
 import Header from "../header/header";
 import MonthPicker from "../month_picker/month_picker";
@@ -8,13 +14,14 @@ import getFormat from "../../shared/getFormat";
 import getIgnoreList from "../../shared/getIgnoreList";
 import toDateObject from "../../shared/toDateObject";
 import isArray from "../../shared/isArray";
+import check from "../../shared/check";
 import "./calendar.css";
 
 function Calendar(
   {
     value,
-    calendar = "gregorian",
-    locale = "en",
+    calendar,
+    locale,
     format,
     onlyMonthPicker,
     onlyYearPicker,
@@ -80,9 +87,12 @@ function Calendar(
 
   if (multiple || range || isArray(value)) {
     if (!range && !multiple) multiple = true;
+    if (multiple && range) multiple = false;
   }
 
   if (onlyYearPicker && !hideMonth) hideMonth = true;
+
+  [calendar, locale] = check(calendar, locale);
 
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
 
@@ -306,7 +316,7 @@ function Calendar(
   ) : null;
 
   function initPlugins() {
-    if (!ref.current.isReady) return;
+    if (!ref.current.isReady || !isArray(plugins)) return;
 
     let getPosition = (plugin) =>
       disableDayPicker ? "bottom" : plugin.props.position || "right";
@@ -335,7 +345,7 @@ function Calendar(
       }
 
       clonedPlugins[position].push(
-        React.cloneElement(plugin, {
+        cloneElement(plugin, {
           key: index,
           state,
           setState,
@@ -396,7 +406,7 @@ function Calendar(
   }
 
   function getBorderClassName(positions) {
-    if (disableDayPicker) return "";
+    if (disableDayPicker || !isArray(plugins)) return "";
 
     return Array.from(
       new Set(

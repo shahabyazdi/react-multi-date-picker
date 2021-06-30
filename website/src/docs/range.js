@@ -80,7 +80,7 @@ const [allDates, setAllDates] = useState([])
 <div>
   <DatePicker
     range
-    position="top-left"
+    calendarPosition="top-left"
     fixMainPosition
     value={dates}
     minDate={new DateObject(${
@@ -122,7 +122,7 @@ const [allDates, setAllDates] = useState([])
       <div>
         <DatePicker
           range
-          position={language === "en" ? "top-left" : "top-right"}
+          calendarPosition={language === "en" ? "top-left" : "top-right"}
           fixMainPosition
           value={dates}
           minDate={new DateObject({

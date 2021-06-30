@@ -1,6 +1,7 @@
 import React from "react";
 import DateObject from "react-date-object";
-import { getValidProps } from "../utils";
+import isArray from "../../shared/isArray";
+import getValidProps from "../../shared/getValidProps";
 import "./date_picker_header.css";
 
 export default function DatePickerHeader({
@@ -19,11 +20,11 @@ export default function DatePickerHeader({
     state.selectedDate &&
     !state.multiple &&
     !state.range &&
-    !Array.isArray(state.selectedDate)
+    !isArray(state.selectedDate)
   ) {
     //single mode
     selectedDate = state.selectedDate;
-  } else if (Array.isArray(state.selectedDate)) {
+  } else if (isArray(state.selectedDate)) {
     selectedDate = state.focused || getLastItem(state.selectedDate);
   } else {
     selectedDate = new DateObject();

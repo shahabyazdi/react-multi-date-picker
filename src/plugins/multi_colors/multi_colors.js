@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import DateObject from "react-date-object";
-import { getBorderClass, getValidProps } from "../utils";
+import isArray from "../../shared/isArray";
+import getBorderClass from "../../shared/getBorderClass";
+import getValidProps from "../../shared/getValidProps";
 import "./multi_colors.css";
 
 export default function MultiColors({
   state,
-  setProps,
   position,
   colors = ["blue", "red", "green", "yellow"],
   defaultColor = colors[0],
@@ -26,13 +27,13 @@ export default function MultiColors({
   ref.current.handlePropsChange = handlePropsChange;
 
   useEffect(() => {
-    if (Array.isArray(state.selectedDate)) {
+    if (isArray(state.selectedDate)) {
       let values = [];
       let colors = {};
 
       for (let i = 0; i < state.selectedDate.length; i++) {
         let date = state.selectedDate[i],
-          value = new DateObject(date).setLocale("en").format("YYYYMMDD"),
+          value = new DateObject(date).setLocale(null).format("YYYYMMDD"),
           color = date.color || activeColor;
 
         if (!date.color) state.selectedDate[i].color = color;
@@ -55,17 +56,8 @@ export default function MultiColors({
       activeColor,
     };
 
-    if (setProps instanceof Function) {
-      warn();
-
-      setProps((props) => ({
-        ...props,
-        ...$state,
-      }));
-    }
-
     ref.current.handlePropsChange($state);
-  }, [state.selectedDate, state.range, activeColor, setProps]);
+  }, [state.selectedDate, state.range, activeColor]);
 
   registerListener("change", handleChange);
 
@@ -89,7 +81,7 @@ export default function MultiColors({
   );
 
   function handleChange(selectedDate) {
-    if (!Array.isArray(selectedDate)) {
+    if (!isArray(selectedDate)) {
       if (selectedDate) selectedDate.color = activeColor;
     } else {
       for (let i = 0; i < selectedDate.length; i++) {
@@ -105,25 +97,13 @@ export default function MultiColors({
 
     let { selectedDate, range } = state;
 
-    if (selectedDate && !Array.isArray(selectedDate))
-      selectedDate.color = color;
+    if (selectedDate && !isArray(selectedDate)) selectedDate.color = color;
 
     let $state = {
       activeColor: color,
       value: selectedDate,
       mapDays: getMapDays(selectedDate, range, ref, color),
     };
-
-    if (setProps instanceof Function) {
-      warn();
-
-      setProps((props) => {
-        return {
-          ...props,
-          ...$state,
-        };
-      });
-    }
 
     handlePropsChange($state);
   }
@@ -137,16 +117,16 @@ function getMapDays(selectedDate, range, ref, activeColor) {
 
     if (
       selectedDate &&
-      !Array.isArray(selectedDate) &&
+      !isArray(selectedDate) &&
       date.format() === selectedDate.format()
     ) {
       //single mode
       color = activeColor;
     }
 
-    if (Array.isArray(selectedDate)) {
+    if (isArray(selectedDate)) {
       //not single mode
-      let value = new DateObject(date).setLocale("en").format("YYYYMMDD");
+      let value = new DateObject(date).setLocale(null).format("YYYYMMDD");
 
       if (ref.current.stringValues.includes(value))
         color = ref.current.colors[value];
@@ -160,15 +140,4 @@ function getMapDays(selectedDate, range, ref, activeColor) {
 
     return { className };
   };
-}
-
-function warn() {
-  if ("_self" in React.createElement("div"))
-    console.warn(
-      [
-        "setProps is deprecated and will not available in the next versions.",
-        "Use onPropsChange instead",
-        "https://shahabyazdi.github.io/react-multi-date-picker/events/#onpropschange",
-      ].join("\n")
-    );
 }

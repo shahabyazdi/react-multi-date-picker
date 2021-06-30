@@ -4,7 +4,8 @@
 /test
 /website
 rollup.config.js
-jest.config.json
+jest.config.js
+babel.config.js
 .github
 .gitignore
 .babelrc

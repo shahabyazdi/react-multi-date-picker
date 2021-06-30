@@ -3,6 +3,9 @@ import { IconCalendarEvent } from "@tabler/icons";
 
 export default function InputIcon({
   openCalendar,
+  handleValueChange,
+  stringDate,
+  stringDates,
   style = {},
   size = 30,
   stroke = 1.5,

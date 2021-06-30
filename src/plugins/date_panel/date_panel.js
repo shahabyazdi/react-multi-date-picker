@@ -1,7 +1,9 @@
 import React from "react";
 import DateObject from "react-date-object";
 import getAllDatesInRange from "../../shared/getAllDatesInRange";
-import { getBorderClass, getValidProps } from "../utils";
+import isArray from "../../shared/isArray";
+import getBorderClass from "../../shared/getBorderClass";
+import getValidProps from "../../shared/getValidProps";
 import "./date_panel.css";
 
 export default function DatePanel({
@@ -15,7 +17,6 @@ export default function DatePanel({
   style = {},
   className = "",
   onClickDate,
-  onDateClicked,
   removeButton = true,
   header,
   markFocused,
@@ -33,6 +34,8 @@ export default function DatePanel({
       date: { locale },
     } = state,
     classNames = ["rmdp-panel", position, getBorderClass(position, nodes)];
+
+  locale = locale.name.split("_")[1];
 
   if (multiple || (range && !eachDaysInRange)) {
     dates = (inRangeDates || selectedDate).map((date, index) => {
@@ -55,7 +58,7 @@ export default function DatePanel({
         index,
       };
     });
-  } else if (selectedDate && !Array.isArray(selectedDate)) {
+  } else if (selectedDate && !isArray(selectedDate)) {
     dates = [
       {
         date: selectedDate,
@@ -80,11 +83,9 @@ export default function DatePanel({
     });
   }
 
-  if (["fa", "ar"].includes(state.locale)) {
+  if (["fa", "ar"].includes(locale)) {
     classNames.push("rmdp-rtl");
   }
-
-  warn();
 
   return (
     <div
@@ -105,7 +106,7 @@ export default function DatePanel({
         }}
       >
         <ul className="rmdp-panel-body">
-          {Array.isArray(dates) &&
+          {isArray(dates) &&
             dates.map((object, index) => {
               return (
                 <li
@@ -148,17 +149,17 @@ export default function DatePanel({
   );
 
   function selectDate(date, index) {
-    handleClick(date ? state.selectedDate[index] : undefined);
+    handleClick(date ? selectedDate[index] : undefined);
 
     if (!date) return;
 
     setState({
       ...state,
       date: new DateObject(date),
-      focused: state.selectedDate[index],
+      focused: selectedDate[index],
     });
 
-    handleFocusedDate(state.selectedDate[index]);
+    handleFocusedDate(selectedDate[index]);
   }
 
   function deSelect(index) {
@@ -184,13 +185,5 @@ export default function DatePanel({
 
   function handleClick(date) {
     if (onClickDate instanceof Function) onClickDate(date);
-  }
-
-  function warn() {
-    if (
-      onDateClicked instanceof Function &&
-      "_self" in React.createElement("div")
-    )
-      console.warn("onDateClicked is deprecated, Use onClickDate instead");
   }
 }

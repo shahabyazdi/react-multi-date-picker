@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { IconCalendarEvent } from "@tabler/icons";
 
 export default function InputIcon({
   openCalendar,
@@ -8,10 +9,12 @@ export default function InputIcon({
   separator,
   handleValueChange,
   locale,
+  placeholder,
   iconStyle = {},
   ...otherProps
 }) {
-  const value = stringDate || stringDates?.join?.(separator) || placeholder;
+  const value =
+    stringDate || stringDates?.join?.(separator) || placeholder || "";
   const ref = useRef();
 
   useEffect(() => {
@@ -42,7 +45,7 @@ export default function InputIcon({
         width={20}
         stroke={1.5}
         style={{
-          position: absolute,
+          position: "absolute",
           [["fa", "ar"].includes(locale) ? "left" : "right"]: "2.5px",
           top: "50%",
           transform: "translateY(-50%)",

@@ -1,6 +1,8 @@
 import React from "react";
 import DateObject from "react-date-object";
-import { getBorderClass, getValidProps } from "../utils";
+import getBorderClass from "../../shared/getBorderClass";
+import getValidProps from "../../shared/getValidProps";
+import getLocaleName from "../../shared/getLocaleName";
 import "./toolbar.css";
 
 export default function Toolbar({
@@ -16,12 +18,16 @@ export default function Toolbar({
   DatePicker,
   ...props
 }) {
-  let { locale, range, multiple } = state,
+  let {
+      range,
+      multiple,
+      date: { locale },
+    } = state,
     name = {
       fa: { today: "امروز", deselect: "لغو", close: "بستن" },
       en: { today: "Today", deselect: "Deselect", close: "Close" },
     },
-    localeName = names || name[locale] || name.en,
+    localeName = names || name[getLocaleName(locale)] || name.en,
     classNames = ["rmdp-toolbar", position, getBorderClass(position, nodes)],
     getButton = (name, index) =>
       ({

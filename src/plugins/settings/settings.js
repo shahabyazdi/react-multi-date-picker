@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { getValidProps } from "../utils";
+import isArray from "../../shared/isArray";
+import getLocaleName from "../../shared/getLocaleName";
+import getValidProps from "../../shared/getValidProps";
 import {
   IconLanguage,
   IconCalendarEvent,
@@ -12,7 +14,6 @@ export default function Settings({
   state,
   setState,
   position,
-  setProps,
   calendars = ["gregorian", "persian", "arabic", "indian"],
   locales = ["en", "fa", "ar", "hi"],
   modes = ["single", "multiple", "range"],
@@ -111,7 +112,7 @@ export default function Settings({
               <span
                 key={index}
                 className={`item ${
-                  state.date.locale === locale ? "active" : ""
+                  getLocaleName(state.date.locale) === locale ? "active" : ""
                 }`}
                 title={titles[locale]}
                 onClick={() => setKeyValue("locale", locale)}
@@ -206,7 +207,7 @@ export default function Settings({
       case "multiple":
         $state = {
           ...state,
-          selectedDate: Array.isArray(state.selectedDate)
+          selectedDate: isArray(state.selectedDate)
             ? state.selectedDate
             : [state.selectedDate],
           multiple: true,
@@ -216,7 +217,7 @@ export default function Settings({
       case "range":
         $state = {
           ...state,
-          selectedDate: Array.isArray(state.selectedDate)
+          selectedDate: isArray(state.selectedDate)
             ? state.selectedDate
             : [state.selectedDate],
           multiple: false,
@@ -234,7 +235,7 @@ export default function Settings({
         //single
         $state = {
           ...state,
-          selectedDate: Array.isArray(state.selectedDate)
+          selectedDate: isArray(state.selectedDate)
             ? getLastItem(state.selectedDate)
             : state.selectedDate,
           multiple: false,
@@ -284,24 +285,6 @@ export default function Settings({
 
   function notifyChange($state) {
     $state.value = $state.selectedDate;
-
-    if (setProps instanceof Function) {
-      if ("_self" in React.createElement("div"))
-        console.warn(
-          [
-            "setProps is deprecated and will not available in the next versions.",
-            "Use onPropsChange instead",
-            "https://shahabyazdi.github.io/react-multi-date-picker/events/#onpropschange",
-          ].join("\n")
-        );
-
-      setProps((props) => {
-        return {
-          ...props,
-          ...$state,
-        };
-      });
-    }
 
     handlePropsChange($state);
   }

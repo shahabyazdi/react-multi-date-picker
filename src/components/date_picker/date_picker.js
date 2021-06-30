@@ -4,6 +4,8 @@ import React, {
   useRef,
   useCallback,
   forwardRef,
+  isValidElement,
+  cloneElement,
 } from "react";
 import ElementPopper from "react-element-popper";
 import DateObject from "react-date-object";
@@ -11,13 +13,16 @@ import Calendar from "../calendar/calendar";
 import getFormat from "../../shared/getFormat";
 import getIgnoreList from "../../shared/getIgnoreList";
 import isArray from "../../shared/isArray";
+import warn from "../../shared/warn";
+import check from "../../shared/check";
+import getLocaleName from "../../shared/getLocaleName";
 import "./date_picker.css";
 
 function DatePicker(
   {
     value,
-    calendar = "gregorian",
-    locale = "en",
+    calendar,
+    locale,
     format,
     onlyMonthPicker,
     onlyYearPicker,
@@ -58,6 +63,7 @@ function DatePicker(
     readOnly,
     shadow = true,
     onFocusedDateChange,
+    type,
     ...otherProps
   },
   outerRef
@@ -100,8 +106,9 @@ function DatePicker(
     ref.current = { ...ref.current, mobile: false };
 
   formattingIgnoreList = getIgnoreList(formattingIgnoreList);
-
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
+
+  [calendar, locale] = check(calendar, locale);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -139,6 +146,7 @@ function DatePicker(
 
   useEffect(() => {
     let date = value,
+      { date: refDate, initialValue } = ref.current,
       getLastDate = () => date[date.length - 1];
 
     function checkDate(date) {
@@ -160,6 +168,12 @@ function DatePicker(
       return date;
     }
 
+    if (!value && !initialValue && refDate) {
+      date = refDate;
+    } else if (initialValue && !value) {
+      initialValue = undefined;
+    }
+
     if (range || multiple || isArray(date)) {
       if (!isArray(date)) date = [date];
 
@@ -178,7 +192,12 @@ function DatePicker(
       }
     }
 
-    ref.current = { ...ref.current, date, separator };
+    ref.current = {
+      ...ref.current,
+      date,
+      separator,
+      initialValue: initialValue || value,
+    };
 
     setDate(date);
   }, [
@@ -232,13 +251,20 @@ function DatePicker(
   }
 
   function renderInput() {
+    if (typeof type === "string") {
+      warn([
+        "the type Prop is deprecated.",
+        "https://shahabyazdi.github.io/react-multi-date-picker/types/",
+      ]);
+    }
+
     if (render) {
       let strDate = isArray(date) ? getStringDate(date, separator) : stringDate;
 
       return (
         <div ref={inputRef}>
-          {React.isValidElement(render)
-            ? React.cloneElement(render, {
+          {isValidElement(render)
+            ? cloneElement(render, {
                 [multiple || range ? "stringDates" : "stringDate"]: strDate,
                 openCalendar,
                 handleValueChange,
@@ -363,7 +389,7 @@ function DatePicker(
       hi: { OK: "पुष्टि", CANCEL: "रद्द करें" },
     };
 
-    return actions[locale.name.split("_")[1]]?.[string] || string;
+    return actions[getLocaleName(locale)]?.[string] || string;
   }
 
   function openCalendar() {

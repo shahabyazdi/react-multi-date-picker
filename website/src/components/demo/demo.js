@@ -10,7 +10,7 @@ import "./demo.css";
 
 export default function Demo({ language = "en", translate }) {
   const [state, setState] = useState({
-    value: new DateObject(),
+    // value: new DateObject(),
     calendar: language === "fa" ? "persian" : "gregorian",
     locale: language,
     mustShowDates: true,
@@ -26,7 +26,7 @@ export default function Demo({ language = "en", translate }) {
   });
 
   const {
-    type = "calendar",
+    type = "input",
     value,
     calendar,
     locale,
@@ -89,7 +89,7 @@ export default function Demo({ language = "en", translate }) {
   const props = {
     ...state,
     className: `${layout} ${color} ${background}`,
-    onChange: (dateObject) => updateState("value", dateObject),
+    // onChange: (dateObject) => updateState("value", dateObject),
     fixRelativePosition: true,
     fixMainPosition: true,
     weekStartDayIndex,

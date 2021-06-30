@@ -7,6 +7,7 @@ import React, { useMemo } from "react";
 import Arrow from "../../../src/components/arrow/arrow";
 import Input from "../time_picker/input/input";
 import "./analog_time_picker.css";
+import "../time_picker/time_picker.css";
 
 const getTransform = (number) => `rotate(${number}deg)`;
 const array = ["hour", "minute", "second"];

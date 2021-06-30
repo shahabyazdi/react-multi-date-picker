@@ -43,6 +43,7 @@ export default function DayPicker({
       numberOfMonths,
       weekStartDayIndex
     );
+    // eslint-disable-next-line
   }, [
     date.month.number,
     date.year,

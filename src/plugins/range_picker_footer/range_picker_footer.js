@@ -1,4 +1,5 @@
 import React from "react";
+import getLocaleName from "../../shared/getLocaleName";
 import "./range_picker_footer.css";
 
 export default function Footer({
@@ -6,12 +7,17 @@ export default function Footer({
   handleChange,
   calendarProps,
   position,
-  direction = ["fa", "ar"].includes(state.locale) ? "rtl" : "ltr",
+  direction = ["fa", "ar"].includes(getLocaleName(state.date.locale))
+    ? "rtl"
+    : "ltr",
   format = direction === "rtl" ? "DD MMMM" : "MMMM DD",
   names,
   DatePicker,
 }) {
-  let { selectedDate, locale } = state,
+  let {
+      selectedDate,
+      date: { locale },
+    } = state,
     from = selectedDate[0]?.format?.(format),
     to = selectedDate[1]?.format?.(format),
     horizontal = ["bottom", "top"].includes(position),
@@ -33,7 +39,7 @@ export default function Footer({
         separator: "-",
       },
     },
-    localeNames = names || allNames[locale] || allNames.en;
+    localeNames = names || allNames[getLocaleName(locale)] || allNames.en;
 
   /**
    * rmdp-header-values, rmdp-week-day &
