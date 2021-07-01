@@ -6,6 +6,7 @@ import postcss from "rollup-plugin-postcss";
 import cssvariables from "postcss-css-variables";
 import svgr from "@svgr/rollup";
 import url from "@rollup/plugin-url";
+import fs from "fs";
 import { terser } from "rollup-plugin-terser";
 
 const external = [
@@ -34,19 +35,7 @@ export default [
         exports: "named",
       },
     ],
-    external,
-    plugins: [
-      resolve(),
-      peerDepsExternal(),
-      babel({
-        exclude: /node_modules/,
-        presets,
-      }),
-      commonjs(),
-      postcss({ plugins: [cssvariables()] }),
-      svgr(),
-      url(),
-    ],
+    ...getProps(),
   },
   {
     input: "src/index_browser.js",
@@ -60,6 +49,14 @@ export default [
         globals,
       },
     ],
+    ...getProps(),
+  },
+  // ...build("plugins"),
+  // ...build("elements"),
+];
+
+function getProps() {
+  return {
     external,
     plugins: [
       resolve(),
@@ -73,53 +70,34 @@ export default [
       svgr(),
       url(),
     ],
-  },
-  // ...[
-  //   "date_panel",
-  //   "date_picker_header",
-  //   "multi_colors",
-  //   "settings",
-  //   "toolbar",
-  //   "weekends",
-  //   "time_picker",
-  //   "analog_time_picker",
-  //   "range_picker_footer",
-  // ].map((path) => {
-  //   let name = path
-  //     .replace(/^./, (w) => w.toUpperCase())
-  //     .replace(/_./g, (w) => w.replace("_", "").toUpperCase());
+  };
+}
 
-  //   return {
-  //     input: `src/plugins/${path}/${path}.js`,
-  //     output: [
-  //       {
-  //         file: `plugins/${path}.js`,
-  //         format: "cjs",
-  //         plugins: [terser()],
-  //         exports: "named",
-  //       },
-  //       {
-  //         file: `build/${path}.browser.js`,
-  //         format: "umd",
-  //         plugins: [terser()],
-  //         name,
-  //         exports: "default",
-  //         globals,
-  //       },
-  //     ],
-  //     external,
-  //     plugins: [
-  //       resolve(),
-  //       peerDepsExternal(),
-  //       babel({
-  //         exclude: /node_modules/,
-  //         presets,
-  //       }),
-  //       commonjs(),
-  //       postcss({ plugins: [cssvariables()] }),
-  //       svgr(),
-  //       url(),
-  //     ],
-  //   };
-  // }),
-];
+function build(dirName) {
+  return fs.readdirSync("./src/" + dirName).map((path) => {
+    let name = path
+      .replace(/^./, (w) => w.toUpperCase())
+      .replace(/_./g, (w) => w.replace("_", "").toUpperCase());
+
+    return {
+      input: `src/${dirName}/${path}/${path}.js`,
+      output: [
+        {
+          file: `${dirName}/${path}.js`,
+          format: "cjs",
+          plugins: [terser()],
+          exports: "named",
+        },
+        {
+          file: `build/${path}.browser.js`,
+          format: "umd",
+          plugins: [terser()],
+          name,
+          exports: "default",
+          globals,
+        },
+      ],
+      ...getProps(),
+    };
+  });
+}
