@@ -268,6 +268,7 @@ declare module "react-multi-date-picker" {
     hideYear?: boolean;
     hideWeekDays?: boolean;
     shadow?: boolean;
+    fullYear?: boolean;
   }
 
   interface DatePickerProps {

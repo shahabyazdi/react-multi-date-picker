@@ -373,6 +373,12 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
+          <td>fullYear</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
           <td>containerClassName</td>
           <td style="text-align:center">String</td>
           <td style="text-align:center"></td>

@@ -37,18 +37,6 @@ export default function Doc({ translate, language }) {
             <td>false</td>
             <td>{translate("both")}</td>
           </tr>
-          <tr style={{ color: "red" }}>
-            <td>timePicker (deprecated)</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td>{translate("both")}</td>
-          </tr>
-          <tr style={{ color: "red" }}>
-            <td>onlyTimePicker (deprecated)</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td>{translate("both")}</td>
-          </tr>
           <tr>
             <td>onlyMonthPicker</td>
             <td>Boolean</td>
@@ -260,6 +248,12 @@ export default function Doc({ translate, language }) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
+            <td>fullYear</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
             <td>arrow</td>
             <td>Boolean {translate("or")} React.ReactElement</td>
             <td>true</td>
@@ -317,12 +311,6 @@ export default function Doc({ translate, language }) {
             <td>style</td>
             <td>Object</td>
             <td>{"{}"}</td>
-            <td>{translate("DatePicker")}</td>
-          </tr>
-          <tr>
-            <td>type</td>
-            <td>String</td>
-            <td>input</td>
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>

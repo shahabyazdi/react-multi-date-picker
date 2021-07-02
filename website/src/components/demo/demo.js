@@ -275,6 +275,7 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Other Pickers",
+              disabled: isFullYear,
               options: [
                 ["Disable", "disable"],
                 ["Time Picker", "$timePicker"],
@@ -284,14 +285,7 @@ export default function Demo({ language = "en", translate }) {
                 ["Only Month Picker", "onlyMonthPicker"],
                 ["Only Year Picker", "onlyYearPicker"],
               ].filter(([text, value]) => {
-                if (isFullYear) {
-                  return ![
-                    "$timePicker",
-                    "$onlyTimePicker",
-                    "$analogTimePicker",
-                    "$onlyAnalogTimePicker",
-                  ].includes(value);
-                } else if (!multiple && !range) {
+                if (!multiple && !range) {
                   return true;
                 } else {
                   return !["$onlyTimePicker", "$onlyAnalogTimePicker"].includes(

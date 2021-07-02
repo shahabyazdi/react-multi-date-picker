@@ -90,7 +90,13 @@ function Calendar(
     if (!range && !multiple) multiple = true;
     if (multiple && range) multiple = false;
   }
-  if (fullYear) numberOfMonths = 12;
+
+  if (fullYear) {
+    numberOfMonths = 12;
+    onlyMonthPicker = false;
+    onlyYearPicker = false;
+  }
+
   if (onlyYearPicker && !hideMonth) hideMonth = true;
 
   [calendar, locale] = check(calendar, locale);
@@ -302,12 +308,16 @@ function Calendar(
                   weekStartDayIndex={weekStartDayIndex}
                   hideWeekDays={hideWeekDays}
                 />
-                <MonthPicker
-                  {...globalProps}
-                  customMonths={months}
-                  handleMonthChange={handleMonthChange}
-                />
-                <YearPicker {...globalProps} onYearChange={onYearChange} />
+                {!fullYear && (
+                  <>
+                    <MonthPicker
+                      {...globalProps}
+                      customMonths={months}
+                      handleMonthChange={handleMonthChange}
+                    />
+                    <YearPicker {...globalProps} onYearChange={onYearChange} />
+                  </>
+                )}
               </div>
             </>
           )}
