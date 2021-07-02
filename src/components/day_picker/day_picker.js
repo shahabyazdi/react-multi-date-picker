@@ -57,16 +57,12 @@ export default function DayPicker({
     weekStartDayIndex,
   ]);
 
-  let style = { display: "flex" };
-
-  if (fullYear) {
-    style.display = "grid";
-    style.gridTemplateColumns = "1fr 1fr 1fr";
-  }
-
   return (
     mustShowDayPicker && (
-      <div className="rmdp-day-picker" style={style}>
+      <div
+        className={`rmdp-day-picker ${fullYear ? "rmdp-full-year" : ""}`}
+        style={{ display: fullYear ? "grid" : "flex" }}
+      >
         {months.map((weeks, monthIndex) => (
           <div
             key={monthIndex}

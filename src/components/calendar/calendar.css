@@ -387,7 +387,11 @@
   margin: 3px 0;
 }
 
-@media (max-width: 400px), (max-height: 400px) {
+.rmdp-full-year {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 450px), (max-height: 450px) {
   .rmdp-day,
   .rmdp-week-day {
     height: 28px;
@@ -409,5 +413,13 @@
     height: 32px;
     font-size: 12px;
     line-height: 32px;
+  }
+
+  .rmdp-month-name {
+    font-size: 12px;
+  }
+
+  .rmdp-full-year {
+    grid-template-columns: 1fr 1fr;
   }
 }
