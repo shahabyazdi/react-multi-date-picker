@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Usage(translate, language, otherProps, codeEnd, Code) {
+export default function Doc({ translate, Code }) {
   const usage = {
     title: "Usage",
     description: (

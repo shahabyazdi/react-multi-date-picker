@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "../../../build/index";
 
-export default function Classes(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const inputClass = {
     title: "Adding ClassName To Refrence Element (input)",
     description: (

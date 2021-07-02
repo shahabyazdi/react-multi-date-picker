@@ -6,7 +6,7 @@ import MultiColors from "../../../plugins/multi_colors";
 import DatePanel from "../../../plugins/date_panel";
 import Toolbar from "../../../plugins/toolbar";
 
-export default function Plugins(translate, language, otherProps) {
+export default function Doc({ language, otherProps }) {
   const dateObject = new DateObject({
     calendar: language === "en" ? "gregorian" : "persian",
   });

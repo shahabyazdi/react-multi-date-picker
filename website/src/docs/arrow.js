@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "../../../build/index";
 
-export default function Arrow(translate, language, otherProps) {
+export default function Doc({ otherProps }) {
   const description = {
     title: "Descriptions",
     description: "arrow_description",

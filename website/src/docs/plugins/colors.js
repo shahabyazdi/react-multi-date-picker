@@ -3,7 +3,7 @@ import DatePicker, { DateObject } from "../../../../build/index";
 import MultiColors from "../../../../plugins/multi_colors";
 import DatePanel from "../../../../plugins/date_panel";
 
-export default function Colors(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const [props2, setProps2] = useState({ multiple: true, ...otherProps });
 
   const yesterday = new DateObject().subtract(1, "day");

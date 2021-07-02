@@ -5,5 +5,5 @@
 /website/public
 /website/.cache
 /plugins
-/elements
+/components
 .npmignore 

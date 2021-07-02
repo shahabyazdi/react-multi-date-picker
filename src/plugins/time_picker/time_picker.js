@@ -94,9 +94,7 @@ export default function TimePicker({
       <div style={getStyle()}>
         <Arrow direction="rmdp-up" onClick={toggleMeridiem} />
         <div className="rmdp-am">
-          {am
-            ? meridiems[0].shortName.toUpperCase()
-            : meridiems[1].shortName.toUpperCase()}
+          {am ? meridiems[0][1].toUpperCase() : meridiems[1][1].toUpperCase()}
         </div>
         <Arrow direction="rmdp-down" onClick={toggleMeridiem} />
       </div>

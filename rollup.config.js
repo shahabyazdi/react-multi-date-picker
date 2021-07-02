@@ -83,7 +83,7 @@ function build(dirName) {
       input: `src/${dirName}/${path}/${path}.js`,
       output: [
         {
-          file: `${dirName}/${path}.js`,
+          file: `${dirName === "elements" ? "components" : dirName}/${path}.js`,
           format: "cjs",
           plugins: [terser()],
           exports: "named",

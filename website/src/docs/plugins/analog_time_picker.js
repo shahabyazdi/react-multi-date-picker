@@ -3,7 +3,7 @@ import DatePicker, { Calendar } from "../../../../build/index";
 import TimePicker from "../../../../plugins/analog_time_picker";
 import "../../../../styles/colors/analog_time_picker_red.css";
 
-export default function AnalogTime(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const [value, setValue] = useState(new Date());
   const [value1, setValue1] = useState(new Date());
   const [value2, setValue2] = useState(new Date());

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../../build/index";
 import Weekends from "../../../../plugins/weekends";
 
-export default function WeekendsComponent(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const [props, setProps] = useState({
     value: new DateObject().toLastOfWeek(),
     plugins: [<Weekends />],

@@ -382,6 +382,11 @@
   color: transparent;
 }
 
+.rmdp-month-name {
+  font-size: 14px;
+  margin: 3px 0;
+}
+
 @media (max-width: 400px), (max-height: 400px) {
   .rmdp-day,
   .rmdp-week-day {

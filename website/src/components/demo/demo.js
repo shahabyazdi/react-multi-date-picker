@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Selectors from "../selectors/selectors";
-import DatePicker, { Calendar, DateObject } from "../../../../src/index";
+import DatePicker, { Calendar, DateObject } from "../../../../build/index";
 import DatePanel from "../../../../plugins/date_panel";
 import TimePicker from "../../../../plugins/time_picker";
 import AnalogTimePicker from "../../../../plugins/analog_time_picker";
@@ -8,11 +8,69 @@ import list from "./quick_access";
 import { Link } from "gatsby";
 import "./demo.css";
 
+//other types
+import InputIcon from "../../../../components/input_icon";
+import Icon from "../../../../components/icon";
+import Button from "../../../../components/button";
+
+//gregorian calendar & locales
+import gregorian from "react-date-object/calendars/gregorian";
+import gregorian_en from "react-date-object/locales/gregorian_en";
+import gregorian_fa from "react-date-object/locales/gregorian_fa";
+import gregorian_ar from "react-date-object/locales/gregorian_ar";
+import gregorian_hi from "react-date-object/locales/gregorian_hi";
+
+//persian calendar & locales
+import persian from "react-date-object/calendars/persian";
+import persian_en from "react-date-object/locales/persian_en";
+import persian_fa from "react-date-object/locales/persian_fa";
+import persian_ar from "react-date-object/locales/persian_ar";
+import persian_hi from "react-date-object/locales/persian_hi";
+
+//arabic calendar & locales
+import arabic from "react-date-object/calendars/arabic";
+import arabic_en from "react-date-object/locales/arabic_en";
+import arabic_fa from "react-date-object/locales/arabic_fa";
+import arabic_ar from "react-date-object/locales/arabic_ar";
+import arabic_hi from "react-date-object/locales/arabic_hi";
+
+//indian calendar & locales
+import indian from "react-date-object/calendars/indian";
+import indian_en from "react-date-object/locales/indian_en";
+import indian_fa from "react-date-object/locales/indian_fa";
+import indian_ar from "react-date-object/locales/indian_ar";
+import indian_hi from "react-date-object/locales/indian_hi";
+
+const calendars = { gregorian, persian, arabic, indian };
+const locales = {
+  gregorian_en,
+  gregorian_fa,
+  gregorian_ar,
+  gregorian_hi,
+  persian_en,
+  persian_fa,
+  persian_ar,
+  persian_hi,
+  arabic_en,
+  arabic_fa,
+  arabic_ar,
+  arabic_hi,
+  indian_en,
+  indian_fa,
+  indian_ar,
+  indian_hi,
+};
+const types = {
+  input_icon: <InputIcon />,
+  icon: <Icon />,
+  button: <Button />,
+};
+
 export default function Demo({ language = "en", translate }) {
   const [state, setState] = useState({
-    // value: new DateObject(),
-    calendar: language === "fa" ? "persian" : "gregorian",
-    locale: language,
+    value: new DateObject(),
+    calendar: language === "fa" ? persian : gregorian,
+    locale: language === "fa" ? persian_fa : gregorian_en,
     mustShowDates: true,
     calendarPosition: "bottom-center",
     numberOfMonths: 1,
@@ -26,7 +84,7 @@ export default function Demo({ language = "en", translate }) {
   });
 
   const {
-    type = "input",
+    type = "calendar",
     value,
     calendar,
     locale,
@@ -86,10 +144,13 @@ export default function Demo({ language = "en", translate }) {
     indian: [0],
   };
 
+  let isFullYear = type === "full-year";
+
   const props = {
     ...state,
+    type: undefined,
     className: `${layout} ${color} ${background}`,
-    // onChange: (dateObject) => updateState("value", dateObject),
+    onChange: (value) => updateState("value", value),
     fixRelativePosition: true,
     fixMainPosition: true,
     weekStartDayIndex,
@@ -97,8 +158,8 @@ export default function Demo({ language = "en", translate }) {
     months:
       months === "1"
         ? new DateObject({
-            calendar: language === "en" ? "gregorian" : "persian",
-            locale: language,
+            calendar: language === "en" ? undefined : persian,
+            locale: language === "en" ? undefined : persian_fa,
           }).months.map(({ shortName }) => shortName)
         : undefined,
     format:
@@ -110,7 +171,7 @@ export default function Demo({ language = "en", translate }) {
         ? "HH:mm:ss"
         : undefined,
     mapDays: ({ date }) => {
-      if ($weekend[calendar].includes(date.weekDay.index)) {
+      if ($weekend[calendar.name].includes(date.weekDay.index)) {
         if (weekend === "highlight") {
           return {
             className: "highlight highlight-red",
@@ -124,6 +185,7 @@ export default function Demo({ language = "en", translate }) {
         }
       }
     },
+    render: types[type],
     plugins: [
       <DatePanel
         sort="date"
@@ -131,6 +193,7 @@ export default function Demo({ language = "en", translate }) {
         disabled={
           (!multiple && !range) ||
           ((multiple || range) && !mustShowDates) ||
+          isFullYear ||
           numberOfMonths > 1
         }
         markFocused={(multiple || range) && ($timePicker || $analogTimePicker)}
@@ -158,7 +221,7 @@ export default function Demo({ language = "en", translate }) {
   if (Array.isArray(value)) {
     value.forEach((date) => {
       if (
-        $weekend[calendar].includes(date?.weekDay?.index) &&
+        $weekend[calendar.name].includes(date?.weekDay?.index) &&
         weekend === "highlight"
       ) {
         date.color = "red";
@@ -171,8 +234,8 @@ export default function Demo({ language = "en", translate }) {
   return (
     <>
       <div className="calendar-demo">
-        {type === "calendar" ? (
-          <Calendar {...props} />
+        {["calendar", "full-year"].includes(type) ? (
+          <Calendar {...props} fullYear={isFullYear} />
         ) : (
           <DatePicker {...props} />
         )}
@@ -190,8 +253,13 @@ export default function Demo({ language = "en", translate }) {
                 ["Arabic", "arabic"],
                 ["Indian", "indian"],
               ],
-              value: calendar,
-              onChange: (value) => updateState("calendar", value),
+              value: calendar.name,
+              onChange: (value) => {
+                updateState({
+                  calendar: calendars[value],
+                  locale: locales[`${value}_${locale.name.split("_")[1]}`],
+                });
+              },
             },
             {
               title: "Locale",
@@ -201,8 +269,9 @@ export default function Demo({ language = "en", translate }) {
                 ["Ar", "ar"],
                 ["Hindi", "hi"],
               ],
-              value: locale,
-              onChange: (value) => updateState("locale", value),
+              value: locale.name.split("_")[1],
+              onChange: (value) =>
+                updateState("locale", locales[`${calendar.name}_${value}`]),
             },
             {
               title: "Other Pickers",
@@ -215,12 +284,18 @@ export default function Demo({ language = "en", translate }) {
                 ["Only Month Picker", "onlyMonthPicker"],
                 ["Only Year Picker", "onlyYearPicker"],
               ].filter(([text, value]) => {
-                if (!multiple && !range) {
+                if (isFullYear) {
+                  return ![
+                    "$timePicker",
+                    "$onlyTimePicker",
+                    "$analogTimePicker",
+                    "$onlyAnalogTimePicker",
+                  ].includes(value);
+                } else if (!multiple && !range) {
                   return true;
                 } else {
-                  return (
-                    value !== "$onlyTimePicker" &&
-                    value !== "$onlyAnalogTimePicker"
+                  return !["$onlyTimePicker", "$onlyAnalogTimePicker"].includes(
+                    value
                   );
                 }
               }),
@@ -286,7 +361,8 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "Dates panel",
-              disabled: (!range && !multiple) || numberOfMonths > 1,
+              disabled:
+                (!range && !multiple) || isFullYear || numberOfMonths > 1,
               options: [
                 ["Enable", "enable"],
                 ["Disable", "disable"],
@@ -298,7 +374,10 @@ export default function Demo({ language = "en", translate }) {
             {
               title: "DatePanel Position",
               disabled:
-                (!range && !multiple) || numberOfMonths > 1 || !mustShowDates,
+                (!range && !multiple) ||
+                isFullYear ||
+                numberOfMonths > 1 ||
+                !mustShowDates,
               options: [
                 ["Left", "left"],
                 ["Right", "right"],
@@ -311,6 +390,7 @@ export default function Demo({ language = "en", translate }) {
             {
               title: "Number Of Months",
               disabled:
+                isFullYear ||
                 $onlyTimePicker ||
                 $onlyAnalogTimePicker ||
                 onlyMonthPicker ||
@@ -327,13 +407,17 @@ export default function Demo({ language = "en", translate }) {
               title: "Type",
               options: [
                 ["Calendar", "calendar"],
+                ["Full Year Calendar", "full-year"],
                 ["Input", "input"],
-                ["Input-Icon", "input-icon"],
+                ["Input-Icon", "input_icon"],
                 ["Icon", "icon"],
                 ["Button", "button"],
               ],
               value: type,
-              onChange: (value) => updateState("type", value),
+              onChange: (value) => {
+                updateState("type", value);
+                document.querySelector(".main").scrollTop = 0;
+              },
             },
             {
               title: "Layout",
@@ -364,7 +448,7 @@ export default function Demo({ language = "en", translate }) {
               title: "First Day Of Week",
               options: new DateObject({
                 calendar,
-                locale: language,
+                locale: language === "en" ? undefined : persian_fa,
               }).weekDays.map((weekDay, index) => [weekDay.name, index]),
               value: weekStartDayIndex,
               disabled: $onlyTimePicker || onlyMonthPicker || onlyYearPicker,
@@ -393,6 +477,7 @@ export default function Demo({ language = "en", translate }) {
             {
               title: "Week Days",
               disabled:
+                isFullYear ||
                 onlyYearPicker ||
                 onlyMonthPicker ||
                 $onlyAnalogTimePicker ||
@@ -408,7 +493,10 @@ export default function Demo({ language = "en", translate }) {
             {
               title: "Month",
               disabled:
-                onlyYearPicker || $onlyAnalogTimePicker || $onlyTimePicker,
+                isFullYear ||
+                onlyYearPicker ||
+                $onlyAnalogTimePicker ||
+                $onlyTimePicker,
               options: [
                 ["Show", "show"],
                 ["Hide", "hide"],
@@ -482,14 +570,14 @@ export default function Demo({ language = "en", translate }) {
                 let date = value;
                 if (multiple || range || Array.isArray(value)) {
                   date = value.filter((date) =>
-                    $weekend[calendar].includes(date?.weekDay?.index) &&
+                    $weekend[calendar.name].includes(date?.weekDay?.index) &&
                     val === "disable"
                       ? false
                       : true
                   );
                 } else {
                   date =
-                    $weekend[calendar].includes(value?.weekDay?.index) &&
+                    $weekend[calendar.name].includes(value?.weekDay?.index) &&
                     val === "disable"
                       ? null
                       : value;
@@ -542,7 +630,9 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: calendarPosition,
               onChange: (value) => updateState("calendarPosition", value),
-              disabled: type === "calendar" || layout === "rmdp-mobile",
+              disabled:
+                ["calendar", "full-year"].includes(type) ||
+                layout === "rmdp-mobile",
             },
             {
               title: "Animation",
@@ -552,7 +642,9 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: animation ? "on" : "off",
               onChange: (value) => updateState("animation", value === "on"),
-              disabled: type === "calendar" || layout === "rmdp-mobile",
+              disabled:
+                ["calendar", "full-year"].includes(type) ||
+                layout === "rmdp-mobile",
             },
           ]}
         />

@@ -1,7 +1,8 @@
 import React from "react";
 import DatePicker, { DateObject } from "../../../build/index";
+import fa from "react-date-object/locales/persian_fa";
 
-export default function Locales(translate, language, otherProps) {
+export default function Doc({ language, otherProps }) {
   const digits = {
     title: "Digits",
     description: "digits",
@@ -192,7 +193,7 @@ export default function Locales(translate, language, otherProps) {
       <DatePicker
         months={new DateObject({
           calendar: language === "fa" ? "persian" : "gregorian",
-          locale: language === "fa" ? "fa" : "en",
+          locale: language === "fa" ? fa : undefined,
         }).months.map((month) => month.shortName)}
         {...otherProps}
       />

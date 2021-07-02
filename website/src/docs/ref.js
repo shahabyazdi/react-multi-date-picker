@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
+import fa from "react-date-object/locales/persian_fa";
 
-export default function Ref(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const datePickerRef = useRef();
   const ref = useRef();
   const ref2 = useRef();
@@ -12,7 +13,7 @@ export default function Ref(translate, language, otherProps) {
   const [date, setDate] = useState(
     new DateObject({
       calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
+      locale: language === "fa" ? fa : undefined,
     })
   );
   const calendarRef = useRef();

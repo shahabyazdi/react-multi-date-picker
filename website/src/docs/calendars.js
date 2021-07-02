@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker, { Calendar } from "../../../build/index";
 
-export default function Calendars(translate, language) {
+export default function Doc({ translate, language }) {
   let calendars = {
     title: translate("Calendars"),
     description: translate("calendars"),

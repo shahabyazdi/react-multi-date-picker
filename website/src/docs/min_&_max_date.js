@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../build/index";
 
-export default function MinDate(translate, language, otherProps) {
+export default function Doc({ language, otherProps }) {
   const [value, setValue] = useState(
     new DateObject({
       calendar: language === "en" ? "gregorian" : "persian",

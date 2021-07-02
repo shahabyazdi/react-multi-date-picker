@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import DatePicker from "../../../build/index";
 import { Link } from "gatsby";
 
-export default function Positions(translate, language) {
+export default function Doc({ translate, language }) {
   const containerRef = useRef(),
     datePickerRef = useRef(),
     [state, setState] = useState({

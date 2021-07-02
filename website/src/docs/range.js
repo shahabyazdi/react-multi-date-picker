@@ -5,7 +5,7 @@ import DatePicker, {
 } from "../../../build/index";
 import DatePanel from "../../../plugins/date_panel";
 
-export default function RangeMode(translate, language, otherProps) {
+export default function Doc({ language, otherProps }) {
   const [values, setValues] = useState([
     new DateObject({
       calendar: language === "fa" ? "persian" : "gregorian",

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
 import TimePicker from "../../../plugins/time_picker";
+import fa from "react-date-object/locales/persian_fa";
 
-export default function OtherExamples(translate, language, otherProps) {
+export default function Doc({ language, otherProps }) {
   const [date, setDate] = useState(
     new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
+      calendar: language === "en" ? undefined : "persian",
+      locale: language === "fa" ? fa : undefined,
     })
   );
 
@@ -56,11 +57,11 @@ export default function OtherExamples(translate, language, otherProps) {
       <DatePicker
         currentDate={
           new DateObject({
-            calendar: language === "en" ? "gregorian" : "persian",
+            calendar: language === "en" ? undefined : "persian",
             year: language === "en" ? 2021 : 1399,
             month: language === "en" ? 2 : 12,
             day: 1,
-            locale: language,
+            locale: language === "fa" ? fa : undefined,
           })
         }
         {...otherProps}
@@ -169,6 +170,12 @@ export default function Example() {
   scrollSensitive={false} 
 />`,
     jsx: <DatePicker scrollSensitive={false} {...otherProps} />,
+  };
+
+  const fullYear = {
+    title: "Full Year View",
+    code: `<Calendar fullYear />`,
+    jsx: <Calendar fullYear />,
   };
 
   const hide = {
@@ -282,10 +289,10 @@ export default function Example() {
       <Calendar
         value={[
           new DateObject({
-            calendar: language === "en" ? "gregorian" : "persian",
+            calendar: language === "en" ? undefined : "persian",
           }).toFirstOfWeek(),
           new DateObject({
-            calendar: language === "en" ? "gregorian" : "persian",
+            calendar: language === "en" ? undefined : "persian",
           }).toLastOfWeek(),
         ]}
         range
@@ -345,6 +352,7 @@ export default function Example() {
     animation,
     otherDays,
     scroll,
+    fullYear,
     hide,
     format,
     virtualKeyboard,

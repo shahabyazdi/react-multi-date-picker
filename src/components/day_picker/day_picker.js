@@ -18,6 +18,8 @@ export default function DayPicker({
   weekStartDayIndex,
   handleFocusedDate,
   hideWeekDays,
+  fullYear,
+  monthAndYears: [monthNames],
 }) {
   const ref = useRef({}),
     {
@@ -55,17 +57,27 @@ export default function DayPicker({
     weekStartDayIndex,
   ]);
 
+  let style = { display: "flex" };
+
+  if (fullYear) {
+    style.display = "grid";
+    style.gridTemplateColumns = "1fr 1fr 1fr";
+  }
+
   return (
     mustShowDayPicker && (
-      <div className="rmdp-day-picker" style={{ display: "flex" }}>
+      <div className="rmdp-day-picker" style={style}>
         {months.map((weeks, monthIndex) => (
           <div
             key={monthIndex}
             style={{
               [isRTL ? "marginLeft" : "marginRight"]:
-                monthIndex + 1 < numberOfMonths ? "10px" : "",
+                monthIndex + (fullYear ? 0 : 1) < numberOfMonths ? "10px" : "",
             }}
           >
+            {fullYear && (
+              <div className="rmdp-month-name">{monthNames[monthIndex]}</div>
+            )}
             {!hideWeekDays && (
               <WeekDays
                 state={state}

@@ -61,6 +61,7 @@ function Calendar(
     hideYear,
     hideWeekDays,
     shadow = true,
+    fullYear,
   },
   outerRef
 ) {
@@ -89,7 +90,7 @@ function Calendar(
     if (!range && !multiple) multiple = true;
     if (multiple && range) multiple = false;
   }
-
+  if (fullYear) numberOfMonths = 12;
   if (onlyYearPicker && !hideMonth) hideMonth = true;
 
   [calendar, locale] = check(calendar, locale);
@@ -169,6 +170,8 @@ function Calendar(
         selectedDate = selectedDate[selectedDate.length - 1];
       }
 
+      if (fullYear) date.toFirstOfYear();
+
       return {
         ...state,
         date,
@@ -201,6 +204,7 @@ function Calendar(
     numberOfMonths,
     digits,
     formattingIgnoreList,
+    fullYear,
   ]);
 
   useEffect(() => {
@@ -249,6 +253,8 @@ function Calendar(
       sort,
       handleFocusedDate,
       isRTL,
+      fullYear,
+      monthAndYears: getMonthsAndYears(),
     },
     { datePickerProps, DatePicker, ...calendarProps } = arguments[0];
 
@@ -277,8 +283,6 @@ function Calendar(
                 {...globalProps}
                 disableYearPicker={disableYearPicker}
                 disableMonthPicker={disableMonthPicker}
-                customMonths={months}
-                numberOfMonths={numberOfMonths}
                 buttons={buttons}
                 renderButton={renderButton}
                 handleMonthChange={handleMonthChange}
@@ -446,6 +450,42 @@ function Calendar(
 
     if (outerRef instanceof Function) return outerRef(element);
     if (outerRef) outerRef.current = element;
+  }
+
+  function getMonthsAndYears() {
+    let date = state.date;
+
+    if (!date) return [];
+
+    let monthNames = [],
+      years = [],
+      digits = date.digits;
+
+    for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
+      let monthName,
+        year = date.year,
+        index = date.month.index + monthIndex;
+
+      if (index > 11) {
+        index -= 12;
+        year++;
+      }
+
+      if (isArray(months) && months.length >= 12) {
+        let month = months[index];
+
+        monthName = isArray(month) ? month[0] : month;
+      } else {
+        monthName = date.months[index].name;
+      }
+
+      year = year.toString().replace(/[0-9]/g, (w) => digits[w]);
+
+      monthNames.push(monthName);
+      years.push(year);
+    }
+
+    return [monthNames, years];
   }
 }
 

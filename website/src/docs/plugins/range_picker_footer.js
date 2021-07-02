@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../../build/index";
 import Footer from "../../../../plugins/range_picker_footer";
+import fa from "react-date-object/locales/persian_fa";
 
-export default function RangePickerFooter(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const [value, setValue] = useState([
     new DateObject({
       calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
+      locale: language === "fa" ? fa : undefined,
     }).setDay(15),
     new DateObject({
       calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
+      locale: language === "fa" ? fa : undefined,
     })
       .add(1, "month")
       .setDay(15),

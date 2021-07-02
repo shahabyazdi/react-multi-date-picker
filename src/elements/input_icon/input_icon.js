@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import getLocaleName from "../../shared/getLocaleName";
 import { IconCalendarEvent } from "@tabler/icons";
 
 export default function InputIcon({
@@ -46,7 +47,8 @@ export default function InputIcon({
         stroke={1.5}
         style={{
           position: "absolute",
-          [["fa", "ar"].includes(locale) ? "left" : "right"]: "2.5px",
+          [["fa", "ar"].includes(getLocaleName(locale)) ? "left" : "right"]:
+            "2.5px",
           top: "50%",
           transform: "translateY(-50%)",
           backgroundColor: "inherit",

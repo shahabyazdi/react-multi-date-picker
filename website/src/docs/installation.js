@@ -1,12 +1,6 @@
 import React from "react";
 
-export default function installation(
-  translate,
-  language,
-  otherProps,
-  codeEnd,
-  Code
-) {
+export default function Doc({ translate, language, Code }) {
   const npm = {
     title: "npm",
     description: translate("npm_description"),

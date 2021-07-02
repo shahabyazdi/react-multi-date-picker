@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "../../../../build/index";
 import Toolbar from "../../../../plugins/toolbar";
 
-export default function ToolbarComponent(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const [value, setValue] = useState();
   const [value1, setValue1] = useState();
   const [value2, setValue2] = useState();

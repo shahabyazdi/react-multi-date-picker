@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../../build/index";
 import TimePicker from "../../../../plugins/time_picker";
 import DatePanel from "../../../../plugins/date_panel";
+import fa from "react-date-object/locales/persian_fa";
 
-export default function TimePickerPlugin(translate, language, otherProps) {
+export default function Doc({ language, otherProps }) {
   const [values, setValues] = useState(
     [1, 2, 3].map((number) =>
       new DateObject({
         calendar: language === "en" ? "gregorian" : "persian",
-        locale: language,
+        locale: language === "fa" ? fa : undefined,
       }).set({
         day: number,
         hour: number,

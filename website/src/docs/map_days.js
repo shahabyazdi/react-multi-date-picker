@@ -1,14 +1,9 @@
 import React, { useState, useRef } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
+import fa from "react-date-object/locales/persian_fa";
 import { Link } from "gatsby";
 
-export default function MapDays(
-  translate,
-  language,
-  otherProps,
-  codeEnd,
-  Code
-) {
+export default function Doc({ translate, language, otherProps, Code }) {
   const description = {
     title: "Descriptions",
     jsx: (
@@ -337,7 +332,7 @@ ${
         mapDays={({ date }) => {
           const newDate = new DateObject(date).set({
             calendar: language === "en" ? "persian" : "gregorian",
-            locale: language === "en" ? "fa" : "en",
+            locale: language === "fa" ? fa : undefined,
           });
 
           return {

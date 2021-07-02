@@ -1,13 +1,7 @@
 import React from "react";
 import { Calendar } from "../../../build/index";
 
-export default function Buttons(
-  translate,
-  language,
-  otherProps,
-  codeEnd,
-  Code
-) {
+export default function Doc({ translate, language, otherProps }) {
   const disable = {
     title: "Disabling Navigate Buttons",
     description: "disable_buttons",

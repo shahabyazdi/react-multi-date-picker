@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Props(translate, language) {
+export default function Doc({ translate, language }) {
   const table = {
     description: (
       <table>

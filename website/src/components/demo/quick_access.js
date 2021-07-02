@@ -680,6 +680,10 @@ const list = [
         path: "other-examples/#disabling-scroll-sensitivity",
       },
       {
+        name: "Full Year View",
+        path: "other-examples/#full-year-view",
+      },
+      {
         name: "Hide On Scroll",
         path: "other-examples/#hide-on-scroll",
       },

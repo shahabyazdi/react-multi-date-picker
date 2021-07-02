@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../build/index";
 import DatePanel from "../../../plugins/date_panel";
+import fa from "react-date-object/locales/persian_fa";
 import { Link } from "gatsby";
 
-export default function Events(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const [state, setState] = useState({ format: "MM/DD/YYYY" });
   const [props, setProps] = useState({
     value: new Date(),
@@ -14,7 +15,7 @@ export default function Events(translate, language, otherProps) {
   const [dateObject, setDateObject] = useState(
     new DateObject({
       calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
+      locale: language === "fa" ? fa : undefined,
     })
   );
 

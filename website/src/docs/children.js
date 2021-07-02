@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker, { Calendar } from "../../../build/index";
 
-export default function Children(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const [value, setValue] = useState(new Date());
 
   const calendar = {

@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "../../../build/index";
 
-export default function Types(translate, language, otherProps) {
+export default function Doc({ language, otherProps }) {
   const singleDescription = {
     title: "Types",
     jsx: (

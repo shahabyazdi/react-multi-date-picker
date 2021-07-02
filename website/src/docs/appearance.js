@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "../../../build/index";
 
-export default function Appearance(translate, language, otherProps) {
+export default function Doc({ otherProps }) {
   const prime = {
     title: "Prime",
     code: `import "react-multi-date-picker/styles/layouts/prime.css"

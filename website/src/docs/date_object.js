@@ -1,12 +1,6 @@
 import React from "react";
 
-export default function DateObject(
-  translate,
-  language,
-  otherProps,
-  codeEnd,
-  Code
-) {
+export default function Doc({ translate, language, Code }) {
   const description = {
     title: "Descriptions",
     description: "date_object",

@@ -2,7 +2,7 @@ import React from "react";
 import DatePicker from "../../../build/index";
 import TimePicker from "../../../plugins/time_picker";
 
-export default function OtherPickers(translate, language, otherProps) {
+export default function Doc({ otherProps }) {
   const timePicker = {
     title: "Time Picker",
     code: `import DatePicker from "react-multi-date-picker";

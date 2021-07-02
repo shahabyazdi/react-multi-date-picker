@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../../build/index";
 import DatePanel from "../../../../plugins/date_panel";
 
-export default function Panel(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const [value, setValue] = useState([
     new DateObject({ calendar: language === "en" ? "gregorian" : "persian" }),
     new DateObject({

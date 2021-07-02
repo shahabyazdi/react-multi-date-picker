@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
 import { Link } from "gatsby";
 
-export default function MultipleMonths(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps }) {
   const [dates, setDates] = useState([
     new DateObject({
       calendar: language === "en" ? "gregorian" : "persian",
