@@ -273,28 +273,28 @@ declare module "react-multi-date-picker" {
 
   interface DatePickerProps {
     arrow?: boolean | React.ReactElement;
-    /**
-     * Input name.
-     * This feature does not work in custom type.
-     */
     arrowClassName?: string;
     arrowStyle?: React.CSSProperties;
-    name?: string;
     /**
-     * Input placeholder.
-     * This feature does not work in custom type.
+     * Input name.
+     * This feature does not work if you render custom input.
      */
+    name?: string;
     id?: string;
     title?: string;
     required?: boolean;
+    /**
+     * Input placeholder.
+     * This feature does not work if you render custom input.
+     */
     placeholder?: string;
     /**
      * Input style.
-     * This feature does not work in custom type.
+     * This feature does not work if you render custom input.
      */
     style?: React.CSSProperties;
     /**
-     * This feature does not work in custom type.
+     * This feature does not work if you render custom input.
      *
      * You can also use this prop for button and icon type.
      *
@@ -308,23 +308,10 @@ declare module "react-multi-date-picker" {
      */
     inputClass?: string;
     /**
-     * This feature does not work in custom type.
+     * This feature does not work if you render custom input.
      */
     disabled?: boolean;
     /**
-     * Availble types:
-     *
-     *   - input
-     *   - input-icon
-     *   - icon
-     *   - button
-     *   - custom
-     *
-     * @default "input"
-     */
-    type?: string;
-    /**
-     * This feature only works in custom type.
      * @example
      * <DatePicker
      *   type="custom"
