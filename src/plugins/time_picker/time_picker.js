@@ -1,11 +1,13 @@
 import React, { useMemo, useEffect } from "react";
 import Arrow from "../../../src/components/arrow/arrow";
-import Input from "./input/input";
+import Input from "./input";
 import getValidProps from "../../shared/getValidProps";
 import "./time_picker.css";
+import Select from "./select";
 
 export default function TimePicker({
   state,
+  setState,
   handleChange,
   position,
   calendarProps: { formattingIgnoreList, disableDayPicker },
@@ -14,6 +16,8 @@ export default function TimePicker({
   hideSeconds,
   className = "",
   style = {},
+  handleFocusedDate,
+  format = "YYYY/MM/DD",
   ...props
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
@@ -48,6 +52,7 @@ export default function TimePicker({
   }, [date._format, formattingIgnoreList]);
 
   let hour = selectedDate?.hour;
+  let horizontal = ["left", "right"].includes(position);
 
   if (typeof hour === "undefined") hour = new Date().getHours();
 
@@ -65,38 +70,60 @@ export default function TimePicker({
   let padding = { top: "Top", bottom: "Bottom" }[position] || "";
 
   return (
-    <div
-      className={`rmdp-time-picker ${position} ${className || ""}`}
-      style={{
-        direction: "ltr",
-        minWidth: "220px",
-        ["padding" + padding]: padding ? "5px" : "0",
-        ...style,
-      }}
-      {...getValidProps(props)}
-    >
-      {["hour", "minute", "second"].map((name, index) => {
-        if (name === "second" && hideSeconds) return null;
-
-        return (
-          <Button
-            key={index}
-            name={name}
-            value={getValue(name)}
-            update={update}
-            digits={date.digits}
-            hideDivider={
-              name === "second" || (name === "minute" && hideSeconds)
-            }
+    <div style={{ display: "grid" }}>
+      {horizontal && (
+        <>
+          <div style={{ margin: "auto" }}>
+            <div style={{ margin: "5px 0", fontSize: "14px" }}>
+              {availbleDate.month.name}
+            </div>
+            <div style={{ margin: "10px 0", fontSize: "25px" }}>
+              {availbleDate.format("D")}
+            </div>
+          </div>
+          <Select
+            selectedDate={selectedDate}
+            focused={focused}
+            handleFocusedDate={handleFocusedDate}
+            state={state}
+            setState={setState}
+            format={format}
           />
-        );
-      })}
-      <div style={getStyle()}>
-        <Arrow direction="rmdp-up" onClick={toggleMeridiem} />
-        <div className="rmdp-am">
-          {am ? meridiems[0][1].toUpperCase() : meridiems[1][1].toUpperCase()}
+        </>
+      )}
+      <div
+        className={`rmdp-time-picker ${position} ${className || ""}`}
+        style={{
+          direction: "ltr",
+          minWidth: horizontal ? "120px" : "220px",
+          ["padding" + padding]: padding ? "5px" : "0",
+          ...style,
+        }}
+        {...getValidProps(props)}
+      >
+        {["hour", "minute", "second"].map((name, index) => {
+          if (name === "second" && hideSeconds) return null;
+
+          return (
+            <Button
+              key={index}
+              name={name}
+              value={getValue(name)}
+              update={update}
+              digits={date.digits}
+              hideDivider={
+                name === "second" || (name === "minute" && hideSeconds)
+              }
+            />
+          );
+        })}
+        <div style={getStyle()}>
+          <Arrow direction="rmdp-up" onClick={toggleMeridiem} />
+          <div className="rmdp-am">
+            {am ? meridiems[0][1].toUpperCase() : meridiems[1][1].toUpperCase()}
+          </div>
+          <Arrow direction="rmdp-down" onClick={toggleMeridiem} />
         </div>
-        <Arrow direction="rmdp-down" onClick={toggleMeridiem} />
       </div>
     </div>
   );

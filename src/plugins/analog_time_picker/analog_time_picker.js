@@ -5,7 +5,8 @@
 
 import React, { useMemo } from "react";
 import Arrow from "../../../src/components/arrow/arrow";
-import Input from "../time_picker/input/input";
+import Input from "../time_picker/input";
+import Select from "../time_picker/select";
 import "./analog_time_picker.css";
 import "../time_picker/time_picker.css";
 
@@ -14,7 +15,10 @@ const array = ["hour", "minute", "second"];
 
 export default function AnalogTimePicker({
   state,
+  setState,
   handleChange,
+  handleFocusedDate,
+  format = "YYYY/MM/DD",
   position,
   calendarProps: { disableDayPicker },
   hideSeconds,
@@ -58,7 +62,6 @@ export default function AnalogTimePicker({
       className={position}
       style={{
         display: "grid",
-        gridTemplateRows: "1fr auto",
         minWidth: disableDayPicker ? "180px" : "",
       }}
     >
@@ -80,23 +83,35 @@ export default function AnalogTimePicker({
         <div>{numbers}</div>
         <div>{lines}</div>
       </div>
-      <div className="rmdp-time-picker" style={{ marginBottom: "10px" }}>
-        {array.map((name, index) => {
-          if (name === "second" && hideSeconds) return null;
+      {Array.isArray(selectedDate) && (
+        <Select
+          selectedDate={selectedDate}
+          focused={focused}
+          handleFocusedDate={handleFocusedDate}
+          state={state}
+          setState={setState}
+          format={format}
+        />
+      )}
+      <div style={{ margin: "auto 0" }}>
+        <div className="rmdp-time-picker">
+          {array.map((name, index) => {
+            if (name === "second" && hideSeconds) return null;
 
-          return (
-            <Button
-              key={index}
-              name={name}
-              value={getValue(name)}
-              update={update}
-              digits={date.digits}
-              hideDivider={
-                name === "second" || (name === "minute" && hideSeconds)
-              }
-            />
-          );
-        })}
+            return (
+              <Button
+                key={index}
+                name={name}
+                value={getValue(name)}
+                update={update}
+                digits={date.digits}
+                hideDivider={
+                  name === "second" || (name === "minute" && hideSeconds)
+                }
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

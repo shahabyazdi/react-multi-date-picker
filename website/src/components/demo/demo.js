@@ -75,6 +75,7 @@ export default function Demo({ language = "en", translate }) {
     calendarPosition: "bottom-center",
     numberOfMonths: 1,
     datePanelPosition: ["fa"].includes(language) ? "left" : "right",
+    timePickerPosition: "bottom",
     weekStartDayIndex: 0,
     buttons: true,
     arrow: true,
@@ -114,6 +115,7 @@ export default function Demo({ language = "en", translate }) {
     weekDays,
     months,
     hideWeekDays,
+    timePickerPosition,
     weekend,
   } = state;
 
@@ -155,6 +157,7 @@ export default function Demo({ language = "en", translate }) {
     fixMainPosition: true,
     weekStartDayIndex,
     weekDays: $weekDays[weekDays] || undefined,
+    sort: true,
     months:
       months === "1"
         ? new DateObject({
@@ -188,7 +191,6 @@ export default function Demo({ language = "en", translate }) {
     render: types[type],
     plugins: [
       <DatePanel
-        sort="date"
         position={datePanelPosition}
         disabled={
           (!multiple && !range) ||
@@ -199,7 +201,7 @@ export default function Demo({ language = "en", translate }) {
         markFocused={(multiple || range) && ($timePicker || $analogTimePicker)}
       />,
       <TimePicker
-        position="bottom"
+        position={timePickerPosition}
         disabled={!$timePicker && !$onlyTimePicker}
       />,
     ],
@@ -380,6 +382,18 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: datePanelPosition,
               onChange: (value) => updateState("datePanelPosition", value),
+            },
+            {
+              title: "TimePicker Position",
+              disabled: !$timePicker,
+              options: [
+                ["Left", "left"],
+                ["Right", "right"],
+                ["Top", "top"],
+                ["Bottom", "bottom"],
+              ],
+              value: timePickerPosition,
+              onChange: (value) => updateState("timePickerPosition", value),
             },
             {
               title: "Number Of Months",
