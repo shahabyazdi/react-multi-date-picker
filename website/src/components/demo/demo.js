@@ -202,7 +202,7 @@ export default function Demo({ language = "en", translate }) {
       />,
       <TimePicker
         position={timePickerPosition}
-        disabled={!$timePicker && !$onlyTimePicker}
+        disabled={(!$timePicker && !$onlyTimePicker) || isFullYear}
       />,
     ],
   };
@@ -210,7 +210,7 @@ export default function Demo({ language = "en", translate }) {
   const analogTimePicker = (
     <AnalogTimePicker
       position={language === "en" ? "right" : "left"}
-      disabled={!$analogTimePicker && !$onlyAnalogTimePicker}
+      disabled={(!$analogTimePicker && !$onlyAnalogTimePicker) || isFullYear}
     />
   );
 
@@ -385,7 +385,7 @@ export default function Demo({ language = "en", translate }) {
             },
             {
               title: "TimePicker Position",
-              disabled: !$timePicker,
+              disabled: !$timePicker || isFullYear,
               options: [
                 ["Left", "left"],
                 ["Right", "right"],
@@ -394,22 +394,6 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: timePickerPosition,
               onChange: (value) => updateState("timePickerPosition", value),
-            },
-            {
-              title: "Number Of Months",
-              disabled:
-                isFullYear ||
-                $onlyTimePicker ||
-                $onlyAnalogTimePicker ||
-                onlyMonthPicker ||
-                onlyYearPicker,
-              options: [
-                ["1", 1],
-                ["2", 2],
-                ["3", 3],
-              ],
-              value: numberOfMonths,
-              onChange: (value) => updateState("numberOfMonths", Number(value)),
             },
             {
               title: "Type",
@@ -426,6 +410,22 @@ export default function Demo({ language = "en", translate }) {
                 updateState("type", value);
                 document.querySelector(".main").scrollTop = 0;
               },
+            },
+            {
+              title: "Number Of Months",
+              disabled:
+                isFullYear ||
+                $onlyTimePicker ||
+                $onlyAnalogTimePicker ||
+                onlyMonthPicker ||
+                onlyYearPicker,
+              options: [
+                ["1", 1],
+                ["2", 2],
+                ["3", 3],
+              ],
+              value: numberOfMonths,
+              onChange: (value) => updateState("numberOfMonths", Number(value)),
             },
             {
               title: "Layout",

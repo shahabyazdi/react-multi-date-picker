@@ -5,7 +5,6 @@ import "./range_picker_footer.css";
 export default function Footer({
   state,
   handleChange,
-  calendarProps,
   position,
   direction = ["fa", "ar"].includes(getLocaleName(state.date.locale))
     ? "rtl"

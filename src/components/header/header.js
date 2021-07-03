@@ -36,9 +36,13 @@ export default function Header({
       date.year >= maxDate.year &&
       maxDate.month.number < date.month.number + 1;
 
-  if (hideMonth && hideYear && !buttons) return null;
+  if ((hideMonth || fullYear) && hideYear && !buttons) return null;
 
-  if ((hideMonth && hideYear) || (onlyYearPicker && hideYear)) {
+  if (
+    (hideMonth && hideYear) ||
+    (onlyYearPicker && hideYear) ||
+    (buttons && hideYear)
+  ) {
     style.minHeight = "36px";
   }
 
@@ -65,7 +69,7 @@ export default function Header({
         {buttons && getButton("left")}
         {fullYear ? (
           <div className="rmdp-header-values" style={style}>
-            {date.format("YYYY")}
+            {!hideYear && date.format("YYYY")}
           </div>
         ) : (
           months.map((month, index) => (

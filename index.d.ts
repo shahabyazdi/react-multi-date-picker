@@ -587,9 +587,59 @@ declare module "react-multi-date-picker/plugins/time_picker" {
     position?: string;
     disabled?: boolean;
     hideSeconds?: boolean;
+    /**
+     * If the calendar is in multiple or range mode,
+     * and the time picker position is right or left,
+     * a select with the default format (YYYY/MM/DD)
+     * will be added to the time picker.
+     * So, you can change the format of the select with this prop.
+     */
+    format?: string;
   }
 
   export default function TimePicker(
     props: TimePickerProps
   ): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/analog_time_picker" {
+  import React, { HTMLAttributes } from "react";
+
+  interface TimePickerProps {
+    position?: string;
+    disabled?: boolean;
+    hideSeconds?: boolean;
+    /**
+     * If the calendar is in multiple or range mode,
+     * and the time picker position is right or left,
+     * a select with the default format (YYYY/MM/DD)
+     * will be added to the time picker.
+     * So, you can change the format of the select with this prop.
+     */
+    format?: string;
+  }
+
+  export default function AnalogTimePicker(
+    props: TimePickerProps
+  ): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/range_picker_footer" {
+  import React from "react";
+
+  interface FooterProps {
+    position?: string;
+    disabled?: boolean;
+    format?: string;
+    names?: {
+      selectedDates: string;
+      from: string;
+      to: string;
+      selectDate: string;
+      close: string;
+      separator: string;
+    };
+  }
+
+  export default function Footer(props: FooterProps): React.ReactElement;
 }
