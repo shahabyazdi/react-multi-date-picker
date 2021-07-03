@@ -33,6 +33,16 @@ export default function Doc({ translate, language, otherProps }) {
         </thead>
         <tbody>
           <tr>
+            <td>position</td>
+            <td>String</td>
+            <td>"right"</td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+          </tr>
+          <tr>
             <td>weekends</td>
             <td>Array</td>
             <td>*see default weekends</td>

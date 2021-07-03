@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import DatePicker from "../../../../build/index";
-import Settings from "../../../../plugins/settings";
+import DatePicker from "../../../../src/index";
+import Settings from "../../../../src/plugins/settings/settings";
 import DatePanel from "../../../../plugins/date_panel";
 
 export default function Doc({ translate, language, otherProps }) {
@@ -24,6 +24,16 @@ export default function Doc({ translate, language, otherProps }) {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>position</td>
+            <td>String</td>
+            <td>"right"</td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+          </tr>
           <tr>
             <td>calendars</td>
             <td>Array</td>

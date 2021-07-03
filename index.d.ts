@@ -1,6 +1,6 @@
 declare module "react-multi-date-picker" {
   import React, { HTMLAttributes } from "react";
-  import DateObject from "react-date-object";
+  import DateObject, { Calendar, Locale } from "react-date-object";
 
   export type Value =
     | Date
@@ -24,6 +24,11 @@ declare module "react-multi-date-picker" {
      */
     value?: Value;
     /**
+     * default calendar is gregorian.
+     *
+     * if you want to use other calendars instead of gregorian,
+     * you must import it from "react-date-object"
+     *
      * Availble calendars:
      *
      *   - gregorian
@@ -32,25 +37,46 @@ declare module "react-multi-date-picker" {
      *   - indian
      *
      * @example
-     * <Calendar calendar="persian" />
+     * import persian from "react-date-object/calendars/persian"
+     * <Calendar calendar={persian} />
      *
-     * <DatePicker calendar="indian" />
+     * import indian from "react-date-object/calendars/indian"
+     * <DatePicker calendar={indian} />
      */
-    calendar?: string;
+    calendar?: Calendar;
     /**
+     * default locale is gregorian_en.
+     *
+     * if you want to use other locales instead of gregorian_en,
+     * you must import it from "react-date-object"
+     *
      * Availble locales:
      *
-     *  - en `english`
-     *  - fa `farsi`
-     *  - ar `arabic`
-     *  - hi `hindi`
+     *  - gregorian_en
+     *  - gregorian_fa
+     *  - gregorian_ar
+     *  - gregorian_hi
+     *  - persian_en
+     *  - persian_fa
+     *  - persian_ar
+     *  - persian_hi
+     *  - arabic_en
+     *  - arabic_fa
+     *  - arabic_ar
+     *  - arabic_hi
+     *  - indian_en
+     *  - indian_fa
+     *  - indian_ar
+     *  - indian_hi
      *
      * @example
-     * <Calendar locale="fa" />
+     * import gregorian_fa from "react-date-object/locales/gregorian_fa"
+     * <Calendar locale={gregorian_fa} />
      *
-     * <DatePicker locale="ar" />
+     * import gregorian_ar from "react-date-object/locales/gregorian_ar"
+     * <DatePicker locale={gregorian_ar} />
      */
-    locale?: string;
+    locale?: Locale;
     /**
      * @type string
      * @default "YYYY/MM/DD"
@@ -429,7 +455,7 @@ declare module "react-multi-date-picker" {
     range: DateObject[],
     toDate?: boolean
   ): DateObject[] | Date[];
-  export function toDateObject(date: Date, calendar?: string): DateObject;
+  export function toDateObject(date: Date, calendar?: Calendar): DateObject;
   export default function DatePicker(
     props: CalendarProps & DatePickerProps
   ): React.ReactElement;
@@ -459,14 +485,15 @@ declare module "react-multi-date-picker/plugins/date_panel" {
 
 declare module "react-multi-date-picker/plugins/date_picker_header" {
   import React, { HTMLAttributes } from "react";
+  import type { Calendar, Locale } from "react-date-object";
 
   interface DatePickerHeaderProps
     extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     position?: string;
     disabled?: boolean;
     size?: string;
-    calendar?: string;
-    locale?: string;
+    calendar?: Calendar;
+    locale?: Locale;
     className?: string;
   }
 

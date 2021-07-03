@@ -485,7 +485,9 @@ function DatePicker(
   }
 
   function handleFocusedDate(focusedDate, clickedDate) {
-    if (clickedDate && !isArray(date) && !isMobileMode) closeCalendar();
+    if (!isArray(ref.current.date) && clickedDate && !isMobileMode) {
+      closeCalendar();
+    }
 
     onFocusedDateChange?.(focusedDate, clickedDate);
   }

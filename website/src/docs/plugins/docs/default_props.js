@@ -195,12 +195,12 @@ export default function Example() {
           </tr>
           <tr>
             <td>calendar</td>
-            <td>String</td>
+            <td>Object Calendar</td>
             <td></td>
           </tr>
           <tr>
             <td>locale</td>
-            <td>String</td>
+            <td>Object Locale</td>
             <td></td>
           </tr>
           <tr>

@@ -17,13 +17,35 @@ export default function Doc({ translate, language, otherProps }) {
             <th>{translate("Prop")}</th>
             <th>{translate("Type")}</th>
             <th>{translate("Default")}</th>
+            <th>{translate("Descriptions")}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
+            <td>position</td>
+            <td>String</td>
+            <td>"right"</td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+          </tr>
+          <tr>
             <td>hideSeconds</td>
             <td>Boolean</td>
             <td>false</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>format</td>
+            <td>String</td>
+            <td>"YYYY/MM/DD"</td>
+            <td>
+              {translate("time_picker_format_prop").map((string, index) => (
+                <p key={index}>{string}</p>
+              ))}
+            </td>
           </tr>
         </tbody>
       </table>

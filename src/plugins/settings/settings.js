@@ -10,6 +10,54 @@ import {
 } from "@tabler/icons";
 import "./settings.css";
 
+//gregorian calendar & locales
+import gregorian from "react-date-object/calendars/gregorian";
+import gregorian_en from "react-date-object/locales/gregorian_en";
+import gregorian_fa from "react-date-object/locales/gregorian_fa";
+import gregorian_ar from "react-date-object/locales/gregorian_ar";
+import gregorian_hi from "react-date-object/locales/gregorian_hi";
+
+//persian calendar & locales
+import persian from "react-date-object/calendars/persian";
+import persian_en from "react-date-object/locales/persian_en";
+import persian_fa from "react-date-object/locales/persian_fa";
+import persian_ar from "react-date-object/locales/persian_ar";
+import persian_hi from "react-date-object/locales/persian_hi";
+
+//arabic calendar & locales
+import arabic from "react-date-object/calendars/arabic";
+import arabic_en from "react-date-object/locales/arabic_en";
+import arabic_fa from "react-date-object/locales/arabic_fa";
+import arabic_ar from "react-date-object/locales/arabic_ar";
+import arabic_hi from "react-date-object/locales/arabic_hi";
+
+//indian calendar & locales
+import indian from "react-date-object/calendars/indian";
+import indian_en from "react-date-object/locales/indian_en";
+import indian_fa from "react-date-object/locales/indian_fa";
+import indian_ar from "react-date-object/locales/indian_ar";
+import indian_hi from "react-date-object/locales/indian_hi";
+
+const Calendars = { gregorian, persian, arabic, indian };
+const Locales = {
+  gregorian_en,
+  gregorian_fa,
+  gregorian_ar,
+  gregorian_hi,
+  persian_en,
+  persian_fa,
+  persian_ar,
+  persian_hi,
+  arabic_en,
+  arabic_fa,
+  arabic_ar,
+  arabic_hi,
+  indian_en,
+  indian_fa,
+  indian_ar,
+  indian_hi,
+};
+
 export default function Settings({
   state,
   setState,
@@ -87,10 +135,16 @@ export default function Settings({
               <span
                 key={index}
                 className={`item ${
-                  state.date.calendar === calendar ? "active" : ""
+                  state.date.calendar.name === calendar ? "active" : ""
                 }`}
                 title={titles[calendar]}
-                onClick={() => setKeyValue("calendar", calendar)}
+                onClick={() => {
+                  setKeyValue("calendar", Calendars[calendar]);
+                  setKeyValue(
+                    "locale",
+                    Locales[`${calendar}_${getLocaleName(state.date.locale)}`]
+                  );
+                }}
               >
                 {names[calendar]}
               </span>
@@ -115,7 +169,12 @@ export default function Settings({
                   getLocaleName(state.date.locale) === locale ? "active" : ""
                 }`}
                 title={titles[locale]}
-                onClick={() => setKeyValue("locale", locale)}
+                onClick={() =>
+                  setKeyValue(
+                    "locale",
+                    Locales[`${state.date.calendar.name}_${locale}`]
+                  )
+                }
               >
                 {names[locale]}
               </span>

@@ -9,6 +9,7 @@ import Arrow from "../arrow/arrow";
 import english from "../../languages/en.json";
 import farsi from "../../languages/fa.json";
 import useClickOutSide from "./useClickOutside";
+import persian from "react-date-object/calendars/persian";
 import fa from "react-date-object/locales/persian_fa";
 
 import "./layout.css";
@@ -152,7 +153,7 @@ export default function Layout({ language, doc, section }) {
 />`;
 
     const otherProps = {
-      calendar: language === "fa" ? "persian" : undefined,
+      calendar: language === "fa" ? persian : undefined,
       locale: language === "fa" ? fa : undefined,
       calendarPosition: language === "fa" ? "bottom-right" : undefined,
     };
