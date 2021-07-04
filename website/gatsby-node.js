@@ -25,7 +25,11 @@ exports.createPages = async ({ graphql, actions }) => {
     const component = path.resolve(dir, name + ext).replace(/\\.js$/, ".js");
 
     const pagePath = `fa${
-      dir.includes("plugins") ? dir.replace(/(^.*)\/plugins/, "/plugins") : ""
+      dir.includes("plugins")
+        ? dir.replace(/(^.*)\/plugins/, "/plugins")
+        : dir.includes("v2.x")
+        ? dir.replace(/(^.*)\/v2.x/, "/v2.x")
+        : ""
     }/${name === "index" ? "" : name + "/"}`;
 
     createPage({

@@ -29,7 +29,7 @@
   "important_note_description_part_8": "If the value you enter to date picker or calendar is String and the format of the string is different from the default format (YYYY/MM/DD hh:mm:ss a), the format of that String must match the format you entered into the date picker. otherwise, the wrong date may be parse.",
   "important_note_description_part_9": "For example, if you consider 05/18/2020 02:20:36 as a value, the format you enter in the datepicker or calendar should also be as follows: MM/DD/YYYY HH:mm:ss",
   "dateobject": [
-    "This library is using DateObject to convert, parse, and format date. click <a href='/react-multi-date-picker/date-object' target='_blank'>here</a> to see how it works.",
+    "This package is using DateObject to convert, parse, and format date. click <a href='/react-multi-date-picker/date-object' target='_blank'>here</a> to see how it works.",
     "<p style='color:red'>*Using DateObject as value is optional. You can ignore it.</p>",
     "to see more information about DateObject please click <a target='__blanck' href='https://github.com/shahabyazdi/react-date-object/'>here.</a>"
   ],
@@ -88,7 +88,7 @@
     "Here are some examples:"
   ],
   "on_change": [
-    "The difference between onChange in this library and others is that type of its argument is sent as DateObject instead of Date.",
+    "The difference between onChange in this package and others is that type of its argument is sent as DateObject instead of Date.",
     "You can easily convert it to Date with the toDate() method."
   ],
   "weekday": "The following 4 examples are used in case you want the names of months or weekdays to be displayed only in the calendar.",
@@ -118,16 +118,16 @@
   "map_days_weekends": "For convenience, the 'highlight highlight-red' class is included in CSS files, so you do not need to import it.",
   "map_days_title": "In the example below the title has been added to today, yesterday and tomorrow.",
   "calendar_position_description": [
-    "I have to say that adjusting the position of the calendar in the datepicker involved me so much that I had to write a <a href='https://github.com/shahabyazdi/react-element-popper' target='_blank'>separate library</a> for it! But I still can not claim that it works 100%, if you have a problem with the calendar position, you can open an issue <a href='https://github.com/shahabyazdi/react-element-popper/issues' target='_blank'>here</a>.",
+    "I have to say that adjusting the position of the calendar in the datepicker involved me so much that I had to write a <a href='https://github.com/shahabyazdi/react-element-popper' target='_blank'>separate package</a> for it! But I still can not claim that it works 100%, if you have a problem with the calendar position, you can open an issue <a href='https://github.com/shahabyazdi/react-element-popper/issues' target='_blank'>here</a>.",
     "In the early versions, I used the relative position for the datepicker container, which is easy and does not require calculations, but gradually it became clear that the relative position doesn't work, it may be suitable for some layouts, but it doesn't work for complex layouts.",
-    "For this reason, in later versions, I changed the position of the container to static, trying to determine the position of the calendar with JavaScript calculations. Computations became more and more complicated and I finally decided to transfer them all to Element Popper Library so that it could be used in other projects as well."
+    "For this reason, in later versions, I changed the position of the container to static, trying to determine the position of the calendar with JavaScript calculations. Computations became more and more complicated and I finally decided to transfer them all to Element Popper package so that it could be used in other projects as well."
   ],
   "calendar_position": [
     "The way of specifying the position of the calendar is that you have to define the two main and relative positions as 'main position-relative position' for the datepicker, the main position has been defined to specify where the calendar should be placed, which You can consider four up, down, left and right values. The relative position is also used to determine where the calendar should be in the main position. Which itself consists of three parts: start, center, and end.",
     "there are all the values you can define for a datepicker as position below:"
   ],
   "important_points": [
-    "The most important thing is that this library only tries to be in the position you specified! This is because the arrangement of the elements containing the date picker may be such that the calendar does not fit in that position, or the user may start scrolling or resizing the page, in which case the calendar position will change. Of course, you can force the date picker to show the calendar position exactly where you want it, in which case you should use the fixMainPosition and fixRelativePosition properties.",
+    "The most important thing is that this package only tries to be in the position you specified! This is because the arrangement of the elements containing the date picker may be such that the calendar does not fit in that position, or the user may start scrolling or resizing the page, in which case the calendar position will change. Of course, you can force the date picker to show the calendar position exactly where you want it, in which case you should use the fixMainPosition and fixRelativePosition properties.",
     "Do not use margins and padding to create a space between the calendar and the input, and instead use the offsetY and offsetX properties.",
     "As I said in the descriptions, the relative position doesn't work, so do not try to change the datepicker container position to a relative with CSS or Style, because it will disrupt the calculations.",
     "Set the fixMainPosition to true to fix the main position and the fixRelativePosition to true to fix the relative position.",
@@ -151,7 +151,7 @@
   "arrow_description": "The arrow property in this date picker is designed in such a way that its value can be entered as Boolean or React Element.",
   "disable_arrow": "To disable the arrow, set the arrow value to false. ",
   "custom_arrow": "Instead of using the default arrow, you can render your custom arrow in the date picker.",
-  "forward_ref_description": "This library as a functional component, uses forwardRef for passing a ref through a component.",
+  "forward_ref_description": "This package as a functional component, uses forwardRef for passing a ref through a component.",
   "date_picker_ref": [
     "The openCalendar and closeCalendar functions are added to the ref by date picker, and the refreshPosition is added to the ref by element popper.",
     "The isOpen property is also added to the ref by the datepicker.",
@@ -175,8 +175,8 @@
   "plugins_usage_description": "Plugins Prop accepts an array of plugins, which the following two properties can be entered on each of them.",
   "plugins_usage": "This is the general way to add an imported plugin to Datepicker:",
   "date_object": [
-    "The DateObject is an ES6 class that I wrote to make it easier to work with a variety of calendars, so there is no need to import a separate library into the DatePicker for each calendar.",
-    "This library can be used in the backend and frontend as well.",
+    "The DateObject is an ES6 class that I wrote to make it easier to work with a variety of calendars, so there is no need to import a separate package into the DatePicker for each calendar.",
+    "This package can be used in the backend and frontend as well.",
     "DateObject has several other options that make it much easier to work with date and time, and in this section, I want to write about some of the most useful options."
   ],
   "gregorian_1": "You need to enter 'new DateObject()' to generate an instance of DateObject. If you enter the above code without any constructor, you will get an object containing the current moment with the Gregorian calendar and English locale, for example for today, which is 03/02/2021, if I define a new DateObject(), An object of this moment will be produced for me:",
@@ -341,5 +341,21 @@
   "time_picker_format_prop": [
     "If the calendar is in multiple or range mode, and the time picker position is right or left, a select with the default format (YYYY/MM/DD) will be added to the time picker.",
     "So, you can change the format of the select with this prop."
-  ]
+  ],
+  "calendar_descriptions_v3": [
+    "This package uses the Gregorian calendar and English locale by default, so if you want to use the default calendar and locale, you do not need to import anything else, but to use other calendars and locales, you must import them separately.",
+    "Calendars and locales are stored inside the react-date-object package, which is installed with this package.",
+    "The following two tables list all the calendars and locales that can be used, along with their pathes, and below them, are examples of how to import each of them."
+  ],
+  "import_calendar_descriptions": "All calendar files in DateObject are placed in the calendars folder, so use this rule to import any of them:",
+  "import_calendar_descriptions_1": "The table below lists all the calendars along with the import path:",
+  "jalali_description": "Due to the use of conventional calculations in the Jalali calendar, converting a date to a Jalali calendar from other calendars may differ by one day compared to the Persian (solar Hijri) calendar.",
+  "lunar_hijri_description": "Conventional Hijri Lunar Calendar. (due to the use of contract calculations, 1 and a maximum of 2 days may be different with the Astronomical Lunar Hijri Calendar)",
+  "locales_v3": [
+    "The convention for importing locales is the same as the calendars, except that you should use the locales folder instead of the calendars folder.",
+    "because each calendar has its own locale files, this is how to name the files in the locales folder: 'calendar_locale'.",
+    "For example, if you want to use the Gregorian calendar in Farsi locale, you need to use the gregorian_fa file, and if you want to use the Persian calendar and the Farsi locale, you must import the persian_fa file."
+  ],
+  "import_examples": "Below are some examples of importing different calendars and locales.",
+  "calendars_v2": "If you are using versions before 3.0.0, click on link below to see how to enter the calendar and locales."
 }

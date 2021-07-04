@@ -39,11 +39,11 @@ const sidebar = {
   default: [
     { name: "Home", path: "" },
     { name: "Installation & Usage", path: "installation/" },
+    { name: "Calendars & Locales", path: "calendars/" },
     { name: "TypeScript", path: "typescript/" },
     { name: "React Hook Form", path: "react-hook-form/" },
     { name: "Props", path: "props/" },
     { name: "Formatting Tokens", path: "format-tokens/" },
-    { name: "Calendars & Locales", path: "calendars/" },
     { name: "DateObject", path: "date-object/" },
     { name: "Component with Children", path: "children/" },
     { name: "Multiple Mode", path: "multiple/" },

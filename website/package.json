@@ -28,6 +28,7 @@
     "prismjs": "^1.23.0",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.9.0",
+    "react-multi-date-picker": "^2.10.0",
     "vazir-font": "^29.1.0"
   },
   "devDependencies": {

@@ -10,7 +10,7 @@
 
 ## Quick start
 
-1.  **clone the repo**
+1.  **git clone https://github.com/shahabyazdi/react-multi-date-picker.git**
 2.  **cd react-multi-date-picker**
 3.  **npm install**
 4.  **npm run build**
