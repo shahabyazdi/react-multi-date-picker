@@ -193,6 +193,13 @@
   "string_4": "The string must be entered with the following format: <b>year month day hour minute second millisecond meridiem</b> and you can replace the spaces with any character you want.",
   "string_5": "If you want to parse a string with a specific format, you must insert that string and format, to an object, and passed it to the DateObject constructor.",
   "string_6": "If you want to parse your string on a calendar & locale other than Gregorian & English, you must add the value of that calendar & locale to your object.",
+  "string_6_v3": "if you want to parse your string on a calendar & locale other than Gregorian & English, you must import that calendar & locale and add them to your object.",
+  "string_7": "The important point that I am often asked about and I have to explain to you at the end, is about parsing the Gregorian date and converting it into other calendars.",
+  "string_8": "Suppose you want to convert the date 2021/01/01 to the Persian (Solar Hijri) calendar, a mistake that most people make is that they parse the Gregorian string with the Persian calendar:",
+  "string_9": "This is wrong because by doing this you are actually parsing the 2021 Persian date!",
+  "string_10": "The correct way is to first parse the current date on its own calendar (which is Gregorian), and then convert it to the target calendar (which is Persian):",
+  "string_11": "In the above case, your string will first parse as the valid Gregorian date and then it will convert to the Persian calendar. now, if you format your date, you should see the correct result:",
+  "string_12": "I will explain more about the convert method in the following sections.",
   "unix_1": "If you visit <a href='https://www.unixtimestamp.com/' target='_blank'>here</a>, you can get the Unix timestamp of the current moment.",
   "unix_2": "The Unix timestamp At the moment I am writing this, is 1614678083.",
   "unix_3": "Just note that this value is in seconds and we have to multiply it by 1000 to convert it to milliseconds:",
@@ -357,5 +364,31 @@
     "For example, if you want to use the Gregorian calendar in Farsi locale, you need to use the gregorian_fa file, and if you want to use the Persian calendar and the Farsi locale, you must import the persian_fa file."
   ],
   "import_examples": "Below are some examples of importing different calendars and locales.",
-  "calendars_v2": "If you are using versions before 3.0.0, click on link below to see how to enter the calendar and locales."
+  "calendars_v2": "If you are using versions before 3.0.0, click on link below to see how to enter the calendar and locales.",
+  "date_object_v2": "If you are using versions before 3.0.0, click on link below to see how to use DateObject.",
+  "other_calendars": [
+    "To use any calendar other than the default calendar, you must first import the calendar and the locale of that calendar.",
+    "Importing a calendar is required, but in the case of locale, it depends on what you want to do with the date. For example, if formatting the date in locale letters is not important to you, or you do not want to format the names of the months and days of the week, you can use the same default locale (gregorian_en), but remember that if you format the first month of each calendar with the default locale ( passing MMMM as a parameter to format method), it returns you 'January', which is actually the first month of the default locale (gregorian_en)! But if you format the month number (passing MM as a parameter in the format method) in all locales, ​​you get the same value which is '01'.",
+    "So if you want to format the date produced in your favorite calendar in its own locale, you will also need to import that locale too.",
+    "Below are some examples of dates in different calendars and locales.",
+    "Click on the links below to see the table of all calendars and locales."
+  ],
+  "persian_calendar_farsi_locale": "To generate the solar Hijri date in the Farsi locale, you must import the persian calendar and persian_fa locale as in the example below:",
+  "convert": [
+    "There are many ways to convert dates to each other, but the best one is the convert method.",
+    "The convert method needs two parameters, the first one is required and the second one is optional.",
+    "The first parameter is actually the calendar you want to convert the current date to, and the second one is the locale of that calendar.",
+    "my advice is to enter the second parameter as well if you want to correctly format the name of the month (MMMM) or day of the week (dddd).",
+    "If you want to convert any date other than the Gregorian (for example, Solar Hijri) to the Gregorian calendar, you can leave both parameters empty.",
+    "Here are some examples of how to convert dates:"
+  ],
+  "gregorian_to_persian": [
+    "In general, to convert two dates to each other, you must do these two steps:",
+    "One: generating a date in the current calendar (which is here Gregorian)",
+    "Two: Convert the current date to the target calendar (which is Persian)",
+    "You can do these two steps separately or continuously, both of which are given in the example below:"
+  ],
+  "gregorian_to_persian_first": "The first case, separately:",
+  "gregorian_to_persian_second": "second case, continuously:",
+  "persian_to_arabic": "To convert the Solar Hijri date to Lunar Hijri, you need to import the Persian calendar, Arabic calendar, and arabic locale (arabic_en used here):"
 }
