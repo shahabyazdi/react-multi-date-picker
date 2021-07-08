@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function Button({
+  value,
   stringDate,
   stringDates,
   placeholder,
@@ -12,12 +13,7 @@ export default function Button({
   children,
   ...otherProps
 }) {
-  const child =
-    children ||
-    stringDate ||
-    stringDates?.join?.(separator) ||
-    placeholder ||
-    "click to select";
+  const child = children || value || placeholder || "click to select";
 
   return (
     <button onClick={openCalendar} className={className} {...otherProps}>

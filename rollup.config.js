@@ -51,8 +51,8 @@ export default [
     ],
     ...getProps(),
   },
-  // ...build("plugins"),
-  // ...build("elements"),
+  ...build("plugins"),
+  ...build("elements"),
 ];
 
 function getProps() {

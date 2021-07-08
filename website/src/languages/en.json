@@ -103,6 +103,7 @@
     "At version 1.8.1 and in multiple and range mode, an array of stringDates are sent instead of stringDate.",
     "So to get the input value in versions >= 1.8.1, you can follow the below examples."
   ],
+  "multiple_range_v3": "In multiple and range mode, the value is sent with the type of Array (string[])",
   "map_days_description_1": "You can customize your calendar days with the mapDays Prop and create different properties for each of them by returning the Props you want.",
   "map_days_description_2": "In general, this is how it works :",
   "map_days_description_3": "The object which is received as an argument, contains following properties :",
@@ -406,5 +407,11 @@
     "The convention for naming a local object is: 'name of the calendar_name of the locale' (e.g gregorian_en for Gregorian calendar and English locale), and also the value of the name property in the locale object must be the same as the name of the locale file.",
     "In case you modify the locale file for a specific language, you can send a pull request to the <a target='_blank' href='https://github.com/shahabyazdi/date-object/'>date-object repository</a> so that others can use it.",
     "For example, I copied the <a target='_blank' href='https://github.com/shahabyazdi/date-object/blob/master/locales/cjs/gregorian_en.js'>gregorian_en</a> file from here, and change all its values ​​to lowercase."
+  ],
+  "types_v2": [
+    "The type prop is deprecated. However, I put its components in a separate file so you can import and use them with render prop if you want.",
+    "When you are using a custom component, instead of entering properties such as id, name, required, placeholder, etc. into the date picker, enter them directly into your custom component.",
+    "Below are examples of how to import and render the internal components, as well as how to render your custom component.",
+    "If you are using versions before 3.0.0, click on the link below to view the documentation."
   ]
 }

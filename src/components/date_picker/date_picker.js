@@ -259,13 +259,17 @@ function DatePicker(
     }
 
     if (render) {
-      let strDate = isArray(date) ? getStringDate(date, separator) : stringDate;
+      let strDate =
+        isArray(date) || multiple || range
+          ? getStringDate(date, separator)
+          : stringDate;
 
       return (
         <div ref={inputRef}>
           {isValidElement(render)
             ? cloneElement(render, {
                 [multiple || range ? "stringDates" : "stringDate"]: strDate,
+                value: strDate,
                 openCalendar,
                 handleValueChange,
                 locale,

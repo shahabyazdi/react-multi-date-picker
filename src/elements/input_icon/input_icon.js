@@ -3,6 +3,7 @@ import getLocaleName from "../../shared/getLocaleName";
 import { IconCalendarEvent } from "@tabler/icons";
 
 export default function InputIcon({
+  value,
   openCalendar,
   className = "rmdp-input",
   stringDate,
@@ -14,8 +15,8 @@ export default function InputIcon({
   iconStyle = {},
   ...otherProps
 }) {
-  const value =
-    stringDate || stringDates?.join?.(separator) || placeholder || "";
+  value =
+    value || stringDate || stringDates?.join?.(separator) || placeholder || "";
   const ref = useRef();
 
   useEffect(() => {
