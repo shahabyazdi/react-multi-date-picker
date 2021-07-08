@@ -4,6 +4,7 @@ import getAllDatesInRange from "../../shared/getAllDatesInRange";
 import isArray from "../../shared/isArray";
 import getBorderClass from "../../shared/getBorderClass";
 import getValidProps from "../../shared/getValidProps";
+import getLocaleName from "../../shared/getLocaleName";
 import "./date_panel.css";
 
 export default function DatePanel({
@@ -83,7 +84,7 @@ export default function DatePanel({
     });
   }
 
-  if (["fa", "ar"].includes(locale)) {
+  if (["fa", "ar"].includes(getLocaleName(locale))) {
     classNames.push("rmdp-rtl");
   }
 

@@ -32,7 +32,7 @@ export default function Doc({ language, otherProps }) {
     ...otherProps,
   });
 
-  const isRTL = ["fa", "ar"].includes(props.locale);
+  const isRTL = ["fa", "ar"].includes(props.locale.name.split("_")[1]);
 
   const all = {
     jsx: (
@@ -96,7 +96,7 @@ const initialProps {
 
 export default function DatePickerPlugins() {
   const [props, setProps] = useState(initialProps)
-  const isRTL = ["fa", "ar"].includes(props.locale)
+  const isRTL = ["fa", "ar"].includes(props.locale.name.split("_")[1])
 
   return (
     <div 

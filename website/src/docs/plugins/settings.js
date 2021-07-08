@@ -158,7 +158,7 @@ const [props, setProps] = useState(${
     />,
     <DatePanel 
       disabled={!props.multiple && !props.range} 
-      position={["fa", "ar"].includes(props.locale) ? "left" : "right"}
+      position={["fa", "ar"].includes(props.locale.name.split("_")[1]) ? "left" : "right"}
     />
   ]}
 /> `,
@@ -171,7 +171,9 @@ const [props, setProps] = useState(${
           <DatePanel
             disabled={!settings1.multiple && !settings1.range}
             position={
-              ["fa", "ar"].includes(settings1.locale) ? "left" : "right"
+              ["fa", "ar"].includes(settings1.locale.name.split("_")[1])
+                ? "left"
+                : "right"
             }
           />,
         ]}

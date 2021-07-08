@@ -2,43 +2,31 @@ import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
 import { Link } from "gatsby";
 
-export default function Doc({ translate, language, otherProps }) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const [dates, setDates] = useState([
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-    }).setDay(5),
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-    }).setDay(12),
-    new DateObject({ calendar: language === "en" ? "gregorian" : "persian" })
-      .setDay(14)
-      .add(1, "month"),
-    new DateObject({ calendar: language === "en" ? "gregorian" : "persian" })
-      .setDay(23)
-      .add(1, "month"),
+    new DateObject(otherProps).setDay(5),
+    new DateObject(otherProps).setDay(12),
+    new DateObject(otherProps).setDay(14).add(1, "month"),
+    new DateObject(otherProps).setDay(23).add(1, "month"),
   ]);
 
   const [values, setValues] = useState([
-    new DateObject({ calendar: language === "en" ? "gregorian" : "persian" })
-      .setDay(4)
-      .subtract(1, "month"),
-    new DateObject({ calendar: language === "en" ? "gregorian" : "persian" })
-      .setDay(4)
-      .add(1, "month"),
+    new DateObject(otherProps).setDay(4).subtract(1, "month"),
+    new DateObject(otherProps).setDay(4).add(1, "month"),
   ]);
 
   const calendar = {
     title: "Single Mode",
     description: "multiple_months",
-    code: `<Calendar
+    code: `${localeImport}<Calendar
   numberOfMonths={2}
   disableMonthPicker
   disableYearPicker
 ${
   language === "en"
     ? "/> "
-    : `  calendar="persian"
-  locale="fa"
+    : `  calendar={persian}
+  locale={fa}
 /> `
 }`,
     jsx: (
@@ -54,18 +42,16 @@ ${
   const datePicker = {
     title: "Multiple Mode",
     description: "multiple_mode_description",
-    code: `const [dates, setDates] = useState([
+    code: `${localeImport}const [dates, setDates] = useState([
+  new DateObject(${language === "en" ? "" : `{ calendar: persian }`}).setDay(5),
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
-  }).setDay(5),
-  new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).setDay(12),
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).setDay(14).add(1, "month"),
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).setDay(23).add(1, "month"),
 ])
 .
@@ -90,12 +76,12 @@ ${
 
   const range = {
     title: "Range Mode",
-    code: `const [values, setValues] = useState([
+    code: `${localeImport}const [values, setValues] = useState([
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).setDay(4).subtract(1, "month"),
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).setDay(4).add(1, "month")
 ])
 .
@@ -110,8 +96,8 @@ ${
 ${
   language === "en"
     ? "/> "
-    : `  calendar="persian"
-  locale="fa"
+    : `  calendar={persian}
+  locale={fa}
 /> `
 }`,
     jsx: (

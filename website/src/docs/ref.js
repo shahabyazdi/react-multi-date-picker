@@ -67,7 +67,7 @@ ${
     ? "  >"
     : `    calendar="persian"
     locale="fa"
-    calendarPosition="auto-right"
+    calendarPosition="bottom-right"
   >`
 }
     <button
@@ -123,7 +123,7 @@ const [shouldCloseCalendar2, setShouldCloseCalendar2] = useState(false)
       ? "/>"
       : `  calendar="persian"
     locale="fa"
-    calendarPosition="auto-right"
+    calendarPosition="bottom-right"
   />`
   }
   <button
@@ -158,7 +158,7 @@ const [shouldCloseCalendar2, setShouldCloseCalendar2] = useState(false)
       ? "/>"
       : `  calendar="persian"
     locale="fa"
-    calendarPosition="auto-right"
+    calendarPosition="bottom-right"
   />`
   }
   <button

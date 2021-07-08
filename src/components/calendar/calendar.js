@@ -15,6 +15,7 @@ import getIgnoreList from "../../shared/getIgnoreList";
 import toDateObject from "../../shared/toDateObject";
 import isArray from "../../shared/isArray";
 import check from "../../shared/check";
+import getLocaleName from "../../shared/getLocaleName";
 import "./calendar.css";
 
 function Calendar(
@@ -251,7 +252,7 @@ function Calendar(
 
   let topClassName = "rmdp-top-class " + getBorderClassName(["top", "bottom"]),
     clonedPlugins = { top: [], bottom: [], left: [], right: [] },
-    isRTL = ["fa", "ar"].includes(state.date?.locale),
+    isRTL = ["fa", "ar"].includes(getLocaleName(state.date?.locale)),
     globalProps = {
       state,
       setState,

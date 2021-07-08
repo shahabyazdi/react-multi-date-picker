@@ -106,7 +106,7 @@ import gregorian_hi from "react-date-object/locales/gregorian_hi" //(gregorian c
       size="medium" 
     />,
   ]}
-  calendarPosition="${language === "en" ? "bottom-left" : "auto-right"}"
+  calendarPosition="${language === "en" ? "bottom-left" : "bottom-right"}"
 /> `,
     jsx: (
       <DatePicker

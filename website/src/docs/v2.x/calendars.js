@@ -141,7 +141,7 @@ export default function Doc({ translate, language }) {
 ${
   language === "en"
     ? "/> "
-    : `  calendarPosition="auto-right"
+    : `  calendarPosition="bottom-right"
 /> `
 }`,
     jsx: (

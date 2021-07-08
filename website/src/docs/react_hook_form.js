@@ -48,7 +48,7 @@ export default function Example() {
                   ? "/>"
                   : `  calendar="persian"
                 locale="fa"
-                calendarPosition="auto-right"
+                calendarPosition="bottom-right"
               />`
               }
               {errors && errors[name] && errors[name].type === "required" && (

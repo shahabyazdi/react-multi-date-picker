@@ -42,9 +42,9 @@ const sidebar = {
     { name: "Calendars & Locales", path: "calendars/" },
     { name: "TypeScript", path: "typescript/" },
     { name: "React Hook Form", path: "react-hook-form/" },
+    { name: "DateObject", path: "date-object/" },
     { name: "Props", path: "props/" },
     { name: "Formatting Tokens", path: "format-tokens/" },
-    { name: "DateObject", path: "date-object/" },
     { name: "Component with Children", path: "children/" },
     { name: "Multiple Mode", path: "multiple/" },
     { name: "Range Mode", path: "range/" },
@@ -147,10 +147,20 @@ export default function Layout({ language, doc, section }) {
     const codeEnd =
       language === "en"
         ? "/>"
-        : `  calendar="persian"
-  locale="fa"
-  calendarPosition="auto-right"
+        : `  calendar={persian}
+  locale={persian_fa}
+  calendarPosition="bottom-right"
 />`;
+
+    const localeImport =
+      language === "en"
+        ? ``
+        : `import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+.
+.
+.
+`;
 
     const otherProps = {
       calendar: language === "fa" ? persian : undefined,
@@ -158,7 +168,7 @@ export default function Layout({ language, doc, section }) {
       calendarPosition: language === "fa" ? "bottom-right" : undefined,
     };
 
-    doc = doc({ translate, language, otherProps, codeEnd, Code });
+    doc = doc({ translate, language, otherProps, codeEnd, Code, localeImport });
 
     return doc.map(
       ({ title = "", description = "", code = "", jsx }, index) => {

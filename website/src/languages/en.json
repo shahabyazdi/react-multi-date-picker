@@ -390,5 +390,21 @@
   ],
   "gregorian_to_persian_first": "The first case, separately:",
   "gregorian_to_persian_second": "second case, continuously:",
-  "persian_to_arabic": "To convert the Solar Hijri date to Lunar Hijri, you need to import the Persian calendar, Arabic calendar, and arabic locale (arabic_en used here):"
+  "persian_to_arabic": "To convert the Solar Hijri date to Lunar Hijri, you need to import the Persian calendar, Arabic calendar, and arabic locale (arabic_en used here):",
+  "locales_description": [
+    "There are several ways to enter a locale to the DatePicker.",
+    "1- Using months, weekDays, and digits props.",
+    "2- Importing the locale from the date-object package and entering it into the locale prop.",
+    "3- Creating a local object and pass it into the locale prop.",
+    "Except for the second way where the locale object is imported outside the main component, for the first and third ways, as far as possible, define your locale object or arrays outside the main component to avoid running internal date picker effects when the main component is rerendered."
+  ],
+  "locale_comment": "It is better to put this array outside the main component.",
+  "custom_locale": [
+    "If none of the above examples works, you can create a custom locale.",
+    "The best way to create a custom locale is to opening the <a target='_blank' href='https://github.com/shahabyazdi/date-object/tree/master/locales/cjs'>locale folder in the date-object repository</a>, download the English locale for the calendar you need, and then modify it as you wish.",
+    "All properties in the locale object are required, and deleting any of the properties will cause the calendar to malfunction. so if you don't want to modify a property, instead of deleting it, leave it as it is.",
+    "The convention for naming a local object is: 'name of the calendar_name of the locale' (e.g gregorian_en for Gregorian calendar and English locale), and also the value of the name property in the locale object must be the same as the name of the locale file.",
+    "In case you modify the locale file for a specific language, you can send a pull request to the <a target='_blank' href='https://github.com/shahabyazdi/date-object/'>date-object repository</a> so that others can use it.",
+    "For example, I copied the <a target='_blank' href='https://github.com/shahabyazdi/date-object/blob/master/locales/cjs/gregorian_en.js'>gregorian_en</a> file from here, and change all its values ​​to lowercase."
+  ]
 }

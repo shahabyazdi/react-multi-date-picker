@@ -6,13 +6,13 @@ export default function Doc({ translate, language, otherProps }) {
   const [props, setProps] = useState({
     value: new DateObject().toLastOfWeek(),
     plugins: [<Weekends />],
-    calendarPosition: language === "en" ? "bottom-left" : "auto-right",
+    calendarPosition: language === "en" ? "bottom-left" : "bottom-right",
   });
 
   const [props2, setProps2] = useState({
     calendar: "persian",
     locale: "fa",
-    calendarPosition: language === "en" ? "bottom-left" : "auto-right",
+    calendarPosition: language === "en" ? "bottom-left" : "bottom-right",
     plugins: [<Weekends />],
   });
 
@@ -119,7 +119,7 @@ import Weekends from "react-multi-date-picker/plugins/weekends"
 const [props, setProps] = useState({
   calendar: "persian",
   locale: "fa",
-  calendarPosition: "${language === "en" ? "bottom-left" : "auto-right"}",
+  calendarPosition: "${language === "en" ? "bottom-left" : "bottom-right"}",
   plugins: [
     <Weekends />
   ]

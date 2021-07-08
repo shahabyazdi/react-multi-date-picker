@@ -1,30 +1,24 @@
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../build/index";
 
-export default function Doc({ language, otherProps }) {
-  const [value, setValue] = useState(
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-    }).set("day", 10)
-  );
+export default function Doc({ language, otherProps, localeImport }) {
+  const [value, setValue] = useState(new DateObject(otherProps).set("day", 10));
   const [date, setDate] = useState(
     language === "en" ? "2020/12/04" : "1399/10/12"
   );
 
   const [values, setValues] = useState([
-    new DateObject({ calendar: language === "en" ? "gregorian" : "persian" }),
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-    }).add(1, "day"),
+    new DateObject(otherProps),
+    new DateObject(otherProps).add(1, "day"),
   ]);
 
   const minMax = {
     title: "Min & Max Date",
     description: "min_max",
-    code: `const [date, setDate] = useState(${
+    code: `${localeImport}const [date, setDate] = useState(${
       language === "en"
         ? "new Date().setDate(10)"
-        : `new DateObject({ calendar: "persian" }).set("date", 10)`
+        : `new DateObject({ calendar: persian }).set("date", 10)`
     })
 .
 .
@@ -35,24 +29,20 @@ export default function Doc({ language, otherProps }) {
   minDate={${
     language === "en"
       ? "new Date().setDate(5)"
-      : `new DateObject({ calendar: "persian" }).set("date", 5)`
+      : `new DateObject({ calendar: persian }).set("date", 5)`
   }}
   maxDate={${
     language === "en"
       ? "new Date().setDate(15)"
-      : `new DateObject({ calendar: "persian" }).set("date", 15)`
+      : `new DateObject({ calendar: persian }).set("date", 15)`
   }}
 />`,
     jsx: (
       <DatePicker
         value={value}
         onChange={setValue}
-        minDate={new DateObject({
-          calendar: language === "en" ? "gregorian" : "persian",
-        }).set("day", 5)}
-        maxDate={new DateObject({
-          calendar: language === "en" ? "gregorian" : "persian",
-        }).set("day", 15)}
+        minDate={new DateObject(otherProps).set("day", 5)}
+        maxDate={new DateObject(otherProps).set("day", 15)}
         {...otherProps}
       />
     ),
@@ -60,7 +50,7 @@ export default function Doc({ language, otherProps }) {
 
   const string = {
     title: "String",
-    code: `const [date, setDate] = useState(${
+    code: `${localeImport}const [date, setDate] = useState(${
       language === "en" ? '"2020/12/04"' : '"1399/10/12"'
     })
 .
@@ -69,8 +59,8 @@ export default function Doc({ language, otherProps }) {
 <DatePicker
   value={date}
   onChange={setDate}
-  minDate={${language === "en" ? '"2020/11/20"' : '"1399/9/18"'}}
-  maxDate={${language === "en" ? '"2021/01/20"' : '"1399/11/14"'}}
+  minDate=${language === "en" ? '"2020/11/20"' : '"1399/9/18"'}
+  maxDate=${language === "en" ? '"2021/01/20"' : '"1399/11/14"'}
 />`,
     jsx: (
       <DatePicker
@@ -85,10 +75,10 @@ export default function Doc({ language, otherProps }) {
 
   const range = {
     title: "Range Mode",
-    code: `const [values, setValues] = useState([
-  new DateObject(${language === "en" ? "" : `{ calendar: "persian" }`}),
+    code: `${localeImport}const [values, setValues] = useState([
+  new DateObject(${language === "en" ? "" : `{ calendar: persian }`}),
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).add(1, "day")
 ])
 .
@@ -99,10 +89,10 @@ export default function Doc({ language, otherProps }) {
   onChange={setValues}
   range
   minDate={new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).subtract(2, "days")}
   maxDate={new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).add(3, "days")}
 />`,
     jsx: (
@@ -110,12 +100,8 @@ export default function Doc({ language, otherProps }) {
         value={values}
         onChange={setValues}
         range
-        minDate={new DateObject({
-          calendar: language === "en" ? "gregorian" : "persian",
-        }).subtract(2, "days")}
-        maxDate={new DateObject({
-          calendar: language === "en" ? "gregorian" : "persian",
-        }).add(3, "days")}
+        minDate={new DateObject(otherProps).subtract(2, "days")}
+        maxDate={new DateObject(otherProps).add(3, "days")}
         {...otherProps}
       />
     ),
@@ -123,11 +109,11 @@ export default function Doc({ language, otherProps }) {
 
   const minDate = {
     title: "Only MinDate",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   minDate={${
     language === "en"
       ? "new Date().setDate(5)"
-      : 'new DateObject({ calendar: "persian" }).set("day", 5)'
+      : 'new DateObject({ calendar: persian }).set("day", 5)'
   }}
 />`,
     jsx: (
@@ -135,7 +121,7 @@ export default function Doc({ language, otherProps }) {
         minDate={
           language === "en"
             ? new Date().setDate(5)
-            : new DateObject({ calendar: "persian" }).set("day", 5)
+            : new DateObject(otherProps).set("day", 5)
         }
         {...otherProps}
       />
@@ -144,11 +130,11 @@ export default function Doc({ language, otherProps }) {
 
   const maxDate = {
     title: "Only MaxDate",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   maxDate={${
     language === "en"
       ? "new Date().setDate(15)"
-      : 'new DateObject({ calendar: "persian" }).set("day", 15)'
+      : 'new DateObject({ calendar: persian }).set("day", 15)'
   }}
 />`,
     jsx: (
@@ -156,7 +142,7 @@ export default function Doc({ language, otherProps }) {
         maxDate={
           language === "en"
             ? new Date().setDate(15)
-            : new DateObject({ calendar: "persian" }).setDay(15)
+            : new DateObject(otherProps).setDay(15)
         }
         {...otherProps}
       />

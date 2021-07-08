@@ -348,7 +348,7 @@ function DatePicker(
     return (
       <div
         className={`rmdp-action-buttons ${
-          ["fa", "ar"].includes(locale) ? "rmdp-rtl" : ""
+          ["fa", "ar"].includes(getLocaleName(locale)) ? "rmdp-rtl" : ""
         }`}
       >
         <button

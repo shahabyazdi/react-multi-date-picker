@@ -2,15 +2,19 @@ import React from "react";
 import DatePicker from "../../../build/index";
 import TimePicker from "../../../plugins/time_picker";
 
-export default function Doc({ otherProps }) {
+export default function Doc({ otherProps, localeImport, language }) {
   const timePicker = {
     title: "Time Picker",
     code: `import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
+${localeImport}${
+      language === "fa"
+        ? ""
+        : `.
 .
 .
-.
-<DatePicker 
+`
+    }<DatePicker 
   format="MM/DD/YYYY HH:mm:ss"
   plugins={[
     <TimePicker position="bottom" />
@@ -29,10 +33,14 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
     title: "Only Time Picker",
     code: `import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
+${localeImport}${
+      language === "fa"
+        ? ""
+        : `.
 .
 .
-.
-<DatePicker 
+`
+    }<DatePicker 
   disableDayPicker
   format="HH:mm:ss"
   plugins={[
@@ -53,10 +61,14 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
     title: "Only Time Picker Meridiem",
     code: `import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
+${localeImport}${
+      language === "fa"
+        ? ""
+        : `.
 .
 .
-.
-<DatePicker
+`
+    }<DatePicker
   disableDayPicker
   format="hh:mm:ss A"
   plugins={[
@@ -77,10 +89,14 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
     title: "Hiding Seconds",
     code: `import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
+${localeImport}${
+      language === "fa"
+        ? ""
+        : `.
 .
 .
-.
-<DatePicker
+`
+    }<DatePicker
   disableDayPicker
   format="HH:mm"
   plugins={[
@@ -99,7 +115,7 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
   const onlyMonthPicker = {
     title: "Only Month Picker",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   onlyMonthPicker 
 />`,
     jsx: <DatePicker onlyMonthPicker {...otherProps} />,
@@ -107,7 +123,7 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
   const differentFormat = {
     title: "Only Month Picker With Different Format",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   onlyMonthPicker
   format="MMMM YYYY"
 />`,
@@ -116,7 +132,7 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
   const onlyYearPicker = {
     title: "Only Year Picker",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   onlyYearPicker 
 />`,
     jsx: <DatePicker onlyYearPicker {...otherProps} />,
