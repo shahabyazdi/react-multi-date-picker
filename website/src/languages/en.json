@@ -401,9 +401,9 @@
   ],
   "locale_comment": "It is better to put this array outside the main component.",
   "custom_locale": [
-    "If none of the above examples works, you can create a custom locale.",
-    "The best way to create a custom locale is to opening the <a target='_blank' href='https://github.com/shahabyazdi/date-object/tree/master/locales/cjs'>locale folder in the date-object repository</a>, download the English locale for the calendar you need, and then modify it as you wish.",
-    "All properties in the locale object are required, and deleting any of the properties will cause the calendar to malfunction. so if you don't want to modify a property, instead of deleting it, leave it as it is.",
+    "If none of the above examples works, you can create your own custom locale.",
+    "The best way to create a custom locale is to opening the <a target='_blank' href='https://github.com/shahabyazdi/date-object/tree/master/locales/cjs'>locale folder in the date-object repository</a>, download the English locale for the calendar you want, and then modify it as you wish.",
+    "All properties in the locale object are required, and deleting any of them will cause the calendar to malfunction. so if you don't want to modify a property, instead of deleting it, leave it as it is.",
     "The convention for naming a local object is: 'name of the calendar_name of the locale' (e.g gregorian_en for Gregorian calendar and English locale), and also the value of the name property in the locale object must be the same as the name of the locale file.",
     "In case you modify the locale file for a specific language, you can send a pull request to the <a target='_blank' href='https://github.com/shahabyazdi/date-object/'>date-object repository</a> so that others can use it.",
     "For example, I copied the <a target='_blank' href='https://github.com/shahabyazdi/date-object/blob/master/locales/cjs/gregorian_en.js'>gregorian_en</a> file from here, and change all its values ​​to lowercase."

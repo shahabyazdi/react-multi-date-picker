@@ -1,9 +1,17 @@
 import React, { useState, useRef } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
-import fa from "react-date-object/locales/persian_fa";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian_en from "react-date-object/locales/gregorian_en";
 import { Link } from "gatsby";
 
-export default function Doc({ translate, language, otherProps, Code }) {
+export default function Doc({
+  translate,
+  language,
+  otherProps,
+  Code,
+  localeImport,
+}) {
   const description = {
     title: "Descriptions",
     jsx: (
@@ -78,8 +86,8 @@ export default function Doc({ translate, language, otherProps, Code }) {
 ${
   language === "en"
     ? "/>"
-    : `  calendar="persian"
-  locale="fa"
+    : `  calendar={persian}
+  locale={persian_fa}
 />`
 }`}
         </Code>
@@ -101,7 +109,7 @@ ${
 
   const style = {
     title: "Styling Days",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   mapDays={({ date, today, selectedDate, currentMonth, isSameDate }) => {
     let props = {}
     
@@ -153,7 +161,7 @@ ${
   const weekends = {
     title: "Styling Weekends",
     description: "map_days_weekends",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   mapDays={({ date }) => {
     let props = {}
     let isWeekend = ${
@@ -200,7 +208,7 @@ ${
 
   const highlight = {
     title: "Custom Highlight",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   mapDays={({ date }) => {
     let color
     
@@ -227,7 +235,7 @@ ${
 
   const disable = {
     title: "Disabling Days",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   mapDays={({ date }) => {
     let isWeekend = [0, 6].includes(date.weekDay.index)
     
@@ -257,7 +265,7 @@ ${
 
   const hide = {
     title: "Hiding Days",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   mapDays={({ date }) => {
     let props = {}
     
@@ -286,13 +294,22 @@ ${
       <>
         <p>{translate("children")}</p>
         <Code>
-          {`<Calendar
+          {`import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";${
+            language === "en"
+              ? ""
+              : `
+import gregorian_en from "react-date-object/locales/gregorian_en";`
+          }
+.
+.
+.          
+<Calendar
   className="multi-locale-days"
   mapDays={({ date }) => {
-    const newDate = new DateObject(date).set({
-      calendar: "${language === "en" ? "persian" : "gregorian"}",
-      locale: "${language === "en" ? "fa" : "en"}",
-    });
+    const newDate = new DateObject(date).convert(${
+      language === "en" ? "persian" : "undefined"
+    }, ${language === "en" ? "persian_fa" : "gregorian_en"})
 
     return {
       children: (
@@ -313,8 +330,8 @@ ${
 ${
   language === "en"
     ? "/>"
-    : `  calendar="persian"
-  locale="fa"
+    : `  calendar={persian}
+  locale={persian_fa}
 />`
 }`}
         </Code>
@@ -330,10 +347,10 @@ ${
       <Calendar
         className="multi-locale-days"
         mapDays={({ date }) => {
-          const newDate = new DateObject(date).set({
-            calendar: language === "en" ? "persian" : "gregorian",
-            locale: language === "fa" ? fa : undefined,
-          });
+          const newDate = new DateObject(date).convert(
+            language === "en" ? persian : undefined,
+            language === "en" ? persian_fa : gregorian_en
+          );
 
           return {
             children: (
@@ -359,7 +376,7 @@ ${
   const title = {
     title: "Adding Tiltle to Days",
     description: "map_days_title",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   mapDays={({ date, today }) => {
     let props = {}
     let result = date.toDays() - today.toDays()
@@ -393,7 +410,13 @@ ${
     description: "tooltip",
     code: `import React, { useState, useRef } from "react";
 import DatePicker from "react-multi-date-picker";
-
+${
+  language === "en"
+    ? ""
+    : `import persian from "react-date-object/calendars/persian:
+import persian_fa from "react-date-object/locales/persian_fa"
+`
+}
 export default function Example(){
   return <DatePickerWithTooltip />
 }
@@ -442,8 +465,8 @@ function DatePickerWithTooltip() {
       ${
         language === "en"
           ? ">"
-          : `  calendar="persian"
-        locale="fa"
+          : `  calendar={persian}
+        locale={persian_fa}
         calendarPosition="bottom-right"
       >`
       }
