@@ -139,11 +139,19 @@ export default function Settings({
                 }`}
                 title={titles[calendar]}
                 onClick={() => {
-                  setKeyValue("calendar", Calendars[calendar]);
-                  setKeyValue(
-                    "locale",
-                    Locales[`${calendar}_${getLocaleName(state.date.locale)}`]
-                  );
+                  let object = {
+                    calendar: Calendars[calendar],
+                    locale:
+                      Locales[
+                        `${calendar}_${getLocaleName(state.date.locale)}`
+                      ],
+                  };
+
+                  notifyChange({
+                    ...state,
+                    ...object,
+                    date: state.date.set(object),
+                  });
                 }}
               >
                 {names[calendar]}
@@ -342,9 +350,9 @@ export default function Settings({
     notifyChange($state);
   }
 
-  function notifyChange($state) {
-    $state.value = $state.selectedDate;
+  function notifyChange(state) {
+    state.value = state.selectedDate;
 
-    handlePropsChange($state);
+    handlePropsChange(state);
   }
 }

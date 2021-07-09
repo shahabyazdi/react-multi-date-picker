@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import DatePicker from "../../../build/index";
 import { Link } from "gatsby";
 
-export default function Doc({ translate, language }) {
+export default function Doc({ translate, language, localeImport, otherProps }) {
   const containerRef = useRef(),
     datePickerRef = useRef(),
     [state, setState] = useState({
@@ -72,7 +72,7 @@ export default function Doc({ translate, language }) {
 
   const example = {
     title: "Example",
-    code: `const containerRef = useRef()
+    code: `${localeImport}const containerRef = useRef()
 const datePickerRef = useRef()
 
 const [state, setState] = useState({
@@ -223,8 +223,8 @@ const {
       ${
         language === "en"
           ? "/>"
-          : `  calendar="persian"
-        locale="fa"
+          : `  calendar={persian}
+        locale={persian_fa}
       />`
       }
     </div>
@@ -345,8 +345,8 @@ const {
               offsetY={offsetY}
               offsetX={offsetX}
               onClose={() => false}
-              calendar={language === "fa" ? "persian" : "gregorian"}
-              locale={language === "fa" ? "fa" : "en"}
+              calendar={otherProps.calendar}
+              locale={otherProps.locale}
             />
           </div>
         </div>

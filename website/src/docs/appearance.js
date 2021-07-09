@@ -1,10 +1,10 @@
 import React from "react";
 import DatePicker from "../../../build/index";
 
-export default function Doc({ otherProps }) {
+export default function Doc({ otherProps, localeImport }) {
   const prime = {
     title: "Prime",
-    code: `import "react-multi-date-picker/styles/layouts/prime.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/layouts/prime.css"
 .
 .
 .
@@ -17,7 +17,7 @@ export default function Doc({ otherProps }) {
 
   const mobile = {
     title: "Mobile",
-    code: `import "react-multi-date-picker/styles/layouts/mobile.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/layouts/mobile.css"
 .
 .
 .

@@ -7,9 +7,7 @@ import DatePanel from "../../../plugins/date_panel";
 import Toolbar from "../../../plugins/toolbar";
 
 export default function Doc({ language, otherProps }) {
-  const dateObject = new DateObject({
-    calendar: language === "en" ? "gregorian" : "persian",
-  });
+  const dateObject = new DateObject(otherProps);
 
   const toDateObject = (day) => new DateObject(dateObject).setDay(day);
 
@@ -32,7 +30,7 @@ export default function Doc({ language, otherProps }) {
     ...otherProps,
   });
 
-  const isRTL = ["fa", "ar"].includes(props.locale.name.split("_")[1]);
+  const isRTL = ["fa", "ar"].includes(props.locale?.name?.split?.("_")?.[1]);
 
   const all = {
     jsx: (
@@ -66,8 +64,16 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import MultiColors from "react-multi-date-picker/plugins/multi_colors"
 import Settings from "react-multi-date-picker/plugins/settings"
 import Toolbar from "react-multi-date-picker/plugins/toolbar"
-
-const dateObject = new DateObject()
+${
+  language === "en"
+    ? ""
+    : `import persian from "react-date-object/calendars/persian:
+import persian_fa from "react-date-object/locales/persian_fa"
+`
+}
+const dateObject = new DateObject(${
+      language === "en" ? "" : `{ calendar: persian, locale: persian_fa }`
+    })
 
 const toDateObject = day => new DateObject(dateObject).setDay(day)
 
@@ -91,12 +97,18 @@ const initialProps {
     ...colors.red,
     ...colors.yellow
   ], 
-  multiple: true
+  multiple: true${
+    language === "en"
+      ? ""
+      : `,
+  calendar: persian,
+  locale: persian_fa`
+  }
 })
 
 export default function DatePickerPlugins() {
   const [props, setProps] = useState(initialProps)
-  const isRTL = ["fa", "ar"].includes(props.locale.name.split("_")[1])
+  const isRTL = ["fa", "ar"].includes(props.locale?.name?.split?.("_")?.[1])
 
   return (
     <div 

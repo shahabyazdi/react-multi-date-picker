@@ -1,17 +1,17 @@
 import React from "react";
 import { Calendar } from "../../../build/index";
 
-export default function Doc({ translate, language, otherProps }) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const disable = {
     title: "Disabling Navigate Buttons",
     description: "disable_buttons",
-    code: `<Calendar 
+    code: `${localeImport}<Calendar 
   buttons={false} 
 ${
   language === "en"
     ? "/>"
-    : `  calendar="persian"
-  locale="fa"
+    : `  calendar={persian}
+  locale={persian_fa}
 />`
 } `,
 
@@ -21,7 +21,7 @@ ${
   const customFunction = {
     title: "Custom (function)",
     description: "custom_buttons",
-    code: `<Calendar
+    code: `${localeImport}<Calendar
   renderButton={(direction, handleClick) => (
     <button onClick={handleClick}>
       {direction === "right" ? ">" : "<"}
@@ -30,8 +30,8 @@ ${
 ${
   language === "en"
     ? "/>"
-    : `  calendar="persian"
-  locale="fa"
+    : `  calendar={persian}
+  locale={persian_fa}
 />`
 } `,
     jsx: (
@@ -69,7 +69,13 @@ ${
       </div>
     ),
     code: `import { Calendar } from "react-multi-date-picker";
-
+${
+  language === "en"
+    ? ""
+    : `import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+`
+}
 function CustomButton({ direction, handleClick, disabled }) {
   return (
     <i
@@ -94,8 +100,8 @@ export default function Example(){
     ${
       language === "en"
         ? "/>"
-        : `  calendar="persian"
-      locale="fa"
+        : `  calendar={persian}
+      locale={persian_fa}
     />`
     }
   )

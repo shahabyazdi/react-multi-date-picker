@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "../../../build/index";
 
-export default function Doc({ otherProps }) {
+export default function Doc({ otherProps, localeImport }) {
   const description = {
     title: "Descriptions",
     description: "arrow_description",
@@ -10,7 +10,7 @@ export default function Doc({ otherProps }) {
   const disable = {
     title: "Disable Arrow",
     description: "disable_arrow",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   arrow={false}
 />`,
     jsx: <DatePicker arrow={false} {...otherProps} />,
@@ -19,7 +19,7 @@ export default function Doc({ otherProps }) {
   const custom = {
     title: "Custom Arrow",
     description: "custom_arrow",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   arrow={<div style={{ backgroundColor: "white" }}>arrow</div>}
 />`,
     jsx: (

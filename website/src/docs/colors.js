@@ -1,10 +1,10 @@
 import React from "react";
 import DatePicker from "../../../build/index";
 
-export default function Doc({ otherProps }) {
+export default function Doc({ otherProps, localeImport }) {
   const green = {
     title: "Green",
-    code: `import "react-multi-date-picker/styles/colors/green.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/colors/green.css"
 .
 .
 .
@@ -16,7 +16,7 @@ export default function Doc({ otherProps }) {
 
   const red = {
     title: "Red",
-    code: `import "react-multi-date-picker/styles/colors/red.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/colors/red.css"
 .
 .
 .
@@ -28,7 +28,7 @@ export default function Doc({ otherProps }) {
 
   const yellow = {
     title: "Yellow",
-    code: `import "react-multi-date-picker/styles/colors/yellow.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/colors/yellow.css"
 .
 .
 .
@@ -40,7 +40,7 @@ export default function Doc({ otherProps }) {
 
   const purple = {
     title: "Purple",
-    code: `import "react-multi-date-picker/styles/colors/purple.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/colors/purple.css"
 .
 .
 .
@@ -52,7 +52,7 @@ export default function Doc({ otherProps }) {
 
   const teal = {
     title: "Teal",
-    code: `import "react-multi-date-picker/styles/colors/teal.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/colors/teal.css"
 .
 .
 .
@@ -64,7 +64,7 @@ export default function Doc({ otherProps }) {
 
   const dark = {
     title: "Background Dark",
-    code: `import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 .
 .
 .
@@ -76,7 +76,7 @@ export default function Doc({ otherProps }) {
 
   const gray = {
     title: "Background Gray",
-    code: `import "react-multi-date-picker/styles/backgrounds/bg-gray.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/backgrounds/bg-gray.css"
 .
 .
 .
@@ -88,7 +88,7 @@ export default function Doc({ otherProps }) {
 
   const brown = {
     title: "Background Brown",
-    code: `import "react-multi-date-picker/styles/backgrounds/bg-brown.css"
+    code: `${localeImport}import "react-multi-date-picker/styles/backgrounds/bg-brown.css"
 .
 .
 .

@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "../../../build/index";
 
-export default function Doc({ translate, language, otherProps }) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const inputClass = {
     title: "Adding ClassName To Refrence Element (input)",
     description: (
@@ -16,7 +16,7 @@ export default function Doc({ translate, language, otherProps }) {
         <p>{translate("input_class_note")}</p>
       </>
     ),
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   inputClass="custom-input"
 />`,
     jsx: (
@@ -49,7 +49,7 @@ export default function Doc({ translate, language, otherProps }) {
 
   const inputStyle = {
     title: "Adding Style To Refrence Element (input)",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   style={{
     backgroundColor: "aliceblue",
     height: "24px",
@@ -75,7 +75,7 @@ export default function Doc({ translate, language, otherProps }) {
   const popper = {
     title: "Adding ClassName To Popper Element (calendar)",
     description: "calendar_class",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   className="custom-calendar"
 />`,
     jsx: (
@@ -116,7 +116,7 @@ export default function Doc({ translate, language, otherProps }) {
 
   const arrowStyle = {
     title: "Adding Style To Arrow",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   arrowStyle={{
     backgroundColor: "black"
   }}
@@ -133,7 +133,7 @@ export default function Doc({ translate, language, otherProps }) {
 
   const arrowClassName = {
     title: "Adding ClassName To Arrow",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   arrowClassName="custom-arrow"
 />`,
     jsx: (
@@ -156,7 +156,7 @@ export default function Doc({ translate, language, otherProps }) {
   const containerStyle = {
     title: "Adding Style To DatePicker Container",
     description: <p>{translate("container_style")}</p>,
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   style={{
     width: "100%",
     boxSizing: "border-box",
@@ -169,8 +169,8 @@ export default function Doc({ translate, language, otherProps }) {
 ${
   language === "en"
     ? "/> "
-    : `  calendar="persian"
-  locale="fa"
+    : `  calendar={persian}
+  locale={persian_fa}
 /> `
 }`,
     jsx: (
@@ -183,8 +183,8 @@ ${
         containerStyle={{
           width: "100%",
         }}
-        calendar={language === "fa" ? "persian" : "gregorian"}
-        locale={language === "fa" ? "fa" : "en"}
+        calendar={otherProps.calendar}
+        locale={otherProps.locale}
         calendarPosition={"bottom-center"}
       />
     ),
@@ -192,14 +192,14 @@ ${
 
   const containerClass = {
     title: "Adding ClassName To DatePicker Container",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   containerClassName="custom-container"
   calendarPosition="bottom-center"
 ${
   language === "en"
     ? "/> "
-    : `  calendar="persian"
-  locale="fa"
+    : `  calendar={persian}
+  locale={persian_fa}
 /> `
 }`,
     jsx: (
@@ -222,8 +222,8 @@ ${
         </div>
         <DatePicker
           containerClassName="custom-container"
-          calendar={language === "fa" ? "persian" : "gregorian"}
-          locale={language === "fa" ? "fa" : "en"}
+          calendar={otherProps.calendar}
+          locale={otherProps.locale}
           calendarPosition={"bottom-center"}
         />
       </>
