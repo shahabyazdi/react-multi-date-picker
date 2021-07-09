@@ -3,7 +3,7 @@ import DatePicker from "../../../../build/index";
 import DatePickerHeader from "../../../../plugins/date_picker_header";
 import gregorian_hi from "react-date-object/locales/gregorian_hi";
 
-export default function Doc({ translate, language, otherProps }) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const props = {
     title: "Props",
     description: (
@@ -46,6 +46,14 @@ export default function Doc({ translate, language, otherProps }) {
     ),
   };
 
+  const $import =
+    language === "en"
+      ? `.
+.
+.
+`
+      : localeImport;
+
   const sizes = {
     title: "Sizes",
     jsx: (
@@ -60,10 +68,7 @@ export default function Doc({ translate, language, otherProps }) {
     title: "Header Right",
     code: `import DatePicker from "react-multi-date-picker"
 import DatePickerHeader from "react-multi-date-picker/plugins/date_picker_header"
-.
-.
-.
-<DatePicker
+${$import}<DatePicker
   plugins={[
     <DatePickerHeader />
   ]}
@@ -75,10 +80,7 @@ import DatePickerHeader from "react-multi-date-picker/plugins/date_picker_header
     title: "Header Left",
     code: `import DatePicker from "react-multi-date-picker"
 import DatePickerHeader from "react-multi-date-picker/plugins/date_picker_header"
-.
-.
-.
-<DatePicker
+${$import}<DatePicker
   plugins={[
     <DatePickerHeader position="left" />
   ]}
@@ -96,10 +98,7 @@ import DatePickerHeader from "react-multi-date-picker/plugins/date_picker_header
     code: `import DatePicker from "react-multi-date-picker"
 import DatePickerHeader from "react-multi-date-picker/plugins/date_picker_header"
 import gregorian_hi from "react-date-object/locales/gregorian_hi" //(gregorian calendar, hindi locale)
-.
-.
-.
-<DatePicker
+${$import}<DatePicker
   plugins={[
     <DatePickerHeader 
       locale={gregorian_hi}
@@ -120,10 +119,7 @@ import gregorian_hi from "react-date-object/locales/gregorian_hi" //(gregorian c
     title: "Styling Header",
     code: `import DatePicker from "react-multi-date-picker"
 import DatePickerHeader from "react-multi-date-picker/plugins/date_picker_header"
-.
-.
-.
-<DatePicker
+${$import}<DatePicker
   plugins={[
     <DatePickerHeader 
       position="top" 

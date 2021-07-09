@@ -3,7 +3,7 @@ import DatePicker, { DateObject } from "../../../../build/index";
 import MultiColors from "../../../../plugins/multi_colors";
 import DatePanel from "../../../../plugins/date_panel";
 
-export default function Doc({ translate, language, otherProps }) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const [props2, setProps2] = useState({ multiple: true, ...otherProps });
 
   const yesterday = new DateObject().subtract(1, "day");
@@ -20,6 +20,14 @@ export default function Doc({ translate, language, otherProps }) {
     ...otherProps,
   };
   const [props3, setProps3] = useState(initialProps3);
+
+  const $import =
+    language === "en"
+      ? `.
+.
+.
+`
+      : localeImport;
 
   const props = {
     title: "Props",
@@ -61,15 +69,13 @@ export default function Doc({ translate, language, otherProps }) {
     title: "Default Color",
     code: `import DatePicker from "react-multi-date-picker"
 import MultiColors from "react-multi-date-picker/plugins/multi_colors"
-.
-.
-. 
-const [props, setProps] = useState(${
+${$import}const [props, setProps] = useState(${
       language === "en"
         ? "{ multiple: true }"
         : `{
-  calendar: "persian",
-  locale: "fa",
+  multiple: true,
+  calendar: persian,
+  locale: persian_fa,
   calendarPosition: "bottom-right"
 }`
     })
@@ -100,12 +106,15 @@ const [props, setProps] = useState(${
     code: `import DatePicker, { DateObject } from "react-multi-date-picker"
 import MultiColors from "react-multi-date-picker/plugins/multi_colors"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
-.
-.
-.
-const yesterday = new DateObject().subtract(1, "day")
-const today = new DateObject()
-const tomorrow = new DateObject().add(1, "day")
+${$import}const yesterday = new DateObject(${
+      language === "en" ? "" : `{ calendar: persian }`
+    }).subtract(1, "day")
+const today = new DateObject(${
+      language === "en" ? "" : `{ calendar: persian }`
+    })
+const tomorrow = new DateObject(${
+      language === "en" ? "" : `{ calendar: persian }`
+    }).add(1, "day")
         
 yesterday.color = "red"
 today.color = "blue"
@@ -120,8 +129,8 @@ const initialProps = ${
         : `{ 
   multiple: true, 
   value: [yesterday, today, tomorrow],
-  calendar: "persian",
-  locale: "fa",
+  calendar: persian,
+  locale: persian_fa,
   calendarPosition: "bottom-right" 
 }`
     }
