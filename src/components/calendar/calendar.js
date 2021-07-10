@@ -94,16 +94,15 @@ function Calendar(
     format
   );
 
-  let [state, setState] = useState({
-      date: currentDate ? new DateObject(currentDate) : undefined,
-    }),
+  let [state, setState] = useState({}),
     listeners = {},
-    ref = useRef({ mustCallOnReady: true });
+    ref = useRef({ mustCallOnReady: true, currentDate });
 
   formattingIgnoreList = getIgnoreList(formattingIgnoreList);
 
   useEffect(() => {
     setState((state) => {
+      let { currentDate } = ref.current;
       let { date, selectedDate, initialValue, focused, mustSortDates } = state;
 
       function checkDate(date) {
@@ -118,17 +117,21 @@ function Calendar(
         return date;
       }
 
+      function getDate(value) {
+        return new DateObject(currentDate || value);
+      }
+
       if (!value) {
-        if (!date) date = new DateObject({ calendar, locale, format });
+        if (!date) date = getDate({ calendar, locale, format });
         if (initialValue) selectedDate = undefined;
       } else {
         selectedDate = getSelectedDate(value, calendar, locale, format);
 
         if (Array.isArray(selectedDate)) {
-          if (!date) date = new DateObject(selectedDate[0]);
+          if (!date) date = getDate(selectedDate[0]);
         } else {
           if (!date || numberOfMonths === 1) {
-            if (!date) date = new DateObject(selectedDate);
+            date = getDate(selectedDate);
           } else {
             let min = new DateObject(date).toFirstOfMonth();
             let max = new DateObject(date)
@@ -166,6 +169,8 @@ function Calendar(
       } else if (Array.isArray(selectedDate)) {
         selectedDate = selectedDate[selectedDate.length - 1];
       }
+
+      delete ref.current.currentDate;
 
       return {
         ...state,

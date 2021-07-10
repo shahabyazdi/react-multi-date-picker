@@ -75,6 +75,7 @@ function DatePicker(
     ref = useRef({}),
     separator = useMemo(() => (range ? " ~ " : ", "), [range]),
     datePickerProps = arguments[0],
+    selection = ref.current.selection,
     closeCalendar = useCallback(() => {
       if (onClose?.() === false) return;
 
@@ -156,6 +157,7 @@ function DatePicker(
 
   useEffect(() => {
     let date = value,
+      input = getInput(inputRef),
       getLastDate = () => date[date.length - 1];
 
     function checkDate(date) {
@@ -190,8 +192,6 @@ function DatePicker(
 
       date = checkDate(date);
 
-      let input = getInput(inputRef);
-
       if (document.activeElement !== input) {
         setStringDate(date ? date.format() : "");
       }
@@ -202,8 +202,7 @@ function DatePicker(
     setDate(date);
 
     if (type === "input-icon") {
-      let input = inputRef.current,
-        icon = input?.parentNode?.querySelector?.(".rmdp-input-icon"),
+      let icon = input?.parentNode?.querySelector?.(".rmdp-input-icon"),
         height = input?.clientHeight - 5 + "px";
 
       if (icon) {
@@ -229,6 +228,15 @@ function DatePicker(
     digits,
     formattingIgnoreList,
   ]);
+
+  useEffect(() => {
+    let input = getInput(inputRef);
+
+    if (!input) return;
+
+    input.setSelectionRange(selection, selection);
+    ref.current.selection = undefined;
+  }, [selection]);
 
   if (multiple || range || Array.isArray(date) || !editable) inputMode = "none";
 
@@ -544,6 +552,8 @@ function DatePicker(
   function handleValueChange(e) {
     if (Array.isArray(date) || !editable) return;
 
+    ref.current.selection = e.target.selectionStart;
+
     let value = e.target.value,
       object = { year: 1, calendar, locale, format },
       digits =
@@ -561,8 +571,6 @@ function DatePicker(
       value = value.replace(new RegExp(digit, "g"), digits.indexOf(digit));
     }
 
-    // let newDate = new DateObject(date?.isValid ? date : object).parse(value);
-
     let newDate = new DateObject({
       date: value,
       format,
@@ -570,9 +578,7 @@ function DatePicker(
       locale,
     });
 
-    // handleChange(newDate);
     handleChange(newDate.isValid ? newDate : null);
-
     setStringDate(value.replace(/[0-9]/g, (w) => digits[w]));
   }
 }

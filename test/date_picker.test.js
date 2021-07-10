@@ -552,7 +552,9 @@ describe("other calendars & locales", () => {
 
       openCalendar();
 
-      const nextDay = getByText(value.add(1, "day").format("D"));
+      value.add(value.day === value.month.length ? -1 : 1, "day");
+
+      const nextDay = getByText(value.format("D"));
 
       fireEvent.click(nextDay);
 
