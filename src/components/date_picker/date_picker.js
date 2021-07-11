@@ -80,6 +80,7 @@ function DatePicker(
     ref = useRef({}),
     separator = range ? " ~ " : ", ",
     datePickerProps = arguments[0],
+    isMobileMode = isMobile(),
     closeCalendar = useCallback(() => {
       if (onClose?.() === false) return;
 
@@ -98,8 +99,6 @@ function DatePicker(
       setIsVisible(false);
       setIsCalendarReady(false);
     }, [onClose]);
-
-  let isMobileMode = isMobile();
 
   if (isMobileMode && !ref.current.mobile)
     ref.current = { ...ref.current, mobile: true };
@@ -219,7 +218,7 @@ function DatePicker(
 
   useEffect(() => {
     /**
-     * If the locale is other than English and after manually changing the input value,
+     * If the locale is non-English, after manually changing the input value,
      * the caret position jumps to the end of the input.
      * To solve this issue, we save the previous position of caret in the ref,
      * and in this effect, we recover it.
@@ -236,8 +235,15 @@ function DatePicker(
     if (!input) return;
 
     input.setSelectionRange(selection, selection);
-    datePickerRef.current.refreshPosition();
     ref.current.selection = undefined;
+    /**
+     * after manually changing the month by typing in the input,
+     * if the calendar position is in top of the input
+     * and the number of days in the new month is greater than the number of days in the previous month,
+     * the calendar will cover the input due to its larger size.
+     * To resolve this issue, we refresh the calendar position here.
+     */
+    datePickerRef.current.refreshPosition();
   }, [stringDate]);
 
   if (multiple || range || isArray(date) || !editable) inputMode = "none";
