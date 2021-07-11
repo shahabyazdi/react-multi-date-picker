@@ -103,17 +103,21 @@ function Calendar(
   [calendar, locale] = check(calendar, locale);
 
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
-
-  let [state, setState] = useState({
-      date: currentDate ? new DateObject(currentDate) : undefined,
-    }),
-    listeners = {},
-    ref = useRef({ mustCallOnReady: true });
-
   formattingIgnoreList = getIgnoreList(formattingIgnoreList);
+  mapDays = isArray(mapDays) ? mapDays : [mapDays].filter(Boolean);
+
+  let [state, setState] = useState({}),
+    listeners = {},
+    ref = useRef({ mustCallOnReady: true, currentDate }),
+    _plugins = [...plugins];
+
+  plugins = [];
+
+  _plugins.forEach((plugin) => (plugins = plugins.concat(plugin)));
 
   useEffect(() => {
     setState((state) => {
+      let { currentDate } = ref.current;
       let { date, selectedDate, initialValue, focused, mustSortDates } = state;
 
       function checkDate(date) {
@@ -128,17 +132,21 @@ function Calendar(
         return date;
       }
 
+      function getDate(value) {
+        return new DateObject(currentDate || value);
+      }
+
       if (!value) {
-        if (!date) date = new DateObject({ calendar, locale, format });
+        if (!date) date = getDate({ calendar, locale, format });
         if (initialValue) selectedDate = undefined;
       } else {
         selectedDate = getSelectedDate(value, calendar, locale, format);
 
         if (isArray(selectedDate)) {
-          if (!date) date = new DateObject(selectedDate[0]);
+          if (!date) date = getDate(selectedDate[0]);
         } else {
           if (!date || numberOfMonths === 1) {
-            if (!date) date = new DateObject(selectedDate);
+            date = getDate(selectedDate);
           } else {
             let min = new DateObject(date).toFirstOfMonth();
             let max = new DateObject(date)
@@ -178,6 +186,8 @@ function Calendar(
       }
 
       if (fullYear) date.toFirstOfYear();
+
+      delete ref.current.currentDate;
 
       return {
         ...state,
@@ -302,7 +312,6 @@ function Calendar(
                   {...globalProps}
                   showOtherDays={showOtherDays}
                   mapDays={mapDays}
-                  listeners={listeners}
                   onlyShowInRangeDates={onlyShowInRangeDates}
                   customWeekDays={weekDays}
                   numberOfMonths={numberOfMonths}
@@ -333,17 +342,36 @@ function Calendar(
   function initPlugins() {
     if (!ref.current.isReady || !isArray(plugins)) return;
 
-    let getPosition = (plugin) =>
-      disableDayPicker ? "bottom" : plugin.props.position || "right";
+    let pluginProps = {
+        state,
+        setState,
+        registerListener,
+        calendarProps,
+        datePickerProps,
+        handleChange,
+        Calendar: ref.current.Calendar,
+        DatePicker,
+        handlePropsChange,
+        //removing other arguments if exist.
+        handleFocusedDate: (date) => handleFocusedDate(date),
+      },
+      getPosition = (plugin) =>
+        disableDayPicker ? "bottom" : plugin.props.position || "right";
 
     plugins.forEach((plugin, index) => {
+      if (typeof plugin.type === "string") {
+        if (plugin.type === "mapDays") mapDays.push(plugin.fn(pluginProps));
+        return;
+      }
+
       let nodes = {},
         position = getPosition(plugin);
 
       if (!clonedPlugins[position] || plugin.props.disabled) return;
 
       for (let i = 0; i < plugins.length; i++) {
-        if (plugins[i].props.disabled) continue;
+        if (typeof plugins[i].type === "string" || plugins[i].props.disabled)
+          continue;
         if (Object.keys(nodes).length === 4) break;
 
         let pluginPosition = getPosition(plugins[i]);
@@ -362,19 +390,9 @@ function Calendar(
       clonedPlugins[position].push(
         cloneElement(plugin, {
           key: index,
-          state,
-          setState,
           position,
-          registerListener,
-          calendarProps,
-          datePickerProps,
-          handleChange,
           nodes,
-          Calendar: ref.current.Calendar,
-          DatePicker,
-          handlePropsChange,
-          //removing other arguments if exist.
-          handleFocusedDate: (date) => handleFocusedDate(date),
+          ...pluginProps,
         })
       );
     });
@@ -426,6 +444,8 @@ function Calendar(
     return Array.from(
       new Set(
         plugins.map((plugin) => {
+          if (!plugin.props) return "";
+
           let position = plugin.props.position || "right";
 
           if (positions.includes(position) && !plugin.props.disabled)

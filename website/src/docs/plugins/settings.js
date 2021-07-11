@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import DatePicker from "../../../../src/index";
-import Settings from "../../../../src/plugins/settings/settings";
+import DatePicker from "../../../../build/index";
+import Settings from "../../../../plugins/settings";
 import DatePanel from "../../../../plugins/date_panel";
 
-export default function Doc({ translate, language, otherProps }) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const [settings1, setSettings1] = useState({ ...otherProps });
   const [settings2, setSettings2] = useState({ multiple: true, ...otherProps });
   const [settings3, setSettings3] = useState({
@@ -11,6 +11,14 @@ export default function Doc({ translate, language, otherProps }) {
     format: "MM-DD-YYYY",
     ...otherProps,
   });
+
+  const $import =
+    language === "en"
+      ? `.
+.
+.
+`
+      : localeImport;
 
   const props = {
     title: "Props",
@@ -133,10 +141,7 @@ export default function Doc({ translate, language, otherProps }) {
 import DatePicker from "react-multi-date-picker"
 import Settings from "react-multi-date-picker/plugins/settings"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
-.
-.
-.
-const [props, setProps] = useState(${
+${$import}const [props, setProps] = useState(${
       language === "en"
         ? "{}"
         : `{
@@ -158,7 +163,7 @@ const [props, setProps] = useState(${
     />,
     <DatePanel 
       disabled={!props.multiple && !props.range} 
-      position={["fa", "ar"].includes(props.locale.name.split("_")[1]) ? "left" : "right"}
+      position={["fa", "ar"].includes(props.locale?.name?.split?.("_")?.[1]) ? "left" : "right"}
     />
   ]}
 /> `,
@@ -171,7 +176,7 @@ const [props, setProps] = useState(${
           <DatePanel
             disabled={!settings1.multiple && !settings1.range}
             position={
-              ["fa", "ar"].includes(settings1.locale.name.split("_")[1])
+              ["fa", "ar"].includes(settings1.locale?.name?.split?.("_")?.[1])
                 ? "left"
                 : "right"
             }
@@ -186,10 +191,7 @@ const [props, setProps] = useState(${
     code: `import React, { useState } from "react"
 import DatePicker from "react-multi-date-picker"
 import Settings from "react-multi-date-picker/plugins/settings"
-.
-.
-.
-const [props, setProps] = useState(${
+${$import}const [props, setProps] = useState(${
       language === "en"
         ? "{ multiple: true }"
         : `{
@@ -237,10 +239,7 @@ const [props, setProps] = useState(${
     code: `import React, { useState } from "react"
 import DatePicker from "react-multi-date-picker"
 import Settings from "react-multi-date-picker/plugins/settings"
-.
-.
-.
-const initialProps = ${
+${$import}const initialProps = ${
       language === "en"
         ? `{ 
   value: new Date(), 
@@ -256,10 +255,7 @@ const initialProps = ${
     }
 
 const [props, setProps] = useState(initialProps)
-.
-.
-.
-<DatePicker
+${$import}<DatePicker
   {...props}
   onPropsChange={setProps}
   plugins={[

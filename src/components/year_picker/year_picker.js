@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import selectDate from "../../shared/selectDate";
 import DateObject from "react-date-object";
 
 export default function YearPicker({
   state,
-  setState,
   onChange,
   sort,
   handleFocusedDate,
@@ -22,15 +21,9 @@ export default function YearPicker({
     mustShowYearPicker = state.mustShowYearPicker || onlyYearPicker,
     digits = date.digits;
 
-  const [years, maxYear] = useMemo(() => {
+  const years = useMemo(() => {
     let yearArray = [],
-      year = today.year - 4,
-      maxYear = year + 11;
-
-    while (state.year < year || state.year > maxYear) {
-      year += state.year < year ? -12 : 12;
-      maxYear = year + 11;
-    }
+      year = state.year - 4;
 
     for (var i = 0; i < 4; i++) {
       let array = [];
@@ -43,14 +36,8 @@ export default function YearPicker({
       yearArray.push(array);
     }
 
-    return [yearArray, maxYear];
-  }, [state.year, today.year]);
-
-  useEffect(() => {
-    if (!mustShowYearPicker) return;
-
-    setState((state) => ({ ...state, maxYear }));
-  }, [maxYear, mustShowYearPicker, setState]);
+    return yearArray;
+  }, [state.year]);
 
   return (
     <div

@@ -91,23 +91,17 @@ export default function DayPicker({
                     current: object.current,
                   };
 
-                  let otherProps = {},
+                  let allProps = getAllProps(object),
                     mustAddClassName =
                       mustDisplayDay(object) && !object.disabled,
                     className = `${mustAddClassName ? "sd" : ""}`,
-                    children;
+                    children = allProps.children;
 
-                  if (mapDays instanceof Function) {
-                    otherProps = getOtherProps(object);
+                  if (mustAddClassName)
+                    className = `${className} ${allProps.className || ""}`;
 
-                    if (mustAddClassName)
-                      className = `${className} ${otherProps.className || ""}`;
-
-                    children = otherProps.children;
-
-                    delete otherProps.className;
-                    delete otherProps.children;
-                  }
+                  delete allProps.className;
+                  delete allProps.children;
 
                   let parentClassName = getClassName(object, numberOfMonths);
 
@@ -119,13 +113,12 @@ export default function DayPicker({
                       key={i}
                       className={parentClassName}
                       onClick={() => {
-                        if (!mustDisplayDay(object)) return;
-                        if (object.disabled) return;
+                        if (!mustDisplayDay(object) || object.disabled) return;
 
                         selectDay(object, monthIndex, numberOfMonths);
                       }}
                     >
-                      <span className={className} {...otherProps}>
+                      <span className={className} {...allProps}>
                         {mustDisplayDay(object) && !object.hidden
                           ? children ?? object.day
                           : ""}
@@ -230,25 +223,34 @@ export default function DayPicker({
     return [].concat(selectedDate).some((date) => isSameDate(date, dateObject));
   }
 
-  function getOtherProps(object) {
+  function getAllProps(object) {
     if (!object.current && !showOtherDays) return {};
 
-    let otherProps = mapDays({
-      date: object.date,
-      today,
-      currentMonth: state.date.month,
-      selectedDate: state.selectedDate,
-      isSameDate,
+    let allProps = {};
+
+    mapDays.forEach((fn) => {
+      let props = fn({
+        date: object.date,
+        today,
+        currentMonth: state.date.month,
+        selectedDate: state.selectedDate,
+        isSameDate,
+      });
+
+      if (props?.constructor !== Object) props = {};
+      if (props.disabled || props.hidden) object.disabled = true;
+      if (props.hidden) object.hidden = true;
+
+      allProps = {
+        ...allProps,
+        ...props,
+      };
     });
 
-    if (otherProps?.constructor !== Object) otherProps = {};
-    if (otherProps.disabled || otherProps.hidden) object.disabled = true;
-    if (otherProps.hidden) object.hidden = true;
+    delete allProps.disabled;
+    delete allProps.hidden;
 
-    delete otherProps.disabled;
-    delete otherProps.hidden;
-
-    return otherProps;
+    return allProps;
   }
 }
 

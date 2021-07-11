@@ -24,6 +24,7 @@
   font-size: 12px;
   padding: 3px 0;
   border-radius: 3px;
+  line-height: 22px;
 }
 
 .rmdp-toolbar div:hover {

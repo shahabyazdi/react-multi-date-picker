@@ -216,6 +216,20 @@ function DatePicker(
     formattingIgnoreList,
   ]);
 
+  useEffect(() => {
+    let { selection } = ref.current;
+
+    if (!selection) return;
+
+    let input = getInput(inputRef);
+
+    if (!input) return;
+
+    input.setSelectionRange(selection, selection);
+    datePickerRef.current.refreshPosition();
+    ref.current.selection = undefined;
+  }, [stringDate]);
+
   if (multiple || range || isArray(date) || !editable) inputMode = "none";
 
   return (
@@ -443,6 +457,8 @@ function DatePicker(
 
   function handleValueChange(e) {
     if (isArray(date) || !editable) return;
+
+    ref.current.selection = e.target.selectionStart;
 
     let value = e.target.value,
       object = { year: 1, calendar, locale, format },

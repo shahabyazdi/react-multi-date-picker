@@ -3,7 +3,7 @@ import DatePicker, { Calendar, DateObject } from "../../../../build/index";
 import TimePicker from "../../../../plugins/time_picker";
 import DatePanel from "../../../../plugins/date_panel";
 
-export default function Doc({ language, otherProps, translate }) {
+export default function Doc({ language, otherProps, translate, localeImport }) {
   const [values, setValues] = useState(
     [1, 2, 3].map((number) =>
       new DateObject(otherProps).set({
@@ -24,6 +24,14 @@ export default function Doc({ language, otherProps, translate }) {
     title: "Descriptions",
     description: "time_picker",
   };
+
+  const $import =
+    language === "en"
+      ? `.
+.
+.
+`
+      : localeImport;
 
   const props = {
     title: "Props",
@@ -78,10 +86,7 @@ export default function Doc({ language, otherProps, translate }) {
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
-.
-.
-.
-const [values, setValues] = useState(
+${$import}const [values, setValues] = useState(
   [1, 2, 3].map((number) =>
     new DateObject(${
       language === "en" ? "" : `{ calendar: "persian", locale: "fa"}`
@@ -126,10 +131,7 @@ const [values, setValues] = useState(
     code: `import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
-.
-.
-.
-const [values, setValues] = useState([
+${$import}const [values, setValues] = useState([
   new DateObject(${
     language === "en" ? "" : `{ calendar: persian, locale: persian_fa }`
   }),
@@ -162,10 +164,7 @@ const [values, setValues] = useState([
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
-.
-.
-.
-<DatePicker
+${$import}<DatePicker
   format="${language === "en" ? "MM/DD/YYYY HH:mm:ss" : "YYYY/MM/DD HH:mm:ss"}"
   range
   plugins={[
@@ -188,7 +187,7 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
   const style = {
     title: "Styling TimePicker",
     description: "time_picker_style",
-    code: `<DatePicker
+    code: `${$import}<DatePicker
   format="MM/DD/YYYY HH:mm"
   plugins={[
     <TimePicker

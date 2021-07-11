@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../../build/index";
-import MultiColors from "../../../../plugins/multi_colors";
+import multiColors from "../../../../plugins/multi_colors";
 import DatePanel from "../../../../plugins/date_panel";
 
 export default function Doc({ translate, language, otherProps, localeImport }) {
-  const [props2, setProps2] = useState({ multiple: true, ...otherProps });
+  const [props, setProps] = useState({
+    multiple: true,
+    plugins: [multiColors({ defaultColor: "green" })],
+    ...otherProps,
+  });
 
-  const yesterday = new DateObject().subtract(1, "day");
-  const today = new DateObject();
-  const tomorrow = new DateObject().add(1, "day");
+  const yesterday = new DateObject(otherProps).subtract(1, "day");
+  const today = new DateObject(otherProps);
+  const tomorrow = new DateObject(otherProps).add(1, "day");
 
   yesterday.color = "red";
   today.color = "blue";
   tomorrow.color = "red";
 
-  const initialProps3 = {
+  const [props2, setProps2] = useState({
     multiple: true,
     value: [yesterday, today, tomorrow],
+    plugins: [
+      multiColors({ colors: ["blue", "red"] }),
+      <DatePanel sort="color" />,
+    ],
     ...otherProps,
-  };
-  const [props3, setProps3] = useState(initialProps3);
+  });
 
   const $import =
     language === "en"
@@ -29,7 +36,7 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
 `
       : localeImport;
 
-  const props = {
+  const allProps = {
     title: "Props",
     description: (
       <table>
@@ -44,7 +51,7 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
           <tr>
             <td>position</td>
             <td>String</td>
-            <td>"right"</td>
+            <td>"bottom"</td>
           </tr>
           <tr>
             <td>disabled</td>
@@ -65,102 +72,77 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
       </table>
     ),
   };
+
   const defaultColor = {
     title: "Default Color",
-    code: `import DatePicker from "react-multi-date-picker"
-import MultiColors from "react-multi-date-picker/plugins/multi_colors"
-${$import}const [props, setProps] = useState(${
-      language === "en"
-        ? "{ multiple: true }"
-        : `{
+    code: `import React, { useState } from "react"
+import DatePicker from "react-multi-date-picker"
+import multiColors from "react-multi-date-picker/plugins/multi_colors"
+${$import}const [props, setProps] = useState({
   multiple: true,
-  calendar: persian,
+  plugins: [multiColors({ defaultColor: "green" })],
+${
+  language === "en"
+    ? "});"
+    : `  calendar: persian,
   locale: persian_fa,
   calendarPosition: "bottom-right"
-}`
-    })
+});`
+}
 .
 .
 .
 <DatePicker
   {...props}
   onPropsChange={setProps}
-  plugins={[
-    <MultiColors 
-      position="bottom" 
-      defaultColor="green"
-    />
-  ]}
 /> `,
-    jsx: (
-      <DatePicker
-        {...props2}
-        onPropsChange={setProps2}
-        plugins={[<MultiColors position="bottom" defaultColor="green" />]}
-      />
-    ),
+    jsx: <DatePicker {...props} onPropsChange={setProps} />,
   };
 
   const panel = {
     title: "With DatePanel",
-    code: `import DatePicker, { DateObject } from "react-multi-date-picker"
-import MultiColors from "react-multi-date-picker/plugins/multi_colors"
-import DatePanel from "react-multi-date-picker/plugins/date_panel"
+    code: `import React, { useState } from "react"
+import DatePicker, { DateObject } from "react-multi-date-picker"
+import multiColors from "react-multi-date-picker/plugins/multi_colors"
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
 ${$import}const yesterday = new DateObject(${
       language === "en" ? "" : `{ calendar: persian }`
-    }).subtract(1, "day")
+    }).subtract(1, "day");
 const today = new DateObject(${
       language === "en" ? "" : `{ calendar: persian }`
-    })
+    });
 const tomorrow = new DateObject(${
       language === "en" ? "" : `{ calendar: persian }`
-    }).add(1, "day")
-        
-yesterday.color = "red"
-today.color = "blue"
-tomorrow.color = "red"
-        
-const initialProps = ${
-      language === "en"
-        ? `{ 
-  multiple: true, 
-  value: [yesterday, today, tomorrow] 
-}`
-        : `{ 
-  multiple: true, 
-  value: [yesterday, today, tomorrow],
-  calendar: persian,
-  locale: persian_fa,
-  calendarPosition: "bottom-right" 
-}`
-    }
+    }).add(1, "day");
 
-const [props, setProps] = useState(initialProps) 
+yesterday.color = "red";
+today.color = "blue";
+tomorrow.color = "red";
+
+const [props, setProps] = useState({
+  multiple: true,
+  value: [yesterday, today, tomorrow],
+  plugins: [
+    multiColors({ colors: ["blue", "red"] }),
+    <DatePanel sort="color" />,
+  ],
+${
+  language === "en"
+    ? "});"
+    : `  calendar: persian,
+  locale: persian_fa,
+  calendarPosition: "bottom-right"
+});`
+}
 .
 .
 .
-<DatePicker
-  {...props}
-  onPropsChange={setProps}
-  plugins={[
-    <MultiColors
-      position="bottom"
-      colors={["blue", "red"]}
-    />,
-    <DatePanel sort="color" />
-  ]}
+<DatePicker 
+  {...props} 
+  onPropsChange={setProps} 
 /> `,
-    jsx: (
-      <DatePicker
-        {...props3}
-        onPropsChange={setProps3}
-        plugins={[
-          <MultiColors position="bottom" colors={["blue", "red"]} />,
-          <DatePanel sort="color" />,
-        ]}
-      />
-    ),
+    jsx: <DatePicker {...props2} onPropsChange={setProps2} />,
   };
 
-  return [props, defaultColor, panel];
+  return [allProps, defaultColor, panel];
 }
