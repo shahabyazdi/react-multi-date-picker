@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Calendar, DateObject } from "../../../build/index";
 import Settings from "../../../plugins/settings";
 import DatePickerHeader from "../../../plugins/date_picker_header";
-import MultiColors from "../../../plugins/multi_colors";
+import multiColors from "../../../plugins/multi_colors";
 import DatePanel from "../../../plugins/date_panel";
 import Toolbar from "../../../plugins/toolbar";
 
@@ -45,7 +45,7 @@ export default function Doc({ language, otherProps }) {
               sort="date"
               eachDaysInRange={!props.onlyMonthPicker && !props.onlyYearPicker}
             />,
-            <MultiColors position={isRTL ? "right" : "left"} />,
+            multiColors({ position: isRTL ? "right" : "left" }),
             <Settings position="bottom" defaultActive="locale" />,
             <Toolbar position="bottom" />,
           ]}
@@ -61,7 +61,7 @@ export default function Doc({ language, otherProps }) {
 import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePickerHeader from "react-multi-date-picker/plugins/date_picker_header"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
-import MultiColors from "react-multi-date-picker/plugins/multi_colors"
+import multiColors from "react-multi-date-picker/plugins/multi_colors"
 import Settings from "react-multi-date-picker/plugins/settings"
 import Toolbar from "react-multi-date-picker/plugins/toolbar"
 ${
@@ -129,9 +129,7 @@ export default function DatePickerPlugins() {
             sort="date"
             eachDaysInRange={!props.onlyMonthPicker && !props.onlyYearPicker}
           />
-          <MultiColors
-            position={isRTL ? "right" : "left"}
-          />,
+          multiColors({ position: isRTL ? "right" : "left" }),
           <Settings 
             position="bottom" 
             defaultActive="locale" 

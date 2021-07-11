@@ -46,7 +46,7 @@ export default function MonthPicker({
 
       months = months.map((month) => (isArray(month) ? month[0] : month));
     } else {
-      months = date.months.map((month) => month.name);
+      months = date.locale.months.map(([month]) => month);
     }
 
     for (var i = 0; i < 4; i++) {
@@ -91,15 +91,15 @@ export default function MonthPicker({
 
   function selectMonth(dateObject) {
     let { selectedDate, focused } = state,
-      {
-        year,
-        month: { index },
-      } = dateObject;
+      { year, monthIndex } = dateObject;
 
-    if (minDate && year <= minDate.year && index < minDate.month.index) return;
-    if (maxDate && year >= maxDate.year && index > maxDate.month.index) return;
+    if (
+      (minDate && year <= minDate.year && monthIndex < minDate.monthIndex) ||
+      (maxDate && year >= maxDate.year && monthIndex > maxDate.monthIndex)
+    )
+      return;
 
-    date.setMonth(index + 1);
+    date.setMonth(monthIndex + 1);
 
     if (onlyMonthPicker) {
       [selectedDate, focused] = selectDate(dateObject, sort, state);
@@ -120,19 +120,16 @@ export default function MonthPicker({
 
   function getClassName(dateObject) {
     let names = ["rmdp-day"],
-      {
-        year,
-        month: { index },
-      } = dateObject,
+      { year, monthIndex } = dateObject,
       { selectedDate } = state;
 
     if (
       (minDate &&
         (year < minDate.year ||
-          (year === minDate.year && index < minDate.month.index))) ||
+          (year === minDate.year && monthIndex < minDate.monthIndex))) ||
       (maxDate &&
         (year > maxDate.year ||
-          (year === maxDate.year && index > maxDate.month.index)))
+          (year === maxDate.year && monthIndex > maxDate.monthIndex)))
     )
       names.push("rmdp-disabled");
 
@@ -140,7 +137,7 @@ export default function MonthPicker({
     if (isSameDate(today, dateObject, true)) names.push("rmdp-today");
 
     if (!onlyMonthPicker) {
-      if (date.month.index === index) names.push("rmdp-selected");
+      if (date.monthIndex === monthIndex) names.push("rmdp-selected");
     } else {
       if (!range) {
         if (

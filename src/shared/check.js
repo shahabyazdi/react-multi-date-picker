@@ -1,4 +1,7 @@
 import warn from "./warn";
+import DateObject from "react-date-object";
+
+const { calendar: gregorian, locale: gregorian_en } = new DateObject();
 
 export default function check(calendar, locale) {
   if (calendar && calendar.constructor !== Object) {
@@ -11,7 +14,7 @@ export default function check(calendar, locale) {
     locale = undefined;
   }
 
-  return [calendar, locale];
+  return [calendar || gregorian, locale || gregorian_en];
 }
 
 function getMessage(name) {

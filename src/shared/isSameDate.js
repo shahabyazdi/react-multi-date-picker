@@ -9,7 +9,7 @@ export default function isSameDate(
   if (firstDate.year === secondDate.year) {
     if (onlyYearPicker) return true;
 
-    if (firstDate.month.number === secondDate.month.number) {
+    if (firstDate.monthIndex === secondDate.monthIndex) {
       if (onlyMonthPicker) return true;
 
       return firstDate.day === secondDate.day;

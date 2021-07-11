@@ -129,8 +129,8 @@ function Calendar(
 
       function checkDate(date) {
         if (!date) return;
-        if (date.calendar !== calendar) date.setCalendar(calendar);
-        if (date.locale !== locale) date.setLocale(locale);
+        if (date.calendar.name !== calendar.name) date.setCalendar(calendar);
+        if (date.locale.name !== locale.name) date.setLocale(locale);
         if (date._format !== format) date.setFormat(format);
 
         date.digits = digits;
@@ -502,7 +502,7 @@ function Calendar(
     for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
       let monthName,
         year = date.year,
-        index = date.month.index + monthIndex;
+        index = date.monthIndex + monthIndex;
 
       if (index > 11) {
         index -= 12;

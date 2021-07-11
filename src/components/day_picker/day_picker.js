@@ -47,7 +47,7 @@ export default function DayPicker({
     );
     // eslint-disable-next-line
   }, [
-    date.month.number,
+    date.monthIndex,
     date.year,
     date.calendar,
     date.locale,
@@ -146,7 +146,7 @@ export default function DayPicker({
     numberOfMonths
   ) {
     let { selectedDate, focused, date } = state,
-      { hour, minute, second, month } = date;
+      { hour, minute, second } = date;
 
     dateObject.set({
       hour: selectedDate?.hour || hour,
@@ -163,7 +163,7 @@ export default function DayPicker({
 
       if (
         monthIndex > 0 &&
-        dateObject.month.index > month.index + monthIndex &&
+        dateObject.monthIndex > date.monthIndex + monthIndex &&
         monthIndex + 1 === numberOfMonths
       ) {
         date = new DateObject(date).toFirstOfMonth().add(1, "month");
@@ -262,12 +262,12 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     date = new DateObject(date).toFirstOfMonth();
 
-    let monthNumber = date.month.number,
+    let monthIndex = date.monthIndex,
       weeks = [];
 
     date.toFirstOfWeek().add(weekStartDayIndex, "day");
 
-    if (date.month.number === monthNumber && date.day > 1)
+    if (date.monthIndex === monthIndex && date.day > 1)
       date.subtract(7, "days");
 
     for (let weekIndex = 0; weekIndex < 6; weekIndex++) {
@@ -277,7 +277,7 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
         week.push({
           date: new DateObject(date),
           day: date.format("D"),
-          current: date.month.number === monthNumber,
+          current: date.monthIndex === monthIndex,
         });
 
         date.day += 1;
@@ -285,7 +285,7 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
 
       weeks.push(week);
 
-      if (weekIndex > 2 && date.month.number !== monthNumber && !showOtherDays)
+      if (weekIndex > 2 && date.monthIndex !== monthIndex && !showOtherDays)
         break;
     }
 

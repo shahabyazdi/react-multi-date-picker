@@ -36,7 +36,7 @@ export default function selectDate(
     if (dates.length === selectedDate.length) {
       dates.push(focused);
     } else {
-      focused = dates.find((d) => d.valueOf() === previousFocused?.valueOf?.());
+      focused = dates.find((d) => isSameDate(d, previousFocused));
     }
 
     if (sort) dates.sort((a, b) => a - b);

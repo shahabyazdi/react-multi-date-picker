@@ -73,10 +73,10 @@ export default function YearPicker({
     if (onlyYearPicker) {
       [selectedDate, focused] = selectDate(date, sort, state);
     } else {
-      if (minDate && date.month.number < minDate.month.number) {
-        date = date.setMonth(minDate.month.number);
-      } else if (maxDate && date.month.number > maxDate.month.number) {
-        date = date.setMonth(maxDate.month.number);
+      if (minDate && date.monthIndex < minDate.monthIndex) {
+        date = date.setMonth(minDate.monthIndex + 1);
+      } else if (maxDate && date.monthIndex > maxDate.monthIndex) {
+        date = date.setMonth(maxDate.monthIndex + 1);
       }
 
       onYearChange?.(date);

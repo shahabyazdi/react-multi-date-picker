@@ -29,11 +29,11 @@ export default function Header({
     isPreviousDisable =
       minDate &&
       date.year <= minDate.year &&
-      minDate.month.number > date.month.number - 1,
+      minDate.monthIndex > date.monthIndex - 1,
     isNextDisable =
       maxDate &&
       date.year >= maxDate.year &&
-      maxDate.month.number < date.month.number + 1,
+      maxDate.monthIndex < date.monthIndex + 1,
     maxYear = year + 7;
 
   if ((hideMonth || fullYear) && hideYear && !buttons) return null;
