@@ -16,6 +16,7 @@ import isArray from "../../shared/isArray";
 import warn from "../../shared/warn";
 import check from "../../shared/check";
 import getLocaleName from "../../shared/getLocaleName";
+import toLocaleDigits from "../../shared/toLocaleDigits";
 import "./date_picker.css";
 
 function DatePicker(
@@ -217,10 +218,19 @@ function DatePicker(
   ]);
 
   useEffect(() => {
+    /**
+     * If the locale is other than English and after manually changing the input value,
+     * the caret position jumps to the end of the input.
+     * To solve this issue, we save the previous position of caret in the ref,
+     * and in this effect, we recover it.
+     */
     let { selection } = ref.current;
 
     if (!selection) return;
-
+    /**
+     * If the caret position is undefined, there is no reason to get the input.
+     * So we only get the input if the caret position is available.
+     */
     let input = getInput(inputRef);
 
     if (!input) return;
@@ -472,7 +482,7 @@ function DatePicker(
     }
 
     if (!digits) return;
-
+    //converting value to english digits
     for (let digit of digits) {
       value = value.replace(new RegExp(digit, "g"), digits.indexOf(digit));
     }
@@ -485,7 +495,7 @@ function DatePicker(
     });
 
     handleChange(newDate.isValid ? newDate : null);
-    setStringDate(value.replace(/[0-9]/g, (w) => digits[w]));
+    setStringDate(toLocaleDigits(value, digits));
   }
 
   function setCalendarReady() {

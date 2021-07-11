@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import selectDate from "../../shared/selectDate";
+import toLocaleDigits from "../../shared/toLocaleDigits";
 import DateObject from "react-date-object";
 
 export default function YearPicker({
@@ -53,7 +54,7 @@ export default function YearPicker({
               onClick={() => selectYear(year)}
             >
               <span className={onlyYearPicker ? "sd" : ""}>
-                {year.toString().replace(/[0-9]/g, (w) => digits[w])}
+                {toLocaleDigits(year.toString(), digits)}
               </span>
             </div>
           ))}

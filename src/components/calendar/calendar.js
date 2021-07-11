@@ -16,6 +16,7 @@ import toDateObject from "../../shared/toDateObject";
 import isArray from "../../shared/isArray";
 import check from "../../shared/check";
 import getLocaleName from "../../shared/getLocaleName";
+import toLocaleDigits from "../../shared/toLocaleDigits";
 import "./calendar.css";
 
 function Calendar(
@@ -104,11 +105,17 @@ function Calendar(
 
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
   formattingIgnoreList = getIgnoreList(formattingIgnoreList);
-  mapDays = isArray(mapDays) ? mapDays : [mapDays].filter(Boolean);
+  mapDays = [].concat(mapDays).filter(Boolean);
 
   let [state, setState] = useState({}),
     listeners = {},
     ref = useRef({ mustCallOnReady: true, currentDate }),
+    /**
+     * Each plugin can return several different plugins.
+     * So in the first place plugins might look like this:
+     * [plugin1, [plugin2, plugin3], plugin4]
+     * For this reason, we remove the extra arrays inside the plugins.
+     */
     _plugins = [...plugins];
 
   plugins = [];
@@ -510,7 +517,7 @@ function Calendar(
         monthName = date.months[index].name;
       }
 
-      year = year.toString().replace(/[0-9]/g, (w) => digits[w]);
+      year = toLocaleDigits(year.toString(), digits);
 
       monthNames.push(monthName);
       years.push(year);
