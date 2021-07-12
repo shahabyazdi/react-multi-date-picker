@@ -13,7 +13,8 @@ export default function Doc({ translate, language, localeImport, otherProps }) {
       offsetY: 0,
       offsetX: 0,
     }),
-    updateState = (key, value) => setState({ ...state, [key]: value });
+    updateState = (key, value) => setState({ ...state, [key]: value }),
+    separator = language === "en" ? "," : "،";
 
   useEffect(() => {
     containerRef.current.scrollTo(
@@ -257,6 +258,7 @@ const {
               })}
             </select>
           </label>
+          {separator}
           <label>
             <input
               type="checkbox"
@@ -265,6 +267,7 @@ const {
             />
             {translate("Fix Main Position")}
           </label>
+          {separator}
           <label>
             {translate("Relative Position")}:
             <select
@@ -282,6 +285,7 @@ const {
               })}
             </select>
           </label>
+          {separator}
           <label>
             <input
               type="checkbox"
@@ -292,6 +296,7 @@ const {
             />
             {translate("Fix Relative Position")}
           </label>
+          {separator}
           <label>
             {translate("Offset Y")}:
             <input
@@ -302,6 +307,7 @@ const {
               onChange={(e) => updateState("offsetY", Number(e.target.value))}
             />
           </label>
+          {separator}
           <label>
             {translate("Offset X")}:
             <input

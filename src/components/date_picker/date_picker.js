@@ -431,25 +431,6 @@ function DatePicker(
 
     let input = getInput(inputRef);
 
-    if (!value && !ref.current.date && !range && !multiple && !isMobileMode) {
-      let date = new DateObject({
-        calendar,
-        locale,
-        format,
-        months,
-        weekDays,
-        digits,
-        ignoreList: JSON.parse(formattingIgnoreList),
-      });
-
-      if ((!minDate || date > minDate) && (!maxDate || date < maxDate)) {
-        handleChange(date);
-        onPropsChange?.({ ...datePickerProps, value: date });
-
-        ref.current.date = date;
-      }
-    }
-
     if (isMobileMode && input) input.blur();
 
     if (input || !isVisible) {

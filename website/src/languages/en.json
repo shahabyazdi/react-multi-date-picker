@@ -413,5 +413,25 @@
     "When you are using a custom component, instead of entering properties such as id, name, required, placeholder, etc. into the date picker, enter them directly into your custom component.",
     "Below are examples of how to import and render the internal components, as well as how to render your custom component.",
     "If you are using versions before 3.0.0, click on the link below to view the documentation."
-  ]
+  ],
+  "custom_calendar": [
+    "By using the method I explain below, you can create most of the 12-month calendars for your date picker.",
+    "Unfortunately, the 13-month calendars (such as the Chinese or Hebrew calendars, which have 13 months in the leap year) are not currently supported.",
+    "In the following, I will explain how to create a Thai calendar for the date picker.",
+    "The reason for choosing the Thai calendar is that it is very similar to the Gregorian calendar. In fact, the Thai calendar is <a target='_blank' href='https://en.wikipedia.org/wiki/Thai_solar_calendar'>543 years ahead of the Gregorian calendar</a>.",
+    "To create a calendar, first, go to the <a target='_blank' href='https://github.com/shahabyazdi/date-object/tree/master/calendars/cjs'>calendars folder</a> in the date-object repository, download the <a target='_blank' href='https://raw.githubusercontent.com/shahabyazdi/date-object/master/calendars/cjs/gregorian.js'>gregorian.js</a> file, and save it to your local directory.",
+    "Try to match the file name with the name of your favorite calendar, as well as with the name property in the calendar object. Also, note that all properties in the calendar object are required, and deleting any of them will cause the calendar to malfunction. so if you don't want to modify a property, instead of deleting it, leave it as it is.",
+    "For example, I downloaded the gregorian.js file and saved it as thai.js:"
+  ],
+  "custom_calendar_1": [
+    "As I said, because of the similarity between the Thai calendar and the Gregorian calendar, we only need to change the value of <strong>epoch</strong> and <strong>century</strong> properties in the calendar object.",
+    "The epoch property is actually the distance between the number of days on the first day of the calendar and <a target='_blank' href='https://en.wikipedia.org/wiki/Julian_day'>Julian Day Number</a>, to caclulate it, you must first obtain the Julian Day Number and then, subtract it from the number of days in the current calendar.",
+    "You can use DateObject to get the current Julian Day Number:"
+  ],
+  "custom_calendar_2": "Given that we know that the Thai calendar is 543 years ahead of the Gregorian calendar, to get the number of days in the Thai calendar, we can add 543 years to the Gregorian calendar, and by using the toDays() method, we can get the number of days compared to 01/01/01:",
+  "custom_calendar_3": "Now by subtracting these two values from each other, the epoch value is obtained:",
+  "custom_calendar_4": "By substituting epoch and century values, our calendar object changes as follows:",
+  "custom_calendar_5": "So far, if we import our created calendar and enter it into the date picker, we should see this result:",
+  "custom_calendar_6": "If you need, you can create a Thai locale and enter it into the calendar by using the <a target='_blank' href='../locales/#custom-locale'>tutorial</a> provided here:",
+  "custom_calendar_7": "Finally, by entering our calendar and locale into the Calendar Component, this result is achieved:"
 }

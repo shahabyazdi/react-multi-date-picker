@@ -1,5 +1,5 @@
 import React from "react";
-import DatePicker, { Calendar } from "../../../build/index";
+import DatePicker, { Calendar, DateObject } from "../../../build/index";
 import { Link } from "gatsby";
 
 //persian calendar & locales
@@ -14,6 +14,106 @@ import arabic_ar from "react-date-object/locales/arabic_ar";
 //indian calendar & locale
 import indian from "react-date-object/calendars/indian";
 import indian_hi from "react-date-object/locales/indian_hi";
+
+const thai = {
+  name: "thai",
+  startYear: 1,
+  yearLength: 365,
+  epoch: 1523097,
+  century: 20,
+  weekDaysIndex: [0, 1, 2, 3, 4, 5, 6],
+  getMonthLengths(isLeap) {
+    return [31, isLeap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  },
+  isLeap(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  },
+  getLeaps(currentYear) {
+    if (currentYear === 0) return;
+
+    let year = currentYear > 0 ? 1 : -1;
+
+    let leaps = [],
+      condition = () =>
+        currentYear > 0 ? year <= currentYear : currentYear <= year,
+      increase = () => (currentYear > 0 ? year++ : year--);
+
+    while (condition()) {
+      if (this.isLeap(year)) leaps.push(year);
+
+      increase();
+    }
+
+    return leaps;
+  },
+  getDayOfYear({ year, month, day }) {
+    let monthLengths = this.getMonthLengths(this.isLeap(year));
+
+    for (let i = 0; i < month.index; i++) {
+      day += monthLengths[i];
+    }
+
+    return day;
+  },
+  getAllDays(date) {
+    const { year } = date;
+
+    return (
+      this.yearLength * (year - 1) +
+      this.leapsLength(year) +
+      this.getDayOfYear(date)
+    );
+  },
+  leapsLength(year) {
+    return (
+      (((year - 1) / 4) | 0) +
+      (-((year - 1) / 100) | 0) +
+      (((year - 1) / 400) | 0)
+    );
+  },
+  guessYear(days, currentYear) {
+    let year = ~~(days / 365.24);
+
+    return year + (currentYear > 0 ? 1 : -1);
+  },
+};
+
+const thai_th = {
+  name: "thai_th",
+  months: [
+    ["มกราคม", "ม.ค."],
+    ["กุมภาพันธ์", "ก.พ."],
+    ["มีนาคม", "มี.ค."],
+    ["เมษายน", "เม.ย.	"],
+    ["พฤษภาคม", "พ.ค."],
+    ["มิถุนายน", "มิ.ย."],
+    ["กรกฎาคม", "ก.ค."],
+    ["สิงหาคม", "ส.ค."],
+    ["กันยายน", "ก.ย."],
+    ["ตุลาคม", "ต.ค."],
+    ["พฤศจิกายน", "พ.ย."],
+    ["ธันวาคม", "ธ.ค."],
+  ],
+  weekDays: [
+    ["วันอาทิตย์", "อา"],
+    ["วันจันทร์", "จ"],
+    ["วันอังคาร", "อ"],
+    ["วันพุธ", "พ"],
+    ["วันพฤหัส", "พฤ"],
+    ["วันศุกร์", "ศ"],
+    ["วันเสาร์", "ส"],
+  ],
+  digits: ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"],
+  meridiems: [
+    ["ก่อนเที่ยง", "เอเอ็ม"],
+    ["หลังเที่ยง", "พีเอ็ม"],
+  ],
+};
+
+const epoch =
+  new DateObject().toJulianDay() - new DateObject().add(543, "y").toDays();
+
+console.log(epoch); //1523097;
 
 export default function Doc({ translate, language, Code }) {
   let descriptions = {
@@ -441,6 +541,221 @@ export default function Example() {
     ),
   };
 
+  const customCalendar = {
+    title: "Custom Calendar",
+    description: "custom_calendar",
+    jsx: (
+      <>
+        <Code title="*thai.js:">{`const thai = {
+  name: "thai",
+  startYear: 1,
+  yearLength: 365,
+  epoch: 1721424,
+  century: 20,
+  weekDaysIndex: [0, 1, 2, 3, 4, 5, 6],
+  getMonthLengths(isLeap) {
+    return [31, isLeap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  },
+  isLeap(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  },
+  getLeaps(currentYear) {
+    if (currentYear === 0) return;
+
+    let year = currentYear > 0 ? 1 : -1;
+
+    let leaps = [],
+      condition = () =>
+        currentYear > 0 ? year <= currentYear : currentYear <= year,
+      increase = () => (currentYear > 0 ? year++ : year--);
+
+    while (condition()) {
+      if (this.isLeap(year)) leaps.push(year);
+
+      increase();
+    }
+
+    return leaps;
+  },
+  getDayOfYear({ year, month, day }) {
+    let monthLengths = this.getMonthLengths(this.isLeap(year));
+
+    for (let i = 0; i < month.index; i++) {
+      day += monthLengths[i];
+    }
+
+    return day;
+  },
+  getAllDays(date) {
+    const { year } = date;
+
+    return (
+      this.yearLength * (year - 1) +
+      this.leapsLength(year) +
+      this.getDayOfYear(date)
+    );
+  },
+  leapsLength(year) {
+    return (
+      (((year - 1) / 4) | 0) +
+      (-((year - 1) / 100) | 0) +
+      (((year - 1) / 400) | 0)
+    );
+  },
+  guessYear(days, currentYear) {
+    let year = ~~(days / 365.24);
+
+    return year + (currentYear > 0 ? 1 : -1);
+  },
+};
+
+export default thai;`}</Code>
+        {translate("custom_calendar_1").map((str, index) => (
+          <p key={index} dangerouslySetInnerHTML={{ __html: str }} />
+        ))}
+        <Code>{`const julianDay = new DateObject().toJulianDay();
+
+console.log(julianDay); // 2459407 (Monday, July 12 2021)`}</Code>
+        <p
+          dangerouslySetInnerHTML={{ __html: translate("custom_calendar_2") }}
+        />
+        <Code>{`const days = new DateObject().add(543, "years").toDays();
+
+console.log(days); // 936310 (Monday, July 12 2564)`}</Code>
+        <p>{translate("custom_calendar_3")}</p>
+        <Code>{`// delta_t = t - t0
+const epoch = julianDay - days
+
+console.log(epoch) // 1523097`}</Code>
+        <p>{translate("custom_calendar_4")}</p>
+        <Code>
+          {`const thai = {
+  name: "thai",
+  startYear: 1,
+  yearLength: 365,
+  epoch: 1523097,
+  century: 25,
+  weekDaysIndex: [0, 1, 2, 3, 4, 5, 6],
+  getMonthLengths(isLeap) {
+    return [31, isLeap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  },
+  isLeap(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  },
+  getLeaps(currentYear) {
+    if (currentYear === 0) return;
+
+    let year = currentYear > 0 ? 1 : -1;
+
+    let leaps = [],
+      condition = () =>
+        currentYear > 0 ? year <= currentYear : currentYear <= year,
+      increase = () => (currentYear > 0 ? year++ : year--);
+
+    while (condition()) {
+      if (this.isLeap(year)) leaps.push(year);
+
+      increase();
+    }
+
+    return leaps;
+  },
+  getDayOfYear({ year, month, day }) {
+    let monthLengths = this.getMonthLengths(this.isLeap(year));
+
+    for (let i = 0; i < month.index; i++) {
+      day += monthLengths[i];
+    }
+
+    return day;
+  },
+  getAllDays(date) {
+    const { year } = date;
+
+    return (
+      this.yearLength * (year - 1) +
+      this.leapsLength(year) +
+      this.getDayOfYear(date)
+    );
+  },
+  leapsLength(year) {
+    return (
+      (((year - 1) / 4) | 0) +
+      (-((year - 1) / 100) | 0) +
+      (((year - 1) / 400) | 0)
+    );
+  },
+  guessYear(days, currentYear) {
+    let year = ~~(days / 365.24);
+
+    return year + (currentYear > 0 ? 1 : -1);
+  },
+};
+
+export default thai;`}
+        </Code>
+        <p>{translate("custom_calendar_5")}</p>
+        <Code>{`import { Calendar } from "react-multi-date-picker"
+import thai from "./thai"
+
+export default function Example() {
+  return <Calendar calendar={thai} />
+}`}</Code>
+        <Calendar calendar={thai} />
+        <p
+          dangerouslySetInnerHTML={{ __html: translate("custom_calendar_6") }}
+        />
+        <Code title="*thai_th.js">{`const thai_th = {
+  name: "thai_th",
+  months: [
+    ["มกราคม", "ม.ค."],
+    ["กุมภาพันธ์", "ก.พ."],
+    ["มีนาคม", "มี.ค."],
+    ["เมษายน", "เม.ย.	"],
+    ["พฤษภาคม", "พ.ค."],
+    ["มิถุนายน", "มิ.ย."],
+    ["กรกฎาคม", "ก.ค."],
+    ["สิงหาคม", "ส.ค."],
+    ["กันยายน", "ก.ย."],
+    ["ตุลาคม", "ต.ค."],
+    ["พฤศจิกายน", "พ.ย."],
+    ["ธันวาคม", "ธ.ค."],
+  ],
+  weekDays: [
+    ["วันอาทิตย์", "อา"],
+    ["วันจันทร์", "จ"],
+    ["วันอังคาร", "อ"],
+    ["วันพุธ", "พ"],
+    ["วันพฤหัส", "พฤ"],
+    ["วันศุกร์", "ศ"],
+    ["วันเสาร์", "ส"],
+  ],
+  digits: ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"],
+  meridiems: [
+    ["ก่อนเที่ยง", "เอเอ็ม"],
+    ["หลังเที่ยง", "พีเอ็ม"],
+  ],
+};
+
+export default thai_th`}</Code>
+        <p>{translate("custom_calendar_7")}</p>
+        <Code>{`import { Calendar } from "react-multi-date-picker"
+import thai from "./thai"
+import thai_th from "./thai_th"
+
+export default function Example() {
+  return (
+    <Calendar 
+      calendar={thai} 
+      locale={thai_th} 
+    />
+  )
+}`}</Code>
+        <Calendar calendar={thai} locale={thai_th} />
+      </>
+    ),
+  };
+
   return [
     descriptions,
     calendars,
@@ -453,5 +768,6 @@ export default function Example() {
     arabicCalendar,
     indianCalendar,
     datepicker,
+    customCalendar,
   ];
 }

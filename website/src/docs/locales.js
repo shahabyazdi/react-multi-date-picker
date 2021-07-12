@@ -412,6 +412,18 @@ export default function Example() {
 }`}
         </Code>
         <DatePicker locale={gregorian_en_lowercase} />
+        <h4>{translate("See Also")}:</h4>
+        <Link
+          to={
+            language === "en"
+              ? "../calendars/#custom-calendar"
+              : "../calendars/#ایجاد-یک-تقویم-شخصی-سازی-شده"
+          }
+        >
+          {language === "en"
+            ? "Calendars & Locales #custom-calendar"
+            : "تقویم ها و زبان ها #ایجاد یک تقویم شخصی سازی شده"}
+        </Link>
       </>
     ),
   };
