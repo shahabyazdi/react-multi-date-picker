@@ -34,41 +34,13 @@ const list = [
     ],
   },
   {
-    name: "React Hook Form",
-    path: "react-hook-form/",
-    list: [
-      {
-        name: "Example Of Using React Hook Form",
-        path: "react-hook-form/#example-of-using-react-hook-form",
-      },
-    ],
-  },
-  {
-    name: "TypeScript",
-    path: "typescript/",
-    list: [
-      {
-        name: "Usage",
-        path: "typescript/#usage",
-      },
-      {
-        name: "Adding Ref to Calendar & DatePicker",
-        path: "typescript/#adding-ref-to-calendar-&-datepicker",
-      },
-    ],
-  },
-  {
-    name: "Props",
-    path: "props/",
-  },
-  {
-    name: "Formatting Tokens",
-    path: "format-tokens/",
-  },
-  {
     name: "Calendars & Locales",
     path: "calendars/",
     list: [
+      {
+        name: "Descriptions",
+        path: "calendars/#descriptions",
+      },
       {
         name: "Calendars",
         path: "calendars/#calendars",
@@ -76,10 +48,6 @@ const list = [
       {
         name: "Locales",
         path: "calendars/#locales",
-      },
-      {
-        name: "Descriptions",
-        path: "calendars/#descriptions",
       },
       {
         name: "Default Calendar",
@@ -109,6 +77,34 @@ const list = [
         name: "Persian datepicker with English locale",
         path: "calendars/#persian-datepicker-with-english-locale",
       },
+      {
+        name: "Custom Calendar",
+        path: "calendars/#custom-calendar",
+      },
+    ],
+  },
+  {
+    name: "TypeScript",
+    path: "typescript/",
+    list: [
+      {
+        name: "Usage",
+        path: "typescript/#usage",
+      },
+      {
+        name: "Adding Ref to Calendar & DatePicker",
+        path: "typescript/#adding-ref-to-calendar-&-datepicker",
+      },
+    ],
+  },
+  {
+    name: "React Hook Form",
+    path: "react-hook-form/",
+    list: [
+      {
+        name: "Example Of Using React Hook Form",
+        path: "react-hook-form/#example-of-using-react-hook-form",
+      },
     ],
   },
   {
@@ -128,16 +124,20 @@ const list = [
         path: "date-object/#adding-/-subtracting-time-from-original-moment",
       },
       {
-        name: "Persian Calendar (Solar Hijri)",
-        path: "date-object/#persian-calendar-(solar-hijri)",
+        name: "Other Calendar & Locales",
+        path: "date-object/#other-calendar-&-locales",
       },
       {
-        name: "Arabic Calendar (islamic hijri)",
-        path: "date-object/#arabic-calendar-(islamic-hijri)",
+        name: "Persian Calendar (Solar Hijri) With Farsi Locale",
+        path: "date-object/#persian-calendar-(solar-hijri)-with-farsi-locale",
       },
       {
-        name: "Indian Calendar",
-        path: "date-object/#indian-calendar",
+        name: "Arabic Calendar (Lunar Hijri) With Arabic Locale",
+        path: "date-object/#arabic-calendar-(lunar-hijri)-with-arabic-locale",
+      },
+      {
+        name: "Indian Calendar With Hindi Locale",
+        path: "date-object/#indian-calendar-with-hindi-locale",
       },
       {
         name: "Table of most used properties",
@@ -164,6 +164,14 @@ const list = [
         path: "date-object/#new-dateobject-from-unix-timestamp",
       },
       {
+        name: "Converting Calendars",
+        path: "date-object/#converting-calendars",
+      },
+      {
+        name: "Gregorian Calendar to Persian Calendar",
+        path: "date-object/#gregorian-calendar-to-persian-calendar",
+      },
+      {
         name: "Persian Calendar to Arabic Calendar",
         path: "date-object/#persian-calendar-to-arabic-calendar",
       },
@@ -176,6 +184,14 @@ const list = [
         path: "date-object/#gregorian-calendar-to-indian-calendar",
       },
     ],
+  },
+  {
+    name: "Props",
+    path: "props/",
+  },
+  {
+    name: "Formatting Tokens",
+    path: "format-tokens/",
   },
   {
     name: "Component with Children",
@@ -326,6 +342,10 @@ const list = [
         path: "events/#on-change-(single-mode)",
       },
       {
+        name: "onChange (Converting Selected Date To All Calendars)",
+        path: "events/#onchange-(converting-selected-date-to-all-calendars)",
+      },
+      {
         name: "onChange (multiple mode)",
         path: "events/#on-change-(multiple-mode)",
       },
@@ -364,6 +384,10 @@ const list = [
     path: "locales/",
     list: [
       {
+        name: "Descriptions",
+        path: "locales/#descriptions",
+      },
+      {
         name: "Digits",
         path: "locales/#digits",
       },
@@ -387,6 +411,14 @@ const list = [
         name: "Format Months & WeekDays",
         path: "locales/#format-months-&-weekdays",
       },
+      {
+        name: "Importing A Locale File From The date-object Package",
+        path: "locales/#importing-a-locale-file-from-the-date-object-package",
+      },
+      {
+        name: "Custom Locale",
+        path: "locales/#custom-locale",
+      },
     ],
   },
   {
@@ -394,16 +426,8 @@ const list = [
     path: "types/",
     list: [
       {
-        name: "Types",
-        path: "types/#types",
-      },
-      {
-        name: "Input",
-        path: "types/#input",
-      },
-      {
-        name: "Button",
-        path: "types/#button",
+        name: "Descriptions",
+        path: "types/#descriptions",
       },
       {
         name: "Input-Icon",
@@ -412,6 +436,10 @@ const list = [
       {
         name: "Icon",
         path: "types/#icon",
+      },
+      {
+        name: "Button",
+        path: "types/#button",
       },
       {
         name: "Custom (function)",
@@ -739,10 +767,6 @@ const list = [
         name: "Disabled Input",
         path: "other-examples/#disabled-input",
       },
-      {
-        name: "Disabled Button",
-        path: "other-examples/#disabled-button",
-      },
     ],
   },
   {
@@ -930,6 +954,10 @@ const list = [
           {
             name: "Using TimePicker in Multiple Mode",
             path: "plugins/time-picker/#using-timepicker-in-multiple-mode",
+          },
+          {
+            name: "Position Right",
+            path: "plugins/time-picker#position-right",
           },
           {
             name: "Using TimePicker in Range Mode",

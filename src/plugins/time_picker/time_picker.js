@@ -26,18 +26,6 @@ export default function TimePicker({
     horizontal = ["left", "right"].includes(position),
     padding = { top: "Top", bottom: "Bottom" }[position] || "";
 
-  useEffect(() => {
-    if (position === "bottom" && !nodes.top && !range && !multiple) {
-      Calendar?.querySelector?.(".rmdp-top-class").classList?.remove?.(
-        "rmdp-border-bottom"
-      );
-    } else {
-      Calendar?.querySelector?.(".rmdp-top-class").classList?.add?.(
-        "rmdp-border-bottom"
-      );
-    }
-  }, [position, nodes.top, Calendar, range, multiple]);
-
   const mustDisplayMeridiem = useMemo(() => {
     let format = date._format;
 

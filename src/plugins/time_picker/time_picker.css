@@ -6,7 +6,6 @@
 .rmdp-time-picker {
   display: flex;
   padding: 3px 0;
-  margin-bottom: 3px;
 }
 
 .rmdp-time-picker.active {

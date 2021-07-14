@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Selectors from "../selectors/selectors";
 import DatePicker, { Calendar, DateObject } from "../../../../src/index";
 import DatePanel from "../../../../plugins/date_panel";
-import TimePicker from "../../../../plugins/time_picker";
+import TimePicker from "../../../../src/plugins/time_picker/time_picker";
 import AnalogTimePicker from "../../../../plugins/analog_time_picker";
 import list from "./quick_access";
 import { Link } from "gatsby";
@@ -117,6 +117,8 @@ export default function Demo({ language = "en", translate }) {
     hideWeekDays,
     timePickerPosition,
     weekend,
+    disableMonthPicker,
+    disableYearPicker,
   } = state;
 
   const updateState = (key, value) => {
@@ -596,6 +598,26 @@ export default function Demo({ language = "en", translate }) {
                   value: date,
                 });
               },
+            },
+            {
+              title: "Month Picker Header",
+              options: [
+                ["Enable", "enable"],
+                ["Disable", "disable"],
+              ],
+              value: disableMonthPicker ? "disable" : "enable",
+              onChange: (value) =>
+                updateState("disableMonthPicker", value === "disable"),
+            },
+            {
+              title: "Year Picker Header",
+              options: [
+                ["Enable", "enable"],
+                ["Disable", "disable"],
+              ],
+              value: disableYearPicker ? "disable" : "enable",
+              onChange: (value) =>
+                updateState("disableYearPicker", value === "disable"),
             },
             {
               title: "Colors",

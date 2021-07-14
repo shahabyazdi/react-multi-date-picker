@@ -15,8 +15,8 @@ import stringify from "../../shared/stringify";
 import toDateObject from "../../shared/toDateObject";
 import isArray from "../../shared/isArray";
 import check from "../../shared/check";
-import getLocaleName from "../../shared/getLocaleName";
 import toLocaleDigits from "../../shared/toLocaleDigits";
+import isRTL from "../../shared/isRTL";
 import "./calendar.css";
 
 function Calendar(
@@ -106,21 +106,17 @@ function Calendar(
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
   formattingIgnoreList = stringify(formattingIgnoreList);
   mapDays = [].concat(mapDays).filter(Boolean);
+  /**
+   * Each plugin can return several different plugins.
+   * So in the first place, plugins might look like this:
+   * [plugin1, [plugin2, plugin3], plugin4]
+   * For this reason, we remove the extra arrays inside the plugins.
+   */
+  plugins = [].concat.apply([], plugins);
 
   let [state, setState] = useState({}),
     listeners = {},
-    ref = useRef({ mustCallOnReady: true, currentDate }),
-    /**
-     * Each plugin can return several different plugins.
-     * So in the first place plugins might look like this:
-     * [plugin1, [plugin2, plugin3], plugin4]
-     * For this reason, we remove the extra arrays inside the plugins.
-     */
-    _plugins = [...plugins];
-
-  plugins = [];
-
-  _plugins.forEach((plugin) => (plugins = plugins.concat(plugin)));
+    ref = useRef({ mustCallOnReady: true, currentDate });
 
   useEffect(() => {
     setState((state) => {
@@ -269,14 +265,14 @@ function Calendar(
 
   let topClassName = "rmdp-top-class " + getBorderClassName(["top", "bottom"]),
     clonedPlugins = { top: [], bottom: [], left: [], right: [] },
-    isRTL = ["fa", "ar"].includes(getLocaleName(state.date?.locale)),
+    isRightToLeft = isRTL(state.date?.locale),
     globalProps = {
       state,
       setState,
       onChange: handleChange,
       sort,
       handleFocusedDate,
-      isRTL,
+      isRightToLeft,
       fullYear,
       monthAndYears: getMonthsAndYears(),
     },
@@ -290,59 +286,60 @@ function Calendar(
       className={`rmdp-wrapper rmdp-${shadow ? "shadow" : "border"} ${
         className || ""
       }`}
-      style={{ zIndex, direction: "ltr" }}
+      style={{ zIndex }}
     >
       {clonedPlugins.top}
       <div style={{ display: "flex" }} className={topClassName}>
         {clonedPlugins.left}
-        <div
-          style={{ height: "max-content", margin: "auto" }}
-          className={`rmdp-calendar ${
-            isRTL ? "rmdp-rtl" : ""
-          } ${getBorderClassName(["left", "right"])}`}
-        >
-          {!disableDayPicker && (
-            <>
-              <Header
+        {!disableDayPicker && (
+          <div
+            className={`rmdp-calendar ${
+              isRightToLeft ? "rmdp-rtl" : ""
+            } ${getBorderClassName(["left", "right"])}`}
+          >
+            <Header
+              {...globalProps}
+              disableYearPicker={disableYearPicker}
+              disableMonthPicker={disableMonthPicker}
+              buttons={buttons}
+              renderButton={renderButton}
+              handleMonthChange={handleMonthChange}
+              disabled={disabled}
+              hideMonth={hideMonth}
+              hideYear={hideYear}
+            />
+            <div style={{ position: "relative" }}>
+              <DayPicker
                 {...globalProps}
-                disableYearPicker={disableYearPicker}
-                disableMonthPicker={disableMonthPicker}
-                buttons={buttons}
-                renderButton={renderButton}
-                handleMonthChange={handleMonthChange}
-                disabled={disabled}
-                hideMonth={hideMonth}
-                hideYear={hideYear}
+                showOtherDays={showOtherDays}
+                mapDays={mapDays}
+                onlyShowInRangeDates={onlyShowInRangeDates}
+                customWeekDays={weekDays}
+                numberOfMonths={numberOfMonths}
+                weekStartDayIndex={weekStartDayIndex}
+                hideWeekDays={hideWeekDays}
               />
-              <div style={{ position: "relative" }}>
-                <DayPicker
-                  {...globalProps}
-                  showOtherDays={showOtherDays}
-                  mapDays={mapDays}
-                  onlyShowInRangeDates={onlyShowInRangeDates}
-                  customWeekDays={weekDays}
-                  numberOfMonths={numberOfMonths}
-                  weekStartDayIndex={weekStartDayIndex}
-                  hideWeekDays={hideWeekDays}
-                />
-                {!fullYear && (
-                  <>
+              {!fullYear && (
+                <>
+                  {!disableMonthPicker && (
                     <MonthPicker
                       {...globalProps}
                       customMonths={months}
                       handleMonthChange={handleMonthChange}
                     />
+                  )}
+                  {!disableYearPicker && (
                     <YearPicker {...globalProps} onYearChange={onYearChange} />
-                  </>
-                )}
-              </div>
-            </>
-          )}
-          {children}
-        </div>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        )}
         {clonedPlugins.right}
       </div>
       {clonedPlugins.bottom}
+      {children}
     </div>
   ) : null;
 
