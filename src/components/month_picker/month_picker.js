@@ -3,6 +3,7 @@ import selectDate from "../../shared/selectDate";
 import isSameDate from "../../shared/isSameDate";
 import getRangeClass from "../../shared/getRangeClass";
 import isArray from "../../shared/isArray";
+import stringify from "../../shared/stringify";
 import DateObject from "react-date-object";
 
 export default function MonthPicker({
@@ -28,8 +29,10 @@ export default function MonthPicker({
     mustShowMonthPicker =
       (state.mustShowMonthPicker || onlyMonthPicker) && !onlyYearPicker;
 
+  customMonths = customMonths && stringify(customMonths);
+
   const months = useMemo(() => {
-    let months = customMonths,
+    let months = customMonths && JSON.parse(customMonths),
       monthsArray = [],
       index = 0,
       date = new DateObject({

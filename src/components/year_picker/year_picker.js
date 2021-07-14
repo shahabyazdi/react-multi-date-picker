@@ -108,7 +108,7 @@ export default function YearPicker({
       if (year === date.year) names.push("rmdp-selected");
     } else {
       if (!range) {
-        if ([].concat(selectedDate).some((date) => date.year === year))
+        if ([].concat(selectedDate).some((date) => date && date.year === year))
           names.push("rmdp-selected");
       } else {
         let first = selectedDate[0],

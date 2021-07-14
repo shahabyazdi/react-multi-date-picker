@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../../build/index";
 import Footer from "../../../../plugins/range_picker_footer";
-import fa from "react-date-object/locales/persian_fa";
 
 export default function Doc({ translate, language, otherProps, localeImport }) {
   const [value, setValue] = useState([

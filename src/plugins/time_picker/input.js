@@ -1,14 +1,11 @@
 import React from "react";
-import toLocaleDigits from "../../shared/toLocaleDigits";
 
 export default function Input({ name, value, onChange, digits }) {
-  value = value < 10 ? "0" + value : "" + value;
-
   return (
     <input
       type="text"
       name={name}
-      value={toLocaleDigits(value, digits)}
+      value={value}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
     />

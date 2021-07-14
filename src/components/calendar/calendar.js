@@ -11,7 +11,7 @@ import MonthPicker from "../month_picker/month_picker";
 import YearPicker from "../year_picker/year_picker";
 import DateObject from "react-date-object";
 import getFormat from "../../shared/getFormat";
-import getIgnoreList from "../../shared/getIgnoreList";
+import stringify from "../../shared/stringify";
 import toDateObject from "../../shared/toDateObject";
 import isArray from "../../shared/isArray";
 import check from "../../shared/check";
@@ -104,7 +104,7 @@ function Calendar(
   [calendar, locale] = check(calendar, locale);
 
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
-  formattingIgnoreList = getIgnoreList(formattingIgnoreList);
+  formattingIgnoreList = stringify(formattingIgnoreList);
   mapDays = [].concat(mapDays).filter(Boolean);
 
   let [state, setState] = useState({}),

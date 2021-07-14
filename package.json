@@ -69,7 +69,7 @@
     "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
-    "react-date-object": "^2.0.5",
+    "react-date-object": "^2.1.1",
     "react-element-popper": "^1.0.10"
   },
   "peerDependencies": {

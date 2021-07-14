@@ -11,7 +11,11 @@ import "./analog_time_picker.css";
 import "../time_picker/time_picker.css";
 
 const getTransform = (number) => `rotate(${number}deg)`;
-const array = ["hour", "minute", "second"];
+const array = [
+  ["hour", "HH"],
+  ["minute", "mm"],
+  ["second", "ss"],
+];
 
 export default function AnalogTimePicker({
   state,
@@ -24,17 +28,8 @@ export default function AnalogTimePicker({
   hideSeconds,
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
-    availbleDate;
-
-  if (multiple || range) {
-    availbleDate = focused || date;
-  } else {
-    availbleDate = selectedDate || date;
-  }
-
-  let hour = availbleDate.hour,
-    minute = availbleDate.minute,
-    second = availbleDate.second,
+    availbleDate = (multiple || range ? focused : selectedDate) || date,
+    { hour, minute, second } = availbleDate,
     degree = {
       hour: hour * 30 + minute * (360 / 720),
       minute: minute * 6 + second * (360 / 3600),
@@ -68,7 +63,7 @@ export default function AnalogTimePicker({
       <div className="rmdp-analog-clock">
         <div className="dot" />
         <div>
-          {array.map((name, index) => {
+          {array.map(([name], index) => {
             if (name === "second" && hideSeconds) return null;
 
             return (
@@ -95,14 +90,14 @@ export default function AnalogTimePicker({
       )}
       <div style={{ margin: "auto 0" }}>
         <div className="rmdp-time-picker">
-          {array.map((name, index) => {
+          {array.map(([name, token], index) => {
             if (name === "second" && hideSeconds) return null;
 
             return (
               <Button
                 key={index}
                 name={name}
-                value={getValue(name)}
+                values={getValues(name, token)}
                 update={update}
                 digits={date.digits}
                 hideDivider={
@@ -116,18 +111,14 @@ export default function AnalogTimePicker({
     </div>
   );
 
-  function getValue(key) {
+  function getValues(key, token) {
     if (!availbleDate[key]) availbleDate[key] = 0;
 
-    return availbleDate[key];
+    return [availbleDate[key], availbleDate.format(token)];
   }
 
   function update(key, value) {
-    if (multiple || range) {
-      if (focused) focused[key] = value;
-    } else {
-      if (selectedDate) selectedDate[key] = value;
-    }
+    availbleDate[key] = value;
 
     handleChange(selectedDate, {
       ...state,
@@ -137,13 +128,24 @@ export default function AnalogTimePicker({
   }
 }
 
-function Button({ name, value, update, digits, hideDivider }) {
+function Button({
+  name,
+  values: [number, localeValue],
+  update,
+  digits,
+  hideDivider,
+}) {
   return (
     <>
       <div>
-        <Arrow direction="rmdp-up" onClick={() => update(name, value + 1)} />
-        <Input value={value} onChange={update} digits={digits} name={name} />
-        <Arrow direction="rmdp-down" onClick={() => update(name, value - 1)} />
+        <Arrow direction="rmdp-up" onClick={() => update(name, number + 1)} />
+        <Input
+          value={localeValue}
+          onChange={update}
+          digits={digits}
+          name={name}
+        />
+        <Arrow direction="rmdp-down" onClick={() => update(name, number - 1)} />
       </div>
       {!hideDivider && <span className="dvdr">:</span>}
     </>

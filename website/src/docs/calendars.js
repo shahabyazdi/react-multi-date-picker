@@ -21,7 +21,7 @@ const thai = {
   yearLength: 365,
   epoch: 1523097,
   century: 20,
-  weekDaysIndex: [0, 1, 2, 3, 4, 5, 6],
+  weekStartDayIndex: 1,
   getMonthLengths(isLeap) {
     return [31, isLeap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   },
@@ -95,13 +95,13 @@ const thai_th = {
     ["ธันวาคม", "ธ.ค."],
   ],
   weekDays: [
+    ["วันเสาร์", "ส"],
     ["วันอาทิตย์", "อา"],
     ["วันจันทร์", "จ"],
     ["วันอังคาร", "อ"],
     ["วันพุธ", "พ"],
     ["วันพฤหัส", "พฤ"],
     ["วันศุกร์", "ศ"],
-    ["วันเสาร์", "ส"],
   ],
   digits: ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"],
   meridiems: [
@@ -552,7 +552,7 @@ export default function Example() {
   yearLength: 365,
   epoch: 1721424,
   century: 20,
-  weekDaysIndex: [0, 1, 2, 3, 4, 5, 6],
+  weekStartDayIndex: 1,
   getMonthLengths(isLeap) {
     return [31, isLeap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   },
@@ -635,7 +635,7 @@ console.log(epoch) // 1523097`}</Code>
   yearLength: 365,
   epoch: 1523097,
   century: 25,
-  weekDaysIndex: [0, 1, 2, 3, 4, 5, 6],
+  weekStartDayIndex: 1,
   getMonthLengths(isLeap) {
     return [31, isLeap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   },
@@ -722,13 +722,13 @@ export default function Example() {
     ["ธันวาคม", "ธ.ค."],
   ],
   weekDays: [
+    ["วันเสาร์", "ส"],
     ["วันอาทิตย์", "อา"],
     ["วันจันทร์", "จ"],
     ["วันอังคาร", "อ"],
     ["วันพุธ", "พ"],
     ["วันพฤหัส", "พฤ"],
     ["วันศุกร์", "ศ"],
-    ["วันเสาร์", "ส"],
   ],
   digits: ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"],
   meridiems: [

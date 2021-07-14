@@ -11,7 +11,7 @@ import ElementPopper from "react-element-popper";
 import DateObject from "react-date-object";
 import Calendar from "../calendar/calendar";
 import getFormat from "../../shared/getFormat";
-import getIgnoreList from "../../shared/getIgnoreList";
+import stringify from "../../shared/stringify";
 import isArray from "../../shared/isArray";
 import warn from "../../shared/warn";
 import check from "../../shared/check";
@@ -105,7 +105,7 @@ function DatePicker(
   if (!isMobileMode && ref.current.mobile)
     ref.current = { ...ref.current, mobile: false };
 
-  formattingIgnoreList = getIgnoreList(formattingIgnoreList);
+  formattingIgnoreList = stringify(formattingIgnoreList);
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
 
   [calendar, locale] = check(calendar, locale);
@@ -428,6 +428,25 @@ function DatePicker(
 
   function openCalendar() {
     if (disabled || readOnly || onOpen?.() === false) return;
+
+    if (!value && !ref.current.date && !range && !multiple && !isMobileMode) {
+      let date = new DateObject({
+        calendar,
+        locale,
+        format,
+        months,
+        weekDays,
+        digits,
+        ignoreList: JSON.parse(formattingIgnoreList),
+      });
+
+      if ((!minDate || date > minDate) && (!maxDate || date < maxDate)) {
+        handleChange(date);
+        onPropsChange?.({ ...datePickerProps, value: date });
+
+        ref.current.date = date;
+      }
+    }
 
     let input = getInput(inputRef);
 

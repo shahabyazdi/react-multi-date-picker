@@ -10,7 +10,7 @@ export default function TimePicker({
   setState,
   handleChange,
   position,
-  calendarProps: { formattingIgnoreList, disableDayPicker },
+  calendarProps: { formattingIgnoreList },
   nodes,
   Calendar,
   hideSeconds,
@@ -21,7 +21,10 @@ export default function TimePicker({
   ...props
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
-    meridiems = date.meridiems;
+    meridiems = date.meridiems,
+    availbleDate = (multiple || range ? focused : selectedDate) || date,
+    horizontal = ["left", "right"].includes(position),
+    padding = { top: "Top", bottom: "Bottom" }[position] || "";
 
   useEffect(() => {
     if (position === "bottom" && !nodes.top && !range && !multiple) {
@@ -51,23 +54,7 @@ export default function TimePicker({
     return format.toLowerCase().includes("a") || format.includes("hh");
   }, [date._format, formattingIgnoreList]);
 
-  let hour = selectedDate?.hour;
-  let horizontal = ["left", "right"].includes(position);
-
-  if (typeof hour === "undefined") hour = new Date().getHours();
-
-  let am = mustDisplayMeridiem ? hour < 12 : false,
-    availbleDate;
-
-  if (multiple || range) {
-    availbleDate = focused || date;
-  } else {
-    availbleDate = selectedDate || date;
-  }
-
-  if (disableDayPicker) position = "bottom";
-
-  let padding = { top: "Top", bottom: "Bottom" }[position] || "";
+  let isAm = mustDisplayMeridiem && availbleDate.hour < 12;
 
   return (
     <div style={{ display: "grid" }}>
@@ -101,14 +88,18 @@ export default function TimePicker({
         }}
         {...getValidProps(props)}
       >
-        {["hour", "minute", "second"].map((name, index) => {
+        {[
+          ["hour", mustDisplayMeridiem ? "hh" : "HH"],
+          ["minute", "mm"],
+          ["second", "ss"],
+        ].map(([name, token], index) => {
           if (name === "second" && hideSeconds) return null;
 
           return (
             <Button
               key={index}
               name={name}
-              value={getValue(name)}
+              values={getValues(name, token)}
               update={update}
               digits={date.digits}
               hideDivider={
@@ -117,10 +108,14 @@ export default function TimePicker({
             />
           );
         })}
-        <div style={getStyle()}>
+        <div
+          style={{
+            display: mustDisplayMeridiem ? "flex" : "none",
+          }}
+        >
           <Arrow direction="rmdp-up" onClick={toggleMeridiem} />
           <div className="rmdp-am">
-            {am ? meridiems[0][1].toUpperCase() : meridiems[1][1].toUpperCase()}
+            {(isAm ? meridiems[0][1] : meridiems[1][1]).toUpperCase()}
           </div>
           <Arrow direction="rmdp-down" onClick={toggleMeridiem} />
         </div>
@@ -129,17 +124,13 @@ export default function TimePicker({
   );
 
   function update(key, value) {
-    if (multiple || range) {
-      if (focused) focused[key] = value;
-    } else {
-      if (selectedDate) selectedDate[key] = value;
-    }
+    availbleDate[key] = value;
 
     setDate();
   }
 
   function toggleMeridiem() {
-    if (selectedDate) selectedDate.hour += selectedDate.hour < 12 ? 12 : -12;
+    availbleDate.hour += availbleDate.hour < 12 ? 12 : -12;
 
     setDate();
   }
@@ -152,26 +143,31 @@ export default function TimePicker({
     });
   }
 
-  function getValue(key) {
+  function getValues(key, token) {
     if (!availbleDate[key]) availbleDate[key] = 0;
 
-    return availbleDate[key];
-  }
-
-  function getStyle() {
-    return {
-      display: mustDisplayMeridiem ? "flex" : "none",
-    };
+    return [availbleDate[key], availbleDate.format(token)];
   }
 }
 
-function Button({ name, value, update, digits, hideDivider }) {
+function Button({
+  name,
+  values: [number, localeValue],
+  update,
+  digits,
+  hideDivider,
+}) {
   return (
     <>
       <div>
-        <Arrow direction="rmdp-up" onClick={() => update(name, value + 1)} />
-        <Input value={value} onChange={update} digits={digits} name={name} />
-        <Arrow direction="rmdp-down" onClick={() => update(name, value - 1)} />
+        <Arrow direction="rmdp-up" onClick={() => update(name, number + 1)} />
+        <Input
+          value={localeValue}
+          onChange={update}
+          digits={digits}
+          name={name}
+        />
+        <Arrow direction="rmdp-down" onClick={() => update(name, number - 1)} />
       </div>
       {!hideDivider && <span className="dvdr">:</span>}
     </>
