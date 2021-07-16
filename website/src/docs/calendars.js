@@ -110,11 +110,6 @@ const thai_th = {
   ],
 };
 
-const epoch =
-  new DateObject().toJulianDay() - new DateObject().add(543, "y").toDays();
-
-console.log(epoch); //1523097;
-
 export default function Doc({ translate, language, Code }) {
   let descriptions = {
     title: "Descriptions",

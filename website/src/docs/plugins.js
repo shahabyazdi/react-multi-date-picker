@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Calendar, DateObject } from "../../../build/index";
 import Settings from "../../../plugins/settings";
 import DatePickerHeader from "../../../plugins/date_picker_header";
-import multiColors from "../../../plugins/multi_colors";
+import multiColors from "../../../plugins/colors";
 import DatePanel from "../../../plugins/date_panel";
 import Toolbar from "../../../plugins/toolbar";
 
@@ -61,7 +61,7 @@ export default function Doc({ language, otherProps }) {
 import { Calendar, DateObject } from "react-multi-date-picker"
 import DatePickerHeader from "react-multi-date-picker/plugins/date_picker_header"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
-import multiColors from "react-multi-date-picker/plugins/multi_colors"
+import multiColors from "react-multi-date-picker/plugins/colors"
 import Settings from "react-multi-date-picker/plugins/settings"
 import Toolbar from "react-multi-date-picker/plugins/toolbar"
 ${

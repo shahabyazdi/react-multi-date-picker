@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Selectors from "../selectors/selectors";
-import DatePicker, { Calendar, DateObject } from "../../../../src/index";
+import DatePicker, { Calendar, DateObject } from "../../../../build";
 import DatePanel from "../../../../plugins/date_panel";
-import TimePicker from "../../../../src/plugins/time_picker/time_picker";
+import TimePicker from "../../../../plugins/time_picker";
 import AnalogTimePicker from "../../../../plugins/analog_time_picker";
 import list from "./quick_access";
 import { Link } from "gatsby";

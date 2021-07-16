@@ -2,7 +2,7 @@ import React from "react";
 import DatePicker from "../../../../build/index";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import weekends from "../../../../plugins/weekends";
+import weekends from "../../../../plugins/highlight_weekends";
 
 export default function Doc({ translate, language, otherProps, localeImport }) {
   const $import =
@@ -74,7 +74,7 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
   const gregorian = {
     title: "Weekends: gregorian",
     code: `import DatePicker from "react-multi-date-picker"
-import weekends from "react-multi-date-picker/plugins/weekends"
+import weekends from "react-multi-date-picker/plugins/highlight_weekends"
 .
 .
 .
@@ -97,7 +97,7 @@ ${
   const persianWeekend = {
     title: "Weekends: persian",
     code: `import DatePicker from "react-multi-date-picker"
-import weekends from "react-multi-date-picker/plugins/weekends"
+import weekends from "react-multi-date-picker/plugins/highlight_weekends"
 ${$import}<DatePicker
   plugins={[weekends()]}
   calendar={persian}
@@ -121,7 +121,7 @@ ${
   const custom = {
     title: "Weekends: custom",
     code: `import DatePicker from "react-multi-date-picker"
-import weekends from "react-multi-date-picker/plugins/weekends"
+import weekends from "react-multi-date-picker/plugins/highlight_weekends"
 ${$import}<DatePicker 
   plugins={[weekends([5, 6])]} 
 />`,

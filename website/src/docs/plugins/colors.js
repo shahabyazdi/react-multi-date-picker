@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../../build/index";
-import multiColors from "../../../../plugins/multi_colors";
+import colors from "../../../../plugins/colors";
 import DatePanel from "../../../../plugins/date_panel";
 
 export default function Doc({ translate, language, otherProps, localeImport }) {
   const [props, setProps] = useState({
     multiple: true,
-    plugins: [multiColors({ defaultColor: "green" })],
+    plugins: [colors({ defaultColor: "green" })],
     ...otherProps,
   });
 
@@ -21,10 +21,7 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
   const [props2, setProps2] = useState({
     multiple: true,
     value: [yesterday, today, tomorrow],
-    plugins: [
-      multiColors({ colors: ["blue", "red"] }),
-      <DatePanel sort="color" />,
-    ],
+    plugins: [colors({ colors: ["blue", "red"] }), <DatePanel sort="color" />],
     ...otherProps,
   });
 
@@ -77,10 +74,10 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
     title: "Default Color",
     code: `import React, { useState } from "react"
 import DatePicker from "react-multi-date-picker"
-import multiColors from "react-multi-date-picker/plugins/multi_colors"
+import colors from "react-multi-date-picker/plugins/colors"
 ${$import}const [props, setProps] = useState({
   multiple: true,
-  plugins: [multiColors({ defaultColor: "green" })],
+  plugins: [colors({ defaultColor: "green" })],
 ${
   language === "en"
     ? "});"
@@ -103,7 +100,7 @@ ${
     title: "With DatePanel",
     code: `import React, { useState } from "react"
 import DatePicker, { DateObject } from "react-multi-date-picker"
-import multiColors from "react-multi-date-picker/plugins/multi_colors"
+import colors from "react-multi-date-picker/plugins/colors"
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 ${$import}const yesterday = new DateObject(${
       language === "en" ? "" : `{ calendar: persian }`
@@ -123,7 +120,7 @@ const [props, setProps] = useState({
   multiple: true,
   value: [yesterday, today, tomorrow],
   plugins: [
-    multiColors({ colors: ["blue", "red"] }),
+    colors({ colors: ["blue", "red"] }),
     <DatePanel sort="color" />,
   ],
 ${

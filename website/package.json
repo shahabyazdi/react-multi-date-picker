@@ -27,7 +27,7 @@
     "install": "^0.13.0",
     "prismjs": "^1.24.1",
     "react-helmet": "^6.1.0",
-    "react-hook-form": "^7.10.1",
+    "react-hook-form": "^7.11.0",
     "react-multi-date-picker": "^2.10.1",
     "vazir-font": "^29.1.0"
   },

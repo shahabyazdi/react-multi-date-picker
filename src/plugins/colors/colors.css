@@ -1,0 +1,122 @@
+:root {
+  --highlight-blue-color: #4ca6f5;
+  --highlight-blue-color-deactive: #7b98ce;
+  --highlight-blue-selected: #0074d9;
+  --highlight-blue-selected-deactive: #aec0e0;
+  --highlight-blue-hover: #7ea6f0;
+  --highlight-yellow-color: #f7da37;
+  --highlight-yellow-color-deactive: #c0b025;
+  --highlight-yellow-selected: #fad817;
+  --highlight-yellow-selected-deactive: #dfdd61;
+  --highlight-yellow-hover: #ffeb3b;
+  --highlight-red-selected: #ea0034;
+  --highlight-red-hover: #ff6687;
+  --highlight-green-selected: #009688;
+  --highlight-green-hover: #4db6ac;
+}
+
+.rmdp-colors {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+
+.rmdp-colors.left,
+.rmdp-colors.right {
+  flex-direction: column;
+  padding: 0 8px;
+}
+
+.rmdp-color {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.left .rmdp-color,
+.right .rmdp-color {
+  margin: auto;
+}
+
+.rmdp-blue {
+  background-color: var(--highlight-blue-selected);
+}
+
+.rmdp-red {
+  background-color: var(--highlight-red-selected);
+}
+
+.rmdp-green {
+  background-color: var(--highlight-green-selected);
+}
+
+.rmdp-yellow {
+  background-color: var(--highlight-yellow-selected);
+}
+
+.rmdp-color.active {
+  box-shadow: 0 0 4px 1px #8798ad;
+}
+
+/* highlight-blue */
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-blue:hover {
+  background-color: var(--highlight-blue-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-blue {
+  color: var(--highlight-blue-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-blue {
+  color: var(--highlight-blue-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-blue {
+  background-color: var(--highlight-blue-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-blue {
+  background-color: var(--highlight-blue-selected-deactive);
+  color: white;
+}
+
+/* highlight-yellow */
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) .highlight-yellow:hover {
+  background-color: var(--highlight-yellow-hover);
+}
+
+.rmdp-day:not(.rmdp-deactive) .highlight-yellow {
+  color: var(--highlight-yellow-color);
+}
+
+.rmdp-day.rmdp-deactive .highlight-yellow {
+  color: var(--highlight-yellow-color-deactive);
+}
+
+.rmdp-day.rmdp-selected .highlight-yellow {
+  background-color: var(--highlight-yellow-selected);
+  color: white;
+}
+
+.rmdp-day.rmdp-deactive.rmdp-selected .highlight-yellow {
+  background-color: var(--highlight-yellow-selected-deactive);
+  color: white;
+}
+
+/* hover */
+
+.hover-red:hover {
+  background-color: var(--highlight-red-hover) !important;
+}
+
+.hover-green:hover {
+  background-color: var(--highlight-green-hover) !important;
+}
+
+.hover-yellow:hover {
+  background-color: var(--highlight-yellow-hover) !important;
+}

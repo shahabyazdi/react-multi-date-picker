@@ -173,8 +173,8 @@
     "Another good thing about plugins is that you may want to add a feature to your datepicker that does not exist by default, so you can use this feature to add your own plugin to the date picker.",
     "<b>Above Example Code :</b>"
   ],
-  "plugins_usage_description": "Plugins Prop accepts an array of plugins, which the following two properties can be entered on each of them.",
-  "plugins_usage": "This is the general way to add an imported plugin to Datepicker:",
+  "plugins_usage_description": "Plugins Prop accepts an array of plugins, which the following two properties can be applied on each of them which has entered as <strong>React Component</strong>.",
+  "plugins_usage": "This is the general way to add an imported plugin component to Datepicker:",
   "date_object": [
     "The DateObject is an ES6 class that I wrote to make it easier to work with a variety of calendars, so there is no need to import a separate package into the DatePicker for each calendar.",
     "This package can be used in the backend and frontend as well.",
@@ -412,7 +412,7 @@
     "The type prop is deprecated. However, I put its components in a separate file so you can import and use them with render prop if you want.",
     "When you are using a custom component, instead of entering properties such as id, name, required, placeholder, etc. into the date picker, enter them directly into your custom component.",
     "Below are examples of how to import and render the internal components, as well as how to render your custom component.",
-    "If you are using versions before 3.0.0, click on the link below to view the documentation."
+    "<strong>If you are using versions before 3.0.0, click on the link below to view the documentation.</strong>"
   ],
   "custom_calendar": [
     "By using the method I explain below, you can create most of the 12-month calendars for your date picker.",

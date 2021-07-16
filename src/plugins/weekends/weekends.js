@@ -1,20 +1,39 @@
-export default function weekends() {
-  let defaultWeekends = {
-    gregorian: [0, 6],
-    persian: [6],
-    arabic: [0, 6],
-    indian: [0],
-  };
+import { useEffect, useRef } from "react";
 
-  return {
-    type: "mapDays",
-    fn: () =>
-      function mapDays({ date: { calendar, weekDay } }) {
-        let isWeekend = (
-          Array.isArray(weekends) ? weekends : defaultWeekends[calendar.name]
-        ).includes(weekDay.index);
+export default function Weekends({ state, weekends, handlePropsChange }) {
+  const ref = useRef({});
 
-        if (isWeekend) return { className: "highlight highlight-red" };
-      },
-  };
+  useEffect(() => {
+    let $weekends = {
+      gregorian: [0, 6],
+      persian: [6],
+      arabic: [0, 6],
+      indian: [0],
+    };
+
+    let stringWeekends = JSON.stringify(weekends);
+
+    if (
+      ref.current.stringWeekends === stringWeekends &&
+      ref.current.calendar === state.date.calendar.name
+    )
+      return;
+
+    ref.current = { stringWeekends, calendar: state.date.calendar.name };
+
+    handlePropsChange({ mapDays: getMapDays() });
+
+    function getMapDays() {
+      return function mapDays({ date }) {
+        let props = { className: "highlight highlight-red" },
+          isWeekend = (
+            Array.isArray(weekends) ? weekends : $weekends[date.calendar.name]
+          ).includes(date.weekDay.index);
+
+        if (isWeekend) return props;
+      };
+    }
+  }, [state.date.calendar.name, weekends, handlePropsChange]);
+
+  return null;
 }

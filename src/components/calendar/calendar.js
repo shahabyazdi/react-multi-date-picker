@@ -272,7 +272,7 @@ function Calendar(
       onChange: handleChange,
       sort,
       handleFocusedDate,
-      isRightToLeft,
+      isRTL: isRightToLeft,
       fullYear,
       monthAndYears: getMonthsAndYears(),
     },

@@ -25,6 +25,7 @@ export default function Header({
       minDate,
       maxDate,
       year,
+      maxYear,
     } = state,
     isPreviousDisable =
       minDate &&
@@ -33,8 +34,7 @@ export default function Header({
     isNextDisable =
       maxDate &&
       date.year >= maxDate.year &&
-      maxDate.monthIndex < date.monthIndex + 1,
-    maxYear = year + 7;
+      maxDate.monthIndex < date.monthIndex + 1;
 
   if ((hideMonth || fullYear) && hideYear && !buttons) return null;
 

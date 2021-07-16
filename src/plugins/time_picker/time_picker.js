@@ -23,8 +23,7 @@ export default function TimePicker({
   let { date, selectedDate, multiple, range, focused } = state,
     meridiems = date.meridiems,
     availbleDate = (multiple || range ? focused : selectedDate) || date,
-    horizontal = ["left", "right"].includes(position),
-    padding = { top: "Top", bottom: "Bottom" }[position] || "";
+    horizontal = ["left", "right"].includes(position);
 
   const mustDisplayMeridiem = useMemo(() => {
     let format = date._format;
@@ -71,7 +70,6 @@ export default function TimePicker({
         style={{
           direction: "ltr",
           minWidth: horizontal ? "120px" : "220px",
-          ["padding" + padding]: padding ? "5px" : "0",
           ...style,
         }}
         {...getValidProps(props)}
