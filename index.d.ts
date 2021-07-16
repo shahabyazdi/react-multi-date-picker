@@ -1,6 +1,3 @@
-import { decl } from "postcss";
-import React from "react";
-
 declare module "react-multi-date-picker" {
   import React, { HTMLAttributes } from "react";
   import DateObject, { Calendar, Locale } from "react-date-object";
@@ -15,6 +12,9 @@ declare module "react-multi-date-picker" {
     | number[]
     | DateObject[]
     | null;
+
+  export type FunctionalPlugin = { type: string; fn: Function };
+  export type Plugin = React.ReactElement | FunctionalPlugin;
 
   interface CalendarProps {
     ref?: React.MutableRefObject<any>;
@@ -246,7 +246,7 @@ declare module "react-multi-date-picker" {
      *  ]}
      * />
      */
-    plugins?: React.ReactElement[];
+    plugins?: Plugin[];
     /**
      * In Multiple mode, use this Prop to sort the selected dates.
      *
@@ -602,7 +602,7 @@ declare module "react-multi-date-picker/plugins/toolbar" {
 }
 
 declare module "react-multi-date-picker/plugins/highlight_weekends" {
-  export default function highlightWeekends(weekends: number[]): {
+  export default function highlightWeekends(weekends?: number[]): {
     type: string;
     fn: Function;
   };
