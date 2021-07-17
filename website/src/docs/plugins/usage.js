@@ -38,7 +38,7 @@ export default function Example() {
   return (
     <DatePicker
       plugins={[
-        <ComponentPlugin />, myFavoriteFunctionalPlugin()
+        <MyFavoritePlugin />, myFavoriteFunctionalPlugin()
       ]}
     />
   )

@@ -481,8 +481,6 @@ function DatePicker(
 
     ref.current.selection = e.target.selectionStart;
 
-    ref.current.selection = e.target.selectionStart;
-
     let value = e.target.value,
       object = { year: 1, calendar, locale, format },
       digits =
