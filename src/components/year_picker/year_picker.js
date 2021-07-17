@@ -1,11 +1,10 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useMemo } from "react";
 import selectDate from "../../shared/selectDate";
 import toLocaleDigits from "../../shared/toLocaleDigits";
 import DateObject from "react-date-object";
 
 export default function YearPicker({
   state,
-  setState,
   onChange,
   sort,
   handleFocusedDate,
@@ -19,19 +18,18 @@ export default function YearPicker({
       onlyYearPicker,
       range,
       onlyShowInRangeDates,
+      year,
     } = state,
     mustShowYearPicker = state.mustShowYearPicker || onlyYearPicker,
     digits = date.digits;
 
-  const [years, maxYear] = useMemo(() => {
-    let yearArray = [],
-      year = today.year - 4,
-      maxYear = year + 11;
+  let minYear = today.year - 4;
 
-    while (state.year < year || state.year > maxYear) {
-      year += state.year < year ? -12 : 12;
-      maxYear = year + 11;
-    }
+  minYear = minYear - 12 * Math.ceil((minYear - year) / 12);
+
+  const years = useMemo(() => {
+    let years = [],
+      year = minYear;
 
     for (var i = 0; i < 4; i++) {
       let array = [];
@@ -41,17 +39,11 @@ export default function YearPicker({
         year++;
       }
 
-      yearArray.push(array);
+      years.push(array);
     }
 
-    return [yearArray, maxYear];
-  }, [state.year, today.year]);
-
-  useEffect(() => {
-    if (!mustShowYearPicker) return;
-
-    setState((state) => ({ ...state, maxYear }));
-  }, [maxYear, mustShowYearPicker, setState]);
+    return years;
+  }, [minYear]);
 
   return (
     <div
@@ -77,8 +69,7 @@ export default function YearPicker({
   );
 
   function selectYear(year) {
-    if (minDate && year < minDate.year) return;
-    if (maxDate && year > maxDate.year) return;
+    if (notInRange(year)) return;
 
     let date = new DateObject(state.date).setYear(year),
       { selectedDate, focused } = state;
@@ -101,7 +92,6 @@ export default function YearPicker({
       focused,
       selectedDate,
       mustShowYearPicker: false,
-      year: state.year,
     });
 
     if (onlyYearPicker) handleFocusedDate(focused, date);
@@ -111,8 +101,7 @@ export default function YearPicker({
     let names = ["rmdp-day"],
       { date, selectedDate } = state;
 
-    if (minDate && year < minDate.year) names.push("rmdp-disabled");
-    if (maxDate && year > maxDate.year) names.push("rmdp-disabled");
+    if (notInRange(year)) names.push("rmdp-disabled");
 
     if (names.includes("rmdp-disabled") && onlyShowInRangeDates) return;
     if (today.year === year) names.push("rmdp-today");
@@ -139,5 +128,9 @@ export default function YearPicker({
     }
 
     return names.join(" ");
+  }
+
+  function notInRange(year) {
+    return (minDate && year < minDate.year) || (maxDate && year > maxDate.year);
   }
 }

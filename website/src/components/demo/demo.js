@@ -5,6 +5,7 @@ import DatePanel from "../../../../plugins/date_panel";
 import TimePicker from "../../../../plugins/time_picker";
 import AnalogTimePicker from "../../../../plugins/analog_time_picker";
 import list from "./quick_access";
+import transition from "react-element-popper/animations/transition";
 import { Link } from "gatsby";
 import "./demo.css";
 
@@ -207,6 +208,7 @@ export default function Demo({ language = "en", translate }) {
         disabled={(!$timePicker && !$onlyTimePicker) || isFullYear}
       />,
     ],
+    animations: animation && [transition()],
   };
 
   const analogTimePicker = (

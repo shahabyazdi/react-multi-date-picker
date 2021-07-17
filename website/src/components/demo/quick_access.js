@@ -380,6 +380,38 @@ const list = [
     ],
   },
   {
+    name: "Animations",
+    path: "animations/",
+    list: [
+      {
+        name: "Transition",
+        path: "animations/#transition",
+      },
+      {
+        name: "Customizing Transition#1",
+        path: "animations/#customizing-transition#1",
+      },
+      {
+        name: "Customizing Transition#2",
+        path: "animations/#customizing-transition#2",
+      },
+      { name: "Opacity", path: "animations/#opacity" },
+      {
+        name: "Customizing Opacity",
+        path: "animations/#customizing-opacity",
+      },
+      { name: "Size", path: "animations/#size" },
+      {
+        name: "Opacity & Transition #1",
+        path: "animations/#opacity-&-transition-#1",
+      },
+      {
+        name: "Opacity & Transition #2",
+        path: "animations/#opacity-&-transition-#2",
+      },
+    ],
+  },
+  {
     name: "Custom Digits, Months & WeekDays",
     path: "locales/",
     list: [
@@ -694,10 +726,6 @@ const list = [
       {
         name: "Changing Start Day Of The Week",
         path: "other-examples/#changing-start-day-of-the-week",
-      },
-      {
-        name: "Animation",
-        path: "other-examples/#animation",
       },
       {
         name: "Other Days",

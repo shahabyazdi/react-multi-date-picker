@@ -147,14 +147,6 @@ export default function Example() {
     jsx: <DatePicker weekStartDayIndex={1} {...otherProps} />,
   };
 
-  const animation = {
-    title: "Animation",
-    code: `${localeImport}<DatePicker 
-  animation 
-/>`,
-    jsx: <DatePicker animation {...otherProps} />,
-  };
-
   const otherDays = {
     title: "Other Days",
     code: `${localeImport}<DatePicker 
@@ -330,7 +322,6 @@ export default function Example() {
     currentDate,
     customMonthYear,
     weekStartDayIndex,
-    animation,
     otherDays,
     scroll,
     fullYear,

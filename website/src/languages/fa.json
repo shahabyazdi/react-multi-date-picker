@@ -56,6 +56,7 @@
   "Left Center": "چپ وسط",
   "Left Bottom": "چپ پایین",
   "Animation": "انیمیشن",
+  "Animations": "انیمیشن ها",
   "ON": "روشن",
   "OFF": "خاموش",
   "Left": "چپ",
@@ -822,5 +823,13 @@
   "custom_calendar_7": "در نهایت با وارد کردن تقویم و لوکال شخصی سازی شده، این نتیجه حاصل میشه:",
   "Calendar & DatePicker": "Calendar و DatePicker",
   "calendarProps & datePickerProps": "calendarProps و datePickerProps",
-  "State Prop": "پراپرتی State"
+  "State Prop": "پراپرتی State",
+  "Transition": "انتقال",
+  "Opacity": "تیرگی",
+  "Size": "اندازه",
+  "Customizing Transition#1": "سفارشی کردن انتقال #1",
+  "Customizing Transition#2": "سفارشی کردن انتقال #2",
+  "Customizing Opacity": "سفارشی کردن تیرگی",
+  "Opacity & Transition #1": "انتقال و تیرگی #1",
+  "Opacity & Transition #2": "انتقال و تیرگی #2"
 }

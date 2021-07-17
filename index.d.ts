@@ -246,7 +246,8 @@ declare module "react-multi-date-picker" {
      *  ]}
      * />
      */
-    plugins?: Plugin[];
+    plugins?: (Plugin | Plugin[])[];
+
     /**
      * In Multiple mode, use this Prop to sort the selected dates.
      *
@@ -395,7 +396,7 @@ declare module "react-multi-date-picker" {
      * />
      */
     calendarPosition?: string;
-    animation?: boolean;
+    animations?: Function[];
     /**
      * This feature only affects on `input` in `single` mode
      */
@@ -506,7 +507,8 @@ declare module "react-multi-date-picker/plugins/date_picker_header" {
 }
 
 declare module "react-multi-date-picker/plugins/colors" {
-  import React, { HTMLAttributes } from "react";
+  import { HTMLAttributes } from "react";
+  import type { Plugin } from "react-multi-date-picker";
 
   interface ColorsProps
     extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
@@ -517,13 +519,7 @@ declare module "react-multi-date-picker/plugins/colors" {
     className?: string;
   }
 
-  export default function colors(object: ColorsProps): [
-    {
-      type: string;
-      fn: Function;
-    },
-    React.ReactElement
-  ];
+  export default function colors(object?: ColorsProps): Plugin[];
 }
 
 declare module "react-multi-date-picker/plugins/settings" {

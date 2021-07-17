@@ -25,7 +25,7 @@ export default function Header({
       minDate,
       maxDate,
       year,
-      maxYear,
+      today,
     } = state,
     isPreviousDisable =
       minDate &&
@@ -35,6 +35,10 @@ export default function Header({
       maxDate &&
       date.year >= maxDate.year &&
       maxDate.monthIndex < date.monthIndex + 1;
+
+  let maxYear = today.year + 7;
+
+  maxYear = maxYear - 12 * Math.floor((maxYear - year) / 12);
 
   if ((hideMonth || fullYear) && hideYear && !buttons) return null;
 
