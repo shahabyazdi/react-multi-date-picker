@@ -416,8 +416,8 @@ export default function Example() {
           <td>DatePicker</td>
         </tr>
         <tr>
-          <td>animation</td>
-          <td style="text-align:center">Boolean</td>
+          <td>animations</td>
+          <td style="text-align:center">Array</td>
           <td style="text-align:center">false</td>
           <td>DatePicker</td>
         </tr>

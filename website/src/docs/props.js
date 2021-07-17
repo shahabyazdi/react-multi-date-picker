@@ -272,8 +272,8 @@ export default function Doc({ translate, language }) {
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
-            <td>animation</td>
-            <td>Boolean</td>
+            <td>animations</td>
+            <td>Array</td>
             <td>false</td>
             <td>{translate("DatePicker")}</td>
           </tr>
