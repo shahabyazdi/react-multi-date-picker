@@ -3,7 +3,27 @@ import DatePicker, { DateObject } from "../../../build/index";
 import DatePanel from "../../../plugins/date_panel";
 import { Link } from "gatsby";
 
-export default function Events(translate, language, otherProps) {
+//gregorian calendar & locale
+import gregorian from "react-date-object/calendars/gregorian";
+import gregorian_en from "react-date-object/locales/gregorian_en";
+import gregorian_fa from "react-date-object/locales/gregorian_fa";
+
+//persian calendar & locale
+import persian from "react-date-object/calendars/persian";
+import persian_en from "react-date-object/locales/persian_en";
+import persian_fa from "react-date-object/locales/persian_fa";
+
+//arabic calendar & locale
+import arabic from "react-date-object/calendars/arabic";
+import arabic_en from "react-date-object/locales/arabic_en";
+import arabic_fa from "react-date-object/locales/arabic_fa";
+
+//indian calendar & locale
+import indian from "react-date-object/calendars/indian";
+import indian_en from "react-date-object/locales/indian_en";
+import indian_fa from "react-date-object/locales/indian_fa";
+
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const [state, setState] = useState({ format: "MM/DD/YYYY" });
   const [props, setProps] = useState({
     value: new Date(),
@@ -11,31 +31,24 @@ export default function Events(translate, language, otherProps) {
     onChange: (date) => console.log(date.format()),
     ...otherProps,
   });
-  const [dateObject, setDateObject] = useState(
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
-    })
-  );
-
-  const {
-    date,
-    format,
-    gregorian = "",
-    persian = "",
-    arabic = "",
-    indian = "",
-    jsDate = "",
-  } = state;
+  const [dateObject, setDateObject] = useState(new DateObject(otherProps));
 
   const convert = (date, format = state.format) => {
     let object = { date, format };
 
     setState({
-      gregorian: new DateObject(object).convert("gregorian").format(),
-      persian: new DateObject(object).convert("persian").format(),
-      arabic: new DateObject(object).convert("arabic").format(),
-      indian: new DateObject(object).convert("indian").format(),
+      gregorian: new DateObject(object)
+        .convert(gregorian, language === "en" ? gregorian_en : gregorian_fa)
+        .format(),
+      persian: new DateObject(object)
+        .convert(persian, language === "en" ? persian_en : persian_fa)
+        .format(),
+      arabic: new DateObject(object)
+        .convert(arabic, language === "en" ? arabic_en : arabic_fa)
+        .format(),
+      indian: new DateObject(object)
+        .convert(indian, language === "en" ? indian_en : indian_fa)
+        .format(),
       jsDate: date.toDate(),
       ...object,
     });
@@ -49,6 +62,7 @@ export default function Events(translate, language, otherProps) {
   const [shouldOpenCalendar, setShouldOpenCalendar] = useState(false);
   const [dates, setDates] = useState({});
   const [value, setValue] = useState();
+  const [value1, setValue1] = useState();
 
   function updateValue({ year, month }) {
     setValue(
@@ -63,30 +77,77 @@ export default function Events(translate, language, otherProps) {
   const onChangeSingle = {
     title: "onChange (single mode)",
     description: "on_change",
-    code: `const [state, setState] = useState({ format: "MM/DD/YYYY" })
+    code: `import { useState } from "react"
+import DatePicker from "react-multi-date-picker"
+${
+  language === "en"
+    ? ""
+    : `import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+`
+}
+export default function Example() {
+  const [value, setValue] = useState()
+  
+  return (
+    <>
+      <DatePicker
+        value={value}
+        onChange={setValue}
+      ${
+        language === "en"
+          ? "/>"
+          : `  calendar={persian}
+        locale={persian_fa}
+        calendarPosition="bottom-right"
+      />`
+      }
+      {value?.toDate?.().toString()}
+    </>
+  )
+}`,
+    jsx: (
+      <>
+        <DatePicker value={value1} onChange={setValue1} {...otherProps} />
+        {value1?.toDate?.().toString?.()}
+      </>
+    ),
+  };
 
-const {
-  date,
-  format,
-  gregorian = "",
-  persian = "",
-  arabic = "",
-  indian = "",
-  jsDate = ""
-} = state
+  const onChangeConvert = {
+    title: "onChange (Converting Selected Date To All Calendars)",
+    code: `//gregorian calendar & locale
+import gregorian from "react-date-object/calendars/gregorian";
+import gregorian_${language} from "react-date-object/locales/gregorian_${language}";
+
+//persian calendar & locale
+import persian from "react-date-object/calendars/persian";
+import persian_${language} from "react-date-object/locales/persian_${language}";
+
+//arabic calendar & locale
+import arabic from "react-date-object/calendars/arabic";
+import arabic_${language} from "react-date-object/locales/arabic_${language}";
+
+//indian calendar & locale
+import indian from "react-date-object/calendars/indian";
+import indian_${language} from "react-date-object/locales/indian_${language}";
+.
+.
+.
+const [state, setState] = useState({ format: "MM/DD/YYYY" })
   
 const convert = (date, format = state.format) => {
   let object = { date, format }
   
   setState({
     gregorian: new DateObject(object)${
-      language === "en" ? "" : `.convert("gregorian")`
+      language === "en" ? "" : `.convert(gregorian, gregorian_${language})`
     }.format(),
     persian: new DateObject(object)${
-      language === "en" ? `.convert("persian")` : ""
+      language === "en" ? `.convert(persian, persian_${language})` : ""
     }.format(),
-    arabic: new DateObject(object).convert("arabic").format(),
-    indian: new DateObject(object).convert("indian").format(),
+    arabic: new DateObject(object).convert(arabic, arabic_${language}).format(),
+    indian: new DateObject(object).convert(indian, indian_${language}).format(),
     jsDate: date.toDate(),
     ...object
   })
@@ -100,22 +161,22 @@ return(
       <div>
         <Span>${translate("click to select")}: </Span>
         <DatePicker
-          value={date}
+          value={state.date}
           onChange={convert}
         ${
           language === "en"
             ? "/>"
-            : `  calendar="persian"
-          locale="fa"
-          calendarPosition="auto-right"
+            : `  calendar={persian}
+          locale={persian_fa}
+          calendarPosition="bottom-right"
         />`
         }
       </div>
       <div>
         <Span>${translate("format")}: </Span>
         <select
-          value={format}
-          onChange={e => convert(date, e.target.value)}
+          value={state.format}
+          onChange={e => convert(state.date, e.target.value)}
           className="select"
         >
           <option>MM/DD/YYYY</option>
@@ -129,23 +190,23 @@ return(
       </div>
       <div>
         <Span>${translate("gregorian")}: </Span>
-        <span>{gregorian}</span>
+        <span>{state.gregorian}</span>
       </div>
       <div>
         <Span>${translate("persian")}: </Span>
-        <span>{persian}</span>
+        <span>{state.persian}</span>
       </div>
       <div>
         <Span>${translate("arabic")}: </Span>
-        <span>{arabic}</span>
+        <span>{state.arabic}</span>
       </div>
       <div>
         <Span>${translate("indian")}: </Span>
-        <span>{indian}</span>
+        <span>{state.indian}</span>
       </div>
       <div>
         <Span>${translate("javascript date")}: </Span>
-        <span>{jsDate.toString()}</span>
+        <span>{state.jsDate?.toString?.()}</span>
       </div>
     </div>
   </div>
@@ -156,13 +217,13 @@ return(
         <div>
           <div>
             <Span>{translate("click to select")}: </Span>
-            <DatePicker value={date} onChange={convert} {...otherProps} />
+            <DatePicker value={state.date} onChange={convert} {...otherProps} />
           </div>
           <div>
             <Span>{translate("format")}: </Span>
             <select
-              value={format}
-              onChange={(e) => convert(date, e.target.value)}
+              value={state.format}
+              onChange={(e) => convert(state.date, e.target.value)}
               className="select"
               onBlur={() => {}}
             >
@@ -177,23 +238,23 @@ return(
           </div>
           <div>
             <Span>{translate("gregorian")}: </Span>
-            <span>{gregorian}</span>
+            <span>{state.gregorian}</span>
           </div>
           <div>
             <Span>{translate("persian")}: </Span>
-            <span>{persian}</span>
+            <span>{state.persian}</span>
           </div>
           <div>
             <Span>{translate("arabic")}: </Span>
-            <span>{arabic}</span>
+            <span>{state.arabic}</span>
           </div>
           <div>
             <Span>{translate("indian")}: </Span>
-            <span>{indian}</span>
+            <span>{state.indian}</span>
           </div>
           <div>
             <Span>{translate("javascript date")}: </Span>
-            <span>{jsDate.toString()}</span>
+            <span>{state.jsDate?.toString?.()}</span>
           </div>
         </div>
       </div>
@@ -202,7 +263,7 @@ return(
 
   const onChangeMultiple = {
     title: "onChange (multiple mode)",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   multiple
   onChange={array => { //${translate("Array of Dateobjecs")}
     alert("${translate("selected dates")} :\\n" + array.join(",\\n"))
@@ -222,7 +283,7 @@ return(
   const onOpen = {
     title: "OnOpen",
     description: "on_open",
-    code: `const [shouldOpenCalendar, setShouldOpenCalendar] = useState(false)
+    code: `${localeImport}const [shouldOpenCalendar, setShouldOpenCalendar] = useState(false)
 .
 .
 .
@@ -232,9 +293,9 @@ return(
   ${
     language === "en"
       ? "/>"
-      : `  calendar="persian"
-    locale="fa"
-    calendarPosition="auto-right"
+      : `  calendar={persian}
+    locale={persian_fa}
+    calendarPosition="bottom-right"
   />`
   }
   <label>
@@ -263,7 +324,7 @@ return(
 
   const onClose = {
     title: "OnClose",
-    code: `const [shouldCloseCalendar, setShouldCloseCalendar] = useState(false)
+    code: `${localeImport}const [shouldCloseCalendar, setShouldCloseCalendar] = useState(false)
 .
 .
 .
@@ -273,9 +334,9 @@ return(
   ${
     language === "en"
       ? "/>"
-      : `  calendar="persian"
-    locale="fa"
-    calendarPosition="auto-right"
+      : `  calendar={persian}
+    locale={persian_fa}
+    calendarPosition="bottom-right"
   />`
   }
   <label>
@@ -305,7 +366,7 @@ return(
   const onPositionChange = {
     title: "onPositionChange",
     description: "on_position_change",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   onPositionChange={data => console.log(data)}
 />`,
     jsx: (
@@ -319,15 +380,15 @@ return(
   const onPropsChange = {
     title: "onPropsChange",
     description: "on_props_change",
-    code: `const [props, setProps] = useState({ 
+    code: `${localeImport}const [props, setProps] = useState({ 
   value: new Date(),
   format: "MM-DD-YYYY",
   onChange: (date) => console.log(date.format()),${
     language === "en"
       ? ""
       : `
-  calendar: "persian",
-  locale: "fa",
+  calendar: persian,
+  locale: persian_fa,
   calendarPosition: "bottom-right"`
   }
 });
@@ -346,15 +407,21 @@ return(
     description: "on_month_change",
     code: `import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
-
+${
+  language === "en"
+    ? ""
+    : `import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+`
+}
 export default function Example() {
   const [dateObject, setDateObject] = useState(
     new DateObject(${
       language === "en"
         ? ""
         : `{
-      calendar: "persian",
-      locale: "fa"
+      calendar: persian,
+      locale: persian_fa
     }`
     })
   );
@@ -364,7 +431,14 @@ export default function Example() {
       <DatePicker
         onMonthChange={(date) => setDateObject(new DateObject(date))}
         onChange={(date) => setDateObject(new DateObject(date))}
-        currentDate={dateObject}
+        currentDate={dateObject}${
+          language === "en"
+            ? ""
+            : `
+        calendar={persian}
+        locale={persian_fa}
+        calendarPosition="bottom-right"`
+        }
       />
       <p>${
         language === "en" ? "Selected Month" : "نام ماه انتخاب شده"
@@ -393,7 +467,13 @@ export default function Example() {
     description: "on_year_change",
     code: `import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
-
+${
+  language === "en"
+    ? ""
+    : `import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+`
+}
 export default function Example() {
   const [value, setValue] = useState();
 
@@ -402,7 +482,14 @@ export default function Example() {
       value={value}
       onChange={setValue}
       onYearChange={updateValue}
-      onMonthChange={updateValue}
+      onMonthChange={updateValue}${
+        language === "en"
+          ? ""
+          : `
+      calendar={persian}
+      locale={persian_fa}
+      calendarPosition="bottom-right"`
+      }
     />
   )
 
@@ -500,10 +587,14 @@ export default function Example() {
     code: `import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
+${localeImport}${
+      language === "en"
+        ? `.
 .
 .
-.
-const [state, setState] = useState({});
+`
+        : ""
+    }const [state, setState] = useState({});
 .
 .
 .
@@ -518,8 +609,8 @@ const [state, setState] = useState({});
     ${
       language === "en"
         ? ""
-        : `calendar="persian"
-    locale="fa"
+        : `calendar={persian}
+    locale={persian_fa}
     calendarPosition="bottom-left"`
     }
   />
@@ -569,6 +660,7 @@ const [state, setState] = useState({});
 
   return [
     onChangeSingle,
+    onChangeConvert,
     onChangeMultiple,
     onOpen,
     onClose,

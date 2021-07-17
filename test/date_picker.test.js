@@ -1,12 +1,13 @@
-/**
- * @jest-environment jsdom
- */
-
 import React from "react";
 import DatePicker from "../build";
 import DateObject from "react-date-object";
+import persian from "react-date-object/calendars/persian";
+import arabic from "react-date-object/calendars/arabic";
+import indian from "react-date-object/calendars/indian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import arabic_ar from "react-date-object/locales/arabic_ar";
+import indian_hi from "react-date-object/locales/indian_hi";
 import { render, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 function renderDatePicker(props = {}) {
   const { container, ...object } = render(<DatePicker {...props} />);
@@ -157,21 +158,23 @@ describe("events", () => {
   test("onChange in single-mode", () => {
     const onChange = jest.fn();
     const { input, openCalendar, getByText } = renderDatePicker({ onChange });
+    const date = new DateObject();
 
     openCalendar();
 
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(input.value).toEqual(new DateObject().format());
+    expect(input.value).toEqual(date.format());
 
     openCalendar();
 
-    const tomorrow = new DateObject().add(1, "day");
-    const day = getByText(tomorrow.day);
+    date.add(date.day === date.month.length ? -1 : 1, "day");
+
+    const day = getByText(date.day);
 
     fireEvent.click(day);
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(input.value).toEqual(tomorrow.format());
+    expect(input.value).toEqual(date.format());
   });
 
   test("onChange in multiple-mode", () => {
@@ -313,19 +316,20 @@ describe("events", () => {
     const { input, openCalendar, getByText } = renderDatePicker({
       onPropsChange,
     });
+    const date = new DateObject();
 
     openCalendar();
 
     expect(onPropsChange).toHaveBeenCalledTimes(1);
-    expect(input.value).toEqual(new DateObject().format());
+    expect(input.value).toEqual(date.format());
 
-    const tomorrow = new DateObject().add(1, "day");
-    const day = getByText(tomorrow.day);
+    date.add(date.day === date.month.length ? -1 : 1, "day");
+    const day = getByText(date.day);
 
     fireEvent.click(day);
 
     expect(onPropsChange).toHaveBeenCalledTimes(2);
-    expect(input.value).toEqual(tomorrow.format());
+    expect(input.value).toEqual(date.format());
   });
 
   test("onMonthChange", () => {
@@ -534,18 +538,19 @@ describe("initial value", () => {
 
 describe("other calendars & locales", () => {
   [
-    { calendar: "persian", locale: "fa" },
-    { calendar: "arabic", locale: "ar" },
-    { calendar: "indian", locale: "hi" },
-  ].forEach((props) => {
-    test(`calendar:${props.calendar}, locale:${props.locale}`, () => {
-      const value = new DateObject(props);
+    { calendar: persian, locale: persian_fa },
+    { calendar: arabic, locale: arabic_ar },
+    { calendar: indian, locale: indian_hi },
+  ].forEach(({ calendar, locale }) => {
+    test(`calendar:${calendar.name}, locale:${locale.name}`, () => {
+      const value = new DateObject({ calendar, locale });
       const onChange = jest.fn();
 
       const { input, openCalendar, getByText } = renderDatePicker({
         value,
         onChange,
-        ...props,
+        calendar,
+        locale,
       });
 
       expect(input.value).toEqual(value.format());
@@ -562,8 +567,8 @@ describe("other calendars & locales", () => {
 
       const date = onChange.mock.calls[0][0];
 
-      expect(date.calendar).toEqual(props.calendar);
-      expect(date.locale).toEqual(props.locale);
+      expect(date.calendar.name).toEqual(calendar.name);
+      expect(date.locale.name).toEqual(locale.name);
       expect(JSON.stringify(date)).toEqual(JSON.stringify(value));
     });
   });

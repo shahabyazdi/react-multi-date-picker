@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Props(translate, language) {
+export default function Doc({ translate, language }) {
   const table = {
     description: (
       <table>
@@ -33,18 +33,6 @@ export default function Props(translate, language) {
           </tr>
           <tr>
             <td>range</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td>{translate("both")}</td>
-          </tr>
-          <tr style={{ color: "red" }}>
-            <td>timePicker (deprecated)</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td>{translate("both")}</td>
-          </tr>
-          <tr style={{ color: "red" }}>
-            <td>onlyTimePicker (deprecated)</td>
             <td>Boolean</td>
             <td>false</td>
             <td>{translate("both")}</td>
@@ -260,6 +248,12 @@ export default function Props(translate, language) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
+            <td>fullYear</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
             <td>arrow</td>
             <td>Boolean {translate("or")} React.ReactElement</td>
             <td>true</td>
@@ -278,8 +272,8 @@ export default function Props(translate, language) {
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
-            <td>animation</td>
-            <td>Boolean</td>
+            <td>animations</td>
+            <td>Array</td>
             <td>false</td>
             <td>{translate("DatePicker")}</td>
           </tr>
@@ -317,12 +311,6 @@ export default function Props(translate, language) {
             <td>style</td>
             <td>Object</td>
             <td>{"{}"}</td>
-            <td>{translate("DatePicker")}</td>
-          </tr>
-          <tr>
-            <td>type</td>
-            <td>String</td>
-            <td>input</td>
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>

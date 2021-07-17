@@ -1,6 +1,6 @@
 declare module "react-multi-date-picker" {
   import React, { HTMLAttributes } from "react";
-  import DateObject from "react-date-object";
+  import DateObject, { Calendar, Locale } from "react-date-object";
 
   export type Value =
     | Date
@@ -13,6 +13,9 @@ declare module "react-multi-date-picker" {
     | DateObject[]
     | null;
 
+  export type FunctionalPlugin = { type: string; fn: Function };
+  export type Plugin = React.ReactElement | FunctionalPlugin;
+
   interface CalendarProps {
     ref?: React.MutableRefObject<any>;
     /**
@@ -24,6 +27,11 @@ declare module "react-multi-date-picker" {
      */
     value?: Value;
     /**
+     * default calendar is gregorian.
+     *
+     * if you want to use other calendars instead of gregorian,
+     * you must import it from "react-date-object"
+     *
      * Availble calendars:
      *
      *   - gregorian
@@ -32,25 +40,46 @@ declare module "react-multi-date-picker" {
      *   - indian
      *
      * @example
-     * <Calendar calendar="persian" />
+     * import persian from "react-date-object/calendars/persian"
+     * <Calendar calendar={persian} />
      *
-     * <DatePicker calendar="indian" />
+     * import indian from "react-date-object/calendars/indian"
+     * <DatePicker calendar={indian} />
      */
-    calendar?: string;
+    calendar?: Calendar;
     /**
+     * default locale is gregorian_en.
+     *
+     * if you want to use other locales instead of gregorian_en,
+     * you must import it from "react-date-object"
+     *
      * Availble locales:
      *
-     *  - en `english`
-     *  - fa `farsi`
-     *  - ar `arabic`
-     *  - hi `hindi`
+     *  - gregorian_en
+     *  - gregorian_fa
+     *  - gregorian_ar
+     *  - gregorian_hi
+     *  - persian_en
+     *  - persian_fa
+     *  - persian_ar
+     *  - persian_hi
+     *  - arabic_en
+     *  - arabic_fa
+     *  - arabic_ar
+     *  - arabic_hi
+     *  - indian_en
+     *  - indian_fa
+     *  - indian_ar
+     *  - indian_hi
      *
      * @example
-     * <Calendar locale="fa" />
+     * import gregorian_fa from "react-date-object/locales/gregorian_fa"
+     * <Calendar locale={gregorian_fa} />
      *
-     * <DatePicker locale="ar" />
+     * import gregorian_ar from "react-date-object/locales/gregorian_ar"
+     * <DatePicker locale={gregorian_ar} />
      */
-    locale?: string;
+    locale?: Locale;
     /**
      * @type string
      * @default "YYYY/MM/DD"
@@ -217,7 +246,8 @@ declare module "react-multi-date-picker" {
      *  ]}
      * />
      */
-    plugins?: React.ReactElement[];
+    plugins?: (Plugin | Plugin[])[];
+
     /**
      * In Multiple mode, use this Prop to sort the selected dates.
      *
@@ -268,32 +298,33 @@ declare module "react-multi-date-picker" {
     hideYear?: boolean;
     hideWeekDays?: boolean;
     shadow?: boolean;
+    fullYear?: boolean;
   }
 
   interface DatePickerProps {
     arrow?: boolean | React.ReactElement;
-    /**
-     * Input name.
-     * This feature does not work in custom type.
-     */
     arrowClassName?: string;
     arrowStyle?: React.CSSProperties;
-    name?: string;
     /**
-     * Input placeholder.
-     * This feature does not work in custom type.
+     * Input name.
+     * This feature does not work if you render custom input.
      */
+    name?: string;
     id?: string;
     title?: string;
     required?: boolean;
+    /**
+     * Input placeholder.
+     * This feature does not work if you render custom input.
+     */
     placeholder?: string;
     /**
      * Input style.
-     * This feature does not work in custom type.
+     * This feature does not work if you render custom input.
      */
     style?: React.CSSProperties;
     /**
-     * This feature does not work in custom type.
+     * This feature does not work if you render custom input.
      *
      * You can also use this prop for button and icon type.
      *
@@ -307,23 +338,10 @@ declare module "react-multi-date-picker" {
      */
     inputClass?: string;
     /**
-     * This feature does not work in custom type.
+     * This feature does not work if you render custom input.
      */
     disabled?: boolean;
     /**
-     * Availble types:
-     *
-     *   - input
-     *   - input-icon
-     *   - icon
-     *   - button
-     *   - custom
-     *
-     * @default "input"
-     */
-    type?: string;
-    /**
-     * This feature only works in custom type.
      * @example
      * <DatePicker
      *   type="custom"
@@ -378,7 +396,7 @@ declare module "react-multi-date-picker" {
      * />
      */
     calendarPosition?: string;
-    animation?: boolean;
+    animations?: Function[];
     /**
      * This feature only affects on `input` in `single` mode
      */
@@ -441,7 +459,7 @@ declare module "react-multi-date-picker" {
     range: DateObject[],
     toDate?: boolean
   ): DateObject[] | Date[];
-  export function toDateObject(date: Date, calendar?: string): DateObject;
+  export function toDateObject(date: Date, calendar?: Calendar): DateObject;
   export default function DatePicker(
     props: CalendarProps & DatePickerProps
   ): React.ReactElement;
@@ -471,14 +489,15 @@ declare module "react-multi-date-picker/plugins/date_panel" {
 
 declare module "react-multi-date-picker/plugins/date_picker_header" {
   import React, { HTMLAttributes } from "react";
+  import type { Calendar, Locale } from "react-date-object";
 
   interface DatePickerHeaderProps
     extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     position?: string;
     disabled?: boolean;
     size?: string;
-    calendar?: string;
-    locale?: string;
+    calendar?: Calendar;
+    locale?: Locale;
     className?: string;
   }
 
@@ -487,10 +506,11 @@ declare module "react-multi-date-picker/plugins/date_picker_header" {
   ): React.ReactElement;
 }
 
-declare module "react-multi-date-picker/plugins/multi_colors" {
-  import React, { HTMLAttributes } from "react";
+declare module "react-multi-date-picker/plugins/colors" {
+  import { HTMLAttributes } from "react";
+  import type { Plugin } from "react-multi-date-picker";
 
-  interface MultiColorsProps
+  interface ColorsProps
     extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     position?: string;
     disabled?: boolean;
@@ -499,9 +519,7 @@ declare module "react-multi-date-picker/plugins/multi_colors" {
     className?: string;
   }
 
-  export default function MultiColors(
-    props: MultiColorsProps
-  ): React.ReactElement;
+  export default function colors(object?: ColorsProps): Plugin[];
 }
 
 declare module "react-multi-date-picker/plugins/settings" {
@@ -579,16 +597,11 @@ declare module "react-multi-date-picker/plugins/toolbar" {
   export default function Toolbar(props: ToolbarProps): React.ReactElement;
 }
 
-declare module "react-multi-date-picker/plugins/weekends" {
-  import React from "react";
-
-  interface WeekendsProps {
-    position?: string;
-    disabled?: boolean;
-    weekends?: number[];
-  }
-
-  export default function Weekends(props: WeekendsProps): React.ReactElement;
+declare module "react-multi-date-picker/plugins/highlight_weekends" {
+  export default function highlightWeekends(weekends?: number[]): {
+    type: string;
+    fn: Function;
+  };
 }
 
 declare module "react-multi-date-picker/plugins/time_picker" {
@@ -599,9 +612,83 @@ declare module "react-multi-date-picker/plugins/time_picker" {
     position?: string;
     disabled?: boolean;
     hideSeconds?: boolean;
+    /**
+     * If the calendar is in multiple or range mode,
+     * and the time picker position is right or left,
+     * a select with the default format (YYYY/MM/DD)
+     * will be added to the time picker.
+     * So, you can change the format of the select with this prop.
+     */
+    format?: string;
   }
 
   export default function TimePicker(
     props: TimePickerProps
+  ): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/analog_time_picker" {
+  import React from "react";
+
+  interface TimePickerProps {
+    position?: string;
+    disabled?: boolean;
+    hideSeconds?: boolean;
+    /**
+     * If the calendar is in multiple or range mode,
+     * and the time picker position is right or left,
+     * a select with the default format (YYYY/MM/DD)
+     * will be added to the time picker.
+     * So, you can change the format of the select with this prop.
+     */
+    format?: string;
+  }
+
+  export default function AnalogTimePicker(
+    props: TimePickerProps
+  ): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/plugins/range_picker_footer" {
+  import React from "react";
+
+  interface FooterProps {
+    position?: string;
+    disabled?: boolean;
+    format?: string;
+    names?: {
+      selectedDates: string;
+      from: string;
+      to: string;
+      selectDate: string;
+      close: string;
+      separator: string;
+    };
+  }
+
+  export default function Footer(props: FooterProps): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/components/button" {
+  import React, { HTMLAttributes } from "react";
+
+  export default function Buttons(
+    props: HTMLAttributes<HTMLButtonElement>
+  ): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/components/input_icon" {
+  import React, { HTMLAttributes } from "react";
+
+  export default function InputIcon(
+    props: HTMLAttributes<HTMLInputElement>
+  ): React.ReactElement;
+}
+
+declare module "react-multi-date-picker/components/icon" {
+  import React, { SVGAttributes } from "react";
+
+  export default function Icon(
+    props: SVGAttributes<SVGElement>
   ): React.ReactElement;
 }

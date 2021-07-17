@@ -9,6 +9,8 @@ import Arrow from "../arrow/arrow";
 import english from "../../languages/en.json";
 import farsi from "../../languages/fa.json";
 import useClickOutSide from "./useClickOutside";
+import persian from "react-date-object/calendars/persian";
+import fa from "react-date-object/locales/persian_fa";
 
 import "./layout.css";
 
@@ -37,12 +39,12 @@ const sidebar = {
   default: [
     { name: "Home", path: "" },
     { name: "Installation & Usage", path: "installation/" },
+    { name: "Calendars & Locales", path: "calendars/" },
     { name: "TypeScript", path: "typescript/" },
     { name: "React Hook Form", path: "react-hook-form/" },
+    { name: "DateObject", path: "date-object/" },
     { name: "Props", path: "props/" },
     { name: "Formatting Tokens", path: "format-tokens/" },
-    { name: "Calendars & Locales", path: "calendars/" },
-    { name: "DateObject", path: "date-object/" },
     { name: "Component with Children", path: "children/" },
     { name: "Multiple Mode", path: "multiple/" },
     { name: "Range Mode", path: "range/" },
@@ -50,6 +52,7 @@ const sidebar = {
     { name: "Multiple Months", path: "multiple-months/" },
     { name: "Min & Max Date", path: "min-&-max-date/" },
     { name: "Events", path: "events/" },
+    { name: "Animations", path: "animations/" },
     { name: "Custom Digits, Months & WeekDays", path: "locales/" },
     { name: "Types & Custom Input", path: "types/" },
     { name: "Customizing Calendar Days", path: "map-days/" },
@@ -145,18 +148,28 @@ export default function Layout({ language, doc, section }) {
     const codeEnd =
       language === "en"
         ? "/>"
-        : `  calendar="persian"
-  locale="fa"
-  calendarPosition="auto-right"
+        : `  calendar={persian}
+  locale={persian_fa}
+  calendarPosition="bottom-right"
 />`;
 
+    const localeImport =
+      language === "en"
+        ? ``
+        : `import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+.
+.
+.
+`;
+
     const otherProps = {
-      calendar: language === "fa" ? "persian" : "gregorian",
-      locale: language === "fa" ? "fa" : "en",
+      calendar: language === "fa" ? persian : undefined,
+      locale: language === "fa" ? fa : undefined,
       calendarPosition: language === "fa" ? "bottom-right" : undefined,
     };
 
-    doc = doc(translate, language, otherProps, codeEnd, Code);
+    doc = doc({ translate, language, otherProps, codeEnd, Code, localeImport });
 
     return doc.map(
       ({ title = "", description = "", code = "", jsx }, index) => {

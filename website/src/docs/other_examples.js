@@ -2,13 +2,8 @@ import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
 import TimePicker from "../../../plugins/time_picker";
 
-export default function OtherExamples(translate, language, otherProps) {
-  const [date, setDate] = useState(
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
-    })
-  );
+export default function Doc({ language, otherProps, localeImport }) {
+  const [date, setDate] = useState(new DateObject(otherProps));
 
   function update(key, value) {
     date[key] += value;
@@ -38,13 +33,13 @@ export default function OtherExamples(translate, language, otherProps) {
         </p>
       </>
     ),
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   currentDate={
     new DateObject({${
       language === "en"
         ? ""
         : `
-      calendar: "persian", `
+      calendar: persian, `
     } 
       year: ${language === "en" ? 2021 : 1399},
       month: ${language === "en" ? "2" : "12"},
@@ -56,11 +51,11 @@ export default function OtherExamples(translate, language, otherProps) {
       <DatePicker
         currentDate={
           new DateObject({
-            calendar: language === "en" ? "gregorian" : "persian",
+            calendar: otherProps.calendar,
+            locale: otherProps.locale,
             year: language === "en" ? 2021 : 1399,
             month: language === "en" ? 2 : 12,
             day: 1,
-            locale: language,
           })
         }
         {...otherProps}
@@ -72,11 +67,17 @@ export default function OtherExamples(translate, language, otherProps) {
     title: "Manually Set Year And Month In DatePicker",
     code: `import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
-
+${
+  language === "en"
+    ? ""
+    : `import persian from "react-date-object/calendars/persian:
+import persian_fa from "react-date-object/locales/persian_fa"
+`
+}
 export default function Example() {
   const [date, setDate] = useState(
     new DateObject(${
-      language === "en" ? "" : `{ calendar: "persian", locale: "fa" }`
+      language === "en" ? "" : `{ calendar: persian, locale: persian_fa }`
     }),
   );
 
@@ -110,8 +111,8 @@ export default function Example() {
       ${
         language === "en"
           ? "/>"
-          : `  calendar="persian" 
-        locale="fa" 
+          : `  calendar={persian}
+        locale={persian_fa}
       />`
       }
     </div>
@@ -140,23 +141,15 @@ export default function Example() {
   const weekStartDayIndex = {
     title: "Changing Start Day Of The Week",
     description: "start_day",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   weekStartDayIndex={1} 
 />`,
     jsx: <DatePicker weekStartDayIndex={1} {...otherProps} />,
   };
 
-  const animation = {
-    title: "Animation",
-    code: `<DatePicker 
-  animation 
-/>`,
-    jsx: <DatePicker animation {...otherProps} />,
-  };
-
   const otherDays = {
     title: "Other Days",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   showOtherDays 
 />`,
     jsx: <DatePicker showOtherDays {...otherProps} />,
@@ -165,15 +158,23 @@ export default function Example() {
   const scroll = {
     title: "Disabling Scroll Sensitivity",
     description: "disable_scroll",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   scrollSensitive={false} 
 />`,
     jsx: <DatePicker scrollSensitive={false} {...otherProps} />,
   };
 
+  const fullYear = {
+    title: "Full Year View",
+    code: `${localeImport}<Calendar 
+  fullYear 
+/>`,
+    jsx: <Calendar fullYear {...otherProps} />,
+  };
+
   const hide = {
     title: "Hide On Scroll",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   hideOnScroll 
 />`,
     jsx: <DatePicker hideOnScroll {...otherProps} />,
@@ -181,7 +182,7 @@ export default function Example() {
 
   const format = {
     title: "Ignore Formatting",
-    code: `<DatePickers
+    code: `${localeImport}<DatePickers
   format="Date:YYYY/MM/DD, Time:HH:mm:ss"
   formattingIgnoreList={["Date", "Time"]}
   plugins={[
@@ -200,7 +201,7 @@ export default function Example() {
 
   const virtualKeyboard = {
     title: "Disable Virtual Keyboard",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   inputMode="none"
 />`,
     jsx: <DatePicker inputMode="none" {...otherProps} />,
@@ -209,7 +210,7 @@ export default function Example() {
   const editing = {
     title: "Disable Editing",
     description: "disable_edit",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   editable={false}
 />`,
     jsx: <DatePicker editable={false} {...otherProps} />,
@@ -217,7 +218,7 @@ export default function Example() {
 
   const placeholder = {
     title: "Placeholder",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   placeholder="click to open"
 />`,
     jsx: <DatePicker placeholder="click to open" {...otherProps} />,
@@ -225,7 +226,7 @@ export default function Example() {
 
   const yearPicker = {
     title: "Disable Year Picker",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   disableYearPicker 
 />`,
     jsx: <DatePicker disableYearPicker {...otherProps} />,
@@ -233,7 +234,7 @@ export default function Example() {
 
   const monthPicker = {
     title: "Disable Month Picker",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   disableMonthPicker 
 />`,
     jsx: <DatePicker disableMonthPicker mind {...otherProps} />,
@@ -241,7 +242,7 @@ export default function Example() {
 
   const hideMonth = {
     title: "Hiding Month From Header",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   hideMonth 
 />`,
     jsx: <DatePicker hideMonth {...otherProps} />,
@@ -249,7 +250,7 @@ export default function Example() {
 
   const hideYear = {
     title: "Hiding Year From Header",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   hideYear 
 />`,
     jsx: <DatePicker hideYear {...otherProps} />,
@@ -257,7 +258,7 @@ export default function Example() {
 
   const hideWeekDays = {
     title: "Hiding Week Days",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   hideWeekDays 
 />`,
     jsx: <DatePicker hideWeekDays {...otherProps} />,
@@ -266,13 +267,13 @@ export default function Example() {
   const readOnly = {
     title: "Read Only Calendar",
     description: "read_only_calendar",
-    code: `<Calendar
+    code: `${localeImport}<Calendar
   value={[
     new DateObject(${
-      language === "en" ? "" : `{ calendar: "persian" }`
+      language === "en" ? "" : `{ calendar: persian }`
     }).toFirstOfWeek(),
     new DateObject(${
-      language === "en" ? "" : `{ calendar: "persian" }`
+      language === "en" ? "" : `{ calendar: persian }`
     }).toLastOfWeek(),
   ]}
   range
@@ -281,12 +282,8 @@ export default function Example() {
     jsx: (
       <Calendar
         value={[
-          new DateObject({
-            calendar: language === "en" ? "gregorian" : "persian",
-          }).toFirstOfWeek(),
-          new DateObject({
-            calendar: language === "en" ? "gregorian" : "persian",
-          }).toLastOfWeek(),
+          new DateObject(otherProps).toFirstOfWeek(),
+          new DateObject(otherProps).toLastOfWeek(),
         ]}
         range
         readOnly
@@ -297,7 +294,7 @@ export default function Example() {
 
   const readOnlyDatePicker = {
     title: "Read Only DatePicker",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   value={new Date()} 
   readOnly
 />`,
@@ -306,7 +303,7 @@ export default function Example() {
 
   const disabled = {
     title: "Disabled Calendar",
-    code: `<Calendar 
+    code: `${localeImport}<Calendar 
   value={new DateObject()} 
   disabled 
 />`,
@@ -315,36 +312,19 @@ export default function Example() {
 
   const disabledInput = {
     title: "Disabled Input",
-    code: `<DatePicker 
+    code: `${localeImport}<DatePicker 
   disabled 
 />`,
     jsx: <DatePicker disabled {...otherProps} />,
-  };
-
-  const disabledButton = {
-    title: "Disabled Button",
-    code: `<DatePicker
-  type="button"
-  placeholder="this button is disabled"
-  disabled
-/>`,
-    jsx: (
-      <DatePicker
-        type="button"
-        placeholder="this button is disabled"
-        disabled
-        {...otherProps}
-      />
-    ),
   };
 
   return [
     currentDate,
     customMonthYear,
     weekStartDayIndex,
-    animation,
     otherDays,
     scroll,
+    fullYear,
     hide,
     format,
     virtualKeyboard,
@@ -359,6 +339,5 @@ export default function Example() {
     readOnly,
     disabled,
     disabledInput,
-    disabledButton,
   ];
 }

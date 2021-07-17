@@ -1,12 +1,7 @@
-/**
- * @jest-environment jsdom
- */
-
 import React from "react";
 import { Calendar } from "../build";
 import DateObject from "react-date-object";
 import { render, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 function renderCalendar(props = {}) {
   return render(<Calendar {...props} />);

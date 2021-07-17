@@ -1,0 +1,187 @@
+.rmdp-analog-clock {
+  background-color: #83cbe7;
+  width: 130px;
+  height: 130px;
+  margin: auto 20px;
+  border-radius: 50%;
+  border: 5px solid #09589e;
+  position: relative;
+}
+
+.top .rmdp-analog-clock,
+.bottom .rmdp-analog-clock {
+  margin: 20px auto;
+}
+
+.rmdp-analog-clock .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  z-index: 10;
+  box-shadow: 0 2px 4px -1px black;
+}
+
+.rmdp-analog-clock .rmdp-hour {
+  position: absolute;
+  z-index: 5;
+  width: 4px;
+  height: 30px;
+  background-color: #333;
+  top: 35px;
+  transform-origin: 50% 30px;
+  left: 50%;
+  margin-left: -2px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.rmdp-analog-clock .rmdp-minute {
+  position: absolute;
+  z-index: 6;
+  width: 4px;
+  height: 55px;
+  background-color: #666;
+  top: 14px;
+  left: 50%;
+  margin-left: -2px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  transform-origin: 50% 52px;
+}
+
+.rmdp-analog-clock .rmdp-second {
+  position: absolute;
+  z-index: 7;
+  width: 2px;
+  height: 60px;
+  background-color: #0074d9;
+  top: 10px;
+  left: 50%;
+  margin-left: -1px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  transform-origin: 50% 55px;
+}
+
+.rmdp-analog-clock span {
+  display: inline-block;
+  position: absolute;
+  color: #333;
+  font-size: 16px;
+  font-family: Arial;
+  font-weight: 700;
+  z-index: 4;
+}
+
+.rmdp-analog-clock .rmdp-h12 {
+  top: 10px;
+  left: 50%;
+  margin-left: -9px;
+}
+
+.rmdp-analog-clock .rmdp-h3 {
+  top: 58px;
+  right: 10px;
+}
+
+.rmdp-analog-clock .rmdp-h6 {
+  bottom: 7px;
+  left: 50%;
+  margin-left: -4px;
+}
+
+.rmdp-analog-clock .rmdp-h9 {
+  left: 10px;
+  top: 58px;
+}
+
+.rmdp-analog-clock .dial-lines {
+  position: absolute;
+  z-index: 2;
+  width: 2px;
+  height: 5px;
+  background-color: #4ca6f5;
+  left: 50%;
+  margin-left: -1px;
+  transform-origin: 50% 65px;
+}
+
+.rmdp-analog-clock .dial-lines:nth-of-type(5n) {
+  width: 3px;
+  height: 8px;
+  background-color: #0074d9;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-analog-clock {
+    margin: 20px 10px;
+    height: 100px;
+    width: 100px;
+  }
+
+  .rmdp-analog-clock .dial-lines {
+    width: 1px;
+    height: 3px;
+    transform-origin: 50% 50px;
+  }
+
+  .rmdp-analog-clock .dial-lines:nth-of-type(5n) {
+    width: 2px;
+    height: 5px;
+    background-color: #0074d9;
+  }
+
+  .rmdp-analog-clock span {
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+  .rmdp-analog-clock .rmdp-h12 {
+    top: 6px;
+  }
+
+  .rmdp-analog-clock .rmdp-h3 {
+    top: 41px;
+    right: 7px;
+  }
+
+  .rmdp-analog-clock .rmdp-h6 {
+    bottom: 6px;
+  }
+
+  .rmdp-analog-clock .rmdp-h9 {
+    left: 7px;
+    top: 41px;
+  }
+
+  .rmdp-analog-clock .rmdp-hour {
+    height: 20px;
+    top: 30px;
+    transform-origin: 50% 20px;
+  }
+
+  .rmdp-analog-clock .rmdp-minute {
+    height: 28px;
+    top: 19px;
+    transform-origin: 50% 31px;
+  }
+
+  .rmdp-analog-clock .rmdp-second {
+    height: 33px;
+    top: 16px;
+    transform-origin: 50% 35px;
+  }
+
+  .rmdp-analog-clock .dot {
+    width: 7px;
+    height: 7px;
+    box-shadow: 0 2px 4px -1px black;
+  }
+}

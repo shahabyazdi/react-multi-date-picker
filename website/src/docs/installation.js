@@ -1,12 +1,7 @@
 import React from "react";
+import { Link } from "gatsby";
 
-export default function installation(
-  translate,
-  language,
-  otherProps,
-  codeEnd,
-  Code
-) {
+export default function Doc({ translate, language, Code }) {
   const npm = {
     title: "npm",
     description: translate("npm_description"),
@@ -29,6 +24,11 @@ export default function installation(
         <Code title={translate("import_calendar")}>
           {`import { Calendar } from "react-multi-date-picker"`}
         </Code>
+        {language === "fa" && (
+          <Link to="../calendars/#%D8%AA%D9%88%D8%B6%DB%8C%D8%AD%D8%A7%D8%AA">
+            فارسی کردن تقویم
+          </Link>
+        )}
       </>
     ),
   };

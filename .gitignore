@@ -4,7 +4,6 @@
 /website/node_modules
 /website/public
 /website/.cache
-/plugins/*
-!/plugins/all.js
-!/plugins/all/
+/plugins
+/components
 .npmignore 

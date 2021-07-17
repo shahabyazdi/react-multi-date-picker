@@ -42,16 +42,6 @@
   background-color: #8798ad;
 }
 
-.rmdp-icon {
-  cursor: pointer;
-}
-
-.rmdp-input-icon {
-  position: absolute;
-  background-color: #f9faff;
-  cursor: pointer;
-}
-
 .rmdp-action-button {
   margin: 15px 0;
   margin-right: 10px;
@@ -124,11 +114,4 @@
 .rmdp-container .ep-arrow[direction="right"]::after {
   left: -6px;
   top: 3px;
-}
-
-@media (max-width: 400px), (max-height: 400px) {
-  .rmdp-input-icon {
-    top: 0px;
-    bottom: 2px;
-  }
 }

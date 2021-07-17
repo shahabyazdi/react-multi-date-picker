@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import DatePicker from "../../../build/index";
 import { Link } from "gatsby";
 
-export default function Positions(translate, language) {
+export default function Doc({ translate, language, localeImport, otherProps }) {
   const containerRef = useRef(),
     datePickerRef = useRef(),
     [state, setState] = useState({
@@ -13,7 +13,8 @@ export default function Positions(translate, language) {
       offsetY: 0,
       offsetX: 0,
     }),
-    updateState = (key, value) => setState({ ...state, [key]: value });
+    updateState = (key, value) => setState({ ...state, [key]: value }),
+    separator = language === "en" ? "," : "،";
 
   useEffect(() => {
     containerRef.current.scrollTo(
@@ -72,7 +73,7 @@ export default function Positions(translate, language) {
 
   const example = {
     title: "Example",
-    code: `const containerRef = useRef()
+    code: `${localeImport}const containerRef = useRef()
 const datePickerRef = useRef()
 
 const [state, setState] = useState({
@@ -223,8 +224,8 @@ const {
       ${
         language === "en"
           ? "/>"
-          : `  calendar="persian"
-        locale="fa"
+          : `  calendar={persian}
+        locale={persian_fa}
       />`
       }
     </div>
@@ -257,6 +258,7 @@ const {
               })}
             </select>
           </label>
+          {separator}
           <label>
             <input
               type="checkbox"
@@ -265,6 +267,7 @@ const {
             />
             {translate("Fix Main Position")}
           </label>
+          {separator}
           <label>
             {translate("Relative Position")}:
             <select
@@ -282,6 +285,7 @@ const {
               })}
             </select>
           </label>
+          {separator}
           <label>
             <input
               type="checkbox"
@@ -292,6 +296,7 @@ const {
             />
             {translate("Fix Relative Position")}
           </label>
+          {separator}
           <label>
             {translate("Offset Y")}:
             <input
@@ -302,6 +307,7 @@ const {
               onChange={(e) => updateState("offsetY", Number(e.target.value))}
             />
           </label>
+          {separator}
           <label>
             {translate("Offset X")}:
             <input
@@ -345,8 +351,8 @@ const {
               offsetY={offsetY}
               offsetX={offsetX}
               onClose={() => false}
-              calendar={language === "fa" ? "persian" : "gregorian"}
-              locale={language === "fa" ? "fa" : "en"}
+              calendar={otherProps.calendar}
+              locale={otherProps.locale}
             />
           </div>
         </div>

@@ -1,10 +1,11 @@
 import React from "react";
 import { DateObject } from "../../../build/index";
+import fa from "react-date-object/locales/persian_fa";
 
-export default function FormatTokens(translate, language) {
+export default function Doc({ translate, language }) {
   const date = new DateObject({
     calendar: language === "en" ? "gregorian" : "persian",
-    locale: language,
+    locale: language === "fa" ? fa : undefined,
   });
 
   const separator = language === "en" ? ", " : "، ";

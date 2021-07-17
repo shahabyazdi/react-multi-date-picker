@@ -1,0 +1,66 @@
+:root {
+  --rmdp-primary: #0074d9;
+  --rmdp-shadow: #8798ad;
+  --rmdp-primary-green: #3d9970;
+  --rmdp-primary-purple: #9c27b0;
+  --rmdp-primary-purple: #9c27b0;
+  --rmdp-primary-teal: #009688;
+  --rmdp-primary-yellow: #f7da37;
+  --rmdp-primary-red: #ea0034;
+}
+
+.rmdp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.rmdp-toolbar div {
+  flex-basis: 31%;
+  margin: 5px 0;
+  background-color: var(--rmdp-primary);
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 3px 0;
+  border-radius: 3px;
+  line-height: 22px;
+}
+
+.rmdp-toolbar div:hover {
+  box-shadow: 0 0 5px var(--rmdp-shadow);
+  transition: 0.4s;
+}
+
+.rmdp-toolbar.right,
+.rmdp-toolbar.left {
+  display: grid;
+}
+
+.rmdp-toolbar.right div,
+.rmdp-toolbar.left div {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  margin: 5px 3px;
+  padding: 0 5px;
+}
+
+.green .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-green);
+}
+
+.purple .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-purple);
+}
+
+.red .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-red);
+}
+
+.teal .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.yellow .rmdp-toolbar div {
+  background-color: var(--rmdp-primary-yellow);
+}

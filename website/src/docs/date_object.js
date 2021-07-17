@@ -1,15 +1,16 @@
 import React from "react";
+import { Link } from "gatsby";
 
-export default function DateObject(
-  translate,
-  language,
-  otherProps,
-  codeEnd,
-  Code
-) {
+export default function Doc({ translate, language, Code }) {
   const description = {
     title: "Descriptions",
     description: "date_object",
+    jsx: (
+      <>
+        <p style={{ fontWeight: "bold" }}>{translate("date_object_v2")}</p>
+        <Link to="../v2.x/date-object/">v2.x {translate("DateObject")}</Link>
+      </>
+    ),
   };
 
   const current = {
@@ -145,26 +146,64 @@ console.log(date.format()); //2021/02/07`}
     ),
   };
 
-  const persian = {
-    title: "Persian Calendar (Solar Hijri)",
-    description: translate("persian_1"),
-    code: `const date = new DateObject({ calendar: "persian" })
+  const otherCalendars = {
+    title: "Other Calendar & Locales",
+    description: "other_calendars",
+    jsx: (
+      <>
+        <p>
+          <Link
+            to={`../calendars/${
+              language === "en" ? "#calendars" : "#تقویم-ها"
+            }`}
+          >
+            {translate("Calendars")}
+          </Link>
+        </p>
+        <p>
+          <Link
+            to={`../calendars/${language === "en" ? "#locales" : "#زبان-ها"}`}
+          >
+            {translate("Locales")}
+          </Link>
+        </p>
+      </>
+    ),
+  };
 
-console.log(date.format()) //1399/12/12`,
+  const persian = {
+    title: "Persian Calendar (Solar Hijri) With Farsi Locale",
+    description: translate("persian_calendar_farsi_locale"),
+    code: `import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+
+const date = new DateObject({ calendar: persian, locale: persian_fa })
+
+console.log(date.format()) //۱۴۰۰/۰۴/۱۳
+console.log(date.month.name) //تیر
+`,
   };
 
   const arabic = {
-    title: "Arabic Calendar (islamic hijri)",
-    code: `const date = new DateObject({ calendar: "arabic" })
+    title: "Arabic Calendar (Lunar Hijri) With Arabic Locale",
+    code: `import arabic from "react-date-object/calendars/arabic"
+import arabic_ar from "react-date-object/locales/arabic_ar"
 
-console.log(date.format()) //1442/07/18`,
+const date = new DateObject({ calendar: arabic, locale: arabic_ar })
+
+console.log(date.format()) //١٤٤٢/١١/٢٤
+console.log(date.month.name) //ذیقعده`,
   };
 
   const indian = {
-    title: "Indian Calendar",
-    code: `const date = new DateObject({ calendar: "indian" })
+    title: "Indian Calendar With Hindi Locale",
+    code: `import indian from "react-date-object/calendars/indian"
+import indian_hi from "react-date-object/locales/indian_hi"
 
-console.log(date.format()) //1942/12/11`,
+const date = new DateObject({ calendar: indian, locale: indian_hi })
+
+console.log(date.format()) //१९४३/०४/१३
+console.log(date.month.name) //आषाढ़`,
   };
 
   const table = {
@@ -358,12 +397,15 @@ date.format("YYYY/MM/DD hh:mm:ss.SSS a"); //2020/08/01 12:00:00.000 am`}
 console.log(date.format()); //September 04 2021, 12:42 pm`}
             </Code>
 
-            <Code title="string_6">
-              {`const date = new DateObject({
+            <Code title="string_6_v3">
+              {`import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+
+const date = new DateObject({
   date: "1400/05/14 18:35:44",
   format: "YYYY/MM/DD HH:mm:ss",
-  calendar: "persian",
-  locale: "fa"
+  calendar: persian,
+  locale: persian_fa
 })
 
 console.log(
@@ -372,6 +414,29 @@ console.log(
             </Code>
           </li>
         </ul>
+        <p>{translate("string_7")}</p>
+        <p>{translate("string_8")}</p>
+        <Code>
+          {`import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+
+const date = new DateObject({
+  date: "2021/01/01",
+  calendar: persian,
+  locale: persian_fa
+})`}
+        </Code>
+        <p>{translate("string_9")}</p>
+        <p>{translate("string_10")}</p>
+        <Code>
+          {`import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+
+const date = new DateObject("2021/01/01").convert(persian, persian_fa)`}
+        </Code>
+        <p>{translate("string_11")}</p>
+        <Code>{`console.log(date.format()) //۱۳۹۹/۱۰/۱۲`}</Code>
+        <p>{translate("string_12")}</p>
       </div>
     ),
   };
@@ -385,9 +450,11 @@ console.log(date.format()) //2020/01/15`,
 
   const persianDate = {
     title: "Persian DateObject from javascript Date",
-    code: `const date = new DateObject({
+    code: `import persian from "react-date-object/calendars/persian"
+
+const date = new DateObject({
   date: new Date(2020, 1, 15),
-  calendar: "persian"
+  calendar: persian
 })
 
 console.log(date.format()) //1399/10/26`,
@@ -402,8 +469,8 @@ console.log(date.format()) //1399/10/26`,
 ${
   language === "en"
     ? "})"
-    : `  calendar:"persian"
-  locale:"fa"
+    : `  calendar: persian,
+  locale: persian_fa
 })`
 }
 
@@ -428,10 +495,22 @@ console.log(date.format("dddd DD MMMM${
         <p>{translate("unix_2")}</p>
         <p>{translate("unix_3")}</p>
         <Code>
-          {`const date = new DateObject({
+          {`${
+            language === "fa"
+              ? `import persian from "react-date-object/calendars/persian"
+
+`
+              : ""
+          }const date = new DateObject(${
+            language === "en"
+              ? `{
+  date: 1614678083 * 1000
+}`
+              : `{
   date: 1614678083 * 1000,
-  calendar: "${language === "en" ? "gregorian" : "persian"}"
-})
+  calendar: persian
+}`
+          })
 
 console.log(date.format()) //${
             language === "en" ? "2021/03/02" : "1399/12/12"
@@ -445,34 +524,81 @@ console.log(date.format()) //${
     ),
   };
 
+  const convert = {
+    title: "Converting Calendars",
+    description: "convert",
+  };
+
+  const gregorianToPersian = {
+    title: "Gregorian Calendar to Persian Calendar",
+    description: "gregorian_to_persian",
+    jsx: (
+      <>
+        <Code title="gregorian_to_persian_first">
+          {`import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+
+//--> 1
+const date = new DateObject()
+console.log(date.format()) //2021/07/05
+//<--
+
+//-->2
+date.convert(persian, persian_fa)
+console.log(date.format()) //۱۴۰۰/۰۴/۱۴
+//<--`}
+        </Code>
+        <Code title="gregorian_to_persian_second">
+          {`import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
+
+const date = new DateObject().convert(persian, persian_fa)
+console.log(date.format()) //۱۴۰۰/۰۴/۱۴`}
+        </Code>
+      </>
+    ),
+  };
+
   const persianToArabic = {
     title: "Persian Calendar to Arabic Calendar",
-    description: "convert_1",
-    code: `const date = new DateObject({calendar:"persian", date:"1399/12/24"})
+    description: "persian_to_arabic",
+    code: `import persian from "react-date-object/calendars/persian"
+import arabic from "react-date-object/calendars/arabic"
+import arabic_en from "react-date-object/locales/arabic_en"
+
+const date = new DateObject({calendar:persian, date:"1399/12/24"})
         
-date.convert("arabic")
+date.convert(arabic, arabic_en)
 
 console.log(date.format()) //1442/07/30`,
   };
 
   const arabicToPersian = {
     title: "Arabic Calendar to Persian Calendar",
-    code: `const date = new DateObject({ calendar: "arabic", date: "1442/05/10" })
+    code: `import arabic from "react-date-object/calendars/arabic"
+import persian from "react-date-object/calendars/persian"
+import persian_en from "react-date-object/locales/persian_en"
 
-date.convert("persian")
+const date = new DateObject({ calendar: arabic, date: "1442/05/10" })
+
+date.convert(persian, persian_en)
 
 console.log(date.format()) //1399/10/05`,
   };
 
   const gregorianToIndian = {
     title: "Gregorian Calendar to Indian Calendar",
-    code: `console.log(new DateObject().convert("indian").format()) //1942/12/11`,
+    code: `import indian from "react-date-object/calendars/indian"
+import indian_en from "react-date-object/locales/indian_en"
+
+console.log(new DateObject().convert(indian, indian_en).format()) //1942/12/11`,
   };
 
   return [
     description,
     current,
     addSubtract,
+    otherCalendars,
     persian,
     arabic,
     indian,
@@ -482,6 +608,8 @@ console.log(date.format()) //1399/10/05`,
     persianDate,
     number,
     unix,
+    convert,
+    gregorianToPersian,
     persianToArabic,
     arabicToPersian,
     gregorianToIndian,

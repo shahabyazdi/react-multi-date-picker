@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build/index";
 
-export default function Ref(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const datePickerRef = useRef();
   const ref = useRef();
   const ref2 = useRef();
@@ -9,12 +9,7 @@ export default function Ref(translate, language, otherProps) {
   const [visible2, setVisible2] = useState(false);
   const [shouldCloseCalendar, setShouldCloseCalendar] = useState(false);
   const [shouldCloseCalendar2, setShouldCloseCalendar2] = useState(false);
-  const [date, setDate] = useState(
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
-    })
-  );
+  const [date, setDate] = useState(new DateObject(otherProps));
   const calendarRef = useRef();
 
   function update(key, value) {
@@ -49,7 +44,7 @@ export default function Example() {
   const datePicker = {
     title: "Open & Close Calendar By DatePicker Ref",
     description: "date_picker_ref",
-    code: `const datePickerRef = useRef()
+    code: `${localeImport}const datePickerRef = useRef()
 .
 .
 .
@@ -64,9 +59,9 @@ export default function Example() {
 ${
   language === "en"
     ? "  >"
-    : `    calendar="persian"
-    locale="fa"
-    calendarPosition="auto-right"
+    : `    calendar={persian}
+    locale={persian_fa}
+    calendarPosition="bottom-right"
   >`
 }
     <button
@@ -97,7 +92,7 @@ ${
   const refresh = {
     title: "Refresh Position",
     description: "refresh_position",
-    code: `const ref = useRef()
+    code: `${localeImport}const ref = useRef()
 const ref2 = useRef()
 const [visible, setVisible] = useState(false)
 const [visible2, setVisible2] = useState(false)
@@ -120,9 +115,9 @@ const [shouldCloseCalendar2, setShouldCloseCalendar2] = useState(false)
   ${
     language === "en"
       ? "/>"
-      : `  calendar="persian"
-    locale="fa"
-    calendarPosition="auto-right"
+      : `  calendar={persian}
+    locale={persian_fa}
+    calendarPosition="bottom-right"
   />`
   }
   <button
@@ -155,9 +150,9 @@ const [shouldCloseCalendar2, setShouldCloseCalendar2] = useState(false)
   ${
     language === "en"
       ? "/>"
-      : `  calendar="persian"
-    locale="fa"
-    calendarPosition="auto-right"
+      : `  calendar={persian}
+    locale={persian_fa}
+    calendarPosition="bottom-right"
   />`
   }
   <button
@@ -257,10 +252,16 @@ const [shouldCloseCalendar2, setShouldCloseCalendar2] = useState(false)
     description: "year_month_ref",
     code: `import React, { useRef, useState } from "react";
 import { Calendar, DateObject } from "react-multi-date-picker";
-
+${
+  language === "en"
+    ? ""
+    : `import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+`
+}
 export default function Example() {
   const [date, setDate] = useState(new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian", locale: "fa" }`
+    language === "en" ? "" : `{ calendar: persian, locale: persian_fa }`
   }));
 
   const calendarRef = useRef();
@@ -296,8 +297,8 @@ export default function Example() {
       ${
         language === "en"
           ? "/>"
-          : `  calendar="persian" 
-        locale="fa" 
+          : `  calendar={persian}
+        locale={persian_fa}
       />`
       }
     </div>

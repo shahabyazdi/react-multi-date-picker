@@ -3,10 +3,18 @@ import DatePicker, { Calendar } from "../../../../build/index";
 import TimePicker from "../../../../plugins/analog_time_picker";
 import "../../../../styles/colors/analog_time_picker_red.css";
 
-export default function AnalogTime(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const [value, setValue] = useState(new Date());
   const [value1, setValue1] = useState(new Date());
   const [value2, setValue2] = useState(new Date());
+
+  const $import =
+    language === "en"
+      ? `.
+.
+.
+`
+      : localeImport;
 
   const props = {
     title: "Props",
@@ -17,13 +25,35 @@ export default function AnalogTime(translate, language, otherProps) {
             <th>{translate("Prop")}</th>
             <th>{translate("Type")}</th>
             <th>{translate("Default")}</th>
+            <th>{translate("Descriptions")}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
+            <td>position</td>
+            <td>String</td>
+            <td>"right"</td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+          </tr>
+          <tr>
             <td>hideSeconds</td>
             <td>Boolean</td>
             <td>false</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>format</td>
+            <td>String</td>
+            <td>"YYYY/MM/DD"</td>
+            <td>
+              {translate("time_picker_format_prop").map((string, index) => (
+                <p key={index}>{string}</p>
+              ))}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -36,10 +66,7 @@ export default function AnalogTime(translate, language, otherProps) {
     code: `import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
-.
-.
-.
-const [value, setValue] = useState(new Date());
+${$import}const [value, setValue] = useState(new Date());
 .
 .
 .
@@ -72,10 +99,7 @@ import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css";
 import "react-multi-date-picker/styles/colors/red.css";
 import "react-multi-date-picker/styles/colors/analog_time_picker_red.css";
-.
-.
-.
-const [value, setValue] = useState(new Date());
+${$import}const [value, setValue] = useState(new Date());
 .
 .
 .
@@ -102,10 +126,7 @@ const [value, setValue] = useState(new Date());
     title: "Hiding Seconds",
     code: `import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
-.
-.
-.
-<DatePicker
+${$import}<DatePicker
   format="MM/DD/YYYY HH:mm"
   plugins={[
     <TimePicker hideSeconds ${language === "en" ? "" : `position="left"`}/>
@@ -130,10 +151,7 @@ import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
     code: `import React, { useState } from "react";
 import { Calendar } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
-.
-.
-.
-const [value, setValue] = useState(new Date());
+${$import}const [value, setValue] = useState(new Date());
 .
 .
 .
@@ -156,10 +174,7 @@ const [value, setValue] = useState(new Date());
     title: "Only Analog Time Picker",
     code: `import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/analog_time_picker";
-.
-.
-.
-<DatePicker 
+${$import}<DatePicker 
   disableDayPicker 
   format="HH:mm:ss"
   plugins={[<TimePicker />]} 

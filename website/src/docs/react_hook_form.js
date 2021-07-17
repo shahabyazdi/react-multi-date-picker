@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "../../../build/index";
 import { useForm, Controller } from "react-hook-form";
 
-export default function Doc(translate, language, otherProps, codeEnd) {
+export default function Doc({ translate, language, otherProps }) {
   const { control, handleSubmit } = useForm();
   const [submittedDate, setSubmittedDate] = useState();
 
@@ -48,7 +48,7 @@ export default function Example() {
                   ? "/>"
                   : `  calendar="persian"
                 locale="fa"
-                calendarPosition="auto-right"
+                calendarPosition="bottom-right"
               />`
               }
               {errors && errors[name] && errors[name].type === "required" && (

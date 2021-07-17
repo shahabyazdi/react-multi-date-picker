@@ -35,6 +35,7 @@ npm install --save react-multi-date-picker
   - [Multiple Date Picker](https://shahabyazdi.github.io/react-multi-date-picker/multiple/)
   - [Range Picker](https://shahabyazdi.github.io/react-multi-date-picker/range/)
   - [Time Picker & Other Pickers](https://shahabyazdi.github.io/react-multi-date-picker/other-pickers/)
+  - [FullYear Picker](https://shahabyazdi.github.io/react-multi-date-picker/other-examples/#full-year-view)
   - [Locales](https://shahabyazdi.github.io/react-multi-date-picker/locales/)
 - **[Plugins](https://shahabyazdi.github.io/react-multi-date-picker/plugins)**
 
@@ -152,18 +153,6 @@ export default function Example() {
         </tr>
         <tr>
           <td>range</td>
-          <td style="text-align:center">Boolean</td>
-          <td style="text-align:center">false</td>
-          <td>both</td>
-        </tr>
-        <tr style="color:red">
-          <td>timePicker (deprecated)</td>
-          <td style="text-align:center">Boolean</td>
-          <td style="text-align:center">false</td>
-          <td>both</td>
-        </tr>
-        <tr style="color:red">
-          <td>onlyTimePicker (deprecated)</td>
           <td style="text-align:center">Boolean</td>
           <td style="text-align:center">false</td>
           <td>both</td>
@@ -385,6 +374,12 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
+          <td>fullYear</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
           <td>containerClassName</td>
           <td style="text-align:center">String</td>
           <td style="text-align:center"></td>
@@ -421,8 +416,8 @@ export default function Example() {
           <td>DatePicker</td>
         </tr>
         <tr>
-          <td>animation</td>
-          <td style="text-align:center">Boolean</td>
+          <td>animations</td>
+          <td style="text-align:center">Array</td>
           <td style="text-align:center">false</td>
           <td>DatePicker</td>
         </tr>
@@ -460,12 +455,6 @@ export default function Example() {
           <td>placeholder</td>
           <td style="text-align:center">String</td>
           <td style="text-align:center"></td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
-          <td>type</td>
-          <td style="text-align:center">String</td>
-          <td style="text-align:center">input</td>
           <td>DatePicker</td>
         </tr>
         <tr>
@@ -529,6 +518,12 @@ export default function Example() {
           <td>DatePicker</td>
         </tr>
         <tr>
+          <td>onPositionChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
           <td>fixMainPosition</td>
           <td style="text-align:center">Boolean</td>
           <td style="text-align:center">false</td>
@@ -552,36 +547,72 @@ export default function Example() {
           <td style="text-align:center">0</td>
           <td>DatePicker</td>
         </tr>
-        <tr>
-          <td>onPositionChange</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>DatePicker</td>
-        </tr>
       </tbody>
     </table>
 
-## Calendars
+# Calendars & Locales
 
-- gregorian (default)
-- persian
-- arabic
-- indian
+Click [here](https://shahabyazdi.github.io/react-multi-date-picker/calendars) to see the descriptions.
 
-## locales
+<table>
+  <tbody>
+    <tr>
+      <th colspan="2" rowspan="2">Calendars</th>
+      <th>Gregorian</th>
+      <th>Persian (Solar Hijri)</th>
+      <th>Jalali</th>
+      <th>Arabic (Lunar Hijri)</th>
+      <th>Indian</th>
+    </tr>
+    <tr>
+      <td>/calendars/gregorian</td>
+      <td>/calendars/persian</td>
+      <td>/calendars/jalali</td>
+      <td>/calendars/arabic</td>
+      <td>/calendars/indian</td>
+    </tr>
+    <tr>
+      <th rowspan="4">Locales</th>
+      <th>English</th>
+      <td>/locales/gregorian_en</td>
+      <td>/locales/persian_en</td>
+      <td>/locales/persian_en</td>
+      <td>/locales/arabic_en</td>
+      <td>/locales/indian_en</td>
+    </tr>
+    <tr>
+      <th>Farsi</th>
+      <td>/locales/gregorian_fa</td>
+      <td>/locales/persian_fa</td>
+      <td>/locales/persian_fa</td>
+      <td>/locales/arabic_fa</td>
+      <td>/locales/indian_fa</td>
+    </tr>
+    <tr>
+      <th>Arabic</th>
+      <td>/locales/gregorian_ar</td>
+      <td>/locales/persian_ar</td>
+      <td>/locales/persian_ar</td>
+      <td>/locales/arabic_ar</td>
+      <td>/locales/indian_ar</td>
+    </tr>
+    <tr>
+      <th>Hindi</th>
+      <td>/locales/gregorian_hi</td>
+      <td>/locales/persian_hi</td>
+      <td>/locales/persian_hi</td>
+      <td>/locales/arabic_hi</td>
+      <td>/locales/indian_hi</td>
+    </tr>
+  </tbody>
+</table>
 
-- en (default)
-- fa
-- ar
-- hi
+<br/>
 
 Of course, you can customize the names of the months and days of the week
-in the both calendar & input using the `months` and `weekDays` Props.
+in the both calendar & input by using the `months` and `weekDays` Props.
 
-## Types
+Also, you can create a custom Calendar and Locale:
 
-- input (default)
-- input-icon
-- icon
-- button
-- custom
+- [Creating a custom Calendar](https://shahabyazdi.github.io/react-multi-date-picker/calendars/#custom-calendar)
+- [Creating a custom Locale](https://shahabyazdi.github.io/react-multi-date-picker/locales/#custom-locale)

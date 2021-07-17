@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import DatePicker from "../../../../build/index";
 import Toolbar from "../../../../plugins/toolbar";
 
-export default function ToolbarComponent(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const [value, setValue] = useState();
   const [value1, setValue1] = useState();
   const [value2, setValue2] = useState();
+
+  const $import =
+    language === "en"
+      ? `.
+.
+.
+`
+      : localeImport;
 
   const props = {
     title: "Props",
@@ -19,6 +27,16 @@ export default function ToolbarComponent(translate, language, otherProps) {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>position</td>
+            <td>String</td>
+            <td>"right"</td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+          </tr>
           <tr>
             <td>className</td>
             <td>String</td>
@@ -61,10 +79,7 @@ export default function ToolbarComponent(translate, language, otherProps) {
     title: "Default Toolbar",
     code: `import React, { useState } from "react"
 import Toolbar from "react-multi-date-picker/plugins/toolbar"
-.
-.
-.
-const [value, setValue] = useState()
+${$import}const [value, setValue] = useState()
 .
 .
 .
@@ -89,10 +104,7 @@ const [value, setValue] = useState()
     title: "Sorting Buttons",
     code: `import React, { useState } from "react"
 import Toolbar from "react-multi-date-picker/plugins/toolbar"
-.
-.
-.
-const [value, setValue] = useState()
+${$import}const [value, setValue] = useState()
 .
 .
 .
@@ -122,10 +134,7 @@ const [value, setValue] = useState()
     title: "Custom Names",
     code: `import React, { useState } from "react"
 import Toolbar from "react-multi-date-picker/plugins/toolbar"
-.
-.
-.
-const [value, setValue] = useState()
+${$import}const [value, setValue] = useState()
 .
 .
 .

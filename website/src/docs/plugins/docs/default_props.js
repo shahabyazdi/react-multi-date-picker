@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "../../../../../build/index";
 
-export default function Doc(translate) {
+export default function Doc({ translate }) {
   const table = {
     title: "Default Props Table",
     jsx: (
@@ -195,12 +195,12 @@ export default function Example() {
           </tr>
           <tr>
             <td>calendar</td>
-            <td>String</td>
+            <td>Object Calendar</td>
             <td></td>
           </tr>
           <tr>
             <td>locale</td>
-            <td>String</td>
+            <td>Object Locale</td>
             <td></td>
           </tr>
           <tr>

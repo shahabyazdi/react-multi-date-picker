@@ -5,14 +5,10 @@ import DatePicker, {
 } from "../../../build/index";
 import DatePanel from "../../../plugins/date_panel";
 
-export default function RangeMode(translate, language, otherProps) {
+export default function Doc({ language, otherProps, localeImport }) {
   const [values, setValues] = useState([
-    new DateObject({
-      calendar: language === "fa" ? "persian" : "gregorian",
-    }).subtract(4, "days"),
-    new DateObject({
-      calendar: language === "fa" ? "persian" : "gregorian",
-    }).add(4, "days"),
+    new DateObject(otherProps).subtract(4, "days"),
+    new DateObject(otherProps).add(4, "days"),
   ]);
 
   const [dates, setDates] = useState([]);
@@ -21,12 +17,12 @@ export default function RangeMode(translate, language, otherProps) {
   const range = {
     title: "Range Picker",
     description: "range_mode",
-    code: `const [values, setValues] = useState([
+    code: `${localeImport}const [values, setValues] = useState([
   new DateObject(${
-    language === "fa" ? `{ calendar: "persian" }` : ""
+    language === "fa" ? `{ calendar: persian }` : ""
   }).subtract(4, "days"),
   new DateObject(${
-    language === "fa" ? `{ calendar: "persian" }` : ""
+    language === "fa" ? `{ calendar: persian }` : ""
   }).add(4, "days")
 ])
 .
@@ -46,10 +42,14 @@ export default function RangeMode(translate, language, otherProps) {
     title: "DatePanel",
     description: "date_panel_range",
     code: `import DatePanel from "react-multi-date-picker/plugins/date_panel"
+${localeImport}${
+      language === "en"
+        ? `.
 .
 .
-.
-<DatePicker
+`
+        : ""
+    }<DatePicker
   range
   plugins={[
     <DatePanel${language === "fa" ? ` position="left"` : ""} />
@@ -71,23 +71,29 @@ export default function RangeMode(translate, language, otherProps) {
     description: "each_days_in_range",
     code: `import DatePicker, { DateObject, getAllDatesInRange } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
+${localeImport}${
+      language === "en"
+        ? `.
 .
 .
-.
-const [dates, setDates] = useState([])
+`
+        : ""
+    }const [dates, setDates] = useState([])
 const [allDates, setAllDates] = useState([])
-
+.
+.
+.
 <div>
   <DatePicker
     range
-    position="top-left"
+    calendarPosition="top-left"
     fixMainPosition
     value={dates}
     minDate={new DateObject(${
-      language === "fa" ? `{ calendar: "persian" }` : ""
+      language === "fa" ? `{ calendar: persian }` : ""
     }).toFirstOfMonth()}
     maxDate={new DateObject(${
-      language === "fa" ? `{ calendar: "persian" }` : ""
+      language === "fa" ? `{ calendar: persian }` : ""
     }).toLastOfMonth()}
     onChange={dateObjects => {
       setDates(dateObjects)
@@ -101,9 +107,9 @@ const [allDates, setAllDates] = useState([])
   ${
     language === "en"
       ? "/>"
-      : `  calendar="persian"
-    locale="fa"
-    calendarPosition="auto-right"
+      : `  calendar={persian}
+    locale={persian_fa}
+    calendarPosition="bottom-right"
   />`
   }
   {dates.length > 1 &&
@@ -122,15 +128,11 @@ const [allDates, setAllDates] = useState([])
       <div>
         <DatePicker
           range
-          position={language === "en" ? "top-left" : "top-right"}
+          calendarPosition={language === "en" ? "top-left" : "top-right"}
           fixMainPosition
           value={dates}
-          minDate={new DateObject({
-            calendar: language === "en" ? "gregorian" : "persian",
-          }).toFirstOfMonth()}
-          maxDate={new DateObject({
-            calendar: language === "en" ? "gregorian" : "persian",
-          }).toLastOfMonth()}
+          minDate={new DateObject(otherProps).toFirstOfMonth()}
+          maxDate={new DateObject(otherProps).toLastOfMonth()}
           onChange={(dateObjects) => {
             setDates(dateObjects);
             setAllDates(getAllDatesInRange(dateObjects));
@@ -141,7 +143,8 @@ const [allDates, setAllDates] = useState([])
               position={language === "fa" ? "left" : "right"}
             />,
           ]}
-          {...otherProps}
+          calendar={otherProps.calendar}
+          locale={otherProps.locale}
         />
         {dates.length > 1 && (
           <div>
@@ -164,7 +167,7 @@ const [allDates, setAllDates] = useState([])
 
   let monthPicker = {
     title: "Range Month Picker",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   onlyMonthPicker
   range
   plugins={[
@@ -183,7 +186,7 @@ const [allDates, setAllDates] = useState([])
 
   let yearPicker = {
     title: "Range Year Picker",
-    code: `<DatePicker
+    code: `${localeImport}<DatePicker
   onlyYearPicker
   range
   plugins={[

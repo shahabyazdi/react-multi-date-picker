@@ -6,8 +6,6 @@ export default function Header({
   setState,
   disableYearPicker,
   disableMonthPicker,
-  customMonths,
-  numberOfMonths,
   buttons,
   renderButton,
   handleMonthChange,
@@ -15,38 +13,44 @@ export default function Header({
   hideMonth,
   hideYear,
   isRTL,
+  fullYear,
+  monthAndYears: [months, years],
 }) {
-  let monthNames = [],
-    years = [],
-    style = {},
+  let style = {},
     {
       date,
       onlyMonthPicker,
       onlyYearPicker,
-      onlyTimePicker,
       mustShowYearPicker,
       minDate,
       maxDate,
       year,
-      maxYear,
+      today,
     } = state,
-    digits = date.digits,
     isPreviousDisable =
       minDate &&
       date.year <= minDate.year &&
-      minDate.month.number > date.month.number - 1,
+      minDate.monthIndex > date.monthIndex - 1,
     isNextDisable =
       maxDate &&
       date.year >= maxDate.year &&
-      maxDate.month.number < date.month.number + 1;
+      maxDate.monthIndex < date.monthIndex + 1;
 
-  if (hideMonth && hideYear && !buttons) return null;
+  let maxYear = today.year + 7;
 
-  if ((hideMonth && hideYear) || (onlyYearPicker && hideYear)) {
+  maxYear = maxYear - 12 * Math.floor((maxYear - year) / 12);
+
+  if ((hideMonth || fullYear) && hideYear && !buttons) return null;
+
+  if (
+    (hideMonth && hideYear) ||
+    (onlyYearPicker && hideYear) ||
+    (buttons && hideYear)
+  ) {
     style.minHeight = "36px";
   }
 
-  if (onlyMonthPicker) {
+  if (onlyMonthPicker || fullYear) {
     if (minDate && minDate.year >= date.year) isPreviousDisable = true;
     if (maxDate && maxDate.year <= date.year) isNextDisable = true;
   }
@@ -63,72 +67,51 @@ export default function Header({
     isNextDisable = true;
   }
 
-  for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
-    let monthName,
-      year = date.year,
-      index = date.month.index + monthIndex;
-
-    if (index > 11) {
-      index -= 12;
-      year++;
-    }
-
-    if (Array.isArray(customMonths) && customMonths.length >= 12) {
-      let month = customMonths[index];
-
-      monthName = Array.isArray(month) ? month[0] : month;
-    } else {
-      monthName = date.months[index].name;
-    }
-
-    year = year.toString().replace(/[0-9]/g, (w) => digits[w]);
-
-    monthNames.push(monthName);
-    years.push(year);
-  }
-
   return (
-    <div
-      className="rmdp-header"
-      style={{ display: onlyTimePicker ? "none" : "block" }}
-    >
+    <div className="rmdp-header">
       <div style={{ position: "relative", display: "flex" }}>
         {buttons && getButton("left")}
-        {monthNames.map((monthName, index) => (
-          <div key={index} className="rmdp-header-values" style={style}>
-            {!hideMonth && (
-              <span
-                style={{
-                  cursor:
-                    disabled || disableMonthPicker || onlyMonthPicker
-                      ? "default"
-                      : "pointer",
-                }}
-                onClick={() =>
-                  !disableMonthPicker && toggle("mustShowMonthPicker")
-                }
-              >
-                {monthName}
-                {!hideYear && (isRTL ? "،" : ",")}
-              </span>
-            )}
-            {!hideYear && (
-              <span
-                style={{
-                  cursor:
-                    disabled || disableYearPicker || onlyYearPicker
-                      ? "default"
-                      : "pointer",
-                }}
-                onClick={() =>
-                  !disableYearPicker && toggle("mustShowYearPicker")
-                }
-              >
-                {years[index]}
-              </span>
-            )}
+        {fullYear ? (
+          <div className="rmdp-header-values" style={style}>
+            {!hideYear && date.format("YYYY")}
           </div>
-        ))}
+        ) : (
+          months.map((month, index) => (
+            <div key={index} className="rmdp-header-values" style={style}>
+              {!hideMonth && (
+                <span
+                  style={{
+                    cursor:
+                      disabled || disableMonthPicker || onlyMonthPicker
+                        ? "default"
+                        : "pointer",
+                  }}
+                  onClick={() =>
+                    !disableMonthPicker && toggle("mustShowMonthPicker")
+                  }
+                >
+                  {month}
+                  {!hideYear && (isRTL ? "،" : ",")}
+                </span>
+              )}
+              {!hideYear && (
+                <span
+                  style={{
+                    cursor:
+                      disabled || disableYearPicker || onlyYearPicker
+                        ? "default"
+                        : "pointer",
+                  }}
+                  onClick={() =>
+                    !disableYearPicker && toggle("mustShowYearPicker")
+                  }
+                >
+                  {years[index]}
+                </span>
+              )}
+            </div>
+          ))
+        )}
         {buttons && getButton("right")}
       </div>
     </div>
@@ -161,7 +144,9 @@ export default function Header({
     )
       return;
 
-    if (!mustShowYearPicker && !onlyYearPicker) {
+    if (fullYear) {
+      date.year += value;
+    } else if (!mustShowYearPicker && !onlyYearPicker) {
       date.toFirstOfMonth();
 
       if (onlyMonthPicker) {

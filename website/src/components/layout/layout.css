@@ -112,21 +112,21 @@ body {
   top: 22px;
 }
 
-.icon {
+.icons .icon {
   margin-left: 20px;
 }
 
-.icon .npm svg {
+.icons .icon .npm svg {
   width: 40px;
   height: 15px;
 }
 
-.icon .github svg {
+.icons .icon .github svg {
   width: 20px;
   height: 20px;
 }
 
-.icon.language svg {
+.icons .icon.language svg {
   width: 30px;
   margin-top: 2px;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Calendar } from "../../../../../build/index";
 
-export default function Index(translate, language, otherProps, codeEnd, Code) {
+export default function Doc({ translate, Code }) {
   const info = {
     description: (
       <div style={{ textAlign: "center" }}>

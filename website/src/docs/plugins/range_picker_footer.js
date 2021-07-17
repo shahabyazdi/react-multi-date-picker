@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../../build/index";
 import Footer from "../../../../plugins/range_picker_footer";
 
-export default function RangePickerFooter(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const [value, setValue] = useState([
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
-    }).setDay(15),
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-      locale: language,
-    })
-      .add(1, "month")
-      .setDay(15),
+    new DateObject(otherProps).setDay(15),
+    new DateObject(otherProps).add(1, "month").setDay(15),
   ]);
 
   const descriptions = {
     title: "Descriptions",
     description: "range_picker_footer",
   };
+
+  const $import =
+    language === "en"
+      ? `.
+.
+.
+`
+      : localeImport;
 
   const props = {
     title: "Props",
@@ -33,6 +33,16 @@ export default function RangePickerFooter(translate, language, otherProps) {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>position</td>
+            <td>String</td>
+            <td>"right"</td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+          </tr>
           <tr>
             <td>format</td>
             <td>String</td>
@@ -87,24 +97,21 @@ export default function RangePickerFooter(translate, language, otherProps) {
     code: `import React, { useState } from "react";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import Footer from "react-multi-date-picker/plugins/range_picker_footer";
-.
-.
-.
-const [value, setValue] = useState([
+${$import}const [value, setValue] = useState([
   new DateObject(${
     language === "en"
       ? ""
       : `{
-    calendar: "persian",
-    locale: "fa"
+    calendar: persian,
+    locale: persian_fa
   }`
   }).setDay(15),
   new DateObject(${
     language === "en"
       ? ""
       : `{
-    calendar: "persian",
-    locale: "fa"
+    calendar: persian,
+    locale: persian_fa
 }`
   }).add(1, "month").setDay(15),
 ]);
@@ -137,10 +144,7 @@ const [value, setValue] = useState([
     code: `import React from "react";
 import { Calendar } from "react-multi-date-picker";
 import Footer from "react-multi-date-picker/plugins/range_picker_footer";
-.
-.
-.
-<Calendar
+${$import}<Calendar
   range
   numberOfMonths={2}
   plugins={[

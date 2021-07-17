@@ -1,0 +1,81 @@
+.rmdp-time-picker.left div,
+.rmdp-time-picker.right div {
+  margin: auto;
+}
+
+.rmdp-time-picker {
+  display: flex;
+  padding: 3px 0;
+}
+
+.rmdp-time-picker.active {
+  display: flex;
+}
+
+.rmdp-time-picker div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  margin-top: 1px;
+}
+
+.rmdp-time-picker div input {
+  width: 20px;
+  flex-grow: 1;
+  text-align: center;
+  padding: 5px 2px;
+  border: none;
+  font-size: 14px;
+}
+
+.rmdp-time-picker div input::-webkit-outer-spin-button,
+.rmdp-time-picker div input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.rmdp-time-picker div input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.rmdp-time-picker .dvdr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: -5px;
+}
+
+.rmdp-time-picker div .rmdp-am {
+  font-size: 13px;
+  line-height: 22px;
+  color: black;
+  margin-top: 2px;
+}
+
+.rmdp-only-time-picker {
+  width: 220px;
+  margin-bottom: 0;
+}
+
+.rmdp-up i {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  margin-top: 7px;
+}
+
+.rmdp-down i {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-top: 3px;
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+  .rmdp-time-picker div input {
+    font-size: 12px;
+  }
+
+  .rmdp-time-picker div .rmdp-am {
+    font-size: 12px;
+    line-height: 22px;
+  }
+}

@@ -25,14 +25,6 @@
   padding-bottom: 15px;
 }
 
-.rmdp-mobile .rmdp-time-picker {
-  margin-bottom: 15px;
-}
-
-.rmdp-calendar-container-mobile .rmdp-time-picker {
-  margin-bottom: 0;
-}
-
 .rmdp-mobile .rmdp-arrow-container {
   height: 26px;
   width: 26px;
@@ -75,16 +67,6 @@
 
 .rmdp-mobile .rmdp-day span {
   font-size: 15px;
-}
-
-.rmdp-mobile .rmdp-time-picker div input {
-  margin: 5px 0;
-}
-
-.rmdp-mobile .rmdp-only-time-picker {
-  width: 260px;
-  padding: 10px;
-  padding-top: 20px;
 }
 
 .rmdp-mobile .dvdr {
@@ -155,10 +137,6 @@
   .rmdp-mobile .only.rmdp-month-picker,
   .rmdp-mobile .only.rmdp-year-picker {
     width: 250px;
-  }
-
-  .rmdp-mobile .rmdp-only-time-picker {
-    width: 240px;
   }
 
   .rmdp-mobile .rmdp-header,
@@ -259,6 +237,7 @@
 
   .rmdp-mobile .rmdp-time-picker {
     padding: 0;
+    min-width: 130px !important;
   }
 
   .rmdp-mobile .rmdp-time-picker div input {
@@ -317,7 +296,8 @@
     height: 160px;
   }
 
-  .rmdp-mobile .rmdp-time-picker div input {
+  .rmdp-mobile .rmdp-time-picker div input,
+  .rmdp-mobile .dvdr {
     margin: 0;
   }
 

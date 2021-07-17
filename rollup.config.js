@@ -6,6 +6,7 @@ import postcss from "rollup-plugin-postcss";
 import cssvariables from "postcss-css-variables";
 import svgr from "@svgr/rollup";
 import url from "@rollup/plugin-url";
+import fs from "fs";
 import { terser } from "rollup-plugin-terser";
 
 const external = [
@@ -34,19 +35,7 @@ export default [
         exports: "named",
       },
     ],
-    external,
-    plugins: [
-      resolve(),
-      peerDepsExternal(),
-      babel({
-        exclude: /node_modules/,
-        presets,
-      }),
-      commonjs(),
-      postcss({ plugins: [cssvariables()] }),
-      svgr(),
-      url(),
-    ],
+    ...getProps(),
   },
   {
     input: "src/index_browser.js",
@@ -60,6 +49,14 @@ export default [
         globals,
       },
     ],
+    ...getProps(),
+  },
+  ...build("plugins"),
+  ...build("elements"),
+];
+
+function getProps() {
+  return {
     external,
     plugins: [
       resolve(),
@@ -73,51 +70,20 @@ export default [
       svgr(),
       url(),
     ],
-  },
-  {
-    input: "plugins/all.js",
-    output: [
-      {
-        file: "plugins/index.js",
-        format: "cjs",
-        plugins: [terser()],
-        exports: "named",
-      },
-    ],
-    external,
-    plugins: [
-      resolve(),
-      peerDepsExternal(),
-      babel({
-        exclude: /node_modules/,
-        presets,
-      }),
-      commonjs(),
-      postcss({ plugins: [cssvariables()] }),
-      svgr(),
-      url(),
-    ],
-  },
-  ...[
-    "date_panel",
-    "date_picker_header",
-    "multi_colors",
-    "settings",
-    "toolbar",
-    "weekends",
-    "time_picker",
-    "analog_time_picker",
-    "range_picker_footer",
-  ].map((path) => {
+  };
+}
+
+function build(dirName) {
+  return fs.readdirSync("./src/" + dirName).map((path) => {
     let name = path
       .replace(/^./, (w) => w.toUpperCase())
       .replace(/_./g, (w) => w.replace("_", "").toUpperCase());
 
     return {
-      input: `plugins/all/${path}/${path}.js`,
+      input: `src/${dirName}/${path}/${path}.js`,
       output: [
         {
-          file: `plugins/${path}.js`,
+          file: `${dirName === "elements" ? "components" : dirName}/${path}.js`,
           format: "cjs",
           plugins: [terser()],
           exports: "named",
@@ -131,19 +97,7 @@ export default [
           globals,
         },
       ],
-      external,
-      plugins: [
-        resolve(),
-        peerDepsExternal(),
-        babel({
-          exclude: /node_modules/,
-          presets,
-        }),
-        commonjs(),
-        postcss({ plugins: [cssvariables()] }),
-        svgr(),
-        url(),
-      ],
+      ...getProps(),
     };
-  }),
-];
+  });
+}

@@ -1,6 +1,9 @@
 import React, { useMemo, useRef } from "react";
 import DateObject from "react-date-object";
 import WeekDays from "../week_days/week_days";
+import selectDate from "../../shared/selectDate";
+import isSameDate from "../../shared/isSameDate";
+import getRangeClass from "../../shared/getRangeClass";
 
 export default function DayPicker({
   state,
@@ -15,6 +18,8 @@ export default function DayPicker({
   weekStartDayIndex,
   handleFocusedDate,
   hideWeekDays,
+  fullYear,
+  monthAndYears: [monthNames],
 }) {
   const ref = useRef({}),
     {
@@ -27,8 +32,7 @@ export default function DayPicker({
       onlyMonthPicker,
       onlyYearPicker,
     } = state,
-    mustShowDayPicker =
-      !state.onlyTimePicker && !onlyMonthPicker && !onlyYearPicker;
+    mustShowDayPicker = !onlyMonthPicker && !onlyYearPicker;
 
   ref.current.date = date;
 
@@ -41,8 +45,9 @@ export default function DayPicker({
       numberOfMonths,
       weekStartDayIndex
     );
+    // eslint-disable-next-line
   }, [
-    date.month.number,
+    date.monthIndex,
     date.year,
     date.calendar,
     date.locale,
@@ -54,15 +59,21 @@ export default function DayPicker({
 
   return (
     mustShowDayPicker && (
-      <div className="rmdp-day-picker" style={{ display: "flex" }}>
+      <div
+        className={`rmdp-day-picker ${fullYear ? "rmdp-full-year" : ""}`}
+        style={{ display: fullYear ? "grid" : "flex" }}
+      >
         {months.map((weeks, monthIndex) => (
           <div
             key={monthIndex}
             style={{
               [isRTL ? "marginLeft" : "marginRight"]:
-                monthIndex + 1 < numberOfMonths ? "10px" : "",
+                monthIndex + (fullYear ? 0 : 1) < numberOfMonths ? "10px" : "",
             }}
           >
+            {fullYear && (
+              <div className="rmdp-month-name">{monthNames[monthIndex]}</div>
+            )}
             {!hideWeekDays && (
               <WeekDays
                 state={state}
@@ -80,23 +91,17 @@ export default function DayPicker({
                     current: object.current,
                   };
 
-                  let otherProps = {},
+                  let allProps = getAllProps(object),
                     mustAddClassName =
                       mustDisplayDay(object) && !object.disabled,
                     className = `${mustAddClassName ? "sd" : ""}`,
-                    children;
+                    children = allProps.children;
 
-                  if (mapDays instanceof Function) {
-                    otherProps = getOtherProps(object);
+                  if (mustAddClassName)
+                    className = `${className} ${allProps.className || ""}`;
 
-                    if (mustAddClassName)
-                      className = `${className} ${otherProps.className || ""}`;
-
-                    children = otherProps.children;
-
-                    delete otherProps.className;
-                    delete otherProps.children;
-                  }
+                  delete allProps.className;
+                  delete allProps.children;
 
                   let parentClassName = getClassName(object, numberOfMonths);
 
@@ -108,13 +113,12 @@ export default function DayPicker({
                       key={i}
                       className={parentClassName}
                       onClick={() => {
-                        if (!mustDisplayDay(object)) return;
-                        if (object.disabled) return;
+                        if (!mustDisplayDay(object) || object.disabled) return;
 
                         selectDay(object, monthIndex, numberOfMonths);
                       }}
                     >
-                      <span className={className} {...otherProps}>
+                      <span className={className} {...allProps}>
                         {mustDisplayDay(object) && !object.hidden
                           ? children ?? object.day
                           : ""}
@@ -142,7 +146,7 @@ export default function DayPicker({
     numberOfMonths
   ) {
     let { selectedDate, focused, date } = state,
-      { hour, minute, second, month } = date;
+      { hour, minute, second } = date;
 
     dateObject.set({
       hour: selectedDate?.hour || hour,
@@ -159,7 +163,7 @@ export default function DayPicker({
 
       if (
         monthIndex > 0 &&
-        dateObject.month.index > month.index + monthIndex &&
+        dateObject.monthIndex > date.monthIndex + monthIndex &&
         monthIndex + 1 === numberOfMonths
       ) {
         date = new DateObject(date).toFirstOfMonth().add(1, "month");
@@ -219,25 +223,34 @@ export default function DayPicker({
     return [].concat(selectedDate).some((date) => isSameDate(date, dateObject));
   }
 
-  function getOtherProps(object) {
+  function getAllProps(object) {
     if (!object.current && !showOtherDays) return {};
 
-    let otherProps = mapDays({
-      date: object.date,
-      today,
-      currentMonth: state.date.month,
-      selectedDate: state.selectedDate,
-      isSameDate,
+    let allProps = {};
+
+    mapDays.forEach((fn) => {
+      let props = fn({
+        date: object.date,
+        today,
+        currentMonth: state.date.month,
+        selectedDate: state.selectedDate,
+        isSameDate,
+      });
+
+      if (props?.constructor !== Object) props = {};
+      if (props.disabled || props.hidden) object.disabled = true;
+      if (props.hidden) object.hidden = true;
+
+      allProps = {
+        ...allProps,
+        ...props,
+      };
     });
 
-    if (otherProps?.constructor !== Object) otherProps = {};
-    if (otherProps.disabled || otherProps.hidden) object.disabled = true;
-    if (otherProps.hidden) object.hidden = true;
+    delete allProps.disabled;
+    delete allProps.hidden;
 
-    delete otherProps.disabled;
-    delete otherProps.hidden;
-
-    return otherProps;
+    return allProps;
   }
 }
 
@@ -249,12 +262,12 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
   for (let monthIndex = 0; monthIndex < numberOfMonths; monthIndex++) {
     date = new DateObject(date).toFirstOfMonth();
 
-    let monthNumber = date.month.number,
+    let monthIndex = date.monthIndex,
       weeks = [];
 
     date.toFirstOfWeek().add(weekStartDayIndex, "day");
 
-    if (date.month.number === monthNumber && date.day > 1)
+    if (date.monthIndex === monthIndex && date.day > 1)
       date.subtract(7, "days");
 
     for (let weekIndex = 0; weekIndex < 6; weekIndex++) {
@@ -264,7 +277,7 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
         week.push({
           date: new DateObject(date),
           day: date.format("D"),
-          current: date.month.number === monthNumber,
+          current: date.monthIndex === monthIndex,
         });
 
         date.day += 1;
@@ -272,7 +285,7 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
 
       weeks.push(week);
 
-      if (weekIndex > 2 && date.month.number !== monthNumber && !showOtherDays)
+      if (weekIndex > 2 && date.monthIndex !== monthIndex && !showOtherDays)
         break;
     }
 
@@ -280,95 +293,4 @@ function getMonths(date, showOtherDays, numberOfMonths, weekStartDayIndex) {
   }
 
   return months;
-}
-
-export function selectDate(
-  date,
-  sort,
-  {
-    multiple,
-    range,
-    selectedDate,
-    onlyMonthPicker,
-    onlyYearPicker,
-    format,
-    focused: previousFocused,
-  }
-) {
-  date.setFormat(format);
-
-  let focused = new DateObject(date);
-
-  if (multiple) {
-    selectedDate = selectMultiple();
-  } else if (range) {
-    selectedDate = selectRange();
-  } else {
-    selectedDate = focused;
-  }
-
-  return [selectedDate, focused];
-
-  function selectMultiple() {
-    let dates = selectedDate.filter(
-      ($date) => !isSameDate(date, $date, onlyMonthPicker, onlyYearPicker)
-    );
-
-    if (dates.length === selectedDate.length) {
-      dates.push(focused);
-    } else {
-      focused = dates.find((d) => d.valueOf() === previousFocused?.valueOf?.());
-    }
-
-    if (sort) dates.sort((a, b) => a - b);
-
-    return dates;
-  }
-
-  function selectRange() {
-    if (selectedDate.length === 2 || selectedDate.length === 0)
-      return [focused];
-    if (selectedDate.length === 1)
-      return [selectedDate[0], focused].sort((a, b) => a - b);
-  }
-}
-
-export function isSameDate(
-  firstDate,
-  secondDate,
-  onlyMonthPicker = false,
-  onlyYearPicker = false
-) {
-  if (!firstDate || !secondDate) return false;
-
-  if (firstDate.year === secondDate.year) {
-    if (onlyYearPicker) return true;
-
-    if (firstDate.month.number === secondDate.month.number) {
-      if (onlyMonthPicker) return true;
-      if (firstDate.day === secondDate.day) return true;
-    }
-  }
-}
-
-export function getRangeClass(date, selectedDate, checkMonth) {
-  let first = selectedDate[0],
-    second = selectedDate[1],
-    names = [];
-
-  if (selectedDate.length === 1) {
-    if (isSameDate(date, first, checkMonth)) names.push("rmdp-range");
-  } else if (selectedDate.length === 2) {
-    if (
-      date.dayOfBeginning >= first.dayOfBeginning &&
-      date.dayOfBeginning <= second.dayOfBeginning
-    ) {
-      names.push("rmdp-range");
-    }
-
-    if (isSameDate(date, first, checkMonth)) names.push("start");
-    if (isSameDate(date, second, checkMonth)) names.push("end");
-  }
-
-  return names.join(" ");
 }

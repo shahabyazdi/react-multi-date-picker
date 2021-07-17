@@ -1,11 +1,15 @@
 import React from "react";
 
-export default function Usage(translate, language, otherProps, codeEnd, Code) {
+export default function Doc({ translate, Code }) {
   const usage = {
     title: "Usage",
     description: (
       <div>
-        <p>{translate("plugins_usage_description")}</p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: translate("plugins_usage_description"),
+          }}
+        />
         <table>
           <thead>
             <tr>
@@ -28,12 +32,13 @@ export default function Usage(translate, language, otherProps, codeEnd, Code) {
           {`import React from "react"
 import DatePicker from "react-multi-date-picker"
 import MyFavoritePlugin from "react-multi-date-picker/plugins/my_favorite_plugin"
+import myFavoriteFunctionalPlugin from "react-multi-date-picker/plugins/my_favorite_functional_plugin"
 
 export default function Example() {
   return (
     <DatePicker
       plugins={[
-        <MyFavoritePlugin />
+        <ComponentPlugin />, myFavoriteFunctionalPlugin()
       ]}
     />
   )
@@ -54,6 +59,7 @@ export default function Example() {
             <th>{translate("Plugin Name")}</th>
             <th>{translate("Path")}</th>
             <th>{translate("Browser Path")}</th>
+            <th>{translate("Type")}</th>
           </tr>
         </thead>
         <tbody>
@@ -61,46 +67,55 @@ export default function Example() {
             <td>DatePickerHeader</td>
             <td>plugins/date_picker_header</td>
             <td>build/date_picker_header.browser</td>
+            <td>React Component</td>
           </tr>
           <tr>
             <td>DatePanel</td>
             <td>plugins/date_panel</td>
             <td>build/date_panel.browser</td>
+            <td>React Component</td>
           </tr>
           <tr>
-            <td>MultiColors</td>
-            <td>plugins/multi_colors</td>
-            <td>build/multi_colors.browser</td>
+            <td>colors</td>
+            <td>plugins/colors</td>
+            <td>build/colors.browser</td>
+            <td>Function</td>
           </tr>
           <tr>
             <td>Settings</td>
             <td>plugins/settings</td>
             <td>build/settings.browser</td>
+            <td>React Component</td>
           </tr>
           <tr>
-            <td>Weekends</td>
-            <td>plugins/weekends</td>
-            <td>build/weekends.browser</td>
+            <td>weekends</td>
+            <td>plugins/highlight_weekends</td>
+            <td>build/highlight_weekends.browser</td>
+            <td>Function</td>
           </tr>
           <tr>
             <td>Toolbar</td>
             <td>plugins/toolbar</td>
             <td>build/toolbar.browser</td>
+            <td>React Component</td>
           </tr>
           <tr>
             <td>TimePicker</td>
             <td>plugins/time_picker</td>
             <td>build/time_picker.browser</td>
+            <td>React Component</td>
           </tr>
           <tr>
             <td>AnalogTimePicker</td>
             <td>plugins/analog_time_picker</td>
             <td>build/analog_time_picker.browser</td>
+            <td>React Component</td>
           </tr>
           <tr>
             <td>RangePickerFooter</td>
             <td>plugins/range_picker_footer</td>
             <td>build/range_picker_footer.browser</td>
+            <td>React Component</td>
           </tr>
         </tbody>
       </table>

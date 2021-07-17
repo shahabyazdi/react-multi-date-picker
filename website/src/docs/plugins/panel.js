@@ -2,38 +2,34 @@ import React, { useState } from "react";
 import DatePicker, { DateObject } from "../../../../build/index";
 import DatePanel from "../../../../plugins/date_panel";
 
-export default function Panel(translate, language, otherProps) {
+export default function Doc({ translate, language, otherProps, localeImport }) {
   const [value, setValue] = useState([
-    new DateObject({ calendar: language === "en" ? "gregorian" : "persian" }),
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-    }).add(2, "days"),
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-    }).add(10, "days"),
+    new DateObject(otherProps),
+    new DateObject(otherProps).add(2, "days"),
+    new DateObject(otherProps).add(10, "days"),
   ]);
 
   const [focusedDate, setFocusedDate] = useState();
 
   const [value1, setValue1] = useState([
-    new DateObject({ calendar: language === "en" ? "gregorian" : "persian" }),
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-    }).add(1, "day"),
+    new DateObject(otherProps),
+    new DateObject(otherProps).add(1, "day"),
   ]);
   const [value2, setValue2] = useState([
-    new DateObject({ calendar: language === "en" ? "gregorian" : "persian" }),
-    new DateObject({
-      calendar: language === "en" ? "gregorian" : "persian",
-    }).add(1, "day"),
+    new DateObject(otherProps),
+    new DateObject(otherProps).add(1, "day"),
   ]);
   const [value3, setValue3] = useState(
-    [5, 10, 15, 20, 25, 30].map((day) =>
-      new DateObject({
-        calendar: language === "en" ? "gregorian" : "persian",
-      }).setDay(day)
-    )
+    [5, 10, 15, 20, 25, 30].map((day) => new DateObject(otherProps).setDay(day))
   );
+
+  const $import =
+    language === "en"
+      ? `.
+.
+.
+`
+      : localeImport;
 
   const props = {
     title: "Props",
@@ -47,6 +43,16 @@ export default function Panel(translate, language, otherProps) {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>position</td>
+            <td>String</td>
+            <td>"right"</td>
+          </tr>
+          <tr>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+          </tr>
           <tr>
             <td>sort</td>
             <td>String</td>
@@ -106,16 +112,13 @@ export default function Panel(translate, language, otherProps) {
     title: "Sort By Date",
     code: `import DatePicker, { DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel" 
-.
-.
-.
-const [value, setValue] = useState([
-  new DateObject(${language === "en" ? "" : `{ calendar: "persian" }`}),
+${$import}const [value, setValue] = useState([
+  new DateObject(${language === "en" ? "" : `{ calendar: persian }`}),
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).add(2, "days"),
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).add(10, "days")
 ])
 .
@@ -149,10 +152,7 @@ const [value, setValue] = useState([
     title: "Position " + (language === "en" ? "Left" : "Right"),
     code: `import DatePicker, { DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel" 
-.
-.
-.
-const [value, setValue] = useState(
+${$import}const [value, setValue] = useState(
   [
     5, 
     10,
@@ -161,7 +161,7 @@ const [value, setValue] = useState(
     25,
     30
   ].map(day => new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).setDay(day))
 )
 .
@@ -192,13 +192,10 @@ const [value, setValue] = useState(
     title: "Without Remove Button",
     code: `import DatePicker, { DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel" 
-.
-.
-.
-const [value, setValue] = useState([
-  new DateObject(${language === "en" ? "" : `{ calendar: "persian" }`}), 
+${$import}const [value, setValue] = useState([
+  new DateObject(${language === "en" ? "" : `{ calendar: persian }`}), 
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).add(1, "day")
 ])
 .
@@ -237,13 +234,10 @@ const [value, setValue] = useState([
     title: "Date Click Listener",
     code: `import DatePicker, { DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel" 
-.
-.
-.
-const [value, setValue] = useState([
-  new DateObject(${language === "en" ? "" : `{ calendar: "persian" }`}), 
+${$import}const [value, setValue] = useState([
+  new DateObject(${language === "en" ? "" : `{ calendar: persian }`}), 
   new DateObject(${
-    language === "en" ? "" : `{ calendar: "persian" }`
+    language === "en" ? "" : `{ calendar: persian }`
   }).add(1, "day")
 ])
 .
@@ -300,10 +294,7 @@ const [value, setValue] = useState([
     title: "Custom Header Name",
     code: `import DatePicker from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel" 
-.
-.
-.
-<DatePicker
+${$import}<DatePicker
   plugins={[
     <DatePanel header="${language === "en" ? "All Dates" : "همه تاریخ ها"}" />
   ]}
@@ -325,10 +316,7 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel"
     description: "focused",
     code: `import DatePicker from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
-.
-.
-.
-const [focusedDate, setFocusedDate] = useState();
+${$import}const [focusedDate, setFocusedDate] = useState();
 .
 .
 .
