@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useMemo } from "react";
 import Arrow from "../../../src/components/arrow/arrow";
 import Input from "./input";
 import getValidProps from "../../shared/getValidProps";

@@ -66,7 +66,10 @@ function getProps() {
         presets,
       }),
       commonjs(),
-      postcss({ plugins: [cssvariables()] }),
+      postcss({
+        minimize: true,
+        plugins: [cssvariables()],
+      }),
       svgr(),
       url(),
     ],
