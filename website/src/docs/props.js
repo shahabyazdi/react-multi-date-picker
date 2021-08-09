@@ -254,6 +254,24 @@ export default function Doc({ translate, language }) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
+            <td>displayWeekNumbers</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>weekNumber</td>
+            <td>String</td>
+            <td></td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>weekPicker</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
             <td>arrow</td>
             <td>Boolean {translate("or")} React.ReactElement</td>
             <td>true</td>

@@ -64,6 +64,9 @@ function Calendar(
     hideWeekDays,
     shadow = true,
     fullYear,
+    displayWeekNumbers,
+    weekNumber,
+    weekPicker,
   },
   outerRef
 ) {
@@ -91,6 +94,11 @@ function Calendar(
   if (multiple || range || isArray(value)) {
     if (!range && !multiple) multiple = true;
     if (multiple && range) multiple = false;
+  }
+
+  if (weekPicker) {
+    range = true;
+    multiple = false;
   }
 
   if (fullYear) {
@@ -209,6 +217,7 @@ function Calendar(
         mustSortDates,
         year: date.year,
         today: state.today || new DateObject({ calendar }),
+        weekPicker,
       };
     });
   }, [
@@ -225,6 +234,7 @@ function Calendar(
     digits,
     formattingIgnoreList,
     fullYear,
+    weekPicker,
   ]);
 
   useEffect(() => {
@@ -318,6 +328,8 @@ function Calendar(
                 numberOfMonths={numberOfMonths}
                 weekStartDayIndex={weekStartDayIndex}
                 hideWeekDays={hideWeekDays}
+                displayWeekNumbers={displayWeekNumbers}
+                weekNumber={weekNumber}
               />
               {!fullYear && (
                 <>

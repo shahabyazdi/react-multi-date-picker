@@ -66,6 +66,7 @@ function DatePicker(
     shadow = true,
     onFocusedDateChange,
     type,
+    weekPicker,
     ...otherProps
   },
   outerRef
@@ -79,7 +80,7 @@ function DatePicker(
     inputRef = useRef(),
     calendarRef = useRef(),
     ref = useRef({}),
-    separator = range ? " ~ " : ", ",
+    separator = range || weekPicker ? " ~ " : ", ",
     datePickerProps = arguments[0],
     isMobileMode = isMobile(),
     closeCalendar = useCallback(() => {
@@ -367,6 +368,7 @@ function DatePicker(
         DatePicker={datePickerRef.current}
         datePickerProps={datePickerProps}
         onFocusedDateChange={handleFocusedDate}
+        weekPicker={weekPicker}
         {...otherProps}
       >
         {children}

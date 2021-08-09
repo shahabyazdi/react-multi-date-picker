@@ -20,6 +20,8 @@ export default function DayPicker({
   hideWeekDays,
   fullYear,
   monthAndYears: [monthNames],
+  displayWeekNumbers,
+  weekNumber = "",
 }) {
   const ref = useRef({}),
     {
@@ -79,10 +81,17 @@ export default function DayPicker({
                 state={state}
                 customWeekDays={customWeekDays}
                 weekStartDayIndex={weekStartDayIndex}
+                displayWeekNumbers={displayWeekNumbers}
+                weekNumber={weekNumber}
               />
             )}
             {weeks.map((week, index) => (
               <div key={index} className="rmdp-week">
+                {displayWeekNumbers && (
+                  <div className="rmdp-day rmdp-disabled">
+                    <span>{week[0].date.format("WW")}</span>
+                  </div>
+                )}
                 {week.map((object, i) => {
                   //To clear the properties which are added from the previous render
                   object = {

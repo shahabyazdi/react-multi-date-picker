@@ -120,6 +120,8 @@ export default function Demo({ language = "en", translate }) {
     weekend,
     disableMonthPicker,
     disableYearPicker,
+    displayWeekNumbers,
+    weekPicker,
   } = state;
 
   const updateState = (key, value) => {
@@ -160,6 +162,7 @@ export default function Demo({ language = "en", translate }) {
     fixMainPosition: true,
     weekStartDayIndex,
     weekDays: $weekDays[weekDays] || undefined,
+    displayWeekNumbers,
     sort: true,
     months:
       months === "1"
@@ -196,8 +199,8 @@ export default function Demo({ language = "en", translate }) {
       <DatePanel
         position={datePanelPosition}
         disabled={
-          (!multiple && !range) ||
-          ((multiple || range) && !mustShowDates) ||
+          (!multiple && !range && !weekPicker) ||
+          ((multiple || range || weekPicker) && !mustShowDates) ||
           isFullYear ||
           numberOfMonths > 1
         }
@@ -338,31 +341,47 @@ export default function Demo({ language = "en", translate }) {
                 ["Single", "single"],
                 ["Multiple", "multiple"],
                 ["Range", "range"],
+                ["Range (Week Picker)", "weekPicker"],
               ],
               value:
-                !multiple && !range
+                !multiple && !range && !weekPicker
                   ? "single"
                   : multiple
                   ? "multiple"
+                  : weekPicker
+                  ? "weekPicker"
                   : "range",
-              onChange: (mode) =>
+              onChange: (mode) => {
+                let val = value;
+
+                if (Array.isArray(value) && mode === "single") {
+                  val = value[value.length - 1];
+                } else if (mode === "weekPicker") {
+                  val = [].concat(val)[0];
+                  val = [
+                    new DateObject(val).toFirstOfWeek(),
+                    new DateObject(val).toLastOfWeek(),
+                  ];
+                }
+
                 updateState({
                   multiple: false,
                   range: false,
+                  weekPicker: false,
                   [mode]: true,
                   disableDayPicker: false,
                   $onlyTimePicker: false,
                   // $timePicker: false,
-                  value:
-                    Array.isArray(value) && mode === "single"
-                      ? value[value.length - 1]
-                      : value,
-                }),
+                  value: val,
+                });
+              },
             },
             {
-              title: "Dates panel",
+              title: "Date panel",
               disabled:
-                (!range && !multiple) || isFullYear || numberOfMonths > 1,
+                (!range && !multiple && !weekPicker) ||
+                isFullYear ||
+                numberOfMonths > 1,
               options: [
                 ["Enable", "enable"],
                 ["Disable", "disable"],
@@ -374,7 +393,7 @@ export default function Demo({ language = "en", translate }) {
             {
               title: "DatePanel Position",
               disabled:
-                (!range && !multiple) ||
+                (!range && !multiple && !weekPicker) ||
                 isFullYear ||
                 numberOfMonths > 1 ||
                 !mustShowDates,
@@ -564,6 +583,15 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: months,
               onChange: (value) => updateState("months", value),
+            },
+            {
+              title: "Display Week Numbers",
+              options: [
+                ["Disable", "disable"],
+                ["Enable", "enable"],
+              ],
+              value: displayWeekNumbers,
+              onChange: (value) => updateState("displayWeekNumbers", value),
             },
             {
               title: "Weekend",

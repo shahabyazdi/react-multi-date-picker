@@ -165,6 +165,15 @@ const [allDates, setAllDates] = useState([])
     ),
   };
 
+  let weekPicker = {
+    title: "Range Week Picker",
+    code: `${localeImport}<DatePicker
+  range
+  weekPicker
+/>`,
+    jsx: <DatePicker range weekPicker {...otherProps} />,
+  };
+
   let monthPicker = {
     title: "Range Month Picker",
     code: `${localeImport}<DatePicker
@@ -203,5 +212,12 @@ const [allDates, setAllDates] = useState([])
     ),
   };
 
-  return [range, datePanel, eachDaysInRange, monthPicker, yearPicker];
+  return [
+    range,
+    datePanel,
+    eachDaysInRange,
+    weekPicker,
+    monthPicker,
+    yearPicker,
+  ];
 }

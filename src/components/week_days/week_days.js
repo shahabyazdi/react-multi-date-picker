@@ -8,6 +8,8 @@ export default function WeekDays({
   },
   customWeekDays,
   weekStartDayIndex,
+  displayWeekNumbers,
+  weekNumber,
 }) {
   let weekDays = useMemo(() => {
     let weekDays = customWeekDays;
@@ -41,6 +43,7 @@ export default function WeekDays({
 
   return (
     <div className="rmdp-week">
+      {displayWeekNumbers && <div className="rmdp-week-day">{weekNumber}</div>}
       {weekDays.map((weekDay, index) => (
         <div key={index} className="rmdp-week-day">
           {weekDay}

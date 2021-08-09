@@ -21,6 +21,8 @@
   "Only Month Picker": "فقط گرفتن ماه",
   "Only Year Picker": "فقط گرفتن سال",
   "Dates panel": "پنل تاریخ ها",
+  "Date panel": "پنل تاریخ ها",
+  "Display Week Numbers": "نمایش شماره هفته ها",
   "Enable": "فعال",
   "Type": "حالت",
   "Input": "اینپوت",
@@ -470,7 +472,7 @@
   "Styling Header": "شخصی سازی سربرگ",
   "Sort": "قابلیت مرتب سازی بر اساس",
   "Sort By Date": "مرتب سازی بر اساس تاریخ",
-  "Position Right": "قرار دادن پنل تاریخ ها در سمت راست تقویم",
+  "Position Left": "قرار دادن پنل تاریخ ها در سمت راست تقویم",
   "Without Remove Button": "بدون دکمه حذف",
   "Date Click Listener": "اضافه کردن کلیک لیستنر",
   "are you sure you want to delete this date ?": "آیا مطمعن به حذف این تاریخ هستید ؟",
@@ -831,5 +833,8 @@
   "Customizing Transition#2": "سفارشی کردن انتقال #2",
   "Customizing Opacity": "سفارشی کردن تیرگی",
   "Opacity & Transition #1": "انتقال و تیرگی #1",
-  "Opacity & Transition #2": "انتقال و تیرگی #2"
+  "Opacity & Transition #2": "انتقال و تیرگی #2",
+  "Displaying Week Numbers": "نمایش شماره هفته",
+  "Range Week Picker": "انتخابگر هفته",
+  "Important Note About onClickDate": "نکته مهم در مورد onClickDate"
 }

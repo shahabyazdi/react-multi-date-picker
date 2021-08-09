@@ -380,6 +380,24 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
+          <td>displayWeekNumbers</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>weekNumber</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>weekPicker</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
           <td>containerClassName</td>
           <td style="text-align:center">String</td>
           <td style="text-align:center"></td>
@@ -461,12 +479,6 @@ export default function Example() {
           <td>render</td>
           <td style="text-align:center">React.ReactElement or Function</td>
           <td style="text-align:center"></td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
-          <td>disabled</td>
-          <td style="text-align:center">Boolean</td>
-          <td style="text-align:center">false</td>
           <td>DatePicker</td>
         </tr>
         <tr>

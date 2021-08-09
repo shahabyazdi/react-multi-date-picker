@@ -149,7 +149,7 @@ ${$import}const [value, setValue] = useState([
   };
 
   const bottom = {
-    title: "Position " + (language === "en" ? "Left" : "Right"),
+    title: "Position Left",
     code: `import DatePicker, { DateObject } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel" 
 ${$import}const [value, setValue] = useState(

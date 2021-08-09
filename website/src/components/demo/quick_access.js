@@ -250,6 +250,10 @@ const list = [
         path: "range/#displaying-each-days-in-range",
       },
       {
+        name: "Range Week Picker",
+        path: "range/#range-week-picker",
+      },
+      {
         name: "Range Month Picker",
         path: "range/#range-month-picker",
       },
@@ -732,6 +736,10 @@ const list = [
         path: "other-examples/#other-days",
       },
       {
+        name: "Displaying Week Numbers",
+        path: "other-examples/#displaying-week-numbers",
+      },
+      {
         name: "Disabling Scroll Sensitivity",
         path: "other-examples/#disabling-scroll-sensitivity",
       },
@@ -984,7 +992,7 @@ const list = [
             path: "plugins/time-picker/#using-timepicker-in-multiple-mode",
           },
           {
-            name: "Position Right",
+            name: "Position Left",
             path: "plugins/time-picker#position-right",
           },
           {

@@ -12,6 +12,7 @@ export default function selectDate(
     onlyYearPicker,
     format,
     focused: previousFocused,
+    weekPicker,
   }
 ) {
   date.setFormat(format);
@@ -45,6 +46,11 @@ export default function selectDate(
   }
 
   function selectRange() {
+    if (weekPicker)
+      return [
+        new DateObject(focused).toFirstOfWeek(),
+        new DateObject(focused).toLastOfWeek(),
+      ];
     if (selectedDate.length === 2 || selectedDate.length === 0)
       return [focused];
     if (selectedDate.length === 1)

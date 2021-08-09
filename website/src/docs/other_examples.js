@@ -155,6 +155,21 @@ export default function Example() {
     jsx: <DatePicker showOtherDays {...otherProps} />,
   };
 
+  const weekNumbers = {
+    title: "Displaying Week Numbers",
+    code: `${localeImport}<DatePicker 
+  displayWeekNumbers
+  weekNumber="${language === "en" ? "WN" : "ش.ه"}" 
+/>`,
+    jsx: (
+      <DatePicker
+        displayWeekNumbers
+        weekNumber={language === "en" ? "WN" : "ش.ه"}
+        {...otherProps}
+      />
+    ),
+  };
+
   const scroll = {
     title: "Disabling Scroll Sensitivity",
     description: "disable_scroll",
@@ -323,6 +338,7 @@ export default function Example() {
     customMonthYear,
     weekStartDayIndex,
     otherDays,
+    weekNumbers,
     scroll,
     fullYear,
     hide,
