@@ -12,7 +12,7 @@ export default function Doc({ translate, language, otherProps }) {
 
   const example = {
     title: "Example Of Using React Hook Form",
-    code: `import React from "react";
+    code: `import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import { useForm, Controller } from "react-hook-form";
 

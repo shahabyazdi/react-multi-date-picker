@@ -579,8 +579,8 @@ export default function Demo({ language = "en", translate }) {
               ],
               value: weekend,
               onChange: (val) => {
-                let date 
-                
+                let date;
+
                 if (multiple || range || Array.isArray(value)) {
                   date = value.filter((date) =>
                     $weekend[calendar.name].includes(date?.weekDay?.index) &&

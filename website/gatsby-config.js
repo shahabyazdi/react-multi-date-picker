@@ -69,18 +69,9 @@ module.exports = {
     },
   },
   pathPrefix: "/react-multi-date-picker",
-  flags: {
-    DEV_SSR: false,
-    FAST_DEV: false,
-    PRESERVE_FILE_DOWNLOAD_CACHE: false,
-    PARALLEL_SOURCING: false,
-    FUNCTIONS: false,
-    PRESERVE_WEBPACK_CACHE: true,
-  },
   plugins: [
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
-    "gatsby-plugin-offline",
     {
       resolve: "gatsby-plugin-manifest",
       options: {

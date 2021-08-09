@@ -498,12 +498,7 @@ function DatePicker(
       value = value.replace(new RegExp(digit, "g"), digits.indexOf(digit));
     }
 
-    let newDate = new DateObject({
-      date: value,
-      format,
-      calendar,
-      locale,
-    });
+    let newDate = new DateObject(date).parse(value);
 
     handleChange(newDate.isValid ? newDate : null);
     setStringDate(toLocaleDigits(value, digits));

@@ -1,5 +1,5 @@
 import React from "react";
-import DatePicker, { Calendar, DateObject } from "../../../build/index";
+import DatePicker, { Calendar } from "../../../build/index";
 import { Link } from "gatsby";
 
 //persian calendar & locales
