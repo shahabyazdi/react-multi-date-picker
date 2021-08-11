@@ -86,7 +86,7 @@ export default function Demo({ language = "en", translate }) {
   });
 
   const {
-    type = "calendar",
+    type = "input",
     value,
     calendar,
     locale,
@@ -249,7 +249,6 @@ export default function Demo({ language = "en", translate }) {
           <DatePicker {...props} />
         )}
       </div>
-
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Selectors
           translate={translate}

@@ -484,9 +484,13 @@ function DatePicker(
     ref.current.selection = e.target.selectionStart;
 
     let value = e.target.value,
-      object = { year: 1, calendar, locale, format },
-      digits =
-        date && date.isValid ? date.digits : new DateObject(object).digits;
+      object = {
+        calendar,
+        locale,
+        format,
+        ignoreList: JSON.parse(formattingIgnoreList),
+      },
+      digits = locale.digits;
 
     if (!value) {
       setStringDate("");
@@ -500,7 +504,31 @@ function DatePicker(
       value = value.replace(new RegExp(digit, "g"), digits.indexOf(digit));
     }
 
-    let newDate = new DateObject(date).parse(value);
+    let newDate;
+    /**
+     * Given that the only valid date is the date that has all three values ​​of the day, month, and year.
+     * To generate a new date, we must check whether the day, month, and year
+     * are defined in the format or not.
+     */
+    if (/(?=.*Y)(?=.*M)(?=.*D)/.test(format)) {
+      /**
+       * If the above condition is true,
+       * we generate a new date from the input value.
+       */
+      newDate = new DateObject({
+        ...object,
+        date: value,
+      });
+    } else {
+      /**
+       * Otherwise, we generate today's date and replace the input value ​​with today's values.
+       * For example, if we are only using the TimePicker and the input value follows the format "HH:mm",
+       * if we generate a new date from the format "HH:mm", given that the values ​​of the day, month, and year
+       * do not exist in the input value, an invalid date will be generated.
+       * Therefore, it is better to generate today's date and replace only the hour and minute with today's values.
+       */
+      newDate = new DateObject(object).parse(value);
+    }
 
     handleChange(newDate.isValid ? newDate : null);
     setStringDate(toLocaleDigits(value, digits));
