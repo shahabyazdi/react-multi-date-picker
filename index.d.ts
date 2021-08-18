@@ -131,7 +131,7 @@ declare module "react-multi-date-picker" {
      *   ]}
      * />
      */
-    weekDays?: string[] | [string[]];
+    weekDays?: string[] | Array<string[]>;
     /**
      * @see https://shahabyazdi.github.io/react-multi-date-picker/locales/
      * @example
@@ -152,7 +152,7 @@ declare module "react-multi-date-picker" {
      *  ]}
      * />
      */
-    months?: string[] | [string[]];
+    months?: string[] | Array<string[]>;
     /**
      * @example
      * <Calendar
