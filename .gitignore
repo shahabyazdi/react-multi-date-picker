@@ -7,3 +7,4 @@
 /plugins
 /components
 .npmignore 
+.vscode

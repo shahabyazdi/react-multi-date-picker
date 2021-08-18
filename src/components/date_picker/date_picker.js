@@ -489,8 +489,9 @@ function DatePicker(
         locale,
         format,
         ignoreList: JSON.parse(formattingIgnoreList),
-      },
-      digits = locale.digits;
+      };
+
+    digits = isArray(digits) ? digits : locale.digits;
 
     if (!value) {
       setStringDate("");

@@ -86,7 +86,7 @@ export default function Demo({ language = "en", translate }) {
   });
 
   const {
-    type = "input",
+    type = "calendar",
     value,
     calendar,
     locale,
@@ -589,8 +589,9 @@ export default function Demo({ language = "en", translate }) {
                 ["Disable", "disable"],
                 ["Enable", "enable"],
               ],
-              value: displayWeekNumbers,
-              onChange: (value) => updateState("displayWeekNumbers", value),
+              value: displayWeekNumbers ? "enable" : "disable",
+              onChange: (value) =>
+                updateState("displayWeekNumbers", value === "enable"),
             },
             {
               title: "Weekend",

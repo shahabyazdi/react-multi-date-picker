@@ -9,3 +9,4 @@ babel.config.js
 .github
 .gitignore
 .babelrc
+.vscode
