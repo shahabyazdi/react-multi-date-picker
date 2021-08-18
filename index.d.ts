@@ -16,7 +16,7 @@ declare module "react-multi-date-picker" {
   export type FunctionalPlugin = { type: string; fn: Function };
   export type Plugin = React.ReactElement | FunctionalPlugin;
 
-  interface CalendarProps {
+  export interface CalendarProps {
     ref?: React.MutableRefObject<any>;
     /**
      * @types Date | string | number | DateObject
@@ -304,7 +304,7 @@ declare module "react-multi-date-picker" {
     weekPicker?: boolean;
   }
 
-  interface DatePickerProps {
+  export interface DatePickerProps {
     arrow?: boolean | React.ReactElement;
     arrowClassName?: string;
     arrowStyle?: React.CSSProperties;
