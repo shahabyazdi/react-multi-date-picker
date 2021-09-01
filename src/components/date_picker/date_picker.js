@@ -67,6 +67,7 @@ function DatePicker(
     onFocusedDateChange,
     type,
     weekPicker,
+    mobileButtonsLabels,
     ...otherProps
   },
   outerRef
@@ -430,7 +431,11 @@ function DatePicker(
       hi: { OK: "पुष्टि", CANCEL: "रद्द करें" },
     };
 
-    return actions[getLocaleName(locale)]?.[string] || string;
+    return (
+      mobileButtonsLabels?.[string] ||
+      actions[getLocaleName(locale)]?.[string] ||
+      string
+    );
   }
 
   function openCalendar() {
