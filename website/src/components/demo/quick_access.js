@@ -623,6 +623,10 @@ const list = [
         name: "Mobile",
         path: "appearance/#mobile",
       },
+      {
+        name: "Changing The Text Of The Action Buttons In Mobile Mode",
+        path: "appearance/#changing-the-text-of-the-action-buttons-in-mobile-mode",
+      },
     ],
   },
   {

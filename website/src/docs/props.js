@@ -433,6 +433,12 @@ export default function Doc({ translate, language }) {
             <td></td>
             <td>{translate("DatePicker")}</td>
           </tr>
+          <tr>
+            <td>mobileLabels</td>
+            <td>Object</td>
+            <td></td>
+            <td>DatePicker</td>
+          </tr>
         </tbody>
       </table>
     ),

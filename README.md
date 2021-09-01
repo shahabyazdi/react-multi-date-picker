@@ -559,6 +559,12 @@ export default function Example() {
           <td style="text-align:center">0</td>
           <td>DatePicker</td>
         </tr>
+        <tr>
+          <td>mobileLabels</td>
+          <td style="text-align:center">Object</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
       </tbody>
     </table>
 

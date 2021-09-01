@@ -454,6 +454,7 @@ declare module "react-multi-date-picker" {
         scrollTop: number;
       };
     }): void;
+    mobileLabels?: { OK: string; CANCEL: string };
   }
 
   export { DateObject };

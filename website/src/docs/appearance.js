@@ -27,5 +27,30 @@ export default function Doc({ otherProps, localeImport }) {
     jsx: <DatePicker className="rmdp-mobile" {...otherProps} />,
   };
 
-  return [prime, mobile];
+  const mobileButtons = {
+    title: "Changing The Text Of The Action Buttons In Mobile Mode",
+    code: `${localeImport}import "react-multi-date-picker/styles/layouts/mobile.css"
+.
+.
+.
+<DatePicker
+  className="rmdp-mobile"
+  mobileLabels={{
+    OK: "Accept",
+    CANCEL: "Close",
+  }}
+/>`,
+    jsx: (
+      <DatePicker
+        className="rmdp-mobile"
+        mobileLabels={{
+          OK: "Accept",
+          CANCEL: "Close",
+        }}
+        {...otherProps}
+      />
+    ),
+  };
+
+  return [prime, mobile, mobileButtons];
 }

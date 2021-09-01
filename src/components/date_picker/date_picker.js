@@ -67,7 +67,7 @@ function DatePicker(
     onFocusedDateChange,
     type,
     weekPicker,
-    mobileButtonsLabels,
+    mobileLabels,
     ...otherProps
   },
   outerRef
@@ -432,7 +432,7 @@ function DatePicker(
     };
 
     return (
-      mobileButtonsLabels?.[string] ||
+      mobileLabels?.[string] ||
       actions[getLocaleName(locale)]?.[string] ||
       string
     );
