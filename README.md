@@ -565,6 +565,18 @@ export default function Example() {
           <td style="text-align:center"></td>
           <td>DatePicker</td>
         </tr>
+        <tr>
+          <td>portal</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>portalTarget</td>
+          <td style="text-align:center">HTMLElement</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
       </tbody>
     </table>
 

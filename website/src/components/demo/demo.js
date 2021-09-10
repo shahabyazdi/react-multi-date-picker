@@ -98,14 +98,14 @@ export default function Demo({ language = "en", translate }) {
     $onlyAnalogTimePicker,
     onlyMonthPicker,
     onlyYearPicker,
-    layout,
+    layout = "",
     arrow,
     buttons,
     hideMonth,
     hideYear,
     shadow,
-    color,
-    background,
+    color = "",
+    background = "",
     showOtherDays,
     mustShowDates,
     calendarPosition,
@@ -156,7 +156,7 @@ export default function Demo({ language = "en", translate }) {
   const props = {
     ...state,
     type: undefined,
-    className: `${layout} ${color} ${background}`,
+    className: [layout, color, background].join(" "),
     onChange: (value) => updateState("value", value),
     fixRelativePosition: true,
     fixMainPosition: true,
@@ -249,6 +249,7 @@ export default function Demo({ language = "en", translate }) {
           <DatePicker {...props} />
         )}
       </div>
+
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Selectors
           translate={translate}

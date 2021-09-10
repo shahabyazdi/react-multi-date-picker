@@ -63,6 +63,7 @@ const sidebar = {
     { name: "Colors & Backgrounds", path: "colors/" },
     { name: "ClassNames & Styles", path: "classes-&-styles/" },
     { name: "Custom Arrow", path: "arrow/" },
+    { name: "Portal", path: "portal/" },
     { name: "Other Examples", path: "other-examples/" },
     { name: "Plugins", path: "plugins/" },
   ],

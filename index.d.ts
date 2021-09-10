@@ -455,6 +455,8 @@ declare module "react-multi-date-picker" {
       };
     }): void;
     mobileLabels?: { OK: string; CANCEL: string };
+    portal?: boolean;
+    portalTarget?: HTMLElement;
   }
 
   export { DateObject };

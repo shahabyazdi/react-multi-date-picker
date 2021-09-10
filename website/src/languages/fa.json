@@ -837,5 +837,8 @@
   "Displaying Week Numbers": "نمایش شماره هفته",
   "Range Week Picker": "انتخابگر هفته",
   "Important Note About onClickDate": "نکته مهم در مورد onClickDate",
-  "Changing The Text Of The Action Buttons In Mobile Mode": "تغییر متن دکمه ها در حالت تلفن همراه"
+  "Changing The Text Of The Action Buttons In Mobile Mode": "تغییر متن دکمه ها در حالت تلفن همراه",
+  "Portal": "پورتال",
+  "Portal Mode": "پورتال",
+  "Dynamic Portal Target": "استفاده از حالت پورتال به صورت پویا"
 }

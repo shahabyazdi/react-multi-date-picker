@@ -439,6 +439,18 @@ export default function Doc({ translate, language }) {
             <td></td>
             <td>DatePicker</td>
           </tr>
+          <tr>
+            <td>portal</td>
+            <td>Boolean</td>
+            <td></td>
+            <td>DatePicker</td>
+          </tr>
+          <tr>
+            <td>portalTarget</td>
+            <td>HTMLElement</td>
+            <td></td>
+            <td>DatePicker</td>
+          </tr>
         </tbody>
       </table>
     ),

@@ -720,6 +720,20 @@ const list = [
     ],
   },
   {
+    name: "Portal",
+    path: "portal/",
+    list: [
+      {
+        name: "Portal Mode",
+        path: "portal/#portal-mode",
+      },
+      {
+        name: "Dynamic Portal Target",
+        path: "portal/#dynamic-portal-target",
+      },
+    ],
+  },
+  {
     name: "Other Examples",
     path: "other-examples/",
     list: [

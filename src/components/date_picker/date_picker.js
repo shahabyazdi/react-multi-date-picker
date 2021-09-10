@@ -259,13 +259,16 @@ function DatePicker(
       active={!isMobileMode && isCalendarReady}
       position={calendarPosition}
       arrow={!isMobileMode && arrow}
-      containerClassName={`rmdp-container ${containerClassName}`}
-      arrowClassName={`${className} ${arrowClassName} ep-${
-        shadow ? "shadow" : "border"
-      }`}
       fixMainPosition={!scrollSensitive || fixMainPosition}
       zIndex={zIndex}
       onChange={!isMobileMode && onPositionChange}
+      containerClassName={`rmdp-container ${containerClassName}`}
+      arrowClassName={[
+        "rmdp-ep-arrow",
+        `rmdp-ep-${shadow ? "shadow" : "border"}`,
+        className,
+        arrowClassName,
+      ].join(" ")}
       {...otherProps}
     />
   );

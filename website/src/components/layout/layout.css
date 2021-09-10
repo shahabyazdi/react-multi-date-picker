@@ -102,6 +102,7 @@ body {
   background-color: white;
   box-shadow: 0 2px 2px -3px rgb(115, 115, 116);
   padding: 20px 10px;
+  z-index: 102;
 }
 
 .icons {
