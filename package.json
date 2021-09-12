@@ -57,7 +57,7 @@
     "@svgr/rollup": "^5.5.0",
     "@tabler/icons": "^1.41.2",
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
+    "@testing-library/react": "^12.1.0",
     "jest": "^27.1.1",
     "postcss": "8.3.6",
     "postcss-css-variables": "^0.18.0",
@@ -70,7 +70,7 @@
   },
   "dependencies": {
     "react-date-object": "^2.1.4",
-    "react-element-popper": "^2.1.4"
+    "react-element-popper": "^2.1.5"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

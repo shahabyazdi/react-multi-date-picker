@@ -25,6 +25,7 @@ export default function Doc({ otherProps, localeImport, language, translate }) {
     display: "flex",
     justifyContent: "space-around",
     height: "150px",
+    maxWidth: "500px",
     backgroundColor: "lightgray",
     borderRadius: "5px",
   }}
@@ -59,6 +60,7 @@ export default function Doc({ otherProps, localeImport, language, translate }) {
       <div
         style={{
           height: "150px",
+          maxWidth: "500px",
           backgroundColor: "lightgray",
           overflow: "auto",
           position: "relative",
