@@ -23,6 +23,7 @@ export default function DatePanel({
   markFocused,
   focusedClassName = "",
   handleFocusedDate,
+  formatFunction,
   ...props
 }) {
   let headers = { en: "Dates", fa: "تاریخ ها", ar: "تواریخ", hi: "खजूर" },
@@ -130,7 +131,7 @@ export default function DatePanel({
                     }
                     style={{ cursor: object.date ? "pointer" : "default" }}
                   >
-                    {object.format}
+                    {formatFunction ? formatFunction(object.format) : object.format}
                   </span>
                   {object.date && removeButton && (
                     <button
