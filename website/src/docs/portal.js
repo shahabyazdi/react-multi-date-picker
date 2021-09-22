@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import DatePicker from "../../../src";
+import DatePicker from "../../../build";
 
 export default function Doc({ otherProps, localeImport, language, translate }) {
   const [portalTarget, setPortalTaget] = useState();

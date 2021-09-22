@@ -115,20 +115,31 @@ function DatePicker(
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (!isVisible) return;
+      if (!isVisible || ref.current.mobile) return;
+      /**
+       * Due to the fact that by activating the portal mode,
+       * the calendar element is moved out of the date picker container,
+       * it is not possible to detect external clicks using the datePickerRef.
+       * Therefore, inputRef and calendarRef can be checked separately.
+       *
+       * If the clicked area is outside of both the input and calendar elements,
+       * the calendar should be closed.
+       */
+      let outsideList = [];
 
-      if (
-        datePickerRef.current &&
-        !datePickerRef.current.contains(event.target) &&
-        !event.target.classList.contains("b-deselect") &&
-        !ref.current.mobile
-      ) {
-        closeCalendar();
-      } else if (
-        calendarRef.current &&
-        calendarRef.current.contains(event.target) &&
-        !ref.current.mobile
-      ) {
+      [inputRef.current, calendarRef.current].forEach((element) => {
+        if (
+          element &&
+          !element.contains(event.target) &&
+          !event.target.classList.contains("b-deselect")
+        ) {
+          outsideList.push(element);
+        }
+      });
+
+      if (outsideList.length === 2) return closeCalendar();
+
+      if (calendarRef.current && calendarRef.current.contains(event.target)) {
         datePickerRef.current.removeTransition();
         datePickerRef.current.refreshPosition();
       }
