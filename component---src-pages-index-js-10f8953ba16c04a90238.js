@@ -1,0 +1,2 @@
+(self.webpackChunkdate_picker=self.webpackChunkdate_picker||[]).push([[9678],{7704:function(e,n,t){"use strict";t.r(n),t.d(n,{default:function(){return r}});var a=t(7294),u=t(316);function r(e){var n=e.pageContext.language||"en";return a.createElement(u.Z,{language:n})}}}]);
+//# sourceMappingURL=component---src-pages-index-js-10f8953ba16c04a90238.js.map
