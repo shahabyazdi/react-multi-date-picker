@@ -88,6 +88,11 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
             <td>String</td>
             <td></td>
           </tr>
+          <tr>
+            <td>formatFunction</td>
+            <td>Function</td>
+            <td></td>
+          </tr>
         </tbody>
       </table>
     ),
