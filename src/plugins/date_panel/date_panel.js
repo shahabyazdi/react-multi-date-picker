@@ -131,7 +131,7 @@ export default function DatePanel({
                     }
                     style={{ cursor: object.date ? "pointer" : "default" }}
                   >
-                    {formatFunction ? formatFunction(object.format) : object.format}
+                    {formatFunction ? formatFunction(object) : object.format}
                   </span>
                   {object.date && removeButton && (
                     <button
