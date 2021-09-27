@@ -182,15 +182,15 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
-          <td>locale</td>
-          <td style="text-align:center">String</td>
-          <td style="text-align:center">en</td>
+          <td>calendar</td>
+          <td style="text-align:center">Object</td>
+          <td style="text-align:center">gregorian</td>
           <td>both</td>
         </tr>
         <tr>
-          <td>calendar</td>
-          <td style="text-align:center">String</td>
-          <td style="text-align:center">gregorian</td>
+          <td>locale</td>
+          <td style="text-align:center">Object</td>
+          <td style="text-align:center">gregorian_en</td>
           <td>both</td>
         </tr>
         <tr>
@@ -202,6 +202,54 @@ export default function Example() {
         <tr>
           <td>onChange</td>
           <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onOpen</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onClose</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onPropsChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onMonthChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onYearChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onFocusedDateChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onPositionChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>digits</td>
+          <td style="text-align:center">Array</td>
           <td style="text-align:center"></td>
           <td>both</td>
         </tr>
@@ -248,6 +296,12 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
+          <td>disableDayPicker</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
           <td>zIndex</td>
           <td style="text-align:center">Number</td>
           <td style="text-align:center">100</td>
@@ -278,12 +332,6 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
-          <td>digits</td>
-          <td style="text-align:center">Array</td>
-          <td style="text-align:center"></td>
-          <td>both</td>
-        </tr>
-        <tr>
           <td>buttons</td>
           <td style="text-align:center">Boolean</td>
           <td style="text-align:center">true</td>
@@ -298,36 +346,6 @@ export default function Example() {
         <tr>
           <td>weekStartDayIndex</td>
           <td style="text-align:center">Number</td>
-          <td style="text-align:center"></td>
-          <td>both</td>
-        </tr>
-        <tr>
-          <td>disableDayPicker</td>
-          <td style="text-align:center">Boolean</td>
-          <td style="text-align:center">false</td>
-          <td>both</td>
-        </tr>
-        <tr>
-          <td>onPropsChange</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>both</td>
-        </tr>
-        <tr>
-          <td>onMonthChange</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>both</td>
-        </tr>
-        <tr>
-          <td>onYearChange</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>both</td>
-        </tr>
-        <tr>
-          <td>onFocusedDateChange</td>
-          <td style="text-align:center">Function</td>
           <td style="text-align:center"></td>
           <td>both</td>
         </tr>
@@ -515,24 +533,6 @@ export default function Example() {
           <td>onlyShowInRangeDates</td>
           <td style="text-align:center">Boolean</td>
           <td style="text-align:center">true</td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
-          <td>onOpen</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
-          <td>onClose</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
-          <td>onPositionChange</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
           <td>DatePicker</td>
         </tr>
         <tr>

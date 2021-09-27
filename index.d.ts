@@ -488,6 +488,7 @@ declare module "react-multi-date-picker/plugins/date_panel" {
     header?: string;
     markFocused?: boolean;
     focusedClassName?: string;
+    formatFunction?(strDate: string): React.ReactNode;
   }
 
   export default function DatePanel(props: DatePanelProps): React.ReactElement;
