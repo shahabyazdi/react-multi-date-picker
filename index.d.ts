@@ -215,7 +215,7 @@ declare module "react-multi-date-picker" {
       selectedDate: DateObject | DateObject[];
       currentMonth: object;
       isSameDate(arg1: DateObject, arg2: DateObject): boolean;
-    }): HTMLAttributes<HTMLSpanElement> | void;
+    }): HTMLAttributes<HTMLSpanElement> & {disabled?: boolean, hidden?: boolean} | void;
     disableMonthPicker?: boolean;
     disableYearPicker?: boolean;
     /**
