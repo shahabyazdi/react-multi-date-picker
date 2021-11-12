@@ -65,6 +65,15 @@ export default function Doc({ language, otherProps, translate, localeImport }) {
             <td></td>
           </tr>
           <tr>
+            <td>header</td>
+            <td>Boolean</td>
+            <td>true</td>
+            <td>
+              positions top/bottom: always false, positions right/left: default
+              true{" "}
+            </td>
+          </tr>
+          <tr>
             <td>format</td>
             <td>String</td>
             <td>"YYYY/MM/DD"</td>

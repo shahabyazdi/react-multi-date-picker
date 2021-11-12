@@ -18,6 +18,7 @@ export default function TimePicker({
   style = {},
   handleFocusedDate,
   format = "YYYY/MM/DD",
+  header = true,
   ...props
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
@@ -45,7 +46,7 @@ export default function TimePicker({
 
   return (
     <div style={{ display: "grid" }}>
-      {horizontal && (
+      {horizontal && header && (
         <>
           <div style={{ margin: "auto" }}>
             <div style={{ margin: "5px 0", fontSize: "14px" }}>

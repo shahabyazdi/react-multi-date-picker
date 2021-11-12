@@ -215,7 +215,12 @@ declare module "react-multi-date-picker" {
       selectedDate: DateObject | DateObject[];
       currentMonth: object;
       isSameDate(arg1: DateObject, arg2: DateObject): boolean;
-    }): HTMLAttributes<HTMLSpanElement> & {disabled?: boolean, hidden?: boolean} | void;
+    }):
+      | (HTMLAttributes<HTMLSpanElement> & {
+          disabled?: boolean;
+          hidden?: boolean;
+        })
+      | void;
     disableMonthPicker?: boolean;
     disableYearPicker?: boolean;
     /**
@@ -631,6 +636,7 @@ declare module "react-multi-date-picker/plugins/time_picker" {
      * So, you can change the format of the select with this prop.
      */
     format?: string;
+    header?: boolean;
   }
 
   export default function TimePicker(
