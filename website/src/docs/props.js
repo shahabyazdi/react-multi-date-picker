@@ -451,6 +451,12 @@ export default function Doc({ translate, language }) {
             <td></td>
             <td>DatePicker</td>
           </tr>
+          <tr>
+            <td>onOpenPickNewDate</td>
+            <td>Boolean</td>
+            <td>true</td>
+            <td>DatePicker</td>
+          </tr>
         </tbody>
       </table>
     ),
