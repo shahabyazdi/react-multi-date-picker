@@ -68,6 +68,7 @@ function DatePicker(
     type,
     weekPicker,
     mobileLabels,
+    onOpenPickNewDate = true,
     ...otherProps
   },
   outerRef
@@ -213,7 +214,11 @@ function DatePicker(
       initialValue: initialValue || value,
     };
 
-    setDate(date);
+    if (ref.current.mobile && datePickerRef.current.isOpen) {
+      setTemporaryDate(date);
+    } else {
+      setDate(date);
+    }
   }, [
     value,
     calendar,
@@ -455,7 +460,7 @@ function DatePicker(
   function openCalendar() {
     if (disabled || readOnly || onOpen?.() === false) return;
 
-    if (!value && !ref.current.date && !range && !multiple && !isMobileMode) {
+    if (mustPickNewDate()) {
       let date = new DateObject({
         calendar,
         locale,
@@ -483,6 +488,17 @@ function DatePicker(
     } else {
       closeCalendar();
     }
+  }
+
+  function mustPickNewDate() {
+    return (
+      onOpenPickNewDate &&
+      !value &&
+      !ref.current.date &&
+      !range &&
+      !multiple &&
+      !isMobileMode
+    );
   }
 
   function handleChange(date, force) {
