@@ -267,7 +267,6 @@ function DatePicker(
   }, [stringDate]);
 
   if (multiple || isArray(date) || !editable) inputMode = "none";
-  console.log('inputMode', inputMode);
   return (
     <ElementPopper
       ref={setRef}
@@ -515,9 +514,12 @@ function DatePicker(
   }
 
   function handleValueChange(e) {
-    if (isArray(date) || !editable) return;
+    console.log('handleValueChange', e.target);
+    console.log('date', date);
+    if (!editable) return;
 
     ref.current.selection = e.target.selectionStart;
+
 
     let value = e.target.value,
       object = {
@@ -526,6 +528,8 @@ function DatePicker(
         format,
         ignoreList: JSON.parse(formattingIgnoreList),
       };
+
+    console.log('value', value);
 
     digits = isArray(digits) ? digits : locale.digits;
 
