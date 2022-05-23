@@ -266,7 +266,7 @@ function DatePicker(
     datePickerRef.current.refreshPosition();
   }, [stringDate]);
 
-  if (multiple || range || isArray(date) || !editable) inputMode = "none";
+  if (multiple || isArray(date) || !editable) inputMode = "none";
 
   return (
     <ElementPopper
