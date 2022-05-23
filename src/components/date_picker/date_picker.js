@@ -267,7 +267,7 @@ function DatePicker(
   }, [stringDate]);
 
   if (multiple || isArray(date) || !editable) inputMode = "none";
-
+  console.log('inputMode', inputMode);
   return (
     <ElementPopper
       ref={setRef}
@@ -356,7 +356,7 @@ function DatePicker(
           style={style}
           autoComplete="off"
           disabled={disabled ? true : false}
-          inputMode={inputMode || (isMobileMode ? "none" : undefined)}
+          // inputMode={inputMode || (isMobileMode ? "none" : undefined)}
           readOnly={readOnly}
         />
       );
