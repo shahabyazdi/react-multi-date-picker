@@ -515,21 +515,24 @@ function DatePicker(
 
   function handleValueChange(e) {
     console.log('handleValueChange', e.target);
-    console.log('date', date);
     if (!editable) return;
+
+    let value = e.target.value;
+
+    if (range) {
+      setStringDate(getStringDate(value.split(' ~ '), separator));
+      console.log('stringDate', stringDate);
+      return;
+    }
 
     ref.current.selection = e.target.selectionStart;
 
-
-    let value = e.target.value,
-      object = {
+    let object = {
         calendar,
         locale,
         format,
         ignoreList: JSON.parse(formattingIgnoreList),
       };
-
-    console.log('value', value);
 
     digits = isArray(digits) ? digits : locale.digits;
 
