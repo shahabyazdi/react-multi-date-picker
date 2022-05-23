@@ -73,6 +73,7 @@ function DatePicker(
   },
   outerRef
 ) {
+  console.log('helloworld');
   let [date, setDate] = useState(),
     [temporaryDate, setTemporaryDate] = useState(),
     [stringDate, setStringDate] = useState(""),
