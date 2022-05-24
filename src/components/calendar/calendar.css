@@ -185,9 +185,9 @@
   border: solid var(--rmdp-primary);
   border-width: 0 2px 2px 0;
   display: inline-block;
-  padding: 2px;
-  height: 3px;
-  width: 3px;
+  /* padding: 2px; */
+  height: 6px;
+  width: 6px;
   margin-top: 5px;
 }
 
