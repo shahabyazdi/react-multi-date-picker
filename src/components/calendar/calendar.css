@@ -134,11 +134,11 @@
   border-bottom-right-radius: 15px;
 }
 
-.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden):not(.rmdp-day.rmdp-range.start):not(.rmdp-day.rmdp-range.end) span:hover {
   background-color: var(--rmdp-hover);
 }
 
-.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:active {
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden):not(.rmdp-day.rmdp-range.start):not(.rmdp-day.rmdp-range.end) span:active {
   background-color: var(--rmdp-active);
 }
 
@@ -182,7 +182,7 @@
 }
 
 .rmdp-arrow {
-  border: solid var(--rmdp-primary);
+  border: solid var(--rmdp-arrow);
   border-width: 0 2px 2px 0;
   display: inline-block;
   /* padding: 2px; */

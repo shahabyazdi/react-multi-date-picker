@@ -118,20 +118,23 @@ export default function DayPicker({
                     className = className.replace("sd", "");
 
                   return (
-                    <div
-                      key={i}
-                      className={parentClassName}
-                      onClick={() => {
-                        if (!mustDisplayDay(object) || object.disabled) return;
+                    <div className={parentClassName+'-container'}>
+                      <div
+                        key={i}
+                        className={parentClassName}
+                        onClick={() => {
+                          if (!mustDisplayDay(object) || object.disabled) return;
 
-                        selectDay(object, monthIndex, numberOfMonths);
-                      }}
-                    >
-                      <span className={className} {...allProps}>
-                        {mustDisplayDay(object) && !object.hidden
-                          ? children ?? object.day
-                          : ""}
-                      </span>
+                          selectDay(object, monthIndex, numberOfMonths);
+                        }}
+                      >
+                        <span className={className} {...allProps}>
+                          {mustDisplayDay(object) && !object.hidden
+                            ? children ?? object.day
+                            : ""}
+                        </span>
+                      </div>
+                      <div className={parentClassName+'-background'}></div>
                     </div>
                   );
                 })}
@@ -187,7 +190,8 @@ export default function DayPicker({
       focused,
       selectedDate,
     });
-
+    console.log('focused in daypicker.js', focused);
+    console.log('dateObject in daypicker.js', dateObject);
     handleFocusedDate(focused, dateObject);
   }
 
