@@ -217,7 +217,7 @@ function DatePicker(
     if (ref.current.mobile && datePickerRef.current.isOpen) {
       setTemporaryDate(date);
     } else {
-      // setDate(date);
+      setDate(date);
       console.log('date in useEffect', date);
     }
   }, [
@@ -522,32 +522,6 @@ function DatePicker(
 
     let value = e.target.value;
 
-    if (range) {
-      let newDateWhenValueChanged = new DateObject({
-        calendar,
-        locale,
-        format,
-        months,
-        weekDays,
-        digits,
-        ignoreList: JSON.parse(formattingIgnoreList),
-      });
-      let date2 = new DateObject({
-        calendar,
-        locale,
-        format,
-        months,
-        weekDays,
-        digits,
-        ignoreList: JSON.parse(formattingIgnoreList),
-      });
-      date2 = {...date2, date: value.split(' - ')}
-      console.log('newDateWhenValueChanged', newDateWhenValueChanged);
-      setStringDate(value);
-      handleChange(date2)
-      return;
-    }
-
     ref.current.selection = e.target.selectionStart;
 
     let object = {
@@ -556,6 +530,27 @@ function DatePicker(
         format,
         ignoreList: JSON.parse(formattingIgnoreList),
       };
+
+    if (range) {
+      setStringDate(value);
+      const inputtedDates = value.split(' - ');
+
+      if (isDate(inputtedDates[0])) {
+        const dateRangeStart = new DateObject({
+          ...object,
+          date: inputtedDates[0]
+        });
+        handleChange(dateRangeStart.isValid ? dateRangeStart : null);
+      }
+      if (isDate(inputtedDates[1]) && new Date(inputtedDates[1]) > new Date(inputtedDates[0])) {
+        const dateRangeEnd = new DateObject({
+          ...object,
+          date: inputtedDates[1]
+        });
+        handleChange(dateRangeEnd.isValid ? dateRangeEnd : null);
+      }
+      return;
+    }
 
     digits = isArray(digits) ? digits : locale.digits;
 
@@ -648,4 +643,8 @@ function getInput(inputRef) {
   return inputRef.current.tagName === "INPUT"
     ? inputRef.current
     : inputRef.current.querySelector("input");
+}
+
+function isDate(date) {
+  return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
 }
