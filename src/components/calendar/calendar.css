@@ -3,7 +3,8 @@
   --rmdp-secondary: #4ca6f5;
   --rmdp-shadow: #8798ad;
   --rmdp-today: #7fdbff;
-  --rmdp-hover: #7ea6f0;
+  --rmdp-hover: #E1E2E6;
+  --rmdp-active: #C6C7CC;
   --rmdp-border: #cfd8e2;
   --highlight-red-color: #cc0303;
   --highlight-red-color-deactive: #e08e8e;
@@ -134,7 +135,10 @@
 
 .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
   background-color: var(--rmdp-hover);
-  color: white;
+}
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:active {
+  background-color: var(--rmdp-active);
 }
 
 .rmdp-day-picker {
@@ -216,31 +220,35 @@
 .rmdp-arrow-container {
   cursor: pointer;
   border-radius: 50%;
-  height: 20px;
-  width: 20px;
+  height: 40px;
+  width: 40px;
   display: flex;
   justify-content: center;
   margin: 0 5px;
+
+  position: absolute;
+  top: 16px;
+  right: 16px;
 }
 
-.rmdp-arrow-container:hover {
+/* .rmdp-arrow-container:hover {
   background-color: var(--rmdp-primary);
   box-shadow: 0 0 3px var(--rmdp-shadow);
-}
+} */
 
-.rmdp-arrow-container:hover .rmdp-arrow {
+/* .rmdp-arrow-container:hover .rmdp-arrow {
   border: solid white;
   border-width: 0 2px 2px 0;
-}
+} */
 
 .rmdp-arrow-container.disabled {
   cursor: default;
 }
 
-.rmdp-arrow-container.disabled:hover {
+/* .rmdp-arrow-container.disabled:hover {
   background-color: inherit;
   box-shadow: inherit;
-}
+} */
 
 .rmdp-arrow-container.disabled .rmdp-arrow,
 .rmdp-arrow-container.disabled:hover .rmdp-arrow {
