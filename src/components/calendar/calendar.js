@@ -153,7 +153,6 @@ function Calendar(
       } else {
         selectedDate = getSelectedDate(value, calendar, locale, format);
         console.log('selectedDate', selectedDate);
-        console.log('value', value);
 
         if (isArray(selectedDate)) {
           if (!date) date = getDate(selectedDate[0]);

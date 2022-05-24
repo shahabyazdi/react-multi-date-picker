@@ -217,7 +217,8 @@ function DatePicker(
     if (ref.current.mobile && datePickerRef.current.isOpen) {
       setTemporaryDate(date);
     } else {
-      setDate(date);
+      // setDate(date);
+      console.log('date in useEffect', date);
     }
   }, [
     value,
@@ -506,6 +507,7 @@ function DatePicker(
     if (isMobileMode && !force) return setTemporaryDate(date);
 
     setDate(date);
+    console.log('date in handleChange', date);
 
     ref.current = { ...ref.current, date };
 
