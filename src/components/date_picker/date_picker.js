@@ -379,8 +379,8 @@ function DatePicker(
         weekDays={weekDays}
         months={months}
         digits={digits}
-        minDate={'2022/05/09'}
-        maxDate={'2022/05/29'}
+        minDate={minDate}
+        maxDate={maxDate}
         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
         onPropsChange={onPropsChange}
         shadow={shadow}
@@ -519,11 +519,11 @@ function DatePicker(
 
     let value = e.target.value;
 
-    // if (range) {
-    //   const newDates = value.split(' ~ ');
-    //   setStringDate(getStringDate(newDates, separator));
-    //   return;
-    // }
+    if (range) {
+      // const newDates = value.split(' ~ ');
+      setStringDate(value);
+      return;
+    }
     console.log('e.target.selectionStart', e.target.selectionStart);
     ref.current.selection = e.target.selectionStart;
 
