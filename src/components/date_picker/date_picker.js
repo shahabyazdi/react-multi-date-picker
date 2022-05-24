@@ -82,7 +82,7 @@ function DatePicker(
     inputRef = useRef(),
     calendarRef = useRef(),
     ref = useRef({}),
-    separator = range || weekPicker ? " ~ " : ", ",
+    separator = range || weekPicker ? " - " : ", ",
     datePickerProps = arguments[0],
     isMobileMode = isMobile(),
     closeCalendar = useCallback(() => {
@@ -363,6 +363,7 @@ function DatePicker(
   }
 
   function renderCalendar() {
+    console.log('date in renderCalendar', date);
     return (
       <Calendar
         ref={calendarRef}
@@ -520,11 +521,10 @@ function DatePicker(
     let value = e.target.value;
 
     if (range) {
-      // const newDates = value.split(' ~ ');
       setStringDate(value);
       return;
     }
-    console.log('e.target.selectionStart', e.target.selectionStart);
+
     ref.current.selection = e.target.selectionStart;
 
     let object = {
