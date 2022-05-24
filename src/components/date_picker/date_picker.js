@@ -523,7 +523,28 @@ function DatePicker(
     let value = e.target.value;
 
     if (range) {
+      let newDateWhenValueChanged = new DateObject({
+        calendar,
+        locale,
+        format,
+        months,
+        weekDays,
+        digits,
+        ignoreList: JSON.parse(formattingIgnoreList),
+      });
+      let date2 = new DateObject({
+        calendar,
+        locale,
+        format,
+        months,
+        weekDays,
+        digits,
+        ignoreList: JSON.parse(formattingIgnoreList),
+      });
+      date2 = {...date2, date: value.split(' - ')}
+      console.log('newDateWhenValueChanged', newDateWhenValueChanged);
       setStringDate(value);
+      handleChange(date2)
       return;
     }
 
