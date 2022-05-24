@@ -73,7 +73,6 @@ function DatePicker(
   },
   outerRef
 ) {
-  console.log('helloworld');
   let [date, setDate] = useState(),
     [temporaryDate, setTemporaryDate] = useState(),
     [stringDate, setStringDate] = useState(""),
@@ -192,6 +191,7 @@ function DatePicker(
 
     if (range || multiple || isArray(date)) {
       if (!isArray(date)) date = [date];
+      console.log('date for range', date);
 
       date = date.map(checkDate).filter((value) => value !== undefined);
 
@@ -267,6 +267,7 @@ function DatePicker(
   }, [stringDate]);
 
   if (multiple || isArray(date) || !editable) inputMode = "none";
+
   return (
     <ElementPopper
       ref={setRef}
@@ -519,11 +520,11 @@ function DatePicker(
 
     let value = e.target.value;
 
-    if (range) {
-      setStringDate(getStringDate(value.split(' ~ '), separator));
-      console.log('stringDate', stringDate);
-      return;
-    }
+    // if (range) {
+    //   const newDates = value.split(' ~ ');
+    //   setStringDate(getStringDate(newDates, separator));
+    //   return;
+    // }
 
     ref.current.selection = e.target.selectionStart;
 
