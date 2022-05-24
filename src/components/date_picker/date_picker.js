@@ -191,7 +191,6 @@ function DatePicker(
 
     if (range || multiple || isArray(date)) {
       if (!isArray(date)) date = [date];
-      console.log('date for range', date);
 
       date = date.map(checkDate).filter((value) => value !== undefined);
 
@@ -380,8 +379,8 @@ function DatePicker(
         weekDays={weekDays}
         months={months}
         digits={digits}
-        minDate={minDate}
-        maxDate={maxDate}
+        minDate={'2022/05/09'}
+        maxDate={'2022/05/29'}
         formattingIgnoreList={JSON.parse(formattingIgnoreList)}
         onPropsChange={onPropsChange}
         shadow={shadow}
@@ -525,7 +524,7 @@ function DatePicker(
     //   setStringDate(getStringDate(newDates, separator));
     //   return;
     // }
-
+    console.log('e.target.selectionStart', e.target.selectionStart);
     ref.current.selection = e.target.selectionStart;
 
     let object = {
