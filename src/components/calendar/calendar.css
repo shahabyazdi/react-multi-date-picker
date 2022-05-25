@@ -143,11 +143,11 @@
 }
 
 .rmdp-day-picker {
-  padding: 5px;
+  /* padding: 5px; */
 }
 
 .rmdp-header {
-  margin-top: 5px;
+  /* margin-top: 5px; */
   font-size: 14px;
   height: 38px;
   line-height: 37px;
@@ -172,13 +172,16 @@
 }
 
 .rmdp-header-values {
-  color: black;
+  /* color: black; */
   margin: auto;
+  height: 28px;
+  width: 122px;
 }
 
 .rmdp-header-values span {
   padding: 0 5px;
   padding-right: 0;
+  color: #252629;
 }
 
 .rmdp-arrow {
@@ -225,11 +228,7 @@
   width: 40px;
   display: flex;
   justify-content: center;
-  margin: 0 5px;
-
-  position: absolute;
-  top: 16px;
-  right: 16px;
+  /* margin: 0 5px; */
 }
 
 /* .rmdp-arrow-container:hover {
