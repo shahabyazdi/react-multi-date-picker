@@ -70,9 +70,9 @@ export default function DayPicker({
             key={monthIndex}
             style={{
               [isRTL ? "marginLeft" : "marginRight"]:
-                monthIndex + (fullYear ? 0 : 1) < numberOfMonths ? "10px" : "",
+                monthIndex + (fullYear ? 0 : 1) < numberOfMonths ? "" : "",
             }}
-            className={`rmdp-day-picker-${isRTL ? "leftPanel" : "rightPanel"}`}
+            className={`rmdp-day-picker-${monthIndex % 2 === 0 ? "leftPanel" : "rightPanel"}`}
           >
             {fullYear && (
               <div className="rmdp-month-name">{monthNames[monthIndex]}</div>

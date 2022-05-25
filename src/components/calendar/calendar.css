@@ -146,6 +146,24 @@
   margin-left: 16px;
 }
 
+.rmdp-day-picker-leftPanel {
+  margin-right: 16px
+}
+
+.rmdp-day-picker-rightPanel {
+  margin-left: 16px
+}
+
+.rmdp-day-picker-rightPanel:after {
+  content: "";
+  background: #C6C7CC;
+  position: absolute;
+  width: 1px;
+  height: 228px;
+  display: block;
+  top: 0;
+}
+
 .rmdp-header {
   margin-top: 16px;
   margin-left: 16px;
