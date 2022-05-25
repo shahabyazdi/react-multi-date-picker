@@ -69,7 +69,7 @@
 .rmdp-day,
 .rmdp-week-day {
   height: 34px;
-  width: 34px;
+  width: 32px;
   cursor: pointer;
   position: relative;
   color: black;
@@ -143,11 +143,12 @@
 }
 
 .rmdp-day-picker {
-  /* padding: 5px; */
+  margin-left: 16px;
 }
 
 .rmdp-header {
   margin-top: 16px;
+  margin-left: 16px;
   font-size: 14px;
   height: 38px;
   line-height: 37px;
