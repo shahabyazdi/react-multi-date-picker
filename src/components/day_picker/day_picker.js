@@ -118,9 +118,8 @@ export default function DayPicker({
                     className = className.replace("sd", "");
 
                   return (
-                    <div className={parentClassName+'-container'}>
+                    <div className={parentClassName+'-container'} key={i}>
                       <div
-                        key={i}
                         className={parentClassName}
                         onClick={() => {
                           if (!mustDisplayDay(object) || object.disabled) return;

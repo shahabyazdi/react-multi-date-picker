@@ -36,7 +36,7 @@
 }
 
 .rmdp-calendar {
-  padding: 4px;
+  /* padding: 4px; */
   height: max-content;
 }
 
@@ -147,7 +147,7 @@
 }
 
 .rmdp-header {
-  /* margin-top: 5px; */
+  margin-top: 16px;
   font-size: 14px;
   height: 38px;
   line-height: 37px;
