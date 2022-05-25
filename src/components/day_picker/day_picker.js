@@ -198,10 +198,12 @@ export default function DayPicker({
         date = new DateObject(date).toFirstOfMonth().add(1, "month");
       }
     }
-    if (dateObject.isValid() && dateObject < selectedDate[1] && dateObject >= selectedDate[0]) {
+    console.log('RUNNINGGGGG');
+
+    if (dateObject.isValid() && dateObject.unix < selectedDate[1].unix && dateObject.unix >= selectedDate[0].unix) {
       console.log('IN RNGEEEEEEEE');
     } else {
-      console.log('dateObject >= selectedDate[0]', dateObject >= selectedDate[0]);
+      console.log('dateObject.unix >= selectedDate[0].unix', dateObject.unix >= selectedDate[0].unix);
     }
     [selectedDate, focused] = selectDate(dateObject, sort, state);
     
