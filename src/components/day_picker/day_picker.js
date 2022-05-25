@@ -200,6 +200,8 @@ export default function DayPicker({
     }
 
     [selectedDate, focused] = selectDate(dateObject, sort, state);
+    console.log('selectedDate in daypicker.js', selectedDate);
+    console.log('focused in daypicker.js', focused);
 
     onChange(selectedDate, {
       ...state,
@@ -207,7 +209,6 @@ export default function DayPicker({
       focused,
       selectedDate,
     });
-    console.log('focused in daypicker.js', focused);
     console.log('dateObject in daypicker.js', dateObject);
     handleFocusedDate(focused, dateObject);
   }
