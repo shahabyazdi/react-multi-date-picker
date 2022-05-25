@@ -59,7 +59,7 @@
 .rmdp-week,
 .rmdp-ym {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .rmdp-ym {
