@@ -118,7 +118,8 @@ export default function DayPicker({
                   if (object.hidden || object.disabled)
                     className = className.replace("sd", "");
 
-                  return (
+                  
+                  return (parentClassName.includes('rmdp-range start') || parentClassName.includes('rmdp-range end')) ? (
                     <div className={parentClassName+'-container'} key={i}>
                       <div
                         className={parentClassName}
@@ -135,6 +136,22 @@ export default function DayPicker({
                         </span>
                       </div>
                       <div className={parentClassName+'-background'}></div>
+                    </div>
+                  ) : (
+                    <div
+                      key={i}
+                      className={parentClassName}
+                      onClick={() => {
+                        if (!mustDisplayDay(object) || object.disabled) return;
+
+                        selectDay(object, monthIndex, numberOfMonths);
+                      }}
+                    >
+                      <span className={className} {...allProps}>
+                        {mustDisplayDay(object) && !object.hidden
+                          ? children ?? object.day
+                          : ""}
+                      </span>
                     </div>
                   );
                 })}
