@@ -60,7 +60,7 @@ export default function Example() {
 }
 ```
 
-## Browser (none react-app)
+## Browser (non react-app)
 
 ```html
 <!DOCTYPE html>
@@ -115,7 +115,7 @@ export default function Example() {
 </html>
 ```
 
-## Availble props
+## Available props
 
 <table>
       <thead>
@@ -646,7 +646,7 @@ Click [here](https://shahabyazdi.github.io/react-multi-date-picker/calendars) to
 <br/>
 
 Of course, you can customize the names of the months and days of the week
-in the both calendar & input by using the `months` and `weekDays` Props.
+in both the calendar & input by using the `months` and `weekDays` Props.
 
 Also, you can create a custom Calendar and Locale:
 
