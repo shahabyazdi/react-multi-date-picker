@@ -1,7 +1,10 @@
 import React from "react";
-import DatePicker from "../../../build/index";
+import { useState } from "react";
+import DatePicker from "../../../src/index";
 
 export default function Doc({ otherProps, localeImport }) {
+  const [value, setValue] = useState();
+
   const prime = {
     title: "Prime",
     code: `${localeImport}import "react-multi-date-picker/styles/layouts/prime.css"
@@ -52,5 +55,47 @@ export default function Doc({ otherProps, localeImport }) {
     ),
   };
 
-  return [prime, mobile, mobileButtons];
+  const customMobileButtons = {
+    title: "Custom Mobile Buttons",
+    code: `${localeImport}import "react-multi-date-picker/styles/layouts/mobile.css"
+.
+.
+.
+
+const [value, setValue] = useState();
+
+return (
+  <DatePicker
+    className="rmdp-mobile"
+    value={value}
+    onChange={setValue}
+    mobileButtons={[
+      {
+        label: "RESET",
+        type: "button",
+        className: "rmdp-button rmdp-action-button",
+        onClick: () => setValue({}),
+      },
+    ]}
+  />
+)`,
+    jsx: (
+      <DatePicker
+        className="rmdp-mobile"
+        value={value}
+        onChange={setValue}
+        mobileButtons={[
+          {
+            label: "RESET",
+            type: "button",
+            className: "rmdp-button rmdp-action-button",
+            onClick: () => setValue({}),
+          },
+        ]}
+        {...otherProps}
+      />
+    ),
+  };
+
+  return [prime, mobile, mobileButtons, customMobileButtons];
 }

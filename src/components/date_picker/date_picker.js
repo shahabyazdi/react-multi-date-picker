@@ -69,6 +69,7 @@ function DatePicker(
     weekPicker,
     mobileLabels,
     onOpenPickNewDate = true,
+    mobileButtons = [],
     ...otherProps
   },
   outerRef
@@ -102,7 +103,33 @@ function DatePicker(
 
       setIsVisible(false);
       setIsCalendarReady(false);
-    }, [onClose]);
+    }, [onClose]),
+    buttons = [
+      {
+        type: "button",
+        className: "rmdp-button rmdp-action-button",
+        onClick: () => {
+          setTemporaryDate(undefined);
+          closeCalendar();
+        },
+
+        label: toLocale("CANCEL"),
+      },
+      {
+        type: "button",
+        className: "rmdp-button rmdp-action-button",
+        onClick: () => {
+          if (temporaryDate) {
+            handleChange(temporaryDate, true);
+            setTemporaryDate(undefined);
+          }
+
+          closeCalendar();
+        },
+
+        label: toLocale("OK"),
+      },
+    ];
 
   if (isMobileMode && !ref.current.mobile)
     ref.current = { ...ref.current, mobile: true };
@@ -407,36 +434,19 @@ function DatePicker(
       .some(({ props = {} }) => !props.disabled);
 
     return (
-      <div
-        className={`rmdp-action-buttons ${isRTL(locale) ? "rmdp-rtl" : ""} ${
-          mustSetTopBorder ? "rmdp-border-top" : ""
-        }`}
-      >
-        <button
-          type="button"
-          className="rmdp-button rmdp-action-button"
-          onClick={() => {
-            if (temporaryDate) {
-              handleChange(temporaryDate, true);
-              setTemporaryDate(undefined);
-            }
-
-            closeCalendar();
-          }}
+      isArray(mobileButtons) && (
+        <div
+          className={`rmdp-action-buttons ${isRTL(locale) ? "rmdp-rtl" : ""} ${
+            mustSetTopBorder ? "rmdp-border-top" : ""
+          }`}
         >
-          {toLocale("OK")}
-        </button>
-        <button
-          type="button"
-          className="rmdp-button rmdp-action-button"
-          onClick={() => {
-            setTemporaryDate(undefined);
-            closeCalendar();
-          }}
-        >
-          {toLocale("CANCEL")}
-        </button>
-      </div>
+          {mobileButtons.concat(buttons).map(({ label, ...props }, index) => (
+            <button key={index} {...props}>
+              {label}
+            </button>
+          ))}
+        </div>
+      )
     );
   }
 

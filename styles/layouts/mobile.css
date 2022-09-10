@@ -94,8 +94,11 @@
   font-size: 13px;
 }
 
-.rmdp-mobile .rmdp-action-buttons.rmdp-rtl {
-  direction: rtl;
+.rmdp-mobile .rmdp-action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 10px;
 }
 
 .rmdp-mobile .rmdp-rtl .rmdp-action-button {
