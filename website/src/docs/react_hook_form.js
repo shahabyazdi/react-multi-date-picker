@@ -10,6 +10,23 @@ export default function Doc({ translate, language, otherProps }) {
     setSubmittedDate(date);
   };
 
+  const online_example = {
+    title: "Online Example",
+    jsx: (
+      <p>
+        An online example of using the date picker is available in the code
+        sandbox, which you can see it{" "}
+        <a
+          href="https://codesandbox.io/s/ecstatic-scott-iuzuqr?file=/src/App.js"
+          target="_blank"
+        >
+          here
+        </a>
+        .
+      </p>
+    ),
+  };
+
   const example = {
     title: "Example Of Using React Hook Form",
     code: `import React, { useState } from "react";
@@ -107,5 +124,5 @@ export default function Example() {
     ),
   };
 
-  return [example];
+  return [online_example, example];
 }
