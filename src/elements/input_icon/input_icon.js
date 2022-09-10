@@ -11,12 +11,10 @@ export default function InputIcon({
   separator,
   handleValueChange,
   locale,
-  placeholder,
   iconStyle = {},
   ...otherProps
 }) {
-  value =
-    value || stringDate || stringDates?.join?.(separator) || placeholder || "";
+  value = value || stringDate || stringDates?.join?.(separator) || "";
   const ref = useRef();
 
   useEffect(() => {
