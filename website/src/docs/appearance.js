@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import DatePicker from "../../../src/index";
+import DatePicker from "../../../build/index";
 
 export default function Doc({ otherProps, localeImport }) {
   const [value, setValue] = useState();

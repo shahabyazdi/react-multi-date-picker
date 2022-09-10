@@ -463,6 +463,9 @@ declare module "react-multi-date-picker" {
     portal?: boolean;
     portalTarget?: HTMLElement;
     onOpenPickNewDate?: boolean;
+    mobileButtons?: Array<
+      HTMLAttributes<HTMLButtonElement> & { label: string }
+    >;
   }
 
   export { DateObject };

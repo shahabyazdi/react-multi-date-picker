@@ -437,25 +437,31 @@ export default function Doc({ translate, language }) {
             <td>mobileLabels</td>
             <td>Object</td>
             <td></td>
-            <td>DatePicker</td>
+            <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
             <td>portal</td>
             <td>Boolean</td>
             <td></td>
-            <td>DatePicker</td>
+            <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
             <td>portalTarget</td>
             <td>HTMLElement</td>
             <td></td>
-            <td>DatePicker</td>
+            <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
             <td>onOpenPickNewDate</td>
             <td>Boolean</td>
             <td>true</td>
-            <td>DatePicker</td>
+            <td>{translate("DatePicker")}</td>
+          </tr>
+          <tr>
+            <td>mobileButtons</td>
+            <td> HTMLButtonElement[]</td>
+            <td>[]</td>
+            <td>{translate("DatePicker")}</td>
           </tr>
         </tbody>
       </table>

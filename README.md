@@ -583,6 +583,12 @@ export default function Example() {
           <td style="text-align:center">true</td>
           <td>DatePicker</td>
         </tr>
+        <tr>
+          <td>mobileButtons</td>
+          <td style="text-align:center"> HTMLButtonElement[]</td>
+          <td style="text-align:center">[]</td>
+          <td>DatePicker</td>
+        </tr>
       </tbody>
     </table>
 
