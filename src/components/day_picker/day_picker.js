@@ -4,6 +4,7 @@ import WeekDays from "../week_days/week_days";
 import selectDate from "../../shared/selectDate";
 import isSameDate from "../../shared/isSameDate";
 import getRangeClass from "../../shared/getRangeClass";
+import { useState } from "react";
 
 export default function DayPicker({
   state,
@@ -22,6 +23,7 @@ export default function DayPicker({
   monthAndYears: [monthNames],
   displayWeekNumbers,
   weekNumber = "",
+  rangeHover,
 }) {
   const ref = useRef({}),
     {
@@ -34,9 +36,42 @@ export default function DayPicker({
       onlyMonthPicker,
       onlyYearPicker,
     } = state,
-    mustShowDayPicker = !onlyMonthPicker && !onlyYearPicker;
+    mustShowDayPicker = !onlyMonthPicker && !onlyYearPicker,
+    [dateHovered, setDateHovered] = useState();
 
   ref.current.date = date;
+
+  function getHoverColor(date) {
+    if (selectedDate?.length > 1) return;
+    const dayHovered = dateHoverd?.format?.();
+    const selectedDay = selectedDate?.[0]?.format?.();
+    const day = date?.format?.();
+
+    // if (day > selectedDay && day <= dayHovered) {
+    //   console.log(day);
+
+    //   return "red";
+    // } else if (day < selectedDay && day >= dayHovered) {
+    //   console.log(day);
+
+    //   return "red";
+    // }
+
+    return (
+      (day > selectedDay && day <= dayHovered) ||
+      (day < selectedDay && day >= dayHovered)
+    );
+
+    // const { month, day } = date;
+    // const { month: monthHovered, day: dayHovered } = dateHoverd || {};
+    // const { month: selectedMonth, day: selectedDay } = selectedDate?.[0] || {};
+
+    // if (monthHovered >= selectedMonth && month >= selectedMonth) {
+    //   if (dayHovered >= selectedDay) {
+    //     if (dayHovered > selectedDay) return "red";
+    //   }
+    // }
+  }
 
   const months = useMemo(() => {
     if (!mustShowDayPicker) return [];
@@ -64,6 +99,7 @@ export default function DayPicker({
       <div
         className={`rmdp-day-picker ${fullYear ? "rmdp-full-year" : ""}`}
         style={{ display: fullYear ? "grid" : "flex" }}
+        onMouseLeave={() => setDateHovered()}
       >
         {months.map((weeks, monthIndex) => (
           <div
@@ -121,6 +157,7 @@ export default function DayPicker({
                     <div
                       key={i}
                       className={parentClassName}
+                      onMouseEnter={() => setDateHovered(object.date)}
                       onClick={() => {
                         if (!mustDisplayDay(object) || object.disabled) return;
 
@@ -222,6 +259,24 @@ export default function DayPicker({
 
       if (range && !object.disabled && mustDisplaySelectedDate) {
         names.push(getRangeClass(date, selectedDate));
+      }
+
+      if (rangeHover && selectedDate?.length === 1) {
+        const format = "YYYY/MM/DD";
+        const strHovered = dateHovered?.format?.(format);
+        const strSelected = selectedDate?.[0]?.format?.(format);
+        const strDay = date?.format?.(format);
+
+        if (
+          (strDay > strSelected && strDay <= strHovered) ||
+          (strDay < strSelected && strDay >= strHovered)
+        ) {
+          names.push("rmdp-range-hover");
+
+          if (strDay === strHovered) {
+            names.push(strHovered > strSelected ? "end" : "start");
+          }
+        }
       }
     }
 

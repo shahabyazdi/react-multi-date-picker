@@ -67,6 +67,7 @@ function Calendar(
     displayWeekNumbers,
     weekNumber,
     weekPicker,
+    rangeHover,
   },
   outerRef
 ) {
@@ -330,6 +331,7 @@ function Calendar(
                 hideWeekDays={hideWeekDays}
                 displayWeekNumbers={displayWeekNumbers}
                 weekNumber={weekNumber}
+                rangeHover={rangeHover}
               />
               {!fullYear && (
                 <>

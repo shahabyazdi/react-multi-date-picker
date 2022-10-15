@@ -133,12 +133,19 @@
   box-shadow: 0 0 3px var(--rmdp-shadow);
 }
 
-.rmdp-range.start {
+.rmdp-range-hover {
+  background-color: var(--rmdp-hover);
+  color: white;
+}
+
+.rmdp-range.start,
+.rmdp-range-hover.start {
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
 }
 
-.rmdp-range.end {
+.rmdp-range.end,
+.rmdp-range-hover.end {
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
 }
