@@ -41,38 +41,6 @@ export default function DayPicker({
 
   ref.current.date = date;
 
-  function getHoverColor(date) {
-    if (selectedDate?.length > 1) return;
-    const dayHovered = dateHoverd?.format?.();
-    const selectedDay = selectedDate?.[0]?.format?.();
-    const day = date?.format?.();
-
-    // if (day > selectedDay && day <= dayHovered) {
-    //   console.log(day);
-
-    //   return "red";
-    // } else if (day < selectedDay && day >= dayHovered) {
-    //   console.log(day);
-
-    //   return "red";
-    // }
-
-    return (
-      (day > selectedDay && day <= dayHovered) ||
-      (day < selectedDay && day >= dayHovered)
-    );
-
-    // const { month, day } = date;
-    // const { month: monthHovered, day: dayHovered } = dateHoverd || {};
-    // const { month: selectedMonth, day: selectedDay } = selectedDate?.[0] || {};
-
-    // if (monthHovered >= selectedMonth && month >= selectedMonth) {
-    //   if (dayHovered >= selectedDay) {
-    //     if (dayHovered > selectedDay) return "red";
-    //   }
-    // }
-  }
-
   const months = useMemo(() => {
     if (!mustShowDayPicker) return [];
 

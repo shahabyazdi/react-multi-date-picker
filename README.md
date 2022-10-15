@@ -415,6 +415,12 @@ export default function Example() {
           <td style="text-align:center">false</td>
           <td>both</td>
         </tr>
+         <tr>
+          <td>rangeHover</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
         <tr>
           <td>containerClassName</td>
           <td style="text-align:center">String</td>

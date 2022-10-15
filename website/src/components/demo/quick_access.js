@@ -102,6 +102,10 @@ const list = [
     path: "react-hook-form/",
     list: [
       {
+        name: "Online Example",
+        path: "react-hook-form/#online-example",
+      },
+      {
         name: "Example Of Using React Hook Form",
         path: "react-hook-form/#example-of-using-react-hook-form",
       },
@@ -240,6 +244,10 @@ const list = [
       {
         name: "Range Picker",
         path: "range/#range-mode",
+      },
+      {
+        name: "Range Hover Effect",
+        path: "range/#range-hover-effect",
       },
       {
         name: "DatePanel",

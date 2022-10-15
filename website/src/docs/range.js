@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DatePicker, {
+  Calendar,
   DateObject,
   getAllDatesInRange,
 } from "../../../build/index";
@@ -10,6 +11,8 @@ export default function Doc({ language, otherProps, localeImport }) {
     new DateObject(otherProps).subtract(4, "days"),
     new DateObject(otherProps).add(4, "days"),
   ]);
+
+  const [values2, setValues2] = useState([new DateObject(otherProps)]);
 
   const [dates, setDates] = useState([]);
   const [allDates, setAllDates] = useState([]);
@@ -35,6 +38,31 @@ export default function Doc({ language, otherProps, localeImport }) {
 />`,
     jsx: (
       <DatePicker value={values} onChange={setValues} range {...otherProps} />
+    ),
+  };
+
+  const rangeHover = {
+    title: "Range Hover Effect",
+    code: `${localeImport}const [values, setValues] = useState([
+  new DateObject(${language === "fa" ? `{ calendar: persian }` : ""})
+])
+.
+.
+.
+<Calendar
+  value={values}
+  onChange={setValues}
+  range
+  rangeHover
+/>`,
+    jsx: (
+      <Calendar
+        range
+        rangeHover
+        value={values2}
+        onChange={setValues2}
+        {...otherProps}
+      />
     ),
   };
 
@@ -214,6 +242,7 @@ const [allDates, setAllDates] = useState([])
 
   return [
     range,
+    rangeHover,
     datePanel,
     eachDaysInRange,
     weekPicker,
