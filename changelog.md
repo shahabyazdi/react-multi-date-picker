@@ -7,3 +7,7 @@
 # 3.3.2
 
 - rangeHover added. [#133](https://github.com/shahabyazdi/react-multi-date-picker/issues/133)
+
+# 3.3.3
+
+- range hover effect added in onlyYearPicker and onlyMonthPicker

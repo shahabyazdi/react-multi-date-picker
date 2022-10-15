@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import selectDate from "../../shared/selectDate";
 import isSameDate from "../../shared/isSameDate";
 import getRangeClass from "../../shared/getRangeClass";
 import isArray from "../../shared/isArray";
 import stringify from "../../shared/stringify";
+import getRangeHoverClass from "../../shared/getRangeHoverClass";
 import DateObject from "react-date-object";
 
 export default function MonthPicker({
@@ -13,6 +14,7 @@ export default function MonthPicker({
   sort,
   handleMonthChange,
   handleFocusedDate,
+  rangeHover,
 }) {
   const {
       date,
@@ -27,7 +29,8 @@ export default function MonthPicker({
       onlyShowInRangeDates,
     } = state,
     mustShowMonthPicker =
-      (state.mustShowMonthPicker || onlyMonthPicker) && !onlyYearPicker;
+      (state.mustShowMonthPicker || onlyMonthPicker) && !onlyYearPicker,
+    [dateHovered, setDateHovered] = useState();
 
   customMonths = customMonths && stringify(customMonths);
 
@@ -75,6 +78,7 @@ export default function MonthPicker({
     <div
       className={`${onlyMonthPicker ? "only " : ""}rmdp-month-picker`}
       style={{ display: mustShowMonthPicker ? "block" : "none" }}
+      onMouseLeave={() => rangeHover && setDateHovered()}
     >
       {months.map((array, i) => (
         <div key={i} className="rmdp-ym">
@@ -83,6 +87,7 @@ export default function MonthPicker({
               key={j}
               className={getClassName(date)}
               onClick={() => selectMonth(date)}
+              onMouseEnter={() => rangeHover && setDateHovered(date)}
             >
               <span className={onlyMonthPicker ? "sd" : ""}>{name}</span>
             </div>
@@ -151,6 +156,16 @@ export default function MonthPicker({
           names.push("rmdp-selected");
       } else {
         names.push(getRangeClass(dateObject, selectedDate, true));
+
+        names = names.concat(
+          getRangeHoverClass(
+            dateObject,
+            selectedDate,
+            dateHovered,
+            rangeHover,
+            "month"
+          )
+        );
       }
     }
 

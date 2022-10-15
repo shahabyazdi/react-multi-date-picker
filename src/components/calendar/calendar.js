@@ -286,6 +286,7 @@ function Calendar(
       isRTL: isRightToLeft,
       fullYear,
       monthAndYears: getMonthsAndYears(),
+      rangeHover,
     },
     { datePickerProps, DatePicker, ...calendarProps } = arguments[0];
 
@@ -331,7 +332,6 @@ function Calendar(
                 hideWeekDays={hideWeekDays}
                 displayWeekNumbers={displayWeekNumbers}
                 weekNumber={weekNumber}
-                rangeHover={rangeHover}
               />
               {!fullYear && (
                 <>

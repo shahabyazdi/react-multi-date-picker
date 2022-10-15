@@ -150,12 +150,14 @@
   border-bottom-right-radius: 50%;
 }
 
-.rmdp-ym .rmdp-range.start {
+.rmdp-ym .rmdp-range.start,
+.rmdp-ym .rmdp-range-hover.start {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }
 
-.rmdp-ym .rmdp-range.end {
+.rmdp-ym .rmdp-range.end,
+.rmdp-ym .rmdp-range-hover.end {
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
@@ -304,14 +306,16 @@
   right: 0;
 }
 
-.rmdp-rtl .rmdp-range.start {
+.rmdp-rtl .rmdp-range.start,
+.rmdp-rtl .rmdp-range-hover.start {
   border-top-left-radius: unset;
   border-bottom-left-radius: unset;
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
 }
 
-.rmdp-rtl .rmdp-range.end {
+.rmdp-rtl .rmdp-range.end,
+.rmdp-rtl .rmdp-range-hover.end {
   border-top-right-radius: unset;
   border-bottom-right-radius: unset;
   border-top-left-radius: 50%;
@@ -322,12 +326,14 @@
   border-radius: 50%;
 }
 
-.rmdp-rtl .rmdp-ym .rmdp-range.start {
+.rmdp-rtl .rmdp-ym .rmdp-range.start,
+.rmdp-rtl .rmdp-ym .rmdp-range-hover.start {
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
 
-.rmdp-rtl .rmdp-ym .rmdp-range.end {
+.rmdp-rtl .rmdp-ym .rmdp-range.end,
+.rmdp-rtl .rmdp-ym .rmdp-range-hover.end {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }

@@ -4,6 +4,7 @@ import WeekDays from "../week_days/week_days";
 import selectDate from "../../shared/selectDate";
 import isSameDate from "../../shared/isSameDate";
 import getRangeClass from "../../shared/getRangeClass";
+import getRangeHoverClass from "../../shared/getRangeHoverClass";
 import { useState } from "react";
 
 export default function DayPicker({
@@ -67,7 +68,7 @@ export default function DayPicker({
       <div
         className={`rmdp-day-picker ${fullYear ? "rmdp-full-year" : ""}`}
         style={{ display: fullYear ? "grid" : "flex" }}
-        onMouseLeave={() => setDateHovered()}
+        onMouseLeave={() => rangeHover && setDateHovered()}
       >
         {months.map((weeks, monthIndex) => (
           <div
@@ -125,7 +126,9 @@ export default function DayPicker({
                     <div
                       key={i}
                       className={parentClassName}
-                      onMouseEnter={() => setDateHovered(object.date)}
+                      onMouseEnter={() =>
+                        rangeHover && setDateHovered(object.date)
+                      }
                       onClick={() => {
                         if (!mustDisplayDay(object) || object.disabled) return;
 
@@ -227,24 +230,10 @@ export default function DayPicker({
 
       if (range && !object.disabled && mustDisplaySelectedDate) {
         names.push(getRangeClass(date, selectedDate));
-      }
 
-      if (rangeHover && selectedDate?.length === 1) {
-        const format = "YYYY/MM/DD";
-        const strHovered = dateHovered?.format?.(format);
-        const strSelected = selectedDate?.[0]?.format?.(format);
-        const strDay = date?.format?.(format);
-
-        if (
-          (strDay > strSelected && strDay <= strHovered) ||
-          (strDay < strSelected && strDay >= strHovered)
-        ) {
-          names.push("rmdp-range-hover");
-
-          if (strDay === strHovered) {
-            names.push(strHovered > strSelected ? "end" : "start");
-          }
-        }
+        names = names.concat(
+          getRangeHoverClass(date, selectedDate, dateHovered, rangeHover)
+        );
       }
     }
 

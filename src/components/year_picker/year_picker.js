@@ -1,6 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import selectDate from "../../shared/selectDate";
 import toLocaleDigits from "../../shared/toLocaleDigits";
+import getRangeHoverClass from "../../shared/getRangeHoverClass";
 import DateObject from "react-date-object";
 
 export default function YearPicker({
@@ -9,6 +10,7 @@ export default function YearPicker({
   sort,
   handleFocusedDate,
   onYearChange,
+  rangeHover,
 }) {
   const {
       date,
@@ -21,7 +23,8 @@ export default function YearPicker({
       year,
     } = state,
     mustShowYearPicker = state.mustShowYearPicker || onlyYearPicker,
-    digits = date.digits;
+    digits = date.digits,
+    [yearHovered, setyearHovered] = useState();
 
   let minYear = today.year - 4;
 
@@ -51,12 +54,17 @@ export default function YearPicker({
       style={{ display: mustShowYearPicker ? "block" : "none" }}
     >
       {years.map((array, i) => (
-        <div key={i} className="rmdp-ym">
+        <div
+          key={i}
+          className="rmdp-ym"
+          onMouseLeave={() => rangeHover && setyearHovered()}
+        >
           {array.map((year, j) => (
             <div
               key={j}
               className={getClassName(year)}
               onClick={() => selectYear(year)}
+              onMouseEnter={() => rangeHover && setyearHovered(year)}
             >
               <span className={onlyYearPicker ? "sd" : ""}>
                 {toLocaleDigits(year.toString(), digits)}
@@ -118,6 +126,21 @@ export default function YearPicker({
 
         if (selectedDate.length === 1) {
           if (year === first.year) names.push("rmdp-range");
+
+          if (rangeHover) {
+            const selectedYear = selectedDate[0].year;
+
+            if (
+              (year > selectedYear && year <= yearHovered) ||
+              (year < selectedYear && year >= yearHovered)
+            ) {
+              names.push("rmdp-range-hover");
+
+              if (year === yearHovered) {
+                names.push(yearHovered > selectedYear ? "end" : "start");
+              }
+            }
+          }
         } else if (selectedDate.length === 2) {
           if (year >= first.year && year <= second.year)
             names.push("rmdp-range");
