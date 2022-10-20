@@ -11,3 +11,7 @@
 # 3.3.3
 
 - range hover effect added in onlyYearPicker and onlyMonthPicker
+
+# 3.3.4
+
+- missed rangeHover prop added to index.d.ts
