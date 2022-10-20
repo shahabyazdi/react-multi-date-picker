@@ -307,6 +307,7 @@ declare module "react-multi-date-picker" {
     displayWeekNumbers?: boolean;
     weekNumber?: string;
     weekPicker?: boolean;
+    rangeHover?: boolean;
   }
 
   export interface DatePickerProps {
