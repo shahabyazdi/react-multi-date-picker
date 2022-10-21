@@ -641,13 +641,13 @@ function DatePicker(
 export default forwardRef(DatePicker);
 
 function getStringDate(date, separator) {
-  let dates = [].concat(date).map(toString);
+  // let dates = ;
 
-  dates.toString = function () {
-    return this.filter(Boolean).join(separator);
-  };
+  // dates.toString = function () {
+  //   return this.filter(Boolean).join(separator);
+  // };
 
-  return dates;
+  return [].concat(date).map(toString).filter(Boolean).join(separator);
 
   function toString(date) {
     return date?.isValid ? date.format() : "";
