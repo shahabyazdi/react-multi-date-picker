@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Selectors from "../selectors/selectors";
-import DatePicker, { Calendar, DateObject } from "../../../../build";
+import DatePicker, { Calendar, DateObject } from "../../../../src";
 import DatePanel from "../../../../plugins/date_panel";
 import TimePicker from "../../../../plugins/time_picker";
 import AnalogTimePicker from "../../../../plugins/analog_time_picker";
@@ -196,20 +196,20 @@ export default function Demo({ language = "en", translate }) {
     },
     render: types[type],
     plugins: [
-      <DatePanel
-        position={datePanelPosition}
-        disabled={
-          (!multiple && !range && !weekPicker) ||
-          ((multiple || range || weekPicker) && !mustShowDates) ||
-          isFullYear ||
-          numberOfMonths > 1
-        }
-        markFocused={(multiple || range) && ($timePicker || $analogTimePicker)}
-      />,
-      <TimePicker
-        position={timePickerPosition}
-        disabled={(!$timePicker && !$onlyTimePicker) || isFullYear}
-      />,
+      // <DatePanel
+      //   position={datePanelPosition}
+      //   disabled={
+      //     (!multiple && !range && !weekPicker) ||
+      //     ((multiple || range || weekPicker) && !mustShowDates) ||
+      //     isFullYear ||
+      //     numberOfMonths > 1
+      //   }
+      //   markFocused={(multiple || range) && ($timePicker || $analogTimePicker)}
+      // />,
+      // <TimePicker
+      //   position={timePickerPosition}
+      //   disabled={(!$timePicker && !$onlyTimePicker) || isFullYear}
+      // />,
     ],
     animations: animation && [transition()],
   };
@@ -341,11 +341,14 @@ export default function Demo({ language = "en", translate }) {
                 ["Single", "single"],
                 ["Multiple", "multiple"],
                 ["Range", "range"],
+                ["Multiple Range", "multipleRange"],
                 ["Range (Week Picker)", "weekPicker"],
               ],
               value:
                 !multiple && !range && !weekPicker
                   ? "single"
+                  : multiple && range
+                  ? "multipleRange"
                   : multiple
                   ? "multiple"
                   : weekPicker
@@ -354,8 +357,19 @@ export default function Demo({ language = "en", translate }) {
               onChange: (mode) => {
                 let val = value;
 
-                if (Array.isArray(value) && mode === "single") {
-                  val = value[value.length - 1];
+                if (Array.isArray(value)) {
+                  if (mode === "single") {
+                    val = value.flat()[value.length - 1];
+                  } else if (mode === "multiple") {
+                    val = value.flat();
+                  } else if (mode === "range" && Array.isArray(value[0])) {
+                    val = value[0];
+                  } else if (
+                    mode === "multipleRange" &&
+                    !Array.isArray(value[0])
+                  ) {
+                    val = [[value[0], value[1]].filter(Boolean)];
+                  }
                 } else if (mode === "weekPicker") {
                   val = [].concat(val)[0];
                   val = [
@@ -365,13 +379,12 @@ export default function Demo({ language = "en", translate }) {
                 }
 
                 updateState({
-                  multiple: false,
-                  range: false,
+                  multiple: mode === "multipleRange",
+                  range: mode === "multipleRange",
                   weekPicker: false,
                   [mode]: true,
                   disableDayPicker: false,
                   $onlyTimePicker: false,
-                  // $timePicker: false,
                   value: val,
                 });
               },

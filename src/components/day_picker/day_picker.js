@@ -32,6 +32,7 @@ export default function DayPicker({
       minDate,
       maxDate,
       range,
+      multiple,
       date,
       selectedDate,
       onlyMonthPicker,
@@ -229,11 +230,13 @@ export default function DayPicker({
       }
 
       if (range && !object.disabled && mustDisplaySelectedDate) {
-        names.push(getRangeClass(date, selectedDate));
+        names.push(getRangeClass(date, selectedDate, undefined, multiple));
 
-        names = names.concat(
-          getRangeHoverClass(date, selectedDate, dateHovered, rangeHover)
-        );
+        if (!multiple) {
+          names = names.concat(
+            getRangeHoverClass(date, selectedDate, dateHovered, rangeHover)
+          );
+        }
       }
     }
 

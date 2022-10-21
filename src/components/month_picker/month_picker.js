@@ -129,7 +129,7 @@ export default function MonthPicker({
   function getClassName(dateObject) {
     let names = ["rmdp-day"],
       { year, monthIndex } = dateObject,
-      { selectedDate } = state;
+      { selectedDate, multiple } = state;
 
     if (
       (minDate &&
@@ -155,17 +155,19 @@ export default function MonthPicker({
         )
           names.push("rmdp-selected");
       } else {
-        names.push(getRangeClass(dateObject, selectedDate, true));
+        names.push(getRangeClass(dateObject, selectedDate, true, multiple));
 
-        names = names.concat(
-          getRangeHoverClass(
-            dateObject,
-            selectedDate,
-            dateHovered,
-            rangeHover,
-            "month"
-          )
-        );
+        if (!multiple) {
+          names = names.concat(
+            getRangeHoverClass(
+              dateObject,
+              selectedDate,
+              dateHovered,
+              rangeHover,
+              "month"
+            )
+          );
+        }
       }
     }
 

@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 import selectDate from "../../shared/selectDate";
 import toLocaleDigits from "../../shared/toLocaleDigits";
-import getRangeHoverClass from "../../shared/getRangeHoverClass";
 import DateObject from "react-date-object";
+import isArray from "../../shared/isArray";
 
 export default function YearPicker({
   state,
@@ -107,7 +107,7 @@ export default function YearPicker({
 
   function getClassName(year) {
     let names = ["rmdp-day"],
-      { date, selectedDate } = state;
+      { date, selectedDate, multiple } = state;
 
     if (notInRange(year)) names.push("rmdp-disabled");
 
@@ -118,34 +118,47 @@ export default function YearPicker({
       if (year === date.year) names.push("rmdp-selected");
     } else {
       if (!range) {
-        if ([].concat(selectedDate).some((date) => date && date.year === year))
+        if (
+          [].concat(selectedDate).some((date) => date && date.year === year)
+        ) {
           names.push("rmdp-selected");
+        }
       } else {
-        let first = selectedDate[0],
-          second = selectedDate[1];
+        if (multiple) {
+          (isArray(selectedDate) ? selectedDate : [[selectedDate]]).forEach(
+            (range) => getRangeClass(range)
+          );
+        } else {
+          getRangeClass(selectedDate);
+        }
 
-        if (selectedDate.length === 1) {
-          if (year === first.year) names.push("rmdp-range");
+        function getRangeClass(selectedDate) {
+          let first = selectedDate[0],
+            second = selectedDate[1];
 
-          if (rangeHover) {
-            const selectedYear = selectedDate[0].year;
+          if (selectedDate.length === 1) {
+            if (year === first.year) names.push("rmdp-range");
 
-            if (
-              (year > selectedYear && year <= yearHovered) ||
-              (year < selectedYear && year >= yearHovered)
-            ) {
-              names.push("rmdp-range-hover");
+            if (rangeHover) {
+              const selectedYear = selectedDate[0].year;
 
-              if (year === yearHovered) {
-                names.push(yearHovered > selectedYear ? "end" : "start");
+              if (
+                (year > selectedYear && year <= yearHovered) ||
+                (year < selectedYear && year >= yearHovered)
+              ) {
+                names.push("rmdp-range-hover");
+
+                if (year === yearHovered) {
+                  names.push(yearHovered > selectedYear ? "end" : "start");
+                }
               }
             }
+          } else if (selectedDate.length === 2) {
+            if (year >= first.year && year <= second.year)
+              names.push("rmdp-range");
+            if (year === first.year) names.push("start");
+            if (year === second.year) names.push("end");
           }
-        } else if (selectedDate.length === 2) {
-          if (year >= first.year && year <= second.year)
-            names.push("rmdp-range");
-          if (year === first.year) names.push("start");
-          if (year === second.year) names.push("end");
         }
       }
     }

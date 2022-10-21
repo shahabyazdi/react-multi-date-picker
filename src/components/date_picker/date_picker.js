@@ -131,10 +131,13 @@ function DatePicker(
       },
     ];
 
-  if (isMobileMode && !ref.current.mobile)
+  if (isMobileMode && !ref.current.mobile) {
     ref.current = { ...ref.current, mobile: true };
-  if (!isMobileMode && ref.current.mobile)
+  }
+
+  if (!isMobileMode && ref.current.mobile) {
     ref.current = { ...ref.current, mobile: false };
+  }
 
   formattingIgnoreList = stringify(formattingIgnoreList);
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
@@ -217,13 +220,31 @@ function DatePicker(
     }
 
     if (range || multiple || isArray(date)) {
-      if (!isArray(date)) date = [date];
+      if (!isArray(date)) date = range && multiple ? [[date]] : [date];
 
-      date = date.map(checkDate).filter((value) => value !== undefined);
+      let strDate = "";
 
-      if (range && date.length > 2) date = [date[0], getLastDate()];
+      if (multiple && range) {
+        date = date.map((range) => {
+          const [dates, strDates] = getDatesAndStrDates(range);
 
-      setStringDate(getStringDate(date, separator));
+          strDate += strDates + " , ";
+
+          return dates;
+        });
+      } else {
+        [date, strDate] = getDatesAndStrDates(date);
+      }
+
+      setStringDate(strDate.replace(/\s,\s$/, ""));
+
+      function getDatesAndStrDates(date) {
+        date = date.map(checkDate).filter((value) => value !== undefined);
+
+        if (range && date.length > 2) date = [date[0], getLastDate()];
+
+        return [date, getStringDate(date, separator)];
+      }
     } else {
       if (isArray(date)) date = getLastDate();
 
@@ -520,7 +541,19 @@ function DatePicker(
 
     onChange?.(date);
 
-    if (date) setStringDate(getStringDate(date, separator));
+    if (date) {
+      let strDate = "";
+
+      if (multiple && range && isArray(date)) {
+        date.forEach((range) => {
+          strDate += getStringDate(range, separator) + " , ";
+        });
+      } else {
+        strDate = getStringDate(date, separator);
+      }
+
+      setStringDate(strDate.replace(/\s,\s$/, ""));
+    }
   }
 
   function handleValueChange(e) {

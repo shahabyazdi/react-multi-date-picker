@@ -1,5 +1,6 @@
 import isSameDate from "./isSameDate";
 import DateObject from "react-date-object";
+import isArray from "./isArray";
 
 export default function selectDate(
   date,
@@ -19,7 +20,9 @@ export default function selectDate(
 
   let focused = new DateObject(date);
 
-  if (multiple) {
+  if (multiple && range) {
+    selectedDate = selectMultipleRange();
+  } else if (multiple) {
     selectedDate = selectMultiple();
   } else if (range) {
     selectedDate = selectRange();
@@ -55,5 +58,86 @@ export default function selectDate(
       return [focused];
     if (selectedDate.length === 1)
       return [selectedDate[0], focused].sort((a, b) => a - b);
+  }
+
+  function selectMultipleRange() {
+    //[[a,b],[c,d]]
+    let mustPushNewRangeOfDates = true;
+
+    if (!isArray(selectedDate)) selectedDate = [[selectedDate]];
+
+    const arrayWithOneDate = selectedDate.find((range) => range.length === 1);
+
+    let dates = selectedDate;
+
+    if (arrayWithOneDate) {
+      const target = arrayWithOneDate[0];
+
+      dates = dates.filter((range) => {
+        if (range.length === 1) return true;
+
+        const [first, second] = range;
+
+        const [targetFirst, targetSecond] = [target, focused].sort(
+          (a, b) => a - b
+        );
+
+        const strFirst = first.format("YYYY/MM/DD");
+        const strSecond = second.format("YYYY/MM/DD");
+        const strtargetFirst = targetFirst.format("YYYY/MM/DD");
+        const strtargetSecond = targetSecond.format("YYYY/MM/DD");
+
+        if (
+          (strtargetFirst <= strFirst && strtargetSecond >= strSecond) ||
+          (strtargetFirst >= strFirst &&
+            strtargetSecond >= strSecond &&
+            strtargetFirst <= strSecond) ||
+          (strtargetFirst <= strFirst &&
+            strtargetSecond <= strSecond &&
+            strtargetSecond >= strFirst)
+        ) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+    } else {
+      dates = dates.filter((range) => {
+        if (!isArray(range)) return true;
+
+        const [first, second] = range;
+        const strFirst = first.format("YYYY/MM/DD");
+        const strSecond = second.format("YYYY/MM/DD");
+        const strFocused = focused.format("YYYY/MM/DD");
+
+        if (strFocused >= strFirst && strFocused <= strSecond) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+    }
+
+    dates = dates.map((range) => {
+      let newRange;
+
+      if (!isArray(range)) {
+        mustPushNewRangeOfDates = false;
+
+        newRange = [range, focused];
+      } else if (range.length === 1) {
+        mustPushNewRangeOfDates = false;
+
+        newRange = range.concat(focused);
+      } else {
+        newRange = range;
+      }
+
+      return newRange.sort((a, b) => a - b);
+    });
+
+    if (mustPushNewRangeOfDates) dates = [...dates, [focused]];
+
+    return dates;
   }
 }

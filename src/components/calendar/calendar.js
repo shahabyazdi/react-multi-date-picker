@@ -92,9 +92,8 @@ function Calendar(
   )
     numberOfMonths = 1;
 
-  if (multiple || range || isArray(value)) {
-    if (!range && !multiple) multiple = true;
-    if (multiple && range) multiple = false;
+  if ((multiple || range || isArray(value)) && !range && !multiple) {
+    multiple = true;
   }
 
   if (weekPicker) {
@@ -155,7 +154,7 @@ function Calendar(
         selectedDate = getSelectedDate(value, calendar, locale, format);
 
         if (isArray(selectedDate)) {
-          if (!date) date = getDate(selectedDate[0]);
+          if (!date) date = getDate(selectedDate.flat()[0]);
         } else {
           if (!date || numberOfMonths === 1) {
             date = getDate(selectedDate);
@@ -172,29 +171,32 @@ function Calendar(
         }
       }
 
-      [].concat(selectedDate).forEach(checkDate);
+      [].concat(selectedDate).flat().forEach(checkDate);
 
       checkDate(date);
 
       if (multiple || range || isArray(value)) {
         if (!selectedDate) selectedDate = [];
-        if (!isArray(selectedDate)) selectedDate = [selectedDate];
 
-        if (range && selectedDate.length > 2) {
+        if (!isArray(selectedDate)) {
+          selectedDate = multiple && range ? [[selectedDate]] : [selectedDate];
+        }
+
+        if (range && !multiple && selectedDate.length > 2) {
           let lastItem = selectedDate[selectedDate.length - 1];
 
           selectedDate = [selectedDate[0], lastItem];
           focused = lastItem;
         }
 
-        if (multiple && sort && !mustSortDates) {
+        if (multiple && !range && sort && !mustSortDates) {
           mustSortDates = true;
           selectedDate.sort((a, b) => a - b);
-        } else if (range) {
+        } else if (range && !multiple) {
           selectedDate.sort((a, b) => a - b);
         }
       } else if (isArray(selectedDate)) {
-        selectedDate = selectedDate[selectedDate.length - 1];
+        selectedDate = selectedDate.flat()[selectedDate.length - 1];
       }
 
       if (fullYear) date.toFirstOfYear();
@@ -569,15 +571,25 @@ function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
 }
 
 function getSelectedDate(value, calendar, locale, format) {
-  let selectedDate = []
+  const selectedDate = []
     .concat(value)
-    .map((date) => {
-      if (!date) return {};
-      if (date instanceof DateObject) return date;
+    .map((date) =>
+      isArray(date)
+        ? date.map(toDateObject).filter(isValid)
+        : toDateObject(date)
+    )
+    .filter(isValid);
 
-      return new DateObject({ date, calendar, locale, format });
-    })
-    .filter((date) => date.isValid);
+  return isArray(value) ? selectedDate : selectedDate.flat()[0];
 
-  return isArray(value) ? selectedDate : selectedDate[0];
+  function toDateObject(date) {
+    if (!date) return {};
+    if (date instanceof DateObject) return date;
+
+    return new DateObject({ date, calendar, locale, format });
+  }
+
+  function isValid(date) {
+    return isArray(date) || date.isValid;
+  }
 }
