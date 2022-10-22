@@ -1,27 +1,39 @@
 import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../src";
 
-const reserved = [
-  [new DateObject().setDay(1).format(), new DateObject().setDay(5).format()],
-  [new DateObject().setDay(7).format(), new DateObject().setDay(8).format()],
-];
-
-const inService = [
-  [new DateObject().setDay(12).format(), new DateObject().setDay(13).format()],
-  [new DateObject().setDay(27).format(), new DateObject().setDay(27).format()],
-];
-
-const initialValue = [...reserved, ...inService];
-
-function isReserved(strDate) {
-  return reserved.some(([start, end]) => strDate >= start && strDate <= end);
-}
-
-function isInService(strDate) {
-  return inService.some(([start, end]) => strDate >= start && strDate <= end);
-}
-
 export default function Doc({ translate, language, otherProps, localeImport }) {
+  const reserved = [
+    [
+      new DateObject(otherProps).setDay(1).format(),
+      new DateObject(otherProps).setDay(5).format(),
+    ],
+    [
+      new DateObject(otherProps).setDay(7).format(),
+      new DateObject(otherProps).setDay(8).format(),
+    ],
+  ];
+
+  const inService = [
+    [
+      new DateObject(otherProps).setDay(12).format(),
+      new DateObject(otherProps).setDay(13).format(),
+    ],
+    [
+      new DateObject(otherProps).setDay(27).format(),
+      new DateObject(otherProps).setDay(27).format(),
+    ],
+  ];
+
+  const initialValue = [...reserved, ...inService];
+
+  function isReserved(strDate) {
+    return reserved.some(([start, end]) => strDate >= start && strDate <= end);
+  }
+
+  function isInService(strDate) {
+    return inService.some(([start, end]) => strDate >= start && strDate <= end);
+  }
+
   const [values, setValues] = useState(initialValue);
 
   const validation1 = {
@@ -59,6 +71,7 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
           if (day < 0 || (date && day > date.day)) return false;
           if (strings.some((val) => val.startsWith("00"))) return false;
         }}
+        {...otherProps}
       />
     ),
   };
@@ -93,17 +106,19 @@ export default function Example() {
 
   return (
     <div>
-      <h5>Room resarvation</h5>
-      <p>Please select the range of dates you want to reserve</p>
+      <h5>${translate("Room reservation")}</h5>
+      <p>${translate(
+        "لطفا محدوده تاریخ هایی را که می خواهید رزرو کنید انتخاب کنید"
+      )}</p>
 
       <div style={{ margin: "10px " }}>
         <div className="un-availble">
           <div className="reserved" />
-          <p>Already reserved</p>
+          <p>${translate("Already reserved")}</p>
         </div>
         <div className="un-availble">
           <div className="in-service" />
-          <p>In service</p>
+          <p>${translate("In service")}</p>
         </div>
       </div>
 
@@ -134,17 +149,21 @@ export default function Example() {
 `,
     jsx: (
       <div>
-        <h5>Room resarvation</h5>
-        <p>Please select the range of dates you want to reserve</p>
+        <h5>{translate("Room reservation")}</h5>
+        <p>
+          {translate(
+            "لطفا محدوده تاریخ هایی را که می خواهید رزرو کنید انتخاب کنید"
+          )}
+        </p>
 
         <div style={{ margin: "10px " }}>
           <div className="un-availble">
             <div className="reserved" />
-            <p>Already reserved</p>
+            <p>{translate("Already reserved")}</p>
           </div>
           <div className="un-availble">
             <div className="in-service" />
-            <p>In service</p>
+            <p>{translate("In service")}</p>
           </div>
         </div>
 
@@ -174,6 +193,7 @@ export default function Example() {
             if (isInService(strDate)) className = "in-service";
             if (className) return { className };
           }}
+          {...otherProps}
         />
 
         <p>{translate("style.css")} :</p>

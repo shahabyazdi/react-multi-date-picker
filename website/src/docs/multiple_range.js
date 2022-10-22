@@ -3,9 +3,18 @@ import DatePicker, { Calendar, DateObject } from "../../../build";
 
 export default function Doc({ language, otherProps, localeImport }) {
   const [values, setValues] = useState([
-    [new DateObject().set({ day: 1 }), new DateObject().set({ day: 3 })],
-    [new DateObject().set({ day: 6 }), new DateObject().set({ day: 12 })],
-    [new DateObject().set({ day: 23 }), new DateObject().set({ day: 27 })],
+    [
+      new DateObject(otherProps).set({ day: 1 }),
+      new DateObject(otherProps).set({ day: 3 }),
+    ],
+    [
+      new DateObject(otherProps).set({ day: 6 }),
+      new DateObject(otherProps).set({ day: 12 }),
+    ],
+    [
+      new DateObject(otherProps).set({ day: 23 }),
+      new DateObject(otherProps).set({ day: 27 }),
+    ],
   ]);
 
   const range = {

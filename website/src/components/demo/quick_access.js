@@ -272,6 +272,24 @@ const list = [
     ],
   },
   {
+    name: "Multiple Range Mode",
+    path: "multiple-range/",
+    list: [
+      {
+        name: "Multiple Range Picker",
+        path: "multiple-range/#multiple-range-picker",
+      },
+      {
+        name: "Multiple Range in onlyMonthPicker",
+        path: "multiple-range#multiple-range-in-onlymonthpicker",
+      },
+      {
+        name: "Multiple Range in onlyYearPicker",
+        path: "multiple-range/#multiple-range-in-onlyyearpicker",
+      },
+    ],
+  },
+  {
     name: "Other Pickers",
     path: "other-pickers/",
     list: [
@@ -388,6 +406,20 @@ const list = [
       {
         name: "onFocusedDateChange",
         path: "events/#onFocusedDateChange",
+      },
+    ],
+  },
+  {
+    name: "Validation",
+    path: "validation/",
+    list: [
+      {
+        name: "Validating Input Value",
+        path: "validation/#validating-input-value",
+      },
+      {
+        name: "Validating Range of Dates",
+        path: "validation/#validating-range-of-dates",
       },
     ],
   },
