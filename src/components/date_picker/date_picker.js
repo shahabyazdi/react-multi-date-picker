@@ -534,18 +534,12 @@ function DatePicker(
     );
   }
 
-  function handleChange(date, force) {
+  function handleChange(date, force, inputValue) {
     if (isMobileMode && !force) return setTemporaryDate(date);
 
-    setDate(date);
-
-    ref.current = { ...ref.current, date };
-
-    onChange?.(date);
+    let strDate = "";
 
     if (date) {
-      let strDate = "";
-
       if (multiple && range && isArray(date)) {
         date.forEach((range) => {
           strDate += getStringDate(range, separator) + " , ";
@@ -553,9 +547,16 @@ function DatePicker(
       } else {
         strDate = getStringDate(date, separator);
       }
-
-      setStringDate(strDate.toString().replace(/\s,\s$/, ""));
     }
+
+    const mustUpdateState = onChange?.(date, strDate, inputRef.current);
+
+    if (mustUpdateState === false) return setStringDate(stringDate);
+
+    setDate(date);
+    setStringDate(inputValue || strDate.toString().replace(/\s,\s$/, ""));
+
+    ref.current = { ...ref.current, date };
   }
 
   function handleValueChange(e) {
@@ -611,8 +612,11 @@ function DatePicker(
       newDate = new DateObject(object).parse(value);
     }
 
-    handleChange(newDate.isValid ? newDate : null);
-    setStringDate(toLocaleDigits(value, digits));
+    handleChange(
+      newDate.isValid ? newDate : null,
+      undefined,
+      toLocaleDigits(value, digits)
+    );
   }
 
   function setCalendarReady() {

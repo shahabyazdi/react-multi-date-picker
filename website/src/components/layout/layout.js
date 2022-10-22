@@ -52,6 +52,7 @@ const sidebar = {
     { name: "Multiple Months", path: "multiple-months/" },
     { name: "Min & Max Date", path: "min-&-max-date/" },
     { name: "Events", path: "events/" },
+    { name: "Validation", path: "validation/" },
     { name: "Animations", path: "animations/" },
     { name: "Custom Digits, Months & WeekDays", path: "locales/" },
     { name: "Types & Custom Input", path: "types/" },
