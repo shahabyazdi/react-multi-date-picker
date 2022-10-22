@@ -11,6 +11,7 @@ export default function YearPicker({
   handleFocusedDate,
   onYearChange,
   rangeHover,
+  highlightToday,
 }) {
   const {
       date,
@@ -112,7 +113,7 @@ export default function YearPicker({
     if (notInRange(year)) names.push("rmdp-disabled");
 
     if (names.includes("rmdp-disabled") && onlyShowInRangeDates) return;
-    if (today.year === year) names.push("rmdp-today");
+    if (today.year === year && highlightToday) names.push("rmdp-today");
 
     if (!onlyYearPicker) {
       if (year === date.year) names.push("rmdp-selected");

@@ -71,6 +71,7 @@ function Calendar(
     monthYearSeparator,
     formatMonth,
     formatYear,
+    highlightToday = true,
   },
   outerRef
 ) {
@@ -292,6 +293,7 @@ function Calendar(
       fullYear,
       monthAndYears: getMonthsAndYears(),
       rangeHover,
+      highlightToday,
     },
     { datePickerProps, DatePicker, ...calendarProps } = arguments[0];
 
