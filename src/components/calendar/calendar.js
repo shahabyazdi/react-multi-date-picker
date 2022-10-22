@@ -435,8 +435,11 @@ function Calendar(
         listeners.change.forEach((callback) => callback(selectedDate));
     }
 
-    if (state) setState(state);
-    if (selectedDate || selectedDate === null) onChange?.(selectedDate);
+    if (selectedDate || selectedDate === null) {
+      const mustUpdateState = onChange?.(selectedDate);
+
+      if (state && mustUpdateState !== false) setState(state);
+    }
 
     handlePropsChange({ value: selectedDate });
   }
