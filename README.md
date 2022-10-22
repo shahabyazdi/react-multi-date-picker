@@ -415,10 +415,34 @@ export default function Example() {
           <td style="text-align:center">false</td>
           <td>both</td>
         </tr>
-         <tr>
+        <tr>
           <td>rangeHover</td>
           <td style="text-align:center">Boolean</td>
           <td style="text-align:center">false</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>monthYearSeparator</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">"," for LTR locales, "،" for RTL locales</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>formatMonth</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center">undefined</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>formatYear</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center">undefined</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>highlightToday</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">true</td>
           <td>both</td>
         </tr>
         <tr>

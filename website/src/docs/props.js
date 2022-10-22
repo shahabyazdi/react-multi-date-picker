@@ -278,6 +278,33 @@ export default function Doc({ translate, language }) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
+            <td>monthYearSeparator</td>
+            <td>String</td>
+            <td>
+              <p>"," for LTR locales</p>
+              <p>"،" for RTL locales</p>
+            </td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>formatMonth</td>
+            <td>Function</td>
+            <td>undefined</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>formatYear</td>
+            <td>Function</td>
+            <td>undefined</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>highlightToday</td>
+            <td>Boolean</td>
+            <td>true</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
             <td>arrow</td>
             <td>Boolean {translate("or")} React.ReactElement</td>
             <td>true</td>

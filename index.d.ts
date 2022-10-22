@@ -311,6 +311,7 @@ declare module "react-multi-date-picker" {
     monthYearSeparator?: string;
     formatMonth?: (month: string, year: string) => string;
     formatYear?: (year: string, month: string) => string;
+    highlightToday?: boolean;
   }
 
   export interface DatePickerProps {
@@ -470,6 +471,11 @@ declare module "react-multi-date-picker" {
     mobileButtons?: Array<
       HTMLAttributes<HTMLButtonElement> & { label: string }
     >;
+    onChange?(
+      selectedDates: DateObject | DateObject[] | null,
+      validatedValue: string | Array<string>,
+      input: HTMLElement
+    ): void | false;
   }
 
   export { DateObject };
