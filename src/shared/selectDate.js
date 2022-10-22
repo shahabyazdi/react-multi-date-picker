@@ -63,11 +63,8 @@ export default function selectDate(
   function selectMultipleRange() {
     //[[a,b],[c,d]]
     let mustPushNewRangeOfDates = true;
-    console.log("inja", selectedDate, focused);
-    if (!isArray(selectedDate)) {
-      console.log("2222");
-      selectedDate = [[selectedDate]];
-    }
+
+    if (!isArray(selectedDate)) selectedDate = [[selectedDate]];
 
     const arrayWithOneDate = selectedDate.find((range) => range.length === 1);
 
