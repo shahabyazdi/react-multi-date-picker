@@ -762,6 +762,18 @@ const list = [
         path: "other-examples/#other-days",
       },
       {
+        name: "Custom Month Year Separator",
+        path: "other-examples/#custom-month-year-separator",
+      },
+      {
+        name: "Custom Month & Year In Header",
+        path: "other-examples/#custom-month-&-year-in-header",
+      },
+      {
+        name: "Disabling Today Highlight",
+        path: "other-examples/#disabling-today-highlight",
+      },
+      {
         name: "Displaying Week Numbers",
         path: "other-examples/#displaying-week-numbers",
       },

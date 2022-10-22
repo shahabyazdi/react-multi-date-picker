@@ -138,6 +138,21 @@ export default function Example() {
     ),
   };
 
+  const disableHighlightToday = {
+    title: "Disabling Today Highlight",
+    code: `${localeImport}<DatePicker 
+  highlightToday={false}
+  onOpenPickNewDate={false}
+/>`,
+    jsx: (
+      <DatePicker
+        highlightToday={false}
+        onOpenPickNewDate={false}
+        {...otherProps}
+      />
+    ),
+  };
+
   const weekStartDayIndex = {
     title: "Changing Start Day Of The Week",
     description: "start_day",
@@ -371,6 +386,7 @@ export default function Example() {
     otherDays,
     monthYearSeparator,
     formatMonthAndYear,
+    disableHighlightToday,
     weekNumbers,
     scroll,
     fullYear,
