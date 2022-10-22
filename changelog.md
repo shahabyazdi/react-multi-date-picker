@@ -2,7 +2,8 @@
 
 - multiple range picker
 - custom mobile labels bug fixed in default locale
-- monthYearSeparator added. [#98](https://github.com/shahabyazdi/react-multi-date-picker/issues/98)
+- monthYearSeparator added. [#98-1](https://github.com/shahabyazdi/react-multi-date-picker/issues/98#issue-1127212098)
+- formatMonth & formatYear added [#98-2](https://github.com/shahabyazdi/react-multi-date-picker/issues/98#issuecomment-1110705026)
 
 # 3.3.4
 

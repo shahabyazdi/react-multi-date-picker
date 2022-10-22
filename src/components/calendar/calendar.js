@@ -69,6 +69,8 @@ function Calendar(
     weekPicker,
     rangeHover,
     monthYearSeparator,
+    formatMonth,
+    formatYear,
   },
   outerRef
 ) {
@@ -323,6 +325,8 @@ function Calendar(
               hideMonth={hideMonth}
               hideYear={hideYear}
               monthYearSeparator={monthYearSeparator}
+              formatMonth={formatMonth}
+              formatYear={formatYear}
             />
             <div style={{ position: "relative" }}>
               <DayPicker

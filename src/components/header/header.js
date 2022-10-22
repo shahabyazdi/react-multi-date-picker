@@ -16,6 +16,8 @@ export default function Header({
   fullYear,
   monthAndYears: [months, years],
   monthYearSeparator,
+  formatMonth,
+  formatYear,
 }) {
   let style = {},
     {
@@ -92,7 +94,7 @@ export default function Header({
                       !disableMonthPicker && toggle("mustShowMonthPicker")
                     }
                   >
-                    {month}
+                    {getMonth(month, years[index])}
                     {!hideYear && !monthYearSeparator && (isRTL ? "،" : ",")}
                   </span>
                   {!hideYear && monthYearSeparator && (
@@ -112,7 +114,7 @@ export default function Header({
                     !disableYearPicker && toggle("mustShowYearPicker")
                   }
                 >
-                  {years[index]}
+                  {getYear(years[index], month)}
                 </span>
               )}
             </div>
@@ -190,5 +192,13 @@ export default function Header({
       ...state,
       ...object,
     });
+  }
+
+  function getMonth(month, year) {
+    return typeof formatMonth === "function" ? formatMonth(month, year) : month;
+  }
+
+  function getYear(year, month) {
+    return typeof formatMonth === "function" ? formatYear(year, month) : year;
   }
 }
