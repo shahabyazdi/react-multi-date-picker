@@ -433,5 +433,7 @@
   "custom_calendar_4": "By substituting epoch and century values, our calendar object changes as follows:",
   "custom_calendar_5": "So far, if we import our created calendar and enter it into the date picker, we should see this result:",
   "custom_calendar_6": "If you need, you can create a Thai locale and enter it into the calendar by using the <a target='_blank' href='../locales/#custom-locale'>tutorial</a> provided here:",
-  "custom_calendar_7": "Finally, by entering our calendar and locale into the Calendar Component, this result is achieved:"
+  "custom_calendar_7": "Finally, by entering our calendar and locale into the Calendar Component, this result is achieved:",
+  "month": "Month",
+  "year": "Year"
 }

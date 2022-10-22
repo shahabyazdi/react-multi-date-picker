@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build";
 import TimePicker from "../../../plugins/time_picker";
 
-export default function Doc({ language, otherProps, localeImport }) {
+export default function Doc({ language, otherProps, localeImport, translate }) {
   const [date, setDate] = useState(new DateObject(otherProps));
 
   function update(key, value) {
@@ -182,19 +182,19 @@ export default function Example() {
     title: "Custom Month & Year In Header",
     code: `${localeImport}<DatePicker 
   formatMonth={(month, year) => {
-    return "Month " + month;
+    return "${translate("month")} " + month;
   }}
   formatYear={(year, month) => {
-    return "Year " + year;
+    return "${translate("year")} " + year;
   }}
 />`,
     jsx: (
       <DatePicker
         formatMonth={(month, year) => {
-          return "Month " + month;
+          return translate("month") + " " + month;
         }}
         formatYear={(year, month) => {
-          return "Year " + year;
+          return translate("year") + " " + year;
         }}
         {...otherProps}
       />

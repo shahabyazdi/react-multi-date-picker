@@ -217,6 +217,11 @@
   "Please select the range of dates you want to reserve": "لطفا محدوده تاریخ هایی را که می خواهید رزرو کنید انتخاب کنید",
   "Already reserved": "قبلا رزرو شده است",
   "In service": "انجام تعمیرات",
+  "Online Example": "نمونه آنلاین",
+  "Range Hover Effect": "افکت دامنه ای از زمان",
+  "Custom Month Year Separator": "جداکننده سال و ماه سفارشی",
+  "Custom Month & Year In Header": "ماه و سال سفارشی در هدر",
+  "Disabling Today Highlight": "غیرفعال کردن هایلایت امروز",
   "Sorting Dates": "مرتب سازی تاریخ ها",
   "multiple_mode": [
     "برای فعال شدن انتخاب چند زمان باید پراپرتی multiple رو برابر با true کنید.",
@@ -262,6 +267,8 @@
   "multiple_mode_description": "",
   "Min & Max Date": "محدود کردن دریافت زمان",
   "Events": "ایونت ها",
+  "month": "ماه",
+  "year": "سال",
   "on_open": [
     "اگر شرط خاصی را برای باز شدن یا بسته شدن تقویم در نظر دارید ، میتوانید از event های onOpen  و onClose استفاده کنید.",
     "اگر در onOpen مقدار false  را برگردانید ، تقویم باز نمیشود . و همچنین اگر در onClose مقدار false  را برگردانید ، تقویم بسته نمیشود . "

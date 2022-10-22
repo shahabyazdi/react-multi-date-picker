@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../src";
 
 export default function Doc({ translate, language, otherProps, localeImport }) {
+  const obj =
+    language === "en" ? "" : `{ calendar: persian, locale: persian_fa}`;
   const reserved = [
     [
       new DateObject(otherProps).setDay(1).format(),
@@ -80,15 +82,15 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
     title: "Validating Range of Dates",
     code: `import React, { useState } from "react";
 import { Calendar, DateObject } from "react-multi-date-picker";
-
+${localeImport}
 const reserved = [
-  [new DateObject().setDay(1).format(), new DateObject().setDay(5).format()],
-  [new DateObject().setDay(7).format(), new DateObject().setDay(8).format()],
+  [new DateObject(${obj}).setDay(1).format(), new DateObject(${obj}).setDay(5).format()],
+  [new DateObject(${obj}).setDay(7).format(), new DateObject(${obj}).setDay(8).format()],
 ];
 
 const inService = [
-  [new DateObject().setDay(12).format(), new DateObject().setDay(13).format()],
-  [new DateObject().setDay(27).format(), new DateObject().setDay(27).format()],
+  [new DateObject(${obj}).setDay(12).format(), new DateObject(${obj}).setDay(13).format()],
+  [new DateObject(${obj}).setDay(27).format(), new DateObject(${obj}).setDay(27).format()],
 ];
 
 const initialValue = [...reserved, ...inService];
