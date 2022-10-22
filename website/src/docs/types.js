@@ -1,5 +1,5 @@
 import React from "react";
-import DatePicker from "../../../build/index";
+import DatePicker from "../../../build";
 import { Link } from "gatsby";
 
 //other types

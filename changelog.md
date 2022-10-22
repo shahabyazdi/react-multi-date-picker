@@ -1,3 +1,9 @@
+# 4.0.0
+
+- multiple range picker
+- custom mobile labels bug fixed in default locale
+- monthYearSeparator added. [#98](https://github.com/shahabyazdi/react-multi-date-picker/issues/98)
+
 # 3.3.4
 
 - missed rangeHover prop added to index.d.ts

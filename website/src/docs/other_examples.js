@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DatePicker, { Calendar, DateObject } from "../../../build/index";
+import DatePicker, { Calendar, DateObject } from "../../../build";
 import TimePicker from "../../../plugins/time_picker";
 
 export default function Doc({ language, otherProps, localeImport }) {
@@ -153,6 +153,14 @@ export default function Example() {
   showOtherDays 
 />`,
     jsx: <DatePicker showOtherDays {...otherProps} />,
+  };
+
+  const monthYearSeparator = {
+    title: "Custom Month Year Separator",
+    code: `${localeImport}<DatePicker 
+  monthYearSeparator="|" 
+/>`,
+    jsx: <DatePicker monthYearSeparator="|" {...otherProps} />,
   };
 
   const weekNumbers = {
@@ -338,6 +346,7 @@ export default function Example() {
     customMonthYear,
     weekStartDayIndex,
     otherDays,
+    monthYearSeparator,
     weekNumbers,
     scroll,
     fullYear,

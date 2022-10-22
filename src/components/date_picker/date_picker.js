@@ -236,7 +236,7 @@ function DatePicker(
         [date, strDate] = getDatesAndStrDates(date);
       }
 
-      setStringDate(strDate.replace(/\s,\s$/, ""));
+      setStringDate(strDate.toString().replace(/\s,\s$/, ""));
 
       function getDatesAndStrDates(date) {
         date = date.map(checkDate).filter((value) => value !== undefined);
@@ -472,9 +472,11 @@ function DatePicker(
   }
 
   function toLocale(string) {
-    if (!locale || typeof locale.name !== "string") return string;
+    const currentLocale = locale || new DateObject().locale;
 
-    let actions = {
+    if (typeof currentLocale.name !== "string") return string;
+
+    const actions = {
       en: { OK: "OK", CANCEL: "CANCEL" },
       fa: { OK: "تأیید", CANCEL: "لغو" },
       ar: { OK: "تأكيد", CANCEL: "الغاء" },
@@ -483,7 +485,7 @@ function DatePicker(
 
     return (
       mobileLabels?.[string] ||
-      actions[getLocaleName(locale)]?.[string] ||
+      actions[getLocaleName(currentLocale)]?.[string] ||
       string
     );
   }
@@ -552,7 +554,7 @@ function DatePicker(
         strDate = getStringDate(date, separator);
       }
 
-      setStringDate(strDate.replace(/\s,\s$/, ""));
+      setStringDate(strDate.toString().replace(/\s,\s$/, ""));
     }
   }
 
@@ -641,13 +643,13 @@ function DatePicker(
 export default forwardRef(DatePicker);
 
 function getStringDate(date, separator) {
-  // let dates = ;
+  let dates = [].concat(date).map(toString);
 
-  // dates.toString = function () {
-  //   return this.filter(Boolean).join(separator);
-  // };
+  dates.toString = function () {
+    return this.filter(Boolean).join(separator);
+  };
 
-  return [].concat(date).map(toString).filter(Boolean).join(separator);
+  return dates;
 
   function toString(date) {
     return date?.isValid ? date.format() : "";

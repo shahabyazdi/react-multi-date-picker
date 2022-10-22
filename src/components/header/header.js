@@ -15,6 +15,7 @@ export default function Header({
   isRTL,
   fullYear,
   monthAndYears: [months, years],
+  monthYearSeparator,
 }) {
   let style = {},
     {
@@ -79,20 +80,25 @@ export default function Header({
           months.map((month, index) => (
             <div key={index} className="rmdp-header-values" style={style}>
               {!hideMonth && (
-                <span
-                  style={{
-                    cursor:
-                      disabled || disableMonthPicker || onlyMonthPicker
-                        ? "default"
-                        : "pointer",
-                  }}
-                  onClick={() =>
-                    !disableMonthPicker && toggle("mustShowMonthPicker")
-                  }
-                >
-                  {month}
-                  {!hideYear && (isRTL ? "،" : ",")}
-                </span>
+                <>
+                  <span
+                    style={{
+                      cursor:
+                        disabled || disableMonthPicker || onlyMonthPicker
+                          ? "default"
+                          : "pointer",
+                    }}
+                    onClick={() =>
+                      !disableMonthPicker && toggle("mustShowMonthPicker")
+                    }
+                  >
+                    {month}
+                    {!hideYear && !monthYearSeparator && (isRTL ? "،" : ",")}
+                  </span>
+                  {!hideYear && monthYearSeparator && (
+                    <span>{monthYearSeparator}</span>
+                  )}
+                </>
               )}
               {!hideYear && (
                 <span
