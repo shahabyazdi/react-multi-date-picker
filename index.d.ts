@@ -474,7 +474,8 @@ declare module "react-multi-date-picker" {
     onChange?(
       selectedDates: DateObject | DateObject[] | null,
       validatedValue: string | Array<string>,
-      input: HTMLElement
+      input: HTMLElement,
+      isTyping: boolean
     ): void | false;
   }
 

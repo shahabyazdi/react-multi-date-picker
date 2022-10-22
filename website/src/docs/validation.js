@@ -22,7 +22,9 @@ export default function Doc() {
     `,
     jsx: (
       <DatePicker
-        onChange={(date, validatedValue, input) => {
+        onChange={(date, validatedValue, input, isTyping) => {
+          if (!isTyping) return;
+
           const strings = input.value.split("/");
           const numbers = strings.map(Number);
           const [year, month, day] = numbers;
