@@ -48,6 +48,7 @@ const sidebar = {
     { name: "Component with Children", path: "children/" },
     { name: "Multiple Mode", path: "multiple/" },
     { name: "Range Mode", path: "range/" },
+    { name: "Multiple Range Mode", path: "multiple-range/" },
     { name: "Other Pickers", path: "other-pickers/" },
     { name: "Multiple Months", path: "multiple-months/" },
     { name: "Min & Max Date", path: "min-&-max-date/" },

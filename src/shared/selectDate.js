@@ -63,8 +63,11 @@ export default function selectDate(
   function selectMultipleRange() {
     //[[a,b],[c,d]]
     let mustPushNewRangeOfDates = true;
-
-    if (!isArray(selectedDate)) selectedDate = [[selectedDate]];
+    console.log("inja", selectedDate, focused);
+    if (!isArray(selectedDate)) {
+      console.log("2222");
+      selectedDate = [[selectedDate]];
+    }
 
     const arrayWithOneDate = selectedDate.find((range) => range.length === 1);
 
@@ -104,6 +107,7 @@ export default function selectDate(
     } else {
       dates = dates.filter((range) => {
         if (!isArray(range)) return true;
+        if (range.length === 0) return false;
 
         const [first, second] = range;
         const strFirst = first.format("YYYY/MM/DD");
