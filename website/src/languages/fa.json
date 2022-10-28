@@ -858,5 +858,6 @@
   "Changing The Text Of The Action Buttons In Mobile Mode": "تغییر متن دکمه ها در حالت تلفن همراه",
   "Portal": "پورتال",
   "Portal Mode": "پورتال",
-  "Dynamic Portal Target": "استفاده از حالت پورتال به صورت پویا"
+  "Dynamic Portal Target": "استفاده از حالت پورتال به صورت پویا",
+  "'~' in range mode, ',' in multiple mode": "'~' در حالت دامنه، ',' در حالت چندتایی"
 }

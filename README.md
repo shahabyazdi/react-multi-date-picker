@@ -619,6 +619,12 @@ export default function Example() {
           <td style="text-align:center">[]</td>
           <td>DatePicker</td>
         </tr>
+        <tr>
+          <td>dateSeparator</td>
+          <td style="text-align:center"> string</td>
+          <td style="text-align:center">'~' in range mode, ',' in multiple mode</td>
+          <td>DatePicker</td>
+        </tr>
       </tbody>
     </table>
 

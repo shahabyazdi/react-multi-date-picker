@@ -6,6 +6,7 @@
 - formatMonth & formatYear added [#98-2](https://github.com/shahabyazdi/react-multi-date-picker/issues/98#issuecomment-1110705026)
 - now onChange method has (date, validatedValue, input, isTyping) arguments for validations.
 - highlightToday added. [#145](https://github.com/shahabyazdi/react-multi-date-picker/issues/145)
+- dateSeparator added.
 
 # 3.3.4
 

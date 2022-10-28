@@ -70,6 +70,7 @@ function DatePicker(
     mobileLabels,
     onOpenPickNewDate = true,
     mobileButtons = [],
+    dateSeparator,
     ...otherProps
   },
   outerRef
@@ -83,7 +84,7 @@ function DatePicker(
     inputRef = useRef(),
     calendarRef = useRef(),
     ref = useRef({}),
-    separator = range || weekPicker ? " ~ " : ", ",
+    separator = dateSeparator || (range || weekPicker ? " ~ " : ", "),
     datePickerProps = arguments[0],
     isMobileMode = isMobile(),
     closeCalendar = useCallback(() => {

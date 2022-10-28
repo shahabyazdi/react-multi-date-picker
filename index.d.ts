@@ -167,7 +167,7 @@ declare module "react-multi-date-picker" {
      *  }}
      * />
      */
-    onChange?(selectedDates: DateObject | DateObject[] | null): void;
+    onChange?(selectedDates: DateObject | DateObject[] | null): void | false;
     showOtherDays?: boolean;
     /**
      * the date you set in datepicker as value must be equal or bigger than min date.
@@ -477,6 +477,7 @@ declare module "react-multi-date-picker" {
       input: HTMLElement,
       isTyping: boolean
     ): void | false;
+    dateSeparator?: boolean;
   }
 
   export { DateObject };
