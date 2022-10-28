@@ -37,11 +37,14 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
   }
 
   const [values, setValues] = useState(initialValue);
+  const [value, setValue] = useState();
 
   const validation1 = {
     title: "Validating Input Value",
     code: `<DatePicker
-  onChange={(date, validatedValue, input) => {
+  onChange={(date, { input, isTyping }) => {
+    if (!isTyping) return;
+
     const strings = input.value.split("/");
     const numbers = strings.map(Number);
     const [year, month, day] = numbers;
@@ -50,7 +53,7 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
       return false; //in case user enter something other than digits
     }
 
-    if (month > 12 || month < 0) return false; //month < 0 in case user wants to type 01
+    if (month > 12 || month < 0) return false; //month < 0 in case user want to type 01
     if (day < 0 || (date && day > date.day)) return false;
     if (strings.some((val) => val.startsWith("00"))) return false;
   }}
@@ -58,8 +61,9 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
     `,
     jsx: (
       <DatePicker
-        onChange={(date, validatedValue, input, isTyping) => {
-          if (!isTyping) return;
+        value={value}
+        onChange={(date, { input, isTyping }) => {
+          if (!isTyping) return setValue(date);
 
           const strings = input.value.split("/");
           const numbers = strings.map(Number);
@@ -72,6 +76,8 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
           if (month > 12 || month < 0) return false; //month < 0 in case user want to type 01
           if (day < 0 || (date && day > date.day)) return false;
           if (strings.some((val) => val.startsWith("00"))) return false;
+
+          setValue(date);
         }}
         {...otherProps}
       />

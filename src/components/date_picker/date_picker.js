@@ -549,14 +549,17 @@ function DatePicker(
       }
     }
 
-    const mustUpdateState = onChange?.(
-      date,
-      strDate,
-      inputRef.current,
-      !!inputValue
-    );
+    const mustUpdateState = onChange?.(date, {
+      validatedValue: strDate,
+      input: inputRef.current,
+      isTyping: !!inputValue,
+    });
 
-    if (mustUpdateState === false) return setStringDate(stringDate);
+    if (mustUpdateState === false) {
+      setStringDate(stringDate);
+
+      return false;
+    }
 
     setDate(date);
     setStringDate(inputValue || strDate.toString().replace(/\s,\s$/, ""));
