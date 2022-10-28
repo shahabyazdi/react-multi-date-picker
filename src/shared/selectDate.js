@@ -1,6 +1,7 @@
 import isSameDate from "./isSameDate";
 import DateObject from "react-date-object";
 import isArray from "./isArray";
+import formatDate from "./formaDate";
 
 export default function selectDate(
   date,
@@ -67,6 +68,7 @@ export default function selectDate(
     if (!isArray(selectedDate)) selectedDate = [[selectedDate]];
 
     const arrayWithOneDate = selectedDate.find((range) => range.length === 1);
+    const format = onlyMonthPicker ? "YYYY/MM" : "YYYY/MM/DD";
 
     let dates = selectedDate;
 
@@ -82,10 +84,12 @@ export default function selectDate(
           (a, b) => a - b
         );
 
-        const strFirst = first.format("YYYY/MM/DD");
-        const strSecond = second.format("YYYY/MM/DD");
-        const strtargetFirst = targetFirst.format("YYYY/MM/DD");
-        const strtargetSecond = targetSecond.format("YYYY/MM/DD");
+        const [strFirst, strSecond, strtargetFirst, strtargetSecond] = [
+          first,
+          second,
+          targetFirst,
+          targetSecond,
+        ].map((date) => formatDate(date, format));
 
         if (
           (strtargetFirst <= strFirst && strtargetSecond >= strSecond) ||
@@ -107,9 +111,10 @@ export default function selectDate(
         if (range.length === 0) return false;
 
         const [first, second] = range;
-        const strFirst = first.format("YYYY/MM/DD");
-        const strSecond = second.format("YYYY/MM/DD");
-        const strFocused = focused.format("YYYY/MM/DD");
+
+        const [strFirst, strSecond, strFocused] = [first, second, focused].map(
+          (date) => formatDate(date, format)
+        );
 
         if (strFocused >= strFirst && strFocused <= strSecond) {
           return false;

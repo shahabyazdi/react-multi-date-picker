@@ -7,6 +7,8 @@
 - in datepicker onChange method has (date, {validatedValue, input, isTyping}) arguments for validations.
 - highlightToday added. [#145](https://github.com/shahabyazdi/react-multi-date-picker/issues/145)
 - dateSeparator added.
+- input is now editable in multiple & range mode. [#147](https://github.com/shahabyazdi/react-multi-date-picker/issues/147)
+- multipleRangeSeparator added.
 
 # 3.3.4
 

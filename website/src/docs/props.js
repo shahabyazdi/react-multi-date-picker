@@ -502,6 +502,12 @@ export default function Doc({ translate, language }) {
             <td>{translate("'~' in range mode, ',' in multiple mode")}</td>
             <td>{translate("DatePicker")}</td>
           </tr>
+          <tr>
+            <td>multipleRangeSeparator</td>
+            <td> string</td>
+            <td>','</td>
+            <td>{translate("DatePicker")}</td>
+          </tr>
         </tbody>
       </table>
     ),

@@ -478,6 +478,7 @@ declare module "react-multi-date-picker" {
       isTyping: boolean
     ): void | false;
     dateSeparator?: boolean;
+    multipleRangeSeparator?: boolean;
   }
 
   export { DateObject };

@@ -1,13 +1,19 @@
 import isSameDate from "./isSameDate";
 import isArray from "./isArray";
+import formatDate from "./formaDate";
 
-export default function getRangeClass(date, selectedDate, checkMonth, range) {
+export default function getRangeClass(
+  date,
+  selectedDate,
+  onlyMonthPicker,
+  multiple
+) {
   const names = [];
+  const format = onlyMonthPicker ? "YYYY/MM" : "YYYY/MM/DD";
+  const strDate = formatDate(date, format);
 
-  if (range) {
-    (isArray(selectedDate) ? selectedDate : [[selectedDate]]).forEach((range) =>
-      getClass(range)
-    );
+  if (multiple) {
+    (isArray(selectedDate) ? selectedDate : [[selectedDate]]).forEach(getClass);
   } else {
     getClass(selectedDate);
   }
@@ -17,14 +23,18 @@ export default function getRangeClass(date, selectedDate, checkMonth, range) {
       second = selectedDate[1];
 
     if (selectedDate.length === 1) {
-      if (isSameDate(date, first, checkMonth)) names.push("rmdp-range");
+      if (isSameDate(date, first, onlyMonthPicker)) names.push("rmdp-range");
     } else if (selectedDate.length === 2) {
-      if (date.toDays() >= first.toDays() && date.toDays() <= second.toDays()) {
+      const [strFirst, strSecond] = [first, second].map((date) =>
+        formatDate(date, format)
+      );
+
+      if (strDate >= strFirst && strDate <= strSecond) {
         names.push("rmdp-range");
       }
 
-      if (isSameDate(date, first, checkMonth)) names.push("start");
-      if (isSameDate(date, second, checkMonth)) names.push("end");
+      if (strDate === strFirst) names.push("start");
+      if (strDate === strSecond) names.push("end");
     }
   }
 

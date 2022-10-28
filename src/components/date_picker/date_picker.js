@@ -71,6 +71,7 @@ function DatePicker(
     onOpenPickNewDate = true,
     mobileButtons = [],
     dateSeparator,
+    multipleRangeSeparator = ",",
     ...otherProps
   },
   outerRef
@@ -229,7 +230,7 @@ function DatePicker(
         date = date.map((range) => {
           const [dates, strDates] = getDatesAndStrDates(range);
 
-          strDate += strDates + " , ";
+          strDate += strDates + ` ${multipleRangeSeparator} `;
 
           return dates;
         });
@@ -545,7 +546,8 @@ function DatePicker(
     if (date) {
       if (multiple && range && isArray(date)) {
         date.forEach((range) => {
-          strDate += getStringDate(range, separator) + " , ";
+          strDate +=
+            getStringDate(range, separator) + ` ${multipleRangeSeparator} `;
         });
       } else {
         strDate = getStringDate(date, separator);
@@ -600,12 +602,14 @@ function DatePicker(
     let newDate;
 
     if (!isArray(date)) {
-      newDate = getNewDate(value);
+      newDate = getSingleDate(value);
+    } else if (!multiple || !range) {
+      newDate = getMultipleDates(value);
     } else {
       newDate = (value || "")
-        .split(separator)
+        .split(multipleRangeSeparator)
         .filter(Boolean)
-        .map((value) => getNewDate(value.trim()));
+        .map(getMultipleDates);
     }
 
     handleChange(
@@ -614,7 +618,7 @@ function DatePicker(
       toLocaleDigits(value, digits)
     );
 
-    function getNewDate(value) {
+    function getSingleDate(value) {
       /**
        * Given that the only valid date is the date that has all three values ​​of the day, month, and year.
        * To generate a new date, we must check whether the day, month, and year
@@ -639,6 +643,13 @@ function DatePicker(
          */
         return new DateObject(object).parse(value);
       }
+    }
+
+    function getMultipleDates(value) {
+      return (value || "")
+        .split(separator)
+        .filter(Boolean)
+        .map((value) => getSingleDate(value.trim()));
     }
   }
 
