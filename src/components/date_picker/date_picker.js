@@ -220,10 +220,10 @@ function DatePicker(
       initialValue = undefined;
     }
 
+    let strDate = "";
+
     if (range || multiple || isArray(date)) {
       if (!isArray(date)) date = range && multiple ? [[date]] : [date];
-
-      let strDate = "";
 
       if (multiple && range) {
         date = date.map((range) => {
@@ -237,7 +237,7 @@ function DatePicker(
         [date, strDate] = getDatesAndStrDates(date);
       }
 
-      setStringDate(strDate.toString().replace(/\s,\s$/, ""));
+      strDate = strDate.toString().replace(/\s,\s$/, "");
 
       function getDatesAndStrDates(date) {
         date = date.map(checkDate).filter((value) => value !== undefined);
@@ -251,9 +251,11 @@ function DatePicker(
 
       date = checkDate(date);
 
-      if (document.activeElement !== getInput(inputRef)) {
-        setStringDate(date ? date.format() : "");
-      }
+      if (date) strDate = date.format();
+    }
+
+    if (document.activeElement !== getInput(inputRef)) {
+      setStringDate(strDate);
     }
 
     ref.current = {
@@ -569,7 +571,7 @@ function DatePicker(
   }
 
   function handleValueChange(e) {
-    if (isArray(date) || !editable) return;
+    if (!editable) return;
 
     ref.current.selection = e.target.selectionStart;
 
@@ -596,36 +598,48 @@ function DatePicker(
     }
 
     let newDate;
-    /**
-     * Given that the only valid date is the date that has all three values ​​of the day, month, and year.
-     * To generate a new date, we must check whether the day, month, and year
-     * are defined in the format or not.
-     */
-    if (/(?=.*Y)(?=.*M)(?=.*D)/.test(format)) {
-      /**
-       * If the above condition is true,
-       * we generate a new date from the input value.
-       */
-      newDate = new DateObject({
-        ...object,
-        date: value,
-      });
+
+    if (!isArray(date)) {
+      newDate = getNewDate(value);
     } else {
-      /**
-       * Otherwise, we generate today's date and replace the input value ​​with today's values.
-       * For example, if we are only using the TimePicker and the input value follows the format "HH:mm",
-       * if we generate a new date from the format "HH:mm", given that the values ​​of the day, month, and year
-       * do not exist in the input value, an invalid date will be generated.
-       * Therefore, it is better to generate today's date and replace only the hour and minute with today's values.
-       */
-      newDate = new DateObject(object).parse(value);
+      newDate = (value || "")
+        .split(separator)
+        .filter(Boolean)
+        .map((value) => getNewDate(value.trim()));
     }
 
     handleChange(
-      newDate.isValid ? newDate : null,
+      !isArray(date) ? (newDate.isValid ? newDate : null) : newDate,
       undefined,
       toLocaleDigits(value, digits)
     );
+
+    function getNewDate(value) {
+      /**
+       * Given that the only valid date is the date that has all three values ​​of the day, month, and year.
+       * To generate a new date, we must check whether the day, month, and year
+       * are defined in the format or not.
+       */
+      if (/(?=.*Y)(?=.*M)(?=.*D)/.test(format)) {
+        /**
+         * If the above condition is true,
+         * we generate a new date from the input value.
+         */
+        return new DateObject({
+          ...object,
+          date: value,
+        });
+      } else {
+        /**
+         * Otherwise, we generate today's date and replace the input value ​​with today's values.
+         * For example, if we are only using the TimePicker and the input value follows the format "HH:mm",
+         * if we generate a new date from the format "HH:mm", given that the values ​​of the day, month, and year
+         * do not exist in the input value, an invalid date will be generated.
+         * Therefore, it is better to generate today's date and replace only the hour and minute with today's values.
+         */
+        return new DateObject(object).parse(value);
+      }
+    }
   }
 
   function setCalendarReady() {

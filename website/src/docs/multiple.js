@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DatePicker, { DateObject } from "../../../build/index";
+import DatePicker, { DateObject } from "../../../build";
 import DatePanel from "../../../plugins/date_panel";
 
 export default function Doc({ translate, language, otherProps, codeEnd }) {

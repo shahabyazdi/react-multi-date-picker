@@ -3,7 +3,7 @@ import DatePicker, {
   Calendar,
   DateObject,
   getAllDatesInRange,
-} from "../../../build/index";
+} from "../../../build";
 import DatePanel from "../../../plugins/date_panel";
 
 export default function Doc({ language, otherProps, localeImport }) {
