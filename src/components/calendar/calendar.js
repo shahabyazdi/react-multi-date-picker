@@ -30,6 +30,7 @@ function Calendar(
     range = false,
     multiple = false,
     className,
+    role,
     weekDays,
     months,
     children,
@@ -295,6 +296,7 @@ function Calendar(
   return state.today ? (
     <div
       ref={setRef}
+      role={role || 'dialog'}
       className={`rmdp-wrapper rmdp-${shadow ? "shadow" : "border"} ${
         className || ""
       }`}
