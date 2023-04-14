@@ -11,7 +11,12 @@ export default function Select({
 }) {
   useEffect(() => {
     if (!isArray(selectedDate) || selectedDate.length === 0) return;
-    if (!focused) handleFocuse(selectedDate[0]);
+
+    if (!focused) {
+      handleFocuse(
+        isArray(selectedDate[0]) ? selectedDate[0][0] : selectedDate[0]
+      );
+    }
   }, [focused, selectedDate, handleFocuse]);
 
   return (
@@ -23,13 +28,13 @@ export default function Select({
           value={focused?.day || ""}
           onChange={(e) =>
             handleFocuse(
-              selectedDate.find(
-                (date) => date.day.toString() === e.target.value
-              )
+              selectedDate
+                .flat()
+                .find((date) => date.day.toString() === e.target.value)
             )
           }
         >
-          {selectedDate.map((date) => (
+          {selectedDate.flat().map((date) => (
             <option key={date.day} value={date.day}>
               {date.format(format)}
             </option>

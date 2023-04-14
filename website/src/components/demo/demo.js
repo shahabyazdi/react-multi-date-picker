@@ -211,20 +211,20 @@ export default function Demo({ language = "en", translate }) {
     },
     render: types[type],
     plugins: [
-      // <DatePanel
-      //   position={datePanelPosition}
-      //   disabled={
-      //     (!multiple && !range && !weekPicker) ||
-      //     ((multiple || range || weekPicker) && !mustShowDates) ||
-      //     isFullYear ||
-      //     numberOfMonths > 1
-      //   }
-      //   markFocused={(multiple || range) && ($timePicker || $analogTimePicker)}
-      // />,
-      // <TimePicker
-      //   position={timePickerPosition}
-      //   disabled={(!$timePicker && !$onlyTimePicker) || isFullYear}
-      // />,
+      <DatePanel
+        position={datePanelPosition}
+        disabled={
+          (!multiple && !range && !weekPicker) ||
+          ((multiple || range || weekPicker) && !mustShowDates) ||
+          isFullYear ||
+          numberOfMonths > 1
+        }
+        markFocused={(multiple || range) && ($timePicker || $analogTimePicker)}
+      />,
+      <TimePicker
+        position={timePickerPosition}
+        disabled={(!$timePicker && !$onlyTimePicker) || isFullYear}
+      />,
     ],
     animations: animation && [transition()],
   };
@@ -359,6 +359,7 @@ export default function Demo({ language = "en", translate }) {
                 ["Multiple Range", "multipleRange"],
                 ["Range (Week Picker)", "weekPicker"],
               ],
+              disabled: $onlyTimePicker || $onlyAnalogTimePicker,
               value:
                 !multiple && !range && !weekPicker
                   ? "single"
