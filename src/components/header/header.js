@@ -1,5 +1,6 @@
 import React, { isValidElement, cloneElement } from "react";
 import Arrow from "../arrow/arrow";
+import { Fragment } from "react";
 
 export default function Header({
   state,
@@ -68,7 +69,9 @@ export default function Header({
       <div
         style={{ position: "relative", display: "flex", alignItems: "center" }}
       >
-        {Array.from(new Set(headerOrder)).map(getHeaderItem)}
+        {Array.from(new Set(headerOrder)).map((item, index) => (
+          <Fragment key={index}>{getHeaderItem(item)}</Fragment>
+        ))}
       </div>
     </div>
   );
@@ -100,7 +103,11 @@ export default function Header({
             <div key={index} className="rmdp-header-values" style={style}>
               {items.length > 0 &&
                 items
-                  .map((item) => getMonthOrYear(item, month, index))
+                  .map((item, index) => (
+                    <Fragment key={index}>
+                      {getMonthOrYear(item, month, index)}
+                    </Fragment>
+                  ))
                   .reduce((prev, curr) => [prev, getSeparator(), curr])}
             </div>
           ));

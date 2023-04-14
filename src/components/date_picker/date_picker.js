@@ -224,11 +224,15 @@ function DatePicker(
     let strDate = "";
 
     if (range || multiple || isArray(date)) {
-      if (!isArray(date)) date = range && multiple ? [[date]] : [date];
+      if (!isArray(date)) {
+        date = range && multiple ? (date ? [[date]] : []) : [date];
+      }
 
       if (multiple && range) {
         date = date.map((range) => {
-          const [dates, strDates] = getDatesAndStrDates(range);
+          const [dates, strDates] = getDatesAndStrDates(
+            isArray(range) ? range : [range]
+          );
 
           strDate += strDates + ` ${multipleRangeSeparator} `;
 
@@ -237,7 +241,7 @@ function DatePicker(
       } else {
         [date, strDate] = getDatesAndStrDates(date);
       }
-
+      console.log("3", date);
       strDate = strDate.toString().replace(/\s,\s$/, "");
 
       function getDatesAndStrDates(date) {
