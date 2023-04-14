@@ -335,14 +335,15 @@ describe("events", () => {
   test("onMonthChange", () => {
     const date = new DateObject();
     const onMonthChange = jest.fn();
-    const { openCalendar, queryByText, container } = renderDatePicker({
-      onMonthChange,
-    });
+    const { openCalendar, queryByText, getAllByText, container } =
+      renderDatePicker({
+        onMonthChange,
+      });
 
     openCalendar();
 
     //opening month picker
-    const month = queryByText(date.month.name + ",");
+    const month = getAllByText(date.month.name)[0];
     fireEvent.click(month);
 
     //selecting next month

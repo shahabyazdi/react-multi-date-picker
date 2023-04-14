@@ -241,7 +241,7 @@ function DatePicker(
       } else {
         [date, strDate] = getDatesAndStrDates(date);
       }
-      console.log("3", date);
+
       strDate = strDate.toString().replace(/\s,\s$/, "");
 
       function getDatesAndStrDates(date) {

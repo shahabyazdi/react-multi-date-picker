@@ -103,8 +103,8 @@ export default function Header({
             <div key={index} className="rmdp-header-values" style={style}>
               {items.length > 0 &&
                 items
-                  .map((item, index) => (
-                    <Fragment key={index}>
+                  .map((item, i) => (
+                    <Fragment key={i}>
                       {getMonthOrYear(item, month, index)}
                     </Fragment>
                   ))
