@@ -9,6 +9,7 @@
 - dateSeparator added.
 - input is now editable in multiple & range mode. [#147](https://github.com/shahabyazdi/react-multi-date-picker/issues/147)
 - multipleRangeSeparator added.
+- allow users to change the order of the header items by headerOrder prop.
 
 # 3.3.4
 

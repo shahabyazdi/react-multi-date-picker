@@ -153,8 +153,20 @@ export default function Demo({ language = "en", translate }) {
 
   let isFullYear = type === "full-year";
 
+  function getHeaderOrder() {
+    switch (state.headerOrder) {
+      case "mylr":
+        return ["MONTH_YEAR", "LEFT_BUTTON", "RIGHT_BUTTON"];
+      case "lrmy":
+        return ["LEFT_BUTTON", "RIGHT_BUTTON", "MONTH_YEAR"];
+      default:
+        return ["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"];
+    }
+  }
+
   const props = {
     ...state,
+    headerOrder: getHeaderOrder(),
     type: undefined,
     className: [layout, color, background].join(" "),
     onChange: (value) => updateState("value", value),
@@ -533,6 +545,26 @@ export default function Demo({ language = "en", translate }) {
               value: hideWeekDays ? "hide" : "show",
               onChange: (value) =>
                 updateState("hideWeekDays", value === "hide"),
+            },
+            {
+              title: "Month Year Separator",
+              options: [
+                ["Default", ""],
+                ["|", "|"],
+                ["/", "/"],
+              ],
+              value: state.monthYearSeparator,
+              onChange: (value) => updateState("monthYearSeparator", value),
+            },
+            {
+              title: "Header Order",
+              options: [
+                ["Default", ""],
+                ["Month Year Left Right", "mylr"],
+                ["Left Right Month Year", "lrmy"],
+              ],
+              value: state.headerOrder,
+              onChange: (value) => updateState("headerOrder", value),
             },
             {
               title: "Month",

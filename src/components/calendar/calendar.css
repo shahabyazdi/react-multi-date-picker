@@ -174,8 +174,7 @@
 .rmdp-header {
   margin-top: 5px;
   font-size: 14px;
-  height: 38px;
-  line-height: 37px;
+  padding: 9px 0;
 }
 
 .rmdp-month-picker,
@@ -226,13 +225,6 @@
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
   margin-left: 3px;
-}
-
-.rmdp-left,
-.rmdp-right {
-  position: absolute;
-  top: 54%;
-  transform: translateY(-50%);
 }
 
 .rmdp-left {
@@ -426,9 +418,8 @@
   }
 
   .rmdp-header {
-    height: 32px;
+    padding: 3px 0 0 0;
     font-size: 12px;
-    line-height: 32px;
   }
 
   .rmdp-month-name {

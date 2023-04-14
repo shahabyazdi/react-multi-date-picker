@@ -16,6 +16,12 @@ declare module "react-multi-date-picker" {
   export type FunctionalPlugin = { type: string; fn: Function };
   export type Plugin = React.ReactElement | FunctionalPlugin;
 
+  export type HeaderItem =
+    | "MONTH_YEAR"
+    | "YEAR_MONTH"
+    | "LEFT_BUTTON"
+    | "RIGHT_BUTTON";
+
   export interface CalendarProps {
     ref?: React.MutableRefObject<any>;
     /**
@@ -312,6 +318,7 @@ declare module "react-multi-date-picker" {
     formatMonth?: (month: string, year: string) => string;
     formatYear?: (year: string, month: string) => string;
     highlightToday?: boolean;
+    headerOrder?: Array<HeaderItem>;
   }
 
   export interface DatePickerProps {

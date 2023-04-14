@@ -72,6 +72,7 @@ function Calendar(
     formatMonth,
     formatYear,
     highlightToday = true,
+    headerOrder = ["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"],
   },
   outerRef
 ) {
@@ -329,6 +330,7 @@ function Calendar(
               monthYearSeparator={monthYearSeparator}
               formatMonth={formatMonth}
               formatYear={formatYear}
+              headerOrder={headerOrder}
             />
             <div style={{ position: "relative" }}>
               <DayPicker
