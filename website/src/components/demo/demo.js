@@ -83,6 +83,7 @@ export default function Demo({ language = "en", translate }) {
     shadow: true,
     weekDays: "3",
     months: "2",
+    highlightToday: "on",
   });
 
   const {
@@ -122,6 +123,7 @@ export default function Demo({ language = "en", translate }) {
     disableYearPicker,
     displayWeekNumbers,
     weekPicker,
+    highlightToday,
   } = state;
 
   const updateState = (key, value) => {
@@ -166,6 +168,7 @@ export default function Demo({ language = "en", translate }) {
 
   const props = {
     ...state,
+    highlightToday: state.highlightToday === "on",
     headerOrder: getHeaderOrder(),
     type: undefined,
     className: [layout, color, background].join(" "),
@@ -458,6 +461,15 @@ export default function Demo({ language = "en", translate }) {
                 updateState("type", value);
                 document.querySelector(".main").scrollTop = 0;
               },
+            },
+            {
+              title: "Highlight Today",
+              options: [
+                ["On", "on"],
+                ["Off", "off"],
+              ],
+              value: highlightToday,
+              onChange: (value) => updateState("highlightToday", value),
             },
             {
               title: "Number Of Months",
