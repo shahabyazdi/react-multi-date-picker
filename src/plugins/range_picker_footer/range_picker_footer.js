@@ -16,9 +16,9 @@ export default function Footer({
   let {
       selectedDate,
       date: { locale },
+      multiple,
+      range,
     } = state,
-    from = selectedDate[0]?.format?.(format),
-    to = selectedDate[1]?.format?.(format),
     horizontal = ["bottom", "top"].includes(position),
     allNames = {
       en: {
@@ -56,42 +56,22 @@ export default function Footer({
       }}
     >
       <h6 className="rmdp-week-day">{localeNames.selectedDates}</h6>
-      <div
-        style={{
-          display: horizontal ? "flex" : "grid",
-          gridTemplateRows: "1fr auto",
-        }}
-      >
-        <div
-          className="rmdp-header-values"
-          style={{
-            flex: "1",
-            display: horizontal ? "" : "grid",
-          }}
-        >
-          <div style={{ display: "inline-block" }}>
-            <i className="rmdp-cancel" onClick={() => deselect(0)}>
-              +
-            </i>
-            <span>
-              {localeNames.from} {from ?? localeNames.selectDate}
-            </span>
-          </div>
-          {horizontal && (
-            <span style={{ padding: "0px 10px" }}>{localeNames.separator}</span>
-          )}
-          <div style={{ display: "inline-block" }}>
-            <i className="rmdp-cancel" onClick={() => deselect(1)}>
-              +
-            </i>
-            <span>
-              {localeNames.to} {to ?? localeNames.selectDate}
-            </span>
-          </div>
-        </div>
-        {DatePicker && (
+      <div style={{ position: "relative", display: "grid" }}>
+        {multiple && range
+          ? selectedDate.map((range, index) => (
+              <div key={index}>{renderDates(range)}</div>
+            ))
+          : renderDates(selectedDate)}
+        {DatePicker && selectedDate?.length > 0 && (
           <button
             className="rmdp-button"
+            style={{
+              maxHeight: "30px",
+              position: horizontal ? "absolute" : "block",
+              right: "0",
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
             onClick={() => DatePicker.closeCalendar()}
           >
             {localeNames.close}
@@ -101,10 +81,51 @@ export default function Footer({
     </div>
   );
 
-  function deselect(index) {
+  function renderDates(dates) {
+    const from = dates[0]?.format?.(format),
+      to = dates[1]?.format?.(format);
+
+    return (
+      <div
+        className="rmdp-header-values"
+        style={{
+          flex: "1",
+          display: horizontal ? "" : "grid",
+        }}
+      >
+        <div style={{ display: "inline-block" }}>
+          <i className="rmdp-cancel" onClick={() => deselect(dates[0])}>
+            +
+          </i>
+          <span>
+            {localeNames.from} {from ?? localeNames.selectDate}
+          </span>
+        </div>
+        {horizontal && (
+          <span style={{ padding: "0px 10px" }}>{localeNames.separator}</span>
+        )}
+        <div style={{ display: "inline-block" }}>
+          <i className="rmdp-cancel" onClick={() => deselect(dates[1])}>
+            +
+          </i>
+          <span>
+            {localeNames.to} {to ?? localeNames.selectDate}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  function deselect(date) {
     if (!Array.isArray(selectedDate)) return;
 
-    selectedDate.splice(index, 1);
+    if (multiple && range) {
+      selectedDate = selectedDate
+        .map((dates) => dates.filter((d) => d !== date))
+        .filter((dates) => dates.length > 0);
+    } else {
+      selectedDate = selectedDate.filter((d) => d !== date);
+    }
 
     handleChange(selectedDate, { ...state, selectedDate });
   }
