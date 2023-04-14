@@ -439,6 +439,8 @@ function Calendar(
       const mustUpdateState = onChange?.(selectedDate);
 
       if (state && mustUpdateState !== false) setState(state);
+    } else if (state) {
+      setState(state);
     }
 
     handlePropsChange({ value: selectedDate });
