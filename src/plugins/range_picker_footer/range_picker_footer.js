@@ -56,7 +56,12 @@ export default function Footer({
       }}
     >
       <h6 className="rmdp-week-day">{localeNames.selectedDates}</h6>
-      <div style={{ position: "relative", display: "grid" }}>
+      <div
+        style={{
+          position: "relative",
+          display: "grid",
+        }}
+      >
         {multiple && range
           ? selectedDate.map((range, index) => (
               <div key={index}>{renderDates(range)}</div>
@@ -91,6 +96,7 @@ export default function Footer({
         style={{
           flex: "1",
           display: horizontal ? "" : "grid",
+          margin: "0",
         }}
       >
         <div style={{ display: "inline-block" }}>
