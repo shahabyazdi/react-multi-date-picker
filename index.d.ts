@@ -22,6 +22,16 @@ declare module "react-multi-date-picker" {
     | "LEFT_BUTTON"
     | "RIGHT_BUTTON";
 
+  export type CustomComponentProps = {
+    value?: string;
+    openCalendar?: () => void;
+    onFocus?: () => void;
+    handleValueChange?: (e: React.ChangeEvent) => void;
+    onChange?: (e: React.ChangeEvent) => void;
+    locale?: Locale;
+    separator?: string;
+  };
+
   export interface CalendarProps {
     ref?: React.MutableRefObject<any>;
     /**
@@ -367,7 +377,15 @@ declare module "react-multi-date-picker" {
      *   render={<CustomComponent/>}
      * />
      */
-    render?: React.ReactElement | Function;
+    render?:
+      | React.ReactElement<CustomComponentProps>
+      | ((
+          value: string,
+          openCalendar: () => void,
+          handleValueChange: (e: React.ChangeEvent) => void,
+          locale: Locale,
+          separator: string
+        ) => React.ReactNode);
     /**
      * This feature only affects on `input` in `single` mode
      *
