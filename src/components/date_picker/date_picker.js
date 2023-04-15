@@ -228,12 +228,14 @@ function DatePicker(
       }
 
       if (multiple && range) {
-        date = date.map((range) => {
+        date = date.map((range, i) => {
           const [dates, strDates] = getDatesAndStrDates(
             isArray(range) ? range : [range]
           );
 
-          strDate += strDates + ` ${multipleRangeSeparator} `;
+          strDate +=
+            strDates +
+            (i < date.length - 1 ? ` ${multipleRangeSeparator} ` : "");
 
           return dates;
         });
@@ -537,10 +539,9 @@ function DatePicker(
 
     if (date) {
       if (multiple && range && isArray(date)) {
-        date.forEach((range) => {
-          strDate +=
-            getStringDate(range, separator) + ` ${multipleRangeSeparator} `;
-        });
+        strDate = date
+          .map((range) => getStringDate(range, separator))
+          .join(` ${multipleRangeSeparator} `);
       } else {
         strDate = getStringDate(date, separator);
       }

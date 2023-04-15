@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build";
 
-export default function Doc({ language, otherProps, localeImport, translate }) {
+export default function Doc({ language, otherProps, localeImport }) {
   const [values, setValues] = useState([
     [
       new DateObject(otherProps).set({ day: 1 }),
