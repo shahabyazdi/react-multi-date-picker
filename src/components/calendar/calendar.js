@@ -74,6 +74,8 @@ function Calendar(
     formatYear,
     highlightToday = true,
     headerOrder = ["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"],
+    style = {},
+    ...rest
   },
   outerRef
 ) {
@@ -304,11 +306,12 @@ function Calendar(
   return state.today ? (
     <div
       ref={setRef}
-      role={role || 'dialog'}
+      role={role || "dialog"}
       className={`rmdp-wrapper rmdp-${shadow ? "shadow" : "border"} ${
         className || ""
       }`}
-      style={{ zIndex }}
+      style={{ zIndex, ...style }}
+      {...rest}
     >
       {clonedPlugins.top}
       <div style={{ display: "flex" }} className={topClassName}>
@@ -320,32 +323,36 @@ function Calendar(
             } ${getBorderClassName(["left", "right"])}`}
           >
             <Header
-              {...globalProps}
-              disableYearPicker={disableYearPicker}
-              disableMonthPicker={disableMonthPicker}
-              buttons={buttons}
-              renderButton={renderButton}
-              handleMonthChange={handleMonthChange}
-              disabled={disabled}
-              hideMonth={hideMonth}
-              hideYear={hideYear}
-              monthYearSeparator={monthYearSeparator}
-              formatMonth={formatMonth}
-              formatYear={formatYear}
-              headerOrder={headerOrder}
+              {...{
+                ...globalProps,
+                disableYearPicker,
+                disableMonthPicker,
+                buttons,
+                renderButton,
+                handleMonthChange,
+                disabled,
+                hideMonth,
+                hideYear,
+                monthYearSeparator,
+                formatMonth,
+                formatYear,
+                headerOrder,
+              }}
             />
             <div style={{ position: "relative" }}>
               <DayPicker
-                {...globalProps}
-                showOtherDays={showOtherDays}
-                mapDays={mapDays}
-                onlyShowInRangeDates={onlyShowInRangeDates}
-                customWeekDays={weekDays}
-                numberOfMonths={numberOfMonths}
-                weekStartDayIndex={weekStartDayIndex}
-                hideWeekDays={hideWeekDays}
-                displayWeekNumbers={displayWeekNumbers}
-                weekNumber={weekNumber}
+                {...{
+                  ...globalProps,
+                  showOtherDays,
+                  mapDays,
+                  onlyShowInRangeDates,
+                  customWeekDays: weekDays,
+                  numberOfMonths,
+                  weekStartDayIndex,
+                  hideWeekDays,
+                  displayWeekNumbers,
+                  weekNumber,
+                }}
               />
               {!fullYear && (
                 <>

@@ -43,6 +43,7 @@ import indian_ar from "react-date-object/locales/indian_ar";
 import indian_hi from "react-date-object/locales/indian_hi";
 
 const calendars = { gregorian, persian, arabic, indian };
+
 const locales = {
   gregorian_en,
   gregorian_fa,
@@ -61,11 +62,14 @@ const locales = {
   indian_ar,
   indian_hi,
 };
+
 const types = {
   input_icon: <InputIcon />,
   icon: <Icon />,
   button: <Button />,
 };
+
+const animationList = [transition()];
 
 export default function Demo({ language = "en", translate }) {
   const [state, setState] = useState({
@@ -226,7 +230,7 @@ export default function Demo({ language = "en", translate }) {
         disabled={(!$timePicker && !$onlyTimePicker) || isFullYear}
       />,
     ],
-    animations: animation && [transition()],
+    animations: animation && animationList,
   };
 
   const analogTimePicker = (
