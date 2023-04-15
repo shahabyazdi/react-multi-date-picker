@@ -896,5 +896,30 @@
   "multiple_date_separator": "مقدار پیش فرض پراپ dataSeparator  در حالت چندگانه '، ' است",
   "range_date_separator": "مقدار پیش فرض پراپ dataSeparator  در حالت دامنه ' ~ ' است",
   "multiple_range_date_separator": "مقدار پیش فرض پراپ multipleRangeSeparator برابر است با '،' است",
-  "Custom Separator": "جداکننده سفارشی"
+  "Custom Separator": "جداکننده سفارشی",
+  "Order of Header Components": "ترتیب اجزای سربرگ",
+  "header_order": [
+    "مقداری که به پراپ headerOrder پاس میدهید باید یک آرایه شامل موارد زیر میشود:",
+    "RIGHT_BUTTON",
+    "MONTH_YEAR",
+    "YEAR_MONTH",
+    "LEFT_BUTTON",
+    "مقدار پیشفرض headerOrder برابر است با ",
+    "['LEFT_BUTTON', 'MONTH_YEAR', 'RIGHT_BUTTON']"
+  ],
+  "Separator Between Month & Year": "جداکننده بین ماه و سال",
+  "month_year_separator": [
+    "پراپ monthYearSeparator برای تعیین کاراکتری که بین عناصر ماه و سال در سربرگ تقویم ظاهر می شود استفاده می شود. به طور پیش فرض، مقدار monthYearSeparator '، ' است.",
+    "برای افزودن یک کاراکتر جداکننده، یک مقدار رشته را به monthYearSeparator ارسال کنید. به عنوان مثال، برای استفاده از یک نوار عمودی (|) به عنوان جداکننده، می توانید از کد زیر استفاده کنید:"
+  ],
+  "Custom Navigation Buttons (function)": "دکمه های ناوبری سفارشی (function)",
+  "Custom Navigation Buttons (component)": "دکمه های ناوبری سفارشی (component)",
+  "Date Separator": "جداکننده تاریخ",
+  "Highlight Today": "هایلایت کردن امروز",
+  "On": "روشن",
+  "Off": "خاموش",
+  "Month Year Separator": "جدا کننده ماه و سال",
+  "Header Order": "ترتیب سریرگ",
+  "Month Year Left Right": "ماه سال چپ راست",
+  "Left Right Month Year": "چپ راست ماه سال"
 }

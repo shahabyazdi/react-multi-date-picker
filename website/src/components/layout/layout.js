@@ -58,7 +58,7 @@ const sidebar = {
     { name: "Custom Digits, Months & WeekDays", path: "locales/" },
     { name: "Types & Custom Input", path: "types/" },
     { name: "Customizing Calendar Days", path: "map-days/" },
-    { name: "Customizing Navigate Buttons", path: "buttons/" },
+    { name: "Customizing Header", path: "header/" },
     { name: "Calendar Position", path: "positions/" },
     { name: "DatePicker & Calendar Ref", path: "ref/" },
     { name: "Appearance", path: "appearance/" },

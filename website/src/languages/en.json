@@ -468,5 +468,18 @@
   ],
   "multiple_date_separator": "the default value of dateSeparator prop in multiple mode is ', '",
   "range_date_separator": "the default value of dateSeparator prop in range mode is ' ~ '",
-  "multiple_range_date_separator": "the default value of multipleRangeSeparator prop is ','"
+  "multiple_range_date_separator": "the default value of multipleRangeSeparator prop is ','",
+  "header_order": [
+    "The header of the Calendar component can be arranged in a specific order using the headerOrder prop. The headerOrder prop should be an array containing one or more of the following values:",
+    "RIGHT_BUTTON: A button that appears on the right side of the header. This button is typically used for navigating to the next month or year.",
+    "MONTH_YEAR: A display of the current month and year in the center of the header. This element is typically used to provide context for the calendar.",
+    "YEAR_MONTH: A display of the current year and month in the center of the header. This element is similar to MONTH_YEAR, but with the year displayed before the month.",
+    "LEFT_BUTTON: A button that appears on the left side of the header. This button is typically used for navigating to the previous month or year.",
+    "The default value of headerOrder is ['LEFT_BUTTON', 'MONTH_YEAR', 'RIGHT_BUTTON'], which arranges the header elements in a typical order for a calendar.",
+    "To customize the order of the header elements, pass an array of the desired element names to the headerOrder prop. For example, to display the MONTH_YEAR element first, followed by the LEFT_BUTTON and RIGHT_BUTTON buttons, you could use the following code:"
+  ],
+  "month_year_separator": [
+    "The monthYearSeparator prop is used to specify the character that appears between the month and year elements in the Calendar header. By default, the monthYearSeparator value is ', '",
+    "To add a separator character, pass a string value to the monthYearSeparator prop. For example, to use a vertical bar (|) as the separator, you can use the following code:"
+  ]
 }

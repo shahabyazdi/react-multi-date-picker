@@ -406,6 +406,7 @@ export default function Demo({ language = "en", translate }) {
                   disableDayPicker: false,
                   $onlyTimePicker: false,
                   value: val,
+                  dateSeparator: undefined,
                 });
               },
             },
@@ -466,6 +467,22 @@ export default function Demo({ language = "en", translate }) {
                 updateState("type", value);
                 document.querySelector(".main").scrollTop = 0;
               },
+            },
+            {
+              title: "Date Separator",
+              disabled: ["calendar", "full-year", "icon"].includes(type)
+                ? true
+                : !multiple && !range && !weekPicker,
+              options: [
+                ["Default", ""],
+                multiple && range
+                  ? [">", " > "]
+                  : multiple
+                  ? ["-", " - "]
+                  : [">", " > "],
+              ],
+              value: state.dateSeparator,
+              onChange: (value) => updateState("dateSeparator", value),
             },
             {
               title: "Highlight Today",
