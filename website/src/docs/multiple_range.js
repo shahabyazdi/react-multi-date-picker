@@ -45,6 +45,26 @@ export default function Doc({ language, otherProps, localeImport, translate }) {
     ),
   };
 
+  const separator = {
+    title: "Custom Separator",
+    description: "multiple_range_date_separator",
+    code: `<DatePicker
+  multiple
+  range
+  dateSeparator=${language === "fa" ? '" تا "' : '" to "'}
+  multipleRangeSeparator="&"
+/>`,
+    jsx: (
+      <DatePicker
+        multiple
+        range
+        dateSeparator={language === "fa" ? " تا " : " to "}
+        multipleRangeSeparator="&"
+        {...otherProps}
+      />
+    ),
+  };
+
   const monthPicker = {
     title: "Multiple Range in onlyMonthPicker",
     description: "multiple_range_month_picker",
@@ -67,5 +87,5 @@ export default function Doc({ language, otherProps, localeImport, translate }) {
     jsx: <DatePicker onlyYearPicker multiple range {...otherProps} />,
   };
 
-  return [range, monthPicker, yearPicker];
+  return [range, separator, monthPicker, yearPicker];
 }

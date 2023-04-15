@@ -465,5 +465,8 @@
     "This example demonstrates how to validate a range of dates in the DatePicker component. In this example, the goal is to reserve a room for a certain date range. The Calendar component is used with multiple and range props to allow selecting multiple ranges of dates. The initial values for reserved and in-service dates are defined in two arrays named reserved and inService.",
     "The isReserved and isInService functions check whether a given date falls within the reserved or in-service ranges.",
     "The mapDays prop is used to apply a class to the date elements to indicate whether they are reserved or in-service."
-  ]
+  ],
+  "multiple_date_separator": "the default value of dateSeparator prop in multiple mode is ', '",
+  "range_date_separator": "the default value of dateSeparator prop in range mode is ' ~ '",
+  "multiple_range_date_separator": "the default value of multipleRangeSeparator prop is ','"
 }

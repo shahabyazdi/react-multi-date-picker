@@ -41,6 +41,22 @@ export default function Doc({ language, otherProps, localeImport }) {
     ),
   };
 
+  const separator = {
+    title: "Custom Separator",
+    description: "range_date_separator",
+    code: `<DatePicker 
+  range 
+  dateSeparator=" ${language === "fa" ? "تا" : "to"} " 
+/>`,
+    jsx: (
+      <DatePicker
+        range
+        dateSeparator={language === "fa" ? " تا " : " to "}
+        {...otherProps}
+      />
+    ),
+  };
+
   const rangeHover = {
     title: "Range Hover Effect",
     code: `${localeImport}const [values, setValues] = useState([
@@ -242,6 +258,7 @@ const [allDates, setAllDates] = useState([])
 
   return [
     range,
+    separator,
     rangeHover,
     datePanel,
     eachDaysInRange,
