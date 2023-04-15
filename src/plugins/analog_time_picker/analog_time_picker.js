@@ -11,10 +11,11 @@ import "./analog_time_picker.css";
 import "../time_picker/time_picker.css";
 
 const getTransform = (number) => `rotate(${number}deg)`;
+
 const array = [
-  ["hour", "HH"],
-  ["minute", "mm"],
-  ["second", "ss"],
+  ["hour", "HH", 12],
+  ["minute", "mm", 60],
+  ["second", "ss", 60],
 ];
 
 export default function AnalogTimePicker({
@@ -90,11 +91,12 @@ export default function AnalogTimePicker({
       )}
       <div style={{ margin: "auto 0" }}>
         <div className="rmdp-time-picker">
-          {array.map(([name, token], index) => {
+          {array.map(([name, token, max], index) => {
             if (name === "second" && hideSeconds) return null;
 
             return (
               <Button
+                max={max}
                 key={index}
                 name={name}
                 values={getValues(name, token)}
@@ -129,6 +131,7 @@ export default function AnalogTimePicker({
 }
 
 function Button({
+  max,
   name,
   values: [number, localeValue],
   update,
@@ -140,6 +143,7 @@ function Button({
       <div>
         <Arrow direction="rmdp-up" onClick={() => update(name, number + 1)} />
         <Input
+          max={max}
           value={localeValue}
           onChange={update}
           digits={digits}
