@@ -10,8 +10,9 @@
 - input is now editable in multiple & range mode. [#147](https://github.com/shahabyazdi/react-multi-date-picker/issues/147)
 - multipleRangeSeparator added.
 - allow users to change the order of the header items by headerOrder prop.
-- CustomComponentProps type exported for typescript [#175](https://github.com/shahabyazdi/react-multi-date-picker/issues/175)
-- Bug in timepicker if number keeps being pressed fixed [#155](https://github.com/shahabyazdi/react-multi-date-picker/issues/155)
+- CustomComponentProps type exported for typescript. [#175](https://github.com/shahabyazdi/react-multi-date-picker/issues/175)
+- Bug in timepicker if number keeps being pressed fixed. [#155](https://github.com/shahabyazdi/react-multi-date-picker/issues/155)
+- The Calendar component accepts the HTMLDivElement props along with its own props.
 
 # 3.3.4
 

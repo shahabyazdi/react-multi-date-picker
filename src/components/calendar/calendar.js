@@ -311,7 +311,7 @@ function Calendar(
         className || ""
       }`}
       style={{ zIndex, ...style }}
-      {...rest}
+      {...getValidDivProps(rest)}
     >
       {clonedPlugins.top}
       <div style={{ display: "flex" }} className={topClassName}>
@@ -616,4 +616,8 @@ function getSelectedDate(value, calendar, locale, format) {
   function isValid(date) {
     return isArray(date) || date.isValid;
   }
+}
+
+function getValidDivProps({ DatePicker, datePickerProps, ...rest }) {
+  return rest;
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../build";
 
-export default function Doc({ language, otherProps, localeImport }) {
+export default function Doc({ language, otherProps, localeImport, translate }) {
   const [values, setValues] = useState([
     [
       new DateObject(otherProps).set({ day: 1 }),
@@ -19,6 +19,7 @@ export default function Doc({ language, otherProps, localeImport }) {
 
   const range = {
     title: "Multiple Range Picker",
+    description: "multiple_range_picker",
     code: `${localeImport}const [values, setValues] = useState([
   [new DateObject().set({ day: 1 }), new DateObject().set({ day: 3 })],
   [new DateObject().set({ day: 6 }), new DateObject().set({ day: 12 })],
@@ -46,6 +47,7 @@ export default function Doc({ language, otherProps, localeImport }) {
 
   const monthPicker = {
     title: "Multiple Range in onlyMonthPicker",
+    description: "multiple_range_month_picker",
     code: `${localeImport}<DatePicker
   onlyMonthPicker
   multiple
@@ -56,6 +58,7 @@ export default function Doc({ language, otherProps, localeImport }) {
 
   const yearPicker = {
     title: "Multiple Range in onlyYearPicker",
+    description: "multiple_range_year_picker",
     code: `${localeImport}<DatePicker
   onlyYearPicker
   multiple

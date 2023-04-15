@@ -435,5 +435,35 @@
   "custom_calendar_6": "If you need, you can create a Thai locale and enter it into the calendar by using the <a target='_blank' href='../locales/#custom-locale'>tutorial</a> provided here:",
   "custom_calendar_7": "Finally, by entering our calendar and locale into the Calendar Component, this result is achieved:",
   "month": "Month",
-  "year": "Year"
+  "year": "Year",
+  "multiple_range_picker": [
+    "The Multiple Range mode is a way for selecting multiple date ranges and the codes provided below show how to do it using the useState hook to manage the selected date ranges. ",
+    "The initially selected date ranges are passed to the Calendar component using the value prop, while the onChange function is used to update the selected date ranges whenever the user selects a new range.",
+    "In this example, the values state variable is initialized with three selected date ranges. Each range is represented as an array of two DateObject instances that specify the start and end dates of the range. The Calendar component is used to display the calendar and handle user input. The value prop is set to the values state variable, which specifies the initially selected date ranges. The onChange prop is set to the setValues function, which is used to update the values state variable whenever the user selects a new date range. The multiple props are set to true, which allows the user to select multiple dates. The range prop is also set to true, which enables the user to select a range of dates within a single selection. In summary, the Multiple Range mode is useful for selecting multiple date ranges in a calendar or date picker."
+  ],
+  "multiple_range_month_picker": [
+    "The onlyMonthPicker feature in a date picker or calendar allows users to select only months, without selecting a specific day. When the multiple and range props are added, users can select multiple ranges of months.",
+    "The provided code shows how to use the DatePicker component in React with the onlyMonthPicker, multiple, and range props.",
+    "The DatePicker component is used to display the calendar and handle user input. The onlyMonthPicker prop restricts the user's selection to months only, while the multiple and range props allow the user to select multiple ranges of months.",
+    "In summary, the onlyMonthPicker feature in a date picker allows users to select only months, without selecting a specific day. When used with the multiple and range props, users can select multiple ranges of months. This is a useful feature when working with date ranges in a month-only context."
+  ],
+  "multiple_range_year_picker": [
+    "The onlyYearPicker feature in a date picker or calendar allows users to select only years, without selecting a specific day or month. When the multiple and range props are added, users can select multiple ranges of years.",
+    "The provided code shows how to use the DatePicker component in React with the onlyYearPicker, multiple, and range props."
+  ],
+  "validating_single_date": [
+    "Starting from version 4, date validation can be performed using the second parameter passed to the onChange method. This parameter is an object containing the following properties:",
+    "isTyping",
+    "input",
+    "validatedValue",
+    "The isTyping property indicates whether the onChange method was called due to the user typing or not. If it is true, it means that the method was called as a result of the user typing in the input field. If it is false, it means that the method was called due to date selection from the calendar component.",
+    "The input property is a reference to the input element. If you are not using a custom input, the input value is equal to the internal input reference of the date picker (HTMLInputElement). If you are using a custom input, it is equal to a div that contains your custom component (HTMLDivElement).",
+    "The validatedValue property is a string that represents the value to be displayed in the input field.",
+    "It is important to note that returning false from the onChange method will prevent the internal state of the date picker from being set. Therefore, if you consider the input date to be invalid, you should return false."
+  ],
+  "validation_multiple_range": [
+    "This example demonstrates how to validate a range of dates in the DatePicker component. In this example, the goal is to reserve a room for a certain date range. The Calendar component is used with multiple and range props to allow selecting multiple ranges of dates. The initial values for reserved and in-service dates are defined in two arrays named reserved and inService.",
+    "The isReserved and isInService functions check whether a given date falls within the reserved or in-service ranges.",
+    "The mapDays prop is used to apply a class to the date elements to indicate whether they are reserved or in-service."
+  ]
 }

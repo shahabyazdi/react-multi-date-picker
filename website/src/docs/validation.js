@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import DatePicker, { Calendar, DateObject } from "../../../src";
+import persian_fa from "react-date-object/locales/persian_fa";
+
+const digits = persian_fa.digits;
 
 export default function Doc({ translate, language, otherProps, localeImport }) {
   const obj =
@@ -41,11 +44,40 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
 
   const validation1 = {
     title: "Validating Input Value",
-    code: `<DatePicker
-  onChange={(date, { input, isTyping }) => {
-    if (!isTyping) return;
+    description: "validating_single_date",
+    code: `${
+      language === "fa"
+        ? `import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/ccalendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 
-    const strings = input.value.split("/");
+const digits = persian_fa.digits;`
+        : "import DatePicker from 'react-multi-date-picker'"
+    }
+.
+.
+.
+const [value, setValue] = useState();
+
+<DatePicker
+  value={value}
+  onChange={(date, { input, isTyping }) => {
+    if (!isTyping) return setValue(date); // user selects the date from the calendar and no needs for validation.
+
+    ${
+      language === "fa"
+        ? `let value = input.value;
+
+    for (let digit of digits) {
+      value = value.replace(
+        new RegExp(digit, "g"),
+        digits.indexOf(digit)
+      );
+    }
+
+    const strings = value.split("/");`
+        : `const strings = input.value.split("/");`
+    }
     const numbers = strings.map(Number);
     const [year, month, day] = numbers;
 
@@ -56,8 +88,17 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
     if (month > 12 || month < 0) return false; //month < 0 in case user want to type 01
     if (day < 0 || (date && day > date.day)) return false;
     if (strings.some((val) => val.startsWith("00"))) return false;
+
+    setValue(date);
   }}
-/>
+${
+  language === "fa"
+    ? `    calendar="persian"
+    locale="persian_fa"
+    calendarPosition="bottom-right"
+/>`
+    : "/>"
+}
     `,
     jsx: (
       <DatePicker
@@ -65,7 +106,18 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
         onChange={(date, { input, isTyping }) => {
           if (!isTyping) return setValue(date);
 
-          const strings = input.value.split("/");
+          let value = input.value;
+
+          if (language === "fa") {
+            for (let digit of digits) {
+              value = value.replace(
+                new RegExp(digit, "g"),
+                digits.indexOf(digit)
+              );
+            }
+          }
+
+          const strings = value.split("/");
           const numbers = strings.map(Number);
           const [year, month, day] = numbers;
 
@@ -86,6 +138,7 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
 
   const validation2 = {
     title: "Validating Range of Dates",
+    description: "validation_multiple_range",
     code: `import React, { useState } from "react";
 import { Calendar, DateObject } from "react-multi-date-picker";
 ${localeImport}
@@ -115,9 +168,7 @@ export default function Example() {
   return (
     <div>
       <h5>${translate("Room reservation")}</h5>
-      <p>${translate(
-        "لطفا محدوده تاریخ هایی را که می خواهید رزرو کنید انتخاب کنید"
-      )}</p>
+      <p>${translate("Please select the date range you want to book")}</p>
 
       <div style={{ margin: "10px " }}>
         <div className="un-availble">
@@ -158,11 +209,7 @@ export default function Example() {
     jsx: (
       <div>
         <h5>{translate("Room reservation")}</h5>
-        <p>
-          {translate(
-            "لطفا محدوده تاریخ هایی را که می خواهید رزرو کنید انتخاب کنید"
-          )}
-        </p>
+        <p>{translate("Please select the date range you want to book")}</p>
 
         <div style={{ margin: "10px " }}>
           <div className="un-availble">
