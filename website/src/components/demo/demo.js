@@ -389,9 +389,17 @@ export default function Demo({ language = "en", translate }) {
                     !Array.isArray(value[0])
                   ) {
                     val = [[value[0], value[1]].filter(Boolean)];
+                  } else if (mode === "weekPicker" && Array.isArray(value)) {
+                    val = val.flat();
+
+                    val = [
+                      new DateObject(val[0]).toFirstOfWeek(),
+                      new DateObject(val[0]).toLastOfWeek(),
+                    ];
                   }
                 } else if (mode === "weekPicker") {
                   val = [].concat(val)[0];
+
                   val = [
                     new DateObject(val).toFirstOfWeek(),
                     new DateObject(val).toLastOfWeek(),
