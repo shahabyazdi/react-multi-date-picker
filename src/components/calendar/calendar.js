@@ -227,7 +227,7 @@ function Calendar(
         format,
         mustSortDates,
         year: date.year,
-        today: state.today || new DateObject({ calendar }),
+        today: checkDate(state.today) || new DateObject({ calendar }),
         weekPicker,
       };
     });
