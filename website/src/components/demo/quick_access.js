@@ -219,6 +219,7 @@ const list = [
         name: "Multiple Mode",
         path: "multiple/#multiple-mode",
       },
+      { name: "Custom Separator", path: "multiple/#custom-separator" },
       {
         name: "DatePanel",
         path: "multiple/#datepanel",
@@ -245,6 +246,7 @@ const list = [
         name: "Range Picker",
         path: "range/#range-mode",
       },
+      { name: "Custom Separator", path: "range/#custom-separator" },
       {
         name: "Range Hover Effect",
         path: "range/#range-hover-effect",
@@ -279,6 +281,7 @@ const list = [
         name: "Multiple Range Picker",
         path: "multiple-range/#multiple-range-picker",
       },
+      { name: "Custom Separator", path: "multiple-range/#custom-separator" },
       {
         name: "Multiple Range in onlyMonthPicker",
         path: "multiple-range#multiple-range-in-onlymonthpicker",
@@ -586,20 +589,28 @@ const list = [
     ],
   },
   {
-    name: "Customizing Navigate Buttons",
-    path: "buttons/",
+    name: "Customizing Header",
+    path: "header/",
     list: [
       {
+        name: "Order of Header Components",
+        path: "header/#order-of-header-components",
+      },
+      {
+        name: "Separator Between Month & Year",
+        path: "header/#separator-between-month-&-year",
+      },
+      {
         name: "Disabling Navigate Buttons",
-        path: "buttons/#disabling-navigate-buttons",
+        path: "header/#disabling-navigate-buttons",
       },
       {
         name: "Custom (function)",
-        path: "buttons/#custom-(function)",
+        path: "header/#custom-(function)",
       },
       {
         name: "Custom (component)",
-        path: "buttons/#custom-(component)",
+        path: "header/#custom-(component)",
       },
     ],
   },
