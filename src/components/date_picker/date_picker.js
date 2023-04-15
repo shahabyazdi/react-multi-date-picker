@@ -13,7 +13,6 @@ import Calendar from "../calendar/calendar";
 import getFormat from "../../shared/getFormat";
 import stringify from "../../shared/stringify";
 import isArray from "../../shared/isArray";
-import warn from "../../shared/warn";
 import check from "../../shared/check";
 import getLocaleName from "../../shared/getLocaleName";
 import toLocaleDigits from "../../shared/toLocaleDigits";
@@ -359,27 +358,16 @@ function DatePicker(
   }
 
   function renderInput() {
-    if (typeof type === "string") {
-      warn([
-        "the type Prop is deprecated.",
-        "https://shahabyazdi.github.io/react-multi-date-picker/types/",
-      ]);
-    }
-
     if (render) {
-      let strDate =
-        isArray(date) || multiple || range
-          ? getStringDate(date, separator)
-          : stringDate;
-
       return (
         <div ref={inputRef}>
           {isValidElement(render)
             ? cloneElement(render, {
-                [multiple || range ? "stringDates" : "stringDate"]: strDate,
-                value: strDate,
+                value: stringDate,
                 openCalendar,
+                onFocus: openCalendar,
                 handleValueChange,
+                onChange: handleValueChange,
                 locale,
                 separator,
               })
@@ -398,7 +386,7 @@ function DatePicker(
       return (
         <input
           ref={inputRef}
-          type="text"
+          type={type || "text"}
           name={name}
           id={id}
           title={title}

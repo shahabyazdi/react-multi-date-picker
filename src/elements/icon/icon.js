@@ -17,10 +17,7 @@ export default function InputIcon({
       onClick={openCalendar}
       size={size}
       stroke={stroke}
-      style={{
-        cursor: "pointer",
-        ...style,
-      }}
+      style={{ cursor: "pointer", ...style }}
       {...otherProps}
     />
   );

@@ -5,6 +5,7 @@
   "main": "./build/index.js",
   "types": "index.d.ts",
   "scripts": {
+    "website": "cd website && npm start",
     "build": "rollup -c",
     "test": "jest ./test"
   },

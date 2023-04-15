@@ -364,7 +364,6 @@ declare module "react-multi-date-picker" {
     /**
      * @example
      * <DatePicker
-     *   type="custom"
      *   render={<CustomComponent/>}
      * />
      */
@@ -486,6 +485,7 @@ declare module "react-multi-date-picker" {
     ): void | false;
     dateSeparator?: boolean;
     multipleRangeSeparator?: boolean;
+    type?: string;
   }
 
   export { DateObject };
