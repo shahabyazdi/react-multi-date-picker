@@ -19,8 +19,8 @@ export default function Example() {
 import DatePicker, { Calendar } from "react-multi-date-picker"
 
 export default function Example() {
-  const calendarRef = useRef<any>();
-  const datepickerRef = useRef<any>();
+  const calendarRef = useRef<HTMLDivElement>();
+  const datepickerRef = useRef<HTMLDivElement>();
 
   return (
     <>

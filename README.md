@@ -206,18 +206,6 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
-          <td>onOpen</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
-          <td>onClose</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
           <td>onPropsChange</td>
           <td style="text-align:center">Function</td>
           <td style="text-align:center"></td>
@@ -240,12 +228,6 @@ export default function Example() {
           <td style="text-align:center">Function</td>
           <td style="text-align:center"></td>
           <td>both</td>
-        </tr>
-        <tr>
-          <td>onPositionChange</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>DatePicker</td>
         </tr>
         <tr>
           <td>digits</td>
@@ -446,6 +428,36 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
+          <td>style</td>
+          <td style="text-align:center">React.CSSProperties</td>
+          <td style="text-align:center">{}</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>headerOrder</td>
+          <td style="text-align:center">Array</td>
+          <td style="text-align:center">["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"]</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onOpen</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onClose</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onPositionChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
           <td>containerClassName</td>
           <td style="text-align:center">String</td>
           <td style="text-align:center"></td>
@@ -455,12 +467,6 @@ export default function Example() {
           <td>arrowClassName</td>
           <td style="text-align:center">String</td>
           <td style="text-align:center">0</td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
-          <td>style</td>
-          <td style="text-align:center">React.CSSProperties</td>
-          <td style="text-align:center">{}</td>
           <td>DatePicker</td>
         </tr>
         <tr>
@@ -656,13 +662,21 @@ Click [here](https://shahabyazdi.github.io/react-multi-date-picker/calendars) to
       <td>/calendars/indian</td>
     </tr>
     <tr>
-      <th rowspan="4">Locales</th>
+      <th rowspan="5">Locales</th>
       <th>English</th>
       <td>/locales/gregorian_en</td>
       <td>/locales/persian_en</td>
       <td>/locales/persian_en</td>
       <td>/locales/arabic_en</td>
       <td>/locales/indian_en</td>
+    </tr>
+    <tr>
+      <th>Portuguese - BRAZIL</th>
+      <td>/locales/gregorian_pt_br</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
     </tr>
     <tr>
       <th>Farsi</th>

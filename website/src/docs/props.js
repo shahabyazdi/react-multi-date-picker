@@ -305,6 +305,18 @@ export default function Doc({ translate, language }) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
+            <td>style</td>
+            <td>React.CSSProperties</td>
+            <td>{"{}"}</td>
+            <td>{translate("Both")}</td>
+          </tr>
+          <tr>
+            <td>headerOrder</td>
+            <td>Array</td>
+            <td>{'["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"]'}</td>
+            <td>{translate("Both")}</td>
+          </tr>
+          <tr>
             <td>arrow</td>
             <td>Boolean {translate("or")} React.ReactElement</td>
             <td>true</td>
@@ -356,12 +368,6 @@ export default function Doc({ translate, language }) {
             <td>placeholder</td>
             <td>String</td>
             <td>""</td>
-            <td>{translate("DatePicker")}</td>
-          </tr>
-          <tr>
-            <td>style</td>
-            <td>Object</td>
-            <td>{"{}"}</td>
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
