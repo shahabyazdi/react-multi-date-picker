@@ -26,7 +26,7 @@ Ability to further customize the calendar and datepicker by adding one or more p
 ## Installation
 
 ```code
-npm install --save react-multi-date-picker
+npm i react-multi-date-picker
 ```
 
 ## Demo

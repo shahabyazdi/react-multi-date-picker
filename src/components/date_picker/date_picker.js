@@ -375,7 +375,7 @@ function DatePicker(
               })
             : render instanceof Function
             ? render(
-                strDate,
+                stringDate,
                 openCalendar,
                 handleValueChange,
                 locale,

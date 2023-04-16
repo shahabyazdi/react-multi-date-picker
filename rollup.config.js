@@ -64,6 +64,7 @@ function getProps() {
       babel({
         exclude: /node_modules/,
         presets,
+        babelHelpers: "bundled",
       }),
       commonjs(),
       postcss({

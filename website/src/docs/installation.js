@@ -5,7 +5,7 @@ export default function Doc({ translate, language, Code }) {
   const npm = {
     title: "npm",
     description: translate("npm_description"),
-    code: `npm install --save react-multi-date-picker`,
+    code: `npm i react-multi-date-picker`,
   };
 
   const yarn = {
