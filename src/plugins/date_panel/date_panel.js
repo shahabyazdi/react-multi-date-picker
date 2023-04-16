@@ -197,7 +197,6 @@ export default function DatePanel({
   }
 
   function handleClick(date) {
-    console.log("inja", date);
     if (onClickDate instanceof Function) onClickDate(date);
   }
 }
