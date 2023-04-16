@@ -98,7 +98,10 @@
     "Follow the example below to see the custom names in Datepicker input. (this option is only available for DatePicker).",
     "*format, formattingIgnoreList, and style are optional."
   ],
-  "custom_input": "Use <b>handleValueChange</b> if you want to see changes in the calendar as the input value changes.",
+  "custom_input": [
+    "Use <b>onChange</b> if you want to see changes in the calendar as the input value changes.",
+    "<b>Node</b>: In versions before 4, you should use <b>onValueChange</b> prop instead of onChange."
+  ],
   "multiple_range": [
     "At version 1.8.1 and in multiple and range mode, an array of stringDates are sent instead of stringDate.",
     "So to get the input value in versions >= 1.8.1, you can follow the below examples."
@@ -481,5 +484,6 @@
   "month_year_separator": [
     "The monthYearSeparator prop is used to specify the character that appears between the month and year elements in the Calendar header. By default, the monthYearSeparator value is ', '",
     "To add a separator character, pass a string value to the monthYearSeparator prop. For example, to use a vertical bar (|) as the separator, you can use the following code:"
-  ]
+  ],
+  "custom_multiple": "<b>Node</b>: In versions before 4, you should use <b>openCalendar</b> prop instead of onFocus."
 }
