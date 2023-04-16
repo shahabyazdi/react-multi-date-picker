@@ -2,6 +2,52 @@ import React from "react";
 import { Calendar } from "../../../build/index";
 
 export default function Doc({ translate, language, otherProps, localeImport }) {
+  const order = {
+    title: "Order of Header Components",
+    description: "header_order",
+    code: `<Calendar 
+  headerOrder={["MONTH_YEAR", "LEFT_BUTTON", "RIGHT_BUTTON"]} 
+/>`,
+    jsx: (
+      <Calendar
+        headerOrder={["MONTH_YEAR", "LEFT_BUTTON", "RIGHT_BUTTON"]}
+        {...otherProps}
+      />
+    ),
+  };
+
+  const separator = {
+    title: "Separator Between Month & Year",
+    description: "month_year_separator",
+    code: `<Calendar 
+  monthYearSeparator="|"
+/>`,
+    jsx: <Calendar monthYearSeparator="|" {...otherProps} />,
+  };
+
+  const formatMonthAndYear = {
+    title: "Custom Month & Year In Header",
+    code: `${localeImport}<Calendar 
+  formatMonth={(month, year) => {
+    return "${translate("month")} " + month;
+  }}
+  formatYear={(year, month) => {
+    return "${translate("year")} " + year;
+  }}
+/>`,
+    jsx: (
+      <Calendar
+        formatMonth={(month, year) => {
+          return translate("month") + " " + month;
+        }}
+        formatYear={(year, month) => {
+          return translate("year") + " " + year;
+        }}
+        {...otherProps}
+      />
+    ),
+  };
+
   const disable = {
     title: "Disabling Navigate Buttons",
     description: "disable_buttons",
@@ -19,7 +65,7 @@ ${
   };
 
   const customFunction = {
-    title: "Custom (function)",
+    title: "Custom Navigation Buttons (function)",
     description: "custom_buttons",
     code: `${localeImport}<Calendar
   renderButton={(direction, handleClick) => (
@@ -47,7 +93,7 @@ ${
   };
 
   const customElement = {
-    title: "Custom (component)",
+    title: "Custom Navigation Buttons (component)",
     description: (
       <div>
         <p>{translate("disabled_buttons")}</p>
@@ -115,7 +161,14 @@ export default function Example(){
     ),
   };
 
-  return [disable, customFunction, customElement];
+  return [
+    order,
+    separator,
+    formatMonthAndYear,
+    disable,
+    customFunction,
+    customElement,
+  ];
 }
 
 function CustomButton({ direction, handleClick, disabled }) {

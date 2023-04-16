@@ -13,7 +13,6 @@ import Calendar from "../calendar/calendar";
 import getFormat from "../../shared/getFormat";
 import stringify from "../../shared/stringify";
 import isArray from "../../shared/isArray";
-import warn from "../../shared/warn";
 import check from "../../shared/check";
 import getLocaleName from "../../shared/getLocaleName";
 import toLocaleDigits from "../../shared/toLocaleDigits";
@@ -70,6 +69,8 @@ function DatePicker(
     mobileLabels,
     onOpenPickNewDate = true,
     mobileButtons = [],
+    dateSeparator,
+    multipleRangeSeparator = ",",
     ...otherProps
   },
   outerRef
@@ -83,7 +84,7 @@ function DatePicker(
     inputRef = useRef(),
     calendarRef = useRef(),
     ref = useRef({}),
-    separator = range || weekPicker ? " ~ " : ", ",
+    separator = dateSeparator || (range || weekPicker ? " ~ " : ", "),
     datePickerProps = arguments[0],
     isMobileMode = isMobile(),
     closeCalendar = useCallback(() => {
@@ -131,10 +132,13 @@ function DatePicker(
       },
     ];
 
-  if (isMobileMode && !ref.current.mobile)
+  if (isMobileMode && !ref.current.mobile) {
     ref.current = { ...ref.current, mobile: true };
-  if (!isMobileMode && ref.current.mobile)
+  }
+
+  if (!isMobileMode && ref.current.mobile) {
     ref.current = { ...ref.current, mobile: false };
+  }
 
   formattingIgnoreList = stringify(formattingIgnoreList);
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
@@ -216,22 +220,48 @@ function DatePicker(
       initialValue = undefined;
     }
 
+    let strDate = "";
+
     if (range || multiple || isArray(date)) {
-      if (!isArray(date)) date = [date];
+      if (!isArray(date)) {
+        date = range && multiple ? (date ? [[date]] : []) : [date];
+      }
 
-      date = date.map(checkDate).filter((value) => value !== undefined);
+      if (multiple && range) {
+        date = date.map((range, i) => {
+          const [dates, strDates] = getDatesAndStrDates(
+            isArray(range) ? range : [range]
+          );
 
-      if (range && date.length > 2) date = [date[0], getLastDate()];
+          strDate +=
+            strDates +
+            (i < date.length - 1 ? ` ${multipleRangeSeparator} ` : "");
 
-      setStringDate(getStringDate(date, separator));
+          return dates;
+        });
+      } else {
+        [date, strDate] = getDatesAndStrDates(date);
+      }
+
+      strDate = strDate.toString().replace(/\s,\s$/, "");
+
+      function getDatesAndStrDates(date) {
+        date = date.map(checkDate).filter((value) => value !== undefined);
+
+        if (range && date.length > 2) date = [date[0], getLastDate()];
+
+        return [date, getStringDate(date, separator)];
+      }
     } else {
       if (isArray(date)) date = getLastDate();
 
       date = checkDate(date);
 
-      if (document.activeElement !== getInput(inputRef)) {
-        setStringDate(date ? date.format() : "");
-      }
+      if (date) strDate = date.format();
+    }
+
+    if (document.activeElement !== getInput(inputRef)) {
+      setStringDate(strDate);
     }
 
     ref.current = {
@@ -330,33 +360,22 @@ function DatePicker(
   }
 
   function renderInput() {
-    if (typeof type === "string") {
-      warn([
-        "the type Prop is deprecated.",
-        "https://shahabyazdi.github.io/react-multi-date-picker/types/",
-      ]);
-    }
-
     if (render) {
-      let strDate =
-        isArray(date) || multiple || range
-          ? getStringDate(date, separator)
-          : stringDate;
-
       return (
         <div ref={inputRef}>
           {isValidElement(render)
             ? cloneElement(render, {
-                [multiple || range ? "stringDates" : "stringDate"]: strDate,
-                value: strDate,
+                value: stringDate,
                 openCalendar,
+                onFocus: openCalendar,
                 handleValueChange,
+                onChange: handleValueChange,
                 locale,
                 separator,
               })
             : render instanceof Function
             ? render(
-                strDate,
+                stringDate,
                 openCalendar,
                 handleValueChange,
                 locale,
@@ -369,7 +388,7 @@ function DatePicker(
       return (
         <input
           ref={inputRef}
-          type="text"
+          type={type || "text"}
           name={name}
           id={id}
           title={title}
@@ -451,9 +470,11 @@ function DatePicker(
   }
 
   function toLocale(string) {
-    if (!locale || typeof locale.name !== "string") return string;
+    const currentLocale = locale || new DateObject().locale;
 
-    let actions = {
+    if (typeof currentLocale.name !== "string") return string;
+
+    const actions = {
       en: { OK: "OK", CANCEL: "CANCEL" },
       fa: { OK: "تأیید", CANCEL: "لغو" },
       ar: { OK: "تأكيد", CANCEL: "الغاء" },
@@ -462,7 +483,7 @@ function DatePicker(
 
     return (
       mobileLabels?.[string] ||
-      actions[getLocaleName(locale)]?.[string] ||
+      actions[getLocaleName(currentLocale)]?.[string] ||
       string
     );
   }
@@ -511,20 +532,41 @@ function DatePicker(
     );
   }
 
-  function handleChange(date, force) {
+  function handleChange(date, force, inputValue) {
     if (isMobileMode && !force) return setTemporaryDate(date);
 
+    let strDate = "";
+
+    if (date) {
+      if (multiple && range && isArray(date)) {
+        strDate = date
+          .map((range) => getStringDate(range, separator))
+          .join(` ${multipleRangeSeparator} `);
+      } else {
+        strDate = getStringDate(date, separator);
+      }
+    }
+
+    const mustUpdateState = onChange?.(date, {
+      validatedValue: strDate,
+      input: inputRef.current,
+      isTyping: !!inputValue,
+    });
+
+    if (mustUpdateState === false) {
+      setStringDate(stringDate);
+
+      return false;
+    }
+
     setDate(date);
+    setStringDate(inputValue || strDate.toString().replace(/\s,\s$/, ""));
 
     ref.current = { ...ref.current, date };
-
-    onChange?.(date);
-
-    if (date) setStringDate(getStringDate(date, separator));
   }
 
   function handleValueChange(e) {
-    if (isArray(date) || !editable) return;
+    if (!editable) return;
 
     ref.current.selection = e.target.selectionStart;
 
@@ -551,33 +593,57 @@ function DatePicker(
     }
 
     let newDate;
-    /**
-     * Given that the only valid date is the date that has all three values ​​of the day, month, and year.
-     * To generate a new date, we must check whether the day, month, and year
-     * are defined in the format or not.
-     */
-    if (/(?=.*Y)(?=.*M)(?=.*D)/.test(format)) {
-      /**
-       * If the above condition is true,
-       * we generate a new date from the input value.
-       */
-      newDate = new DateObject({
-        ...object,
-        date: value,
-      });
+
+    if (!isArray(date)) {
+      newDate = getSingleDate(value);
+    } else if (!multiple || !range) {
+      newDate = getMultipleDates(value);
     } else {
-      /**
-       * Otherwise, we generate today's date and replace the input value ​​with today's values.
-       * For example, if we are only using the TimePicker and the input value follows the format "HH:mm",
-       * if we generate a new date from the format "HH:mm", given that the values ​​of the day, month, and year
-       * do not exist in the input value, an invalid date will be generated.
-       * Therefore, it is better to generate today's date and replace only the hour and minute with today's values.
-       */
-      newDate = new DateObject(object).parse(value);
+      newDate = (value || "")
+        .split(multipleRangeSeparator)
+        .filter(Boolean)
+        .map(getMultipleDates);
     }
 
-    handleChange(newDate.isValid ? newDate : null);
-    setStringDate(toLocaleDigits(value, digits));
+    handleChange(
+      !isArray(date) ? (newDate.isValid ? newDate : null) : newDate,
+      undefined,
+      toLocaleDigits(value, digits)
+    );
+
+    function getSingleDate(value) {
+      /**
+       * Given that the only valid date is the date that has all three values ​​of the day, month, and year.
+       * To generate a new date, we must check whether the day, month, and year
+       * are defined in the format or not.
+       */
+      if (/(?=.*Y)(?=.*M)(?=.*D)/.test(format)) {
+        /**
+         * If the above condition is true,
+         * we generate a new date from the input value.
+         */
+        return new DateObject({
+          ...object,
+          date: value,
+        });
+      } else {
+        /**
+         * Otherwise, we generate today's date and replace the input value ​​with today's values.
+         * For example, if we are only using the TimePicker and the input value follows the format "HH:mm",
+         * if we generate a new date from the format "HH:mm", given that the values ​​of the day, month, and year
+         * do not exist in the input value, an invalid date will be generated.
+         * Therefore, it is better to generate today's date and replace only the hour and minute with today's values.
+         */
+        return new DateObject(object).parse(value);
+      }
+    }
+
+    function getMultipleDates(value) {
+      return (value || "")
+        .split(separator)
+        .filter(Boolean)
+        .map((value) => getSingleDate(value.trim()));
+    }
   }
 
   function setCalendarReady() {

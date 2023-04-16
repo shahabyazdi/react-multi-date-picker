@@ -25,6 +25,7 @@ export default function DayPicker({
   displayWeekNumbers,
   weekNumber = "",
   rangeHover,
+  highlightToday,
 }) {
   const ref = useRef({}),
     {
@@ -32,6 +33,7 @@ export default function DayPicker({
       minDate,
       maxDate,
       range,
+      multiple,
       date,
       selectedDate,
       onlyMonthPicker,
@@ -222,18 +224,20 @@ export default function DayPicker({
         (numberOfMonths > 1 && current) || numberOfMonths === 1;
 
       if (!object.disabled || !onlyShowInRangeDates) {
-        if (isSameDate(date, today)) names.push("rmdp-today");
+        if (isSameDate(date, today) && highlightToday) names.push("rmdp-today");
         if (isSelected(date) && mustDisplaySelectedDate && !range) {
           names.push("rmdp-selected");
         }
       }
 
       if (range && !object.disabled && mustDisplaySelectedDate) {
-        names.push(getRangeClass(date, selectedDate));
+        names.push(getRangeClass(date, selectedDate, undefined, multiple));
 
-        names = names.concat(
-          getRangeHoverClass(date, selectedDate, dateHovered, rangeHover)
-        );
+        if (!multiple) {
+          names = names.concat(
+            getRangeHoverClass(date, selectedDate, dateHovered, rangeHover)
+          );
+        }
       }
     }
 

@@ -15,6 +15,7 @@ export default function MonthPicker({
   handleMonthChange,
   handleFocusedDate,
   rangeHover,
+  highlightToday,
 }) {
   const {
       date,
@@ -129,7 +130,7 @@ export default function MonthPicker({
   function getClassName(dateObject) {
     let names = ["rmdp-day"],
       { year, monthIndex } = dateObject,
-      { selectedDate } = state;
+      { selectedDate, multiple } = state;
 
     if (
       (minDate &&
@@ -142,7 +143,10 @@ export default function MonthPicker({
       names.push("rmdp-disabled");
 
     if (names.includes("rmdp-disabled") && onlyShowInRangeDates) return;
-    if (isSameDate(today, dateObject, true)) names.push("rmdp-today");
+
+    if (isSameDate(today, dateObject, true) && highlightToday) {
+      names.push("rmdp-today");
+    }
 
     if (!onlyMonthPicker) {
       if (date.monthIndex === monthIndex) names.push("rmdp-selected");
@@ -155,17 +159,19 @@ export default function MonthPicker({
         )
           names.push("rmdp-selected");
       } else {
-        names.push(getRangeClass(dateObject, selectedDate, true));
+        names.push(getRangeClass(dateObject, selectedDate, true, multiple));
 
-        names = names.concat(
-          getRangeHoverClass(
-            dateObject,
-            selectedDate,
-            dateHovered,
-            rangeHover,
-            "month"
-          )
-        );
+        if (!multiple) {
+          names = names.concat(
+            getRangeHoverClass(
+              dateObject,
+              selectedDate,
+              dateHovered,
+              rangeHover,
+              "month"
+            )
+          );
+        }
       }
     }
 

@@ -43,6 +43,7 @@ import indian_ar from "react-date-object/locales/indian_ar";
 import indian_hi from "react-date-object/locales/indian_hi";
 
 const calendars = { gregorian, persian, arabic, indian };
+
 const locales = {
   gregorian_en,
   gregorian_fa,
@@ -61,11 +62,14 @@ const locales = {
   indian_ar,
   indian_hi,
 };
+
 const types = {
   input_icon: <InputIcon />,
   icon: <Icon />,
   button: <Button />,
 };
+
+const animationList = [transition()];
 
 export default function Demo({ language = "en", translate }) {
   const [state, setState] = useState({
@@ -83,6 +87,7 @@ export default function Demo({ language = "en", translate }) {
     shadow: true,
     weekDays: "3",
     months: "2",
+    highlightToday: "on",
   });
 
   const {
@@ -122,6 +127,7 @@ export default function Demo({ language = "en", translate }) {
     disableYearPicker,
     displayWeekNumbers,
     weekPicker,
+    highlightToday,
   } = state;
 
   const updateState = (key, value) => {
@@ -153,8 +159,21 @@ export default function Demo({ language = "en", translate }) {
 
   let isFullYear = type === "full-year";
 
+  function getHeaderOrder() {
+    switch (state.headerOrder) {
+      case "mylr":
+        return ["MONTH_YEAR", "LEFT_BUTTON", "RIGHT_BUTTON"];
+      case "lrmy":
+        return ["LEFT_BUTTON", "RIGHT_BUTTON", "MONTH_YEAR"];
+      default:
+        return ["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"];
+    }
+  }
+
   const props = {
     ...state,
+    highlightToday: state.highlightToday === "on",
+    headerOrder: getHeaderOrder(),
     type: undefined,
     className: [layout, color, background].join(" "),
     onChange: (value) => updateState("value", value),
@@ -211,7 +230,7 @@ export default function Demo({ language = "en", translate }) {
         disabled={(!$timePicker && !$onlyTimePicker) || isFullYear}
       />,
     ],
-    animations: animation && [transition()],
+    animations: animation && animationList,
   };
 
   const analogTimePicker = (
@@ -341,11 +360,15 @@ export default function Demo({ language = "en", translate }) {
                 ["Single", "single"],
                 ["Multiple", "multiple"],
                 ["Range", "range"],
+                ["Multiple Range", "multipleRange"],
                 ["Range (Week Picker)", "weekPicker"],
               ],
+              disabled: $onlyTimePicker || $onlyAnalogTimePicker,
               value:
                 !multiple && !range && !weekPicker
                   ? "single"
+                  : multiple && range
+                  ? "multipleRange"
                   : multiple
                   ? "multiple"
                   : weekPicker
@@ -354,10 +377,29 @@ export default function Demo({ language = "en", translate }) {
               onChange: (mode) => {
                 let val = value;
 
-                if (Array.isArray(value) && mode === "single") {
-                  val = value[value.length - 1];
+                if (Array.isArray(value)) {
+                  if (mode === "single") {
+                    val = value.flat()[value.length - 1];
+                  } else if (mode === "multiple") {
+                    val = value.flat();
+                  } else if (mode === "range" && Array.isArray(value[0])) {
+                    val = value[0];
+                  } else if (
+                    mode === "multipleRange" &&
+                    !Array.isArray(value[0])
+                  ) {
+                    val = [[value[0], value[1]].filter(Boolean)];
+                  } else if (mode === "weekPicker" && Array.isArray(value)) {
+                    val = val.flat();
+
+                    val = [
+                      new DateObject(val[0]).toFirstOfWeek(),
+                      new DateObject(val[0]).toLastOfWeek(),
+                    ];
+                  }
                 } else if (mode === "weekPicker") {
                   val = [].concat(val)[0];
+
                   val = [
                     new DateObject(val).toFirstOfWeek(),
                     new DateObject(val).toLastOfWeek(),
@@ -365,14 +407,14 @@ export default function Demo({ language = "en", translate }) {
                 }
 
                 updateState({
-                  multiple: false,
-                  range: false,
+                  multiple: mode === "multipleRange",
+                  range: mode === "multipleRange",
                   weekPicker: false,
                   [mode]: true,
                   disableDayPicker: false,
                   $onlyTimePicker: false,
-                  // $timePicker: false,
                   value: val,
+                  dateSeparator: undefined,
                 });
               },
             },
@@ -433,6 +475,31 @@ export default function Demo({ language = "en", translate }) {
                 updateState("type", value);
                 document.querySelector(".main").scrollTop = 0;
               },
+            },
+            {
+              title: "Date Separator",
+              disabled: ["calendar", "full-year", "icon"].includes(type)
+                ? true
+                : !multiple && !range && !weekPicker,
+              options: [
+                ["Default", ""],
+                multiple && range
+                  ? [">", " > "]
+                  : multiple
+                  ? ["-", " - "]
+                  : [">", " > "],
+              ],
+              value: state.dateSeparator,
+              onChange: (value) => updateState("dateSeparator", value),
+            },
+            {
+              title: "Highlight Today",
+              options: [
+                ["On", "on"],
+                ["Off", "off"],
+              ],
+              value: highlightToday,
+              onChange: (value) => updateState("highlightToday", value),
             },
             {
               title: "Number Of Months",
@@ -520,6 +587,26 @@ export default function Demo({ language = "en", translate }) {
               value: hideWeekDays ? "hide" : "show",
               onChange: (value) =>
                 updateState("hideWeekDays", value === "hide"),
+            },
+            {
+              title: "Month Year Separator",
+              options: [
+                ["Default", ""],
+                ["|", "|"],
+                ["/", "/"],
+              ],
+              value: state.monthYearSeparator,
+              onChange: (value) => updateState("monthYearSeparator", value),
+            },
+            {
+              title: "Header Order",
+              options: [
+                ["Default", ""],
+                ["Month Year Left Right", "mylr"],
+                ["Left Right Month Year", "lrmy"],
+              ],
+              value: state.headerOrder,
+              onChange: (value) => updateState("headerOrder", value),
             },
             {
               title: "Month",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DatePicker, { DateObject } from "../../../build/index";
+import DatePicker, { DateObject } from "../../../build";
 import DatePanel from "../../../plugins/date_panel";
 
 export default function Doc({ translate, language, otherProps, codeEnd }) {
@@ -71,6 +71,16 @@ export default function Example() {
   )
 }`,
     jsx: <DatePicker value={values} onChange={setValues} {...otherProps} />,
+  };
+
+  const separator = {
+    title: "Custom Separator",
+    description: "multiple_date_separator",
+    code: `<DatePicker 
+  multiple 
+  dateSeparator=" & " 
+/>`,
+    jsx: <DatePicker multiple dateSeparator=" & " {...otherProps} />,
   };
 
   const datePanel = {
@@ -201,5 +211,5 @@ const [dates, setDates] = useState([
     ),
   };
 
-  return [multiple, datePanel, sort, monthPicker, yearPicker];
+  return [multiple, separator, datePanel, sort, monthPicker, yearPicker];
 }

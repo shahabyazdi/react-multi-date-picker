@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import DatePicker, { Calendar, DateObject } from "../../../build/index";
+import DatePicker, { Calendar, DateObject } from "../../../build";
 import TimePicker from "../../../plugins/time_picker";
 
-export default function Doc({ language, otherProps, localeImport }) {
+export default function Doc({ language, otherProps, localeImport, translate }) {
   const [date, setDate] = useState(new DateObject(otherProps));
 
   function update(key, value) {
@@ -138,6 +138,21 @@ export default function Example() {
     ),
   };
 
+  const disableHighlightToday = {
+    title: "Disabling Today Highlight",
+    code: `${localeImport}<DatePicker 
+  highlightToday={false}
+  onOpenPickNewDate={false}
+/>`,
+    jsx: (
+      <DatePicker
+        highlightToday={false}
+        onOpenPickNewDate={false}
+        {...otherProps}
+      />
+    ),
+  };
+
   const weekStartDayIndex = {
     title: "Changing Start Day Of The Week",
     description: "start_day",
@@ -153,6 +168,14 @@ export default function Example() {
   showOtherDays 
 />`,
     jsx: <DatePicker showOtherDays {...otherProps} />,
+  };
+
+  const monthYearSeparator = {
+    title: "Custom Month Year Separator",
+    code: `${localeImport}<DatePicker 
+  monthYearSeparator="|" 
+/>`,
+    jsx: <DatePicker monthYearSeparator="|" {...otherProps} />,
   };
 
   const weekNumbers = {
@@ -338,6 +361,8 @@ export default function Example() {
     customMonthYear,
     weekStartDayIndex,
     otherDays,
+    monthYearSeparator,
+    disableHighlightToday,
     weekNumbers,
     scroll,
     fullYear,

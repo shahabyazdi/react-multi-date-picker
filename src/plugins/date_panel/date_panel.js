@@ -41,11 +41,13 @@ export default function DatePanel({
 
   if (multiple || (range && !eachDaysInRange)) {
     dates = (inRangeDates || selectedDate).map((date, index) => {
-      return {
-        date,
-        format: date.format(),
-        index,
-      };
+      return isArray(date)
+        ? date.map((date) => ({ date, format: date.format(), index }))
+        : {
+            date,
+            format: date.format(),
+            index,
+          };
     });
   } else if (range && eachDaysInRange) {
     let allDates = getAllDatesInRange(inRangeDates || selectedDate);
@@ -110,9 +112,14 @@ export default function DatePanel({
         <ul className="rmdp-panel-body">
           {isArray(dates) &&
             dates.map((object, index) => {
+              const date = isArray(object) ? object[0] : object;
+
               return (
                 <li
                   key={index}
+                  style={{
+                    display: isArray(object) ? "grid" : "flex",
+                  }}
                   className={`${
                     object.date?.color ? `bg-${object.date.color}` : ""
                   } ${
@@ -121,23 +128,21 @@ export default function DatePanel({
                       ? focusedClassName || "rmdp-focused"
                       : ""
                   }`}
-                  onClick={() =>
-                    !removeButton && selectDate(object.date, object.index)
-                  }
                 >
-                  <span
-                    onClick={() =>
-                      removeButton && selectDate(object.date, object.index)
-                    }
-                    style={{ cursor: object.date ? "pointer" : "default" }}
-                  >
-                    {formatFunction ? formatFunction(object) : object.format}
-                  </span>
-                  {object.date && removeButton && (
+                  {[object].flat().map((object, index) => (
+                    <span
+                      key={index}
+                      onClick={() => selectDate(object.date, object.index)}
+                      style={{ cursor: object.date ? "pointer" : "default" }}
+                    >
+                      {formatFunction ? formatFunction(object) : object.format}
+                    </span>
+                  ))}
+                  {date && removeButton && (
                     <button
                       type="button"
                       className="b-deselect"
-                      onClick={() => deSelect(object.index)}
+                      onClick={() => deSelect(date.index)}
                     >
                       +
                     </button>
@@ -158,7 +163,7 @@ export default function DatePanel({
     setState({
       ...state,
       date: new DateObject(date),
-      focused: selectedDate[index],
+      focused: multiple && range ? date : selectedDate[index],
     });
 
     handleFocusedDate(selectedDate[index]);
@@ -167,7 +172,13 @@ export default function DatePanel({
   function deSelect(index) {
     let dates, focused;
 
-    if (range || multiple) {
+    if (multiple && range) {
+      focused = selectedDate[index].some((item) => item === state.focused)
+        ? undefined
+        : state.focused;
+
+      dates = selectedDate.filter((d, i) => i !== index);
+    } else if (range || multiple) {
       dates = selectedDate.filter((d, i) => i !== index);
       focused = dates.find((d) => d.valueOf() === state.focused?.valueOf?.());
     } else {

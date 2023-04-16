@@ -78,9 +78,9 @@ describe("navigation buttons", () => {
 describe("initial value", () => {
   test("single mode", () => {
     const value = new DateObject({ year: 2022, month: 4, day: 1 });
-    const { container, getByText } = renderCalendar({ value });
+    const { container, getByText, getAllByText } = renderCalendar({ value });
     const day = getByText(value.day).parentNode;
-    const month = getByText(value.month.name).parentNode;
+    const month = getAllByText(value.month.name)[1].parentNode;
     const year = container
       .querySelector(".rmdp-year-picker")
       .querySelector(".rmdp-selected");
@@ -197,12 +197,13 @@ describe("custom locales", () => {
       "nov",
       "dec",
     ];
-    const { getByText } = renderCalendar({ months });
+    const { getAllByText } = renderCalendar({ months });
 
     months.forEach((month) => {
-      month = getByText(month);
+      const nodes = getAllByText(month);
+      const node = nodes.length === 2 ? nodes[1] : nodes[0];
 
-      expect(month).toBeInTheDocument();
+      expect(node).toBeInTheDocument();
     });
   });
 });

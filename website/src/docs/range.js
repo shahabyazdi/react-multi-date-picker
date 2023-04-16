@@ -3,7 +3,7 @@ import DatePicker, {
   Calendar,
   DateObject,
   getAllDatesInRange,
-} from "../../../build/index";
+} from "../../../build";
 import DatePanel from "../../../plugins/date_panel";
 
 export default function Doc({ language, otherProps, localeImport }) {
@@ -38,6 +38,22 @@ export default function Doc({ language, otherProps, localeImport }) {
 />`,
     jsx: (
       <DatePicker value={values} onChange={setValues} range {...otherProps} />
+    ),
+  };
+
+  const separator = {
+    title: "Custom Separator",
+    description: "range_date_separator",
+    code: `<DatePicker 
+  range 
+  dateSeparator=" ${language === "fa" ? "تا" : "to"} " 
+/>`,
+    jsx: (
+      <DatePicker
+        range
+        dateSeparator={language === "fa" ? " تا " : " to "}
+        {...otherProps}
+      />
     ),
   };
 
@@ -242,6 +258,7 @@ const [allDates, setAllDates] = useState([])
 
   return [
     range,
+    separator,
     rangeHover,
     datePanel,
     eachDaysInRange,

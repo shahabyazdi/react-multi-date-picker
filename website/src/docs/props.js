@@ -278,6 +278,45 @@ export default function Doc({ translate, language }) {
             <td>{translate("both")}</td>
           </tr>
           <tr>
+            <td>monthYearSeparator</td>
+            <td>String</td>
+            <td>
+              <p>"," for LTR locales</p>
+              <p>"،" for RTL locales</p>
+            </td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>formatMonth</td>
+            <td>Function</td>
+            <td>undefined</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>formatYear</td>
+            <td>Function</td>
+            <td>undefined</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>highlightToday</td>
+            <td>Boolean</td>
+            <td>true</td>
+            <td>{translate("both")}</td>
+          </tr>
+          <tr>
+            <td>style</td>
+            <td>React.CSSProperties</td>
+            <td>{"{}"}</td>
+            <td>{translate("Both")}</td>
+          </tr>
+          <tr>
+            <td>headerOrder</td>
+            <td>Array</td>
+            <td>{'["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"]'}</td>
+            <td>{translate("Both")}</td>
+          </tr>
+          <tr>
             <td>arrow</td>
             <td>Boolean {translate("or")} React.ReactElement</td>
             <td>true</td>
@@ -329,12 +368,6 @@ export default function Doc({ translate, language }) {
             <td>placeholder</td>
             <td>String</td>
             <td>""</td>
-            <td>{translate("DatePicker")}</td>
-          </tr>
-          <tr>
-            <td>style</td>
-            <td>Object</td>
-            <td>{"{}"}</td>
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
@@ -467,6 +500,18 @@ export default function Doc({ translate, language }) {
             <td>mobileButtons</td>
             <td> HTMLButtonElement[]</td>
             <td>[]</td>
+            <td>{translate("DatePicker")}</td>
+          </tr>
+          <tr>
+            <td>dateSeparator</td>
+            <td> string</td>
+            <td>{translate("'~' in range mode, ',' in multiple mode")}</td>
+            <td>{translate("DatePicker")}</td>
+          </tr>
+          <tr>
+            <td>multipleRangeSeparator</td>
+            <td> string</td>
+            <td>','</td>
             <td>{translate("DatePicker")}</td>
           </tr>
         </tbody>

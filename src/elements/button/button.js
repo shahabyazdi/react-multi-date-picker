@@ -13,11 +13,14 @@ export default function Button({
   children,
   ...otherProps
 }) {
-  const child = children || value || placeholder || "click to select";
-
   return (
-    <button onClick={openCalendar} className={className} {...otherProps}>
-      {child}
+    <button
+      onClick={openCalendar}
+      className={className}
+      type={type}
+      {...otherProps}
+    >
+      {children || value || placeholder || "Click to select"}
     </button>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import DatePicker from "../../../build/index";
+import DatePicker from "../../../build";
 import { Link } from "gatsby";
 
 //other types
@@ -140,12 +140,12 @@ ${customComponent}`
       "",
       `<DatePicker
       render={<CustomInput />}`,
-      `function CustomInput({ openCalendar, value, handleValueChange }) {
+      `function CustomInput({ onFocus, value, onChange }) {
   return (
     <input
-      onFocus={openCalendar}
+      onFocus={onFocus}
       value={value}
-      onChange={handleValueChange}
+      onChange={onChange}
     />
   )
 }`
@@ -158,15 +158,16 @@ ${customComponent}`
   };
   const multiple = {
     title: "Custom (multiple mode)",
+    description: "custom_multiple",
     code: code(
       "",
       `<DatePicker
       multiple
       render={<CustomMultipleInput />}`,
-      `function CustomMultipleInput({openCalendar, value}) {
+      `function CustomMultipleInput({onFocus, value}) {
   return (
     <input
-      onFocus={openCalendar}
+      onFocus={onFocus}
       value={value}
       readOnly
     />
@@ -186,9 +187,10 @@ ${customComponent}`
       range
       eachDaysInRange
       render={<CustomRangeInput />}`,
-      `function CustomRangeInput({openCalendar, value}) {
-  let from = value[0] || ""
-  let to = value[1] || ""
+      `function CustomRangeInput({ onFocus, value, separator }) {
+  let values = value.split(separator);
+  let from = values[0] || "";
+  let to = values[1] || "";
   
   value = from && to ? ${
     language === "en"
@@ -198,7 +200,7 @@ ${customComponent}`
   
   return (
     <input
-      onFocus={openCalendar}
+      onFocus={onFocus}
       value={value}
       readOnly
     />
@@ -228,9 +230,10 @@ ${customComponent}`
     range,
   ];
 
-  function CustomRangeInput({ openCalendar, value }) {
-    let from = value[0] || "";
-    let to = value[1] || "";
+  function CustomRangeInput({ onFocus, value, separator }) {
+    let values = value.split(separator);
+    let from = values[0] || "";
+    let to = values[1] || "";
 
     value =
       from && to
@@ -239,12 +242,12 @@ ${customComponent}`
           : `از ${from}، تا ${to}`
         : from;
 
-    return <input onFocus={openCalendar} value={value} readOnly />;
+    return <input onFocus={onFocus} value={value} readOnly />;
   }
 }
 
-function CustomMultipleInput({ openCalendar, value }) {
-  return <input onFocus={openCalendar} value={value} readOnly />;
+function CustomMultipleInput({ onFocus, value }) {
+  return <input onFocus={onFocus} value={value} readOnly />;
 }
 
 class CustomComponent extends React.Component {
@@ -255,8 +258,6 @@ class CustomComponent extends React.Component {
   }
 }
 
-function CustomInput({ openCalendar, value, handleValueChange }) {
-  return (
-    <input onFocus={openCalendar} value={value} onChange={handleValueChange} />
-  );
+function CustomInput({ onFocus, value, onChange }) {
+  return <input onFocus={onFocus} value={value} onChange={onChange} />;
 }

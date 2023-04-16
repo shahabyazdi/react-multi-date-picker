@@ -16,7 +16,24 @@ declare module "react-multi-date-picker" {
   export type FunctionalPlugin = { type: string; fn: Function };
   export type Plugin = React.ReactElement | FunctionalPlugin;
 
-  export interface CalendarProps {
+  export type HeaderItem =
+    | "MONTH_YEAR"
+    | "YEAR_MONTH"
+    | "LEFT_BUTTON"
+    | "RIGHT_BUTTON";
+
+  export type CustomComponentProps = {
+    value?: string;
+    openCalendar?: () => void;
+    onFocus?: () => void;
+    handleValueChange?: (e: React.ChangeEvent) => void;
+    onChange?: (e: React.ChangeEvent) => void;
+    locale?: Locale;
+    separator?: string;
+  };
+
+  export interface CalendarProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
     ref?: React.MutableRefObject<any>;
     /**
      * @types Date | string | number | DateObject
@@ -167,7 +184,7 @@ declare module "react-multi-date-picker" {
      *  }}
      * />
      */
-    onChange?(selectedDates: DateObject | DateObject[] | null): void;
+    onChange?(selectedDates: DateObject | DateObject[] | null): void | false;
     showOtherDays?: boolean;
     /**
      * the date you set in datepicker as value must be equal or bigger than min date.
@@ -308,6 +325,11 @@ declare module "react-multi-date-picker" {
     weekNumber?: string;
     weekPicker?: boolean;
     rangeHover?: boolean;
+    monthYearSeparator?: string;
+    formatMonth?: (month: string, year: string) => string;
+    formatYear?: (year: string, month: string) => string;
+    highlightToday?: boolean;
+    headerOrder?: Array<HeaderItem>;
   }
 
   export interface DatePickerProps {
@@ -353,11 +375,18 @@ declare module "react-multi-date-picker" {
     /**
      * @example
      * <DatePicker
-     *   type="custom"
      *   render={<CustomComponent/>}
      * />
      */
-    render?: React.ReactElement | Function;
+    render?:
+      | React.ReactElement<CustomComponentProps>
+      | ((
+          value: string,
+          openCalendar: () => void,
+          handleValueChange: (e: React.ChangeEvent) => void,
+          locale: Locale,
+          separator: string
+        ) => React.ReactNode);
     /**
      * This feature only affects on `input` in `single` mode
      *
@@ -467,6 +496,15 @@ declare module "react-multi-date-picker" {
     mobileButtons?: Array<
       HTMLAttributes<HTMLButtonElement> & { label: string }
     >;
+    onChange?(
+      selectedDates: DateObject | DateObject[] | null,
+      validatedValue: string | Array<string>,
+      input: HTMLElement,
+      isTyping: boolean
+    ): void | false;
+    dateSeparator?: boolean;
+    multipleRangeSeparator?: boolean;
+    type?: string;
   }
 
   export { DateObject };

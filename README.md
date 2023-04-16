@@ -1,7 +1,7 @@
 # DatePicker
 
 Simple React datepicker component for working with `gregorian`, `persian`, `arabic` and `indian` calendars
-with the ability to select the date in `single`, `multiple` and `range` modes.
+with the ability to select the date in `single`, `multiple`, `range` and `multiple range` modes.
 
 <div align="center">
   <img src="https://github.com/shahabyazdi/react-multi-date-picker/blob/master/screenshot/screenshot.jpg?raw=true" alt="date picker"/>
@@ -26,7 +26,7 @@ Ability to further customize the calendar and datepicker by adding one or more p
 ## Installation
 
 ```code
-npm install --save react-multi-date-picker
+npm i react-multi-date-picker
 ```
 
 ## Demo
@@ -206,18 +206,6 @@ export default function Example() {
           <td>both</td>
         </tr>
         <tr>
-          <td>onOpen</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
-          <td>onClose</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
           <td>onPropsChange</td>
           <td style="text-align:center">Function</td>
           <td style="text-align:center"></td>
@@ -240,12 +228,6 @@ export default function Example() {
           <td style="text-align:center">Function</td>
           <td style="text-align:center"></td>
           <td>both</td>
-        </tr>
-        <tr>
-          <td>onPositionChange</td>
-          <td style="text-align:center">Function</td>
-          <td style="text-align:center"></td>
-          <td>DatePicker</td>
         </tr>
         <tr>
           <td>digits</td>
@@ -415,11 +397,65 @@ export default function Example() {
           <td style="text-align:center">false</td>
           <td>both</td>
         </tr>
-         <tr>
+        <tr>
           <td>rangeHover</td>
           <td style="text-align:center">Boolean</td>
           <td style="text-align:center">false</td>
           <td>both</td>
+        </tr>
+        <tr>
+          <td>monthYearSeparator</td>
+          <td style="text-align:center">String</td>
+          <td style="text-align:center">"," for LTR locales, "،" for RTL locales</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>formatMonth</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center">undefined</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>formatYear</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center">undefined</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>highlightToday</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">true</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>style</td>
+          <td style="text-align:center">React.CSSProperties</td>
+          <td style="text-align:center">{}</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>headerOrder</td>
+          <td style="text-align:center">Array</td>
+          <td style="text-align:center">["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"]</td>
+          <td>both</td>
+        </tr>
+        <tr>
+          <td>onOpen</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onClose</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>onPositionChange</td>
+          <td style="text-align:center">Function</td>
+          <td style="text-align:center"></td>
+          <td>DatePicker</td>
         </tr>
         <tr>
           <td>containerClassName</td>
@@ -431,12 +467,6 @@ export default function Example() {
           <td>arrowClassName</td>
           <td style="text-align:center">String</td>
           <td style="text-align:center">0</td>
-          <td>DatePicker</td>
-        </tr>
-        <tr>
-          <td>style</td>
-          <td style="text-align:center">React.CSSProperties</td>
-          <td style="text-align:center">{}</td>
           <td>DatePicker</td>
         </tr>
         <tr>
@@ -595,6 +625,18 @@ export default function Example() {
           <td style="text-align:center">[]</td>
           <td>DatePicker</td>
         </tr>
+        <tr>
+          <td>dateSeparator</td>
+          <td style="text-align:center"> string</td>
+          <td style="text-align:center">'~' in range mode, ',' in multiple mode</td>
+          <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>multipleRangeSeparator</td>
+          <td style="text-align:center"> string</td>
+          <td style="text-align:center">','</td>
+          <td>DatePicker</td>
+        </tr>
       </tbody>
     </table>
 
@@ -620,13 +662,21 @@ Click [here](https://shahabyazdi.github.io/react-multi-date-picker/calendars) to
       <td>/calendars/indian</td>
     </tr>
     <tr>
-      <th rowspan="4">Locales</th>
+      <th rowspan="5">Locales</th>
       <th>English</th>
       <td>/locales/gregorian_en</td>
       <td>/locales/persian_en</td>
       <td>/locales/persian_en</td>
       <td>/locales/arabic_en</td>
       <td>/locales/indian_en</td>
+    </tr>
+    <tr>
+      <th>Portuguese - BRAZIL</th>
+      <td>/locales/gregorian_pt_br</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
     </tr>
     <tr>
       <th>Farsi</th>

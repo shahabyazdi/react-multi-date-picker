@@ -1,5 +1,6 @@
 import React, { isValidElement, cloneElement } from "react";
 import Arrow from "../arrow/arrow";
+import { Fragment } from "react";
 
 export default function Header({
   state,
@@ -15,6 +16,10 @@ export default function Header({
   isRTL,
   fullYear,
   monthAndYears: [months, years],
+  monthYearSeparator,
+  formatMonth,
+  formatYear,
+  headerOrder,
 }) {
   let style = {},
     {
@@ -42,14 +47,6 @@ export default function Header({
 
   if ((hideMonth || fullYear) && hideYear && !buttons) return null;
 
-  if (
-    (hideMonth && hideYear) ||
-    (onlyYearPicker && hideYear) ||
-    (buttons && hideYear)
-  ) {
-    style.minHeight = "36px";
-  }
-
   if (onlyMonthPicker || fullYear) {
     if (minDate && minDate.year >= date.year) isPreviousDisable = true;
     if (maxDate && maxDate.year <= date.year) isNextDisable = true;
@@ -69,53 +66,106 @@ export default function Header({
 
   return (
     <div className="rmdp-header">
-      <div style={{ position: "relative", display: "flex" }}>
-        {buttons && getButton("left")}
-        {fullYear ? (
-          <div className="rmdp-header-values" style={style}>
-            {!hideYear && date.format("YYYY")}
-          </div>
-        ) : (
-          months.map((month, index) => (
-            <div key={index} className="rmdp-header-values" style={style}>
-              {!hideMonth && (
-                <span
-                  style={{
-                    cursor:
-                      disabled || disableMonthPicker || onlyMonthPicker
-                        ? "default"
-                        : "pointer",
-                  }}
-                  onClick={() =>
-                    !disableMonthPicker && toggle("mustShowMonthPicker")
-                  }
-                >
-                  {month}
-                  {!hideYear && (isRTL ? "،" : ",")}
-                </span>
-              )}
-              {!hideYear && (
-                <span
-                  style={{
-                    cursor:
-                      disabled || disableYearPicker || onlyYearPicker
-                        ? "default"
-                        : "pointer",
-                  }}
-                  onClick={() =>
-                    !disableYearPicker && toggle("mustShowYearPicker")
-                  }
-                >
-                  {years[index]}
-                </span>
-              )}
-            </div>
-          ))
-        )}
-        {buttons && getButton("right")}
+      <div
+        style={{ position: "relative", display: "flex", alignItems: "center" }}
+      >
+        {Array.from(new Set(headerOrder)).map((item, index) => (
+          <Fragment key={index}>{getHeaderItem(item)}</Fragment>
+        ))}
       </div>
     </div>
   );
+
+  function getHeaderItem(item) {
+    switch (item) {
+      case "LEFT_BUTTON":
+        return buttons && getButton("left");
+      case "RIGHT_BUTTON":
+        return buttons && getButton("right");
+      case "MONTH_YEAR":
+      case "YEAR_MONTH":
+        if (fullYear) {
+          return (
+            <div className="rmdp-header-values" style={style}>
+              {!hideYear && date.format("YYYY")}
+            </div>
+          );
+        } else {
+          const items = item
+            .split("_")
+            .filter(
+              (item) =>
+                (item === "MONTH" && !hideMonth) ||
+                (item === "YEAR" && !hideYear)
+            );
+
+          return months.map((month, index) => (
+            <div key={index} className="rmdp-header-values" style={style}>
+              {items.length > 0 &&
+                items
+                  .map((item, i) => (
+                    <Fragment key={i}>
+                      {getMonthOrYear(item, month, index)}
+                    </Fragment>
+                  ))
+                  .reduce((prev, curr) => [prev, getSeparator(), curr])}
+            </div>
+          ));
+        }
+    }
+  }
+
+  function getMonthOrYear(item, month, index) {
+    if (item === "MONTH") {
+      return (
+        !hideMonth && (
+          <>
+            <span
+              style={{
+                cursor:
+                  disabled || disableMonthPicker || onlyMonthPicker
+                    ? "default"
+                    : "pointer",
+              }}
+              onClick={() =>
+                !disableMonthPicker && toggle("mustShowMonthPicker")
+              }
+            >
+              {getMonth(month, years[index])}
+            </span>
+          </>
+        )
+      );
+    } else {
+      return (
+        !hideYear && (
+          <span
+            style={{
+              cursor:
+                disabled || disableYearPicker || onlyYearPicker
+                  ? "default"
+                  : "pointer",
+            }}
+            onClick={() => !disableYearPicker && toggle("mustShowYearPicker")}
+          >
+            {getYear(years[index], month)}
+          </span>
+        )
+      );
+    }
+  }
+
+  function getSeparator() {
+    return !monthYearSeparator ? (
+      isRTL ? (
+        "،"
+      ) : (
+        ","
+      )
+    ) : (
+      <span>{monthYearSeparator}</span>
+    );
+  }
 
   function getButton(direction) {
     let handleClick = () => increaseValue(direction === "right" ? 1 : -1),
@@ -184,5 +234,13 @@ export default function Header({
       ...state,
       ...object,
     });
+  }
+
+  function getMonth(month, year) {
+    return typeof formatMonth === "function" ? formatMonth(month, year) : month;
+  }
+
+  function getYear(year, month) {
+    return typeof formatMonth === "function" ? formatYear(year, month) : year;
   }
 }

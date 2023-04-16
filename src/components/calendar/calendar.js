@@ -69,6 +69,13 @@ function Calendar(
     weekNumber,
     weekPicker,
     rangeHover,
+    monthYearSeparator,
+    formatMonth,
+    formatYear,
+    highlightToday = true,
+    headerOrder = ["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"],
+    style = {},
+    ...rest
   },
   outerRef
 ) {
@@ -93,9 +100,8 @@ function Calendar(
   )
     numberOfMonths = 1;
 
-  if (multiple || range || isArray(value)) {
-    if (!range && !multiple) multiple = true;
-    if (multiple && range) multiple = false;
+  if ((multiple || range || isArray(value)) && !range && !multiple) {
+    multiple = true;
   }
 
   if (weekPicker) {
@@ -156,7 +162,7 @@ function Calendar(
         selectedDate = getSelectedDate(value, calendar, locale, format);
 
         if (isArray(selectedDate)) {
-          if (!date) date = getDate(selectedDate[0]);
+          if (!date) date = getDate(selectedDate.flat()[0]);
         } else {
           if (!date || numberOfMonths === 1) {
             date = getDate(selectedDate);
@@ -173,29 +179,32 @@ function Calendar(
         }
       }
 
-      [].concat(selectedDate).forEach(checkDate);
+      [].concat(selectedDate).flat().forEach(checkDate);
 
       checkDate(date);
 
       if (multiple || range || isArray(value)) {
         if (!selectedDate) selectedDate = [];
-        if (!isArray(selectedDate)) selectedDate = [selectedDate];
 
-        if (range && selectedDate.length > 2) {
+        if (!isArray(selectedDate)) {
+          selectedDate = multiple && range ? [[selectedDate]] : [selectedDate];
+        }
+
+        if (range && !multiple && selectedDate.length > 2) {
           let lastItem = selectedDate[selectedDate.length - 1];
 
           selectedDate = [selectedDate[0], lastItem];
           focused = lastItem;
         }
 
-        if (multiple && sort && !mustSortDates) {
+        if (multiple && !range && sort && !mustSortDates) {
           mustSortDates = true;
           selectedDate.sort((a, b) => a - b);
-        } else if (range) {
+        } else if (range && !multiple) {
           selectedDate.sort((a, b) => a - b);
         }
       } else if (isArray(selectedDate)) {
-        selectedDate = selectedDate[selectedDate.length - 1];
+        selectedDate = selectedDate.flat()[selectedDate.length - 1];
       }
 
       if (fullYear) date.toFirstOfYear();
@@ -218,7 +227,7 @@ function Calendar(
         format,
         mustSortDates,
         year: date.year,
-        today: state.today || new DateObject({ calendar }),
+        today: checkDate(state.today) || new DateObject({ calendar }),
         weekPicker,
       };
     });
@@ -288,6 +297,7 @@ function Calendar(
       fullYear,
       monthAndYears: getMonthsAndYears(),
       rangeHover,
+      highlightToday,
     },
     { datePickerProps, DatePicker, ...calendarProps } = arguments[0];
 
@@ -296,11 +306,12 @@ function Calendar(
   return state.today ? (
     <div
       ref={setRef}
-      role={role || 'dialog'}
+      role={role || "dialog"}
       className={`rmdp-wrapper rmdp-${shadow ? "shadow" : "border"} ${
         className || ""
       }`}
-      style={{ zIndex }}
+      style={{ zIndex, ...style }}
+      {...getValidDivProps(rest)}
     >
       {clonedPlugins.top}
       <div style={{ display: "flex" }} className={topClassName}>
@@ -312,28 +323,36 @@ function Calendar(
             } ${getBorderClassName(["left", "right"])}`}
           >
             <Header
-              {...globalProps}
-              disableYearPicker={disableYearPicker}
-              disableMonthPicker={disableMonthPicker}
-              buttons={buttons}
-              renderButton={renderButton}
-              handleMonthChange={handleMonthChange}
-              disabled={disabled}
-              hideMonth={hideMonth}
-              hideYear={hideYear}
+              {...{
+                ...globalProps,
+                disableYearPicker,
+                disableMonthPicker,
+                buttons,
+                renderButton,
+                handleMonthChange,
+                disabled,
+                hideMonth,
+                hideYear,
+                monthYearSeparator,
+                formatMonth,
+                formatYear,
+                headerOrder,
+              }}
             />
             <div style={{ position: "relative" }}>
               <DayPicker
-                {...globalProps}
-                showOtherDays={showOtherDays}
-                mapDays={mapDays}
-                onlyShowInRangeDates={onlyShowInRangeDates}
-                customWeekDays={weekDays}
-                numberOfMonths={numberOfMonths}
-                weekStartDayIndex={weekStartDayIndex}
-                hideWeekDays={hideWeekDays}
-                displayWeekNumbers={displayWeekNumbers}
-                weekNumber={weekNumber}
+                {...{
+                  ...globalProps,
+                  showOtherDays,
+                  mapDays,
+                  onlyShowInRangeDates,
+                  customWeekDays: weekDays,
+                  numberOfMonths,
+                  weekStartDayIndex,
+                  hideWeekDays,
+                  displayWeekNumbers,
+                  weekNumber,
+                }}
               />
               {!fullYear && (
                 <>
@@ -427,8 +446,13 @@ function Calendar(
         listeners.change.forEach((callback) => callback(selectedDate));
     }
 
-    if (state) setState(state);
-    if (selectedDate || selectedDate === null) onChange?.(selectedDate);
+    if (selectedDate || selectedDate === null) {
+      const mustUpdateState = onChange?.(selectedDate);
+
+      if (state && mustUpdateState !== false) setState(state);
+    } else if (state) {
+      setState(state);
+    }
 
     handlePropsChange({ value: selectedDate });
   }
@@ -571,15 +595,29 @@ function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
 }
 
 function getSelectedDate(value, calendar, locale, format) {
-  let selectedDate = []
+  const selectedDate = []
     .concat(value)
-    .map((date) => {
-      if (!date) return {};
-      if (date instanceof DateObject) return date;
+    .map((date) =>
+      isArray(date)
+        ? date.map(toDateObject).filter(isValid)
+        : toDateObject(date)
+    )
+    .filter(isValid);
 
-      return new DateObject({ date, calendar, locale, format });
-    })
-    .filter((date) => date.isValid);
+  return isArray(value) ? selectedDate : selectedDate.flat()[0];
 
-  return isArray(value) ? selectedDate : selectedDate[0];
+  function toDateObject(date) {
+    if (!date) return {};
+    if (date instanceof DateObject) return date;
+
+    return new DateObject({ date, calendar, locale, format });
+  }
+
+  function isValid(date) {
+    return isArray(date) || date.isValid;
+  }
+}
+
+function getValidDivProps({ DatePicker, datePickerProps, ...rest }) {
+  return rest;
 }

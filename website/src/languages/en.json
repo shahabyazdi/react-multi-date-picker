@@ -98,7 +98,10 @@
     "Follow the example below to see the custom names in Datepicker input. (this option is only available for DatePicker).",
     "*format, formattingIgnoreList, and style are optional."
   ],
-  "custom_input": "Use <b>handleValueChange</b> if you want to see changes in the calendar as the input value changes.",
+  "custom_input": [
+    "Use <b>onChange</b> if you want to see changes in the calendar as the input value changes.",
+    "<b>Node</b>: In versions before 4, you should use <b>onValueChange</b> prop instead of onChange."
+  ],
   "multiple_range": [
     "At version 1.8.1 and in multiple and range mode, an array of stringDates are sent instead of stringDate.",
     "So to get the input value in versions >= 1.8.1, you can follow the below examples."
@@ -433,5 +436,54 @@
   "custom_calendar_4": "By substituting epoch and century values, our calendar object changes as follows:",
   "custom_calendar_5": "So far, if we import our created calendar and enter it into the date picker, we should see this result:",
   "custom_calendar_6": "If you need, you can create a Thai locale and enter it into the calendar by using the <a target='_blank' href='../locales/#custom-locale'>tutorial</a> provided here:",
-  "custom_calendar_7": "Finally, by entering our calendar and locale into the Calendar Component, this result is achieved:"
+  "custom_calendar_7": "Finally, by entering our calendar and locale into the Calendar Component, this result is achieved:",
+  "month": "Month",
+  "year": "Year",
+  "multiple_range_picker": [
+    "The Multiple Range mode is a way for selecting multiple date ranges and the codes provided below show how to do it using the useState hook to manage the selected date ranges. ",
+    "The initially selected date ranges are passed to the Calendar component using the value prop, while the onChange function is used to update the selected date ranges whenever the user selects a new range.",
+    "In this example, the values state variable is initialized with three selected date ranges. Each range is represented as an array of two DateObject instances that specify the start and end dates of the range. The Calendar component is used to display the calendar and handle user input. The value prop is set to the values state variable, which specifies the initially selected date ranges. The onChange prop is set to the setValues function, which is used to update the values state variable whenever the user selects a new date range. The multiple props are set to true, which allows the user to select multiple dates. The range prop is also set to true, which enables the user to select a range of dates within a single selection. In summary, the Multiple Range mode is useful for selecting multiple date ranges in a calendar or date picker."
+  ],
+  "multiple_range_month_picker": [
+    "The onlyMonthPicker feature in a date picker or calendar allows users to select only months, without selecting a specific day. When the multiple and range props are added, users can select multiple ranges of months.",
+    "The provided code shows how to use the DatePicker component in React with the onlyMonthPicker, multiple, and range props.",
+    "The DatePicker component is used to display the calendar and handle user input. The onlyMonthPicker prop restricts the user's selection to months only, while the multiple and range props allow the user to select multiple ranges of months.",
+    "In summary, the onlyMonthPicker feature in a date picker allows users to select only months, without selecting a specific day. When used with the multiple and range props, users can select multiple ranges of months. This is a useful feature when working with date ranges in a month-only context."
+  ],
+  "multiple_range_year_picker": [
+    "The onlyYearPicker feature in a date picker or calendar allows users to select only years, without selecting a specific day or month. When the multiple and range props are added, users can select multiple ranges of years.",
+    "The provided code shows how to use the DatePicker component in React with the onlyYearPicker, multiple, and range props."
+  ],
+  "validating_single_date": [
+    "Starting from version 4, date validation can be performed using the second parameter passed to the onChange method. This parameter is an object containing the following properties:",
+    "isTyping",
+    "input",
+    "validatedValue",
+    "The isTyping property indicates whether the onChange method was called due to the user typing or not. If it is true, it means that the method was called as a result of the user typing in the input field. If it is false, it means that the method was called due to date selection from the calendar component.",
+    "The input property is a reference to the input element. If you are not using a custom input, the input value is equal to the internal input reference of the date picker (HTMLInputElement). If you are using a custom input, it is equal to a div that contains your custom component (HTMLDivElement).",
+    "The validatedValue property is a string that represents the value to be displayed in the input field.",
+    "It is important to note that returning false from the onChange method will prevent the internal state of the date picker from being set. Therefore, if you consider the input date to be invalid, you should return false."
+  ],
+  "validation_multiple_range": [
+    "This example demonstrates how to validate a range of dates in the DatePicker component. In this example, the goal is to reserve a room for a certain date range. The Calendar component is used with multiple and range props to allow selecting multiple ranges of dates. The initial values for reserved and in-service dates are defined in two arrays named reserved and inService.",
+    "The isReserved and isInService functions check whether a given date falls within the reserved or in-service ranges.",
+    "The mapDays prop is used to apply a class to the date elements to indicate whether they are reserved or in-service."
+  ],
+  "multiple_date_separator": "the default value of dateSeparator prop in multiple mode is ', '",
+  "range_date_separator": "the default value of dateSeparator prop in range mode is ' ~ '",
+  "multiple_range_date_separator": "the default value of multipleRangeSeparator prop is ','",
+  "header_order": [
+    "The header of the Calendar component can be arranged in a specific order using the headerOrder prop. The headerOrder prop should be an array containing one or more of the following values:",
+    "RIGHT_BUTTON: A button that appears on the right side of the header. This button is typically used for navigating to the next month or year.",
+    "MONTH_YEAR: A display of the current month and year in the center of the header. This element is typically used to provide context for the calendar.",
+    "YEAR_MONTH: A display of the current year and month in the center of the header. This element is similar to MONTH_YEAR, but with the year displayed before the month.",
+    "LEFT_BUTTON: A button that appears on the left side of the header. This button is typically used for navigating to the previous month or year.",
+    "The default value of headerOrder is ['LEFT_BUTTON', 'MONTH_YEAR', 'RIGHT_BUTTON'], which arranges the header elements in a typical order for a calendar.",
+    "To customize the order of the header elements, pass an array of the desired element names to the headerOrder prop. For example, to display the MONTH_YEAR element first, followed by the LEFT_BUTTON and RIGHT_BUTTON buttons, you could use the following code:"
+  ],
+  "month_year_separator": [
+    "The monthYearSeparator prop is used to specify the character that appears between the month and year elements in the Calendar header. By default, the monthYearSeparator value is ', '",
+    "To add a separator character, pass a string value to the monthYearSeparator prop. For example, to use a vertical bar (|) as the separator, you can use the following code:"
+  ],
+  "custom_multiple": "<b>Node</b>: In versions before 4, you should use <b>openCalendar</b> prop instead of onFocus."
 }

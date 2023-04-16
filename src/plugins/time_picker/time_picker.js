@@ -76,14 +76,19 @@ export default function TimePicker({
         {...getValidProps(props)}
       >
         {[
-          ["hour", mustDisplayMeridiem ? "hh" : "HH"],
-          ["minute", "mm"],
-          ["second", "ss"],
-        ].map(([name, token], index) => {
+          [
+            "hour",
+            mustDisplayMeridiem ? "hh" : "HH",
+            mustDisplayMeridiem ? 12 : 24,
+          ],
+          ["minute", "mm", 60],
+          ["second", "ss", 60],
+        ].map(([name, token, max], index) => {
           if (name === "second" && hideSeconds) return null;
 
           return (
             <Button
+              max={max}
               key={index}
               name={name}
               values={getValues(name, token)}
@@ -138,6 +143,7 @@ export default function TimePicker({
 }
 
 function Button({
+  max,
   name,
   values: [number, localeValue],
   update,
@@ -149,6 +155,7 @@ function Button({
       <div>
         <Arrow direction="rmdp-up" onClick={() => update(name, number + 1)} />
         <Input
+          max={max}
           value={localeValue}
           onChange={update}
           digits={digits}

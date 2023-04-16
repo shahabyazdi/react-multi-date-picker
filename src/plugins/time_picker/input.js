@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Input({ name, value, onChange, digits }) {
+export default function Input({ max, name, value, onChange, digits }) {
   return (
     <input
       type="text"
@@ -15,6 +15,7 @@ export default function Input({ name, value, onChange, digits }) {
     let value = toEnglishLocale(e.target.value);
 
     if (isNaN(value)) return;
+    if (max && Number(value) > max) return;
 
     onChange(name, value);
   }
