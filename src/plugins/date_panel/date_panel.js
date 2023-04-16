@@ -132,9 +132,7 @@ export default function DatePanel({
                   {[object].flat().map((object, index) => (
                     <span
                       key={index}
-                      onClick={() =>
-                        removeButton && selectDate(object.date, object.index)
-                      }
+                      onClick={() => selectDate(object.date, object.index)}
                       style={{ cursor: object.date ? "pointer" : "default" }}
                     >
                       {formatFunction ? formatFunction(object) : object.format}
@@ -199,6 +197,7 @@ export default function DatePanel({
   }
 
   function handleClick(date) {
+    console.log("inja", date);
     if (onClickDate instanceof Function) onClickDate(date);
   }
 }

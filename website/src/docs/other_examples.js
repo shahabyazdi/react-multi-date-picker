@@ -178,29 +178,6 @@ export default function Example() {
     jsx: <DatePicker monthYearSeparator="|" {...otherProps} />,
   };
 
-  const formatMonthAndYear = {
-    title: "Custom Month & Year In Header",
-    code: `${localeImport}<DatePicker 
-  formatMonth={(month, year) => {
-    return "${translate("month")} " + month;
-  }}
-  formatYear={(year, month) => {
-    return "${translate("year")} " + year;
-  }}
-/>`,
-    jsx: (
-      <DatePicker
-        formatMonth={(month, year) => {
-          return translate("month") + " " + month;
-        }}
-        formatYear={(year, month) => {
-          return translate("year") + " " + year;
-        }}
-        {...otherProps}
-      />
-    ),
-  };
-
   const weekNumbers = {
     title: "Displaying Week Numbers",
     code: `${localeImport}<DatePicker 
@@ -385,7 +362,6 @@ export default function Example() {
     weekStartDayIndex,
     otherDays,
     monthYearSeparator,
-    formatMonthAndYear,
     disableHighlightToday,
     weekNumbers,
     scroll,

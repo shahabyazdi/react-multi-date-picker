@@ -25,6 +25,29 @@ export default function Doc({ translate, language, otherProps, localeImport }) {
     jsx: <Calendar monthYearSeparator="|" {...otherProps} />,
   };
 
+  const formatMonthAndYear = {
+    title: "Custom Month & Year In Header",
+    code: `${localeImport}<Calendar 
+  formatMonth={(month, year) => {
+    return "${translate("month")} " + month;
+  }}
+  formatYear={(year, month) => {
+    return "${translate("year")} " + year;
+  }}
+/>`,
+    jsx: (
+      <Calendar
+        formatMonth={(month, year) => {
+          return translate("month") + " " + month;
+        }}
+        formatYear={(year, month) => {
+          return translate("year") + " " + year;
+        }}
+        {...otherProps}
+      />
+    ),
+  };
+
   const disable = {
     title: "Disabling Navigate Buttons",
     description: "disable_buttons",
@@ -138,7 +161,14 @@ export default function Example(){
     ),
   };
 
-  return [order, separator, disable, customFunction, customElement];
+  return [
+    order,
+    separator,
+    formatMonthAndYear,
+    disable,
+    customFunction,
+    customElement,
+  ];
 }
 
 function CustomButton({ direction, handleClick, disabled }) {
