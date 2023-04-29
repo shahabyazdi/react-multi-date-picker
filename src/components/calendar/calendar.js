@@ -169,7 +169,7 @@ function Calendar(
           } else {
             let min = new DateObject(date).toFirstOfMonth();
             let max = new DateObject(date)
-              .add(numberOfMonths - 1, "months")
+              .add(numberOfMonths - 1, onlyMonthPicker ? "years" : "months")
               .toLastOfMonth();
 
             if (selectedDate < min || selectedDate > max) {

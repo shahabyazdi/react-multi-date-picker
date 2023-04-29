@@ -38,6 +38,7 @@ export default function MonthPicker({
 
   const years = useMemo(() => {
     let years = [],
+      length = onlyMonthPicker ? numberOfMonths : 1,
       months = customMonths && JSON.parse(customMonths),
       date = new DateObject({
         calendar,
@@ -56,7 +57,7 @@ export default function MonthPicker({
       months = date.locale.months.map(([month]) => month);
     }
 
-    for (let yearIndex = 0; yearIndex < numberOfMonths; yearIndex++) {
+    for (let yearIndex = 0; yearIndex < length; yearIndex++) {
       let monthsArray = [],
         index = 0;
 
@@ -87,6 +88,7 @@ export default function MonthPicker({
     state.date.year,
     state.date._format,
     numberOfMonths,
+    onlyMonthPicker,
   ]);
 
   return (
@@ -96,7 +98,7 @@ export default function MonthPicker({
       onMouseLeave={() => rangeHover && setDateHovered()}
     >
       {years.map((months, yearIndex) => (
-        <div key={yearIndex} style={{ margin: "0 5px" }}>
+        <div key={yearIndex} style={{ margin: "0 5px", flex: 1 }}>
           {months.map((array, i) => (
             <div key={i} className="rmdp-ym">
               {array.map(({ date, name }, j) => (
