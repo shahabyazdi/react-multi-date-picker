@@ -90,9 +90,9 @@ function DatePicker(
     closeCalendar = useCallback(() => {
       if (onClose?.() === false) return;
 
-      let input = getInput(inputRef);
+      let inputs = getInputs(inputRef);
 
-      if (input) input.blur();
+      if (inputs) inputs.forEach((input) => input.blur());
 
       if (ref.current.mobile) {
         let popper = calendarRef.current.parentNode.parentNode;
@@ -260,7 +260,9 @@ function DatePicker(
       if (date) strDate = date.format();
     }
 
-    if (document.activeElement !== getInput(inputRef)) {
+    if (
+      getInputs(inputRef).every((input) => document.activeElement !== input)
+    ) {
       setStringDate(strDate);
     }
 
@@ -306,12 +308,17 @@ function DatePicker(
      * If the caret position is undefined, there is no reason to get the input.
      * So we only get the input if the caret position is available.
      */
-    let input = getInput(inputRef);
+    let inputs = getInputs(inputRef);
 
-    if (!input) return;
+    if (inputs.length === 0) return;
 
-    input.setSelectionRange(selection, selection);
-    ref.current.selection = undefined;
+    inputs.forEach((input) => {
+      if (document.activeElement !== input) return;
+
+      input.setSelectionRange(selection, selection);
+
+      ref.current.selection = undefined;
+    });
     /**
      * after manually changing the month by typing in the input,
      * if the calendar position is in top of the input
@@ -510,11 +517,13 @@ function DatePicker(
       }
     }
 
-    let input = getInput(inputRef);
+    let inputs = getInputs(inputRef);
 
-    if (isMobileMode && input) input.blur();
+    if (isMobileMode && inputs.length > 0) {
+      inputs.forEach((input) => input.blur());
+    }
 
-    if (input || !isVisible) {
+    if (inputs.length > 0 || !isVisible) {
       setIsVisible(true);
     } else {
       closeCalendar();
@@ -687,10 +696,10 @@ function getStringDate(date, separator) {
   }
 }
 
-function getInput(inputRef) {
-  if (!inputRef.current) return;
+function getInputs(inputRef) {
+  if (!inputRef.current) return [];
 
   return inputRef.current.tagName === "INPUT"
-    ? inputRef.current
-    : inputRef.current.querySelector("input");
+    ? [inputRef.current]
+    : Array.from(inputRef.current.querySelectorAll("input"));
 }
