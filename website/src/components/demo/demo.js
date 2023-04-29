@@ -174,7 +174,6 @@ export default function Demo({ language = "en", translate }) {
     ...state,
     highlightToday: state.highlightToday === "on",
     headerOrder: getHeaderOrder(),
-    type: undefined,
     className: [layout, color, background].join(" "),
     onChange: (value) => updateState("value", value),
     fixRelativePosition: true,
@@ -507,7 +506,6 @@ export default function Demo({ language = "en", translate }) {
                 isFullYear ||
                 $onlyTimePicker ||
                 $onlyAnalogTimePicker ||
-                onlyMonthPicker ||
                 onlyYearPicker,
               options: [
                 ["1", 1],

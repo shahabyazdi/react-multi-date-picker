@@ -95,10 +95,10 @@ function Calendar(
   if (
     typeof numberOfMonths !== "number" ||
     numberOfMonths < 1 ||
-    onlyMonthPicker ||
     onlyYearPicker
-  )
+  ) {
     numberOfMonths = 1;
+  }
 
   if ((multiple || range || isArray(value)) && !range && !multiple) {
     multiple = true;
@@ -298,6 +298,7 @@ function Calendar(
       monthAndYears: getMonthsAndYears(),
       rangeHover,
       highlightToday,
+      numberOfMonths,
     },
     { datePickerProps, DatePicker, ...calendarProps } = arguments[0];
 
@@ -347,7 +348,6 @@ function Calendar(
                   mapDays,
                   onlyShowInRangeDates,
                   customWeekDays: weekDays,
-                  numberOfMonths,
                   weekStartDayIndex,
                   hideWeekDays,
                   displayWeekNumbers,
@@ -541,9 +541,12 @@ function Calendar(
         year = date.year,
         index = date.monthIndex + monthIndex;
 
+      if (onlyMonthPicker) year += monthIndex;
+
       if (index > 11) {
         index -= 12;
-        year++;
+
+        if (!onlyMonthPicker) year++;
       }
 
       if (isArray(months) && months.length >= 12) {

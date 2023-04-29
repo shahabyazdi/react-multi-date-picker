@@ -16,6 +16,7 @@ export default function MonthPicker({
   handleFocusedDate,
   rangeHover,
   highlightToday,
+  numberOfMonths,
 }) {
   const {
       date,
@@ -35,10 +36,9 @@ export default function MonthPicker({
 
   customMonths = customMonths && stringify(customMonths);
 
-  const months = useMemo(() => {
-    let months = customMonths && JSON.parse(customMonths),
-      monthsArray = [],
-      index = 0,
+  const years = useMemo(() => {
+    let years = [],
+      months = customMonths && JSON.parse(customMonths),
       date = new DateObject({
         calendar,
         locale,
@@ -56,41 +56,59 @@ export default function MonthPicker({
       months = date.locale.months.map(([month]) => month);
     }
 
-    for (var i = 0; i < 4; i++) {
-      let array = [];
+    for (let yearIndex = 0; yearIndex < numberOfMonths; yearIndex++) {
+      let monthsArray = [],
+        index = 0;
 
-      for (var j = 0; j < 3; j++) {
-        array.push({
-          date: new DateObject(date),
-          name: months[index],
-        });
+      for (var i = 0; i < 4; i++) {
+        let array = [];
 
-        index++;
-        date.add(1, "month");
+        for (var j = 0; j < 3; j++) {
+          array.push({
+            date: new DateObject(date),
+            name: months[index],
+          });
+
+          index++;
+          date.add(1, "month");
+        }
+
+        monthsArray.push(array);
       }
 
-      monthsArray.push(array);
+      years.push(monthsArray);
     }
 
-    return monthsArray;
-  }, [calendar, locale, customMonths, state.date.year, state.date._format]);
+    return years;
+  }, [
+    calendar,
+    locale,
+    customMonths,
+    state.date.year,
+    state.date._format,
+    numberOfMonths,
+  ]);
 
   return (
     <div
       className={`${onlyMonthPicker ? "only " : ""}rmdp-month-picker`}
-      style={{ display: mustShowMonthPicker ? "block" : "none" }}
+      style={{ display: mustShowMonthPicker ? "flex" : "none" }}
       onMouseLeave={() => rangeHover && setDateHovered()}
     >
-      {months.map((array, i) => (
-        <div key={i} className="rmdp-ym">
-          {array.map(({ date, name }, j) => (
-            <div
-              key={j}
-              className={getClassName(date)}
-              onClick={() => selectMonth(date)}
-              onMouseEnter={() => rangeHover && setDateHovered(date)}
-            >
-              <span className={onlyMonthPicker ? "sd" : ""}>{name}</span>
+      {years.map((months, yearIndex) => (
+        <div key={yearIndex} style={{ margin: "0 5px" }}>
+          {months.map((array, i) => (
+            <div key={i} className="rmdp-ym">
+              {array.map(({ date, name }, j) => (
+                <div
+                  key={j}
+                  className={getClassName(date)}
+                  onClick={() => selectMonth(date)}
+                  onMouseEnter={() => rangeHover && setDateHovered(date)}
+                >
+                  <span className={onlyMonthPicker ? "sd" : ""}>{name}</span>
+                </div>
+              ))}
             </div>
           ))}
         </div>

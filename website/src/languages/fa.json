@@ -902,7 +902,7 @@
   "Custom Separator": "جداکننده سفارشی",
   "Order of Header Components": "ترتیب اجزای سربرگ",
   "header_order": [
-    "مقداری که به پراپ headerOrder پاس میدهید باید یک آرایه شامل موارد زیر میشود:",
+    "مقداری که به پراپ headerOrder پاس میدهید باید یک آرایه شامل موارد زیر باشد:",
     "RIGHT_BUTTON",
     "MONTH_YEAR",
     "YEAR_MONTH",
