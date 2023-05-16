@@ -502,7 +502,7 @@ declare module "react-multi-date-picker" {
       input: HTMLElement,
       isTyping: boolean
     ): void | false;
-    dateSeparator?: boolean;
+    dateSeparator?: string;
     multipleRangeSeparator?: boolean;
     type?: string;
   }
