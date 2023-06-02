@@ -19,6 +19,7 @@ export default function TimePicker({
   handleFocusedDate,
   format = "YYYY/MM/DD",
   header = true,
+  intervalMinutesType,
   ...props
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
@@ -97,6 +98,7 @@ export default function TimePicker({
               hideDivider={
                 name === "second" || (name === "minute" && hideSeconds)
               }
+              getIntervalMinutes={getIntervalMinutes}
             />
           );
         })}
@@ -116,9 +118,23 @@ export default function TimePicker({
   );
 
   function update(key, value) {
+    if (key === "minute") value = exceededIfMinutesZeroToConverting(value)
+
     availbleDate[key] = value;
 
     setDate();
+  }
+
+  function exceededIfMinutesZeroToConverting(minutes) {
+    if (availbleDate.minute % getIntervalMinutes() !== 0 && minutes > 60) return 60;
+    if (availbleDate.minute % getIntervalMinutes() !== 0 && minutes < 0) return 0;
+    return minutes;
+  }
+
+  function getIntervalMinutes() {
+    if (intervalMinutesType === "quarter") return 15;
+    if (intervalMinutesType === "half") return 30;
+    return 1;
   }
 
   function toggleMeridiem() {
@@ -149,11 +165,13 @@ function Button({
   update,
   digits,
   hideDivider,
+  getIntervalMinutes
 }) {
+  const intervalValue = name === "minute" ? getIntervalMinutes() : 1
   return (
     <>
       <div>
-        <Arrow direction="rmdp-up" onClick={() => update(name, number + 1)} />
+        <Arrow direction="rmdp-up" onClick={() => update(name, number + intervalValue)} />
         <Input
           max={max}
           value={localeValue}
@@ -161,7 +179,7 @@ function Button({
           digits={digits}
           name={name}
         />
-        <Arrow direction="rmdp-down" onClick={() => update(name, number - 1)} />
+        <Arrow direction="rmdp-down" onClick={() => update(name, number - intervalValue)} />
       </div>
       {!hideDivider && <span className="dvdr">:</span>}
     </>

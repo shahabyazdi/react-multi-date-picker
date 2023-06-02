@@ -680,6 +680,7 @@ declare module "react-multi-date-picker/plugins/time_picker" {
      */
     format?: string;
     header?: boolean;
+    intervalMinutesType?: "quarter" | "half";
   }
 
   export default function TimePicker(
