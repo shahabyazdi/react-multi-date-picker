@@ -103,12 +103,9 @@ export default function Header({
             <div key={index} className="rmdp-header-values" style={style}>
               {items.length > 0 &&
                 items
-                  .map((item, i) => (
-                    <Fragment key={i}>
-                      {getMonthOrYear(item, month, index)}
-                    </Fragment>
-                  ))
-                  .reduce((prev, curr) => [prev, getSeparator(), curr])}
+                  .map((item) => getMonthOrYear(item, month, index))
+                  .reduce((prev, curr) => [prev, getSeparator(), curr])
+                  .map((i, j) => <Fragment key={j}>{i}</Fragment>)}
             </div>
           ));
         }
