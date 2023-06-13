@@ -1,6 +1,6 @@
 {
   "name": "react-multi-date-picker",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "A simple React datepicker component for working with gregorian, persian, arabic and indian calendars with the ability to select the date by single, multiple, range and multiple range pickers.",
   "main": "./build/index.js",
   "types": "index.d.ts",

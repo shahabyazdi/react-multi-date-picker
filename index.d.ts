@@ -32,8 +32,7 @@ declare module "react-multi-date-picker" {
     separator?: string;
   };
 
-  export interface CalendarProps
-    extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+  export interface CalendarProps {
     ref?: React.MutableRefObject<any>;
     /**
      * @types Date | string | number | DateObject
