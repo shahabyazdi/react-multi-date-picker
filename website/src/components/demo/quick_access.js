@@ -1069,6 +1069,10 @@ const list = [
             path: "plugins/time-picker/#descriptions",
           },
           {
+            name: "Utilizing Step for Arrow Icons",
+            path: "plugins/time-picker/#utilizing-step-for-arrow-icons",
+          },
+          {
             name: "Using TimePicker in Multiple Mode",
             path: "plugins/time-picker/#using-timepicker-in-multiple-mode",
           },
@@ -1093,6 +1097,10 @@ const list = [
           {
             name: "Default Analog Time Picker",
             path: "plugins/analog-time-picker/#default-time-picker",
+          },
+          {
+            name: "Utilizing Step for Arrow Icons",
+            path: "plugins/analog-time-picker/#utilizing-step-for-arrow-icons",
           },
           {
             name: "Color & Background",
