@@ -171,10 +171,7 @@ ${$import}const [values, setValues] = useState(
           language === "en" ? "MM/DD/YYYY HH:mm:ss" : "YYYY/MM/DD HH:mm:ss"
         }
         multiple
-        plugins={[
-          <TimePicker position="bottom" hStep={1} mStep={2} sStep={3} />,
-          <DatePanel markFocused />,
-        ]}
+        plugins={[<TimePicker position="bottom" />, <DatePanel markFocused />]}
         {...otherProps}
       />
     ),
