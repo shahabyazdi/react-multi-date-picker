@@ -19,6 +19,9 @@ export default function TimePicker({
   handleFocusedDate,
   format = "YYYY/MM/DD",
   header = true,
+  hStep = 1,
+  mStep = 1,
+  sStep = 1,
   ...props
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
@@ -86,6 +89,20 @@ export default function TimePicker({
         ].map(([name, token, max], index) => {
           if (name === "second" && hideSeconds) return null;
 
+          let step = 1;
+
+          switch (name) {
+            case "hour":
+              step = hStep;
+              break;
+            case "minute":
+              step = mStep;
+              break;
+            case "second":
+              step = sStep;
+              break;
+          }
+
           return (
             <Button
               max={max}
@@ -93,6 +110,7 @@ export default function TimePicker({
               name={name}
               values={getValues(name, token)}
               update={update}
+              step={step}
               digits={date.digits}
               hideDivider={
                 name === "second" || (name === "minute" && hideSeconds)
@@ -149,11 +167,15 @@ function Button({
   update,
   digits,
   hideDivider,
+  step,
 }) {
   return (
     <>
       <div>
-        <Arrow direction="rmdp-up" onClick={() => update(name, number + 1)} />
+        <Arrow
+          direction="rmdp-up"
+          onClick={() => update(name, number + step)}
+        />
         <Input
           max={max}
           value={localeValue}
@@ -161,7 +183,10 @@ function Button({
           digits={digits}
           name={name}
         />
-        <Arrow direction="rmdp-down" onClick={() => update(name, number - 1)} />
+        <Arrow
+          direction="rmdp-down"
+          onClick={() => update(name, number - step)}
+        />
       </div>
       {!hideDivider && <span className="dvdr">:</span>}
     </>

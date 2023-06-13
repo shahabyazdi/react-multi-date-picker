@@ -27,6 +27,9 @@ export default function AnalogTimePicker({
   position,
   calendarProps: { disableDayPicker },
   hideSeconds,
+  hStep = 1,
+  mStep = 1,
+  sStep = 1,
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
     availbleDate = (multiple || range ? focused : selectedDate) || date,
@@ -94,11 +97,26 @@ export default function AnalogTimePicker({
           {array.map(([name, token, max], index) => {
             if (name === "second" && hideSeconds) return null;
 
+            let step = 1;
+
+            switch (name) {
+              case "hour":
+                step = hStep;
+                break;
+              case "minute":
+                step = mStep;
+                break;
+              case "second":
+                step = sStep;
+                break;
+            }
+
             return (
               <Button
                 max={max}
                 key={index}
                 name={name}
+                step={step}
                 values={getValues(name, token)}
                 update={update}
                 digits={date.digits}
@@ -137,11 +155,15 @@ function Button({
   update,
   digits,
   hideDivider,
+  step,
 }) {
   return (
     <>
       <div>
-        <Arrow direction="rmdp-up" onClick={() => update(name, number + 1)} />
+        <Arrow
+          direction="rmdp-up"
+          onClick={() => update(name, number + step)}
+        />
         <Input
           max={max}
           value={localeValue}
@@ -149,7 +171,10 @@ function Button({
           digits={digits}
           name={name}
         />
-        <Arrow direction="rmdp-down" onClick={() => update(name, number - 1)} />
+        <Arrow
+          direction="rmdp-down"
+          onClick={() => update(name, number - step)}
+        />
       </div>
       {!hideDivider && <span className="dvdr">:</span>}
     </>

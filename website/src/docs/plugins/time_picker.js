@@ -83,8 +83,51 @@ export default function Doc({ language, otherProps, translate, localeImport }) {
               ))}
             </td>
           </tr>
+          <tr>
+            <td>hStep</td>
+            <td>Number</td>
+            <td>1</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>mStep</td>
+            <td>Number</td>
+            <td>1</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>sStep</td>
+            <td>Number</td>
+            <td>1</td>
+            <td></td>
+          </tr>
         </tbody>
       </table>
+    ),
+  };
+
+  const step = {
+    title: "Utilizing Step for Arrow Icons",
+    description: "step_time_picker",
+    code: `import React from "react";
+import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+${$import}<DatePicker
+  format="${language === "en" ? "MM/DD/YYYY HH:mm:ss" : "YYYY/MM/DD HH:mm:ss"}"
+  plugins={[
+    <TimePicker position="bottom" hStep={2} mStep={3} sStep={4}/>,
+  ]}
+/>`,
+    jsx: (
+      <DatePicker
+        format={
+          language === "en" ? "MM/DD/YYYY HH:mm:ss" : "YYYY/MM/DD HH:mm:ss"
+        }
+        plugins={[
+          <TimePicker position="bottom" hStep={2} mStep={3} sStep={4} />,
+        ]}
+        {...otherProps}
+      />
     ),
   };
 
@@ -128,7 +171,10 @@ ${$import}const [values, setValues] = useState(
           language === "en" ? "MM/DD/YYYY HH:mm:ss" : "YYYY/MM/DD HH:mm:ss"
         }
         multiple
-        plugins={[<TimePicker position="bottom" />, <DatePanel markFocused />]}
+        plugins={[
+          <TimePicker position="bottom" hStep={1} mStep={2} sStep={3} />,
+          <DatePanel markFocused />,
+        ]}
         {...otherProps}
       />
     ),
@@ -214,5 +260,5 @@ ${$import}<DatePicker
     ),
   };
 
-  return [descriptions, props, multiple, rightPosition, range, style];
+  return [descriptions, props, step, multiple, rightPosition, range, style];
 }
