@@ -95,10 +95,10 @@ function Calendar(
   if (
     typeof numberOfMonths !== "number" ||
     numberOfMonths < 1 ||
-    onlyMonthPicker ||
     onlyYearPicker
-  )
+  ) {
     numberOfMonths = 1;
+  }
 
   if ((multiple || range || isArray(value)) && !range && !multiple) {
     multiple = true;
@@ -169,7 +169,7 @@ function Calendar(
           } else {
             let min = new DateObject(date).toFirstOfMonth();
             let max = new DateObject(date)
-              .add(numberOfMonths - 1, "months")
+              .add(numberOfMonths - 1, onlyMonthPicker ? "years" : "months")
               .toLastOfMonth();
 
             if (selectedDate < min || selectedDate > max) {
@@ -298,6 +298,7 @@ function Calendar(
       monthAndYears: getMonthsAndYears(),
       rangeHover,
       highlightToday,
+      numberOfMonths,
     },
     { datePickerProps, DatePicker, ...calendarProps } = arguments[0];
 
@@ -311,7 +312,6 @@ function Calendar(
         className || ""
       }`}
       style={{ zIndex, ...style }}
-      {...getValidDivProps(rest)}
     >
       {clonedPlugins.top}
       <div style={{ display: "flex" }} className={topClassName}>
@@ -347,7 +347,6 @@ function Calendar(
                   mapDays,
                   onlyShowInRangeDates,
                   customWeekDays: weekDays,
-                  numberOfMonths,
                   weekStartDayIndex,
                   hideWeekDays,
                   displayWeekNumbers,
@@ -541,9 +540,12 @@ function Calendar(
         year = date.year,
         index = date.monthIndex + monthIndex;
 
+      if (onlyMonthPicker) year += monthIndex;
+
       if (index > 11) {
         index -= 12;
-        year++;
+
+        if (!onlyMonthPicker) year++;
       }
 
       if (isArray(months) && months.length >= 12) {
@@ -616,8 +618,4 @@ function getSelectedDate(value, calendar, locale, format) {
   function isValid(date) {
     return isArray(date) || date.isValid;
   }
-}
-
-function getValidDivProps({ DatePicker, datePickerProps, ...rest }) {
-  return rest;
 }

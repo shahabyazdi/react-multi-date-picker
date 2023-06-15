@@ -91,7 +91,7 @@ export default function Header({
             </div>
           );
         } else {
-          const items = item
+          let items = item
             .split("_")
             .filter(
               (item) =>
@@ -99,16 +99,15 @@ export default function Header({
                 (item === "YEAR" && !hideYear)
             );
 
+          if (items.length > 1) items = [items[0], getSeparator(), items[1]];
+
           return months.map((month, index) => (
             <div key={index} className="rmdp-header-values" style={style}>
-              {items.length > 0 &&
-                items
-                  .map((item, i) => (
-                    <Fragment key={i}>
-                      {getMonthOrYear(item, month, index)}
-                    </Fragment>
-                  ))
-                  .reduce((prev, curr) => [prev, getSeparator(), curr])}
+              {items.map((item, i) => (
+                <Fragment key={i}>
+                  {getMonthOrYear(item, month, index)}
+                </Fragment>
+              ))}
             </div>
           ));
         }
@@ -116,29 +115,23 @@ export default function Header({
   }
 
   function getMonthOrYear(item, month, index) {
-    if (item === "MONTH") {
-      return (
-        !hideMonth && (
-          <>
-            <span
-              style={{
-                cursor:
-                  disabled || disableMonthPicker || onlyMonthPicker
-                    ? "default"
-                    : "pointer",
-              }}
-              onClick={() =>
-                !disableMonthPicker && toggle("mustShowMonthPicker")
-              }
-            >
-              {getMonth(month, years[index])}
-            </span>
-          </>
-        )
-      );
-    } else {
-      return (
-        !hideYear && (
+    switch (item) {
+      case "MONTH":
+        return (
+          <span
+            style={{
+              cursor:
+                disabled || disableMonthPicker || onlyMonthPicker
+                  ? "default"
+                  : "pointer",
+            }}
+            onClick={() => !disableMonthPicker && toggle("mustShowMonthPicker")}
+          >
+            {getMonth(month, years[index])}
+          </span>
+        );
+      case "YEAR":
+        return (
           <span
             style={{
               cursor:
@@ -150,8 +143,9 @@ export default function Header({
           >
             {getYear(years[index], month)}
           </span>
-        )
-      );
+        );
+      default:
+        return item;
     }
   }
 

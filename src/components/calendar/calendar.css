@@ -191,8 +191,12 @@
 .only.rmdp-month-picker,
 .only.rmdp-year-picker {
   position: static;
-  width: 250px;
   height: 240px;
+}
+
+.only.rmdp-month-picker .rmdp-day,
+.only.rmdp-year-picker .rmdp-day {
+  width: 80px;
 }
 
 .rmdp-header-values {
