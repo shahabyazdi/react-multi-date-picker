@@ -502,7 +502,7 @@ declare module "react-multi-date-picker" {
       isTyping: boolean
     ): void | false;
     dateSeparator?: string;
-    multipleRangeSeparator?: boolean;
+    multipleRangeSeparator?: string;
     type?: string;
   }
 
@@ -679,6 +679,9 @@ declare module "react-multi-date-picker/plugins/time_picker" {
      */
     format?: string;
     header?: boolean;
+    hStep?: number;
+    mStep?: number;
+    sStep?: number;
   }
 
   export default function TimePicker(
@@ -701,6 +704,9 @@ declare module "react-multi-date-picker/plugins/analog_time_picker" {
      * So, you can change the format of the select with this prop.
      */
     format?: string;
+    hStep?: number;
+    mStep?: number;
+    sStep?: number;
   }
 
   export default function AnalogTimePicker(
