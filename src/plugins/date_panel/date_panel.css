@@ -1,5 +1,5 @@
 :root {
-  --rmdp-primary: #0074d9;
+  --rmdp-primary: #ffc132;
   --rmdp-shadow: #8798ad;
   --highlight-red-selected: #ea0034;
   --highlight-green-selected: #009688;
@@ -74,6 +74,13 @@
   transform: translateY(-50%) rotate(45deg);
   padding: 0;
   line-height: 5px;
+  background: transparent;
+}
+
+.rmdp-panel-body li .b-date {
+  border: none;
+  background-color: var(--rmdp-primary);
+  font-size: 14px;
 }
 
 .rmdp-panel-body li .b-deselect:focus {

@@ -1,5 +1,4 @@
 import React from "react";
-import DateObject from "react-date-object";
 import getAllDatesInRange from "../../shared/getAllDatesInRange";
 import isArray from "../../shared/isArray";
 import getBorderClass from "../../shared/getBorderClass";
@@ -130,19 +129,28 @@ export default function DatePanel({
                   }`}
                 >
                   {[object].flat().map((object, index) => (
-                    <span
+                    <button
                       key={index}
-                      onClick={() => selectDate(object.date, object.index)}
+                      className="b-date"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        deSelect(date.index);
+                      }}
                       style={{ cursor: object.date ? "pointer" : "default" }}
+                      ariaDescription={`Date ${object.format} is selected. Click to unselect it.`}
                     >
                       {formatFunction ? formatFunction(object) : object.format}
-                    </span>
+                    </button>
                   ))}
                   {date && removeButton && (
                     <button
                       type="button"
                       className="b-deselect"
-                      onClick={() => deSelect(date.index)}
+                      tabIndex={-1}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        deSelect(date.index);
+                      }}
                     >
                       +
                     </button>
@@ -154,20 +162,6 @@ export default function DatePanel({
       </div>
     </div>
   );
-
-  function selectDate(date, index) {
-    handleClick(date ? selectedDate[index] : undefined);
-
-    if (!date) return;
-
-    setState({
-      ...state,
-      date: new DateObject(date),
-      focused: multiple && range ? date : selectedDate[index],
-    });
-
-    handleFocusedDate(selectedDate[index]);
-  }
 
   function deSelect(index) {
     let dates, focused;

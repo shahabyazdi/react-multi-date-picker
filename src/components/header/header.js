@@ -111,6 +111,8 @@ export default function Header({
             </div>
           ));
         }
+      default:
+        return;
     }
   }
 
@@ -162,7 +164,10 @@ export default function Header({
   }
 
   function getButton(direction) {
-    let handleClick = () => increaseValue(direction === "right" ? 1 : -1),
+    let handleClick = (e) => {
+        e.preventDefault();
+        increaseValue(direction === "right" ? 1 : -1);
+      },
       disabled =
         (direction === "left" && isPreviousDisable) ||
         (direction === "right" && isNextDisable);
