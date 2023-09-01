@@ -13,10 +13,10 @@
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/header/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/installation/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/map-days/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/locales/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/multiple-months/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/map-days/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/min-&amp;-max-date/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/multiple-months/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/multiple-range/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/multiple/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/other-pickers/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -27,8 +27,8 @@
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/range/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/react-hook-form/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/ref/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/types/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/typescript/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/types/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/validation/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/plugins/analog-time-picker/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/plugins/colors/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -41,8 +41,8 @@
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/plugins/toolbar/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/plugins/usage/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/plugins/weekends/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/v2.x/date-object/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/v2.x/calendars/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/v2.x/date-object/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/v2.x/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/v2.x/types/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://shahabyazdi.github.io/react-multi-date-picker/fa/plugins/docs/default-props/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
