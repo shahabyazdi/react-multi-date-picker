@@ -23,12 +23,12 @@ export default function Doc({ language, otherProps, localeImport, translate }) {
       <>
         <p>
           {language === "en"
-            ? "The currentDate prop forces the datepicker & calendar to open on a specific date."
-            : "پراپرتی currentDate تقویم را مجبور به باز شدن در زمان تعیین شده میکند."}
+            ? "The currentDate prop allows you to open the calendar view directly to a specified date. This does not set the selected date, it only determines the initial calendar view."
+            : "پراپرتی CurrentDate به شما امکان می دهد نمای تقویم را مستقیماً به یک تاریخ مشخص باز کنید. این تاریخ انتخاب شده را تنظیم نمی کند، فقط نمای اولیه تقویم را تعیین می کند."}
         </p>
         <p>
           {language === "en"
-            ? "For example if you want the datepicker opens in February 2021 , you can set the currentDate prop to new DateObject ({ year:2021,month:2,day:1})"
+            ? "For example, if you want the calendar to open to February 2021, you can set currentDate to a DateObject like this:"
             : "به عنوان نمونه برای باز شدن تقویم در اسفند 1399 مانند مثال زیر عمل کنید:"}
         </p>
       </>
