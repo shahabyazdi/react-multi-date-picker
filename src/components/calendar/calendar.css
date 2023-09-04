@@ -1,9 +1,9 @@
 :root {
-  --rmdp-primary: #ffc132;
+  --rmdp-primary: #0074d9;
   --rmdp-secondary: #4ca6f5;
   --rmdp-shadow: #8798ad;
   --rmdp-today: #7fdbff;
-  --rmdp-hover: #E4913F;
+  --rmdp-hover: #7ea6f0;
   --rmdp-border: #cfd8e2;
   --highlight-red-color: #cc0303;
   --highlight-red-color-deactive: #e08e8e;
@@ -71,7 +71,7 @@
   cursor: pointer;
   position: relative;
   color: black;
-    background: transparent;
+  background: transparent;
   border: none;
   border-radius: 50%;
 }
@@ -438,6 +438,4 @@
   .rmdp-full-year {
     grid-template-columns: 1fr 1fr;
   }
-
-
 }
