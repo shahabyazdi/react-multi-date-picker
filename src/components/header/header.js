@@ -168,6 +168,7 @@ export default function Header({
         e.preventDefault();
 
         increaseValue(direction === "right" ? 1 : -1);
+        setTabIndex(e);
       },
       disabled =
         (direction === "left" && isPreviousDisable) ||
@@ -242,5 +243,29 @@ export default function Header({
 
   function getYear(year, month) {
     return typeof formatMonth === "function" ? formatYear(year, month) : year;
+  }
+
+  function setTabIndex(e) {
+    setTimeout(() => {
+      const calendar = e.target.closest(".rmdp-calendar");
+
+      if (!calendar) return;
+
+      let div = calendar.querySelector("div[tabindex='0']");
+
+      if (div && div.getAttribute("class").includes("hidden")) {
+        div.setAttribute("tabindex", "-1");
+
+        div = undefined;
+      }
+
+      if (!div) {
+        div = calendar.querySelector(
+          "div[tabindex='-1']:not(.rmdp-day-hidden)"
+        );
+
+        if (div) div.setAttribute("tabindex", "0");
+      }
+    }, 200);
   }
 }

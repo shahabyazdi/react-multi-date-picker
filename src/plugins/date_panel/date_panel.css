@@ -137,4 +137,8 @@
   .rmdp-panel-body span {
     font-size: 12px;
   }
+
+  .rmdp-panel-body li .b-date {
+    font-size: 12px;
+  }
 }

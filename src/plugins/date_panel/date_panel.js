@@ -145,7 +145,7 @@ export default function DatePanel({
                   {date && removeButton && (
                     <button
                       type="button"
-                      ariaDescription={`The date ${object.format} has been selected. Click to deselect it.`}
+                      aria-roledescription={`The date ${object.format} has been selected. Click to deselect it.`}
                       className="b-deselect"
                       onClick={() => deSelect(date.index)}
                     >
