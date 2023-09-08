@@ -7,7 +7,10 @@ export default function Arrow({ direction, onClick, disabled }) {
         disabled ? "disabled" : ""
       }`}
       onClick={onClick}
-      aria-roledescription={`button to navigate ${direction}`}
+      aria-roledescription={`button to navigate ${direction.replace(
+        "rmdp-",
+        ""
+      )}`}
     >
       <i className="rmdp-arrow"></i>
     </button>

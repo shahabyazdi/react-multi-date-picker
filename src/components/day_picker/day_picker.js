@@ -126,32 +126,28 @@ export default function DayPicker({
                   }
 
                   return (
-                    <>
-                      {!parentClassName.includes("hidden") ? (
-                        <button
-                          key={i}
-                          className={parentClassName}
-                          onMouseEnter={() =>
-                            rangeHover && setDateHovered(object.date)
-                          }
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (!mustDisplayDay(object) || object.disabled)
-                              return;
+                    <div
+                      key={i}
+                      tabIndex={parentClassName.includes("selected") ? 0 : -1}
+                      className={parentClassName}
+                      onMouseEnter={() =>
+                        rangeHover && setDateHovered(object.date)
+                      }
+                      onKeyDown={handleKeyDown}
+                      onClick={() => {
+                        if (!mustDisplayDay(object) || object.disabled) {
+                          return;
+                        }
 
-                            selectDay(object, monthIndex, numberOfMonths);
-                          }}
-                        >
-                          <span className={className} {...allProps}>
-                            {mustDisplayDay(object) && !object.hidden
-                              ? children ?? object.day
-                              : ""}
-                          </span>
-                        </button>
-                      ) : (
-                        <span key={i} className={parentClassName}></span>
-                      )}
-                    </>
+                        selectDay(object, monthIndex, numberOfMonths);
+                      }}
+                    >
+                      <span className={className} {...allProps}>
+                        {mustDisplayDay(object) && !object.hidden
+                          ? children ?? object.day
+                          : ""}
+                      </span>
+                    </div>
                   );
                 })}
               </div>
@@ -285,6 +281,40 @@ export default function DayPicker({
     delete allProps.hidden;
 
     return allProps;
+  }
+
+  function handleKeyDown(e) {
+    const { currentTarget, key, code } = e;
+    const { nextSibling, previousSibling, parentNode } = currentTarget;
+
+    if (code === "Space" || key === " ") {
+      e.preventDefault();
+      currentTarget.click();
+    } else if (["ArrowRight", "ArrowLeft"].includes(key)) {
+      focus(key === "ArrowRight" ? nextSibling : previousSibling);
+    } else if (["ArrowUp", "ArrowDown"].includes(key)) {
+      const number = key === "ArrowUp" ? -1 : 1;
+      const allWeeks = Array.from(parentNode.parentNode.childNodes);
+      const curremtWeek = Array.from(parentNode.childNodes);
+      const weekIndex = allWeeks.indexOf(parentNode);
+      const dayIndex = curremtWeek.indexOf(currentTarget);
+      const nextWeek = allWeeks[weekIndex + number];
+      const day = nextWeek && nextWeek.childNodes[dayIndex];
+
+      focus(day);
+    }
+
+    function focus(node) {
+      e.preventDefault();
+
+      if (!node) return;
+
+      const classes = node.getAttribute("class");
+
+      if (!classes.includes("hidden") && !classes.includes("disabled")) {
+        node.focus();
+      }
+    }
   }
 }
 

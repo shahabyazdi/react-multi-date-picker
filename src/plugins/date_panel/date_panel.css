@@ -24,9 +24,9 @@
   border-radius: 3px;
   box-shadow: 0 0 2px var(--rmdp-shadow);
   background-color: var(--rmdp-primary);
-  color: white;
   position: relative;
   margin: 4px 1px;
+  overflow: hidden;
 }
 
 .rmdp-panel-body li.bg-blue {
@@ -49,42 +49,26 @@
   box-shadow: 0 0 2px 1px var(--rmdp-shadow);
 }
 
-.rmdp-panel-body span {
-  margin: 0 5px;
-  line-height: 23px;
-  font-size: 15px;
-  text-align: start;
-  flex: 1;
+.rmdp-panel-body li button {
+  color: #fff;
 }
 
 .rmdp-panel-body li .b-deselect {
-  font-family: Arial !important;
-  align-items: center;
-  display: inline-flex;
   border: none;
-  cursor: pointer;
-  height: 12px;
-  width: 12px;
-  justify-content: center;
-  border-radius: 50%;
-  font-size: 16px;
-  position: absolute;
-  right: 5px;
-  top: 52%;
-  transform: translateY(-50%) rotate(45deg);
-  padding: 0;
-  line-height: 5px;
-  background: transparent;
+  background-color: var(--rmdp-primary);
+}
+
+.rmdp-panel-body li .b-deselect span {
+  transform: rotate(45deg);
+  display: block;
 }
 
 .rmdp-panel-body li .b-date {
   border: none;
-  background-color: var(--rmdp-primary);
+  background-color: transparent;
   font-size: 14px;
-}
-
-.rmdp-panel-body li .b-deselect:focus {
-  outline: none;
+  padding: 4px;
+  flex: 1;
 }
 
 .rmdp-panel-header {

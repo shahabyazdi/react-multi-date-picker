@@ -166,9 +166,8 @@ export default function Header({
   function getButton(direction) {
     let handleClick = (e) => {
         e.preventDefault();
-        if(document.activeElement.classList.contains('rmdp-arrow-container')) {
-          increaseValue(direction === "right" ? 1 : -1);
-        }
+
+        increaseValue(direction === "right" ? 1 : -1);
       },
       disabled =
         (direction === "left" && isPreviousDisable) ||
