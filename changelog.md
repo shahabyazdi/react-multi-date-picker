@@ -1,3 +1,15 @@
+# 4.2.0
+
+- Keyboard accessibility [#139](https://github.com/shahabyazdi/react-multi-date-picker/issues/139)
+
+# 4.1.2
+
+- multipleRangeSeparator type fix
+
+# 4.1.0
+
+- steps added to the time picked and analog time picker [#201](https://github.com/shahabyazdi/react-multi-date-picker/issues/201)
+
 # 4.0.0
 
 - multiple range picker.
