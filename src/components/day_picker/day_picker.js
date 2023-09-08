@@ -40,7 +40,9 @@ export default function DayPicker({
       onlyYearPicker,
     } = state,
     mustShowDayPicker = !onlyMonthPicker && !onlyYearPicker,
-    [dateHovered, setDateHovered] = useState();
+    [dateHovered, setDateHovered] = useState(),
+    isDateSelected =
+      multiple || range ? selectedDate?.length > 0 : !!selectedDate;
 
   ref.current.date = date;
 
@@ -125,9 +127,10 @@ export default function DayPicker({
                     className = className.replace("sd", "");
                   }
 
-                  const hasTabIndex =
-                    parentClassName.includes("selected") ||
-                    parentClassName.includes("range");
+                  const hasTabIndex = isDateSelected
+                    ? parentClassName.includes("selected") ||
+                      parentClassName.includes("range")
+                    : parentClassName.includes("today");
 
                   return (
                     <div

@@ -163,7 +163,8 @@ function DatePicker(
         if (
           element &&
           !element.contains(event.target) &&
-          !event.target.classList.contains("b-deselect")
+          !event.target.classList.contains("b-deselect") &&
+          !event.target.parentNode.classList.contains("b-deselect")
         ) {
           outsideList.push(element);
         }

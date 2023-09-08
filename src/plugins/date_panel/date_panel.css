@@ -51,6 +51,7 @@
 
 .rmdp-panel-body li button {
   color: #fff;
+  cursor: pointer;
 }
 
 .rmdp-panel-body li .b-deselect {
