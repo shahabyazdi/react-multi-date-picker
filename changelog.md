@@ -1,3 +1,7 @@
+# 4.2.1
+
+- tabIndex bug fix in range mode
+
 # 4.2.0
 
 - Keyboard accessibility [#139](https://github.com/shahabyazdi/react-multi-date-picker/issues/139)

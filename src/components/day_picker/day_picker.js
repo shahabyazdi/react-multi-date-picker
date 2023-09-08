@@ -125,10 +125,14 @@ export default function DayPicker({
                     className = className.replace("sd", "");
                   }
 
+                  const hasTabIndex =
+                    parentClassName.includes("selected") ||
+                    parentClassName.includes("range");
+
                   return (
                     <div
                       key={i}
-                      tabIndex={parentClassName.includes("selected") ? 0 : -1}
+                      tabIndex={hasTabIndex ? 0 : -1}
                       className={parentClassName}
                       onMouseEnter={() =>
                         rangeHover && setDateHovered(object.date)
