@@ -7,8 +7,13 @@ import getRangeClass from "../../shared/getRangeClass";
 import getRangeHoverClass from "../../shared/getRangeHoverClass";
 import { useState } from "react";
 
+const ariaLabelFormat = "dddd MMMM DD of YYYY";
+
+let timeout;
+
 export default function DayPicker({
   state,
+  setState,
   onChange,
   showOtherDays = false,
   mapDays,
@@ -28,6 +33,7 @@ export default function DayPicker({
   highlightToday,
 }) {
   const ref = useRef({}),
+    divRef = useRef(),
     {
       today,
       minDate,
@@ -70,6 +76,7 @@ export default function DayPicker({
   return (
     mustShowDayPicker && (
       <div
+        ref={divRef}
         className={`rmdp-day-picker ${fullYear ? "rmdp-full-year" : ""}`}
         style={{ display: fullYear ? "grid" : "flex" }}
         onMouseLeave={() => rangeHover && setDateHovered()}
@@ -136,11 +143,14 @@ export default function DayPicker({
                     <div
                       key={i}
                       tabIndex={hasTabIndex ? 0 : -1}
+                      aria-label={`Choose ${object.date.format(
+                        ariaLabelFormat
+                      )}`}
                       className={parentClassName}
                       onMouseEnter={() =>
                         rangeHover && setDateHovered(object.date)
                       }
-                      onKeyDown={handleKeyDown}
+                      onKeyDown={(e) => handleKeyDown(e, object)}
                       onClick={() => {
                         if (!mustDisplayDay(object) || object.disabled) {
                           return;
@@ -290,38 +300,47 @@ export default function DayPicker({
     return allProps;
   }
 
-  function handleKeyDown(e) {
+  function handleKeyDown(e, object) {
     const { currentTarget, key, code } = e;
-    const { nextSibling, previousSibling, parentNode } = currentTarget;
+    const numbers = { ArrowRight: 1, ArrowLeft: -1, ArrowUp: -7, ArrowDown: 7 };
 
     if (code === "Space" || key === " ") {
       e.preventDefault();
       currentTarget.click();
-    } else if (["ArrowRight", "ArrowLeft"].includes(key)) {
-      focus(key === "ArrowRight" ? nextSibling : previousSibling);
-    } else if (["ArrowUp", "ArrowDown"].includes(key)) {
-      const number = key === "ArrowUp" ? -1 : 1;
-      const allWeeks = Array.from(parentNode.parentNode.childNodes);
-      const curremtWeek = Array.from(parentNode.childNodes);
-      const weekIndex = allWeeks.indexOf(parentNode);
-      const dayIndex = curremtWeek.indexOf(currentTarget);
-      const nextWeek = allWeeks[weekIndex + number];
-      const day = nextWeek && nextWeek.childNodes[dayIndex];
-
-      focus(day);
-    }
-
-    function focus(node) {
+    } else if (Object.keys(numbers).includes(key)) {
       e.preventDefault();
 
-      if (!node) return;
+      const number = numbers[key];
+      const date = new DateObject(object.date).add(number, "day");
+      const div = getNode(date);
 
-      const classes = node.getAttribute("class");
+      focus(div);
 
-      if (!classes.includes("hidden") && !classes.includes("disabled")) {
-        node.focus();
+      function focus(node) {
+        if (!node) return next();
+
+        const classes = node.getAttribute("class");
+
+        if (!classes.includes("hidden") && !classes.includes("disabled")) {
+          node.focus();
+        } else {
+          next();
+        }
+      }
+
+      function next() {
+        setState({ ...state, date });
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() => focus(getNode(date)), 100);
       }
     }
+  }
+
+  function getNode(date) {
+    return divRef.current.querySelector(
+      `[aria-label*='${date.format(ariaLabelFormat)}']`
+    );
   }
 }
 

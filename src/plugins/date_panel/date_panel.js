@@ -117,9 +117,7 @@ export default function DatePanel({
               return (
                 <li
                   key={index}
-                  style={{
-                    display: isArray(object) ? "grid" : "flex",
-                  }}
+                  style={{ display: "flex" }}
                   className={`${
                     object.date?.color ? `bg-${object.date.color}` : ""
                   } ${
@@ -129,21 +127,23 @@ export default function DatePanel({
                       : ""
                   }`}
                 >
-                  {[object].flat().map((object, index) => (
-                    <button
-                      onKeyDown={handleKeyDown}
-                      key={index}
-                      type="button"
-                      className="b-date"
-                      onClick={() => selectDate(object.date, object.index)}
-                      style={{ cursor: object.date ? "pointer" : "default" }}
-                    >
-                      {formatFunction ? formatFunction(object) : object.format}
-                    </button>
-                  ))}
+                  <div>
+                    {[object].flat().map((object, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        className="b-date"
+                        onClick={() => selectDate(object.date, object.index)}
+                        style={{ cursor: object.date ? "pointer" : "default" }}
+                      >
+                        {formatFunction
+                          ? formatFunction(object)
+                          : object.format}
+                      </button>
+                    ))}
+                  </div>
                   {date && removeButton && (
                     <button
-                      onKeyDown={handleKeyDown}
                       type="button"
                       ariaDescription={`The date ${object.format} has been selected. Click to deselect it.`}
                       className="b-deselect"
@@ -203,32 +203,5 @@ export default function DatePanel({
 
   function handleClick(date) {
     if (onClickDate instanceof Function) onClickDate(date);
-  }
-
-  function handleKeyDown(e) {
-    const { key, currentTarget } = e;
-    const li = currentTarget.parentNode;
-    const list = Array.from(li.parentNode.childNodes);
-    const index = list.indexOf(li);
-
-    if (["ArrowRight", "ArrowLeft"].includes(key)) {
-      const { nextSibling, previousSibling } = currentTarget;
-
-      focus(key === "ArrowRight" ? nextSibling : previousSibling);
-    } else if (["ArrowUp", "ArrowDown"].includes(key)) {
-      const number = key === "ArrowUp" ? -1 : 1;
-      const buttons = Array.from(li.childNodes);
-      const buttonIndex = buttons.indexOf(currentTarget);
-      const nextLi = list[index + number];
-
-      focus(nextLi && nextLi.childNodes[buttonIndex]);
-    }
-
-    function focus(node) {
-      if (node) {
-        e.preventDefault();
-        node.focus();
-      }
-    }
   }
 }

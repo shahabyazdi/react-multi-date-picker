@@ -57,6 +57,7 @@
 .rmdp-panel-body li .b-deselect {
   border: none;
   background-color: var(--rmdp-primary);
+  font-size: 17px;
 }
 
 .rmdp-panel-body li .b-deselect span {
@@ -64,12 +65,16 @@
   display: block;
 }
 
+.rmdp-panel-body li div {
+  flex: 1;
+  display: grid;
+}
+
 .rmdp-panel-body li .b-date {
   border: none;
   background-color: transparent;
   font-size: 14px;
   padding: 4px;
-  flex: 1;
 }
 
 .rmdp-panel-header {
