@@ -74,6 +74,13 @@
   transform: translateY(-50%) rotate(45deg);
   padding: 0;
   line-height: 5px;
+  background: transparent;
+}
+
+.rmdp-panel-body li .b-date {
+  border: none;
+  background-color: var(--rmdp-primary);
+  font-size: 14px;
 }
 
 .rmdp-panel-body li .b-deselect:focus {

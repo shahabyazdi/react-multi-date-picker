@@ -71,6 +71,9 @@
   cursor: pointer;
   position: relative;
   color: black;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
 }
 
 .rmdp-week-day {
@@ -247,6 +250,8 @@
   display: flex;
   justify-content: center;
   margin: 0 5px;
+  background: transparent;
+  border: none;
 }
 
 .rmdp-arrow-container:hover {

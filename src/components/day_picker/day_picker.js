@@ -121,28 +121,37 @@ export default function DayPicker({
 
                   let parentClassName = getClassName(object, numberOfMonths);
 
-                  if (object.hidden || object.disabled)
+                  if (object.hidden || object.disabled) {
                     className = className.replace("sd", "");
+                  }
 
                   return (
-                    <div
-                      key={i}
-                      className={parentClassName}
-                      onMouseEnter={() =>
-                        rangeHover && setDateHovered(object.date)
-                      }
-                      onClick={() => {
-                        if (!mustDisplayDay(object) || object.disabled) return;
+                    <>
+                      {!parentClassName.includes("hidden") ? (
+                        <button
+                          key={i}
+                          className={parentClassName}
+                          onMouseEnter={() =>
+                            rangeHover && setDateHovered(object.date)
+                          }
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (!mustDisplayDay(object) || object.disabled)
+                              return;
 
-                        selectDay(object, monthIndex, numberOfMonths);
-                      }}
-                    >
-                      <span className={className} {...allProps}>
-                        {mustDisplayDay(object) && !object.hidden
-                          ? children ?? object.day
-                          : ""}
-                      </span>
-                    </div>
+                            selectDay(object, monthIndex, numberOfMonths);
+                          }}
+                        >
+                          <span className={className} {...allProps}>
+                            {mustDisplayDay(object) && !object.hidden
+                              ? children ?? object.day
+                              : ""}
+                          </span>
+                        </button>
+                      ) : (
+                        <span key={i} className={parentClassName}></span>
+                      )}
+                    </>
                   );
                 })}
               </div>

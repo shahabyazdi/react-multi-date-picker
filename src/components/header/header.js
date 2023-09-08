@@ -111,6 +111,8 @@ export default function Header({
             </div>
           ));
         }
+      default:
+        return;
     }
   }
 
@@ -162,7 +164,12 @@ export default function Header({
   }
 
   function getButton(direction) {
-    let handleClick = () => increaseValue(direction === "right" ? 1 : -1),
+    let handleClick = (e) => {
+        e.preventDefault();
+        if(document.activeElement.classList.contains('rmdp-arrow-container')) {
+          increaseValue(direction === "right" ? 1 : -1);
+        }
+      },
       disabled =
         (direction === "left" && isPreviousDisable) ||
         (direction === "right" && isNextDisable);
