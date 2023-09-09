@@ -637,6 +637,12 @@ export default function Example() {
           <td style="text-align:center">','</td>
           <td>DatePicker</td>
         </tr>
+         <tr>
+          <td>typingTimeout</td>
+          <td style="text-align:center"> string</td>
+          <td style="text-align:center">700</td>
+          <td>DatePicker</td>
+        </tr>
       </tbody>
     </table>
 

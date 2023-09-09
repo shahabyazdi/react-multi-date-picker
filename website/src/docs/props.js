@@ -514,6 +514,12 @@ export default function Doc({ translate, language }) {
             <td>','</td>
             <td>{translate("DatePicker")}</td>
           </tr>
+          <tr>
+            <td>typingTimeout</td>
+            <td> number</td>
+            <td>700</td>
+            <td>{translate("DatePicker")}</td>
+          </tr>
         </tbody>
       </table>
     ),

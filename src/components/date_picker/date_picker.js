@@ -71,6 +71,7 @@ function DatePicker(
     mobileButtons = [],
     dateSeparator,
     multipleRangeSeparator = ",",
+    typingTimeout = 700,
     ...otherProps
   },
   outerRef
@@ -83,7 +84,7 @@ function DatePicker(
     datePickerRef = useRef(),
     inputRef = useRef(),
     calendarRef = useRef(),
-    ref = useRef({}),
+    ref = useRef({ isTyping: false }),
     separator = dateSeparator || (range || weekPicker ? " ~ " : ", "),
     datePickerProps = arguments[0],
     isMobileMode = isMobile(),
@@ -261,11 +262,7 @@ function DatePicker(
       if (date) strDate = date.format();
     }
 
-    if (
-      getInputs(inputRef).every((input) => document.activeElement !== input)
-    ) {
-      setStringDate(strDate);
-    }
+    if (!ref.current.isTyping) setStringDate(strDate);
 
     ref.current = {
       ...ref.current,
@@ -577,6 +574,12 @@ function DatePicker(
 
   function handleValueChange(e) {
     if (!editable) return;
+
+    ref.current.isTyping = true;
+
+    setTimeout(() => {
+      ref.current.isTyping = false;
+    }, typingTimeout);
 
     ref.current.selection = e.target.selectionStart;
 

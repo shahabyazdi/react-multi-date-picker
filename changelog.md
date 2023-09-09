@@ -1,3 +1,7 @@
+# 4.3.0
+
+- typingTimeout prop added to the DatePicker
+
 # 4.2.1
 
 - tabIndex bug fix in range mode

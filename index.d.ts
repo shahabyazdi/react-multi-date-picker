@@ -504,6 +504,7 @@ declare module "react-multi-date-picker" {
     dateSeparator?: string;
     multipleRangeSeparator?: string;
     type?: string;
+    typingTimeout?: number;
   }
 
   export { DateObject };
