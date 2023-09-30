@@ -3,6 +3,7 @@ import React from "react";
 export default function Arrow({ direction, onClick, disabled }) {
   return (
     <button
+      type="button"
       className={`rmdp-arrow-container ${direction} ${
         disabled ? "disabled" : ""
       }`}
