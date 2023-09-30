@@ -437,6 +437,10 @@ function Calendar(
   }
 
   function handleChange(selectedDate, state) {
+    if (selectedDate instanceof DateObject) {
+      selectedDate = new DateObject(selectedDate);
+    }
+
     if (disabled) return;
     //This one must be done before setState
     if (selectedDate || selectedDate === null) {
