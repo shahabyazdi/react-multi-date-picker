@@ -496,10 +496,12 @@ declare module "react-multi-date-picker" {
       HTMLAttributes<HTMLButtonElement> & { label: string }
     >;
     onChange?(
-      selectedDates: DateObject | DateObject[] | null,
-      validatedValue: string | Array<string>,
-      input: HTMLElement,
-      isTyping: boolean
+      date: DateObject | DateObject[] | null,
+      options: {
+        validatedValue: string | Array<string>;
+        input: HTMLElement;
+        isTyping: boolean;
+      }
     ): void | false;
     dateSeparator?: string;
     multipleRangeSeparator?: string;
@@ -515,7 +517,7 @@ declare module "react-multi-date-picker" {
   ): DateObject[] | Date[];
   export function toDateObject(date: Date, calendar?: Calendar): DateObject;
   export default function DatePicker(
-    props: CalendarProps & DatePickerProps
+    props: Omit<CalendarProps, "onChange"> & DatePickerProps
   ): React.ReactElement;
 }
 

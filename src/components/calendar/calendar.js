@@ -75,7 +75,6 @@ function Calendar(
     highlightToday = true,
     headerOrder = ["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"],
     style = {},
-    ...rest
   },
   outerRef
 ) {

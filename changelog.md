@@ -1,3 +1,7 @@
+# 4.3.3
+
+onChange type in typescript fixed [#186](https://github.com/shahabyazdi/react-multi-date-picker/issues/186)
+
 # 4.3.2
 
 - button type added for Arrow component [#225](https://github.com/shahabyazdi/react-multi-date-picker/issues/225)
