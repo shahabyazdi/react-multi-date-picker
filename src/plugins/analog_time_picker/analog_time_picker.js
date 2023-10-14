@@ -13,7 +13,7 @@ import "../time_picker/time_picker.css";
 const getTransform = (number) => `rotate(${number}deg)`;
 
 const array = [
-  ["hour", "HH", 12],
+  ["hour", "HH", 24],
   ["minute", "mm", 60],
   ["second", "ss", 60],
 ];
