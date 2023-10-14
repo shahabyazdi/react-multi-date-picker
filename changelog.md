@@ -1,5 +1,6 @@
 # 4.3.4
 
+- DatePicker now prevents selecting disabled dates from the input [#230](https://github.com/shahabyazdi/react-multi-date-picker/issues/230)
 - CalendarRef & DatePickerRef added to the types [#232](https://github.com/shahabyazdi/react-multi-date-picker/issues/232)
 - Fixed a bug in the hour input of the AnalogTimePicker plugin [#233](https://github.com/shahabyazdi/react-multi-date-picker/issues/233)
 

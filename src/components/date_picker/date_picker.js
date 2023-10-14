@@ -17,6 +17,7 @@ import check from "../../shared/check";
 import getLocaleName from "../../shared/getLocaleName";
 import toLocaleDigits from "../../shared/toLocaleDigits";
 import isRTL from "../../shared/isRTL";
+import toDateObject from "../../shared/toDateObject";
 import "./date_picker.css";
 
 function DatePicker(
@@ -103,6 +104,12 @@ function DatePicker(
         popper.style.visibility = "hidden";
       }
 
+      if (ref.current.validInputValue) {
+        setStringDate(ref.current.validInputValue);
+
+        ref.current.validInputValue = undefined;
+      }
+
       setIsVisible(false);
       setIsCalendarReady(false);
     }, [onClose]),
@@ -145,6 +152,9 @@ function DatePicker(
   format = getFormat(onlyMonthPicker, onlyYearPicker, format);
 
   [calendar, locale] = check(calendar, locale);
+
+  minDate = minDate && toDateObject(minDate, calendar);
+  maxDate = maxDate && toDateObject(maxDate, calendar);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -539,9 +549,7 @@ function DatePicker(
     );
   }
 
-  function handleChange(date, force, inputValue) {
-    if (isMobileMode && !force) return setTemporaryDate(date);
-
+  function getInputValue(date) {
     let strDate = "";
 
     if (date) {
@@ -553,6 +561,31 @@ function DatePicker(
         strDate = getStringDate(date, separator);
       }
     }
+
+    return strDate;
+  }
+
+  function handleChange(date, force, inputValue) {
+    if (isMobileMode && !force) return setTemporaryDate(date);
+
+    const strDate = getInputValue(date);
+    const newValue = inputValue || strDate.toString().replace(/\s,\s$/, "");
+
+    if (
+      date &&
+      []
+        .concat(date)
+        .flat()
+        .some(
+          (date) => (minDate && date < minDate) || (maxDate && date > maxDate)
+        )
+    ) {
+      ref.current.validInputValue = getInputValue(value || ref.current.date);
+
+      return setStringDate(newValue);
+    }
+
+    ref.current.validInputValue = undefined;
 
     const mustUpdateState = onChange?.(date, {
       validatedValue: strDate,
@@ -567,7 +600,7 @@ function DatePicker(
     }
 
     setDate(date);
-    setStringDate(inputValue || strDate.toString().replace(/\s,\s$/, ""));
+    setStringDate(newValue);
 
     ref.current = { ...ref.current, date };
   }
