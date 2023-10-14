@@ -1,6 +1,10 @@
+# 4.3.4
+
+- CalendarRef & DatePickerRef added to the types [#232](https://github.com/shahabyazdi/react-multi-date-picker/issues/232)
+
 # 4.3.3
 
-onChange type in typescript fixed [#186](https://github.com/shahabyazdi/react-multi-date-picker/issues/186)
+- onChange type in typescript fixed [#186](https://github.com/shahabyazdi/react-multi-date-picker/issues/186)
 
 # 4.3.2
 

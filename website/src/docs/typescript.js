@@ -16,11 +16,11 @@ export default function Example() {
   const ref = {
     title: "Adding Ref to Calendar & DatePicker",
     code: `import React, { useRef } from "react";
-import DatePicker, { Calendar } from "react-multi-date-picker"
+import DatePicker, { Calendar, CalendarRef, DatePickerRef } from "react-multi-date-picker"
 
 export default function Example() {
-  const calendarRef = useRef<HTMLDivElement>();
-  const datepickerRef = useRef<HTMLDivElement>();
+  const calendarRef = useRef<CalendarRef>();
+  const datepickerRef = useRef<DatePickerRef>();
 
   return (
     <>

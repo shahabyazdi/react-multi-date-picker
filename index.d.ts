@@ -519,6 +519,37 @@ declare module "react-multi-date-picker" {
   export default function DatePicker(
     props: Omit<CalendarProps, "onChange"> & DatePickerProps
   ): React.ReactElement;
+
+  type SetDateProps = {
+    date?: DateObject;
+    year?: number;
+    month?: number;
+    months?: Array<string[]>;
+    weekDays?: Array<string[]>;
+    day?: number;
+    hour?: number;
+    minute?: number;
+    second?: number;
+    millisecond?: number;
+    calendar?: Calendar;
+    locale?: Locale;
+    format?: string;
+    ignoreList?: string[];
+    digits?: string[];
+  };
+
+  function set<K extends keyof SetDateProps = keyof SetDateProps>(
+    key: K,
+    value: SetDateProps[K]
+  ): void;
+
+  export type CalendarRef = HTMLDivElement & { set: typeof set };
+
+  export type DatePickerRef = HTMLDivElement & {
+    openCalendar: () => void;
+    closeCalendar: () => void;
+    refreshPosition: () => void;
+  };
 }
 
 declare module "react-multi-date-picker/plugins/date_panel" {
