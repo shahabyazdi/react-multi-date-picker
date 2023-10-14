@@ -515,7 +515,11 @@ declare module "react-multi-date-picker" {
     range: DateObject[],
     toDate?: boolean
   ): DateObject[] | Date[];
-  export function toDateObject(date: Date, calendar?: Calendar): DateObject;
+  export function toDateObject(
+    date: Date,
+    calendar?: Calendar,
+    format?: string
+  ): DateObject;
   export default function DatePicker(
     props: Omit<CalendarProps, "onChange"> & DatePickerProps
   ): React.ReactElement;

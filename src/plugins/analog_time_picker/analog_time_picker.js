@@ -7,6 +7,8 @@ import React, { useMemo } from "react";
 import Arrow from "../../../src/components/arrow/arrow";
 import Input from "../time_picker/input";
 import Select from "../time_picker/select";
+import DateObject from "react-date-object";
+import toDateObject from "../../shared/toDateObject";
 import "./analog_time_picker.css";
 import "../time_picker/time_picker.css";
 
@@ -30,6 +32,8 @@ export default function AnalogTimePicker({
   hStep = 1,
   mStep = 1,
   sStep = 1,
+  minDate,
+  maxDate,
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
     availbleDate = (multiple || range ? focused : selectedDate) || date,
@@ -138,6 +142,15 @@ export default function AnalogTimePicker({
   }
 
   function update(key, value) {
+    const date = new DateObject(availbleDate).set(key, value);
+
+    if (
+      (minDate && date < toDateObject(minDate, state.calendar, state.format)) ||
+      (maxDate && date > toDateObject(maxDate, state.calendar, state.format))
+    ) {
+      return;
+    }
+
     availbleDate[key] = value;
 
     handleChange(selectedDate, {

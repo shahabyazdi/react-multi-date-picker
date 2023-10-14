@@ -257,7 +257,8 @@ function Calendar(
         getSelectedDate(value, calendar, locale, format),
         minDate,
         maxDate,
-        calendar
+        calendar,
+        format
       );
 
       return {
@@ -391,6 +392,8 @@ function Calendar(
         handlePropsChange,
         //removing other arguments if exist.
         handleFocusedDate: (date) => handleFocusedDate(date),
+        minDate,
+        maxDate,
       },
       getPosition = (plugin) =>
         disableDayPicker ? "bottom" : plugin.props.position || "right";
@@ -571,16 +574,22 @@ function Calendar(
 
 export default forwardRef(Calendar);
 
-function getDateInRangeOfMinAndMaxDate(date, minDate, maxDate, calendar) {
+function getDateInRangeOfMinAndMaxDate(
+  date,
+  minDate,
+  maxDate,
+  calendar,
+  format
+) {
   if (minDate)
-    minDate = toDateObject(minDate, calendar).set({
+    minDate = toDateObject(minDate, calendar, format).set({
       hour: 0,
       minute: 0,
       second: 0,
       millisecond: 0,
     });
   if (maxDate)
-    maxDate = toDateObject(maxDate, calendar).set({
+    maxDate = toDateObject(maxDate, calendar, format).set({
       hour: 23,
       minute: 59,
       second: 59,

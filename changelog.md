@@ -1,3 +1,7 @@
+# 4.3.5
+
+- TimePicker plugin now prevents selecting disabled dates from the input [#230](https://github.com/shahabyazdi/react-multi-date-picker/issues/230)
+
 # 4.3.4
 
 - DatePicker now prevents selecting disabled dates from the input [#230](https://github.com/shahabyazdi/react-multi-date-picker/issues/230)

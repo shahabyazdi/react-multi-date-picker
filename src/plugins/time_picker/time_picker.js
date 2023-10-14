@@ -4,6 +4,8 @@ import Input from "./input";
 import getValidProps from "../../shared/getValidProps";
 import "./time_picker.css";
 import Select from "./select";
+import DateObject from "react-date-object";
+import toDateObject from "../../shared/toDateObject";
 
 export default function TimePicker({
   state,
@@ -22,6 +24,8 @@ export default function TimePicker({
   hStep = 1,
   mStep = 1,
   sStep = 1,
+  minDate,
+  maxDate,
   ...props
 }) {
   let { date, selectedDate, multiple, range, focused } = state,
@@ -134,6 +138,15 @@ export default function TimePicker({
   );
 
   function update(key, value) {
+    const date = new DateObject(availbleDate).set(key, value);
+
+    if (
+      (minDate && date < toDateObject(minDate, state.calendar, state.format)) ||
+      (maxDate && date > toDateObject(maxDate, state.calendar, state.format))
+    ) {
+      return;
+    }
+
     availbleDate[key] = value;
 
     setDate();
