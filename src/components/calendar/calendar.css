@@ -162,7 +162,7 @@
   border-bottom-right-radius: 15px;
 }
 
-.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+.rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden, .rmdp-selected) span:hover {
   background-color: var(--rmdp-hover);
   color: white;
 }
