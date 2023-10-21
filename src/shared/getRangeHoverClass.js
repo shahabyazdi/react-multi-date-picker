@@ -39,7 +39,10 @@ export default function getRangeHoverClass(
         names.push(strHovered > strSelected ? "end" : "start");
       }
 
-      if (selectedDate.flat().some((date) => date.format(format) === strDay)) {
+      if (
+        isArray(selectedDate) &&
+        selectedDate.flat().some((date) => date.format(format) === strDay)
+      ) {
         names.push("force");
       }
     }
