@@ -181,17 +181,16 @@ export default function MonthPicker({
       } else {
         names.push(getRangeClass(dateObject, selectedDate, true, multiple));
 
-        if (!multiple) {
-          names = names.concat(
-            getRangeHoverClass(
-              dateObject,
-              selectedDate,
-              dateHovered,
-              rangeHover,
-              "month"
-            )
-          );
-        }
+        names = names.concat(
+          getRangeHoverClass(
+            dateObject,
+            selectedDate,
+            dateHovered,
+            rangeHover,
+            "month",
+            multiple
+          )
+        );
       }
     }
 

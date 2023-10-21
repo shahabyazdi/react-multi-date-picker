@@ -1,17 +1,33 @@
+import isArray from "./isArray";
+
 export default function getRangeHoverClass(
   date,
   selectedDate,
   dateHovered,
   rangeHover,
-  type = "day"
+  type = "day",
+  multiple
 ) {
   const names = [];
 
-  if (rangeHover && selectedDate?.length === 1 && dateHovered) {
+  if (rangeHover && dateHovered) {
     const format = type === "day" ? "YYYY/MM/DD" : "YYYY/MM";
     const strHovered = dateHovered.format(format);
-    const strSelected = selectedDate[0].format(format);
     const strDay = date.format(format);
+
+    let strSelected;
+
+    if (!multiple && selectedDate?.length === 1) {
+      strSelected = selectedDate[0].format(format);
+    } else if (multiple && isArray(selectedDate)) {
+      for (let range of selectedDate) {
+        if (isArray(range) && range.length === 1) {
+          strSelected = range[0].format(format);
+
+          break;
+        }
+      }
+    }
 
     if (
       (strDay > strSelected && strDay <= strHovered) ||
@@ -21,6 +37,10 @@ export default function getRangeHoverClass(
 
       if (strDay === strHovered) {
         names.push(strHovered > strSelected ? "end" : "start");
+      }
+
+      if (selectedDate.flat().some((date) => date.format(format) === strDay)) {
+        names.push("force");
       }
     }
   }

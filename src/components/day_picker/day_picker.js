@@ -255,11 +255,16 @@ export default function DayPicker({
       if (range && !object.disabled && mustDisplaySelectedDate) {
         names.push(getRangeClass(date, selectedDate, undefined, multiple));
 
-        if (!multiple) {
-          names = names.concat(
-            getRangeHoverClass(date, selectedDate, dateHovered, rangeHover)
-          );
-        }
+        names = names.concat(
+          getRangeHoverClass(
+            date,
+            selectedDate,
+            dateHovered,
+            rangeHover,
+            undefined,
+            multiple
+          )
+        );
       }
     }
 

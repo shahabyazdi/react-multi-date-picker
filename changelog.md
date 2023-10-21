@@ -1,3 +1,11 @@
+# 4.4.0
+
+- rangeHover prop is now supported in the multiple-range mode. [#234](https://github.com/shahabyazdi/react-multi-date-picker/issues/234)
+
+# 4.3.6
+
+- Ignore hover class for selected day in the mobile mode [#202](https://github.com/shahabyazdi/react-multi-date-picker/issues/202)
+
 # 4.3.5
 
 - TimePicker plugin now prevents selecting disabled dates from the input [#230](https://github.com/shahabyazdi/react-multi-date-picker/issues/230)
