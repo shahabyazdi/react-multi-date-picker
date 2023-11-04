@@ -1,3 +1,7 @@
+# 4.4.2
+
+- Added isOpen type to DatePickerRef [#246](https://github.com/shahabyazdi/react-multi-date-picker/issues/246)
+
 # 4.4.1
 
 - Using media query to apply hover style for days. [#202](https://github.com/shahabyazdi/react-multi-date-picker/issues/202#issuecomment-1773860684)

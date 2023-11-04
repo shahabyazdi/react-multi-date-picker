@@ -553,6 +553,7 @@ declare module "react-multi-date-picker" {
     openCalendar: () => void;
     closeCalendar: () => void;
     refreshPosition: () => void;
+    isOpen: boolean;
   };
 }
 
