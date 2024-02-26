@@ -246,6 +246,7 @@ export default function Header({
   }
 
   function setTabIndex(e) {
+    e.persist();
     setTimeout(() => {
       const calendar = e.target.closest(".rmdp-calendar");
 
