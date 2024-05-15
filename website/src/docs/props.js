@@ -498,27 +498,33 @@ export default function Doc({ translate, language }) {
           </tr>
           <tr>
             <td>mobileButtons</td>
-            <td> HTMLButtonElement[]</td>
+            <td>HTMLButtonElement[]</td>
             <td>[]</td>
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
             <td>dateSeparator</td>
-            <td> string</td>
+            <td>String</td>
             <td>{translate("'~' in range mode, ',' in multiple mode")}</td>
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
             <td>multipleRangeSeparator</td>
-            <td> string</td>
+            <td>String</td>
             <td>','</td>
             <td>{translate("DatePicker")}</td>
           </tr>
           <tr>
             <td>typingTimeout</td>
-            <td> number</td>
+            <td>Number</td>
             <td>700</td>
             <td>{translate("DatePicker")}</td>
+          </tr>
+          <tr>
+            <td>autoFocus</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>{translate("Calendar")}</td>
           </tr>
         </tbody>
       </table>

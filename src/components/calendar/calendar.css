@@ -73,6 +73,18 @@
   color: black;
 }
 
+.rmdp-calendar *:focus {
+  outline-color: #00539c;
+}
+
+.rmdp-day:not(.rmdp-range):focus {
+  border-radius: 50%;
+}
+
+.rmdp-ym .rmdp-day:not(.rmdp-range):focus {
+  border-radius: 15px;
+}
+
 .rmdp-week-day {
   cursor: default;
   color: var(--rmdp-primary);

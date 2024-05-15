@@ -621,27 +621,33 @@ export default function Example() {
         </tr>
         <tr>
           <td>mobileButtons</td>
-          <td style="text-align:center"> HTMLButtonElement[]</td>
+          <td style="text-align:center">HTMLButtonElement[]</td>
           <td style="text-align:center">[]</td>
           <td>DatePicker</td>
         </tr>
         <tr>
           <td>dateSeparator</td>
-          <td style="text-align:center"> string</td>
+          <td style="text-align:center">String</td>
           <td style="text-align:center">'~' in range mode, ',' in multiple mode</td>
           <td>DatePicker</td>
         </tr>
         <tr>
           <td>multipleRangeSeparator</td>
-          <td style="text-align:center"> string</td>
+          <td style="text-align:center">String</td>
           <td style="text-align:center">','</td>
           <td>DatePicker</td>
         </tr>
-         <tr>
+        <tr>
           <td>typingTimeout</td>
-          <td style="text-align:center"> string</td>
+          <td style="text-align:center">String</td>
           <td style="text-align:center">700</td>
           <td>DatePicker</td>
+        </tr>
+        <tr>
+          <td>autoFocus</td>
+          <td style="text-align:center">Boolean</td>
+          <td style="text-align:center">false</td>
+          <td>Calendar</td>
         </tr>
       </tbody>
     </table>

@@ -88,6 +88,7 @@ export default function Demo({ language = "en", translate }) {
     weekDays: "3",
     months: "2",
     highlightToday: "on",
+    autoFocus: true,
   });
 
   const {

@@ -1,19 +1,16 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import DateObject from "react-date-object";
 import WeekDays from "../week_days/week_days";
 import selectDate from "../../shared/selectDate";
 import isSameDate from "../../shared/isSameDate";
 import getRangeClass from "../../shared/getRangeClass";
 import getRangeHoverClass from "../../shared/getRangeHoverClass";
-import { useState } from "react";
+import handleFocus from "../../shared/handleFocus";
 
 const ariaLabelFormat = "dddd MMMM DD of YYYY";
 
-let timeout;
-
 export default function DayPicker({
   state,
-  setState,
   onChange,
   showOtherDays = false,
   mapDays,
@@ -44,11 +41,11 @@ export default function DayPicker({
       selectedDate,
       onlyMonthPicker,
       onlyYearPicker,
+      mustShowMonthPicker,
+      mustShowYearPicker,
     } = state,
     mustShowDayPicker = !onlyMonthPicker && !onlyYearPicker,
-    [dateHovered, setDateHovered] = useState(),
-    isDateSelected =
-      multiple || range ? selectedDate?.length > 0 : !!selectedDate;
+    [dateHovered, setDateHovered] = useState();
 
   ref.current.date = date;
 
@@ -80,6 +77,9 @@ export default function DayPicker({
         className={`rmdp-day-picker ${fullYear ? "rmdp-full-year" : ""}`}
         style={{ display: fullYear ? "grid" : "flex" }}
         onMouseLeave={() => rangeHover && setDateHovered()}
+        data-active={
+          mustShowDayPicker && !mustShowMonthPicker && !mustShowYearPicker
+        }
       >
         {months.map((weeks, monthIndex) => (
           <div
@@ -134,15 +134,10 @@ export default function DayPicker({
                     className = className.replace("sd", "");
                   }
 
-                  const hasTabIndex = isDateSelected
-                    ? parentClassName.includes("selected") ||
-                      parentClassName.includes("range")
-                    : parentClassName.includes("today");
-
                   return (
                     <div
                       key={i}
-                      tabIndex={hasTabIndex ? 0 : -1}
+                      tabIndex={-1}
                       aria-label={`Choose ${object.date.format(
                         ariaLabelFormat
                       )}`}
@@ -150,7 +145,9 @@ export default function DayPicker({
                       onMouseEnter={() =>
                         rangeHover && setDateHovered(object.date)
                       }
-                      onKeyDown={(e) => handleKeyDown(e, object)}
+                      onKeyDown={(e) =>
+                        handleFocus(e, object, { format: ariaLabelFormat })
+                      }
                       onClick={() => {
                         if (!mustDisplayDay(object) || object.disabled) {
                           return;
@@ -303,49 +300,6 @@ export default function DayPicker({
     delete allProps.hidden;
 
     return allProps;
-  }
-
-  function handleKeyDown(e, object) {
-    const { currentTarget, key, code } = e;
-    const numbers = { ArrowRight: 1, ArrowLeft: -1, ArrowUp: -7, ArrowDown: 7 };
-
-    if (code === "Space" || key === " ") {
-      e.preventDefault();
-      currentTarget.click();
-    } else if (Object.keys(numbers).includes(key)) {
-      e.preventDefault();
-
-      const number = numbers[key];
-      const date = new DateObject(object.date).add(number, "day");
-      const div = getNode(date);
-
-      focus(div);
-
-      function focus(node) {
-        if (!node) return next();
-
-        const classes = node.getAttribute("class");
-
-        if (!classes.includes("hidden") && !classes.includes("disabled")) {
-          node.focus();
-        } else {
-          next();
-        }
-      }
-
-      function next() {
-        setState({ ...state, date });
-        clearTimeout(timeout);
-
-        timeout = setTimeout(() => focus(getNode(date)), 100);
-      }
-    }
-  }
-
-  function getNode(date) {
-    return divRef.current.querySelector(
-      `[aria-label*='${date.format(ariaLabelFormat)}']`
-    );
   }
 }
 

@@ -5,7 +5,11 @@ import getRangeClass from "../../shared/getRangeClass";
 import isArray from "../../shared/isArray";
 import stringify from "../../shared/stringify";
 import getRangeHoverClass from "../../shared/getRangeHoverClass";
+import handleFocus, { findFocusable } from "../../shared/handleFocus";
 import DateObject from "react-date-object";
+import { findCalendar } from "../../shared/findNode";
+
+const ariaLabelFormat = "MMMM of YYYY";
 
 export default function MonthPicker({
   state,
@@ -95,6 +99,7 @@ export default function MonthPicker({
     <div
       className={`${onlyMonthPicker ? "only " : ""}rmdp-month-picker`}
       style={{ display: mustShowMonthPicker ? "flex" : "none" }}
+      data-active={mustShowMonthPicker}
       onMouseLeave={() => rangeHover && setDateHovered()}
     >
       {years.map((months, yearIndex) => (
@@ -104,8 +109,17 @@ export default function MonthPicker({
               {array.map(({ date, name }, j) => (
                 <div
                   key={j}
+                  aria-label={`Select ${date.format(ariaLabelFormat)}`}
+                  tabIndex={-1}
+                  onKeyDown={(e) =>
+                    handleFocus(
+                      e,
+                      { date },
+                      { format: ariaLabelFormat, type: "month" }
+                    )
+                  }
                   className={getClassName(date)}
-                  onClick={() => selectMonth(date)}
+                  onClick={(e) => selectMonth(date, e)}
                   onMouseEnter={() => rangeHover && setDateHovered(date)}
                 >
                   <span className={onlyMonthPicker ? "sd" : ""}>{name}</span>
@@ -118,7 +132,7 @@ export default function MonthPicker({
     </div>
   );
 
-  function selectMonth(dateObject) {
+  function selectMonth(dateObject, e) {
     let { selectedDate, focused } = state,
       { year, monthIndex } = dateObject;
 
@@ -134,6 +148,7 @@ export default function MonthPicker({
       [selectedDate, focused] = selectDate(dateObject, sort, state);
     } else {
       handleMonthChange(date);
+      findFocusable(findCalendar(e.target));
     }
 
     onChange(onlyMonthPicker ? selectedDate : undefined, {

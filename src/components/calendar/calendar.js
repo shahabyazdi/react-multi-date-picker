@@ -17,6 +17,7 @@ import isArray from "../../shared/isArray";
 import check from "../../shared/check";
 import toLocaleDigits from "../../shared/toLocaleDigits";
 import isRTL from "../../shared/isRTL";
+import { findFocusable } from "../../shared/handleFocus";
 import "./calendar.css";
 
 function Calendar(
@@ -75,6 +76,7 @@ function Calendar(
     highlightToday = true,
     headerOrder = ["LEFT_BUTTON", "MONTH_YEAR", "RIGHT_BUTTON"],
     style = {},
+    autoFocus = false,
   },
   outerRef
 ) {
@@ -301,6 +303,14 @@ function Calendar(
       numberOfMonths,
     },
     { datePickerProps, DatePicker, ...calendarProps } = arguments[0];
+
+  useEffect(() => {
+    const { Calendar } = ref.current;
+
+    if (!Calendar) return;
+
+    findFocusable(Calendar, undefined, autoFocus && !DatePicker);
+  }, [autoFocus, state.today, DatePicker]);
 
   initPlugins();
 

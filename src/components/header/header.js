@@ -1,6 +1,8 @@
 import React, { isValidElement, cloneElement } from "react";
 import Arrow from "../arrow/arrow";
 import { Fragment } from "react";
+import { findFocusable } from "../../shared/handleFocus";
+import { findCalendar } from "../../shared/findNode";
 
 export default function Header({
   state,
@@ -121,13 +123,17 @@ export default function Header({
       case "MONTH":
         return (
           <span
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
             style={{
               cursor:
                 disabled || disableMonthPicker || onlyMonthPicker
                   ? "default"
                   : "pointer",
             }}
-            onClick={() => !disableMonthPicker && toggle("mustShowMonthPicker")}
+            onClick={(e) =>
+              !disableMonthPicker && toggle("mustShowMonthPicker", e)
+            }
           >
             {getMonth(month, years[index])}
           </span>
@@ -135,19 +141,36 @@ export default function Header({
       case "YEAR":
         return (
           <span
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
             style={{
               cursor:
                 disabled || disableYearPicker || onlyYearPicker
                   ? "default"
                   : "pointer",
             }}
-            onClick={() => !disableYearPicker && toggle("mustShowYearPicker")}
+            onClick={(e) =>
+              !disableYearPicker && toggle("mustShowYearPicker", e)
+            }
           >
             {getYear(years[index], month)}
           </span>
         );
       default:
         return item;
+    }
+  }
+
+  function handleKeyDown(e) {
+    const { currentTarget, key, code } = e;
+
+    if (code === "Space" || key === " ") {
+      e.preventDefault();
+      currentTarget.click();
+    } else if (code === "ArrowDown") {
+      e.preventDefault();
+
+      findFocusable(findCalendar(e.target));
     }
   }
 
@@ -167,27 +190,32 @@ export default function Header({
     let handleClick = (e) => {
         e.preventDefault();
 
-        increaseValue(direction === "right" ? 1 : -1);
-        setTabIndex(e);
+        increaseValue(direction === "right" ? 1 : -1, e);
       },
       disabled =
         (direction === "left" && isPreviousDisable) ||
         (direction === "right" && isNextDisable);
 
     return renderButton instanceof Function ? (
-      renderButton(direction, handleClick, disabled)
+      renderButton(direction, handleClick, disabled, handleKeyDown)
     ) : isValidElement(renderButton) ? (
-      cloneElement(renderButton, { direction, handleClick, disabled })
+      cloneElement(renderButton, {
+        direction,
+        handleClick,
+        disabled,
+        onKeyDown: handleKeyDown,
+      })
     ) : (
       <Arrow
         direction={`rmdp-${direction}`}
         onClick={handleClick}
+        onKeyDown={handleKeyDown}
         disabled={disabled}
       />
     );
   }
 
-  function increaseValue(value) {
+  function increaseValue(value, e) {
     if (
       disabled ||
       (value < 0 && isPreviousDisable) ||
@@ -214,14 +242,11 @@ export default function Header({
       if (value > 0 && maxDate && year > maxDate.year) year = maxDate.year;
     }
 
-    setState({
-      ...state,
-      date,
-      year,
-    });
+    setState({ ...state, date, year });
+    findFocusable(findCalendar(e.target), undefined, false);
   }
 
-  function toggle(picker) {
+  function toggle(picker, e) {
     if (disabled) return;
 
     let object = {
@@ -231,10 +256,8 @@ export default function Header({
 
     object[picker] = !state[picker];
 
-    setState({
-      ...state,
-      ...object,
-    });
+    setState({ ...state, ...object });
+    findFocusable(findCalendar(e.target), undefined, false);
   }
 
   function getMonth(month, year) {
@@ -243,29 +266,5 @@ export default function Header({
 
   function getYear(year, month) {
     return typeof formatMonth === "function" ? formatYear(year, month) : year;
-  }
-
-  function setTabIndex(e) {
-    setTimeout(() => {
-      const calendar = e.target.closest(".rmdp-calendar");
-
-      if (!calendar) return;
-
-      let div = calendar.querySelector("div[tabindex='0']");
-
-      if (div && div.getAttribute("class").includes("hidden")) {
-        div.setAttribute("tabindex", "-1");
-
-        div = undefined;
-      }
-
-      if (!div) {
-        div = calendar.querySelector(
-          "div[tabindex='-1']:not(.rmdp-day-hidden)"
-        );
-
-        if (div) div.setAttribute("tabindex", "0");
-      }
-    }, 200);
   }
 }

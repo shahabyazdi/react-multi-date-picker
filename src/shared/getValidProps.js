@@ -11,6 +11,8 @@ export default function getValidProps({
   DatePicker,
   handlePropsChange,
   handleFocusedDate,
+  minDate,
+  maxDate,
   ...otherProps
 }) {
   return otherProps;

@@ -3,6 +3,10 @@ import selectDate from "../../shared/selectDate";
 import toLocaleDigits from "../../shared/toLocaleDigits";
 import DateObject from "react-date-object";
 import isArray from "../../shared/isArray";
+import handleFocus, { findFocusable } from "../../shared/handleFocus";
+import { findCalendar } from "../../shared/findNode";
+
+const ariaLabelFormat = "YYYY";
 
 export default function YearPicker({
   state,
@@ -53,6 +57,7 @@ export default function YearPicker({
     <div
       className={`${onlyYearPicker ? "only " : ""}rmdp-year-picker`}
       style={{ display: mustShowYearPicker ? "block" : "none" }}
+      data-active={mustShowYearPicker}
     >
       {years.map((array, i) => (
         <div
@@ -63,8 +68,17 @@ export default function YearPicker({
           {array.map((year, j) => (
             <div
               key={j}
+              aria-label={`Select year ${year}`}
+              tabIndex={-1}
+              onKeyDown={(e) =>
+                handleFocus(
+                  e,
+                  { year, date },
+                  { format: ariaLabelFormat, type: "year" }
+                )
+              }
               className={getClassName(year)}
-              onClick={() => selectYear(year)}
+              onClick={(e) => selectYear(year, e)}
               onMouseEnter={() => rangeHover && setyearHovered(year)}
             >
               <span className={onlyYearPicker ? "sd" : ""}>
@@ -77,7 +91,7 @@ export default function YearPicker({
     </div>
   );
 
-  function selectYear(year) {
+  function selectYear(year, e) {
     if (notInRange(year)) return;
 
     let date = new DateObject(state.date).setYear(year),
@@ -93,6 +107,7 @@ export default function YearPicker({
       }
 
       onYearChange?.(date);
+      findFocusable(findCalendar(e.target));
     }
 
     onChange(onlyYearPicker ? selectedDate : undefined, {

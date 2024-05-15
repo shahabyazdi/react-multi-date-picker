@@ -329,6 +329,7 @@ declare module "react-multi-date-picker" {
     formatYear?: (year: string, month: string) => string;
     highlightToday?: boolean;
     headerOrder?: Array<HeaderItem>;
+    autoFocus?: boolean;
   }
 
   export interface DatePickerProps {

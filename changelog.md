@@ -1,3 +1,7 @@
+# 4.5.0
+
+- Keyboard accessibility improvement [#290](https://github.com/shahabyazdi/react-multi-date-picker/issues/290), [#245](https://github.com/shahabyazdi/react-multi-date-picker/issues/245), [#260](https://github.com/shahabyazdi/react-multi-date-picker/issues/260)
+
 # 4.4.2
 
 - Added isOpen type to DatePickerRef [#246](https://github.com/shahabyazdi/react-multi-date-picker/issues/246)
