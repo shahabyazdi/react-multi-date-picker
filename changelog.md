@@ -3,6 +3,7 @@
 - Prevent showing the week of the next month [#294](https://github.com/shahabyazdi/react-multi-date-picker/issues/294)
 
 - Better type support for TypeScript
+- MapDaysProps added to the index.d.ts [#288](https://github.com/shahabyazdi/react-multi-date-picker/issues/288)
 
 # 4.5.0
 

@@ -28,6 +28,17 @@ declare module "react-multi-date-picker" {
     ? DateObject[]
     : DateObject[][];
 
+  export type MapDaysProps<
+    Multiple extends boolean = false,
+    Range extends boolean = false
+  > = {
+    date: DateObject;
+    today: DateObject;
+    selectedDate: TValue<Multiple, Range>;
+    currentMonth: DateObject["month"];
+    isSameDate(arg1: DateObject, arg2: DateObject): boolean;
+  };
+
   export type HeaderItem =
     | "MONTH_YEAR"
     | "YEAR_MONTH"
@@ -241,12 +252,7 @@ declare module "react-multi-date-picker" {
      *  }}
      * />
      */
-    mapDays?(object: {
-      date: DateObject;
-      selectedDate: TValue<Multiple, Range>;
-      currentMonth: object;
-      isSameDate(arg1: DateObject, arg2: DateObject): boolean;
-    }):
+    mapDays?(props: MapDaysProps<Multiple, Range>):
       | (HTMLAttributes<HTMLSpanElement> & {
           disabled?: boolean;
           hidden?: boolean;
