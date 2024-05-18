@@ -1,3 +1,7 @@
+# 4.5.1
+
+- Prevent showing the week of the next month [#294](https://github.com/shahabyazdi/react-multi-date-picker/issues/294)
+
 # 4.5.0
 
 - Keyboard accessibility improvement [#290](https://github.com/shahabyazdi/react-multi-date-picker/issues/290), [#245](https://github.com/shahabyazdi/react-multi-date-picker/issues/245), [#260](https://github.com/shahabyazdi/react-multi-date-picker/issues/260)
