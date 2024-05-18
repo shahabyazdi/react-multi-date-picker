@@ -11,6 +11,10 @@ declare module "react-multi-date-picker" {
     | string[]
     | number[]
     | DateObject[]
+    | Date[][]
+    | string[][]
+    | number[][]
+    | DateObject[][]
     | null;
 
   export type FunctionalPlugin = { type: string; fn: Function };
