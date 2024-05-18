@@ -2,23 +2,31 @@ declare module "react-multi-date-picker" {
   import React, { HTMLAttributes } from "react";
   import DateObject, { Calendar, Locale } from "react-date-object";
 
-  export type Value =
-    | Date
-    | string
-    | number
-    | DateObject
-    | Date[]
-    | string[]
-    | number[]
-    | DateObject[]
-    | Date[][]
-    | string[][]
-    | number[][]
-    | DateObject[][]
-    | null;
-
+  export type Value = Date | string | number | DateObject | null;
   export type FunctionalPlugin = { type: string; fn: Function };
   export type Plugin = React.ReactElement | FunctionalPlugin;
+
+  type TValue<
+    Multiple extends boolean = false,
+    Range extends boolean = false
+  > = Multiple extends false
+    ? Range extends false
+      ? Value
+      : Value[]
+    : Range extends false
+    ? Value[]
+    : Value[][];
+
+  export type ChangedValue<
+    Multiple extends boolean = false,
+    Range extends boolean = false
+  > = Multiple extends false
+    ? Range extends false
+      ? DateObject | null
+      : DateObject[]
+    : Range extends false
+    ? DateObject[]
+    : DateObject[][];
 
   export type HeaderItem =
     | "MONTH_YEAR"
@@ -36,7 +44,10 @@ declare module "react-multi-date-picker" {
     separator?: string;
   };
 
-  export interface CalendarProps {
+  export interface CalendarProps<
+    Multiple extends boolean = false,
+    Range extends boolean = false
+  > {
     ref?: React.MutableRefObject<any>;
     /**
      * @types Date | string | number | DateObject
@@ -45,7 +56,7 @@ declare module "react-multi-date-picker" {
      * <Calendar value={new Date()} />
      * <DatePicker value={[new Date(), new Date(2020, 2, 12)]} />
      */
-    value?: Value;
+    value?: TValue<Multiple, Range>;
     /**
      * default calendar is gregorian.
      *
@@ -121,7 +132,7 @@ declare module "react-multi-date-picker" {
      *
      * <DatePicker range />
      */
-    range?: boolean;
+    range?: Range;
     /**
      * @example
      * <Calendar
@@ -131,7 +142,7 @@ declare module "react-multi-date-picker" {
      *
      * <DatePicker multiple />
      */
-    multiple?: boolean;
+    multiple?: Multiple;
     /**
      * Calendar wrapper className
      */
@@ -187,7 +198,7 @@ declare module "react-multi-date-picker" {
      *  }}
      * />
      */
-    onChange?(selectedDates: DateObject | DateObject[] | null): void | false;
+    onChange?(selectedDates: ChangedValue<Multiple, Range>): void | false;
     showOtherDays?: boolean;
     /**
      * the date you set in datepicker as value must be equal or bigger than min date.
@@ -232,7 +243,7 @@ declare module "react-multi-date-picker" {
      */
     mapDays?(object: {
       date: DateObject;
-      selectedDate: DateObject | DateObject[];
+      selectedDate: TValue<Multiple, Range>;
       currentMonth: object;
       isSameDate(arg1: DateObject, arg2: DateObject): boolean;
     }):
@@ -336,7 +347,10 @@ declare module "react-multi-date-picker" {
     autoFocus?: boolean;
   }
 
-  export interface DatePickerProps {
+  export interface DatePickerProps<
+    Multiple extends boolean = false,
+    Range extends boolean = false
+  > {
     arrow?: boolean | React.ReactElement;
     arrowClassName?: string;
     arrowStyle?: React.CSSProperties;
@@ -501,7 +515,7 @@ declare module "react-multi-date-picker" {
       HTMLAttributes<HTMLButtonElement> & { label: string }
     >;
     onChange?(
-      date: DateObject | DateObject[] | null,
+      date: ChangedValue<Multiple, Range>,
       options: {
         validatedValue: string | Array<string>;
         input: HTMLElement;
@@ -515,18 +529,29 @@ declare module "react-multi-date-picker" {
   }
 
   export { DateObject };
-  export function Calendar(props: CalendarProps): React.ReactElement;
+
+  export function Calendar<
+    Multiple extends boolean = false,
+    Range extends boolean = false
+  >(props: CalendarProps<Multiple, Range>): React.ReactElement;
+
   export function getAllDatesInRange(
     range: DateObject[],
     toDate?: boolean
   ): DateObject[] | Date[];
+
   export function toDateObject(
     date: Date,
     calendar?: Calendar,
     format?: string
   ): DateObject;
-  export default function DatePicker(
-    props: Omit<CalendarProps, "onChange"> & DatePickerProps
+
+  export default function DatePicker<
+    Multiple extends boolean = false,
+    Range extends boolean = false
+  >(
+    props: Omit<CalendarProps<Multiple, Range>, "onChange"> &
+      DatePickerProps<Multiple, Range>
   ): React.ReactElement;
 
   type SetDateProps = {
