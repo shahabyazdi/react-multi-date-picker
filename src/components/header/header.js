@@ -1,5 +1,6 @@
 import React, { isValidElement, cloneElement } from "react";
 import Arrow from "../arrow/arrow";
+import DateObject from "react-date-object";
 import { Fragment } from "react";
 import { findFocusable } from "../../shared/handleFocus";
 import { findCalendar } from "../../shared/findNode";
@@ -22,6 +23,7 @@ export default function Header({
   formatMonth,
   formatYear,
   headerOrder,
+  onYearChange,
 }) {
   let style = {},
     {
@@ -225,6 +227,8 @@ export default function Header({
 
     if (fullYear) {
       date.year += value;
+
+      onYearChange?.(new DateObject(date));
     } else if (!mustShowYearPicker && !onlyYearPicker) {
       date.toFirstOfMonth();
 

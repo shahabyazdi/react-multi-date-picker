@@ -347,6 +347,7 @@ function Calendar(
                 formatMonth,
                 formatYear,
                 headerOrder,
+                onYearChange,
               }}
             />
             <div style={{ position: "relative" }}>
