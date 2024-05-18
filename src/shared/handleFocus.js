@@ -12,10 +12,12 @@ export default function handleFocus(e, object, { type = "day", format }) {
 
   const { currentTarget, key, code } = e;
   const skip = type === "day" ? 7 : 3;
+  const calendar = findCalendar(currentTarget);
+  const isRtl = calendar && calendar.classList.contains("rmdp-rtl");
 
   const numbers = {
-    ArrowRight: 1,
-    ArrowLeft: -1,
+    ArrowRight: isRtl ? -1 : 1,
+    ArrowLeft: isRtl ? 1 : -1,
     ArrowUp: -skip,
     ArrowDown: skip,
   };
@@ -48,8 +50,6 @@ export default function handleFocus(e, object, { type = "day", format }) {
     }
 
     function next() {
-      const calendar = findCalendar(currentTarget);
-
       if (type === "month") return findFocusable(calendar, [array[2]]);
 
       const button = findNode(

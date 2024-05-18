@@ -5,6 +5,7 @@
 - Better type support for TypeScript
 - MapDaysProps added to the index.d.ts [#288](https://github.com/shahabyazdi/react-multi-date-picker/issues/288)
 - Calling onYearChange after year change in fullYear mode [#277](https://github.com/shahabyazdi/react-multi-date-picker/issues/277)
+- RTL support for Keyboard accessibility
 
 # 4.5.0
 
