@@ -1,6 +1,7 @@
 # 4.5.2
 
 - Type of selected date fixed in MapDaysProps
+- Clearing internal state after resetting the value [#261](https://github.com/shahabyazdi/react-multi-date-picker/issues/261)
 
 # 4.5.1
 

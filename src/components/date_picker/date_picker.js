@@ -281,6 +281,8 @@ function DatePicker(
     if (ref.current.mobile && datePickerRef.current.isOpen) {
       setTemporaryDate(date);
     } else {
+      ref.current.validInputValue = undefined;
+
       setDate(date);
     }
   }, [
