@@ -8,14 +8,15 @@ declare module "react-multi-date-picker" {
 
   type TValue<
     Multiple extends boolean = false,
-    Range extends boolean = false
+    Range extends boolean = false,
+    V extends Value = Value
   > = Multiple extends false
     ? Range extends false
-      ? Value
-      : Value[]
+      ? V
+      : V[]
     : Range extends false
-    ? Value[]
-    : Value[][];
+    ? V[]
+    : V[][];
 
   export type ChangedValue<
     Multiple extends boolean = false,
@@ -34,7 +35,7 @@ declare module "react-multi-date-picker" {
   > = {
     date: DateObject;
     today: DateObject;
-    selectedDate: TValue<Multiple, Range>;
+    selectedDate: TValue<Multiple, Range, DateObject>;
     currentMonth: DateObject["month"];
     isSameDate(arg1: DateObject, arg2: DateObject): boolean;
   };

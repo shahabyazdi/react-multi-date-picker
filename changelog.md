@@ -1,3 +1,7 @@
+# 4.5.2
+
+- Type of selected date fixed in MapDaysProps
+
 # 4.5.1
 
 - Prevent showing the week of the next month [#294](https://github.com/shahabyazdi/react-multi-date-picker/issues/294)
