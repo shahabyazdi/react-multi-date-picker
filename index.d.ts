@@ -1,6 +1,6 @@
 declare module "react-multi-date-picker" {
   import React, { HTMLAttributes } from "react";
-  import DateObject, { Calendar, Locale } from "react-date-object";
+  import DateObject, { type Calendar, Locale } from "react-date-object";
 
   export type Value = Date | string | number | DateObject | null;
   export type FunctionalPlugin = { type: string; fn: Function };
