@@ -121,10 +121,13 @@ export default function DatePanel({
                   className={`${
                     object.date?.color ? `bg-${object.date.color}` : ""
                   } ${
-                    markFocused &&
-                    object.date?.valueOf?.() === state.focused?.valueOf?.()
-                      ? focusedClassName || "rmdp-focused"
-                      : ""
+                      markFocused &&
+                      isArray(object) ?
+                          object.find((item) => item.date?.valueOf?.() === state.focused?.valueOf?.()) !== undefined ?
+                              focusedClassName || "rmdp-focused" : ""
+                          :
+                          object.date?.valueOf?.() === state.focused?.valueOf?.() ?
+                              focusedClassName || "rmdp-focused" : ""
                   }`}
                 >
                   <div>
@@ -133,7 +136,10 @@ export default function DatePanel({
                         key={index}
                         type="button"
                         className="b-date"
-                        onClick={() => selectDate(object.date, object.index)}
+                        className={`b-date ${ markFocused && object.date?.valueOf?.() === state.focused?.valueOf?.() && state?.focusedIndex === index
+                            ? focusedClassName || "rmdp-focused"
+                            : "" }`}
+                        onClick={() => selectDate(object.date, object.index, index)}
                         style={{ cursor: object.date ? "pointer" : "default" }}
                       >
                         {formatFunction
@@ -160,7 +166,7 @@ export default function DatePanel({
     </div>
   );
 
-  function selectDate(date, index) {
+  function selectDate(date, index, index2) {
     handleClick(date ? selectedDate[index] : undefined);
 
     if (!date) return;
@@ -169,6 +175,7 @@ export default function DatePanel({
       ...state,
       date: new DateObject(date),
       focused: multiple && range ? date : selectedDate[index],
+      focusedIndex: index2,
     });
 
     handleFocusedDate(selectedDate[index]);
