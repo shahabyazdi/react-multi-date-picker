@@ -68,6 +68,7 @@ function getProps() {
       }),
       commonjs(),
       postcss({
+        extract: 'styles.css',
         minimize: true,
         plugins: [cssvariables()],
       }),

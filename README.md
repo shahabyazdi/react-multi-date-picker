@@ -51,7 +51,8 @@ npm i react-multi-date-picker
 
 ```javascript
 import React, { useState } from "react";
-import DatePicker from "react-multi-date-picker";
+import DatePicker from "@vultron/react-multi-date-picker";
+import "@vultron/react-multi-date-picker/build/styles.css";
 
 export default function Example() {
   const [value, setValue] = useState(new Date());

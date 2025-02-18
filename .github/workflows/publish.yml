@@ -1,0 +1,43 @@
+name: Build and Publish to npm
+
+on:
+  push:
+    tags:
+      - "v*.*.*" # Runs when a new version tag (e.g., v1.2.3) is pushed
+
+jobs:
+  publish:
+    name: Publish Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures all tags are fetched
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Verify npm organization access
+        run: |
+          ORG_MEMBERS=$(npm org ls vultron --json)
+          if [[ "$ORG_MEMBERS" != *"${GITHUB_ACTOR}"* ]]; then
+              echo "Error: User $GITHUB_ACTOR is not a member of the Vultron organization."
+              exit 1
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Publish to npm
+        run: npm publish --access restricted
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

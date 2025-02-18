@@ -1,0 +1,31 @@
+name: Verify Build
+
+on:
+  push: # Runs on every push to any branch
+  pull_request: # Runs on every PR to any branch
+
+jobs:
+  verify:
+    name: Verify Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures proper history for dependencies
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
