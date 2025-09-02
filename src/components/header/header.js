@@ -269,6 +269,6 @@ export default function Header({
   }
 
   function getYear(year, month) {
-    return typeof formatMonth === "function" ? formatYear(year, month) : year;
+    return typeof formatYear === "function" ? formatYear(year, month) : year;
   }
 }
