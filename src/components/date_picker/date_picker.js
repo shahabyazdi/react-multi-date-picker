@@ -428,6 +428,8 @@ function DatePicker(
         ref={calendarRef}
         value={temporaryDate || date}
         onChange={handleChange}
+        disabled={disabled}
+        readOnly={readOnly}
         range={range}
         multiple={multiple}
         calendar={calendar}
@@ -568,6 +570,7 @@ function DatePicker(
   }
 
   function handleChange(date, force, inputValue) {
+    if (disabled || readOnly) return false;
     if (isMobileMode && !force) return setTemporaryDate(date);
 
     const strDate = getInputValue(date);
