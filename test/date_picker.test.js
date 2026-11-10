@@ -51,6 +51,22 @@ describe("opening and closing the calendar", () => {
     expect(getCalendar()).toBeInTheDocument();
   });
 
+  test.each(["disabled", "readOnly"])(
+    "should not select a date when the open picker becomes %s",
+    (lockProp) => {
+      const onChange = jest.fn();
+      const props = { value: new Date(2024, 0, 15), onChange };
+      const { openCalendar, input, getByText, rerender } = renderDatePicker(props);
+
+      openCalendar();
+      rerender(<DatePicker {...props} {...{ [lockProp]: true }} />);
+      fireEvent.click(getByText("20"));
+
+      expect(input.value).toBe("2024/01/15");
+      expect(onChange).not.toHaveBeenCalled();
+    }
+  );
+
   test("should close the calendar by clicking outside", () => {
     const { openCalendar, closeCalendar, getCalendar } = renderDatePicker();
 
